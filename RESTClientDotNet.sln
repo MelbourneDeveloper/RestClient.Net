@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClientDotNet.UWP", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClientDotNet.Silverlight", "CF.RESTClientDotNet.Silverlight\CF.RESTClientDotNet.Silverlight.csproj", "{F8CBCB49-B031-4086-A339-9BA42BCB8433}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClientDotNet.Net461", "CF.RESTClientDotNet.Net461\CF.RESTClientDotNet.Net461.csproj", "{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,22 @@ Global
 		{F8CBCB49-B031-4086-A339-9BA42BCB8433}.Release|x64.Build.0 = Release|Any CPU
 		{F8CBCB49-B031-4086-A339-9BA42BCB8433}.Release|x86.ActiveCfg = Release|Any CPU
 		{F8CBCB49-B031-4086-A339-9BA42BCB8433}.Release|x86.Build.0 = Release|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Debug|x64.Build.0 = Debug|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Debug|x86.Build.0 = Debug|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Release|ARM.Build.0 = Release|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Release|x64.ActiveCfg = Release|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Release|x64.Build.0 = Release|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Release|x86.ActiveCfg = Release|Any CPU
+		{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,7 +28,7 @@ namespace CF.RESTClientDotNet
 #if (NETFX_CORE)
         public WebResponse Response { get; set; }
 #else
-        public HttpWebResponse Response { get; set; }
+        public WebResponse Response { get; set; }
 #endif
 
         /// <summary>

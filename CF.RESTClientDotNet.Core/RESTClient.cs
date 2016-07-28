@@ -288,12 +288,12 @@ namespace CF.RESTClientDotNet
 
                 //Make the call to the server and wait for the response
                 var response = await request.GetResponseAsync();
-#elif (!NETFX_CORE)
+#elif (!ASYNCMODERN)
                 //Get the Http Request object
                 var request =  GetRequest(url, body, verb, timeOutMilliseconds);
 
                 //Make the call to the server and wait for the response
-                var response = (HttpWebResponse)request.GetResponse();
+                var response = (WebResponse)request.GetResponse();
 #else
                 //Get the Http Request object
                 var request = await GetRequest(url, body, verb, timeOutMilliseconds);
@@ -422,8 +422,7 @@ namespace CF.RESTClientDotNet
         #region Put
 
 
-#if (NETFX_CORE)
-
+#if (ASYNCMODERN)
         /// <summary>
         /// Make Post call and wait for the response with type argument
         /// </summary>
@@ -438,7 +437,7 @@ namespace CF.RESTClientDotNet
         }
 #endif
 
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         /// <summary>
         /// Make Post call and wait for the response
         /// </summary>
@@ -535,7 +534,7 @@ namespace CF.RESTClientDotNet
 #if (NETFX_CORE)
         private static string GetDataFromResponseStream(WebResponse response, bool readToEnd = false)
 #else
-        private static string GetDataFromResponseStream(HttpWebResponse response, bool readToEnd = false)
+        private static string GetDataFromResponseStream(WebResponse response, bool readToEnd = false)
 #endif
         {
             var responseStream = response.GetResponseStream();
