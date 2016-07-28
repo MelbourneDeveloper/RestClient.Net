@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
-#if(NETFX_CORE)
+#if (ASYNCMODERN)
 using System.Threading.Tasks;
 #endif
 
@@ -16,13 +16,13 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST POST call and wait for the response
         /// </summary>
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         public static async Task<RESTResponse<T>> Post<T>(string url, object data, int timeOutMilliseconds = 10000, bool readToEnd = true)
 #else
         public static RESTResponse<T> Post<T>(string url, object data, int timeOutMilliseconds = 10000, bool readToEnd = false)
 #endif
         {
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
             return await CallPost<T>(url, data, null, timeOutMilliseconds, readToEnd);
 #else
             return CallPost<T>(url, data, null, timeOutMilliseconds, readToEnd);
@@ -32,7 +32,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST POST call and wait for the response
         /// </summary>
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         public static Task<WebResponse> Post(string url, object body, int timeOutMilliseconds = 10000)
 #else
         public static HttpWebResponse Post(string url, object body, int timeOutMilliseconds = 10000)
@@ -41,7 +41,7 @@ namespace CF.RESTClientDotNet
             return Call(url, body, HttpVerb.Post, timeOutMilliseconds);
         }
 
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         /// <summary>
         /// Make REST PUT call and wait for the response
         /// </summary>
@@ -55,13 +55,13 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         public static async Task<RESTResponse<T>> Get<T>(string url, string id, int timeOutMilliseconds = 10000, bool readToEnd = false)
 #else
         public static RESTResponse<T> Get<T>(string url, string id, int timeOutMilliseconds = 10000, bool readToEnd = false)
 #endif
         {
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
             return await CallGet<T>(url, id, null, timeOutMilliseconds, readToEnd);
 #else
             return CallGet<T>(url, id, null, timeOutMilliseconds, readToEnd);
@@ -72,20 +72,20 @@ namespace CF.RESTClientDotNet
         /// Make a GET call and wait for the response
         /// </summary>
         /// 
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         public static async Task<RESTResponse<T>> Get<T>(string url, int timeOutMilliseconds = 10000, bool readToEnd = true)
 #else
         public static RESTResponse<T> Get<T>(string url, int timeOutMilliseconds = 10000, bool readToEnd = false)
 #endif
         {
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
             return await CallGet<T>(url, null, null, timeOutMilliseconds, readToEnd);
 #else
             return CallGet<T>(url, null, null, timeOutMilliseconds, readToEnd);
 #endif
         }
 
-#if (!NETFX_CORE)
+#if (!ASYNCMODERN)
 
         /// <summary>
         /// Make a GET call and wait for the response with a result type of T
@@ -127,13 +127,13 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         public static async Task<RESTResponse> Get(string url, int timeOutMilliseconds = 10000, bool readToEnd = false)
 #else
         public static RESTResponse Get(string url, int timeOutMilliseconds = 10000, bool readToEnd = false)
 #endif
         {
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
             return await CallGet(url, null, timeOutMilliseconds, readToEnd);
 #else
             return CallGet(url, null, timeOutMilliseconds, readToEnd);
@@ -148,7 +148,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         private static async Task<RESTResponse<T>> CallGet<T>(string url, string id, RESTResultAction<T> responseCallback, int timeOutMilliseconds, bool readToEnd = false)
 
 #else
@@ -158,7 +158,7 @@ namespace CF.RESTClientDotNet
             //Create the return value
             var retVal = new RESTResponse<T>();
 
-#if (!NETFX_CORE)
+#if (!ASYNCMODERN)
             if (responseCallback != null)
             {
                 CallAsync(url, id, responseCallback, HttpVerb.Get, timeOutMilliseconds);
@@ -181,7 +181,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         private static async Task<RESTResponse> CallGet(string url, string id, int timeOutMilliseconds, bool readToEnd = false)
 #else
         private static RESTResponse CallGet(string url, string id, int timeOutMilliseconds, bool readToEnd = false)
@@ -189,7 +189,7 @@ namespace CF.RESTClientDotNet
         {
             var retVal = new RESTResponse();
 
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
             retVal.Response = await Call(url, id, HttpVerb.Get, timeOutMilliseconds);
 #else
             retVal.Response = Call(url, id, HttpVerb.Get, timeOutMilliseconds);
@@ -206,7 +206,7 @@ namespace CF.RESTClientDotNet
 
         #region Base Calls
 
-#if (!NETFX_CORE)
+#if (!ASYNCMODERN)
         /// <summary>
         /// Make REST POST call asynchronously
         /// </summary>
@@ -273,7 +273,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST call and wait for the response
         /// </summary>
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         private static async Task<WebResponse> Call(string url, object body, HttpVerb verb, int timeOutMilliseconds)
 #else
         private static HttpWebResponse Call(string url, object body, HttpVerb verb, int timeOutMilliseconds)
@@ -282,13 +282,13 @@ namespace CF.RESTClientDotNet
             try
             {
 
-#if (!NETFX_CORE)
+#if (SILVERLIGHT)
                 //Get the Http Request object
-                var request =  GetRequest(url, body, verb, timeOutMilliseconds);
+                var request = await GetRequest(url, body, verb, timeOutMilliseconds);
 
                 //Make the call to the server and wait for the response
-                var response = (HttpWebResponse)request.GetResponse();
-#elif(SILVERLIGHT)
+                var response = await request.GetResponseAsync();
+#elif (!NETFX_CORE)
                 //Get the Http Request object
                 var request =  GetRequest(url, body, verb, timeOutMilliseconds);
 
@@ -322,7 +322,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST call and wait for the response with type argument
         /// </summary>
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         private static async Task<RESTResponse<T>> Call<T>(string url, object body, HttpVerb verb, RESTResultAction<T> responseCallback, int timeOutMilliseconds)
 #else
         private static RESTResponse<T> Call<T>(string url, object body, HttpVerb verb, RESTResultAction<T> responseCallback, int timeOutMilliseconds)
@@ -331,7 +331,7 @@ namespace CF.RESTClientDotNet
             //Create the return value
             var retVal = new RESTResponse<T>();
 
-#if (!NETFX_CORE)
+#if (!ASYNCMODERN)
             if (responseCallback != null)
             {
                 CallAsync(url, body, responseCallback, verb, timeOutMilliseconds);
@@ -364,13 +364,13 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make Post call and wait for the response with type argument
         /// </summary>
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         private static async Task<RESTResponse<T>> CallPost<T>(string url, object data, RESTResultAction<T> responseCallback, int timeOutMilliseconds, bool readToEnd = false)
 #else
         private static RESTResponse<T> CallPost<T>(string url, object data, RESTResultAction<T> responseCallback, int timeOutMilliseconds, bool readToEnd = false)
 #endif
         {
-#if (!NETFX_CORE)
+#if (!ASYNCMODERN)
             //Create the return value
             var retVal = new RESTResponse<T>();
 
@@ -396,7 +396,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make Post call and wait for the response
         /// </summary>
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         private static async Task<RESTResponse> CallPost(string url, object data, int timeOutMilliseconds, bool readToEnd = false)
 #else
         private static RESTResponse CallPost(string url, object data, int timeOutMilliseconds, bool readToEnd = false)
@@ -404,7 +404,7 @@ namespace CF.RESTClientDotNet
         {
             var retVal = new RESTResponse();
 
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
             retVal.Response = await Call(url, data, HttpVerb.Post, timeOutMilliseconds);
 #else
             retVal.Response = Call(url, data, HttpVerb.Post, timeOutMilliseconds);
@@ -462,7 +462,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Creates a HttpWebRequest so that the REST call can be made with it
         /// </summary>
-#if (NETFX_CORE)
+#if (ASYNCMODERN)
         private static async Task<WebRequest> GetRequest(string url, object argument, HttpVerb verb, int timeOutMilliseconds)
 #else
         private static HttpWebRequest GetRequest(string url, object argument, HttpVerb verb, int timeOutMilliseconds)
@@ -505,7 +505,7 @@ namespace CF.RESTClientDotNet
                 //Get the json as a byte array
                 var jSonBuffer = jSon.DecodeString();
 
-#if (!NETFX_CORE)
+#if (!ASYNCMODERN)
                 //The length of the buffer (postvars) is used as contentlength.
                 retVal.ContentLength = jSonBuffer.Length;
 
