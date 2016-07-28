@@ -1,1 +1,8 @@
 /.vs/RESTClient .Net/v14/.suo
+/
+bin
+/
+obj
+/
+packages
+/
