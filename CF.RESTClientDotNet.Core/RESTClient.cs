@@ -35,7 +35,7 @@ namespace CF.RESTClientDotNet
 #if (ASYNCMODERN)
         public static Task<WebResponse> Post(string url, object body, int timeOutMilliseconds = 10000)
 #else
-        public static HttpWebResponse Post(string url, object body, int timeOutMilliseconds = 10000)
+        public static WebResponse Post(string url, object body, int timeOutMilliseconds = 10000)
 #endif
         {
             return Call(url, body, HttpVerb.Post, timeOutMilliseconds);
@@ -276,7 +276,7 @@ namespace CF.RESTClientDotNet
 #if (ASYNCMODERN)
         private static async Task<WebResponse> Call(string url, object body, HttpVerb verb, int timeOutMilliseconds)
 #else
-        private static HttpWebResponse Call(string url, object body, HttpVerb verb, int timeOutMilliseconds)
+        private static WebResponse Call(string url, object body, HttpVerb verb, int timeOutMilliseconds)
 #endif
         {
             try
@@ -293,7 +293,7 @@ namespace CF.RESTClientDotNet
                 var request =  GetRequest(url, body, verb, timeOutMilliseconds);
 
                 //Make the call to the server and wait for the response
-                var response = (WebResponse)request.GetResponse();
+                var response = request.GetResponse();
 #else
                 //Get the Http Request object
                 var request = await GetRequest(url, body, verb, timeOutMilliseconds);
