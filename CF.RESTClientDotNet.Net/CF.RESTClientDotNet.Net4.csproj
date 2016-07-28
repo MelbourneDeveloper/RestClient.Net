@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CF.RESTClientDotNet</RootNamespace>
-    <AssemblyName>CF.RESTClientDotNet.Net</AssemblyName>
+    <AssemblyName>CF.RESTClientDotNet.Net4</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

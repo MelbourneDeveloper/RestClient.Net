@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("CF.RESTClientDotNet.Net")]
+[assembly: AssemblyTitle("CF.RESTClientDotNet.Net4")]
 [assembly: AssemblyDescription("A library for simple REST Operations for .Net, Silverlight, UWP, Android, iOS, MacOS, and .Net Core")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Christian Findlay")]

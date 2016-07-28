@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClientDotNet.Net", "CF.RESTClientDotNet.Net\CF.RESTClientDotNet.Net.csproj", "{E5D7F282-2DBF-49D3-A05D-E084F54F75C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClientDotNet.Net4", "CF.RESTClientDotNet.Net\CF.RESTClientDotNet.Net4.csproj", "{E5D7F282-2DBF-49D3-A05D-E084F54F75C6}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CF.RESTClientDotNet.Core", "CF.RESTClientDotNet.Core\CF.RESTClientDotNet.Core.xproj", "{8171457B-9EA1-4893-985B-F241918F57AF}"
 EndProject
