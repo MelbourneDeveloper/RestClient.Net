@@ -25,7 +25,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// The low level HttpWebResponse from the REST call
         /// </summary>
-#if (WINDOWS_UWP)
+#if (NETFX_CORE)
         public WebResponse Response { get; set; }
 #else
         public HttpWebResponse Response { get; set; }
