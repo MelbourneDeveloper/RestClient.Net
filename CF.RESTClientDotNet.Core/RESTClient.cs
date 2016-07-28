@@ -497,7 +497,7 @@ namespace CF.RESTClientDotNet
                 var jSon = JsonConvert.SerializeObject(argument, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Serialize });
 
                 //Get the json as a byte array
-                var jSonBuffer = Encoding.ASCII.GetBytes(jSon);
+                var jSonBuffer = jSon.DecodeString();
 
 #if (!NETFX_CORE)
                 //The length of the buffer (postvars) is used as contentlength.
@@ -554,9 +554,8 @@ namespace CF.RESTClientDotNet
                 return reader.ReadToEnd();
             }
 
-            //Convert the response from bytes to json string
-            var data = ASCIIEncoding.ASCII.GetString(responseBuffer);
-            return data;
+            //Convert the response from bytes to json string 
+            return responseBuffer.EncodeString();
         }
 
         /// <summary>
