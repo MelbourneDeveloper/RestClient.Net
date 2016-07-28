@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("CF.RESTClientDotNet.Net")]
-[assembly: AssemblyDescription("A library for simple REST Operations for .Net, Silverlight, UWP, and .Net Core")]
+[assembly: AssemblyDescription("A library for simple REST Operations for .Net, Silverlight, UWP, Android, iOS, MacOS, and .Net Core")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Christian Findlay")]
 [assembly: AssemblyProduct("RESTClientDotNet")]
