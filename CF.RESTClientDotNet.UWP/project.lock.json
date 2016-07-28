@@ -1,0 +1,18 @@
+{
+  "locked": false,
+  "version": 2,
+  "targets": {
+    "UAP,Version=v10.0": {},
+    "UAP,Version=v10.0/win10-arm": {},
+    "UAP,Version=v10.0/win10-arm-aot": {},
+    "UAP,Version=v10.0/win10-x64": {},
+    "UAP,Version=v10.0/win10-x64-aot": {},
+    "UAP,Version=v10.0/win10-x86": {},
+    "UAP,Version=v10.0/win10-x86-aot": {}
+  },
+  "libraries": {},
+  "projectFileDependencyGroups": {
+    "": [],
+    "UAP,Version=v10.0": []
+  }
+}
