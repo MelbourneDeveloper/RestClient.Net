@@ -44,12 +44,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Delegates.cs" />
-    <Compile Include="HttpVerb.cs" />
+    <Compile Include="..\RESTClientDotNet.Core\Delegates.cs">
+      <Link>Delegates.cs</Link>
+    </Compile>
+    <Compile Include="..\RESTClientDotNet.Core\HttpVerb.cs">
+      <Link>HttpVerb.cs</Link>
+    </Compile>
+    <Compile Include="..\RESTClientDotNet.Core\RESTClient.cs">
+      <Link>RESTClient.cs</Link>
+    </Compile>
+    <Compile Include="..\RESTClientDotNet.Core\RESTResponse.cs">
+      <Link>RESTResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\RESTClientDotNet.Core\RESTTimeoutException.cs">
+      <Link>RESTTimeoutException.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RESTClient.cs" />
-    <Compile Include="RESTResponse.cs" />
-    <Compile Include="RESTTimeoutException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
