@@ -288,6 +288,12 @@ namespace CF.RESTClientDotNet
 
                 //Make the call to the server and wait for the response
                 var response = (HttpWebResponse)request.GetResponse();
+#elif(SILVERLIGHT)
+                //Get the Http Request object
+                var request =  GetRequest(url, body, verb, timeOutMilliseconds);
+
+                //Make the call to the server and wait for the response
+                var response = (HttpWebResponse)request.GetResponse();
 #else
                 //Get the Http Request object
                 var request = await GetRequest(url, body, verb, timeOutMilliseconds);
@@ -515,7 +521,7 @@ namespace CF.RESTClientDotNet
                 }
             }
 
-#if (!NETFX_CORE)
+#if (!NETFX_CORE && !SILVERLIGHT)
             retVal.Timeout = timeOutMilliseconds;
 #endif
 
