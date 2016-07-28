@@ -1,0 +1,6 @@
+C:\Temp\RESTClientDotNet\restclientdotnet\bin\Debug\CF.RESTClientDotNet.Net.dll
+C:\Temp\RESTClientDotNet\restclientdotnet\bin\Debug\CF.RESTClientDotNet.Net.pdb
+C:\Temp\RESTClientDotNet\restclientdotnet\bin\Debug\Newtonsoft.Json.dll
+C:\Temp\RESTClientDotNet\restclientdotnet\bin\Debug\Newtonsoft.Json.xml
+C:\Temp\RESTClientDotNet\restclientdotnet\obj\Debug\CF.RESTClientDotNet.Net.dll
+C:\Temp\RESTClientDotNet\restclientdotnet\obj\Debug\CF.RESTClientDotNet.Net.pdb
