@@ -59,10 +59,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.IO, Version=1.5.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\sl5\System.IO.dll</HintPath>
       <Private>True</Private>
@@ -94,8 +90,14 @@
     <Compile Include="..\CF.RESTClientDotNet.Core\HttpVerb.cs">
       <Link>HttpVerb.cs</Link>
     </Compile>
+    <Compile Include="..\CF.RESTClientDotNet.Core\ISerializationAdapter.cs">
+      <Link>ISerializationAdapter.cs</Link>
+    </Compile>
     <Compile Include="..\CF.RESTClientDotNet.Core\RESTClient - Async.cs">
       <Link>RESTClient - Async.cs</Link>
+    </Compile>
+    <Compile Include="..\CF.RESTClientDotNet.Core\RESTClient - Shared.cs">
+      <Link>RESTClient - Shared.cs</Link>
     </Compile>
     <Compile Include="..\CF.RESTClientDotNet.Core\RESTResponse.cs">
       <Link>RESTResponse.cs</Link>

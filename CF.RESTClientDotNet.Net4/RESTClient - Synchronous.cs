@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Net;
@@ -185,7 +184,7 @@ namespace CF.RESTClientDotNet
                     Exception error = null;
                     try
                     {
-                        data = JsonConvert.DeserializeObject<T>(GetDataFromResponseStream(response));
+                        data = SerializationAdapter.Deserialize<T>(GetDataFromResponseStream(response));
                     }
                     catch (Exception ex)
                     {
@@ -346,10 +345,10 @@ namespace CF.RESTClientDotNet
                 //Set the body of the POST/PUT
 
                 //Serialised JSon data
-                var jSon = JsonConvert.SerializeObject(argument, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Serialize });
+                var jSon = SerializationAdapter.Serialize(argument);
 
                 //Get the json as a byte array
-                var jSonBuffer = jSon.DecodeString();
+                var jSonBuffer = SerializationAdapter.DecodeString(jSon);
 
                 //The length of the buffer (postvars) is used as contentlength.
                 retVal.ContentLength = jSonBuffer.Length;
@@ -395,7 +394,7 @@ namespace CF.RESTClientDotNet
             }
 
             //Convert the response from bytes to json string 
-            return responseBuffer.EncodeString();
+            return SerializationAdapter.EncodeString(responseBuffer);
         }
 
 #if (DOTNET4)
@@ -407,7 +406,7 @@ namespace CF.RESTClientDotNet
             var retVal = new RESTResponse<T>();
 
             //Deserialise the json to the generic type
-            retVal.Data = JsonConvert.DeserializeObject<T>(response.Data);
+            retVal.Data = SerializationAdapter.Deserialize<T>(response.Data);
 
             //Set the HttpWebResponse
             retVal.Response = response.Response;
