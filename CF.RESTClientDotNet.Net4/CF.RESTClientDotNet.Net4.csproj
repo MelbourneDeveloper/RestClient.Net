@@ -60,7 +60,7 @@
       <Link>RESTTimeoutException.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RESTClient.cs" />
+    <Compile Include="RESTClient - Synchronous.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

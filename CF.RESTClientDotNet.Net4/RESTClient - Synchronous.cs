@@ -5,7 +5,7 @@ using System.Net;
 
 namespace CF.RESTClientDotNet
 {
-    public static class REST
+    public static partial class RESTClient
     {
         #region Public Methods
 

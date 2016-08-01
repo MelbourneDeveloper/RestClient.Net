@@ -116,8 +116,8 @@
     <Compile Include="..\CF.RESTClientDotNet.Core\HttpVerb.cs">
       <Link>HttpVerb.cs</Link>
     </Compile>
-    <Compile Include="..\CF.RESTClientDotNet.Core\RESTClient.cs">
-      <Link>RESTClient.cs</Link>
+    <Compile Include="..\CF.RESTClientDotNet.Core\RESTClient - Async.cs">
+      <Link>RESTClient - Async.cs</Link>
     </Compile>
     <Compile Include="..\CF.RESTClientDotNet.Core\RESTResponse.cs">
       <Link>RESTResponse.cs</Link>
