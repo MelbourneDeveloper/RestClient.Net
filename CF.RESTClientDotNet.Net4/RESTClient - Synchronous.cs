@@ -398,6 +398,7 @@ namespace CF.RESTClientDotNet
             return responseBuffer.EncodeString();
         }
 
+#if (DOTNET4)
         /// <summary>
         /// Turn a non-generic RESTResponse in to a generic one. 
         /// </summary>
@@ -413,9 +414,10 @@ namespace CF.RESTClientDotNet
 
             return retVal;
         }
+#endif
 
-        #endregion
+#endregion
 
-        #endregion
+#endregion
     }
 }

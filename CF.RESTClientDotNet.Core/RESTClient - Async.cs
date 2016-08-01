@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CF.RESTClientDotNet
 {
-    public static class RESTClient
+    public static partial class RESTClient
     {
         #region Public Methods
 
