@@ -84,9 +84,6 @@
     <Compile Include="..\CF.RESTClientDotNet.Core\Delegates.cs">
       <Link>Delegates.cs</Link>
     </Compile>
-    <Compile Include="..\CF.RESTClientDotNet.Core\Extensions.cs">
-      <Link>Extensions.cs</Link>
-    </Compile>
     <Compile Include="..\CF.RESTClientDotNet.Core\HttpVerb.cs">
       <Link>HttpVerb.cs</Link>
     </Compile>
