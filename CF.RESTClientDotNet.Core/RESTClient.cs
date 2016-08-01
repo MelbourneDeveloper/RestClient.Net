@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CF.RESTClientDotNet
 {
-    public static class REST
+    public static class RESTClient
     {
         #region Public Methods
 
@@ -87,7 +87,7 @@ namespace CF.RESTClientDotNet
         {
             var retVal = new RESTResponse();
 
-            retVal.Response = await CallAsync(url, id, HttpVerb.Get, timeOutMilliseconds);     
+            retVal.Response = await CallAsync(url, id, HttpVerb.Get, timeOutMilliseconds);
 
             //Get the stream from the server
             retVal.Data = await GetDataFromResponseStreamAsync(retVal.Response, readToEnd);
@@ -262,9 +262,10 @@ namespace CF.RESTClientDotNet
                 }
             }
 
-#if (!NETFX_CORE && !SILVERLIGHT)
-            retVal.Timeout = timeOutMilliseconds;
-#endif
+            //TODO: Reimplement
+            //#if (!NETFX_CORE && !SILVERLIGHT)
+            //            retVal.Timeout = timeOutMilliseconds;
+            //#endif
 
             //Return the request
             return retVal;
