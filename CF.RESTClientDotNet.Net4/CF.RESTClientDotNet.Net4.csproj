@@ -53,9 +53,6 @@
     <Compile Include="..\CF.RESTClientDotNet.Core\HttpVerb.cs">
       <Link>HttpVerb.cs</Link>
     </Compile>
-    <Compile Include="..\CF.RESTClientDotNet.Core\RESTClient.cs">
-      <Link>RESTClient.cs</Link>
-    </Compile>
     <Compile Include="..\CF.RESTClientDotNet.Core\RESTResponse.cs">
       <Link>RESTResponse.cs</Link>
     </Compile>
@@ -63,6 +60,7 @@
       <Link>RESTTimeoutException.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RESTClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
