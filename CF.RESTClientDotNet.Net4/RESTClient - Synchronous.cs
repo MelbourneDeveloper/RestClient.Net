@@ -123,7 +123,7 @@ namespace CF.RESTClientDotNet
         {
             var retVal = new RESTResponse();
 
-            retVal.Response = Call(url, id, HttpVerb.Get, timeOutMilliseconds);    
+            retVal.Response = Call(url, id, HttpVerb.Get, timeOutMilliseconds);
 
             //Get the stream from the server
             retVal.Data = GetDataFromResponseStream(retVal.Response, readToEnd);
@@ -206,7 +206,7 @@ namespace CF.RESTClientDotNet
             try
             {
                 //Get the Http Request object
-                var request =  GetRequest(url, body, verb, timeOutMilliseconds);
+                var request = GetRequest(url, body, verb, timeOutMilliseconds);
 
                 //Make the call to the server and wait for the response
                 var response = request.GetResponse();
@@ -397,7 +397,6 @@ namespace CF.RESTClientDotNet
             return SerializationAdapter.EncodeString(responseBuffer);
         }
 
-#if (DOTNET4)
         /// <summary>
         /// Turn a non-generic RESTResponse in to a generic one. 
         /// </summary>
@@ -413,10 +412,9 @@ namespace CF.RESTClientDotNet
 
             return retVal;
         }
-#endif
 
-#endregion
+        #endregion
 
-#endregion
+        #endregion
     }
 }

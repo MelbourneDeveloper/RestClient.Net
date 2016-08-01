@@ -73,7 +73,7 @@ namespace CF.RESTClientDotNet
             var retVal = new RESTResponse<T>();
 
             var response = await CallGetAsync(url, id, timeOutMilliseconds, readToEnd);
-            retVal = DeserialiseResponse<T>(response);
+            retVal = await DeserialiseResponseAsync<T>(response);
 
             //Return the retVal
             return retVal;
@@ -139,7 +139,7 @@ namespace CF.RESTClientDotNet
             var retVal = new RESTResponse<T>();
 
             var response = await CallPostAsync<T>(url, body.ToString(), responseCallback, timeOutMilliseconds);
-            retVal = DeserialiseResponse<T>(response);
+            retVal = await DeserialiseResponseAsync<T>(response);
 
             //Return the retVal
             return retVal;
@@ -154,10 +154,10 @@ namespace CF.RESTClientDotNet
         private static async Task<RESTResponse<T>> CallPostAsync<T>(string url, object data, RESTResultAction<T> responseCallback, int timeOutMilliseconds, bool readToEnd = false)
         {
             var response = await CallPostAsync(url, data, timeOutMilliseconds, readToEnd);
-            var retVal = DeserialiseResponse<T>(response);
+            var retVal = DeserialiseResponseAsync<T>(response);
 
             //Return the retVal
-            return retVal;
+            return await retVal;
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace CF.RESTClientDotNet
 
         {
             var response = await CallPutAsync(url, data, timeOutMilliseconds, readToEnd);
-            var retVal = DeserialiseResponse<T>(response);
+            var retVal = await DeserialiseResponseAsync<T>(response);
 
             //Return the retVal
             return retVal;
@@ -250,10 +250,10 @@ namespace CF.RESTClientDotNet
                 //Set the body of the POST/PUT
 
                 //Serialised JSon data
-                var jSon = SerializationAdapter.Serialize(argument);
+                var jSon = await SerializationAdapter.SerializeAsync(argument);
 
                 //Get the json as a byte array
-                var jSonBuffer = SerializationAdapter.DecodeString(jSon);
+                var jSonBuffer = await SerializationAdapter.DecodeStringAsync(jSon);
 
                 using (var requestStream = await retVal.GetRequestStreamAsync())
                 {
@@ -298,18 +298,18 @@ namespace CF.RESTClientDotNet
             }
 
             //Convert the response from bytes to json string 
-            return SerializationAdapter.EncodeString(responseBuffer);
+            return await SerializationAdapter.EncodeStringAsync(responseBuffer);
         }
 
         /// <summary>
         /// Turn a non-generic RESTResponse in to a generic one. 
         /// </summary>
-        private static RESTResponse<T> DeserialiseResponse<T>(RESTResponse response)
+        private static async Task<RESTResponse<T>> DeserialiseResponseAsync<T>(RESTResponse response)
         {
             var retVal = new RESTResponse<T>();
 
             //Deserialise the json to the generic type
-            retVal.Data = SerializationAdapter.Deserialize<T>(response.Data);
+            retVal.Data = await SerializationAdapter.DeserializeAsync<T>(response.Data);
 
             //Set the HttpWebResponse
             retVal.Response = response.Response;

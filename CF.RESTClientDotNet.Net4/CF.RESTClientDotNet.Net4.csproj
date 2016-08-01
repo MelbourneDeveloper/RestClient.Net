@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;DOTNET4</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -49,9 +49,6 @@
     <Compile Include="..\CF.RESTClientDotNet.Core\HttpVerb.cs">
       <Link>HttpVerb.cs</Link>
     </Compile>
-    <Compile Include="..\CF.RESTClientDotNet.Core\ISerializationAdapter.cs">
-      <Link>ISerializationAdapter.cs</Link>
-    </Compile>
     <Compile Include="..\CF.RESTClientDotNet.Core\RESTClient - Shared.cs">
       <Link>RESTClient - Shared.cs</Link>
     </Compile>
@@ -61,6 +58,7 @@
     <Compile Include="..\CF.RESTClientDotNet.Core\RESTTimeoutException.cs">
       <Link>RESTTimeoutException.cs</Link>
     </Compile>
+    <Compile Include="ISerializationAdapter - Synchronous.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RESTClient - Synchronous.cs" />
   </ItemGroup>

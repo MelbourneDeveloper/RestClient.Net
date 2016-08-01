@@ -1,10 +1,12 @@
-﻿namespace CF.RESTClientDotNet
+﻿using System.Threading.Tasks;
+
+namespace CF.RESTClientDotNet
 {
-    public interface ISerializationAdapter
+    public partial interface ISerializationAdapter
     {
-        string Serialize(object objectToSerialize);
-        T Deserialize<T>(string markup);
-        string EncodeString(byte[] bytes);
-        byte[] DecodeString(string theString);
+        Task<string> SerializeAsync(object objectToSerialize);
+        Task<T> DeserializeAsync<T>(string markup);
+        Task<string> EncodeStringAsync(byte[] bytes);
+        Task<byte[]> DecodeStringAsync(string theString);
     }
 }
