@@ -4,17 +4,6 @@ using System.Net;
 
 namespace CF.RESTClientDotNet
 {
-    /// <summary>
-    /// Represents the results of a call to a REST service
-    /// </summary>
-    public class RESTResponse<T> : RESTResponse
-    {
-        /// <summary>
-        /// The deserialised object constructed from the json returned from the call
-        /// </summary>
-        public new T Data { get; set; }      
-    }
-
     public class RESTResponse
     {
         /// <summary>
@@ -25,11 +14,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// The low level HttpWebResponse from the REST call
         /// </summary>
-#if (NETFX_CORE)
         public WebResponse Response { get; set; }
-#else
-        public WebResponse Response { get; set; }
-#endif
 
         /// <summary>
         /// The exception that occurred

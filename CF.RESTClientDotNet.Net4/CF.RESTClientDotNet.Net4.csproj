@@ -52,6 +52,9 @@
     <Compile Include="..\CF.RESTClientDotNet.Core\RESTResponse.cs">
       <Link>RESTResponse.cs</Link>
     </Compile>
+    <Compile Include="..\CF.RESTClientDotNet.Core\RESTResponseGeneric.cs">
+      <Link>RESTResponseGeneric.cs</Link>
+    </Compile>
     <Compile Include="..\CF.RESTClientDotNet.Core\RESTTimeoutException.cs">
       <Link>RESTTimeoutException.cs</Link>
     </Compile>
