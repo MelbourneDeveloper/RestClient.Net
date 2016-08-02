@@ -7,56 +7,61 @@ namespace CF.RESTClientDotNet
 {
     public partial class RESTClient
     {
+        #region Public Properties 
+        public int TimeOutMilliseconds { get; set; } = 10000;
+        public bool ReadToEnd { get; set; } = true;
+        #endregion
+
         #region Public Methods
 
         /// <summary>
         /// Make REST POST call and wait for the response
         /// </summary>
-        public async Task<RESTResponse<T>> PostAsync<T>(string url, object data, int timeOutMilliseconds = 10000, bool readToEnd = true)
+        public async Task<RESTResponse<T>> PostAsync<T>(string url, object data)
         {
-            return await CallPostAsync<T>(url, data, null, timeOutMilliseconds, readToEnd);
+            return await CallPostAsync<T>(url, data, null, TimeOutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
         /// Make REST POST call and wait for the response
         /// </summary>
-        public async Task<WebResponse> PostAsync(string url, object body, int timeOutMilliseconds = 10000)
+        public async Task<WebResponse> PostAsync(string url, object body)
         {
-            return await CallAsync(url, body, HttpVerb.Post, timeOutMilliseconds);
+            return await CallAsync(url, body, HttpVerb.Post, TimeOutMilliseconds);
         }
 
         /// <summary>
         /// Make REST PUT call and wait for the response
         /// </summary>
-        public async Task<RESTResponse<T>> PutAsync<T>(string url, object data, int timeOutMilliseconds = 10000, bool readToEnd = true)
+        public async Task<RESTResponse<T>> PutAsync<T>(string url, object data)
         {
             throw new NotImplementedException("This method currently remains untested. But can be tested by uncommenting this line.");
-            return await CallPutAsync<T>(url, data, null, timeOutMilliseconds, readToEnd);
+            return await CallPutAsync<T>(url, data, null, TimeOutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-        public async Task<RESTResponse<T>> GetAsync<T>(string url, string id, int timeOutMilliseconds = 10000, bool readToEnd = false)
+        public async Task<RESTResponse<T>> GetAsync<T>(string url, string id)
         {
-            return await CallGetAsync<T>(url, id, null, timeOutMilliseconds, readToEnd);
+            return await CallGetAsync<T>(url, id, null, TimeOutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
         /// 
-        public async Task<RESTResponse<T>> GetAsync<T>(string url, int timeOutMilliseconds = 10000, bool readToEnd = true)
+        public async Task<RESTResponse<T>> GetAsync<T>(string url)
         {
-            return await CallGetAsync<T>(url, null, null, timeOutMilliseconds, readToEnd);
+            return await CallGetAsync<T>(url, null, null, TimeOutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-        public async Task<RESTResponse> GetAsync(string url, int timeOutMilliseconds = 10000, bool readToEnd = false)
+        public async Task<RESTResponse> GetAsync(string url)
         {
-            return await CallGetAsync(url, null, timeOutMilliseconds, readToEnd);
+            return await CallGetAsync(url, null, TimeOutMilliseconds, ReadToEnd);
         }
 
         #endregion
