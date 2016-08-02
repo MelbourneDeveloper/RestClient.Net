@@ -107,10 +107,14 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
+    <None Include="StrongNameKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CF.RESTClientDotNet.Core\Delegates.cs">
       <Link>Delegates.cs</Link>
+    </Compile>
+    <Compile Include="..\CF.RESTClientDotNet.Core\GlobalSuppressions.cs">
+      <Link>GlobalSuppressions.cs</Link>
     </Compile>
     <Compile Include="..\CF.RESTClientDotNet.Core\HttpVerb.cs">
       <Link>HttpVerb.cs</Link>
@@ -138,6 +142,12 @@
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>StrongNameKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -30,6 +30,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>StrongNameKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,6 +48,9 @@
   <ItemGroup>
     <Compile Include="..\CF.RESTClientDotNet.Core\Delegates.cs">
       <Link>Delegates.cs</Link>
+    </Compile>
+    <Compile Include="..\CF.RESTClientDotNet.Core\GlobalSuppressions.cs">
+      <Link>GlobalSuppressions.cs</Link>
     </Compile>
     <Compile Include="..\CF.RESTClientDotNet.Core\HttpVerb.cs">
       <Link>HttpVerb.cs</Link>
@@ -67,6 +76,7 @@
       <Link>AllRules.ruleset</Link>
     </None>
     <None Include="packages.config" />
+    <None Include="StrongNameKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

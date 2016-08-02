@@ -13,7 +13,7 @@ namespace CF.RESTClientDotNet
         /// </summary>
         public RESTResponse<T> Post<T>(string url, object data)
         {
-            return CallPost<T>(url, data, null, TimeOutMilliseconds, ReadToEnd);
+            return CallPost<T>(url, data, null, TimeoutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace CF.RESTClientDotNet
         /// </summary>
         public WebResponse Post(string url, object body)
         {
-            return Call(url, body, HttpVerb.Post, TimeOutMilliseconds);
+            return Call(url, body, HttpVerb.Post, TimeoutMilliseconds);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace CF.RESTClientDotNet
         /// </summary>
         public RESTResponse<T> Get<T>(string url, string id)
         {
-            return CallGet<T>(url, id, null, TimeOutMilliseconds, ReadToEnd);
+            return CallGet<T>(url, id, null, TimeoutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace CF.RESTClientDotNet
 
         public RESTResponse<T> Get<T>(string url)
         {
-            return CallGet<T>(url, null, null, TimeOutMilliseconds, ReadToEnd);
+            return CallGet<T>(url, null, null, TimeoutMilliseconds, ReadToEnd);
         }
 
 
@@ -48,7 +48,7 @@ namespace CF.RESTClientDotNet
         /// </summary>
         public void GetAsync<T>(string url, RESTResultAction<T> responseCallback)
         {
-            CallGet<T>(url, null, responseCallback, TimeOutMilliseconds, ReadToEnd);
+            CallGet(url, null, responseCallback, TimeoutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace CF.RESTClientDotNet
         /// </summary>
         public void GetAsync<T>(string url, string id, RESTResultAction<T> responseCallback)
         {
-            CallGet<T>(url, id, responseCallback, TimeOutMilliseconds, ReadToEnd);
+            CallGet(url, id, responseCallback, TimeoutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace CF.RESTClientDotNet
 
         public RESTResponse Get(string url)
         {
-            return CallGet(url, null, TimeOutMilliseconds, ReadToEnd);
+            return CallGet(url, null, TimeoutMilliseconds, ReadToEnd);
         }
 
         #endregion
@@ -115,35 +115,6 @@ namespace CF.RESTClientDotNet
         #endregion
 
         #region Base Calls
-
-        /// <summary>
-        /// Make REST POST call asynchronously
-        /// </summary>
-        private static void CallAsync(string url, object body, RESTResultAction responseCallback, HttpVerb verb, int timeOutMilliseconds, bool readToEnd)
-        {
-            //Get the Http Request object
-            var request = GetRequest(url, body, verb, timeOutMilliseconds);
-
-            //Make the call to the server and wait for the response
-            request.BeginGetResponse((ar) =>
-            {
-                //The call has returned from server so invoke the callback
-                var asyncState = (HttpWebRequest)ar.AsyncState;
-                using (var response = (HttpWebResponse)asyncState.EndGetResponse(ar))
-                {
-                    string data = null;
-
-                    if (verb != HttpVerb.Post)
-                    {
-                        data = GetDataFromResponseStream(response, readToEnd);
-                    }
-
-                    //Return control to the callback method passed in
-                    responseCallback(new RESTResponse { Response = response, Data = data });
-                }
-
-            }, request);
-        }
 
         /// <summary>
         /// Make REST POST call asynchronously with a generic return value
@@ -203,7 +174,7 @@ namespace CF.RESTClientDotNet
                 }
                 else
                 {
-                    throw ex;
+                    throw;
                 }
             }
         }
@@ -335,7 +306,7 @@ namespace CF.RESTClientDotNet
                 responseBuffer = new byte[responseStream.Length];
 
                 //Read from the stream (complete)
-                var responseLength = responseStream.Read(responseBuffer, 0, (int)responseStream.Length);
+                responseStream.Read(responseBuffer, 0, (int)responseStream.Length);
             }
             else
             {

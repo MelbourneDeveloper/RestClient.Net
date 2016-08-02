@@ -15,7 +15,7 @@ namespace CF.RESTClientDotNet
         }
 
         public RESTTimeoutException(int timeoutSeconds)
-            : base(string.Format("The server failed to respond after waiting for {0} seconds. Please ensure you have network connectivity and try again later.", timeoutSeconds))
+            : base($"The server failed to respond after waiting for {timeoutSeconds} seconds. Please ensure you have network connectivity and try again later.")
         {
             _TimeoutSeconds = timeoutSeconds;
         }
