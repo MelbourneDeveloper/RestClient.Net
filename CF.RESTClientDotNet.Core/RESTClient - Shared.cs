@@ -1,4 +1,6 @@
-﻿namespace CF.RESTClientDotNet
+﻿using System;
+
+namespace CF.RESTClientDotNet
 {
     public partial class RESTClient
     {
@@ -6,6 +8,7 @@
         public int TimeoutMilliseconds { get; set; } = 10000;
         public bool ReadToEnd { get; set; } = true;
         public static ISerializationAdapter SerializationAdapter { get; set; }
+        public Uri BaseUri { get; set; }
         #endregion
     }
 }
