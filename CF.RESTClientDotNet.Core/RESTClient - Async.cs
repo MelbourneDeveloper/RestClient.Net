@@ -168,9 +168,9 @@ namespace CF.RESTClientDotNet
 
             if (queryString != null)
             {
-                var queryStringText = await SerializationAdapter.SerializeAsync<T>(body);
+                var queryStringText = await SerializationAdapter.SerializeAsync<T>(queryString);
                 queryStringText = Uri.EscapeDataString(queryStringText);
-                theUri = new Uri(theUri.AbsoluteUri + queryStringText);
+                theUri = new Uri($"{ theUri.AbsoluteUri}/{queryStringText}");
             }
 
             //Create the web request
