@@ -4,14 +4,14 @@ using System.Net;
 
 namespace CF.RESTClientDotNet
 {
-    public static partial class RESTClient
+    public partial class RESTClient
     {
         #region Public Methods
 
         /// <summary>
         /// Make REST POST call and wait for the response
         /// </summary>
-        public static RESTResponse<T> Post<T>(string url, object data, int timeOutMilliseconds = 10000, bool readToEnd = false)
+        public RESTResponse<T> Post<T>(string url, object data, int timeOutMilliseconds = 10000, bool readToEnd = false)
         {
             return CallPost<T>(url, data, null, timeOutMilliseconds, readToEnd);
         }
@@ -19,7 +19,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST POST call and wait for the response
         /// </summary>
-        public static WebResponse Post(string url, object body, int timeOutMilliseconds = 10000)
+        public WebResponse Post(string url, object body, int timeOutMilliseconds = 10000)
         {
             return Call(url, body, HttpVerb.Post, timeOutMilliseconds);
         }
@@ -27,7 +27,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-        public static RESTResponse<T> Get<T>(string url, string id, int timeOutMilliseconds = 10000, bool readToEnd = false)
+        public RESTResponse<T> Get<T>(string url, string id, int timeOutMilliseconds = 10000, bool readToEnd = false)
         {
             return CallGet<T>(url, id, null, timeOutMilliseconds, readToEnd);
         }
@@ -37,7 +37,7 @@ namespace CF.RESTClientDotNet
         /// </summary>
         /// 
 
-        public static RESTResponse<T> Get<T>(string url, int timeOutMilliseconds = 10000, bool readToEnd = false)
+        public RESTResponse<T> Get<T>(string url, int timeOutMilliseconds = 10000, bool readToEnd = false)
         {
             return CallGet<T>(url, null, null, timeOutMilliseconds, readToEnd);
         }
@@ -46,7 +46,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response with a result type of T
         /// </summary>
-        public static void GetAsync<T>(string url, RESTResultAction<T> responseCallback, int timeOutMilliseconds = 10000)
+        public void GetAsync<T>(string url, RESTResultAction<T> responseCallback, int timeOutMilliseconds = 10000)
         {
             CallGet<T>(url, null, responseCallback, timeOutMilliseconds);
         }
@@ -54,7 +54,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response with a result type of T
         /// </summary>
-        public static void GetAsync<T>(string url, string id, RESTResultAction<T> responseCallback, int timeOutMilliseconds = 10000)
+        public void GetAsync<T>(string url, string id, RESTResultAction<T> responseCallback, int timeOutMilliseconds = 10000)
         {
             CallGet<T>(url, id, responseCallback, timeOutMilliseconds);
         }
@@ -66,7 +66,7 @@ namespace CF.RESTClientDotNet
         /// <param name="id"></param>
         /// <param name="responseCallback"></param>
         /// <param name="timeOutMilliseconds"></param>
-        public static void GetAsync(string url, string id, RESTResultAction responseCallback, int timeOutMilliseconds = 10000)
+        public void GetAsync(string url, string id, RESTResultAction responseCallback, int timeOutMilliseconds = 10000)
         {
             CallAsync(url, id, responseCallback, HttpVerb.Get, timeOutMilliseconds);
         }
@@ -74,7 +74,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST POST call asynchronously
         /// </summary>
-        public static void PostAsync(string url, object body, RESTResultAction responseCallback, int timeOutMilliseconds = 10000)
+        public void PostAsync(string url, object body, RESTResultAction responseCallback, int timeOutMilliseconds = 10000)
         {
             CallAsync(url, body, responseCallback, HttpVerb.Post, timeOutMilliseconds);
         }
@@ -83,7 +83,7 @@ namespace CF.RESTClientDotNet
         /// Make a GET call and wait for the response
         /// </summary>
 
-        public static RESTResponse Get(string url, int timeOutMilliseconds = 10000, bool readToEnd = false)
+        public RESTResponse Get(string url, int timeOutMilliseconds = 10000, bool readToEnd = false)
         {
             return CallGet(url, null, timeOutMilliseconds, readToEnd);
         }
