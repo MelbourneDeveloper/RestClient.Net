@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -47,18 +48,18 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-        public async Task<RESTResponse<T>> GetAsync<T, T1, T2>(T1 body, T2 queryString)
+        public async Task<RESTResponse<T>> GetAsync<T, T1>(T1 queryString)
         {
-            return await CallGetAsync<T, T1, T2>(BaseUri, body, queryString, TimeoutMilliseconds, ReadToEnd);
+            return await CallGetAsync<T, object, T1>(BaseUri, null, queryString, TimeoutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
         /// 
-        public async Task<RESTResponse<T>> GetAsync<T, T1, T2>()
+        public async Task<RESTResponse<T>> GetAsync<T>()
         {
-            return await CallGetAsync<T, T1, T2>(BaseUri, default(T1), default(T2), TimeoutMilliseconds, ReadToEnd);
+            return await CallGetAsync<T, object, object>(BaseUri, null, null, TimeoutMilliseconds, ReadToEnd);
         }
 
         #endregion
@@ -194,7 +195,7 @@ namespace CF.RESTClientDotNet
             //We're always going to use json
             retVal.ContentType = "application/json";
 
-            if (body != null)
+            if (body != null && new List<HttpVerb> { HttpVerb.Post, HttpVerb.Put }.Contains(verb))
             {
                 //Set the body of the POST/PUT
 
