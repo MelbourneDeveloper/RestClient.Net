@@ -208,36 +208,6 @@ namespace CF.RESTClientDotNet
             }
         }
 
-        /// <summary>
-        /// Make REST call and wait for the response with type argument
-        /// </summary>
-        private static RESTResponse<T> Call<T>(string url, object body, HttpVerb verb, RESTResultAction<T> responseCallback, int timeOutMilliseconds, bool readToEnd)
-        {
-            //Create the return value
-            var retVal = new RESTResponse<T>();
-
-            if (responseCallback != null)
-            {
-                CallAsync(url, body, responseCallback, verb, timeOutMilliseconds, readToEnd);
-            }
-            else
-            {
-                //Get the response from the server
-                if (verb == HttpVerb.Post)
-                {
-                    var response = CallPost<T>(url, body.ToString(), responseCallback, timeOutMilliseconds, readToEnd);
-                    retVal = DeserialiseResponse<T>(response);
-                }
-                else
-                {
-                    throw new NotImplementedException();
-                }
-            }
-
-            //Return the retVal
-            return retVal;
-        }
-
         #endregion
 
         #region Post

@@ -39,7 +39,7 @@ namespace CF.RESTClientDotNet
         /// </summary>
         public async Task<RESTResponse<T>> PutAsync<T>(string url, object data)
         {
-            throw new NotImplementedException("This method currently remains untested. But can be tested by uncommenting this line.");
+            //TODO: This method currently remains untested. But can be tested by uncommenting this line.");
             return await CallPutAsync<T>(url, data, null, TimeOutMilliseconds, ReadToEnd);
         }
 
@@ -147,7 +147,7 @@ namespace CF.RESTClientDotNet
             //Create the return value
             var retVal = new RESTResponse<T>();
 
-            var response = await CallPostAsync<T>(url, body.ToString(), responseCallback, timeOutMilliseconds, readToEnd);
+            var response = await CallPostAsync(url, body.ToString(), responseCallback, timeOutMilliseconds, readToEnd);
             retVal = await DeserialiseResponseAsync<T>(response);
 
             //Return the retVal

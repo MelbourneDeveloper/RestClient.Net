@@ -63,6 +63,9 @@
     <Compile Include="RESTClient - Synchronous.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\CF.RESTClientDotNet.Core\AllRules.ruleset">
+      <Link>AllRules.ruleset</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

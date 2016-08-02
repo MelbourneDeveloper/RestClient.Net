@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace CF.RESTClientDotNet
+﻿namespace CF.RESTClientDotNet
 {
     public partial interface ISerializationAdapter
     {
