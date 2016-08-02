@@ -11,25 +11,25 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST POST call and wait for the response
         /// </summary>
-        public RESTResponse<T> Post<T>(string url, object data, int timeOutMilliseconds = 10000, bool readToEnd = false)
+        public RESTResponse<T> Post<T>(string url, object data)
         {
-            return CallPost<T>(url, data, null, timeOutMilliseconds, readToEnd);
+            return CallPost<T>(url, data, null, TimeOutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
         /// Make REST POST call and wait for the response
         /// </summary>
-        public WebResponse Post(string url, object body, int timeOutMilliseconds = 10000)
+        public WebResponse Post(string url, object body)
         {
-            return Call(url, body, HttpVerb.Post, timeOutMilliseconds);
+            return Call(url, body, HttpVerb.Post, TimeOutMilliseconds);
         }
 
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-        public RESTResponse<T> Get<T>(string url, string id, int timeOutMilliseconds = 10000, bool readToEnd = false)
+        public RESTResponse<T> Get<T>(string url, string id)
         {
-            return CallGet<T>(url, id, null, timeOutMilliseconds, readToEnd);
+            return CallGet<T>(url, id, null, TimeOutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
@@ -37,55 +37,35 @@ namespace CF.RESTClientDotNet
         /// </summary>
         /// 
 
-        public RESTResponse<T> Get<T>(string url, int timeOutMilliseconds = 10000, bool readToEnd = false)
+        public RESTResponse<T> Get<T>(string url)
         {
-            return CallGet<T>(url, null, null, timeOutMilliseconds, readToEnd);
+            return CallGet<T>(url, null, null, TimeOutMilliseconds, ReadToEnd);
         }
 
 
         /// <summary>
         /// Make a GET call and wait for the response with a result type of T
         /// </summary>
-        public void GetAsync<T>(string url, RESTResultAction<T> responseCallback, int timeOutMilliseconds = 10000)
+        public void GetAsync<T>(string url, RESTResultAction<T> responseCallback)
         {
-            CallGet<T>(url, null, responseCallback, timeOutMilliseconds);
+            CallGet<T>(url, null, responseCallback, TimeOutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
         /// Make a GET call and wait for the response with a result type of T
         /// </summary>
-        public void GetAsync<T>(string url, string id, RESTResultAction<T> responseCallback, int timeOutMilliseconds = 10000)
+        public void GetAsync<T>(string url, string id, RESTResultAction<T> responseCallback)
         {
-            CallGet<T>(url, id, responseCallback, timeOutMilliseconds);
-        }
-
-        /// <summary>
-        /// Make a GET call
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="id"></param>
-        /// <param name="responseCallback"></param>
-        /// <param name="timeOutMilliseconds"></param>
-        public void GetAsync(string url, string id, RESTResultAction responseCallback, int timeOutMilliseconds = 10000)
-        {
-            CallAsync(url, id, responseCallback, HttpVerb.Get, timeOutMilliseconds);
-        }
-
-        /// <summary>
-        /// Make REST POST call asynchronously
-        /// </summary>
-        public void PostAsync(string url, object body, RESTResultAction responseCallback, int timeOutMilliseconds = 10000)
-        {
-            CallAsync(url, body, responseCallback, HttpVerb.Post, timeOutMilliseconds);
+            CallGet<T>(url, id, responseCallback, TimeOutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
 
-        public RESTResponse Get(string url, int timeOutMilliseconds = 10000, bool readToEnd = false)
+        public RESTResponse Get(string url)
         {
-            return CallGet(url, null, timeOutMilliseconds, readToEnd);
+            return CallGet(url, null, TimeOutMilliseconds, ReadToEnd);
         }
 
         #endregion
@@ -96,14 +76,14 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-        private static RESTResponse<T> CallGet<T>(string url, string id, RESTResultAction<T> responseCallback, int timeOutMilliseconds, bool readToEnd = false)
+        private static RESTResponse<T> CallGet<T>(string url, string id, RESTResultAction<T> responseCallback, int timeOutMilliseconds, bool readToEnd)
         {
             //Create the return value
             var retVal = new RESTResponse<T>();
 
             if (responseCallback != null)
             {
-                CallAsync(url, id, responseCallback, HttpVerb.Get, timeOutMilliseconds);
+                CallAsync(url, id, responseCallback, HttpVerb.Get, timeOutMilliseconds, readToEnd);
             }
             else
             {
@@ -119,7 +99,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-        private static RESTResponse CallGet(string url, string id, int timeOutMilliseconds, bool readToEnd = false)
+        private static RESTResponse CallGet(string url, string id, int timeOutMilliseconds, bool readToEnd)
         {
             var retVal = new RESTResponse();
 
@@ -139,7 +119,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST POST call asynchronously
         /// </summary>
-        private static void CallAsync(string url, object body, RESTResultAction responseCallback, HttpVerb verb, int timeOutMilliseconds)
+        private static void CallAsync(string url, object body, RESTResultAction responseCallback, HttpVerb verb, int timeOutMilliseconds, bool readToEnd)
         {
             //Get the Http Request object
             var request = GetRequest(url, body, verb, timeOutMilliseconds);
@@ -155,7 +135,7 @@ namespace CF.RESTClientDotNet
 
                     if (verb != HttpVerb.Post)
                     {
-                        data = GetDataFromResponseStream(response);
+                        data = GetDataFromResponseStream(response, readToEnd);
                     }
 
                     //Return control to the callback method passed in
@@ -168,7 +148,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST POST call asynchronously with a generic return value
         /// </summary>
-        private static void CallAsync<T>(string url, object body, RESTResultAction<T> responseCallback, HttpVerb verb, int timeOutMilliseconds)
+        private static void CallAsync<T>(string url, object body, RESTResultAction<T> responseCallback, HttpVerb verb, int timeOutMilliseconds, bool readToEnd)
         {
             //Get the Http Request object
             var request = GetRequest(url, body, verb, timeOutMilliseconds);
@@ -184,7 +164,7 @@ namespace CF.RESTClientDotNet
                     Exception error = null;
                     try
                     {
-                        data = SerializationAdapter.Deserialize<T>(GetDataFromResponseStream(response));
+                        data = SerializationAdapter.Deserialize<T>(GetDataFromResponseStream(response, readToEnd));
                     }
                     catch (Exception ex)
                     {
@@ -231,21 +211,21 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST call and wait for the response with type argument
         /// </summary>
-        private static RESTResponse<T> Call<T>(string url, object body, HttpVerb verb, RESTResultAction<T> responseCallback, int timeOutMilliseconds)
+        private static RESTResponse<T> Call<T>(string url, object body, HttpVerb verb, RESTResultAction<T> responseCallback, int timeOutMilliseconds, bool readToEnd)
         {
             //Create the return value
             var retVal = new RESTResponse<T>();
 
             if (responseCallback != null)
             {
-                CallAsync(url, body, responseCallback, verb, timeOutMilliseconds);
+                CallAsync(url, body, responseCallback, verb, timeOutMilliseconds, readToEnd);
             }
             else
             {
                 //Get the response from the server
                 if (verb == HttpVerb.Post)
                 {
-                    var response = CallPost<T>(url, body.ToString(), responseCallback, timeOutMilliseconds);
+                    var response = CallPost<T>(url, body.ToString(), responseCallback, timeOutMilliseconds, readToEnd);
                     retVal = DeserialiseResponse<T>(response);
                 }
                 else
@@ -264,7 +244,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make Post call and wait for the response with type argument
         /// </summary>
-        private static RESTResponse<T> CallPost<T>(string url, object data, RESTResultAction<T> responseCallback, int timeOutMilliseconds, bool readToEnd = false)
+        private static RESTResponse<T> CallPost<T>(string url, object data, RESTResultAction<T> responseCallback, int timeOutMilliseconds, bool readToEnd)
         {
             //Create the return value
             var retVal = new RESTResponse<T>();
@@ -287,7 +267,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make Post call and wait for the response
         /// </summary>
-        private static RESTResponse CallPost(string url, object data, int timeOutMilliseconds, bool readToEnd = false)
+        private static RESTResponse CallPost(string url, object data, int timeOutMilliseconds, bool readToEnd)
         {
             var retVal = new RESTResponse();
 
@@ -369,7 +349,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Given the response from the REST call, return the string(
         /// </summary>
-        private static string GetDataFromResponseStream(WebResponse response, bool readToEnd = false)
+        private static string GetDataFromResponseStream(WebResponse response, bool readToEnd)
         {
             var responseStream = response.GetResponseStream();
             byte[] responseBuffer = null;
