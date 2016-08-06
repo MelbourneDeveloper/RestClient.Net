@@ -2,14 +2,15 @@
 using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System;
 
-namespace RESTServiceConsumer
+namespace CF.RESTClientDotNet
 {
     public class NewtonsoftSerializationAdapter : ISerializationAdapter
     {
         public async Task<byte[]> DecodeStringAsync(string theString)
         {
-            return await Task.Run(() => Encoding.UTF8.GetBytes(theString));
+            return await Task.Factory.StartNew(() => Encoding.UTF8.GetBytes(theString));
         }
 
         public async Task<T> DeserializeAsync<T>(string markup)
@@ -19,12 +20,12 @@ namespace RESTServiceConsumer
 
         public async Task<string> EncodeStringAsync(byte[] bytes)
         {
-            return await Task.Run(() => Encoding.UTF8.GetString(bytes, 0, bytes.Length));
+            return await Task.Factory.StartNew(() => Encoding.UTF8.GetString(bytes, 0, bytes.Length));
         }
 
-        public async Task<string> SerializeAsync(object objectToSerialize)
+        public async Task<string> SerializeAsync<T>(object value)
         {
-            return await Task.Factory.StartNew(() => JsonConvert.SerializeObject(objectToSerialize));
+            return await Task.Factory.StartNew(() => JsonConvert.SerializeObject(value));
         }
     }
 }
