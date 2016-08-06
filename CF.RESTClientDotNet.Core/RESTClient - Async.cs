@@ -62,6 +62,11 @@ namespace CF.RESTClientDotNet
             return await CallGetAsync<ReturnT, object, object>(BaseUri, null, null, TimeoutMilliseconds, ReadToEnd);
         }
 
+        public async Task<RESTResponse> GetAsync()
+        {
+            return await GetRESTResponse(BaseUri, null, null, HttpVerb.Get, TimeoutMilliseconds, ReadToEnd);
+        }
+
         #endregion
 
         #region Private Methods
@@ -112,15 +117,21 @@ namespace CF.RESTClientDotNet
 
         private static async Task<RESTResponse<T>> CallAsync<T, T1, T2>(Uri baseUri, T1 body, T2 queryString, HttpVerb verb, int timeOutMilliseconds, bool readToEnd)
         {
+            var restResponse = await GetRESTResponse(baseUri, body, queryString, verb, timeOutMilliseconds, readToEnd);
+
+            var retVal = await DeserialiseResponseAsync<T>(restResponse);
+
+            return retVal;
+        }
+
+        private static async Task<RESTResponse> GetRESTResponse(Uri baseUri, object body, object queryString, HttpVerb verb, int timeOutMilliseconds, bool readToEnd)
+        {
             var webResponse = await CallAsync(baseUri, body, queryString, verb, timeOutMilliseconds);
 
             var restResponse = new RESTResponse();
             restResponse.Response = webResponse;
             restResponse.Data = await GetDataFromResponseStreamAsync(webResponse, readToEnd);
-
-            var retVal = await DeserialiseResponseAsync<T>(restResponse);
-
-            return retVal;
+            return restResponse;
         }
 
         #endregion
