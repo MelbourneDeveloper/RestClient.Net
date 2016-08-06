@@ -31,8 +31,13 @@ namespace CF.RESTClientDotNet.UWP.Sample
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            var restClient = new RESTClient(new XmlSerializationAdapter(), new Uri("http://www.thomas-bayer.com/sqlrest/CUSTOMER/0"));
-            var theCustomer = await restClient.GetAsync<CUSTOMER>();
+
+        }
+
+        private async void button_Click(object sender, RoutedEventArgs e)
+        {
+            var restClient = new RESTClient(new XmlSerializationAdapter(), new Uri("http://www.thomas-bayer.com/sqlrest/CUSTOMER"));
+            var theCustomer = await restClient.GetAsync<CUSTOMER, int>(5);
         }
     }
 }

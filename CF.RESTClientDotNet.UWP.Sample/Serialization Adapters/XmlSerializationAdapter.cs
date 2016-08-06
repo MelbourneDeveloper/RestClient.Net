@@ -39,11 +39,14 @@ namespace CF.RESTClientDotNet
             return await Task.Factory.StartNew(() =>
             {
                 var serializer = new XmlSerializer(typeof(T));
-                using (var stream = new MemoryStream())
-                using (TextWriter writer = new StreamWriter(stream))
+                using (var memoryStream = new MemoryStream())
+                using (var writer = new StreamWriter(memoryStream))
                 {
                     serializer.Serialize(writer, value);
-                    return writer.ToString();
+                    var streamReader = new StreamReader(memoryStream);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    var xml =  streamReader.ReadToEnd();
+                    return xml;
                 }
             });
         }

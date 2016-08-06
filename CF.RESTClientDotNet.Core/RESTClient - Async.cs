@@ -48,18 +48,18 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-        public async Task<RESTResponse<T>> GetAsync<T, T1>(T1 queryString)
+        public async Task<RESTResponse<T>> GetAsync<T, QueryStringT>(QueryStringT queryString)
         {
-            return await CallGetAsync<T, object, T1>(BaseUri, null, queryString, TimeoutMilliseconds, ReadToEnd);
+            return await CallGetAsync<T, object, QueryStringT>(BaseUri, null, queryString, TimeoutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
         /// 
-        public async Task<RESTResponse<T>> GetAsync<T>()
+        public async Task<RESTResponse<ReturnT>> GetAsync<ReturnT>()
         {
-            return await CallGetAsync<T, object, object>(BaseUri, null, null, TimeoutMilliseconds, ReadToEnd);
+            return await CallGetAsync<ReturnT, object, object>(BaseUri, null, null, TimeoutMilliseconds, ReadToEnd);
         }
 
         #endregion
@@ -162,14 +162,24 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Creates a HttpWebRequest so that the REST call can be made with it
         /// </summary>
-        private static async Task<WebRequest> GetRequestAsync<T, T2>(Uri baseUri, T body, T2 queryString, HttpVerb verb, int timeOutMilliseconds)
+        private static async Task<WebRequest> GetRequestAsync<ReturnT, QueryStringT>(Uri baseUri, ReturnT body, QueryStringT queryString, HttpVerb verb, int timeOutMilliseconds)
         {
             var theUri = baseUri;
 
             if (queryString != null)
             {
-                var queryStringText = await SerializationAdapter.SerializeAsync<T>(queryString);
-                queryStringText = Uri.EscapeDataString(queryStringText);
+                string queryStringText;
+                if (PrimitiveTypes.Contains(typeof(QueryStringT)))
+                {
+                    //No need to serialize
+                    queryStringText = queryString.ToString();
+                }
+                else
+                {
+                    queryStringText = await SerializationAdapter.SerializeAsync<ReturnT>(queryString);
+                    queryStringText = Uri.EscapeDataString(queryStringText);
+                }
+
                 theUri = new Uri($"{ theUri.AbsoluteUri}/{queryStringText}");
             }
 
@@ -200,7 +210,7 @@ namespace CF.RESTClientDotNet
                 //Set the body of the POST/PUT
 
                 //Serialised JSon data
-                var markup = await SerializationAdapter.SerializeAsync<T>(body);
+                var markup = await SerializationAdapter.SerializeAsync<ReturnT>(body);
 
                 //Get the json as a byte array
                 var markupBuffer = await SerializationAdapter.DecodeStringAsync(markup);

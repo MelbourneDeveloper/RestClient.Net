@@ -15,9 +15,4 @@ namespace ThomasBayer
         public string STREET { get; set; }
         public string CITY { get; set; }
     }
-
-    public class CUSTOMERList : List<CUSTOMER>
-    {
-
-    }
 }

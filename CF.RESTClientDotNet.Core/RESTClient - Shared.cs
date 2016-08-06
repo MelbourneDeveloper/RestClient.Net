@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CF.RESTClientDotNet
 {
@@ -9,6 +10,11 @@ namespace CF.RESTClientDotNet
         public bool ReadToEnd { get; set; } = true;
         public static ISerializationAdapter SerializationAdapter { get; set; }
         public Uri BaseUri { get; set; }
+        #endregion
+
+        #region Public Static Properties
+        private static List<Type> PrimitiveTypes { get; } = new List<Type> { typeof(string), typeof(int), typeof(Guid), typeof(long), typeof(byte), typeof(char) };
+
         #endregion
     }
 }
