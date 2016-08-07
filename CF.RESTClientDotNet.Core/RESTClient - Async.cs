@@ -20,37 +20,34 @@ namespace CF.RESTClientDotNet
 
         #region Public Methods
 
+        #region POST
         /// <summary>
         /// Make REST POST call and wait for the response
         /// </summary>
-        public async Task<RESTResponse<T>> PostAsync<T, T1, T2>(Uri baseUri, T1 body, T2 queryString)
+        public async Task<RESTResponse<ReturnT>> PostAsync<ReturnT>()
         {
-            return await CallPostAsync<T, T1, T2>(BaseUri, body, queryString, TimeoutMilliseconds, ReadToEnd);
+            return await CallAsync<ReturnT, object, object>(BaseUri, null, null, HttpVerb.Post, TimeoutMilliseconds, ReadToEnd);
         }
+        #endregion
 
-        /// <summary>
-        /// Make REST POST call and wait for the response
-        /// </summary>
-        public async Task<WebResponse> PostAsync<T, T1, T2>(T1 body, T2 queryString)
-        {
-            return await CallAsync(BaseUri, body, queryString, HttpVerb.Post, TimeoutMilliseconds);
-        }
-
+        #region PUT
         /// <summary>
         /// Make REST PUT call and wait for the response
         /// </summary>
         public async Task<RESTResponse<T>> PutAsync<T, T1, T2>(T1 body, T2 queryString)
         {
             //TODO: This method currently remains untested. But can be tested by uncommenting this line.");
-            return await CallPutAsync<T, T1, T2>(BaseUri, body, queryString, TimeoutMilliseconds, ReadToEnd);
+            return await CallAsync<T, T1, T2>(BaseUri, body, queryString, HttpVerb.Get, TimeoutMilliseconds, ReadToEnd);
         }
+        #endregion
 
+        #region GET
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-        public async Task<RESTResponse<T>> GetAsync<T, QueryStringT>(QueryStringT queryString)
+        public async Task<RESTResponse<ReturnT>> GetAsync<ReturnT, QueryStringT>(QueryStringT queryString)
         {
-            return await CallGetAsync<T, object, QueryStringT>(BaseUri, null, queryString, TimeoutMilliseconds, ReadToEnd);
+            return await CallAsync<ReturnT, object, QueryStringT>(BaseUri, null, queryString, HttpVerb.Get, TimeoutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
@@ -59,36 +56,25 @@ namespace CF.RESTClientDotNet
         /// 
         public async Task<RESTResponse<ReturnT>> GetAsync<ReturnT>()
         {
-            return await CallGetAsync<ReturnT, object, object>(BaseUri, null, null, TimeoutMilliseconds, ReadToEnd);
+            return await CallAsync<ReturnT, object, object>(BaseUri, null, null, HttpVerb.Get, TimeoutMilliseconds, ReadToEnd);
         }
 
         public async Task<RESTResponse> GetAsync()
         {
             return await GetRESTResponse(BaseUri, null, null, HttpVerb.Get, TimeoutMilliseconds, ReadToEnd);
         }
+        #endregion
 
         #endregion
 
         #region Private Methods
-
-        #region Get
-        /// <summary>
-        /// Make a GET call and wait for the response
-        /// </summary>
-        private static async Task<RESTResponse<T>> CallGetAsync<T, T1, T2>(Uri baseUri, T1 body, T2 queryString, int timeOutMilliseconds, bool readToEnd)
-        {
-            var retVal = await CallAsync<T, T1, T2>(baseUri, body, queryString, HttpVerb.Get, timeOutMilliseconds, readToEnd);
-            return retVal;
-        }
-
-        #endregion
 
         #region Base Calls
 
         /// <summary>
         /// Make REST call and wait for the response
         /// </summary>
-        private static async Task<WebResponse> CallAsync<T1, T2>(Uri baseUri, T1 body, T2 queryString, HttpVerb verb, int timeOutMilliseconds)
+        private static async Task<WebResponse> GetWebResponse<T1, T2>(Uri baseUri, T1 body, T2 queryString, HttpVerb verb, int timeOutMilliseconds)
         {
             try
             {
@@ -126,44 +112,12 @@ namespace CF.RESTClientDotNet
 
         private static async Task<RESTResponse> GetRESTResponse(Uri baseUri, object body, object queryString, HttpVerb verb, int timeOutMilliseconds, bool readToEnd)
         {
-            var webResponse = await CallAsync(baseUri, body, queryString, verb, timeOutMilliseconds);
+            var webResponse = await GetWebResponse(baseUri, body, queryString, verb, timeOutMilliseconds);
 
             var restResponse = new RESTResponse();
             restResponse.Response = webResponse;
             restResponse.Data = await GetDataFromResponseStreamAsync(webResponse, readToEnd);
             return restResponse;
-        }
-
-        #endregion
-
-        #region Post
-
-        /// <summary>
-        /// Make Post call and wait for the response
-        /// </summary>
-        private static async Task<RESTResponse<T>> CallPostAsync<T, T1, T2>(Uri baseUri, T1 body, T2 queryString, int timeOutMilliseconds, bool readToEnd)
-        {
-            var retVal = await CallAsync<T, T1, T2>(baseUri, body, queryString, HttpVerb.Post, timeOutMilliseconds, readToEnd);
-
-            //Return the json
-            return retVal;
-        }
-
-        #endregion
-
-        #region Put
-
-
-        /// <summary>
-        /// Make Post call and wait for the response
-        /// </summary>
-        private static async Task<RESTResponse<T>> CallPutAsync<T, T1, T2>(Uri baseUri, T1 body, T2 queryString, int timeOutMilliseconds, bool readToEnd)
-        {
-            //var retVal = new RESTResponse<T>();
-            var retVal = await CallAsync<T, T1, T2>(baseUri, body, queryString, HttpVerb.Put, timeOutMilliseconds, readToEnd);
-
-            //Return the json
-            return retVal;
         }
 
         #endregion
@@ -281,8 +235,15 @@ namespace CF.RESTClientDotNet
         {
             var retVal = new RESTResponse<T>();
 
-            //Deserialise the json to the generic type
-            retVal.Data = await SerializationAdapter.DeserializeAsync<T>(response.Data);
+            if (typeof(T) == typeof(string))
+            {
+                retVal.Data = (T)(object)response.Data;
+            }
+            else
+            {
+                //Deserialise the json to the generic type
+                retVal.Data = await SerializationAdapter.DeserializeAsync<T>(response.Data);
+            }
 
             //Set the HttpWebResponse
             retVal.Response = response.Response;
