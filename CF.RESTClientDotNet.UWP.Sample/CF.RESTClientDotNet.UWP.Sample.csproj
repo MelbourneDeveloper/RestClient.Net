@@ -104,6 +104,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Class1.cs" />
     <Compile Include="Model\CUSTOMER.cs" />
     <Compile Include="Model\PRODUCT.cs" />
     <Compile Include="Model\CountryCodeData.cs" />

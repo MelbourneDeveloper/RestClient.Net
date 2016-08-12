@@ -1,4 +1,5 @@
-﻿using groupkt;
+﻿using Atlassian;
+using groupkt;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -47,13 +48,14 @@ namespace CF.RESTClientDotNet.UWP.Sample
             //theCustomer = await restClient2.GetAsync<CUSTOMER, string>("CUSTOMER/5");
             //var theProduct = await restClient2.GetAsync<PRODUCT, string>("PRODUCT/5");
 
-            var restClient3 = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
+            //var restClient3 = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
 
-            var countryData = await restClient3.GetAsync<groupktResult<CountriesResult>>();
+            //var countryData = await restClient3.GetAsync<groupktResult<CountriesResult>>();
 
-            restClient3 = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://geo.groupkt.com/ip/172.217.3.14/json"));
 
-            var ipData = await restClient3.GetAsync<groupktResult<IPInfoResult>>();
+            var restClient3 = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("https://api.bitbucket.org/2.0/repositories/1team/%7B21fa9bf8-b5b2-4891-97ed-d590bad0f871%7D"));
+
+            var bla = await restClient3.GetAsync<RootObject>();
 
         }
     }
