@@ -34,11 +34,17 @@ namespace CF.RESTClientDotNet.UWP.Sample
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            var restClient3 = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
+            var countryCodeClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
 
-            var countryData = await restClient3.GetAsync<groupktResult<CountriesResult>>();
+            var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
             CountryCodeList.ItemsSource = countryData.Data.RestResponse.result;
             Ring1.IsActive = false;
+
+
+            var bitbucketClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("https://api.bitbucket.org/2.0/repositories/1team/%7B21fa9bf8-b5b2-4891-97ed-d590bad0f871%7D"));
+             RepoPivot.DataContext = (await bitbucketClient.GetAsync<RootObject>()).Data;
+            Ring2.IsActive = false;
+
         }
 
         private async void button_Click(object sender, RoutedEventArgs e)
@@ -55,9 +61,7 @@ namespace CF.RESTClientDotNet.UWP.Sample
 
 
 
-            //var restClient3 = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("https://api.bitbucket.org/2.0/repositories/1team/%7B21fa9bf8-b5b2-4891-97ed-d590bad0f871%7D"));
 
-            //var bla = await restClient3.GetAsync<RootObject>();
 
         }
     }
