@@ -8,7 +8,41 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="188" Margin="46,112,0,0" VerticalAlignment="Top" Width="204" Click="button_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <ProgressRing Canvas.ZIndex="10" Name="Ring1" IsActive="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" />
+
+            <ListBox Name="CountryCodeList" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="4" >
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Background="Blue" VerticalAlignment="Center"  >
+                            <TextBlock Text="{Binding name}" VerticalAlignment="Center" />
+                            <TextBlock Text=" - " VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding alpha2_code}" VerticalAlignment="Center" />
+                            <TextBlock Text=" - " VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding alpha3_code}" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            
+        </Grid>
+        
+        <!--<Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="188" Margin="46,112,0,0" VerticalAlignment="Top" Width="204" Click="button_Click"/>-->
 
 
 

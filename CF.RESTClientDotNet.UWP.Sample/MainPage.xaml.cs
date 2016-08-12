@@ -34,7 +34,11 @@ namespace CF.RESTClientDotNet.UWP.Sample
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            var restClient3 = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
 
+            var countryData = await restClient3.GetAsync<groupktResult<CountriesResult>>();
+            CountryCodeList.ItemsSource = countryData.Data.RestResponse.result;
+            Ring1.IsActive = false;
         }
 
         private async void button_Click(object sender, RoutedEventArgs e)
@@ -48,14 +52,12 @@ namespace CF.RESTClientDotNet.UWP.Sample
             //theCustomer = await restClient2.GetAsync<CUSTOMER, string>("CUSTOMER/5");
             //var theProduct = await restClient2.GetAsync<PRODUCT, string>("PRODUCT/5");
 
-            //var restClient3 = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
-
-            //var countryData = await restClient3.GetAsync<groupktResult<CountriesResult>>();
 
 
-            var restClient3 = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("https://api.bitbucket.org/2.0/repositories/1team/%7B21fa9bf8-b5b2-4891-97ed-d590bad0f871%7D"));
 
-            var bla = await restClient3.GetAsync<RootObject>();
+            //var restClient3 = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("https://api.bitbucket.org/2.0/repositories/1team/%7B21fa9bf8-b5b2-4891-97ed-d590bad0f871%7D"));
+
+            //var bla = await restClient3.GetAsync<RootObject>();
 
         }
     }
