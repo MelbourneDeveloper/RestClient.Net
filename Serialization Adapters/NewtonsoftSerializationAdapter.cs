@@ -28,7 +28,7 @@ namespace CF.RESTClientDotNet
             return await Task.Factory.StartNew(() => Encoding.UTF8.GetString(bytes, 0, bytes.Length));
         }
 
-        public async Task<string> SerializeAsync<T>(object value)
+        public async Task<string> SerializeAsync<T>(T value)
         {
             return await Task.Factory.StartNew(() => JsonConvert.SerializeObject(value));
         }

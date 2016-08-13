@@ -1,5 +1,4 @@
-﻿using CF.RESTClientDotNet;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
@@ -14,7 +13,7 @@ namespace CF.RESTClientDotNet
 
         public async Task<byte[]> DecodeStringAsync(string theString)
         {
-            return await Task.Run(() => Encoding.UTF8.GetBytes(theString));
+            return await Task.Factory.StartNew(() => Encoding.UTF8.GetBytes(theString));
         }
 
         public async Task<object> DeserializeAsync(string markup, Type type)
@@ -29,10 +28,10 @@ namespace CF.RESTClientDotNet
 
         public async Task<string> EncodeStringAsync(byte[] bytes)
         {
-            return await Task.Run(() => Encoding.UTF8.GetString(bytes, 0, bytes.Length));
+            return await Task.Factory.StartNew(() => Encoding.UTF8.GetString(bytes, 0, bytes.Length));
         }
 
-        public async Task<string> SerializeAsync<T>(object value)
+        public async Task<string> SerializeAsync<T>(T value)
         {
             return await Task.Factory.StartNew(() => DataContractSerializeObject(value, typeof(T)));
         }

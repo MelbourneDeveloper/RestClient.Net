@@ -192,7 +192,7 @@ namespace CF.RESTClientDotNet
                 }
                 else
                 {
-                    queryStringText = await SerializationAdapter.SerializeAsync<ReturnT>(queryString);
+                    queryStringText = await SerializationAdapter.SerializeAsync(queryString);
                     queryStringText = Uri.EscapeDataString(queryStringText);
                 }
 
@@ -226,7 +226,7 @@ namespace CF.RESTClientDotNet
                 //Set the body of the POST/PUT
 
                 //Serialised JSon data
-                var markup = await SerializationAdapter.SerializeAsync<ReturnT>(body);
+                var markup = await SerializationAdapter.SerializeAsync(body);
 
                 //Get the json as a byte array
                 var markupBuffer = await SerializationAdapter.DecodeStringAsync(markup);
