@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -16,7 +17,7 @@ namespace CF.RESTClientDotNet.UWP.Sample
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private RESTClient<ErrorModel> _BitbucketClient;
+        private RESTClient _BitbucketClient;
 
         public MainPage()
         {
@@ -72,15 +73,32 @@ namespace CF.RESTClientDotNet.UWP.Sample
                 //Post the change
                 var retVal = await _BitbucketClient.PutAsync<object, Repository, string>(selectedRepo, selectedRepo.name);
             }
-            catch (WebException wex)
+            catch (Exception ex)
             {
-                var resp = new StreamReader(wex.Response.GetResponseStream()).ReadToEnd();
+                ErrorModel errorModel = null;
+                var rex = ex as RESTException;
+
+                if (rex != null)
+                {
+                    errorModel = rex.Error as ErrorModel;
+                }
+
+                string message = "An error occurred trying to change the repository description.";
+
+                if (errorModel != null)
+                {
+                    message += "\r\n" + errorModel.error.message;
+                }
+
+                var dialog = new MessageDialog(message);
+                await dialog.ShowAsync();
             }
 
         }
 
         private void GetBitBucketClient()
         {
+
             if (_BitbucketClient != null)
             {
                 return;
@@ -90,6 +108,7 @@ namespace CF.RESTClientDotNet.UWP.Sample
             string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(UsernameBox.Text + ":" + ThePasswordBox.Password));
             _BitbucketClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
             _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
+            _BitbucketClient.ErrorType = typeof(ErrorModel);
         }
 
         private void ReposBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

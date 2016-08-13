@@ -13,6 +13,11 @@ namespace CF.RESTClientDotNet
             return await Task.Factory.StartNew(() => Encoding.UTF8.GetBytes(theString));
         }
 
+        public async Task<object> DeserializeAsync(string markup, Type type)
+        {
+            return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject(markup, type));
+        }
+
         public async Task<T> DeserializeAsync<T>(string markup)
         {
             return await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<T>(markup));

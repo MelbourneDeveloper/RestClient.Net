@@ -88,7 +88,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST call and wait for the response
         /// </summary>
-        private static async Task<WebResponse> GetWebResponse(Uri baseUri, object body, object queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds, bool readToEnd)
+        private async Task<WebResponse> GetWebResponse(Uri baseUri, object body, object queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds, bool readToEnd)
         {
             try
             {
@@ -103,18 +103,16 @@ namespace CF.RESTClientDotNet
             }
             catch (WebException wex)
             {
-                try
+                using (var streamReader = new StreamReader(wex.Response.GetResponseStream()))
                 {
-                    using (var streamReader = new StreamReader(wex.Response.GetResponseStream()))
+                    object error = null;
+                    var responseText = await GetDataFromResponseStreamAsync(wex.Response, readToEnd);
+                    if (ErrorType != null)
                     {
-                        var responseText = GetDataFromResponseStreamAsync(wex.Response, readToEnd);
-
-                        //var retVal = await DeserialiseResponseAsync<T>(restResponse);
+                        error = await SerializationAdapter.DeserializeAsync(responseText, ErrorType);
                     }
-                }
-                catch(Exception ex)
-                {
-                    throw new Exception("Error handling Error from web server." + ex.Message, ex);
+
+                    throw new RESTException(error, responseText, "The REST call returned an error. Please see Error property for details", wex);
                 }
             }
             catch (Exception ex)
@@ -131,7 +129,7 @@ namespace CF.RESTClientDotNet
             }
         }
 
-        private static async Task<RESTResponse<T>> CallAsync<T, T1, T2>(Uri baseUri, T1 body, T2 queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds, bool readToEnd)
+        private async Task<RESTResponse<T>> CallAsync<T, T1, T2>(Uri baseUri, T1 body, T2 queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds, bool readToEnd)
         {
             var restResponse = await GetRESTResponse(baseUri, body, queryString, verb, headers, timeOutMilliseconds, readToEnd);
 
@@ -140,7 +138,7 @@ namespace CF.RESTClientDotNet
             return retVal;
         }
 
-        private static async Task<RESTResponse> GetRESTResponse(Uri baseUri, object body, object queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds, bool readToEnd)
+        private async Task<RESTResponse> GetRESTResponse(Uri baseUri, object body, object queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds, bool readToEnd)
         {
             var webResponse = await GetWebResponse(baseUri, body, queryString, verb, headers, timeOutMilliseconds, readToEnd);
 
@@ -157,7 +155,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Creates a HttpWebRequest so that the REST call can be made with it
         /// </summary>
-        private static async Task<WebRequest> GetRequestAsync<ReturnT, QueryStringT>(Uri baseUri, ReturnT body, QueryStringT queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds)
+        private async Task<WebRequest> GetRequestAsync<ReturnT, QueryStringT>(Uri baseUri, ReturnT body, QueryStringT queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds)
         {
             var theUri = baseUri;
 
@@ -235,7 +233,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Given the response from the REST call, return the string(
         /// </summary>
-        private static async Task<string> GetDataFromResponseStreamAsync(WebResponse response, bool readToEnd)
+        private async Task<string> GetDataFromResponseStreamAsync(WebResponse response, bool readToEnd)
         {
             var responseStream = response.GetResponseStream();
             byte[] responseBuffer = null;
@@ -266,18 +264,18 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Turn a non-generic RESTResponse in to a generic one. 
         /// </summary>
-        private static async Task<RESTResponse<T>> DeserialiseResponseAsync<T>(RESTResponse response)
+        private async Task<RESTResponse<ReturnT>> DeserialiseResponseAsync<ReturnT>(RESTResponse response)
         {
-            var retVal = new RESTResponse<T>();
+            var retVal = new RESTResponse<ReturnT>();
 
-            if (typeof(T) == typeof(string))
+            if (typeof(ReturnT) == typeof(string))
             {
-                retVal.Data = (T)(object)response.Data;
+                retVal.Data = (ReturnT)(object)response.Data;
             }
             else
             {
                 //Deserialise the json to the generic type
-                retVal.Data = await SerializationAdapter.DeserializeAsync<T>(response.Data);
+                retVal.Data = await SerializationAdapter.DeserializeAsync<ReturnT>(response.Data);
             }
 
             //Set the HttpWebResponse

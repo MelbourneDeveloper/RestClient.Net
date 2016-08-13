@@ -12,6 +12,7 @@ namespace CF.RESTClientDotNet
         #endregion
 
         #region Public Properties 
+        public Type ErrorType { get; set; }
         public int TimeoutMilliseconds { get; set; } = 10000;
         public bool ReadToEnd { get; set; } = true;
         public static ISerializationAdapter SerializationAdapter { get; set; }

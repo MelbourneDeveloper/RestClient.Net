@@ -17,6 +17,11 @@ namespace CF.RESTClientDotNet
             return await Task.Run(() => Encoding.UTF8.GetBytes(theString));
         }
 
+        public async Task<object> DeserializeAsync(string markup, Type type)
+        {
+            return await Task.Factory.StartNew(() => DataContractDeserializeObject(type, markup));
+        }
+
         public async Task<T> DeserializeAsync<T>(string markup)
         {
             return await Task.Factory.StartNew(() => (T)DataContractDeserializeObject(typeof(T), markup));
@@ -46,7 +51,6 @@ namespace CF.RESTClientDotNet
             }
         }
 
-
         public static string DataContractSerializeObject(object sourceObject, Type sourceObjectType)
         {
             //Create a memory stream
@@ -65,6 +69,5 @@ namespace CF.RESTClientDotNet
                 return Encoding.UTF8.GetString(buffer, 0, buffer.Length);
             }
         }
-
     }
 }
