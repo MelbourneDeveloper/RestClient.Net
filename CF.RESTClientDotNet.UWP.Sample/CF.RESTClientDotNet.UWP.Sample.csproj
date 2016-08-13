@@ -98,6 +98,9 @@
     <Compile Include="..\Serialization Adapters\NewtonsoftSerializationAdapter.cs">
       <Link>Serialization Adapters\NewtonsoftSerializationAdapter.cs</Link>
     </Compile>
+    <Compile Include="..\Serialization Adapters\XmlSerializationAdapter.cs">
+      <Link>Serialization Adapters\XmlSerializationAdapter.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -109,7 +112,6 @@
     <Compile Include="Model\PRODUCT.cs" />
     <Compile Include="Model\CountryCodeData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization Adapters\XmlSerializationAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

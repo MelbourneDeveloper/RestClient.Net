@@ -1,21 +1,33 @@
 ﻿using Atlassian;
 using groupkt;
 using System;
-using System.IO;
-using System.Net;
 using System.Text;
+
+#if (!SILVERLIGHT)
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+#else
+using System.Windows.Controls;
+using System.Windows;
+#endif
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
+#if (SILVERLIGHT)
+namespace CF.RESTClientDotNet.Silverlight.Sample
+{
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class MainPage : UserControl
+#else
 namespace CF.RESTClientDotNet.UWP.Sample
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class MainPage : Page
+#endif
     {
         private RESTClient _BitbucketClient;
 
@@ -26,18 +38,20 @@ namespace CF.RESTClientDotNet.UWP.Sample
 
         private async void CountryCodeGrid_Loaded(object sender, RoutedEventArgs e)
         {
+            ToggleBusy(true);
             var countryCodeClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
 
             var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
             CountryCodeList.ItemsSource = countryData.RestResponse.result;
-            Ring1.IsActive = false;
+            ToggleBusy(false);
         }
 
         private async void GetRepos_Click(object sender, RoutedEventArgs e)
         {
-            Ring2.IsActive = true;
             try
             {
+                ToggleBusy(true);
+
                 //Ensure the client is ready to go
                 GetBitBucketClient();
 
@@ -51,12 +65,15 @@ namespace CF.RESTClientDotNet.UWP.Sample
             {
 
             }
-            Ring2.IsActive = false;
+
+            ToggleBusy(false);
 
         }
 
         private async void ChangeRepoDescription_Click(object sender, RoutedEventArgs e)
         {
+            ToggleBusy(true);
+
             try
             {
                 var selectedRepo = ReposBox.SelectedItem as Repository;
@@ -94,6 +111,8 @@ namespace CF.RESTClientDotNet.UWP.Sample
                 await dialog.ShowAsync();
             }
 
+            ToggleBusy(false);
+
         }
 
         private void GetBitBucketClient()
@@ -105,7 +124,7 @@ namespace CF.RESTClientDotNet.UWP.Sample
             }
 
             string url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
-            string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(UsernameBox.Text + ":" + ThePasswordBox.Password));
+            string credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + ThePasswordBox.Password));
             _BitbucketClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
             _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
             _BitbucketClient.ErrorType = typeof(ErrorModel);
@@ -121,20 +140,14 @@ namespace CF.RESTClientDotNet.UWP.Sample
             DescriptionBox.Text = selectedRepo.description;
         }
 
+        private void ToggleBusy(bool isBusy)
+        {
+#if (WINDOWS_UWP)
+            Ring2.IsActive = isBusy;
+#else
+            Ring2.IsIndeterminate = isBusy;
+#endif
 
-
-
-        //private async void button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var restClient = new RESTClient(new XmlSerializationAdapter(), new Uri("http://www.thomas-bayer.com/sqlrest/CUSTOMER"));
-        //    Strongly typed, primitive query string
-        //    var theCustomer = await restClient.GetAsync<CUSTOMER, int>(5);
-
-        //    More generic base Uri
-        //    var restClient2 = new RESTClient(new XmlSerializationAdapter(), new Uri("http://www.thomas-bayer.com/sqlrest"));
-        //    theCustomer = await restClient2.GetAsync<CUSTOMER, string>("CUSTOMER/5");
-        //    var theProduct = await restClient2.GetAsync<PRODUCT, string>("PRODUCT/5");
-
-        //}
+        }
     }
 }
