@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace CF.RESTClientDotNet
 {
+
+
     public partial class RESTClient
     {
         #region Fields

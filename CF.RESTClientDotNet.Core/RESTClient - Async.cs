@@ -28,16 +28,30 @@ namespace CF.RESTClientDotNet
         {
             return await CallAsync<ReturnT, object, object>(BaseUri, null, null, HttpVerb.Post, Headers, TimeoutMilliseconds, ReadToEnd);
         }
+
+        /// <summary>
+        /// Make REST POST call and wait for the response
+        /// </summary>
+        public async Task<RESTResponse<ReturnT>> PostAsync<ReturnT, BodyT>(BodyT body)
+        {
+            return await CallAsync<ReturnT, BodyT, object>(BaseUri, body, null, HttpVerb.Post, Headers, TimeoutMilliseconds, ReadToEnd);
+        }
+
+        public async Task<RESTResponse> PostAsync<BodyT, QueryStringT>(BodyT body, QueryStringT queryString)
+        {
+            return await CallAsync<object, BodyT, object>(BaseUri, body, queryString, HttpVerb.Post, Headers, TimeoutMilliseconds, ReadToEnd);
+        }
+
         #endregion
 
         #region PUT
         /// <summary>
         /// Make REST PUT call and wait for the response
         /// </summary>
-        public async Task<RESTResponse<T>> PutAsync<T, T1, T2>(T1 body, T2 queryString)
+        public async Task<RESTResponse<ReturnT>> PutAsync<ReturnT, BodyT, QueryStringT>(BodyT body, QueryStringT queryString)
         {
             //TODO: This method currently remains untested. But can be tested by uncommenting this line.");
-            return await CallAsync<T, T1, T2>(BaseUri, body, queryString, HttpVerb.Get, Headers, TimeoutMilliseconds, ReadToEnd);
+            return await CallAsync<ReturnT, BodyT, QueryStringT>(BaseUri, body, queryString, HttpVerb.Put, Headers, TimeoutMilliseconds, ReadToEnd);
         }
         #endregion
 
@@ -74,7 +88,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST call and wait for the response
         /// </summary>
-        private static async Task<WebResponse> GetWebResponse<T1, T2>(Uri baseUri, T1 body, T2 queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds)
+        private static async Task<WebResponse> GetWebResponse(Uri baseUri, object body, object queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds, bool readToEnd)
         {
             try
             {
@@ -87,6 +101,22 @@ namespace CF.RESTClientDotNet
                 //Return the response
                 return response;
             }
+            catch (WebException wex)
+            {
+                try
+                {
+                    using (var streamReader = new StreamReader(wex.Response.GetResponseStream()))
+                    {
+                        var responseText = GetDataFromResponseStreamAsync(wex.Response, readToEnd);
+
+                        //var retVal = await DeserialiseResponseAsync<T>(restResponse);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception("Error handling Error from web server." + ex.Message, ex);
+                }
+            }
             catch (Exception ex)
             {
                 if (ex.Message.Contains("The request timed out"))
@@ -96,7 +126,7 @@ namespace CF.RESTClientDotNet
                 }
                 else
                 {
-                    throw ex;
+                    throw;
                 }
             }
         }
@@ -112,7 +142,7 @@ namespace CF.RESTClientDotNet
 
         private static async Task<RESTResponse> GetRESTResponse(Uri baseUri, object body, object queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds, bool readToEnd)
         {
-            var webResponse = await GetWebResponse(baseUri, body, queryString, verb, headers, timeOutMilliseconds);
+            var webResponse = await GetWebResponse(baseUri, body, queryString, verb, headers, timeOutMilliseconds, readToEnd);
 
             var restResponse = new RESTResponse();
             restResponse.Response = webResponse;
@@ -134,7 +164,7 @@ namespace CF.RESTClientDotNet
             if (queryString != null)
             {
                 string queryStringText;
-                if (PrimitiveTypes.Contains(typeof(QueryStringT)))
+                if (PrimitiveTypes.Contains(queryString.GetType()))
                 {
                     //No need to serialize
                     queryStringText = queryString.ToString();
@@ -226,7 +256,7 @@ namespace CF.RESTClientDotNet
             else
             {
                 var reader = new StreamReader(responseStream);
-                return reader.ReadToEnd();
+                return await reader.ReadToEndAsync();
             }
 
             //Convert the response from bytes to json string 

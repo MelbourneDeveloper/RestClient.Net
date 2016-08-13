@@ -187,4 +187,15 @@ namespace Atlassian
 
     #endregion
 
+    #region Errors
+    public class Error
+    {
+        public string message { get; set; }
+    }
+
+    public class ErrorModel
+    {
+        public Error error { get; set; }
+    }
+    #endregion
 }

@@ -22,7 +22,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50" />
                             <RowDefinition Height="200" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="40" />
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
@@ -39,10 +39,13 @@
                         <PasswordBox Name="ThePasswordBox" Password="Password" Grid.Column="3" VerticalAlignment="Center" />
                         <Button Content="Get My Repos" Grid.Column="4" Margin="2" Click="GetRepos_Click" />
 
-                        <ListBox Name="ReposBox"  DisplayMemberPath="name" Grid.Row="1"  Grid.ColumnSpan="5" Margin="4" />
+                        <ListBox Name="ReposBox"  DisplayMemberPath="name" Grid.Row="1"  Grid.ColumnSpan="5" Margin="4" SelectionChanged="ReposBox_SelectionChanged" />
 
                         <Grid Grid.Row="2" Grid.ColumnSpan="5">
-                            
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Name="DescriptionBox" Width="500" />
+                                <Button Content="Change Description" Click="ChangeRepoDescription_Click" />
+                            </StackPanel>
                         </Grid>
                         
                     </Grid>
