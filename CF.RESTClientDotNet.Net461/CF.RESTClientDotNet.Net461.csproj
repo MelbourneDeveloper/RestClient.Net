@@ -142,12 +142,6 @@
     <Compile Include="..\CF.RESTClientDotNet.Core\RESTTimeoutException.cs">
       <Link>RESTTimeoutException.cs</Link>
     </Compile>
-    <Compile Include="..\CF.RESTClientDotNet.Net4\ISerializationAdapter - Synchronous.cs">
-      <Link>ISerializationAdapter - Synchronous.cs</Link>
-    </Compile>
-    <Compile Include="..\CF.RESTClientDotNet.Net4\RESTClient - Synchronous.cs">
-      <Link>RESTClient - Synchronous.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
