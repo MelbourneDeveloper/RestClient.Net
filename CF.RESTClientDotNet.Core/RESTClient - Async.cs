@@ -55,12 +55,12 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST POST call and wait for the response
         /// </summary>
-        public async Task<ReturnT> PostAsync<ReturnT, BodyT>(BodyT body)
+        public async Task<TReturn> PostAsync<TReturn, TBody>(TBody body)
         {
-            return await CallAsync<ReturnT, BodyT, object>(body, null, HttpVerb.Post);
+            return await CallAsync<TReturn, TBody, object>(body, null, HttpVerb.Post);
         }
 
-        public async Task<RESTResponse> PostAsync<BodyT, QueryStringT>(BodyT body, QueryStringT queryString)
+        public async Task<RESTResponse> PostAsync<TBody, TQueryString>(TBody body, TQueryString queryString)
         {
             return await GetRESTResponse(body, queryString, HttpVerb.Post);
         }
@@ -71,10 +71,10 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST PUT call and wait for the response
         /// </summary>
-        public async Task<ReturnT> PutAsync<ReturnT, BodyT, QueryStringT>(BodyT body, QueryStringT queryString)
+        public async Task<TReturn> PutAsync<TReturn, TBody, TQueryString>(TBody body, TQueryString queryString)
         {
             //TODO: This method currently remains untested. But can be tested by uncommenting this line.");
-            return await CallAsync<ReturnT, BodyT, QueryStringT>(body, queryString, HttpVerb.Put);
+            return await CallAsync<TReturn, TBody, TQueryString>(body, queryString, HttpVerb.Put);
         }
         #endregion
 
@@ -82,18 +82,18 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-        public async Task<ReturnT> GetAsync<ReturnT, QueryStringT>(QueryStringT queryString)
+        public async Task<TReturn> GetAsync<TReturn, TQueryString>(TQueryString queryString)
         {
-            return await CallAsync<ReturnT, object, QueryStringT>(null, queryString, HttpVerb.Get);
+            return await CallAsync<TReturn, object, TQueryString>(null, queryString, HttpVerb.Get);
         }
 
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
         /// 
-        public async Task<ReturnT> GetAsync<ReturnT>()
+        public async Task<TReturn> GetAsync<TReturn>()
         {
-            return await CallAsync<ReturnT, object, object>(null, null, HttpVerb.Get);
+            return await CallAsync<TReturn, object, object>(null, null, HttpVerb.Get);
         }
 
         public async Task<RESTResponse> GetAsync()
@@ -152,11 +152,11 @@ namespace CF.RESTClientDotNet
             }
         }
 
-        private async Task<T> CallAsync<T, T1, T2>(T1 body, T2 queryString, HttpVerb verb)
+        private async Task<TReturn> CallAsync<TReturn, TBody, TQueryString>(TBody body, TQueryString queryString, HttpVerb verb)
         {
             var restResponse = await GetRESTResponse(body, queryString, verb);
 
-            var retVal = await DeserialiseResponseAsync<T>(restResponse);
+            var retVal = await DeserialiseResponseAsync<TReturn>(restResponse);
 
             return retVal;
         }

@@ -48,6 +48,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>..\CF.RESTClientDotNet.Core\AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -106,6 +107,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="..\CF.RESTClientDotNet.Core\AllRules.ruleset">
+      <Link>AllRules.ruleset</Link>
+    </None>
     <None Include="project.json" />
     <None Include="StrongNameKey.pfx" />
   </ItemGroup>
