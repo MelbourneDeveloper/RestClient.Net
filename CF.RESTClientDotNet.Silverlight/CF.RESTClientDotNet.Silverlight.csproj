@@ -89,9 +89,6 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CF.RESTClientDotNet.Core\Delegates.cs">
-      <Link>Delegates.cs</Link>
-    </Compile>
     <Compile Include="..\CF.RESTClientDotNet.Core\GlobalSuppressions.cs">
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
