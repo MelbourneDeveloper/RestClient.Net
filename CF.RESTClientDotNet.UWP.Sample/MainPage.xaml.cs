@@ -88,7 +88,7 @@ namespace CF.RESTClientDotNet.UWP.Sample
                 selectedRepo.description = DescriptionBox.Text;
 
                 //Post the change
-                var retVal = await _BitbucketClient.PutAsync<object, Repository, string>(selectedRepo, selectedRepo.name);
+                var retVal = await _BitbucketClient.PutAsync<object, Repository, string>(selectedRepo, selectedRepo.full_name.Split('/')[1]);
             }
             catch (Exception ex)
             {
