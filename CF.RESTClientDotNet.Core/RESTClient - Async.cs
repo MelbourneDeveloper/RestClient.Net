@@ -57,12 +57,12 @@ namespace CF.RESTClientDotNet
         /// </summary>
         public async Task<ReturnT> PostAsync<ReturnT, BodyT>(BodyT body)
         {
-            return await CallAsync<ReturnT, BodyT, object>(BaseUri, body, null, HttpVerb.Post);
+            return await CallAsync<ReturnT, BodyT, object>(body, null, HttpVerb.Post);
         }
 
         public async Task<RESTResponse> PostAsync<BodyT, QueryStringT>(BodyT body, QueryStringT queryString)
         {
-            return await GetRESTResponse(BaseUri, body, queryString, HttpVerb.Post);
+            return await GetRESTResponse(body, queryString, HttpVerb.Post);
         }
 
         #endregion
@@ -74,7 +74,7 @@ namespace CF.RESTClientDotNet
         public async Task<ReturnT> PutAsync<ReturnT, BodyT, QueryStringT>(BodyT body, QueryStringT queryString)
         {
             //TODO: This method currently remains untested. But can be tested by uncommenting this line.");
-            return await CallAsync<ReturnT, BodyT, QueryStringT>(BaseUri, body, queryString, HttpVerb.Put);
+            return await CallAsync<ReturnT, BodyT, QueryStringT>(body, queryString, HttpVerb.Put);
         }
         #endregion
 
@@ -84,7 +84,7 @@ namespace CF.RESTClientDotNet
         /// </summary>
         public async Task<ReturnT> GetAsync<ReturnT, QueryStringT>(QueryStringT queryString)
         {
-            return await CallAsync<ReturnT, object, QueryStringT>(BaseUri, null, queryString, HttpVerb.Get);
+            return await CallAsync<ReturnT, object, QueryStringT>(null, queryString, HttpVerb.Get);
         }
 
         /// <summary>
@@ -93,12 +93,12 @@ namespace CF.RESTClientDotNet
         /// 
         public async Task<ReturnT> GetAsync<ReturnT>()
         {
-            return await CallAsync<ReturnT, object, object>(BaseUri, null, null, HttpVerb.Get);
+            return await CallAsync<ReturnT, object, object>(null, null, HttpVerb.Get);
         }
 
         public async Task<RESTResponse> GetAsync()
         {
-            return await GetRESTResponse(BaseUri, null, null, HttpVerb.Get);
+            return await GetRESTResponse(null, null, HttpVerb.Get);
         }
         #endregion
 
@@ -111,12 +111,12 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST call and wait for the response
         /// </summary>
-        private async Task<WebResponse> GetWebResponse(Uri baseUri, object body, object queryString, HttpVerb verb)
+        private async Task<WebResponse> GetWebResponse(object body, object queryString, HttpVerb verb)
         {
             try
             {
                 //Get the Http Request object
-                var request = await GetRequestAsync(baseUri, body, queryString, verb);
+                var request = await GetRequestAsync(body, queryString, verb);
 
                 //Make the call to the server and wait for the response
                 var response = await request.GetResponseAsync();
@@ -152,18 +152,18 @@ namespace CF.RESTClientDotNet
             }
         }
 
-        private async Task<T> CallAsync<T, T1, T2>(Uri baseUri, T1 body, T2 queryString, HttpVerb verb)
+        private async Task<T> CallAsync<T, T1, T2>(T1 body, T2 queryString, HttpVerb verb)
         {
-            var restResponse = await GetRESTResponse(baseUri, body, queryString, verb);
+            var restResponse = await GetRESTResponse(body, queryString, verb);
 
             var retVal = await DeserialiseResponseAsync<T>(restResponse);
 
             return retVal;
         }
 
-        private async Task<RESTResponse> GetRESTResponse(Uri baseUri, object body, object queryString, HttpVerb verb)
+        private async Task<RESTResponse> GetRESTResponse(object body, object queryString, HttpVerb verb)
         {
-            var webResponse = await GetWebResponse(baseUri, body, queryString, verb);
+            var webResponse = await GetWebResponse(body, queryString, verb);
 
             var restResponse = new RESTResponse();
             restResponse.Response = webResponse;
@@ -178,9 +178,9 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Creates a HttpWebRequest so that the REST call can be made with it
         /// </summary>
-        private async Task<WebRequest> GetRequestAsync<ReturnT, QueryStringT>(Uri baseUri, ReturnT body, QueryStringT queryString, HttpVerb verb)
+        private async Task<WebRequest> GetRequestAsync<ReturnT, QueryStringT>(ReturnT body, QueryStringT queryString, HttpVerb verb)
         {
-            var theUri = baseUri;
+            var theUri = BaseUri;
 
             if (queryString != null)
             {
