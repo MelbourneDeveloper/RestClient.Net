@@ -80,9 +80,13 @@
                 </Grid>
             </PivotItem>
 
-
+            <PivotItem Header="Local REST Service">
+                <Grid>
+                    <Button Click="Button_Click" />
+                </Grid>
+            </PivotItem>
+            
         </Pivot>
-
 
 
 

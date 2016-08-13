@@ -1,6 +1,7 @@
 ﻿using Atlassian;
 using groupkt;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 #if (!SILVERLIGHT)
@@ -29,12 +30,18 @@ namespace CF.RESTClientDotNet.UWP.Sample
     public sealed partial class MainPage : Page
 #endif
     {
+        #region Fields
         private RESTClient _BitbucketClient;
+        #endregion
 
+        #region Constructror
         public MainPage()
         {
             InitializeComponent();
         }
+        #endregion
+
+        #region Event Handlers
 
         private async void CountryCodeGrid_Loaded(object sender, RoutedEventArgs e)
         {
@@ -114,7 +121,25 @@ namespace CF.RESTClientDotNet.UWP.Sample
             ToggleBusy(false);
 
         }
+        private async void CallLocalGet_Click(object sender, RoutedEventArgs e)
+        {
+            var restClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost:49901/api/values"));
+            var test = await restClient.GetAsync<List<string>>();
+        }
 
+        private void ReposBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedRepo = ReposBox.SelectedItem as Repository;
+            if (selectedRepo == null)
+            {
+                return;
+            }
+            DescriptionBox.Text = selectedRepo.description;
+        }
+
+        #endregion
+
+        #region Private Methods
         private void GetBitBucketClient()
         {
 
@@ -130,16 +155,6 @@ namespace CF.RESTClientDotNet.UWP.Sample
             _BitbucketClient.ErrorType = typeof(ErrorModel);
         }
 
-        private void ReposBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedRepo = ReposBox.SelectedItem as Repository;
-            if (selectedRepo == null)
-            {
-                return;
-            }
-            DescriptionBox.Text = selectedRepo.description;
-        }
-
         private void ToggleBusy(bool isBusy)
         {
 #if (WINDOWS_UWP)
@@ -149,5 +164,6 @@ namespace CF.RESTClientDotNet.UWP.Sample
 #endif
 
         }
+        #endregion
     }
 }
