@@ -84,6 +84,11 @@
                 </Grid>
             </sdk:TabItem>
 
+            <sdk:TabItem Header="Local REST Service">
+                <Grid>
+                    <Button Content="Call Get" Margin="4" Click="CallLocalGet_Click" />
+                </Grid>
+            </sdk:TabItem>
 
         </sdk:TabControl>
 
