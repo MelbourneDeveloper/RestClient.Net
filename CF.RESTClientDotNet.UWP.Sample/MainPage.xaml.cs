@@ -29,7 +29,7 @@ namespace CF.RESTClientDotNet.UWP.Sample
             var countryCodeClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
 
             var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
-            CountryCodeList.ItemsSource = countryData.Data.RestResponse.result;
+            CountryCodeList.ItemsSource = countryData.RestResponse.result;
             Ring1.IsActive = false;
         }
 
@@ -42,7 +42,7 @@ namespace CF.RESTClientDotNet.UWP.Sample
                 GetBitBucketClient();
 
                 //Download the repository data
-                var repos = (await _BitbucketClient.GetAsync<RepositoryList>()).Data;
+                var repos = (await _BitbucketClient.GetAsync<RepositoryList>());
 
                 //Put it in the List Box
                 ReposBox.ItemsSource = repos.values;

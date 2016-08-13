@@ -31,6 +31,11 @@ namespace CF.RESTClientDotNet
 
         #region Public Static Properties
         private static List<Type> PrimitiveTypes { get; } = new List<Type> { typeof(string), typeof(int), typeof(Guid), typeof(long), typeof(byte), typeof(char) };
+
+        /// <summary>
+        /// The last WebResponse returned from a REST call
+        /// </summary>
+        public WebResponse LastRestResponse { get; private set; }
         #endregion
 
         #region Constructor
@@ -46,25 +51,18 @@ namespace CF.RESTClientDotNet
         #region Public Methods
 
         #region POST
-        /// <summary>
-        /// Make REST POST call and wait for the response
-        /// </summary>
-        public async Task<RESTResponse<ReturnT>> PostAsync<ReturnT>()
-        {
-            return await CallAsync<ReturnT, object, object>(BaseUri, null, null, HttpVerb.Post);
-        }
 
         /// <summary>
         /// Make REST POST call and wait for the response
         /// </summary>
-        public async Task<RESTResponse<ReturnT>> PostAsync<ReturnT, BodyT>(BodyT body)
+        public async Task<ReturnT> PostAsync<ReturnT, BodyT>(BodyT body)
         {
             return await CallAsync<ReturnT, BodyT, object>(BaseUri, body, null, HttpVerb.Post);
         }
 
         public async Task<RESTResponse> PostAsync<BodyT, QueryStringT>(BodyT body, QueryStringT queryString)
         {
-            return await CallAsync<object, BodyT, object>(BaseUri, body, queryString, HttpVerb.Post);
+            return await GetRESTResponse(BaseUri, body, queryString, HttpVerb.Post);
         }
 
         #endregion
@@ -73,7 +71,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST PUT call and wait for the response
         /// </summary>
-        public async Task<RESTResponse<ReturnT>> PutAsync<ReturnT, BodyT, QueryStringT>(BodyT body, QueryStringT queryString)
+        public async Task<ReturnT> PutAsync<ReturnT, BodyT, QueryStringT>(BodyT body, QueryStringT queryString)
         {
             //TODO: This method currently remains untested. But can be tested by uncommenting this line.");
             return await CallAsync<ReturnT, BodyT, QueryStringT>(BaseUri, body, queryString, HttpVerb.Put);
@@ -84,7 +82,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
-        public async Task<RESTResponse<ReturnT>> GetAsync<ReturnT, QueryStringT>(QueryStringT queryString)
+        public async Task<ReturnT> GetAsync<ReturnT, QueryStringT>(QueryStringT queryString)
         {
             return await CallAsync<ReturnT, object, QueryStringT>(BaseUri, null, queryString, HttpVerb.Get);
         }
@@ -93,7 +91,7 @@ namespace CF.RESTClientDotNet
         /// Make a GET call and wait for the response
         /// </summary>
         /// 
-        public async Task<RESTResponse<ReturnT>> GetAsync<ReturnT>()
+        public async Task<ReturnT> GetAsync<ReturnT>()
         {
             return await CallAsync<ReturnT, object, object>(BaseUri, null, null, HttpVerb.Get);
         }
@@ -154,7 +152,7 @@ namespace CF.RESTClientDotNet
             }
         }
 
-        private async Task<RESTResponse<T>> CallAsync<T, T1, T2>(Uri baseUri, T1 body, T2 queryString, HttpVerb verb)
+        private async Task<T> CallAsync<T, T1, T2>(Uri baseUri, T1 body, T2 queryString, HttpVerb verb)
         {
             var restResponse = await GetRESTResponse(baseUri, body, queryString, verb);
 
@@ -289,22 +287,22 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Turn a non-generic RESTResponse in to a generic one. 
         /// </summary>
-        private async Task<RESTResponse<ReturnT>> DeserialiseResponseAsync<ReturnT>(RESTResponse response)
+        private async Task<ReturnT> DeserialiseResponseAsync<ReturnT>(RESTResponse response)
         {
-            var retVal = new RESTResponse<ReturnT>();
+            ReturnT retVal = default(ReturnT);
 
             if (typeof(ReturnT) == typeof(string))
             {
-                retVal.Data = (ReturnT)(object)response.Data;
+                retVal = (ReturnT)(object)response.Data;
             }
             else
             {
                 //Deserialise the json to the generic type
-                retVal.Data = await SerializationAdapter.DeserializeAsync<ReturnT>(response.Data);
+                retVal = await SerializationAdapter.DeserializeAsync<ReturnT>(response.Data);
             }
 
             //Set the HttpWebResponse
-            retVal.Response = response.Response;
+            LastRestResponse = response.Response;
 
             return retVal;
         }
