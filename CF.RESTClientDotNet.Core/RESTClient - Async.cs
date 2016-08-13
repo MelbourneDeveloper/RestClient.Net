@@ -26,7 +26,7 @@ namespace CF.RESTClientDotNet
         /// </summary>
         public async Task<RESTResponse<ReturnT>> PostAsync<ReturnT>()
         {
-            return await CallAsync<ReturnT, object, object>(BaseUri, null, null, HttpVerb.Post, TimeoutMilliseconds, ReadToEnd);
+            return await CallAsync<ReturnT, object, object>(BaseUri, null, null, HttpVerb.Post, Headers, TimeoutMilliseconds, ReadToEnd);
         }
         #endregion
 
@@ -37,7 +37,7 @@ namespace CF.RESTClientDotNet
         public async Task<RESTResponse<T>> PutAsync<T, T1, T2>(T1 body, T2 queryString)
         {
             //TODO: This method currently remains untested. But can be tested by uncommenting this line.");
-            return await CallAsync<T, T1, T2>(BaseUri, body, queryString, HttpVerb.Get, TimeoutMilliseconds, ReadToEnd);
+            return await CallAsync<T, T1, T2>(BaseUri, body, queryString, HttpVerb.Get, Headers, TimeoutMilliseconds, ReadToEnd);
         }
         #endregion
 
@@ -47,7 +47,7 @@ namespace CF.RESTClientDotNet
         /// </summary>
         public async Task<RESTResponse<ReturnT>> GetAsync<ReturnT, QueryStringT>(QueryStringT queryString)
         {
-            return await CallAsync<ReturnT, object, QueryStringT>(BaseUri, null, queryString, HttpVerb.Get, TimeoutMilliseconds, ReadToEnd);
+            return await CallAsync<ReturnT, object, QueryStringT>(BaseUri, null, queryString, HttpVerb.Get, Headers, TimeoutMilliseconds, ReadToEnd);
         }
 
         /// <summary>
@@ -56,12 +56,12 @@ namespace CF.RESTClientDotNet
         /// 
         public async Task<RESTResponse<ReturnT>> GetAsync<ReturnT>()
         {
-            return await CallAsync<ReturnT, object, object>(BaseUri, null, null, HttpVerb.Get, TimeoutMilliseconds, ReadToEnd);
+            return await CallAsync<ReturnT, object, object>(BaseUri, null, null, HttpVerb.Get, Headers, TimeoutMilliseconds, ReadToEnd);
         }
 
         public async Task<RESTResponse> GetAsync()
         {
-            return await GetRESTResponse(BaseUri, null, null, HttpVerb.Get, TimeoutMilliseconds, ReadToEnd);
+            return await GetRESTResponse(BaseUri, null, null, HttpVerb.Get, Headers, TimeoutMilliseconds, ReadToEnd);
         }
         #endregion
 
@@ -74,12 +74,12 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make REST call and wait for the response
         /// </summary>
-        private static async Task<WebResponse> GetWebResponse<T1, T2>(Uri baseUri, T1 body, T2 queryString, HttpVerb verb, int timeOutMilliseconds)
+        private static async Task<WebResponse> GetWebResponse<T1, T2>(Uri baseUri, T1 body, T2 queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds)
         {
             try
             {
                 //Get the Http Request object
-                var request = await GetRequestAsync(baseUri, body, queryString, verb, timeOutMilliseconds);
+                var request = await GetRequestAsync(baseUri, body, queryString, verb, headers, timeOutMilliseconds);
 
                 //Make the call to the server and wait for the response
                 var response = await request.GetResponseAsync();
@@ -101,18 +101,18 @@ namespace CF.RESTClientDotNet
             }
         }
 
-        private static async Task<RESTResponse<T>> CallAsync<T, T1, T2>(Uri baseUri, T1 body, T2 queryString, HttpVerb verb, int timeOutMilliseconds, bool readToEnd)
+        private static async Task<RESTResponse<T>> CallAsync<T, T1, T2>(Uri baseUri, T1 body, T2 queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds, bool readToEnd)
         {
-            var restResponse = await GetRESTResponse(baseUri, body, queryString, verb, timeOutMilliseconds, readToEnd);
+            var restResponse = await GetRESTResponse(baseUri, body, queryString, verb, headers, timeOutMilliseconds, readToEnd);
 
             var retVal = await DeserialiseResponseAsync<T>(restResponse);
 
             return retVal;
         }
 
-        private static async Task<RESTResponse> GetRESTResponse(Uri baseUri, object body, object queryString, HttpVerb verb, int timeOutMilliseconds, bool readToEnd)
+        private static async Task<RESTResponse> GetRESTResponse(Uri baseUri, object body, object queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds, bool readToEnd)
         {
-            var webResponse = await GetWebResponse(baseUri, body, queryString, verb, timeOutMilliseconds);
+            var webResponse = await GetWebResponse(baseUri, body, queryString, verb, headers, timeOutMilliseconds);
 
             var restResponse = new RESTResponse();
             restResponse.Response = webResponse;
@@ -127,7 +127,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Creates a HttpWebRequest so that the REST call can be made with it
         /// </summary>
-        private static async Task<WebRequest> GetRequestAsync<ReturnT, QueryStringT>(Uri baseUri, ReturnT body, QueryStringT queryString, HttpVerb verb, int timeOutMilliseconds)
+        private static async Task<WebRequest> GetRequestAsync<ReturnT, QueryStringT>(Uri baseUri, ReturnT body, QueryStringT queryString, HttpVerb verb, Dictionary<string, string> headers, int timeOutMilliseconds)
         {
             var theUri = baseUri;
 
@@ -184,6 +184,11 @@ namespace CF.RESTClientDotNet
                 {
                     requestStream.Write(markupBuffer, 0, markupBuffer.Length);
                 }
+            }
+
+            foreach (var key in headers?.Keys)
+            {
+                retVal.Headers[key] = headers[key];
             }
 
             //TODO: Reimplement

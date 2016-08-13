@@ -12,37 +12,46 @@
         <Pivot>
 
             <PivotItem Header="Repo" Name="RepoPivot">
-                <Grid Grid.Row="1" Grid.Column="1">
-                    <ProgressRing Canvas.ZIndex="10" Name="Ring2" IsActive="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" />
 
-                    <TextBlock Text="{Binding name}" />
+                <Grid>
+                    
+                    <ProgressRing Canvas.ZIndex="10" Name="Ring2" IsActive="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" />
 
-                    <!--<ListBox Name="BitBucketList" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="4" >
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
+                    <Grid Grid.Row="1" Grid.Column="1">
 
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Background="Blue" VerticalAlignment="Center"  >
-                                    <TextBlock Text="{Binding name}" VerticalAlignment="Center" />
-                                    <TextBlock Text=" - " VerticalAlignment="Center" />
-                                    <TextBlock Text="{Binding alpha2_code}" VerticalAlignment="Center" />
-                                    <TextBlock Text=" - " VerticalAlignment="Center" />
-                                    <TextBlock Text="{Binding alpha3_code}" VerticalAlignment="Center" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>-->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="200" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Username: " VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        <TextBox Name="UsernameBox" Text="MelbourneDeveloper" Grid.Column="1" VerticalAlignment="Center" />
+                        <TextBlock Text="Password: " Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        <PasswordBox Name="ThePasswordBox" Password="Password" Grid.Column="3" VerticalAlignment="Center" />
+                        <Button Content="Get My Repos" Grid.Column="4" Margin="2" Click="GetRepos_Click" />
+
+                        <ListBox Name="ReposBox"  DisplayMemberPath="name" Grid.Row="1"  Grid.ColumnSpan="5" Margin="4" />
+
+                        <Grid Grid.Row="2" Grid.ColumnSpan="5">
+                            
+                        </Grid>
+                        
+                    </Grid>
                 </Grid>
 
             </PivotItem>
 
             <PivotItem Header="Country Codes">
-                <Grid>
+                <Grid Loaded="CountryCodeGrid_Loaded">
                     <ProgressRing Canvas.ZIndex="10" Name="Ring1" IsActive="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" />
 
                     <ListBox Name="CountryCodeList" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="4" >
@@ -70,11 +79,11 @@
 
 
         </Pivot>
-        
 
 
 
-        
+
+
 
 
 
