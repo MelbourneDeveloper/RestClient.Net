@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using forms = Xamarin.Forms;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -62,7 +63,8 @@ namespace CF.RESTClientDotNet.Xamarin.Sample.Windows
                 // TODO: change this value to a cache size that is appropriate for your application
                 rootFrame.CacheSize = 1;
 
-                Xamarin.Forms.Forms.Init(e);
+                forms.Forms.Init(e);
+
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
