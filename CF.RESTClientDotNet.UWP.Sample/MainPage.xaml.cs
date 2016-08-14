@@ -133,35 +133,6 @@ namespace CF.RESTClientDotNet.UWP.Sample
             var test = await restClient.GetAsync<List<string>>();
         }
 
-        private static string GetDataFromResponseStream(HttpWebResponse response, bool readToEnd = false)
-        {
-            var responseStream = response.GetResponseStream();
-            byte[] responseBuffer = null;
-
-            if (!readToEnd)
-            {
-                if (responseStream.Length == -1)
-                {
-                    throw new Exception("An error occurred while getting data from the server. Please contact support");
-                }
-
-                //Read the stream in to a buffer
-                responseBuffer = new byte[responseStream.Length];
-
-                //Read from the stream (complete)
-                var responseLength = responseStream.Read(responseBuffer, 0, (int)responseStream.Length);
-            }
-            else
-            {
-                var reader = new StreamReader(responseStream);
-                return reader.ReadToEnd();
-            }
-
-            //Convert the response from bytes to json string
-            var data = Encoding.UTF8.GetString(responseBuffer, 0, responseBuffer.Length);
-            return data;
-        }
-
         private void ReposBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedRepo = ReposBox.SelectedItem as Repository;

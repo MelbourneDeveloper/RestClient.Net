@@ -1,4 +1,5 @@
-﻿using System;
+﻿using groupkt;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,27 +10,36 @@ namespace CF.RESTClientDotNet.Xamarin.Sample
 {
     public class App : Application
     {
+        Label _Label;
+
         public App()
         {
+            _Label = new Label
+            {
+                HorizontalTextAlignment = TextAlignment.Center,
+                Text = "..."
+            };
+
             // The root page of your application
             MainPage = new ContentPage
             {
                 Content = new StackLayout
                 {
                     VerticalOptions = LayoutOptions.Center,
-                    Children = {
-                        new Label {
-                            HorizontalTextAlignment = TextAlignment.Center,
-                            Text = "Welcome to Xamarin Forms!"
-                        }
+                    Children =
+                    {
+                        _Label
                     }
                 }
             };
         }
 
-        protected override void OnStart()
+        protected async override void OnStart()
         {
-            // Handle when your app starts
+            var countryCodeClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
+
+            var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
+            _Label.Text = countryData.RestResponse.result.FirstOrDefault().name;
         }
 
         protected override void OnSleep()
