@@ -42,7 +42,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>Bin\Release</OutputPath>
+    <OutputPath>..\NuGet\Exported\0.1.0\lib\sl50\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>

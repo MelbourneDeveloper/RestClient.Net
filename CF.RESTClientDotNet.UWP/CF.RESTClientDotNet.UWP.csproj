@@ -33,7 +33,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\NuGet\Exported\0.1.0\lib\uap10.0\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
