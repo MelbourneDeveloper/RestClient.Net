@@ -6,7 +6,7 @@ namespace CF.RESTClientDotNet
 {
     public static class WebRequestExtension
     {
-        public static Task<IAsyncResult> GetResponseAsyncs(this WebRequest webRequest)
+        public static Task<IAsyncResult> GetResponseExtendedAsync(this WebRequest webRequest)
         {
             var taskCompletionSource = new TaskCompletionSource<IAsyncResult>();
 

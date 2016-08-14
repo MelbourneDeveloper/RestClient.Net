@@ -101,16 +101,24 @@
     <Compile Include="..\Serialization Adapters\XmlSerializationAdapter.cs">
       <Link>Serialization Adapters\XmlSerializationAdapter.cs</Link>
     </Compile>
+    <Compile Include="..\Shared\REST Models\Atlassian.cs">
+      <Link>Model\Atlassian.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\REST Models\CountryCodeData.cs">
+      <Link>Model\CountryCodeData.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\REST Models\CUSTOMER.cs">
+      <Link>Model\CUSTOMER.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\REST Models\PRODUCT.cs">
+      <Link>Model\PRODUCT.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Atlassian.cs" />
-    <Compile Include="Model\CUSTOMER.cs" />
-    <Compile Include="Model\PRODUCT.cs" />
-    <Compile Include="Model\CountryCodeData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +153,7 @@
       <Name>CF.RESTClientDotNet.UWP</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Atlassian;
 using CF.RESTClientDotNet;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,9 +27,18 @@ namespace CF.REST.Sample.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<string> Get(string id)
         {
-            return "value";
+            var authenticationHeader = Request.Headers["Authentication"];
+            var credentials = authenticationHeader.FirstOrDefault();
+
+            GetBitBucketClient(credentials, id);
+
+            var reposResult = (await _BitbucketClient.GetAsync());
+
+            return reposResult.Data;
+
+            //_BitbucketClient.GetAsync
         }
 
         // POST api/values
@@ -47,7 +59,7 @@ namespace CF.REST.Sample.Controllers
         {
         }
 
-        private void GetBitBucketClient(string username, string password)
+        private void GetBitBucketClient(string credentials, string username)
         {
             if (_BitbucketClient != null)
             {
@@ -55,9 +67,7 @@ namespace CF.REST.Sample.Controllers
             }
 
             string url = "https://api.bitbucket.org/2.0/repositories/" + username;
-            string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(username + ":" + password));
-            _BitbucketClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
-            _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
+            _BitbucketClient.Headers.Add("Authorization", credentials);
             _BitbucketClient.ErrorType = typeof(ErrorModel);
         }
     }

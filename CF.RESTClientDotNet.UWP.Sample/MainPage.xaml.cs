@@ -179,7 +179,11 @@ namespace CF.RESTClientDotNet.UWP.Sample
                 return;
             }
 
+#if (SILVERLIGHT)
+            string url = "http://localhost:49901/api/values/" + UsernameBox.Text;
+#else
             string url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
+#endif
             string credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + ThePasswordBox.Password));
             _BitbucketClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
             _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
@@ -195,6 +199,6 @@ namespace CF.RESTClientDotNet.UWP.Sample
 #endif
 
         }
-        #endregion
+#endregion
     }
 }
