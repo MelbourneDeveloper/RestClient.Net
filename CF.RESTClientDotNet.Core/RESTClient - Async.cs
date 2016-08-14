@@ -125,14 +125,8 @@ namespace CF.RESTClientDotNet
                 //Get the Http Request object
                 var request = await GetRequestAsync(body, queryString, verb);
 
-#if (SILVERLIGHT)
-                //Make the call to the server and wait for the response
-                var response = await request.GetResponseExtendedAsync();
-                var asyncState = (HttpWebRequest)response.AsyncState;
-                return (HttpWebResponse)asyncState.EndGetResponse(response);
-#else
+                //Get the response from the server
                 return await request.GetResponseAsync();
-#endif
             }
             catch (WebException wex)
             {
