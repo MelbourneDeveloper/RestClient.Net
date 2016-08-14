@@ -3,5 +3,8 @@
   <OutOfBrowserSettings.WindowSettings>
     <WindowSettings Title="CF.RESTClientDotNet.Silverlight.Sample Application" />
   </OutOfBrowserSettings.WindowSettings>
+  <OutOfBrowserSettings.SecuritySettings>
+    <SecuritySettings ElevatedPermissions="Required" />
+  </OutOfBrowserSettings.SecuritySettings>
   <OutOfBrowserSettings.Icons />
 </OutOfBrowserSettings>

@@ -119,10 +119,15 @@ namespace CF.RESTClientDotNet
                 var request = await GetRequestAsync(body, queryString, verb);
 
                 //Make the call to the server and wait for the response
-                var response = await request.GetResponseAsync();
+                var response = await request.GetResponseAsyncs();
 
-                //Return the response
+#if(SILVERLIGHT)
+                var asyncState = (HttpWebRequest)response.AsyncState;
+                return (HttpWebResponse)asyncState.EndGetResponse(response);
+#else
                 return response;
+#endif
+
             }
             catch (WebException wex)
             {
@@ -219,7 +224,9 @@ namespace CF.RESTClientDotNet
             }
 
             //We're always going to use json
+#if (!SILVERLIGHT)
             retVal.ContentType = "application/json";
+#endif
 
             if (body != null && new List<HttpVerb> { HttpVerb.Post, HttpVerb.Put }.Contains(verb))
             {
