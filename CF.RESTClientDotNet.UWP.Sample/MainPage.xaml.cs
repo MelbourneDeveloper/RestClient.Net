@@ -180,7 +180,7 @@ namespace CF.RESTClientDotNet.UWP.Sample
             }
 
 #if (SILVERLIGHT)
-            string url = "http://localhost:49901/api/values/" + UsernameBox.Text;
+            string url = "http://localhost:49901/api/BitBucketRepository/" + UsernameBox.Text;
 #else
             string url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
 #endif
