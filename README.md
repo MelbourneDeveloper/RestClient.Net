@@ -11,6 +11,8 @@ Warning: Alpha Release (no guarantees of quality)
 
 NuGet: Install-Package RESTClientDotNet 
 
+Blog: https://christianfindlay.wordpress.com/
+
 ```
 #!c#
 
