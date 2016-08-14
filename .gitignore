@@ -1,5 +1,6 @@
 /.vs/RESTClient .Net/v14/.suo
 /
+/NuGet/Exported/
 bin
 /
 obj
@@ -12,5 +13,5 @@ packages
 
 *.suo
 .vs
-.dll
-.pdb
+*.dll
+*.pdb
