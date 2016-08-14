@@ -45,6 +45,7 @@ namespace CF.RESTClientDotNet.UWP.Sample
 
         #region Event Handlers
 
+#if (!SILVERLIGHT)
         private async void CountryCodeGrid_Loaded(object sender, RoutedEventArgs e)
         {
             ToggleBusy(true);
@@ -54,6 +55,7 @@ namespace CF.RESTClientDotNet.UWP.Sample
             CountryCodeList.ItemsSource = countryData.RestResponse.result;
             ToggleBusy(false);
         }
+#endif
 
         private async void GetRepos_Click(object sender, RoutedEventArgs e)
         {
@@ -65,7 +67,7 @@ namespace CF.RESTClientDotNet.UWP.Sample
                 GetBitBucketClient();
 
                 //Download the repository data
-#if(SILVERLIGHT)
+#if (SILVERLIGHT)
                 var repos = (await _BitbucketClient.GetAsync<RepositoryList>());
 #else
                 var repos = (await _BitbucketClient.GetAsync<RepositoryList>());
@@ -81,6 +83,17 @@ namespace CF.RESTClientDotNet.UWP.Sample
 
             ToggleBusy(false);
 
+        }
+
+#if (!SILVERLIGHT)
+        private void ReposBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedRepo = ReposBox.SelectedItem as Repository;
+            if (selectedRepo == null)
+            {
+                return;
+            }
+            DescriptionBox.Text = selectedRepo.description;
         }
 
         private async void ChangeRepoDescription_Click(object sender, RoutedEventArgs e)
@@ -127,20 +140,12 @@ namespace CF.RESTClientDotNet.UWP.Sample
             ToggleBusy(false);
 
         }
+#endif
+
         private async void CallLocalGet_Click(object sender, RoutedEventArgs e)
         {
             var restClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost:49901/api/values"));
             var test = await restClient.GetAsync<List<string>>();
-        }
-
-        private void ReposBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedRepo = ReposBox.SelectedItem as Repository;
-            if (selectedRepo == null)
-            {
-                return;
-            }
-            DescriptionBox.Text = selectedRepo.description;
         }
 
         #endregion

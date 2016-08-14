@@ -43,51 +43,13 @@
                         <PasswordBox Name="ThePasswordBox"  Grid.Column="3" VerticalAlignment="Center" />
                         <Button Content="Get My Repos" Grid.Column="4" Margin="2" Click="GetRepos_Click" />
 
-                        <ListBox Name="ReposBox"  DisplayMemberPath="name" Grid.Row="1"  Grid.ColumnSpan="5" Margin="4" SelectionChanged="ReposBox_SelectionChanged" />
+                        <ListBox Name="ReposBox"  DisplayMemberPath="name" Grid.Row="1"  Grid.ColumnSpan="5"  Grid.RowSpan="3"  />
 
-                        <Grid Grid.Row="2" Grid.ColumnSpan="5">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBox Name="DescriptionBox" Width="500" />
-                                <Button Content="Change Description" Click="ChangeRepoDescription_Click" />
-                            </StackPanel>
-                        </Grid>
+          
 
                     </Grid>
                 </Grid>
 
-            </sdk:TabItem>
-
-            <sdk:TabItem Header="Country Codes">
-                <Grid Loaded="CountryCodeGrid_Loaded">
-                    <ProgressBar Canvas.ZIndex="10" Name="Ring1" IsIndeterminate="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" />
-
-                    <ListBox Name="CountryCodeList" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="4" >
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Background="Blue" VerticalAlignment="Center"  >
-                                    <TextBlock Text="{Binding name}" VerticalAlignment="Center" />
-                                    <TextBlock Text=" - " VerticalAlignment="Center" />
-                                    <TextBlock Text="{Binding alpha2_code}" VerticalAlignment="Center" />
-                                    <TextBlock Text=" - " VerticalAlignment="Center" />
-                                    <TextBlock Text="{Binding alpha3_code}" VerticalAlignment="Center" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-                </Grid>
-            </sdk:TabItem>
-
-            <sdk:TabItem Header="Local REST Service">
-                <Grid>
-                    <Button Content="Call Get" Margin="4" Click="CallLocalGet_Click" />
-                </Grid>
             </sdk:TabItem>
 
         </sdk:TabControl>
