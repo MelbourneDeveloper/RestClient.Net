@@ -9,6 +9,7 @@ Warning: Alpha Release (no guarantees of quality)
 * Incredibly simple.
 * Async friendly (uses async, await keywords).
 
+Install-Package RESTClientDotNet 
 
 ```
 #!c#
