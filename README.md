@@ -2,11 +2,12 @@ A simple REST Client for all .NET related platforms
 
 Warning: Alpha Release (no guarantees of quality)
 
-* Markup language agnostic (supports JSON, SOAP and other markup languages)
-* Use strong types with REST
-* Supports Android, iOS, Windows 10, Windows 10 Phone, Silverlight, .NET, .NET Core
-* Incredibly simple
-* Async friendly (uses async, await keywords)
+* Open Source. (MIT License)
+* Markup language agnostic. (Supports JSON, SOAP and other markup languages)
+* Use strong types with REST.
+* Supports Android, iOS, Windows 10, Windows 10 Phone, Silverlight, .NET, .NET Core.
+* Incredibly simple.
+* Async friendly (uses async, await keywords).
 
 
 ```
