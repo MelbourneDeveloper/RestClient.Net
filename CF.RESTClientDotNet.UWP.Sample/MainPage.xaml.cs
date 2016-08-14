@@ -65,7 +65,11 @@ namespace CF.RESTClientDotNet.UWP.Sample
                 GetBitBucketClient();
 
                 //Download the repository data
+#if(SILVERLIGHT)
                 var repos = (await _BitbucketClient.GetAsync<RepositoryList>());
+#else
+                var repos = (await _BitbucketClient.GetAsync<RepositoryList>());
+#endif
 
                 //Put it in the List Box
                 ReposBox.ItemsSource = repos.values;
@@ -173,18 +177,12 @@ namespace CF.RESTClientDotNet.UWP.Sample
         #region Private Methods
         private void GetBitBucketClient()
         {
-
-            if (_BitbucketClient != null)
-            {
-                return;
-            }
-
 #if (SILVERLIGHT)
-            string url = "http://localhost:49901/api/BitBucketRepository/" + UsernameBox.Text;
+            string url = "http://localhost:49901/api/BitBucketRepository/" + UsernameBox.Text + "-" + ThePasswordBox.Password;
 #else
-            string url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
+            var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
+            var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + ThePasswordBox.Password));
 #endif
-            string credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + ThePasswordBox.Password));
             _BitbucketClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
 #if (!SILVERLIGHT)
             _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
@@ -201,6 +199,6 @@ namespace CF.RESTClientDotNet.UWP.Sample
 #endif
 
         }
-#endregion
+        #endregion
     }
 }

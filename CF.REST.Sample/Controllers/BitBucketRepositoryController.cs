@@ -29,18 +29,19 @@ namespace CF.REST.Sample.Controllers
         [HttpGet("{id}")]
         public async Task<string> Get(string id)
         {
-            string credentials = string.Empty;
+            //string credentials = string.Empty;
             try
             {
-                var authenticationHeader = Request.Headers["Authorization"];
-                credentials = authenticationHeader.FirstOrDefault();
-                GetBitBucketClient(credentials, id);
+                //var authenticationHeader = Request.Headers["Authorization"];
+                //credentials = authenticationHeader.FirstOrDefault();
+                var credentialTokens = id.Split('-');
+                GetBitBucketClient(credentialTokens[0], credentialTokens[1]);
                 var reposResult = (await _BitbucketClient.GetAsync());
                 return reposResult.Data;
             }
             catch (Exception ex)
             {
-                return $"Credentials: {credentials}\r\n{ex.ToString()}";
+                return ex.ToString();
             }
         }
 
@@ -62,15 +63,12 @@ namespace CF.REST.Sample.Controllers
         {
         }
 
-        private void GetBitBucketClient(string credentials, string username)
+        private void GetBitBucketClient(string username, string password)
         {
-            if (_BitbucketClient != null)
-            {
-                return;
-            }
-
+            var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(username + ":" + password));
             string url = "https://api.bitbucket.org/2.0/repositories/" + username;
-            _BitbucketClient.Headers.Add("Authorization", credentials);
+            _BitbucketClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
+            _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
             _BitbucketClient.ErrorType = typeof(ErrorModel);
         }
     }
