@@ -186,7 +186,9 @@ namespace CF.RESTClientDotNet.UWP.Sample
 #endif
             string credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + ThePasswordBox.Password));
             _BitbucketClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
+#if (!SILVERLIGHT)
             _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
+#endif
             _BitbucketClient.ErrorType = typeof(ErrorModel);
         }
 

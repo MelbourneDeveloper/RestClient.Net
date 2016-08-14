@@ -9,7 +9,9 @@ namespace CF.RESTClientDotNet
     public partial class RESTClient
     {
         #region Fields
+#if (!SILVERLIGHT)
         private Dictionary<string, string> _Headers = new Dictionary<string, string>();
+#endif
         #endregion
 
         #region Public Properties 
@@ -19,6 +21,10 @@ namespace CF.RESTClientDotNet
         public static ISerializationAdapter SerializationAdapter { get; set; }
         public Uri BaseUri { get; set; }
 
+#if (!SILVERLIGHT)
+        /// <summary>
+        /// Allows headers to be sent as part of the request. Note: This it seems that this not supported in Silverlight
+        /// </summary>
         public Dictionary<string, string> Headers
         {
             get
@@ -26,6 +32,7 @@ namespace CF.RESTClientDotNet
                 return _Headers;
             }
         }
+#endif
 
         #endregion
 
@@ -118,7 +125,7 @@ namespace CF.RESTClientDotNet
                 //Get the Http Request object
                 var request = await GetRequestAsync(body, queryString, verb);
 
-#if(SILVERLIGHT)
+#if (SILVERLIGHT)
                 //Make the call to the server and wait for the response
                 var response = await request.GetResponseExtendedAsync();
                 var asyncState = (HttpWebRequest)response.AsyncState;
@@ -242,10 +249,12 @@ namespace CF.RESTClientDotNet
                 }
             }
 
+#if (!SILVERLIGHT)
             foreach (var key in Headers?.Keys)
             {
                 retVal.Headers[key] = Headers[key];
             }
+#endif
 
             //TODO: Reimplement
             //#if (!NETFX_CORE && !SILVERLIGHT)

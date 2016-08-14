@@ -29,16 +29,19 @@ namespace CF.REST.Sample.Controllers
         [HttpGet("{id}")]
         public async Task<string> Get(string id)
         {
-            var authenticationHeader = Request.Headers["Authentication"];
-            var credentials = authenticationHeader.FirstOrDefault();
-
-            GetBitBucketClient(credentials, id);
-
-            var reposResult = (await _BitbucketClient.GetAsync());
-
-            return reposResult.Data;
-
-            //_BitbucketClient.GetAsync
+            string credentials = string.Empty;
+            try
+            {
+                var authenticationHeader = Request.Headers["Authorization"];
+                credentials = authenticationHeader.FirstOrDefault();
+                GetBitBucketClient(credentials, id);
+                var reposResult = (await _BitbucketClient.GetAsync());
+                return reposResult.Data;
+            }
+            catch (Exception ex)
+            {
+                return $"Credentials: {credentials}\r\n{ex.ToString()}";
+            }
         }
 
         // POST api/values
