@@ -138,9 +138,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CF.RESTClientDotNet.Xamarin.Sample\CF.RESTClientDotNet.Xamarin.Sample.csproj">
+    <ProjectReference Include="..\CF.RESTClientDotNet.Xamarin.Sample\CF.RESTClient.NET.Xamarin.Sample.csproj">
       <Project>{986D5A93-FBAA-440E-B31A-01A7358A2DAB}</Project>
-      <Name>CF.RESTClientDotNet.Xamarin.Sample</Name>
+      <Name>CF.RESTClient.NET.Xamarin.Sample</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
