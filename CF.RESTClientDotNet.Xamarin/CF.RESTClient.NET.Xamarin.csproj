@@ -8,8 +8,8 @@
     <ProjectGuid>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CF.RESTClientDotNet.Xamarin</RootNamespace>
-    <AssemblyName>CF.RESTClientDotNet.Xamarin</AssemblyName>
+    <RootNamespace>CF.RESTClientDotNet</RootNamespace>
+    <AssemblyName>CF.RESTClient.NET.Xamarin</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>

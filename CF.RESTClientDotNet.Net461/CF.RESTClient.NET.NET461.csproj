@@ -7,7 +7,7 @@
     <ProjectGuid>{ECFCBEAA-8A1A-4EE2-9745-45A93975418A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CF.RESTClientDotNet.Net461</RootNamespace>
+    <RootNamespace>CF.RESTClientDotNet</RootNamespace>
     <AssemblyName>CF.RESTClientDotNet.Net461</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -27,7 +27,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\NuGet\Exported\0.1.0\lib\net46\</OutputPath>
+    <OutputPath>..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
