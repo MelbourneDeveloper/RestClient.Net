@@ -9,6 +9,9 @@ Warning: Alpha Release (no guarantees of quality)
 * Incredibly simple.
 * Async friendly (uses async, await keywords).
 
+NuGet: Install-Package RESTClientDotNet 
+
+Blog: https://christianfindlay.wordpress.com/
 
 ```
 #!c#
