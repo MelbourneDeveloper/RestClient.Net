@@ -13,5 +13,4 @@ packages
 
 *.suo
 .vs
-*.dll
 *.pdb
