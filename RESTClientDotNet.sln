@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClient.NET.Xamarin.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClient.NET.Xamarin.Sample", "CF.RESTClient.NET.Xamarin.Sample\CF.RESTClientDotNet.Xamarin.Sample\CF.RESTClient.NET.Xamarin.Sample.csproj", "{986D5A93-FBAA-440E-B31A-01A7358A2DAB}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CF.RESTClientDotNet.Core", "CF.RESTClient.NET.Core\CF.RESTClient.NET.Core.xproj", "{8171457B-9EA1-4893-985B-F241918F57AF}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CF.RESTClient.NET.Core", "CF.RESTClient.NET.Core\CF.RESTClient.NET.Core.xproj", "{8171457B-9EA1-4893-985B-F241918F57AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

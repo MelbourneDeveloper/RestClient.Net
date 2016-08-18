@@ -148,7 +148,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CF.RESTClientDotNet.UWP\CF.RESTClient.NET.UWP.csproj">
+    <ProjectReference Include="..\CF.RESTClient.NET.UWP\CF.RESTClient.NET.UWP.csproj">
       <Project>{f2cf2f5d-557d-40f7-b6b3-25aa0321dd18}</Project>
       <Name>CF.RESTClient.NET.UWP</Name>
     </ProjectReference>
