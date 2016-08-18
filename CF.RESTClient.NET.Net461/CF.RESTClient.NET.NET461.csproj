@@ -118,6 +118,27 @@
     <Compile Include="..\Shared\src\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Shared\src\GlobalSuppressions.cs">
+      <Link>GlobalSuppressions.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\src\HttpVerb.cs">
+      <Link>HttpVerb.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\src\ISerializationAdapter.cs">
+      <Link>ISerializationAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\src\RESTClient.cs">
+      <Link>RESTClient.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\src\RESTException.cs">
+      <Link>RESTException.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\src\RESTResponse.cs">
+      <Link>RESTResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\src\RESTTimeoutException.cs">
+      <Link>RESTTimeoutException.cs</Link>
+    </Compile>
     <Compile Include="AssemblyInfo.Title..cs" />
   </ItemGroup>
   <ItemGroup>

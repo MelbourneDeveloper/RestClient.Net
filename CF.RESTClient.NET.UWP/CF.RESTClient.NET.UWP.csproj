@@ -115,29 +115,29 @@
     <None Include="StrongNameKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CF.RESTClientDotNet.Core\GlobalSuppressions.cs">
-      <Link>GlobalSuppressions.cs</Link>
-    </Compile>
-    <Compile Include="..\CF.RESTClientDotNet.Core\HttpVerb.cs">
-      <Link>HttpVerb.cs</Link>
-    </Compile>
-    <Compile Include="..\CF.RESTClientDotNet.Core\ISerializationAdapter.cs">
-      <Link>ISerializationAdapter.cs</Link>
-    </Compile>
-    <Compile Include="..\CF.RESTClientDotNet.Core\RESTClient - Async.cs">
-      <Link>RESTClient - Async.cs</Link>
-    </Compile>
-    <Compile Include="..\CF.RESTClientDotNet.Core\RESTException.cs">
-      <Link>RESTException.cs</Link>
-    </Compile>
-    <Compile Include="..\CF.RESTClientDotNet.Core\RESTResponse.cs">
-      <Link>RESTResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\CF.RESTClientDotNet.Core\RESTTimeoutException.cs">
-      <Link>RESTTimeoutException.cs</Link>
-    </Compile>
     <Compile Include="..\Shared\src\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\src\GlobalSuppressions.cs">
+      <Link>GlobalSuppressions.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\src\HttpVerb.cs">
+      <Link>HttpVerb.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\src\ISerializationAdapter.cs">
+      <Link>ISerializationAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\src\RESTClient.cs">
+      <Link>RESTClient.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\src\RESTException.cs">
+      <Link>RESTException.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\src\RESTResponse.cs">
+      <Link>RESTResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\src\RESTTimeoutException.cs">
+      <Link>RESTTimeoutException.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.Title..cs" />
     <EmbeddedResource Include="Properties\CF.RESTClientDotNet.UWP.rd.xml" />
