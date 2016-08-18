@@ -19,7 +19,7 @@
           <StartWorkingDirectory>
           </StartWorkingDirectory>
           <ShowWebRefOnDebugPrompt>True</ShowWebRefOnDebugPrompt>
-          <OutOfBrowserProjectToDebug>CF.RESTClientDotNet.Silverlight.Sample</OutOfBrowserProjectToDebug>
+          <OutOfBrowserProjectToDebug>CF.RESTClient.NET.Silverlight.Sample</OutOfBrowserProjectToDebug>
           <ShowRiaSvcsOnDebugPrompt>True</ShowRiaSvcsOnDebugPrompt>
         </SilverlightProjectProperties>
       </FlavorProperties>
