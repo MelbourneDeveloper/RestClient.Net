@@ -2138,7 +2138,7 @@
           "ref/netstandard1.3/System.IO.Compression.ZipFile.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.3/_._": {}
+          "lib/netstandard1.3/System.IO.Compression.ZipFile.dll": {}
         }
       },
       "System.IO.FileSystem/4.0.1": {
@@ -2454,7 +2454,11 @@
           "lib/portable-net45+win8+wp8+wpa81/_._": {}
         },
         "runtimeTargets": {
-          "runtimes/win/lib/netstandard1.3/_._": {
+          "runtimes/unix/lib/netstandard1.3/System.Net.Requests.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
+          "runtimes/win/lib/netstandard1.3/System.Net.Requests.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -2528,7 +2532,7 @@
           "ref/netstandard1.3/System.Net.WebHeaderCollection.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.3/_._": {}
+          "lib/netstandard1.3/System.Net.WebHeaderCollection.dll": {}
         }
       },
       "System.Net.WebSockets/4.0.0": {
@@ -3577,6 +3581,20 @@
         },
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
+        }
+      },
+      "CF.RESTClient.NET.Core/0.2.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.5",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "System.Net.Requests": "4.0.11"
+        },
+        "compile": {
+          "netstandard1.5/CF.RESTClient.NET.Core.dll": {}
+        },
+        "runtime": {
+          "netstandard1.5/CF.RESTClient.NET.Core.dll": {}
         }
       }
     }
@@ -9559,11 +9577,16 @@
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._"
       ]
+    },
+    "CF.RESTClient.NET.Core/0.2.0": {
+      "type": "project",
+      "path": "../CF.RESTClient.NET.Core/project.json",
+      "msbuildProject": "../CF.RESTClient.NET.Core/CF.RESTClient.NET.Core.xproj"
     }
   },
   "projectFileDependencyGroups": {
     "": [
-      "CF.RESTClientDotNet.Core >= 1.0.0-*",
+      "CF.RESTClient.NET.Core >= 1.2.0",
       "Microsoft.ApplicationInsights.AspNetCore >= 1.0.0",
       "Microsoft.AspNetCore.Mvc >= 1.0.0",
       "Microsoft.AspNetCore.Server.IISIntegration >= 1.0.0",
