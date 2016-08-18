@@ -18,7 +18,8 @@
     "CF.RESTClient.NET.Core": "1.0.0.*",
     "System.Xml.XmlSerializer": "4.0.11",
     "System.Runtime.Serialization.Primitives": "4.1.1",
-    "System.Runtime.Serialization.Xml": "4.1.1"
+    "System.Runtime.Serialization.Xml": "4.1.1",
+    "Newtonsoft.Json": "9.0.1"
   },
 
   "tools": {
@@ -40,7 +41,8 @@
     "compile": {
       "include": [
         "../Serialization Adapters/*.cs",
-        "../Shared/REST Models/*.cs"
+        "../Shared/REST Models/*.cs",
+        "../Shared/Serialization Adapters/*.cs"
       ]
     }
   },

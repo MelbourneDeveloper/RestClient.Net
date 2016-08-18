@@ -9586,7 +9586,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "CF.RESTClient.NET.Core >= 1.2.0",
+      "CF.RESTClient.NET.Core >= 1.0.0.*",
       "Microsoft.ApplicationInsights.AspNetCore >= 1.0.0",
       "Microsoft.AspNetCore.Mvc >= 1.0.0",
       "Microsoft.AspNetCore.Server.IISIntegration >= 1.0.0",
@@ -9599,6 +9599,7 @@
       "Microsoft.Extensions.Logging.Debug >= 1.0.0",
       "Microsoft.Extensions.Options.ConfigurationExtensions >= 1.0.0",
       "Microsoft.NETCore.App >= 1.0.0",
+      "Newtonsoft.Json >= 9.0.1",
       "System.Runtime.Serialization.Primitives >= 4.1.1",
       "System.Runtime.Serialization.Xml >= 4.1.1",
       "System.Xml.XmlSerializer >= 4.0.11"

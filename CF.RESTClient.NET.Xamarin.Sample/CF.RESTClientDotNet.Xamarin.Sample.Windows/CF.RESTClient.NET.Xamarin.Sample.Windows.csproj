@@ -162,6 +162,10 @@
       <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
       <Name>CF.RESTClient.NET.Xamarin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CF.RESTClientDotNet.Xamarin.Sample\CF.RESTClient.NET.Xamarin.Sample.csproj">
+      <Project>{986d5a93-fbaa-440e-b31a-01a7358a2dab}</Project>
+      <Name>CF.RESTClient.NET.Xamarin.Sample</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
