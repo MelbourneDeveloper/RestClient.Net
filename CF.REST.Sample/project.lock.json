@@ -2138,7 +2138,7 @@
           "ref/netstandard1.3/System.IO.Compression.ZipFile.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.3/System.IO.Compression.ZipFile.dll": {}
+          "lib/netstandard1.3/_._": {}
         }
       },
       "System.IO.FileSystem/4.0.1": {
@@ -2454,11 +2454,7 @@
           "lib/portable-net45+win8+wp8+wpa81/_._": {}
         },
         "runtimeTargets": {
-          "runtimes/unix/lib/netstandard1.3/System.Net.Requests.dll": {
-            "assetType": "runtime",
-            "rid": "unix"
-          },
-          "runtimes/win/lib/netstandard1.3/System.Net.Requests.dll": {
+          "runtimes/win/lib/netstandard1.3/_._": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -2532,7 +2528,7 @@
           "ref/netstandard1.3/System.Net.WebHeaderCollection.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.3/System.Net.WebHeaderCollection.dll": {}
+          "lib/netstandard1.3/_._": {}
         }
       },
       "System.Net.WebSockets/4.0.0": {
@@ -3581,20 +3577,6 @@
         },
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
-        }
-      },
-      "CF.RESTClientDotNet.Core/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v1.5",
-        "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "System.Net.Requests": "4.0.11"
-        },
-        "compile": {
-          "netstandard1.5/CF.RESTClientDotNet.Core.dll": {}
-        },
-        "runtime": {
-          "netstandard1.5/CF.RESTClientDotNet.Core.dll": {}
         }
       }
     }
@@ -9577,11 +9559,6 @@
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._"
       ]
-    },
-    "CF.RESTClientDotNet.Core/1.0.0": {
-      "type": "project",
-      "path": "../CF.RESTClientDotNet.Core/project.json",
-      "msbuildProject": "../CF.RESTClientDotNet.Core/CF.RESTClientDotNet.Core.xproj"
     }
   },
   "projectFileDependencyGroups": {
