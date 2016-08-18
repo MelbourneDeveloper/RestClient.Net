@@ -35,15 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\..\Serialization Adapters\DataContractSerializationAdapter.cs">
-      <Link>Serialization Adapters\DataContractSerializationAdapter.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Serialization Adapters\NewtonsoftSerializationAdapter.cs">
-      <Link>Serialization Adapters\NewtonsoftSerializationAdapter.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Serialization Adapters\XmlSerializationAdapter.cs">
-      <Link>Serialization Adapters\XmlSerializationAdapter.cs</Link>
-    </Compile>
     <Compile Include="..\..\Shared\REST Models\Atlassian.cs">
       <Link>Model\Atlassian.cs</Link>
     </Compile>
@@ -55,6 +46,15 @@
     </Compile>
     <Compile Include="..\..\Shared\REST Models\PRODUCT.cs">
       <Link>Model\PRODUCT.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Shared\Serialization Adapters\DataContractSerializationAdapter.cs">
+      <Link>Serialization Adapters\DataContractSerializationAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Shared\Serialization Adapters\NewtonsoftSerializationAdapter.cs">
+      <Link>Serialization Adapters\NewtonsoftSerializationAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Shared\Serialization Adapters\XmlSerializationAdapter.cs">
+      <Link>Serialization Adapters\XmlSerializationAdapter.cs</Link>
     </Compile>
     <Compile Include="App.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
