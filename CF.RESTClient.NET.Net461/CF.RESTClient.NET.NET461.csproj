@@ -139,7 +139,7 @@
     <Compile Include="..\Shared\src\RESTTimeoutException.cs">
       <Link>RESTTimeoutException.cs</Link>
     </Compile>
-    <Compile Include="AssemblyInfo.Title..cs" />
+    <Compile Include="AssemblyInfo.Title.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

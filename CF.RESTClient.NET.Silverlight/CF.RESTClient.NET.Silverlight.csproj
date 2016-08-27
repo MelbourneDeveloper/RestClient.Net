@@ -49,11 +49,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
-<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-  <SignManifests>true</SignManifests>
-</PropertyGroup>
-
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>StrongNameKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
@@ -117,7 +115,7 @@
     <Compile Include="..\Shared\src\RESTTimeoutException.cs">
       <Link>RESTTimeoutException.cs</Link>
     </Compile>
-    <Compile Include="AssemblyInfo.Title..cs" />
+    <Compile Include="AssemblyInfo.Title.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\CF.RESTClientDotNet.Core\AllRules.ruleset">
