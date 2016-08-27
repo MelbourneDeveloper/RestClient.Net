@@ -3801,7 +3801,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.NETCore.Portable.Compatibility >= 1.0.1",
-      "NETStandard.Library >= 1.6.0",
+      "NETStandard.Library >= 1.4.0",
       "System.Net.Requests >= 4.0.11"
     ],
     ".NETStandard,Version=v1.4": []
