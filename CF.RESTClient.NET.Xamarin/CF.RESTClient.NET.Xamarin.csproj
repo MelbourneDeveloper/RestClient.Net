@@ -34,6 +34,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+
+<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <SignManifests>true</SignManifests>
+</PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>StrongNameKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Shared\src\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
@@ -77,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="StrongNameKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
