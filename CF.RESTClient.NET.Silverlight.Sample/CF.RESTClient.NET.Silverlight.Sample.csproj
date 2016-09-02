@@ -19,7 +19,7 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>CF.RESTClientDotNet.Silverlight.Sample.xap</XapFilename>
+    <XapFilename>CF.RESTClient.NET.Silverlight.Sample.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <SilverlightAppEntry>CF.RESTClientDotNet.Silverlight.Sample.App</SilverlightAppEntry>
     <TestPageFileName>CF.RESTClientDotNet.Silverlight.SampleTestPage.html</TestPageFileName>
