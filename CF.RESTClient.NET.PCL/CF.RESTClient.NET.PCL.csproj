@@ -71,9 +71,6 @@
     <Compile Include="AssemblyInfo.Title.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="StrongNameKey.pfx" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
