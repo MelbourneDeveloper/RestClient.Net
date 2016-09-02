@@ -126,7 +126,6 @@
     </None>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="StrongNameKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
