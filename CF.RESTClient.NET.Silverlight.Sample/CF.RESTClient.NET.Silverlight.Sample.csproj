@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CF.RESTClientDotNet.Silverlight.Sample</RootNamespace>
-    <AssemblyName>CF.RESTClientDotNet.Silverlight.Sample</AssemblyName>
+    <AssemblyName>CF.RESTClient.NET.Silverlight.Sample</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
