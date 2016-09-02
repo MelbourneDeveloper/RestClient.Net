@@ -148,12 +148,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CF.RESTClient.NET.UWP\CF.RESTClient.NET.UWP.csproj">
-      <Project>{f2cf2f5d-557d-40f7-b6b3-25aa0321dd18}</Project>
-      <Name>CF.RESTClient.NET.UWP</Name>
+    <ProjectReference Include="..\CF.RESTClient.NET.Standard\CF.RESTClient.NET.Standard.csproj">
+      <Project>{2fd0f85c-a349-4783-ab21-3addc04e9729}</Project>
+      <Name>CF.RESTClient.NET.Standard</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
