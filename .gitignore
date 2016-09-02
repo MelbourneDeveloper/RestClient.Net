@@ -1,16 +1,11 @@
-/.vs/RESTClient .Net/v14/.suo
-/
+/.vs/RESTClient .Net/v14/.suo/
 /NuGet/Exported/
-bin
-/
-obj
-/
-packages
-/
+bin/
+obj/
+packages/
 /.vs/restore.dg
 /RESTClientDotNet.Net/.vs
 /CF.RESTClientDotNet.Net/.vs/*.dg
-
 *.suo
 .vs
 *.pdb

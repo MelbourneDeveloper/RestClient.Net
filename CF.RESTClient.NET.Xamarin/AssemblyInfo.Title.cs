@@ -1,3 +1,3 @@
 ﻿using System.Reflection;
 
-[assembly: AssemblyTitle("RESTClient.NET.Xamarin")]
+[assembly: AssemblyTitle("RESTClient.NET.PCL")]
