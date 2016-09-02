@@ -22,7 +22,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Binaries\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP; ASYNCMODERN</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

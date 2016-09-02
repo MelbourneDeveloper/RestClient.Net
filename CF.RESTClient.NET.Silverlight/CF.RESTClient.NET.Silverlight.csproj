@@ -30,7 +30,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Binaries\</OutputPath>
+    <OutputPath>Bin\Debug</OutputPath>
     <DefineConstants>TRACE;DEBUG;SILVERLIGHT; ASYNCMODERN</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
