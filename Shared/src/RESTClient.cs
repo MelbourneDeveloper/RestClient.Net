@@ -72,6 +72,11 @@ namespace CF.RESTClientDotNet
             return await GetRESTResponse(body, queryString, HttpVerb.Post);
         }
 
+        public async Task<TReturn> PostAsync<TReturn>(string body)
+        {
+            return await CallAsync<TReturn, string, object>(body, null, HttpVerb.Post);
+        }
+
         #endregion
 
         #region PUT
@@ -182,7 +187,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Creates a HttpWebRequest so that the REST call can be made with it
         /// </summary>
-        private async Task<WebRequest> GetRequestAsync<ReturnT, QueryStringT>(ReturnT body, QueryStringT queryString, HttpVerb verb)
+        private async Task<WebRequest> GetRequestAsync<TBody, TQueryString>(TBody body, TQueryString queryString, HttpVerb verb)
         {
             var theUri = BaseUri;
 
@@ -230,9 +235,18 @@ namespace CF.RESTClientDotNet
             if (body != null && new List<HttpVerb> { HttpVerb.Post, HttpVerb.Put }.Contains(verb))
             {
                 //Set the body of the POST/PUT
-
-                //Serialised JSon data
-                var markup = await SerializationAdapter.SerializeAsync(body);
+                string markup = null;
+                var bodyAsString = body as string;
+                if (bodyAsString != null)
+                {
+                    //The body is already a string
+                    markup = bodyAsString;
+                }
+                else
+                {
+                    //Serialise the data
+                    markup = await SerializationAdapter.SerializeAsync(body);
+                }
 
                 //Get the json as a byte array
                 var markupBuffer = await SerializationAdapter.DecodeStringAsync(markup);

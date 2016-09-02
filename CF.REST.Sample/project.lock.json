@@ -1411,6 +1411,41 @@
           "lib/netstandard1.0/_._": {}
         }
       },
+      "Microsoft.NETCore.Portable.Compatibility/1.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Runtime.CoreCLR": "1.0.2"
+        },
+        "compile": {
+          "ref/netstandard1.0/System.ComponentModel.DataAnnotations.dll": {},
+          "ref/netstandard1.0/System.Core.dll": {},
+          "ref/netstandard1.0/System.Net.dll": {},
+          "ref/netstandard1.0/System.Numerics.dll": {},
+          "ref/netstandard1.0/System.Runtime.Serialization.dll": {},
+          "ref/netstandard1.0/System.ServiceModel.Web.dll": {},
+          "ref/netstandard1.0/System.ServiceModel.dll": {},
+          "ref/netstandard1.0/System.Windows.dll": {},
+          "ref/netstandard1.0/System.Xml.Linq.dll": {},
+          "ref/netstandard1.0/System.Xml.Serialization.dll": {},
+          "ref/netstandard1.0/System.Xml.dll": {},
+          "ref/netstandard1.0/System.dll": {},
+          "ref/netstandard1.0/mscorlib.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/System.ComponentModel.DataAnnotations.dll": {},
+          "lib/netstandard1.0/System.Core.dll": {},
+          "lib/netstandard1.0/System.Net.dll": {},
+          "lib/netstandard1.0/System.Numerics.dll": {},
+          "lib/netstandard1.0/System.Runtime.Serialization.dll": {},
+          "lib/netstandard1.0/System.ServiceModel.Web.dll": {},
+          "lib/netstandard1.0/System.ServiceModel.dll": {},
+          "lib/netstandard1.0/System.Windows.dll": {},
+          "lib/netstandard1.0/System.Xml.Linq.dll": {},
+          "lib/netstandard1.0/System.Xml.Serialization.dll": {},
+          "lib/netstandard1.0/System.Xml.dll": {},
+          "lib/netstandard1.0/System.dll": {}
+        }
+      },
       "Microsoft.NETCore.Runtime.CoreCLR/1.0.2": {
         "type": "package",
         "dependencies": {
@@ -3583,18 +3618,13 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "CF.RESTClient.NET.Core/0.2.0": {
+      "CF.RESTClient.NET.Standard/1.0.0": {
         "type": "project",
-        "framework": ".NETStandard,Version=v1.5",
+        "framework": ".NETStandard,Version=v1.4",
         "dependencies": {
-          "NETStandard.Library": "1.6.0",
+          "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
+          "NETStandard.Library": "1.4.0",
           "System.Net.Requests": "4.0.11"
-        },
-        "compile": {
-          "netstandard1.5/CF.RESTClient.NET.Core.dll": {}
-        },
-        "runtime": {
-          "netstandard1.5/CF.RESTClient.NET.Core.dll": {}
         }
       }
     }
@@ -4679,6 +4709,88 @@
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
         "runtime.json"
+      ]
+    },
+    "Microsoft.NETCore.Portable.Compatibility/1.0.1": {
+      "sha512": "Vd+lvLcGwvkedxtKn0U8s9uR4p0Lm+0U2QvDsLaw7g4S1W4KfPDbaW+ROhhLCSOx/gMYC72/b+z+o4fqS/oxVg==",
+      "type": "package",
+      "path": "Microsoft.NETCore.Portable.Compatibility/1.0.1",
+      "files": [
+        "Microsoft.NETCore.Portable.Compatibility.1.0.1.nupkg.sha512",
+        "Microsoft.NETCore.Portable.Compatibility.nuspec",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/net45/_._",
+        "lib/netcore50/System.ComponentModel.DataAnnotations.dll",
+        "lib/netcore50/System.Core.dll",
+        "lib/netcore50/System.Net.dll",
+        "lib/netcore50/System.Numerics.dll",
+        "lib/netcore50/System.Runtime.Serialization.dll",
+        "lib/netcore50/System.ServiceModel.Web.dll",
+        "lib/netcore50/System.ServiceModel.dll",
+        "lib/netcore50/System.Windows.dll",
+        "lib/netcore50/System.Xml.Linq.dll",
+        "lib/netcore50/System.Xml.Serialization.dll",
+        "lib/netcore50/System.Xml.dll",
+        "lib/netcore50/System.dll",
+        "lib/netstandard1.0/System.ComponentModel.DataAnnotations.dll",
+        "lib/netstandard1.0/System.Core.dll",
+        "lib/netstandard1.0/System.Net.dll",
+        "lib/netstandard1.0/System.Numerics.dll",
+        "lib/netstandard1.0/System.Runtime.Serialization.dll",
+        "lib/netstandard1.0/System.ServiceModel.Web.dll",
+        "lib/netstandard1.0/System.ServiceModel.dll",
+        "lib/netstandard1.0/System.Windows.dll",
+        "lib/netstandard1.0/System.Xml.Linq.dll",
+        "lib/netstandard1.0/System.Xml.Serialization.dll",
+        "lib/netstandard1.0/System.Xml.dll",
+        "lib/netstandard1.0/System.dll",
+        "lib/win8/_._",
+        "lib/wp80/_._",
+        "lib/wpa81/_._",
+        "ref/net45/_._",
+        "ref/netcore50/System.ComponentModel.DataAnnotations.dll",
+        "ref/netcore50/System.Core.dll",
+        "ref/netcore50/System.Net.dll",
+        "ref/netcore50/System.Numerics.dll",
+        "ref/netcore50/System.Runtime.Serialization.dll",
+        "ref/netcore50/System.ServiceModel.Web.dll",
+        "ref/netcore50/System.ServiceModel.dll",
+        "ref/netcore50/System.Windows.dll",
+        "ref/netcore50/System.Xml.Linq.dll",
+        "ref/netcore50/System.Xml.Serialization.dll",
+        "ref/netcore50/System.Xml.dll",
+        "ref/netcore50/System.dll",
+        "ref/netcore50/mscorlib.dll",
+        "ref/netstandard1.0/System.ComponentModel.DataAnnotations.dll",
+        "ref/netstandard1.0/System.Core.dll",
+        "ref/netstandard1.0/System.Net.dll",
+        "ref/netstandard1.0/System.Numerics.dll",
+        "ref/netstandard1.0/System.Runtime.Serialization.dll",
+        "ref/netstandard1.0/System.ServiceModel.Web.dll",
+        "ref/netstandard1.0/System.ServiceModel.dll",
+        "ref/netstandard1.0/System.Windows.dll",
+        "ref/netstandard1.0/System.Xml.Linq.dll",
+        "ref/netstandard1.0/System.Xml.Serialization.dll",
+        "ref/netstandard1.0/System.Xml.dll",
+        "ref/netstandard1.0/System.dll",
+        "ref/netstandard1.0/mscorlib.dll",
+        "ref/win8/_._",
+        "ref/wp80/_._",
+        "ref/wpa81/_._",
+        "runtimes/aot/lib/netcore50/System.ComponentModel.DataAnnotations.dll",
+        "runtimes/aot/lib/netcore50/System.Core.dll",
+        "runtimes/aot/lib/netcore50/System.Net.dll",
+        "runtimes/aot/lib/netcore50/System.Numerics.dll",
+        "runtimes/aot/lib/netcore50/System.Runtime.Serialization.dll",
+        "runtimes/aot/lib/netcore50/System.ServiceModel.Web.dll",
+        "runtimes/aot/lib/netcore50/System.ServiceModel.dll",
+        "runtimes/aot/lib/netcore50/System.Windows.dll",
+        "runtimes/aot/lib/netcore50/System.Xml.Linq.dll",
+        "runtimes/aot/lib/netcore50/System.Xml.Serialization.dll",
+        "runtimes/aot/lib/netcore50/System.Xml.dll",
+        "runtimes/aot/lib/netcore50/System.dll",
+        "runtimes/aot/lib/netcore50/mscorlib.dll"
       ]
     },
     "Microsoft.NETCore.Runtime.CoreCLR/1.0.2": {
@@ -9578,15 +9690,14 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "CF.RESTClient.NET.Core/0.2.0": {
+    "CF.RESTClient.NET.Standard/1.0.0": {
       "type": "project",
-      "path": "../CF.RESTClient.NET.Core/project.json",
-      "msbuildProject": "../CF.RESTClient.NET.Core/CF.RESTClient.NET.Core.xproj"
+      "path": "../CF.RESTClient.NET.Standard/project.json",
+      "msbuildProject": "../CF.RESTClient.NET.Standard/CF.RESTClient.NET.Standard.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "": [
-      "CF.RESTClient.NET.Core >= 1.0.0.*",
       "Microsoft.ApplicationInsights.AspNetCore >= 1.0.0",
       "Microsoft.AspNetCore.Mvc >= 1.0.0",
       "Microsoft.AspNetCore.Server.IISIntegration >= 1.0.0",
@@ -9604,7 +9715,9 @@
       "System.Runtime.Serialization.Xml >= 4.1.1",
       "System.Xml.XmlSerializer >= 4.0.11"
     ],
-    ".NETCoreApp,Version=v1.0": []
+    ".NETCoreApp,Version=v1.0": [
+      "CF.RESTClient.NET.Standard"
+    ]
   },
   "tools": {
     ".NETCoreApp,Version=v1.0": {

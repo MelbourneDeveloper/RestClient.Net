@@ -15,5 +15,8 @@
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CF.RESTClient.NET.Standard\CF.RESTClient.NET.Standard.csproj" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\DotNet.Web\Microsoft.DotNet.Web.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>
