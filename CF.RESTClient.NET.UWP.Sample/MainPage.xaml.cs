@@ -144,7 +144,7 @@ namespace CF.RESTClientDotNet.UWP.Sample
 
         private async void CallLocalGet_Click(object sender, RoutedEventArgs e)
         {
-            var restClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost:49901/api/values"));
+            var restClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost:49902/api/values"));
             var test = await restClient.GetAsync<List<string>>();
         }
 
@@ -154,7 +154,7 @@ namespace CF.RESTClientDotNet.UWP.Sample
         private void GetBitBucketClient()
         {
 #if (SILVERLIGHT)
-            string url = "http://localhost:49901/api/BitBucketRepository/" + UsernameBox.Text + "-" + ThePasswordBox.Password;
+            string url = "http://localhost:49902/api/BitBucketRepository/" + UsernameBox.Text + "-" + ThePasswordBox.Password;
 #else
             var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
             var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + ThePasswordBox.Password));
