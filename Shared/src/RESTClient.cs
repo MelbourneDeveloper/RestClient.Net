@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CF.RESTClientDotNet
 {
-    public partial class RESTClient
+    public class RESTClient
     {
         #region Fields
 #if (!SILVERLIGHT)
@@ -154,10 +154,7 @@ namespace CF.RESTClientDotNet
                     //The REST call timed out so throw this exception
                     throw new RESTTimeoutException(TimeoutMilliseconds / 1000);
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
         }
 
@@ -311,7 +308,7 @@ namespace CF.RESTClientDotNet
         /// </summary>
         private async Task<ReturnT> DeserialiseResponseAsync<ReturnT>(RESTResponse response)
         {
-            ReturnT retVal = default(ReturnT);
+            var retVal = default(ReturnT);
 
             if (typeof(ReturnT) == typeof(string))
             {
