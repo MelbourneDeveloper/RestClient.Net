@@ -9,10 +9,8 @@ Beta Release (Looking for testers)
 * Incredibly simple (All source code just over 100 lines)
 * Async friendly (uses async, await keywords).
 
-To get started:
+To get started clone (direct access to binaries):
 https://MelbourneDeveloper@bitbucket.org/MelbourneDeveloper/restclient-.net.git
-
-Note: Clone Git repo for direct access to binaries
 
 NuGet: Install-Package RESTClient.NET
 
