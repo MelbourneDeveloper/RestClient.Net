@@ -121,6 +121,9 @@
     <Compile Include="..\Shared\REST Models\PRODUCT.cs">
       <Link>Model\PRODUCT.cs</Link>
     </Compile>
+    <Compile Include="..\Shared\Serialization Adapters\BinaryDataContractSerializationAdapter.cs">
+      <Link>Serialization Adapters\BinaryDataContractSerializationAdapter.cs</Link>
+    </Compile>
     <Compile Include="..\Shared\Serialization Adapters\DataContractSerializationAdapter.cs">
       <Link>Serialization Adapters\DataContractSerializationAdapter.cs</Link>
     </Compile>

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
+using CF.RESTClientDotNet;
+using Atlassian;
 
 namespace CF.REST.Sample.Controllers
 {
@@ -25,8 +28,15 @@ namespace CF.REST.Sample.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<string> Post([FromBody]string value)
         {
+            BinaryDataContractSerializationAdapter.KnownDataContracts.Add(typeof(Repository));
+            var serializer = new BinaryDataContractSerializationAdapter();
+            var bytes = Encoding.ASCII.GetBytes(value);
+            var repo = await serializer.DeserializeAsync<Repository>(bytes);
+            bytes = await serializer.SerializeAsync<Repository>(repo);
+            var returnValue = Encoding.ASCII.GetString(bytes);
+            return returnValue;
         }
 
         // PUT api/values/5

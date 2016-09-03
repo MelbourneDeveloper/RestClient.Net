@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="400">
+    d:DesignHeight="800" d:DesignWidth="1280">
 
     <Grid >
 
@@ -14,7 +14,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        
+
         <sdk:TabControl>
 
             <sdk:TabItem Header="Repo" Name="ReposTabControl">
@@ -44,8 +44,9 @@
                         <Button Content="Get My Repos" Grid.Column="4" Margin="2" Click="GetRepos_Click" />
 
                         <ListBox Name="ReposBox"  DisplayMemberPath="name" Grid.Row="1"  Grid.ColumnSpan="5"  Grid.RowSpan="3"  />
+                        <Button Content="Test Binary" Grid.Column="4" Margin="2"  Grid.Row="2" Click="TestBinary_Click" />
 
-          
+
 
                     </Grid>
                 </Grid>
@@ -57,5 +58,5 @@
         <ProgressBar Grid.Row="1" Name="Ring2" IsIndeterminate="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2" />
 
     </Grid>
-    
+
 </UserControl>

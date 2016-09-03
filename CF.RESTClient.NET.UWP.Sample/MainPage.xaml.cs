@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.IO;
+using CF.RESTClientDotNet;
 
 #if (!SILVERLIGHT)
 using Windows.UI.Popups;
@@ -145,6 +146,26 @@ namespace CF.RESTClientDotNet.UWP.Sample
 
         }
 #endif
+        private async void TestBinary_Click(object sender, RoutedEventArgs e)
+        {
+            //Ensure the client is ready to go
+
+            var selectedRepo = ReposBox.SelectedItem as Repository;
+            if (selectedRepo == null)
+            {
+                return;
+            }
+
+            BinaryDataContractSerializationAdapter.KnownDataContracts.Add(typeof(Repository));
+
+            string url = "http://localhost:49902/api/Values";
+
+            var client = new RESTClient(new BinaryDataContractSerializationAdapter(), new Uri(url));
+
+            var retVal = await client.PostAsync<Repository, string>("test");
+
+        }
+
 
         private async void CallLocalGet_Click(object sender, RoutedEventArgs e)
         {
@@ -180,5 +201,6 @@ namespace CF.RESTClientDotNet.UWP.Sample
 
         }
         #endregion
+
     }
 }
