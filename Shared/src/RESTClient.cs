@@ -10,7 +10,7 @@ namespace CF.RESTClientDotNet
     {
         #region Fields
 #if (!SILVERLIGHT)
-        private Dictionary<string, string> _Headers = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _Headers = new Dictionary<string, string>();
 #endif
         #endregion
 
@@ -232,7 +232,7 @@ namespace CF.RESTClientDotNet
             if (body != null && new List<HttpVerb> { HttpVerb.Post, HttpVerb.Put }.Contains(verb))
             {
                 //Set the body of the POST/PUT
-                string markup = null;
+                string markup;
                 var bodyAsString = body as string;
                 if (bodyAsString != null)
                 {
@@ -278,7 +278,7 @@ namespace CF.RESTClientDotNet
         private async Task<string> GetDataFromResponseStreamAsync(WebResponse response)
         {
             var responseStream = response.GetResponseStream();
-            byte[] responseBuffer = null;
+            byte[] responseBuffer;
 
             if (!ReadToEnd)
             {
@@ -306,18 +306,18 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Turn a non-generic RESTResponse in to a generic one. 
         /// </summary>
-        private async Task<ReturnT> DeserialiseResponseAsync<ReturnT>(RESTResponse response)
+        private async Task<TReturn> DeserialiseResponseAsync<TReturn>(RESTResponse response)
         {
-            var retVal = default(ReturnT);
+            TReturn retVal;
 
-            if (typeof(ReturnT) == typeof(string))
+            if (typeof(TReturn) == typeof(string))
             {
-                retVal = (ReturnT)(object)response.Data;
+                retVal = (TReturn)(object)response.Data;
             }
             else
             {
                 //Deserialise the json to the generic type
-                retVal = await SerializationAdapter.DeserializeAsync<ReturnT>(response.Data);
+                retVal = await SerializationAdapter.DeserializeAsync<TReturn>(response.Data);
             }
 
             //Set the HttpWebResponse
