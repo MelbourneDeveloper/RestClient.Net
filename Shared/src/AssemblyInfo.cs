@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyVersion("0.4.0")]
-[assembly: AssemblyFileVersion("0.4.0")]
+[assembly: AssemblyVersion("0.5.0")]
+[assembly: AssemblyFileVersion("0.5.0")]
 [assembly: AssemblyCompany("Christian Findlay")]
 [assembly: AssemblyProduct("RESTClient.NET")]
 [assembly: AssemblyCopyright("Copyright © 2016 Christian Findlay")]

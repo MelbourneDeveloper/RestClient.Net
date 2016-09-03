@@ -3,7 +3,6 @@ using CF.RESTClientDotNet;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,12 +31,10 @@ namespace CF.REST.Sample.Controllers
             //string credentials = string.Empty;
             try
             {
-                //var authenticationHeader = Request.Headers["Authorization"];
-                //credentials = authenticationHeader.FirstOrDefault();
                 var credentialTokens = id.Split('-');
                 GetBitBucketClient(credentialTokens[0], credentialTokens[1]);
                 var reposResult = (await _BitbucketClient.GetAsync());
-                return reposResult.Data;
+                return Encoding.ASCII.GetString(reposResult.Data);
             }
             catch (Exception ex)
             {

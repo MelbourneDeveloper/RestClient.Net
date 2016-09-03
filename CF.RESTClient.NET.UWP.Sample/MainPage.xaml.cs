@@ -113,8 +113,12 @@ namespace CF.RESTClientDotNet.UWP.Sample
 
                 selectedRepo.description = DescriptionBox.Text;
 
+                //var repoBytes = await new NewtonsoftSerializationAdapter().SerializeAsync<Repository>(selectedRepo);
+                //var repoText = Encoding.ASCII.GetString(repoBytes);
+                var repoSlug = selectedRepo.full_name.Split('/')[1];
+
                 //Post the change
-                var retVal = await _BitbucketClient.PutAsync<object, Repository, string>(selectedRepo, selectedRepo.full_name.Split('/')[1]);
+                var retVal = await _BitbucketClient.PutAsync<Repository, Repository, string>(selectedRepo, repoSlug);
             }
             catch (Exception ex)
             {

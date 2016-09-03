@@ -9,21 +9,26 @@ namespace CF.RESTClientDotNet
 {
     public class DataContractSerializationAdapter : ISerializationAdapter
     {
+        #region Public Static Properties
         public static List<Type> KnownDataContracts { get; } = new List<Type>();
+        #endregion
 
-        public async Task<byte[]> DecodeStringAsync(string theString)
+        #region Public Methods
+        public async Task<object> DeserializeAsync(byte[] binary, Type type)
         {
-            return await Task.Factory.StartNew(() => Encoding.UTF8.GetBytes(theString));
-        }
-
-        public async Task<object> DeserializeAsync(string markup, Type type)
-        {
+            var markup = await EncodeStringAsync(binary);
             return await Task.Factory.StartNew(() => DataContractDeserializeObject(type, markup));
         }
 
-        public async Task<T> DeserializeAsync<T>(string markup)
+        public async Task<T> DeserializeAsync<T>(byte[] binary)
         {
+            var markup = await EncodeStringAsync(binary);
             return await Task.Factory.StartNew(() => (T)DataContractDeserializeObject(typeof(T), markup));
+        }
+
+        public async Task<byte[]> SerializeAsync<T>(T value)
+        {
+            return await Task.Factory.StartNew(() => DataContractSerializeObject(value, typeof(T)));
         }
 
         public async Task<string> EncodeStringAsync(byte[] bytes)
@@ -31,11 +36,14 @@ namespace CF.RESTClientDotNet
             return await Task.Factory.StartNew(() => Encoding.UTF8.GetString(bytes, 0, bytes.Length));
         }
 
-        public async Task<string> SerializeAsync<T>(T value)
+      	public async Task<byte[]> DecodeStringAsync(string theString)
         {
-            return await Task.Factory.StartNew(() => DataContractSerializeObject(value, typeof(T)));
+            return await Task.Factory.StartNew(() => Encoding.UTF8.GetBytes(theString));
         }
 
+        #endregion
+
+        #region Private Static Methods
         private static object DataContractDeserializeObject(Type sourceObjectType, string objectXml)
         {
             //Create a new DataContractSerialiser for deserialisation
@@ -50,7 +58,7 @@ namespace CF.RESTClientDotNet
             }
         }
 
-        public static string DataContractSerializeObject(object sourceObject, Type sourceObjectType)
+        public static byte[] DataContractSerializeObject(object sourceObject, Type sourceObjectType)
         {
             //Create a memory stream
             using (var memoryStream = new MemoryStream())
@@ -62,11 +70,9 @@ namespace CF.RESTClientDotNet
                 dataContractSerializer.WriteObject(memoryStream, sourceObject);
 
                 //Write the memory stream to the buffer
-                var buffer = memoryStream.ToArray();
-
-                //Convert the buffer to xml
-                return Encoding.UTF8.GetString(buffer, 0, buffer.Length);
+                return memoryStream.ToArray();
             }
         }
+        #endregion
     }
 }

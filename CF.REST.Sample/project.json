@@ -44,7 +44,6 @@
     "preserveCompilationContext": true,
     "compile": {
       "include": [
-        "../Serialization Adapters/*.cs",
         "../Shared/REST Models/*.cs",
         "../Shared/Serialization Adapters/*.cs"
       ]

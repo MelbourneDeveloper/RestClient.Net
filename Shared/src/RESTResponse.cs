@@ -9,7 +9,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// The serialised json returned from the call
         /// </summary>
-        public string Data { get; set; }
+        public byte[] Data { get; set; }
 
         /// <summary>
         /// The low level HttpWebResponse from the REST call

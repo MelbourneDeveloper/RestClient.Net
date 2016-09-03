@@ -127,6 +127,13 @@ namespace CF.RESTClientDotNet
         {
             try
             {
+                //If the body is a string, convert it to binary
+                var bodyAsString = body as string;
+                if (bodyAsString != null)
+                {
+                    body = await SerializationAdapter.DecodeStringAsync(bodyAsString);
+                }
+
                 //Get the Http Request object
                 var request = await GetRequestAsync(body, queryString, verb);
 
@@ -135,16 +142,17 @@ namespace CF.RESTClientDotNet
             }
             catch (WebException wex)
             {
+                //TODO: This stream reader doesn't look like it does anything...
                 using (var streamReader = new StreamReader(wex.Response.GetResponseStream()))
                 {
                     object error = null;
-                    var responseText = await GetDataFromResponseStreamAsync(wex.Response);
+                    var responseData = await GetDataFromResponseStreamAsync(wex.Response);
                     if (ErrorType != null)
                     {
-                        error = await SerializationAdapter.DeserializeAsync(responseText, ErrorType);
+                        error = await SerializationAdapter.DeserializeAsync(responseData, ErrorType);
                     }
 
-                    throw new RESTException(error, responseText, "The REST call returned an error. Please see Error property for details", wex);
+                    throw new RESTException(error, responseData, "The REST call returned an error. Please see Error property for details", wex);
                 }
             }
             catch (Exception ex)
@@ -198,7 +206,8 @@ namespace CF.RESTClientDotNet
                 }
                 else
                 {
-                    queryStringText = await SerializationAdapter.SerializeAsync(queryString);
+                    var queryStringBinary = await SerializationAdapter.SerializeAsync(queryString);
+                    queryStringText = await SerializationAdapter.EncodeStringAsync(queryStringBinary);
                     queryStringText = Uri.EscapeDataString(queryStringText);
                 }
 
@@ -232,25 +241,22 @@ namespace CF.RESTClientDotNet
             if (body != null && new List<HttpVerb> { HttpVerb.Post, HttpVerb.Put }.Contains(verb))
             {
                 //Set the body of the POST/PUT
-                string markup;
-                var bodyAsString = body as string;
-                if (bodyAsString != null)
+                byte[] binary;
+                var bodyAsBinary = body as byte[];
+                if (bodyAsBinary != null)
                 {
                     //The body is already a string
-                    markup = bodyAsString;
+                    binary = bodyAsBinary;
                 }
                 else
                 {
                     //Serialise the data
-                    markup = await SerializationAdapter.SerializeAsync(body);
+                    binary = await SerializationAdapter.SerializeAsync(body);
                 }
-
-                //Get the json as a byte array
-                var markupBuffer = await SerializationAdapter.DecodeStringAsync(markup);
 
                 using (var requestStream = await retVal.GetRequestStreamAsync())
                 {
-                    requestStream.Write(markupBuffer, 0, markupBuffer.Length);
+                    requestStream.Write(binary, 0, binary.Length);
                 }
             }
 
@@ -275,7 +281,7 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Given the response from the REST call, return the string(
         /// </summary>
-        private async Task<string> GetDataFromResponseStreamAsync(WebResponse response)
+        private async Task<byte[]> GetDataFromResponseStreamAsync(WebResponse response)
         {
             var responseStream = response.GetResponseStream();
             byte[] responseBuffer;
@@ -295,12 +301,29 @@ namespace CF.RESTClientDotNet
             }
             else
             {
-                var reader = new StreamReader(responseStream);
-                return await reader.ReadToEndAsync();
+                List<byte> bytes = new List<byte>();
+
+                //TODO: This method of getting the data looks like a performance hit because of the casting.
+                var eof = false;
+                while (!eof)
+                {
+                    var theByte = responseStream.ReadByte();
+
+                    if (theByte == -1)
+                    {
+                        eof = true;
+                    }
+                    else
+                    {
+                        bytes.Add((byte)theByte);
+                    }
+                }
+
+                responseBuffer = bytes.ToArray();
             }
 
             //Convert the response from bytes to json string 
-            return await SerializationAdapter.EncodeStringAsync(responseBuffer);
+            return responseBuffer;
         }
 
         /// <summary>
@@ -312,7 +335,8 @@ namespace CF.RESTClientDotNet
 
             if (typeof(TReturn) == typeof(string))
             {
-                retVal = (TReturn)(object)response.Data;
+                var textAsObject = (object)await SerializationAdapter.EncodeStringAsync(response.Data);
+                retVal = (TReturn)textAsObject;
             }
             else
             {
