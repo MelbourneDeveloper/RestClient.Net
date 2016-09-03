@@ -11,9 +11,8 @@ Beta Release (Looking for testers)
 
 To get started:
 https://MelbourneDeveloper@bitbucket.org/MelbourneDeveloper/restclient-.net.git
-Note: Clone Git repo for direct access to binaries
 
-Original RESTClient.NET library here: https://github.com/nathanmentley/RestClient.NET. Or Install-Package RestClient.NET -Version 0.1.3
+Note: Clone Git repo for direct access to binaries
 
 NuGet: Install-Package RESTClient.NET
 
