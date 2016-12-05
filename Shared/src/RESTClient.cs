@@ -211,7 +211,7 @@ namespace CF.RESTClientDotNet
                     queryStringText = Uri.EscapeDataString(queryStringText);
                 }
 
-                theUri = new Uri($"{ theUri.AbsoluteUri}/{queryStringText}");
+                theUri = new Uri(theUri, queryStringText);
             }
 
             //Create the web request
