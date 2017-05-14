@@ -27,10 +27,10 @@
                         <ColumnDefinition Width="150" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Text="Username: " VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
-                    <Entry x:Name="UsernameBox" Text="MelbourneDeveloper" Grid.Column="1" VerticalOptions="Center" />
-                    <Label Text="Password: " Grid.Column="2" VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
-                    <Entry IsPassword="True" x:Name="ThePasswordBox"  Grid.Column="3" VerticalOptions="Center" />
+                    <Label Text="Username: "  />
+                    <Entry x:Name="UsernameBox" Text="MelbourneDeveloper" Grid.Column="1" />
+                    <Label Text="Password: " Grid.Column="2"  />
+                    <Entry IsPassword="True" x:Name="ThePasswordBox"  Grid.Column="3"  />
                     <Button Text="Get My Repos" Grid.Column="4" Margin="2" x:Name="GetReposButton" />
 
                     <ListView x:Name="ReposBox"   Grid.Row="1"  Grid.ColumnSpan="5" Margin="4"  />
@@ -58,7 +58,7 @@
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Orientation="Horizontal" BackgroundColor="Blue" VerticalOptions="Center"  >
+                            <StackLayout Orientation="Horizontal" BackgroundColor="Blue"   >
                                 <Label Text="{Binding name}" VerticalOptions="Center" />
                                 <Label Text=" - " VerticalOptions="Center" />
                                 <Label Text="{Binding alpha2_code}" VerticalOptions="Center" />

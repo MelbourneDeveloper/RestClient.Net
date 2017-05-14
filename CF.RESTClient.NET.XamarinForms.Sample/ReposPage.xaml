@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<NavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CF.RESTClient.NET.XamarinForms.Sample.ReposPage"
+             Title="Repos">
+
+    <Grid BackgroundColor="Azure">
+
+        <ProgressBar x:Name="Ring2" />
+
+        <Grid Grid.Row="1" Grid.Column="1" >
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="200" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Username: "  BackgroundColor="Red" Grid.Column="0" Grid.Row="0" />
+            <Entry x:Name="UsernameBox" Text="MelbourneDeveloper" Grid.Column="1" VerticalOptions="Center" />
+            <Label Text="Password: " Grid.Column="2"  />
+            <Entry IsPassword="True" x:Name="ThePasswordBox"  Grid.Column="3"  />
+            <Button Text="Get My Repos" Grid.Column="4" Margin="2" x:Name="GetReposButton" />
+
+            <ListView x:Name="ReposBox"   Grid.Row="1"  Grid.ColumnSpan="5" Margin="4" BackgroundColor="Gold" IsVisible="False"  >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="Test" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Grid Grid.Row="2" Grid.ColumnSpan="5" IsVisible="False">
+                <StackLayout Orientation="Horizontal">
+                    <Entry x:Name="DescriptionBox"  />
+                    <Button Text="Change Description"  x:Name="ChangeDescriptionButton" />
+                </StackLayout>
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+
+</NavigationPage>
