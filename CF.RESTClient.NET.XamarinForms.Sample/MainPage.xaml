@@ -9,7 +9,8 @@
         <ContentPage Title="Repo" x:Name="ReposPage">
 
             <Grid>
-                <ProgressBar x:Name="Ring2" />
+
+                <ActivityIndicator x:Name="Ring2" IsRunning="False" IsVisible="False" />
 
                 <Grid >
 
@@ -72,7 +73,7 @@
         <ContentPage Title="Country Codes" x:Name="CountryCodesPage" >
 
             <Grid  >
-                <ProgressBar  x:Name="Ring1"    Margin="10" />
+                <ActivityIndicator  x:Name="Ring1"    Margin="10" IsRunning="False" />
 
                 <ListView x:Name="CountryCodeList"   Margin="4" >
 

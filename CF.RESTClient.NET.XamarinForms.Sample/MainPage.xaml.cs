@@ -155,8 +155,10 @@ namespace CF.RESTClient.NET.Sample
 
         private void ToggleBusy(bool isBusy)
         {
+            Ring2.IsVisible = true;
+
 #if (!SILVERLIGHT)
-            Ring2.IsVisible = isBusy;
+            Ring2.IsRunning = isBusy;
 #else
             Ring2.IsIndeterminate = isBusy;
 #endif
