@@ -10,7 +10,7 @@
 
             <Grid>
 
-                <ActivityIndicator x:Name="Ring2" IsRunning="False" IsVisible="False" />
+                <ActivityIndicator x:Name="ReposActivityIndicator" IsRunning="False" IsVisible="False" />
 
                 <Grid >
 
@@ -73,7 +73,7 @@
         <ContentPage Title="Country Codes" x:Name="CountryCodesPage" >
 
             <Grid  >
-                <ActivityIndicator  x:Name="Ring1"    Margin="10" IsRunning="False" />
+                <ActivityIndicator  x:Name="CountryCodesActivityIndicator"    Margin="10"  />
 
                 <ListView x:Name="CountryCodeList"   Margin="4" >
 

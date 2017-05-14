@@ -46,12 +46,11 @@ namespace CF.RESTClient.NET.Sample
 #if (!SILVERLIGHT)
         private async void CountryCodeGridLoaded()
         {
-            ToggleBusy(true);
             var countryCodeClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
-
             var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
             CountryCodeList.ItemsSource = countryData.RestResponse.result;
-            ToggleBusy(false);
+            CountryCodesActivityIndicator.IsRunning = false;
+            CountryCodesActivityIndicator.IsVisible = false;
         }
 #endif
 
@@ -59,7 +58,7 @@ namespace CF.RESTClient.NET.Sample
         {
             try
             {
-                ToggleBusy(true);
+                ToggleReposBusy(true);
 
                 //Ensure the client is ready to go
                 GetBitBucketClient();
@@ -79,7 +78,7 @@ namespace CF.RESTClient.NET.Sample
 
             }
 
-            ToggleBusy(false);
+            ToggleReposBusy(false);
 
         }
 
@@ -92,7 +91,7 @@ namespace CF.RESTClient.NET.Sample
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
-            ToggleBusy(true);
+            ToggleReposBusy(true);
 
             try
             {
@@ -130,7 +129,7 @@ namespace CF.RESTClient.NET.Sample
                 await DisplayAlert(message, "Error", "OK");
             }
 
-            ToggleBusy(false);
+            ToggleReposBusy(false);
 
         }
 #endif
@@ -153,12 +152,12 @@ namespace CF.RESTClient.NET.Sample
             _BitbucketClient.ErrorType = typeof(ErrorModel);
         }
 
-        private void ToggleBusy(bool isBusy)
+        private void ToggleReposBusy(bool isBusy)
         {
-            Ring2.IsVisible = true;
+            ReposActivityIndicator.IsVisible = true;
 
 #if (!SILVERLIGHT)
-            Ring2.IsRunning = isBusy;
+            ReposActivityIndicator.IsRunning = isBusy;
 #else
             Ring2.IsIndeterminate = isBusy;
 #endif
