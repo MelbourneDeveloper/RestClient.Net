@@ -19,7 +19,7 @@ namespace CF.RESTClientDotNet
         public int TimeoutMilliseconds { get; set; } = 10000;
         public bool ReadToEnd { get; set; } = true;
         public static ISerializationAdapter SerializationAdapter { get; set; }
-        public Uri BaseUri { get; set; }
+        public Uri BaseUri { get; private set; }
 
 #if (!SILVERLIGHT)
         /// <summary>
@@ -211,7 +211,16 @@ namespace CF.RESTClientDotNet
                     queryStringText = Uri.EscapeDataString(queryStringText);
                 }
 
-                theUri = new Uri(theUri, queryStringText);
+                //TODO: This is nasty as hell.
+                //Issue #10
+                var forwardSlashPart = string.Empty;
+                var absoluteUriString = theUri.AbsoluteUri.ToString();
+                if (!(absoluteUriString.Substring(absoluteUriString.Length - 1) == "/"))
+                {
+                    forwardSlashPart = "/";
+                }
+
+                theUri = new Uri(theUri.AbsoluteUri + forwardSlashPart + queryStringText);
             }
 
             //Create the web request
