@@ -35,7 +35,7 @@
                     <Entry IsPassword="True" x:Name="ThePasswordBox"  Grid.Column="3" VerticalOptions="Center" />
                     <Button Text="Get My Repos" Grid.Column="4" Margin="2" x:Name="GetReposButton" />
 
-                    <ListView x:Name="ReposBox"   Grid.Row="1"  Grid.ColumnSpan="6" Margin="4" BackgroundColor="Aqua"  >
+                    <ListView x:Name="ReposBox"   Grid.Row="1"  Grid.ColumnSpan="6" Margin="4"   >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -78,13 +78,15 @@
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Orientation="Horizontal" BackgroundColor="Blue"   >
-                                <Label Text="{Binding name}" VerticalOptions="Center" />
-                                <Label Text=" - " VerticalOptions="Center" />
-                                <Label Text="{Binding alpha2_code}" VerticalOptions="Center" />
-                                <Label Text=" - " VerticalOptions="Center" />
-                                <Label Text="{Binding alpha3_code}" VerticalOptions="Center" />
-                            </StackLayout>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal"    >
+                                    <Label Text="{Binding name}" VerticalOptions="Center" />
+                                    <Label Text=" - " VerticalOptions="Center" />
+                                    <Label Text="{Binding alpha2_code}" VerticalOptions="Center" />
+                                    <Label Text=" - " VerticalOptions="Center" />
+                                    <Label Text="{Binding alpha3_code}" VerticalOptions="Center" />
+                                </StackLayout>
+                            </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
