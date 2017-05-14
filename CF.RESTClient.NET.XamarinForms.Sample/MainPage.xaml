@@ -27,19 +27,19 @@
                         <ColumnDefinition Width="150" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Text="Username: " VerticalOptions="Center" HorizontalOptions="Right" />
-                    <TextBox x:Name="UsernameBox" Text="MelbourneDeveloper" Grid.Column="1" VerticalOptions="Center" />
-                    <Label Text="Password: " Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Right" />
+                    <Label Text="Username: " VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
+                    <Entry x:Name="UsernameBox" Text="MelbourneDeveloper" Grid.Column="1" VerticalOptions="Center" />
+                    <Label Text="Password: " Grid.Column="2" VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
                     <Entry IsPassword="True" x:Name="ThePasswordBox"  Grid.Column="3" VerticalOptions="Center" />
-                    <Button Content="Get My Repos" Grid.Column="4" Margin="2" x:Name="GetReposButton" />
+                    <Button Text="Get My Repos" Grid.Column="4" Margin="2" x:Name="GetReposButton" />
 
-                    <ListBox x:Name="ReposBox"  DisplayMemberPath="name" Grid.Row="1"  Grid.ColumnSpan="5" Margin="4" SelectionChanged="ReposBox_SelectionChanged" />
+                    <ListView x:Name="ReposBox"   Grid.Row="1"  Grid.ColumnSpan="5" Margin="4"  />
 
                     <Grid Grid.Row="2" Grid.ColumnSpan="5">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox x:Name="DescriptionBox" Width="500" />
-                            <Button Content="Change Description"  x:Name="ChangeDescriptionButton" />
-                        </StackPanel>
+                        <StackLayout Orientation="Horizontal">
+                            <Entry x:Name="DescriptionBox"  />
+                            <Button Text="Change Description"  x:Name="ChangeDescriptionButton" />
+                        </StackLayout>
                     </Grid>
 
                 </Grid>
@@ -52,27 +52,22 @@
         <ContentPage Title="Country Codes" x:Name="CountryCodesPage" >
 
             <Grid  >
-                <ProgressRing Canvas.ZIndex="10" x:Name="Ring1" IsActive="True" VerticalOptions="Stretch" HorizontalOptions="Stretch" Margin="10" />
+                <ProgressBar  x:Name="Ring1"    Margin="10" />
 
-                <ListBox x:Name="CountryCodeList" VerticalOptions="Stretch" HorizontalOptions="Stretch" Margin="4" >
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
+                <ListView x:Name="CountryCodeList"   Margin="4" >
 
-                    <ListBox.ItemTemplate>
+                    <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Background="Blue" VerticalOptions="Center"  >
+                            <StackLayout Orientation="Horizontal" BackgroundColor="Blue" VerticalOptions="Center"  >
                                 <Label Text="{Binding name}" VerticalOptions="Center" />
                                 <Label Text=" - " VerticalOptions="Center" />
                                 <Label Text="{Binding alpha2_code}" VerticalOptions="Center" />
                                 <Label Text=" - " VerticalOptions="Center" />
                                 <Label Text="{Binding alpha3_code}" VerticalOptions="Center" />
-                            </StackPanel>
+                            </StackLayout>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                    </ListView.ItemTemplate>
+                </ListView>
 
             </Grid>
 

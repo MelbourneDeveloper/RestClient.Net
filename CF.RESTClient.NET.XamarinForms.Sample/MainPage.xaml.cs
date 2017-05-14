@@ -7,6 +7,7 @@ using restclientdotnet = CF.RESTClientDotNet;
 using groupkt;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace CF.RESTClient.NET.Sample
 {
@@ -25,6 +26,7 @@ namespace CF.RESTClient.NET.Sample
             ChangeDescriptionButton.Clicked += ChangeDescriptionButton_Clicked;
             CurrentPageChanged += MainPage_CurrentPageChanged;
             GetReposButton.Clicked += GetReposButton_Clicked;
+            ReposBox.ItemSelected += ReposBox_ItemSelected;
         }
 
         private void GetReposButton_Clicked(object sender, EventArgs e)
@@ -84,7 +86,7 @@ namespace CF.RESTClient.NET.Sample
         }
 
 #if (!SILVERLIGHT)
-        private void ReposBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ReposBox_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var selectedRepo = ReposBox.SelectedItem as Repository;
             if (selectedRepo == null)
@@ -142,32 +144,32 @@ namespace CF.RESTClient.NET.Sample
 
         }
 #endif
-        private async void TestBinary_Click(object sender, RoutedEventArgs e)
-        {
-            //Ensure the client is ready to go
+        //private async void TestBinary_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //Ensure the client is ready to go
 
-            var selectedRepo = ReposBox.SelectedItem as Repository;
-            if (selectedRepo == null)
-            {
-                return;
-            }
+        //    var selectedRepo = ReposBox.SelectedItem as Repository;
+        //    if (selectedRepo == null)
+        //    {
+        //        return;
+        //    }
 
-            BinaryDataContractSerializationAdapter.KnownDataContracts.Add(typeof(Repository));
+        //    BinaryDataContractSerializationAdapter.KnownDataContracts.Add(typeof(Repository));
 
-            string url = "http://localhost:49902/api/Values";
+        //    string url = "http://localhost:49902/api/Values";
 
-            var client = new restclientdotnet.RESTClient(new BinaryDataContractSerializationAdapter(), new Uri(url));
+        //    var client = new restclientdotnet.RESTClient(new BinaryDataContractSerializationAdapter(), new Uri(url));
 
-            var retVal = await client.PostAsync<Repository, string>("test");
+        //    var retVal = await client.PostAsync<Repository, string>("test");
 
-        }
+        //}
 
 
-        private async void CallLocalGet_Click(object sender, RoutedEventArgs e)
-        {
-            var restClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost:49902/api/values"));
-            var test = await restClient.GetAsync<List<string>>();
-        }
+        //private async void CallLocalGet_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var restClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost:49902/api/values"));
+        //    var test = await restClient.GetAsync<List<string>>();
+        //}
 
         #endregion
 
