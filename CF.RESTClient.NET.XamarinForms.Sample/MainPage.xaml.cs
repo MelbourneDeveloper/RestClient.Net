@@ -113,8 +113,6 @@ namespace CF.RESTClient.NET.Sample
 
                 selectedRepo.description = DescriptionBox.Text;
 
-                //var repoBytes = await new NewtonsoftSerializationAdapter().SerializeAsync<Repository>(selectedRepo);
-                //var repoText = Encoding.ASCII.GetString(repoBytes);
                 var repoSlug = selectedRepo.full_name.Split('/')[1];
 
                 //Post the change
@@ -144,32 +142,6 @@ namespace CF.RESTClient.NET.Sample
 
         }
 #endif
-        //private async void TestBinary_Click(object sender, RoutedEventArgs e)
-        //{
-        //    //Ensure the client is ready to go
-
-        //    var selectedRepo = ReposBox.SelectedItem as Repository;
-        //    if (selectedRepo == null)
-        //    {
-        //        return;
-        //    }
-
-        //    BinaryDataContractSerializationAdapter.KnownDataContracts.Add(typeof(Repository));
-
-        //    string url = "http://localhost:49902/api/Values";
-
-        //    var client = new restclientdotnet.RESTClient(new BinaryDataContractSerializationAdapter(), new Uri(url));
-
-        //    var retVal = await client.PostAsync<Repository, string>("test");
-
-        //}
-
-
-        //private async void CallLocalGet_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var restClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost:49902/api/values"));
-        //    var test = await restClient.GetAsync<List<string>>();
-        //}
 
         #endregion
 
