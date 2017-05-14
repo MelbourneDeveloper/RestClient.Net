@@ -11,3 +11,4 @@ packages/
 *.pdb
 *.dll
 project.fragment.lock.json
+project.lock.json
