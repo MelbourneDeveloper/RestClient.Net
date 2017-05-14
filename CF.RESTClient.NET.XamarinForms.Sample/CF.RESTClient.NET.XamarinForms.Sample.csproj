@@ -36,6 +36,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\REST Models\Atlassian.cs">
+      <Link>Model\Atlassian.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\REST Models\CountryCodeData.cs">
+      <Link>Model\CountryCodeData.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\REST Models\CUSTOMER.cs">
+      <Link>Model\CUSTOMER.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\REST Models\PRODUCT.cs">
+      <Link>Model\PRODUCT.cs</Link>
+    </Compile>
     <Compile Include="Sample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
