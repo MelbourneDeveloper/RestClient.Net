@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 using Xamarin.Forms;
 
-namespace CF.RESTClient.NET.XamarinForms.Sample
+namespace CF.RESTClient.NET.Sample
 {
     public partial class App : Application
     {

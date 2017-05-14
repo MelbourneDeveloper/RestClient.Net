@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClient.NET.Sample.An
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.iOS", "App1.iOS\App1.iOS.csproj", "{3DDB78B7-AA3A-4997-ABC4-7CE75663B6A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.UWP", "App1.UWP\App1.UWP.csproj", "{B504A81C-B79E-4603-B2B6-90064CAA85EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClient.NET.Sample.UWP", "App1.UWP\CF.RESTClient.NET.Sample.UWP.csproj", "{B504A81C-B79E-4603-B2B6-90064CAA85EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

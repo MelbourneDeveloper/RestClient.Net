@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms.Xaml;
 
-namespace CF.RESTClient.NET.XamarinForms.Sample
+namespace CF.RESTClient.NET.Sample
 {
 
     [XamlCompilation(XamlCompilationOptions.Compile)]

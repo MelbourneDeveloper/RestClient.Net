@@ -1,12 +1,8 @@
-﻿using System;
-
+﻿
 using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
-using CF.RESTClient.NET.XamarinForms.Sample;
+using CF.RESTClient.NET.Sample;
 
 namespace App1.Droid
 {

@@ -1,5 +1,5 @@
 ﻿
-using sampleApp = CF.RESTClient.NET.XamarinForms.Sample.App;
+using sampleApp = CF.RESTClient.NET.Sample.App;
 
 namespace CF.RESTClient.NET.Sample.UWP
 {
