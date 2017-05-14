@@ -21,7 +21,7 @@ namespace CF.RESTClient.NET.Sample
         public MainPage()
         {
             InitializeComponent();
-            ChangeDescriptionButton.Clicked += ChangeDescriptionButton_Clicked;
+            SaveButton.Clicked += SaveButton_Clicked;
             CurrentPageChanged += MainPage_CurrentPageChanged;
             GetReposButton.Clicked += GetReposButton_Clicked;
             ReposBox.ItemSelected += ReposBox_ItemSelected;
@@ -87,14 +87,10 @@ namespace CF.RESTClient.NET.Sample
         private void ReposBox_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var selectedRepo = ReposBox.SelectedItem as Repository;
-            if (selectedRepo == null)
-            {
-                return;
-            }
-            DescriptionBox.Text = selectedRepo.description;
+            EditingGrid.BindingContext = selectedRepo;
         }
 
-        private async void ChangeDescriptionButton_Clicked(object sender, EventArgs e)
+        private async void SaveButton_Clicked(object sender, EventArgs e)
         {
             ToggleBusy(true);
 
@@ -108,8 +104,6 @@ namespace CF.RESTClient.NET.Sample
 
                 //Ensure the client is ready to go
                 GetBitBucketClient();
-
-                selectedRepo.description = DescriptionBox.Text;
 
                 var repoSlug = selectedRepo.full_name.Split('/')[1];
 
@@ -126,7 +120,7 @@ namespace CF.RESTClient.NET.Sample
                     errorModel = rex.Error as ErrorModel;
                 }
 
-                string message = "An error occurred trying to change the repository description.";
+                string message = "An error occurred trying to save the repo.";
 
                 if (errorModel != null)
                 {

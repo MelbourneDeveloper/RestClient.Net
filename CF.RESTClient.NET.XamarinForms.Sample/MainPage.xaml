@@ -5,18 +5,19 @@
              Title="MainPage" >
 
     <TabbedPage.Children>
+
         <ContentPage Title="Repo" x:Name="ReposPage">
 
             <Grid>
                 <ProgressBar x:Name="Ring2" />
 
-
                 <Grid >
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
-                        <RowDefinition Height="200" />
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="200*" />
+                        <RowDefinition Height="200*" />
+                        <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -25,15 +26,16 @@
                         <ColumnDefinition Width="80" />
                         <ColumnDefinition Width="200" />
                         <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Text="Username: "  />
-                    <Entry x:Name="UsernameBox" Text="MelbourneDeveloper" Grid.Column="1" />
-                    <Label Text="Password: " Grid.Column="2"  />
-                    <Entry IsPassword="True" x:Name="ThePasswordBox"  Grid.Column="3"  />
+                    <Label Text="Username: " VerticalOptions="Center"  />
+                    <Entry x:Name="UsernameBox" Text="MelbourneDeveloper" Grid.Column="1" VerticalOptions="Center" />
+                    <Label Text="Password: " Grid.Column="2" VerticalOptions="Center"  />
+                    <Entry IsPassword="True" x:Name="ThePasswordBox"  Grid.Column="3" VerticalOptions="Center" />
                     <Button Text="Get My Repos" Grid.Column="4" Margin="2" x:Name="GetReposButton" />
 
-                    <ListView x:Name="ReposBox"   Grid.Row="1"  Grid.ColumnSpan="5" Margin="4"  >
+                    <ListView x:Name="ReposBox"   Grid.Row="1"  Grid.ColumnSpan="6" Margin="4" BackgroundColor="Aqua"  >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -43,12 +45,22 @@
                         </ListView.ItemTemplate>
                     </ListView>
 
-                    <Grid Grid.Row="2" Grid.ColumnSpan="5"  >
-                        <StackLayout Orientation="Horizontal">
-                            <Entry x:Name="DescriptionBox"  />
-                            <Button Text="Change Description"  x:Name="ChangeDescriptionButton" />
-                        </StackLayout>
+                    <Grid Grid.Row="2" Grid.ColumnSpan="6" x:Name="EditingGrid"   >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="200" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="Description" />
+                        <Entry Text="{Binding description}" Grid.Column="1" Grid.ColumnSpan="5"  />
                     </Grid>
+
+                    <Button Text="Save Repo" Grid.Row="3"  x:Name="SaveButton" Grid.ColumnSpan="6" />
 
                 </Grid>
 
