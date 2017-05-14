@@ -60,7 +60,9 @@
     <Compile Include="..\Shared\Serialization Adapters\XmlSerializationAdapter.cs">
       <Link>Serialization Adapters\XmlSerializationAdapter.cs</Link>
     </Compile>
-    <Compile Include="Sample.cs" />
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +73,12 @@
       <Project>{2fd0f85c-a349-4783-ab21-3addc04e9729}</Project>
       <Name>CF.RESTClient.NET.Standard</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
