@@ -152,9 +152,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App1\App1.csproj">
-      <Project>{03e18151-cfcf-4ebf-9777-8eb3b550492c}</Project>
-      <Name>App1</Name>
+    <ProjectReference Include="..\CF.RESTClient.NET.Standard\CF.RESTClient.NET.Standard.csproj">
+      <Project>{2fd0f85c-a349-4783-ab21-3addc04e9729}</Project>
+      <Name>CF.RESTClient.NET.Standard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CF.RESTClient.NET.XamarinForms.Sample\CF.RESTClient.NET.Sample.csproj">
+      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
+      <Name>CF.RESTClient.NET.Sample</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

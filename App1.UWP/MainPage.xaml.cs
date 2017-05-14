@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+﻿
+using sampleApp = CF.RESTClient.NET.XamarinForms.Sample.App;
 
-namespace App1.UWP
+namespace CF.RESTClient.NET.Sample.UWP
 {
     public sealed partial class MainPage
     {
@@ -21,7 +9,7 @@ namespace App1.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new App1.App());
+            LoadApplication(new sampleApp());
         }
     }
 }
