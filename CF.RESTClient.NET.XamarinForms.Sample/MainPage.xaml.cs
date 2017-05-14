@@ -3,14 +3,19 @@ using CF.RESTClientDotNet;
 using groupkt;
 using System;
 using System.Text;
+using restclientdotnet = CF.RESTClientDotNet;
+
+#if (!SILVERLIGHT)
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using restclientdotnet = CF.RESTClientDotNet;
+#endif
 
 namespace CF.RESTClient.NET.Sample
 {
 
+#if (!SILVERLIGHT)
     [XamlCompilation(XamlCompilationOptions.Compile)]
+#endif
     public partial class MainPage
     {
         #region Fields
@@ -21,10 +26,13 @@ namespace CF.RESTClient.NET.Sample
         public MainPage()
         {
             InitializeComponent();
+
+#if (!SILVERLIGHT)
             SaveButton.Clicked += SaveButton_Clicked;
             CurrentPageChanged += MainPage_CurrentPageChanged;
             GetReposButton.Clicked += GetReposButton_Clicked;
             ReposBox.ItemSelected += ReposBox_ItemSelected;
+#endif
         }
 
         private void GetReposButton_Clicked(object sender, EventArgs e)
@@ -32,6 +40,11 @@ namespace CF.RESTClient.NET.Sample
             GetReposClick();
         }
 
+        #endregion
+
+        #region Event Handlers
+
+#if (!SILVERLIGHT)
         private void MainPage_CurrentPageChanged(object sender, EventArgs e)
         {
             if (CurrentPage == CountryCodesPage)
@@ -39,11 +52,7 @@ namespace CF.RESTClient.NET.Sample
                 CountryCodeGridLoaded();
             }
         }
-        #endregion
 
-        #region Event Handlers
-
-#if (!SILVERLIGHT)
         private async void CountryCodeGridLoaded()
         {
             var countryCodeClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
@@ -51,6 +60,11 @@ namespace CF.RESTClient.NET.Sample
             CountryCodeList.ItemsSource = countryData.RestResponse.result;
             CountryCodesActivityIndicator.IsRunning = false;
             CountryCodesActivityIndicator.IsVisible = false;
+        }
+#else
+        private void GetRepos_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            GetReposClick();
         }
 #endif
 
@@ -154,16 +168,15 @@ namespace CF.RESTClient.NET.Sample
 
         private void ToggleReposBusy(bool isBusy)
         {
-            ReposActivityIndicator.IsVisible = true;
 
 #if (!SILVERLIGHT)
+            ReposActivityIndicator.IsVisible = true;
             ReposActivityIndicator.IsRunning = isBusy;
 #else
-            Ring2.IsIndeterminate = isBusy;
+            ReposActivityIndicator.IsIndeterminate = isBusy;
 #endif
 
         }
         #endregion
-
     }
 }

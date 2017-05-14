@@ -105,7 +105,7 @@
     <Reference Include="System.Xml.Serialization, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CF.RESTClient.NET.UWP.Sample\MainPage.xaml.cs">
+    <Compile Include="..\CF.RESTClient.NET.XamarinForms.Sample\MainPage.xaml.cs">
       <Link>MainPage.xaml.cs</Link>
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
