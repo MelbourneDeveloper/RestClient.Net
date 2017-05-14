@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{200D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClient.NET.Sample", "CF.RESTClient.NET.XamarinForms.Sample\CF.RESTClient.NET.Sample.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClient.NET.Sample.Android", "App1.Android\CF.RESTClient.NET.Sample.Android.csproj", "{DFE6E850-6FB8-4C19-9A3D-82FE3A93F635}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClient.NET.Sample.Android", "CF.RESTClient.NET.Sample.Android\CF.RESTClient.NET.Sample.Android.csproj", "{DFE6E850-6FB8-4C19-9A3D-82FE3A93F635}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1.iOS", "App1.iOS\App1.iOS.csproj", "{3DDB78B7-AA3A-4997-ABC4-7CE75663B6A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClient.NET.Sample.UWP", "App1.UWP\CF.RESTClient.NET.Sample.UWP.csproj", "{B504A81C-B79E-4603-B2B6-90064CAA85EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CF.RESTClient.NET.Sample.UWP", "CF.RESTClient.NET.Sample.UWP\CF.RESTClient.NET.Sample.UWP.csproj", "{B504A81C-B79E-4603-B2B6-90064CAA85EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

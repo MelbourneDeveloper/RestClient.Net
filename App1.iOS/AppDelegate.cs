@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using CF.RESTClient.NET.Sample;
 
 namespace App1.iOS
 {
