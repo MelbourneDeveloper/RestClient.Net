@@ -12,7 +12,7 @@ namespace CF.RESTClient.NET.Sample
 {
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage 
+    public partial class MainPage
     {
         #region Fields
         private restclientdotnet.RESTClient _BitbucketClient;
@@ -23,13 +23,28 @@ namespace CF.RESTClient.NET.Sample
         {
             InitializeComponent();
             ChangeDescriptionButton.Clicked += ChangeDescriptionButton_Clicked;
+            CurrentPageChanged += MainPage_CurrentPageChanged;
+            GetReposButton.Clicked += GetReposButton_Clicked;
+        }
+
+        private void GetReposButton_Clicked(object sender, EventArgs e)
+        {
+            GetReposClick();
+        }
+
+        private void MainPage_CurrentPageChanged(object sender, EventArgs e)
+        {
+            if (CurrentPage == CountryCodesPage)
+            {
+                CountryCodeGridLoaded();
+            }
         }
         #endregion
 
         #region Event Handlers
 
 #if (!SILVERLIGHT)
-        private async void CountryCodeGrid_Loaded(object sender, RoutedEventArgs e)
+        private async void CountryCodeGridLoaded()
         {
             ToggleBusy(true);
             var countryCodeClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
@@ -40,7 +55,7 @@ namespace CF.RESTClient.NET.Sample
         }
 #endif
 
-        private async void GetRepos_Click(object sender, RoutedEventArgs e)
+        private async void GetReposClick()
         {
             try
             {

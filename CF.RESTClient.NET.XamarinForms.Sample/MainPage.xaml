@@ -2,10 +2,10 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CF.RESTClient.NET.Sample.MainPage"
-             Title="MainPage">
+             Title="MainPage" >
 
     <TabbedPage.Children>
-        <ContentPage Title="Repo">
+        <ContentPage Title="Repo" x:Name="ReposPage">
 
             <Grid>
                 <ProgressBar x:Name="Ring2" />
@@ -31,7 +31,7 @@
                     <TextBox x:Name="UsernameBox" Text="MelbourneDeveloper" Grid.Column="1" VerticalOptions="Center" />
                     <Label Text="Password: " Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Right" />
                     <Entry IsPassword="True" x:Name="ThePasswordBox"  Grid.Column="3" VerticalOptions="Center" />
-                    <Button Content="Get My Repos" Grid.Column="4" Margin="2" Click="GetRepos_Click" />
+                    <Button Content="Get My Repos" Grid.Column="4" Margin="2" x:Name="GetReposButton" />
 
                     <ListBox x:Name="ReposBox"  DisplayMemberPath="name" Grid.Row="1"  Grid.ColumnSpan="5" Margin="4" SelectionChanged="ReposBox_SelectionChanged" />
 
@@ -47,6 +47,37 @@
             </Grid>
 
         </ContentPage>
+
+
+        <ContentPage Title="Country Codes" x:Name="CountryCodesPage" >
+
+            <Grid  >
+                <ProgressRing Canvas.ZIndex="10" x:Name="Ring1" IsActive="True" VerticalOptions="Stretch" HorizontalOptions="Stretch" Margin="10" />
+
+                <ListBox x:Name="CountryCodeList" VerticalOptions="Stretch" HorizontalOptions="Stretch" Margin="4" >
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Background="Blue" VerticalOptions="Center"  >
+                                <Label Text="{Binding name}" VerticalOptions="Center" />
+                                <Label Text=" - " VerticalOptions="Center" />
+                                <Label Text="{Binding alpha2_code}" VerticalOptions="Center" />
+                                <Label Text=" - " VerticalOptions="Center" />
+                                <Label Text="{Binding alpha3_code}" VerticalOptions="Center" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
+
+        </ContentPage>
+
     </TabbedPage.Children>
 
 </TabbedPage>
