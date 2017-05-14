@@ -1,13 +1,11 @@
 ﻿using Atlassian;
-using System;
-using Xamarin.Forms.Xaml;
-
 using CF.RESTClientDotNet;
-using restclientdotnet = CF.RESTClientDotNet;
 using groupkt;
-using System.Collections.Generic;
+using System;
 using System.Text;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+using restclientdotnet = CF.RESTClientDotNet;
 
 namespace CF.RESTClient.NET.Sample
 {

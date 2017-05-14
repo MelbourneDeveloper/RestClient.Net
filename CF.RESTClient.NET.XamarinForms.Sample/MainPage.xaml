@@ -33,7 +33,15 @@
                     <Entry IsPassword="True" x:Name="ThePasswordBox"  Grid.Column="3"  />
                     <Button Text="Get My Repos" Grid.Column="4" Margin="2" x:Name="GetReposButton" />
 
-                    <ListView x:Name="ReposBox"   Grid.Row="1"  Grid.ColumnSpan="5" Margin="4"  />
+                    <ListView x:Name="ReposBox"   Grid.Row="1"  Grid.ColumnSpan="5" Margin="4"  >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Label Text="{Binding name}" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
                     <Grid Grid.Row="2" Grid.ColumnSpan="5"  >
                         <StackLayout Orientation="Horizontal">
