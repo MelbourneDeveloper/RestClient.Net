@@ -22,7 +22,7 @@ namespace CF.RESTClient.NET.Sample
         public MainPage()
         {
             InitializeComponent();
-            ChangeDescriptionButton.Clicked += ChangeRepoDescription_Click;
+            ChangeDescriptionButton.Clicked += ChangeDescriptionButton_Clicked;
         }
         #endregion
 
@@ -79,7 +79,7 @@ namespace CF.RESTClient.NET.Sample
             DescriptionBox.Text = selectedRepo.description;
         }
 
-        private async void ChangeRepoDescription_Click(object sender, RoutedEventArgs e)
+        private async void ChangeDescriptionButton_Clicked(object sender, EventArgs e)
         {
             ToggleBusy(true);
 
@@ -120,8 +120,7 @@ namespace CF.RESTClient.NET.Sample
                     message += "\r\n" + errorModel.error.message;
                 }
 
-                var dialog = new MessageDialog(message);
-                await dialog.ShowAsync();
+                await DisplayAlert(message, "Error", "OK");
             }
 
             ToggleBusy(false);
@@ -164,7 +163,7 @@ namespace CF.RESTClient.NET.Sample
             string url = "http://localhost:49902/api/BitBucketRepository/" + UsernameBox.Text + "-" + ThePasswordBox.Password;
 #else
             var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
-            var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + ThePasswordBox.Password));
+            var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + ThePasswordBox.Text));
 #endif
             _BitbucketClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
 #if (!SILVERLIGHT)
