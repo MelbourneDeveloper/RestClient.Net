@@ -5,12 +5,47 @@
              Title="MainPage">
 
     <TabbedPage.Children>
-        <ContentPage Title="Test">
-            <ScrollView>
-                <StackLayout Padding="10">
-                    <Label Text="Some Text" FontSize="40"/>
-                </StackLayout>
-            </ScrollView>
+        <ContentPage Title="Repo">
+
+            <Grid>
+                <ProgressBar x:Name="Ring2" />
+
+
+                <Grid Grid.Row="1" Grid.Column="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="200" />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Username: " VerticalOptions="Center" HorizontalOptions="Right" />
+                    <TextBox x:Name="UsernameBox" Text="MelbourneDeveloper" Grid.Column="1" VerticalOptions="Center" />
+                    <Label Text="Password: " Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Right" />
+                    <Entry IsPassword="True" x:Name="ThePasswordBox"  Grid.Column="3" VerticalOptions="Center" />
+                    <Button Content="Get My Repos" Grid.Column="4" Margin="2" Click="GetRepos_Click" />
+
+                    <ListBox x:Name="ReposBox"  DisplayMemberPath="name" Grid.Row="1"  Grid.ColumnSpan="5" Margin="4" SelectionChanged="ReposBox_SelectionChanged" />
+
+                    <Grid Grid.Row="2" Grid.ColumnSpan="5">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="DescriptionBox" Width="500" />
+                            <Button Content="Change Description"  x:Name="ChangeDescriptionButton" />
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+
         </ContentPage>
     </TabbedPage.Children>
 
