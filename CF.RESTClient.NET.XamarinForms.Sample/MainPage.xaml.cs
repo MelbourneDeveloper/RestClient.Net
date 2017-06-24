@@ -13,10 +13,6 @@ using Xamarin.Forms.Xaml;
 
 namespace CF.RESTClient.NET.Sample
 {
-
-#if (!SILVERLIGHT)
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-#endif
     public partial class MainPage
     {
         #region Fields
@@ -27,13 +23,7 @@ namespace CF.RESTClient.NET.Sample
         public MainPage()
         {
             InitializeComponent();
-
-#if (!SILVERLIGHT)
-            SaveButton.Clicked += SaveButton_Clicked;
-            CurrentPageChanged += MainPage_CurrentPageChanged;
-            GetReposButton.Clicked += GetReposButton_Clicked;
-            ReposBox.ItemSelected += ReposBox_ItemSelected;
-#endif
+            AttachEventHandlers();
         }
 
         private void GetReposButton_Clicked(object sender, EventArgs e)
@@ -45,32 +35,8 @@ namespace CF.RESTClient.NET.Sample
 
         #region Event Handlers
 
-#if (!SILVERLIGHT)
-        private void MainPage_CurrentPageChanged(object sender, EventArgs e)
-        {
-            if (CurrentPage == CountryCodesPage)
-            {
-                CountryCodeGridLoaded();
-            }
-        }
-
-        private async void CountryCodeGridLoaded()
-        {
-            try
-            {
-                var countryCodeClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
-                var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
-                CountryCodeList.ItemsSource = countryData.RestResponse.result;
-                CountryCodesActivityIndicator.IsRunning = false;
-                CountryCodesActivityIndicator.IsVisible = false;
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-#else
-        private void GetRepos_Click(object sender, System.Windows.RoutedEventArgs e)
+#if (SILVERLIGHT)
+       private void GetRepos_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             GetReposClick();
         }
