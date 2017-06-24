@@ -10,7 +10,7 @@
        <Types>
         <Type Name="RESTException" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Active" Created="2017-06-24 05:55:09Z" FixCategory="NonBreaking">
+          <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Active" Created="2017-06-24 06:00:25Z" FixCategory="NonBreaking">
            <Issue Name="MissingConstructor" Certainty="95" Level="Error">Add the following constructor to 'RESTException': public RESTException().</Issue>
            <Issue Name="MissingConstructor" Certainty="95" Level="Error">Add the following constructor to 'RESTException': public RESTException(String).</Issue>
            <Issue Name="MissingConstructor" Certainty="95" Level="Error">Add the following constructor to 'RESTException': public RESTException(String, Exception).</Issue>
@@ -19,7 +19,7 @@
         </Type>
         <Type Name="RESTTimeoutException" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Active" Created="2017-06-24 05:55:09Z" FixCategory="NonBreaking">
+          <Message TypeName="ImplementStandardExceptionConstructors" Category="Microsoft.Design" CheckId="CA1032" Status="Active" Created="2017-06-24 06:00:25Z" FixCategory="NonBreaking">
            <Issue Name="MissingConstructor" Certainty="95" Level="Error">Add the following constructor to 'RESTTimeoutException': public RESTTimeoutException().</Issue>
            <Issue Name="MissingConstructor" Certainty="95" Level="Error">Add the following constructor to 'RESTTimeoutException': public RESTTimeoutException(String).</Issue>
            <Issue Name="MissingConstructor" Certainty="95" Level="Error">Add the following constructor to 'RESTTimeoutException': public RESTTimeoutException(String, Exception).</Issue>
