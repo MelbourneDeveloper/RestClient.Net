@@ -4,6 +4,7 @@ using groupkt;
 using System;
 using System.Text;
 using restclientdotnet = CF.RESTClientDotNet;
+using System.Threading.Tasks;
 
 #if (!SILVERLIGHT)
 using Xamarin.Forms;
@@ -55,11 +56,18 @@ namespace CF.RESTClient.NET.Sample
 
         private async void CountryCodeGridLoaded()
         {
-            var countryCodeClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
-            var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
-            CountryCodeList.ItemsSource = countryData.RestResponse.result;
-            CountryCodesActivityIndicator.IsRunning = false;
-            CountryCodesActivityIndicator.IsVisible = false;
+            try
+            {
+                var countryCodeClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
+                var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
+                CountryCodeList.ItemsSource = countryData.RestResponse.result;
+                CountryCodesActivityIndicator.IsRunning = false;
+                CountryCodesActivityIndicator.IsVisible = false;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 #else
         private void GetRepos_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -78,22 +86,17 @@ namespace CF.RESTClient.NET.Sample
                 GetBitBucketClient();
 
                 //Download the repository data
-#if (SILVERLIGHT)
                 var repos = (await _BitbucketClient.GetAsync<RepositoryList>());
-#else
-                var repos = (await _BitbucketClient.GetAsync<RepositoryList>());
-#endif
 
                 //Put it in the List Box
                 ReposBox.ItemsSource = repos.values;
             }
-            catch
+            catch (Exception ex)
             {
-
+                await HandleException(ex);
             }
 
             ToggleReposBusy(false);
-
         }
 
 #if (!SILVERLIGHT)
@@ -127,25 +130,30 @@ namespace CF.RESTClient.NET.Sample
             }
             catch (Exception ex)
             {
-                ErrorModel errorModel = null;
-
-                if (ex is RESTException rex)
-                {
-                    errorModel = rex.Error as ErrorModel;
-                }
-
-                string message = "An error occurred trying to save the repo.";
-
-                if (errorModel != null)
-                {
-                    message += "\r\n" + errorModel.error.message;
-                }
-
-                await DisplayAlert(message, "Error", "OK");
+                await HandleException(ex);
             }
 
             ToggleReposBusy(false);
 
+        }
+
+        private async Task HandleException(Exception ex)
+        {
+            ErrorModel errorModel = null;
+
+            if (ex is RESTException rex)
+            {
+                errorModel = rex.Error as ErrorModel;
+            }
+
+            string message = "An error occurred while attempting to use a REST service.";
+
+            if (errorModel != null)
+            {
+                message += "\r\n" + errorModel.error.message;
+            }
+
+            await DisplayAlert(message, "Error", "OK");
         }
 #endif
 
