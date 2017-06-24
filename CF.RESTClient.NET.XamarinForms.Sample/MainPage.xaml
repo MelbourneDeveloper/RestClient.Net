@@ -12,31 +12,21 @@
 
                 <ActivityIndicator x:Name="ReposActivityIndicator" IsRunning="False" IsVisible="False" />
 
-                <Grid >
+                <StackLayout Orientation="Vertical" >
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="200*" />
-                        <RowDefinition Height="200*" />
-                        <RowDefinition Height="50" />
-                    </Grid.RowDefinitions>
+                    <StackLayout Orientation="Horizontal" >
+                        <Label Text="Username: " VerticalOptions="Center"  />
+                        <Entry x:Name="UsernameBox" Text="MelbourneDeveloper"  VerticalOptions="Center" WidthRequest="150" />
+                    </StackLayout>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="80" />
-                        <ColumnDefinition Width="200" />
-                        <ColumnDefinition Width="80" />
-                        <ColumnDefinition Width="200" />
-                        <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                    <StackLayout Orientation="Horizontal" >
+                        <Label Text="Password: "  VerticalOptions="Center"  />
+                        <Entry IsPassword="True" x:Name="ThePasswordBox"   VerticalOptions="Center" WidthRequest="150" />
+                    </StackLayout>
 
-                    <Label Text="Username: " VerticalOptions="Center"  />
-                    <Entry x:Name="UsernameBox" Text="MelbourneDeveloper" Grid.Column="1" VerticalOptions="Center" />
-                    <Label Text="Password: " Grid.Column="2" VerticalOptions="Center"  />
-                    <Entry IsPassword="True" x:Name="ThePasswordBox"  Grid.Column="3" VerticalOptions="Center" />
-                    <Button Text="Get My Repos" Grid.Column="4" Margin="2" x:Name="GetReposButton" />
+                    <Button Text="Get My Repos"  Margin="2" x:Name="GetReposButton" />
 
-                    <ListView x:Name="ReposBox"   Grid.Row="1"  Grid.ColumnSpan="6" Margin="4"   >
+                    <ListView x:Name="ReposBox"    Margin="4" HeightRequest="200" BackgroundColor="#EEEEEE"  >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -46,24 +36,12 @@
                         </ListView.ItemTemplate>
                     </ListView>
 
-                    <Grid Grid.Row="2" Grid.ColumnSpan="6" x:Name="EditingGrid"   >
+                    <Label Text="Description" />
+                    <Entry Text="{Binding description}"  HeightRequest="200"  />
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50" />
-                        </Grid.RowDefinitions>
+                    <Button Text="Save Repo"   x:Name="SaveButton"  />
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80" />
-                            <ColumnDefinition Width="200" />
-                        </Grid.ColumnDefinitions>
-
-                        <Label Text="Description" />
-                        <Entry Text="{Binding description}" Grid.Column="1" Grid.ColumnSpan="5"  />
-                    </Grid>
-
-                    <Button Text="Save Repo" Grid.Row="3"  x:Name="SaveButton" Grid.ColumnSpan="6" />
-
-                </Grid>
+                </StackLayout>
 
             </Grid>
 

@@ -100,7 +100,7 @@ namespace CF.RESTClient.NET.Sample
         private void ReposBox_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var selectedRepo = ReposBox.SelectedItem as Repository;
-            EditingGrid.BindingContext = selectedRepo;
+            ReposPage.BindingContext = selectedRepo;
         }
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
