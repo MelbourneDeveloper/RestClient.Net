@@ -45,6 +45,9 @@ namespace CF.RESTClient.NET.Sample
             {
                 ToggleBusy(true);
 
+                ReposBox.ItemsSource = null;
+                ReposBox.IsEnabled = false;
+
                 //Ensure the client is ready to go
                 GetBitBucketClient(GetPassword());
 
@@ -53,6 +56,7 @@ namespace CF.RESTClient.NET.Sample
 
                 //Put it in the List Box
                 ReposBox.ItemsSource = repos.values;
+                ReposBox.IsEnabled = true;
             }
             catch (Exception ex)
             {
