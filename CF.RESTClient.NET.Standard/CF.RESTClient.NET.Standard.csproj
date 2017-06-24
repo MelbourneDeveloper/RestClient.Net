@@ -26,7 +26,8 @@
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\Shared\Code Rules\Debug Rules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -46,7 +47,7 @@
     <SignAssembly>true</SignAssembly>
     <SignManifests>true</SignManifests>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\Shared\Code Rules\Release Rules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Shared\Code Rules\Code Rules.ruleset</CodeAnalysisRuleSet>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>

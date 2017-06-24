@@ -10,7 +10,6 @@ namespace CF.RESTClientDotNet
     {
         #region Fields
 #if (!SILVERLIGHT)
-        private readonly Dictionary<string, string> _Headers = new Dictionary<string, string>();
 #endif
         #endregion
 
@@ -25,13 +24,8 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Allows headers to be sent as part of the request. Note: This it seems that this not supported in Silverlight
         /// </summary>
-        public Dictionary<string, string> Headers
-        {
-            get
-            {
-                return _Headers;
-            }
-        }
+        public Dictionary<string, string> Headers { get; } = new Dictionary<string, string>();
+
 #endif
 
         #endregion
@@ -185,9 +179,12 @@ namespace CF.RESTClientDotNet
         {
             var webResponse = await GetWebResponse(body, queryString, verb);
 
-            var restResponse = new RESTResponse();
-            restResponse.Response = webResponse;
-            restResponse.Data = await GetDataFromResponseStreamAsync(webResponse);
+            var data = await GetDataFromResponseStreamAsync(webResponse);
+            var restResponse = new RESTResponse
+            {
+                Response = webResponse,
+                Data = data
+            };
             return restResponse;
         }
 
