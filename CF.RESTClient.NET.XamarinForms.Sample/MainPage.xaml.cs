@@ -4,6 +4,7 @@ using groupkt;
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using ThomasBayer;
 using restclientdotnet = CF.RESTClientDotNet;
 
 namespace CF.RESTClient.NET.Sample
@@ -24,6 +25,25 @@ namespace CF.RESTClient.NET.Sample
         #endregion
 
         #region Private Methods
+
+        private async Task<CUSTOMER> GetCustomer(int customerId)
+        {
+            CUSTOMER retVal = null;
+
+            ToggleBusy(true);
+            try
+            {
+                var countryCodeClient = new restclientdotnet.RESTClient(new XmlSerializationAdapter(), new Uri("http://www.thomas-bayer.com/sqlrest/CUSTOMER/" + customerId));
+                retVal = await countryCodeClient.GetAsync<CUSTOMER>();
+            }
+            catch (Exception ex)
+            {
+                HandleException(ex);
+            }
+
+            ToggleBusy(false);
+            return retVal;
+        }
 
         private void GetBitBucketClient(string password)
         {

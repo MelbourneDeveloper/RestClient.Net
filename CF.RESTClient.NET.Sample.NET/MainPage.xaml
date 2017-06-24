@@ -76,6 +76,49 @@
 
             </TabItem>
 
+            <TabItem Header="Customers (XML)" >
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Customer ID: " />
+                        <TextBox Text="18" Width="50" Name="CustomerIDBox" />
+                    </StackPanel>
+
+                    <Button  Content="Get Customer" Name="GetCustomersButton" Grid.Row="1" />
+
+                    <Grid Name="CustomerGrid" Height="100" Width="300" Grid.Row="2">
+                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Id: " />
+                        <TextBlock Text="First Name: " Grid.Row="1" />
+                        <TextBlock Text="Second Name: " Grid.Row="2" />
+
+                        <TextBox Text="{Binding ID}" Grid.Column="1" />
+                        <TextBox Text="{Binding FIRSTNAME}" Grid.Row="1" Grid.Column="1" />
+                        <TextBox Text="{Binding LASTNAME}" Grid.Row="2" Grid.Column="1" />
+
+                    </Grid>
+                    
+                </Grid>
+                
+            </TabItem>
+            
         </TabControl>
 
         <ProgressBar Grid.Row="1" x:Name="TheActivityIndicator"    Margin="4"  />

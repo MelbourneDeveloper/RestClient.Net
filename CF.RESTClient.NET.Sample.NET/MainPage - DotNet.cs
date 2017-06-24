@@ -1,7 +1,10 @@
 ﻿using Atlassian;
+using CF.RESTClientDotNet;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using ThomasBayer;
+using restclientdotnet = CF.RESTClientDotNet;
 
 namespace CF.RESTClient.NET.Sample
 {
@@ -24,6 +27,7 @@ namespace CF.RESTClient.NET.Sample
             SaveButton.Click += SaveButton_Click;
             ReposBox.SelectionChanged += ReposBox_SelectionChanged;
             TheTabControl.SelectionChanged += TheTabControl_SelectionChanged;
+            GetCustomersButton.Click += GetCustomersButton_Click;
         }
 
         private string GetPassword()
@@ -33,6 +37,12 @@ namespace CF.RESTClient.NET.Sample
         #endregion
 
         #region Event Handlers
+
+        private async void GetCustomersButton_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerGrid.DataContext = await GetCustomer(int.Parse(CustomerIDBox.Text));
+        }
+
         private void ReposBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             ReposPage.DataContext = ReposBox.SelectedItem as Repository;

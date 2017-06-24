@@ -1,5 +1,12 @@
-﻿namespace ThomasBayer
+﻿using System.Collections.Generic;
+
+namespace ThomasBayer
 {
+
+    public class CUSTOMERList : List<CUSTOMER>
+    {
+
+    }
 
     public class CUSTOMER
     {
