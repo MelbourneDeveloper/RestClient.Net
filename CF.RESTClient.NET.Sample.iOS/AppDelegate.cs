@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿
+using CF.RESTClient.NET.Sample;
 using Foundation;
 using UIKit;
-using CF.RESTClient.NET.Sample;
 
 namespace App1.iOS
 {

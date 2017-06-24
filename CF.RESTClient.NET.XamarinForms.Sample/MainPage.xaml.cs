@@ -41,9 +41,10 @@ namespace CF.RESTClient.NET.Sample
 
         private async void OnGetReposClick()
         {
+            ToggleBusy(true);
+
             try
             {
-                ToggleBusy(true);
 
                 ReposBox.ItemsSource = null;
                 ReposBox.IsEnabled = false;
