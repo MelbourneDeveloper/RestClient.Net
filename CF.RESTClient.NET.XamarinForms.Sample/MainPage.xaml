@@ -16,12 +16,12 @@
 
                     <StackLayout Orientation="Horizontal" >
                         <Label Text="Bitbucket Username: " VerticalOptions="Center"  />
-                        <Entry x:Name="UsernameBox" Text="MelbourneDeveloper" Placeholder="Your BitBucket Username" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" WidthRequest="150" />
+                        <Entry x:Name="UsernameBox" Text="MelbourneDeveloper" Placeholder="Enter BitBucket (Atlassian) Username" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" WidthRequest="150" />
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" >
                         <Label Text="Password: "  VerticalOptions="Center"  />
-                        <Entry IsPassword="True" x:Name="ThePasswordBox"   VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
+                        <Entry IsPassword="True" x:Name="ThePasswordBox" Placeholder="If this is not filled in you will see public repos"   VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
                     </StackLayout>
 
                     <Button Text="Get My Repos"  Margin="2" x:Name="GetReposButton" />

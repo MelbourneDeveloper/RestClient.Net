@@ -87,8 +87,14 @@ namespace CF.RESTClient.NET.Sample
         private void GetBitBucketClient()
         {
             var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
-            var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + ThePasswordBox.Text));
             _BitbucketClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
+
+            if (!string.IsNullOrEmpty(ThePasswordBox.Text))
+            {
+                var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + ThePasswordBox.Text));
+                _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
+            }
+
             _BitbucketClient.ErrorType = typeof(ErrorModel);
         }
 
