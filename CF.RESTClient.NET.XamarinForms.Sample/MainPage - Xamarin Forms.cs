@@ -53,8 +53,8 @@ namespace CF.RESTClient.NET.Sample
 
         private void ToggleBusy(bool isBusy)
         {
-            ReposActivityIndicator.IsVisible = true;
-            CountryCodesActivityIndicator.IsVisible = true;
+            ReposActivityIndicator.IsVisible = isBusy;
+            CountryCodesActivityIndicator.IsVisible = isBusy;
             ReposActivityIndicator.IsRunning = isBusy;
             CountryCodesActivityIndicator.IsRunning = isBusy;
         }

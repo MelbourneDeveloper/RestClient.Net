@@ -10,9 +10,14 @@
 
             <Grid>
 
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
                 <ActivityIndicator x:Name="ReposActivityIndicator" IsRunning="False" IsVisible="False" />
 
-                <StackLayout Orientation="Vertical" >
+                <StackLayout Orientation="Vertical" Grid.Row="1" >
 
                     <StackLayout Orientation="Horizontal" >
                         <Label Text="Bitbucket Username: " VerticalOptions="Center"  />
