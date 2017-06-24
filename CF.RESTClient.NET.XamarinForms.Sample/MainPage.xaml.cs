@@ -48,7 +48,7 @@ namespace CF.RESTClient.NET.Sample
         {
             try
             {
-                ToggleReposBusy(true);
+                ToggleBusy(true);
 
                 //Ensure the client is ready to go
                 GetBitBucketClient(GetPassword());
@@ -64,12 +64,12 @@ namespace CF.RESTClient.NET.Sample
                 await HandleException(ex);
             }
 
-            ToggleReposBusy(false);
+            ToggleBusy(false);
         }
 
         private async Task OnSavedClicked()
         {
-            ToggleReposBusy(true);
+            ToggleBusy(true);
 
             try
             {
@@ -94,7 +94,23 @@ namespace CF.RESTClient.NET.Sample
                 await HandleException(ex);
             }
 
-            ToggleReposBusy(false);
+            ToggleBusy(false);
+        }
+
+        private async void OnCountryCodeGridLoaded()
+        {
+            try
+            {
+                var countryCodeClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
+                var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
+                CountryCodeList.ItemsSource = countryData.RestResponse.result;
+            }
+            catch (Exception ex)
+            {
+                await HandleException(ex);
+            }
+
+            ToggleBusy(false);
         }
 
         private async Task HandleException(Exception ex)

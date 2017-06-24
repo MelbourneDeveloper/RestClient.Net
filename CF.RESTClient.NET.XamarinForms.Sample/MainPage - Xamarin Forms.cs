@@ -18,25 +18,8 @@ namespace CF.RESTClient.NET.Sample
         {
             if (CurrentPage == CountryCodesPage)
             {
-                CountryCodeGridLoaded();
+                OnCountryCodeGridLoaded();
             }
-        }
-
-        private async void CountryCodeGridLoaded()
-        {
-            try
-            {
-                var countryCodeClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
-                var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
-                CountryCodeList.ItemsSource = countryData.RestResponse.result;
-            }
-            catch (Exception ex)
-            {
-                await HandleException(ex);
-            }
-
-            CountryCodesActivityIndicator.IsRunning = false;
-            CountryCodesActivityIndicator.IsVisible = false;
         }
 
         private void ReposBox_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -64,7 +47,7 @@ namespace CF.RESTClient.NET.Sample
             await DisplayAlert(title, message, "OK");
         }
 
-        private void ToggleReposBusy(bool isBusy)
+        private void ToggleBusy(bool isBusy)
         {
             ReposActivityIndicator.IsVisible = true;
             ReposActivityIndicator.IsRunning = isBusy;

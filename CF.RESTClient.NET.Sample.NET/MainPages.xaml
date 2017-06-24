@@ -6,48 +6,81 @@
         mc:Ignorable="d" 
         Title="RESTClient.NET Sample" Height="600" Width="525">
 
-    <TabControl Margin="4">
-        <TabItem Header="BitBucket Repos" x:Name="ReposPage">
+    <Grid>
 
-            <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
 
-                <ProgressBar x:Name="ReposActivityIndicator" IsIndeterminate="False" />
+        <TabControl Margin="4">
+            <TabItem Header="BitBucket Repos" x:Name="ReposPage">
 
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"  >
+                <Grid>
 
-                    <StackPanel Orientation="Horizontal" >
-                        <TextBlock Text="Bitbucket Username: " VerticalAlignment="Center"  />
-                        <TextBox x:Name="UsernameBox" Text="MelbourneDeveloper"  HorizontalAlignment="Stretch"  VerticalAlignment="Center"  />
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"  >
+
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Bitbucket Username: " VerticalAlignment="Center"  />
+                            <TextBox x:Name="UsernameBox" Text="MelbourneDeveloper"  HorizontalAlignment="Stretch"  VerticalAlignment="Center"  />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch"  >
+                            <TextBlock Text="Password: "  VerticalAlignment="Center"  Width="300" />
+                            <PasswordBox  x:Name="ThePasswordBox" Width="300"    VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                        </StackPanel>
+
+                        <Button Content="Get My Repos"  Margin="2" x:Name="GetReposButton" />
+
+                        <ListView Name="ReposBox"    Margin="4" Height="200" Background="#EEEEEE"  >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding name}" />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <TextBlock Text="Description" />
+                        <TextBox Text="{Binding description}"  Height="200"  />
+
+                        <Button Content="Save Repo"   x:Name="SaveButton"  />
+
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch"  >
-                        <TextBlock Text="Password: "  VerticalAlignment="Center"  Width="300" />
-                        <PasswordBox  x:Name="ThePasswordBox" Width="300"    VerticalAlignment="Center" HorizontalAlignment="Stretch" />
-                    </StackPanel>
+                </Grid>
 
-                    <Button Content="Get My Repos"  Margin="2" x:Name="GetReposButton" />
+            </TabItem>
 
-                    <ListView Name="ReposBox"    Margin="4" Height="200" Background="#EEEEEE"  >
+            <TabItem Header="Country Codes">
+
+                <Grid  >
+
+                    <ListView x:Name="CountryCodeList"   Margin="4" >
+
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding name}" />
+
+                                <StackPanel Orientation="Horizontal"    >
+                                    <TextBlock Text="{Binding name}" VerticalAlignment="Center" />
+                                    <TextBlock Text=" - " VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding alpha2_code}" VerticalAlignment="Center" />
+                                    <TextBlock Text=" - " VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding alpha3_code}" VerticalAlignment="Center" />
+                                </StackPanel>
+
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
 
-                    <TextBlock Text="Description" />
-                    <TextBox Text="{Binding description}"  Height="200"  />
+                </Grid>
 
-                    <Button Content="Save Repo"   x:Name="SaveButton"  />
+            </TabItem>
 
-                </StackPanel>
+        </TabControl>
 
-            </Grid>
+        <ProgressBar Grid.Row="1" x:Name="TheActivityIndicator"    Margin="4"  />
 
-        </TabItem>
-        <TabItem Header="Country Codes">
-        </TabItem>
-    </TabControl>
 
+    </Grid>
 
 </Window>

@@ -8,7 +8,7 @@ namespace CF.RESTClient.NET.Sample
 {
     public partial class MainPage
     {
-        private void ToggleReposBusy(bool v)
+        private void ToggleBusy(bool v)
         {
             throw new NotImplementedException();
         }
