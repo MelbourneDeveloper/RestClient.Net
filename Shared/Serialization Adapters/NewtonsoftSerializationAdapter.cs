@@ -1,5 +1,4 @@
-﻿using CF.RESTClientDotNet;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System;

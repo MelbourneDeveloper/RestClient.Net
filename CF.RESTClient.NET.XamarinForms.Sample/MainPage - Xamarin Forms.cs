@@ -1,8 +1,5 @@
 ﻿using Atlassian;
-using CF.RESTClientDotNet;
-using groupkt;
 using System;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
