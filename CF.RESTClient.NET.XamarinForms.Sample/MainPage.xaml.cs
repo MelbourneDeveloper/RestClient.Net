@@ -30,6 +30,20 @@ namespace CF.RESTClient.NET.Sample
 
         #region Private Methods
 
+        private void GetBitBucketClient(string password)
+        {
+            var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
+            _BitbucketClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
+
+            if (!string.IsNullOrEmpty(password))
+            {
+                var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
+                _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
+            }
+
+            _BitbucketClient.ErrorType = typeof(ErrorModel);
+        }
+
         private async void OnGetReposClick()
         {
             try
@@ -37,7 +51,7 @@ namespace CF.RESTClient.NET.Sample
                 ToggleReposBusy(true);
 
                 //Ensure the client is ready to go
-                GetBitBucketClient();
+                GetBitBucketClient(GetPassword());
 
                 //Download the repository data
                 var repos = (await _BitbucketClient.GetAsync<RepositoryList>());
@@ -66,7 +80,7 @@ namespace CF.RESTClient.NET.Sample
                 }
 
                 //Ensure the client is ready to go
-                GetBitBucketClient();
+                GetBitBucketClient(GetPassword());
 
                 var repoSlug = selectedRepo.full_name.Split('/')[1];
 

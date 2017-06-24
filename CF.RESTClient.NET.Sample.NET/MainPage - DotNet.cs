@@ -27,5 +27,10 @@ namespace CF.RESTClient.NET.Sample
         {
             throw new NotImplementedException();
         }
+
+        private string GetPassword()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
