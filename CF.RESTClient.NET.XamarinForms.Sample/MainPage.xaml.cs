@@ -23,14 +23,14 @@ namespace CF.RESTClient.NET.Sample
 
         private void GetReposButton_Clicked(object sender, EventArgs e)
         {
-            GetReposClick();
+            OnGetReposClick();
         }
 
         #endregion
 
         #region Private Methods
 
-        private async void GetReposClick()
+        private async void OnGetReposClick()
         {
             try
             {
@@ -44,6 +44,36 @@ namespace CF.RESTClient.NET.Sample
 
                 //Put it in the List Box
                 ReposBox.ItemsSource = repos.values;
+            }
+            catch (Exception ex)
+            {
+                await HandleException(ex);
+            }
+
+            ToggleReposBusy(false);
+        }
+
+        private async Task OnSavedClicked()
+        {
+            ToggleReposBusy(true);
+
+            try
+            {
+                var selectedRepo = ReposBox.SelectedItem as Repository;
+                if (selectedRepo == null)
+                {
+                    return;
+                }
+
+                //Ensure the client is ready to go
+                GetBitBucketClient();
+
+                var repoSlug = selectedRepo.full_name.Split('/')[1];
+
+                //Post the change
+                var retVal = await _BitbucketClient.PutAsync<Repository, Repository, string>(selectedRepo, repoSlug);
+
+                await DisplayAlert("Saved", "Your repo was updated.");
             }
             catch (Exception ex)
             {
@@ -70,7 +100,7 @@ namespace CF.RESTClient.NET.Sample
                 message += $"\r\n{errorModel.error.message}";
             }
 
-            await DisplayAlert(message);
+            await DisplayAlert("Error", message);
         }
 
         #endregion

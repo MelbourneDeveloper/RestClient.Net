@@ -47,41 +47,16 @@ namespace CF.RESTClient.NET.Sample
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
-            ToggleReposBusy(true);
-
-            try
-            {
-                var selectedRepo = ReposBox.SelectedItem as Repository;
-                if (selectedRepo == null)
-                {
-                    return;
-                }
-
-                //Ensure the client is ready to go
-                GetBitBucketClient();
-
-                var repoSlug = selectedRepo.full_name.Split('/')[1];
-
-                //Post the change
-                var retVal = await _BitbucketClient.PutAsync<Repository, Repository, string>(selectedRepo, repoSlug);
-
-                await DisplayAlert("Saved", "Your repo was updated.", "OK");
-            }
-            catch (Exception ex)
-            {
-                await HandleException(ex);
-            }
-
-            ToggleReposBusy(false);
+            await OnSavedClicked();
         }
 
         #endregion
 
         #region Private Methods
 
-        private async Task DisplayAlert(string message)
+        private async Task DisplayAlert(string title, string message)
         {
-            await DisplayAlert("Error", message, "OK");
+            await DisplayAlert(title, message, "OK");
         }
 
         private void GetBitBucketClient()

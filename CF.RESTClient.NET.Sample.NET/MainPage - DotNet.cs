@@ -13,7 +13,7 @@ namespace CF.RESTClient.NET.Sample
             throw new NotImplementedException();
         }
 
-        private Task DisplayAlert(string message)
+        private Task DisplayAlert(string title, string message)
         {
             throw new NotImplementedException();
         }
