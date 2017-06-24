@@ -1,3 +1,4 @@
+*.Designer.cs
 /.vs/RESTClient .Net/v14/.suo/
 /NuGet/Exported/
 bin/
