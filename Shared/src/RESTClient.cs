@@ -142,18 +142,24 @@ namespace CF.RESTClientDotNet
             }
             catch (WebException wex)
             {
-                //TODO: This stream reader doesn't look like it does anything...
-                using (var streamReader = new StreamReader(wex.Response.GetResponseStream()))
-                {
-                    object error = null;
-                    var responseData = await GetDataFromResponseStreamAsync(wex.Response);
-                    if (ErrorType != null)
-                    {
-                        error = await SerializationAdapter.DeserializeAsync(responseData, ErrorType);
-                    }
+                var errorMessage = "The REST call returned an error. Please see Error property for details";
+                object error = null;
+                byte[] responseData = null;
 
-                    throw new RESTException(error, responseData, "The REST call returned an error. Please see Error property for details", wex);
+                //TODO: This stream reader doesn't look like it does anything...
+                if (wex.Response != null)
+                {
+                    using (var streamReader = new StreamReader(wex.Response.GetResponseStream()))
+                    {
+                        responseData = await GetDataFromResponseStreamAsync(wex.Response);
+                        if (ErrorType != null)
+                        {
+                            error = await SerializationAdapter.DeserializeAsync(responseData, ErrorType);
+                        }
+                    }
                 }
+
+                throw new RESTException(error, responseData, errorMessage, wex);
             }
             catch (Exception ex)
             {
