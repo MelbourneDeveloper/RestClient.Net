@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("0.5.0")]
 [assembly: AssemblyCompany("Christian Findlay")]
 [assembly: AssemblyProduct("RESTClient.NET")]
-[assembly: AssemblyCopyright("Copyright © 2016 Christian Findlay")]
+[assembly: AssemblyCopyright("Copyright © 2017 Christian Findlay")]
 [assembly: CLSCompliant(true)]
 [assembly: NeutralResourcesLanguage("en")]
 // Setting ComVisible to false makes the types in this assembly not visible
