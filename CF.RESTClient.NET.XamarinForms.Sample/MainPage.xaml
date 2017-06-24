@@ -15,13 +15,13 @@
                 <StackLayout Orientation="Vertical" >
 
                     <StackLayout Orientation="Horizontal" >
-                        <Label Text="Username: " VerticalOptions="Center"  />
-                        <Entry x:Name="UsernameBox" Text="MelbourneDeveloper"  VerticalOptions="Center" WidthRequest="150" />
+                        <Label Text="Bitbucket Username: " VerticalOptions="Center"  />
+                        <Entry x:Name="UsernameBox" Text="MelbourneDeveloper" Placeholder="Your BitBucket Username" HorizontalOptions="FillAndExpand"  VerticalOptions="Center" WidthRequest="150" />
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" >
                         <Label Text="Password: "  VerticalOptions="Center"  />
-                        <Entry IsPassword="True" x:Name="ThePasswordBox"   VerticalOptions="Center" WidthRequest="150" />
+                        <Entry IsPassword="True" x:Name="ThePasswordBox"   VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
                     </StackLayout>
 
                     <Button Text="Get My Repos"  Margin="2" x:Name="GetReposButton" />

@@ -122,13 +122,14 @@ namespace CF.RESTClient.NET.Sample
 
                 //Post the change
                 var retVal = await _BitbucketClient.PutAsync<Repository, Repository, string>(selectedRepo, repoSlug);
+
+                await DisplayAlert("Saved", "Your repo was updated.", "OK");
             }
             catch (Exception ex)
             {
                 ErrorModel errorModel = null;
-                var rex = ex as RESTException;
 
-                if (rex != null)
+                if (ex is RESTException rex)
                 {
                     errorModel = rex.Error as ErrorModel;
                 }
