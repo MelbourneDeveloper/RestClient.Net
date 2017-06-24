@@ -112,14 +112,14 @@ namespace CF.RESTClient.NET.Sample
                 errorModel = rex.Error as ErrorModel;
             }
 
-            string message = "An error occurred while attempting to use a REST service.";
+            string message = $"An error occurred while attempting to use a REST service.\r\nError: {ex.Message}\r\nInner Error: {ex.InnerException?.Message}\r\nInner Inner Error: {ex.InnerException?.InnerException?.Message}";
 
             if (errorModel != null)
             {
-                message += "\r\n" + errorModel.error.message;
+                message += $"\r\n{errorModel.error.message}";
             }
 
-            await DisplayAlert(message, "Error", "OK");
+            await DisplayAlert("Error", message, "OK");
         }
 #endif
 
