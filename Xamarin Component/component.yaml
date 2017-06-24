@@ -1,0 +1,21 @@
+%YAML 1.2
+---
+libraries: 
+  ios-unified: ../lib/ios/Awesome.dll
+icons: 
+  - RESTClient.Net_128x128.png
+  - RESTClient.Net_512x512.png
+version: 0.5.0
+details: Details.md
+getting-started: GettingStarted.md
+samples: 
+  iOS Sample: ../samples/AwesomeSample/AwesomeSample.sln
+id: RESTClient.Net
+summary: REST Client For All Xamarin Platforms
+publisher-url: https://bitbucket.org/MelbourneDeveloper/restclient-.net
+license: License.md
+screenshots: 
+  - screenshots/screenshot1.png
+name: RESTClient.Net
+publisher: Christian Findlay
+...
