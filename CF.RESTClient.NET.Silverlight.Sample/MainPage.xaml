@@ -50,6 +50,10 @@
 
             </sdk:TabItem>
 
+            <sdk:TabItem Header="Country Codes - Not Implemented">
+                <ListBox Name="CountryCodeList"></ListBox>
+            </sdk:TabItem>
+            
         </sdk:TabControl>
 
         <ProgressBar Grid.Row="1" Name="ReposActivityIndicator" IsIndeterminate="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2" />

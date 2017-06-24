@@ -30,11 +30,13 @@ namespace CF.RESTClient.NET.Sample
             var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
             _BitbucketClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
 
+#if (!SILVERLIGHT)
             if (!string.IsNullOrEmpty(password))
             {
                 var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
                 _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
             }
+#endif
 
             _BitbucketClient.ErrorType = typeof(ErrorModel);
         }

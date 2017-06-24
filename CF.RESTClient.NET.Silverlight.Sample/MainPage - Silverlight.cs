@@ -11,7 +11,7 @@ namespace CF.RESTClient.NET.Sample
         #region Event Handlers
         private void GetRepos_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            GetReposClick();
+            OnGetReposClick();
         }
         #endregion
 
@@ -20,7 +20,7 @@ namespace CF.RESTClient.NET.Sample
         {
         }
 
-        private async Task DisplayAlert(string message)
+        private async Task DisplayAlert(string title, string message)
         {
             MessageBox.Show(message);
         }
@@ -32,9 +32,14 @@ namespace CF.RESTClient.NET.Sample
             _BitbucketClient.ErrorType = typeof(ErrorModel);
         }
 
-        private void ToggleReposBusy(bool isBusy)
+        private void ToggleBusy(bool isBusy)
         {
             ReposActivityIndicator.IsIndeterminate = isBusy;
+        }
+
+        private string GetPassword()
+        {
+            return ThePasswordBox.Password;
         }
 
         #endregion
