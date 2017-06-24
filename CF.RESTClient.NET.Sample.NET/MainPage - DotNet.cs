@@ -22,5 +22,10 @@ namespace CF.RESTClient.NET.Sample
         {
             throw new NotImplementedException();
         }
+
+        private void GetBitBucketClient()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

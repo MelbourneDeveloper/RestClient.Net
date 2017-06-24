@@ -63,10 +63,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="..\CF.RESTClient.NET.XamarinForms.Sample\MainPage.xaml.cs">
+      <Link>MainPage.xaml.cs</Link>
+    </Compile>
     <Compile Include="..\shared\rest models\Atlassian.cs">
       <Link>Model\Atlassian.cs</Link>
     </Compile>
@@ -129,6 +128,12 @@
       <Project>{2fd0f85c-a349-4783-ab21-3addc04e9729}</Project>
       <Name>CF.RESTClient.NET.Standard</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainPages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
