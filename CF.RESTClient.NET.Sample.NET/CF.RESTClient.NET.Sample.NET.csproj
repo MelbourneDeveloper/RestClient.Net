@@ -8,11 +8,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>CF.RESTClient.NET.Sample.NET</RootNamespace>
     <AssemblyName>CF.RESTClient.NET.Sample.NET</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,8 +38,13 @@
     <StartupObject>CF.RESTClient.NET.Sample.NET.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,16 +67,41 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="..\CF.RESTClient.NET.XamarinForms.Sample\MainPage.xaml.cs">
+      <Link>MainPage.xaml.cs</Link>
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\shared\rest models\Atlassian.cs">
+      <Link>Model\Atlassian.cs</Link>
+    </Compile>
+    <Compile Include="..\shared\rest models\CountryCodeData.cs">
+      <Link>Model\CountryCodeData.cs</Link>
+    </Compile>
+    <Compile Include="..\shared\rest models\CUSTOMER.cs">
+      <Link>Model\CUSTOMER.cs</Link>
+    </Compile>
+    <Compile Include="..\shared\rest models\PRODUCT.cs">
+      <Link>Model\PRODUCT.cs</Link>
+    </Compile>
+    <Compile Include="..\shared\serialization adapters\BinaryDataContractSerializationAdapter.cs">
+      <Link>Serialization Adapters\BinaryDataContractSerializationAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\shared\serialization adapters\DataContractSerializationAdapter.cs">
+      <Link>Serialization Adapters\DataContractSerializationAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\shared\serialization adapters\NewtonsoftSerializationAdapter.cs">
+      <Link>Serialization Adapters\NewtonsoftSerializationAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\shared\serialization adapters\XmlSerializationAdapter.cs">
+      <Link>Serialization Adapters\XmlSerializationAdapter.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainPage - DotNet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -88,6 +119,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -95,6 +127,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CF.RESTClient.NET.Standard\CF.RESTClient.NET.Standard.csproj">
+      <Project>{2fd0f85c-a349-4783-ab21-3addc04e9729}</Project>
+      <Name>CF.RESTClient.NET.Standard</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
