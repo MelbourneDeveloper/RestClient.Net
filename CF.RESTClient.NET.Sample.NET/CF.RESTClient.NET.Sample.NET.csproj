@@ -130,7 +130,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MainPages.xaml">
+    <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

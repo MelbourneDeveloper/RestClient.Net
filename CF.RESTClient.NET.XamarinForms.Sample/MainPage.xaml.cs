@@ -3,8 +3,8 @@ using CF.RESTClientDotNet;
 using groupkt;
 using System;
 using System.Text;
-using restclientdotnet = CF.RESTClientDotNet;
 using System.Threading.Tasks;
+using restclientdotnet = CF.RESTClientDotNet;
 
 namespace CF.RESTClient.NET.Sample
 {

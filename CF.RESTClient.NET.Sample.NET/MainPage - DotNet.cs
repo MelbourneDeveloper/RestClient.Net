@@ -1,8 +1,5 @@
 ﻿using Atlassian;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -29,14 +26,9 @@ namespace CF.RESTClient.NET.Sample
             TheTabControl.SelectionChanged += TheTabControl_SelectionChanged;
         }
 
-        private void GetBitBucketClient()
-        {
-            throw new NotImplementedException();
-        }
-
         private string GetPassword()
         {
-            throw new NotImplementedException();
+            return ThePasswordBox.Password;
         }
         #endregion
 
