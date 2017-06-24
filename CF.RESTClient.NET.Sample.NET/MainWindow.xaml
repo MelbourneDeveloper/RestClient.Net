@@ -3,10 +3,51 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CF.RESTClient.NET.Sample.NET"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="RESTClient.NET Sample" Height="600" Width="525">
+
+    <TabControl Margin="4">
+        <TabItem Header="BitBucket Repos" x:Name="ReposPage">
+
+            <Grid>
+
+                <ProgressBar x:Name="ReposActivityIndicator" IsIndeterminate="False" />
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch"  >
+
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="Bitbucket Username: " VerticalAlignment="Center"  />
+                        <TextBox x:Name="UsernameBox" Text="MelbourneDeveloper"  HorizontalAlignment="Stretch"  VerticalAlignment="Center"  />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch"  >
+                        <TextBlock Text="Password: "  VerticalAlignment="Center"  Width="300" />
+                        <PasswordBox  x:Name="ThePasswordBox" Width="300"    VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                    </StackPanel>
+
+                    <Button Content="Get My Repos"  Margin="2" x:Name="GetReposButton" />
+
+                    <ListView x:Name="ReposBox"    Margin="4" Height="200" Background="#EEEEEE"  >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding name}" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <TextBlock Text="Description" />
+                    <TextBox Text="{Binding description}"  Height="200"  />
+
+                    <Button Content="Save Repo"   x:Name="SaveButton"  />
+
+                </StackPanel>
+
+            </Grid>
+
+        </TabItem>
+        <TabItem Header="Country Codes">
+        </TabItem>
+    </TabControl>
+
+
 </Window>
