@@ -67,10 +67,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="..\CF.RESTClient.NET.XamarinForms.Sample\MainPage.xaml.cs">
-      <Link>MainPage.xaml.cs</Link>
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="..\shared\rest models\Atlassian.cs">
       <Link>Model\Atlassian.cs</Link>
     </Compile>
