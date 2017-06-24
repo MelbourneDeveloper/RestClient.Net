@@ -13,7 +13,7 @@
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
-        <TabControl Margin="4">
+        <TabControl Margin="4" Name="TheTabControl">
             <TabItem Header="BitBucket Repos" x:Name="ReposPage">
 
                 <Grid>
@@ -51,7 +51,7 @@
 
             </TabItem>
 
-            <TabItem Header="Country Codes">
+            <TabItem Header="Country Codes" Name="CountryCodesPage">
 
                 <Grid  >
 

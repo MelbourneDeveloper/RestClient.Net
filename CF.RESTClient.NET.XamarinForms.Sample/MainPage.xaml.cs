@@ -21,11 +21,6 @@ namespace CF.RESTClient.NET.Sample
             AttachEventHandlers();
         }
 
-        private void GetReposButton_Clicked(object sender, EventArgs e)
-        {
-            OnGetReposClick();
-        }
-
         #endregion
 
         #region Private Methods

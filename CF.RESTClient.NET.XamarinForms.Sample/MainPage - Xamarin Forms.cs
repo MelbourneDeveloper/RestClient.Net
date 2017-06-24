@@ -24,13 +24,17 @@ namespace CF.RESTClient.NET.Sample
 
         private void ReposBox_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var selectedRepo = ReposBox.SelectedItem as Repository;
-            ReposPage.BindingContext = selectedRepo;
+            ReposPage.BindingContext = ReposBox.SelectedItem as Repository;
         }
 
         private async void SaveButton_Clicked(object sender, EventArgs e)
         {
             await OnSavedClicked();
+        }
+
+        private void GetReposButton_Clicked(object sender, EventArgs e)
+        {
+            OnGetReposClick();
         }
 
         #endregion
@@ -39,7 +43,7 @@ namespace CF.RESTClient.NET.Sample
 
         private string GetPassword()
         {
-            throw new NotImplementedException();
+            return ThePasswordBox.Text;
         }
 
         private async Task DisplayAlert(string title, string message)
