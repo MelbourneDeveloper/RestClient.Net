@@ -14,7 +14,7 @@
                     <RowDefinition Height="30" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                
+
                 <ActivityIndicator x:Name="ReposActivityIndicator" IsRunning="False" IsVisible="False" />
 
                 <StackLayout Orientation="Vertical" Grid.Row="1" >
@@ -56,9 +56,15 @@
         <ContentPage Title="Country Codes" x:Name="CountryCodesPage" >
 
             <Grid  >
-                <ActivityIndicator  x:Name="CountryCodesActivityIndicator"    Margin="10"  />
 
-                <ListView x:Name="CountryCodeList"   Margin="4" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <ActivityIndicator  x:Name="CountryCodesActivityIndicator"    Margin="2" IsRunning="False" IsVisible="False"   />
+
+                <ListView x:Name="CountryCodeList"   Margin="4" Grid.Row="1" >
 
                     <ListView.ItemTemplate>
                         <DataTemplate>

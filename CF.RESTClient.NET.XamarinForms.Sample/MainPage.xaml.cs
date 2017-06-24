@@ -98,6 +98,8 @@ namespace CF.RESTClient.NET.Sample
 
         private async void OnCountryCodeGridLoaded()
         {
+            ToggleBusy(true);
+
             try
             {
                 var countryCodeClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
