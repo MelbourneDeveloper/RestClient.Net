@@ -61,6 +61,11 @@ namespace CF.RESTClientDotNet
             return await CallAsync<TReturn, TBody, object>(body, null, HttpVerb.Post);
         }
 
+        public async Task<TReturn> PostAsync<TReturn, TBody>(TBody body, string queryString)
+        {
+            return await CallAsync<TReturn, TBody, object>(body, queryString, HttpVerb.Post);
+        }
+
         public async Task<RESTResponse> PostAsync<TBody, TQueryString>(TBody body, TQueryString queryString)
         {
             return await GetRESTResponse(body, queryString, HttpVerb.Post);
