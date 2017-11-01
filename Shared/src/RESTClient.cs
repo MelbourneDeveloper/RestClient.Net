@@ -20,9 +20,14 @@ namespace CF.RESTClientDotNet
         public static ISerializationAdapter SerializationAdapter { get; set; }
         public Uri BaseUri { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the header value of Content-Type in the http request. Note: This will default to 'application/json'
+        /// </summary>
+        public string ContentType { get; set; } = "application/json";
+
 #if (!SILVERLIGHT)
         /// <summary>
-        /// Allows headers to be sent as part of the request. Note: This it seems that this not supported in Silverlight
+        /// Allows headers to be sent as part of the request. Note: it seems that this not supported in Silverlight
         /// </summary>
         public Dictionary<string, string> Headers { get; } = new Dictionary<string, string>();
 
@@ -250,11 +255,6 @@ namespace CF.RESTClientDotNet
                     throw new NotImplementedException();
             }
 
-            //We're always going to use json
-#if (!SILVERLIGHT)
-            retVal.ContentType = "application/json";
-#endif
-
             if (body != null && new List<HttpVerb> { HttpVerb.Post, HttpVerb.Put }.Contains(verb))
             {
                 //Set the body of the POST/PUT
@@ -278,23 +278,20 @@ namespace CF.RESTClientDotNet
             }
 
 #if (!SILVERLIGHT)
+            retVal.ContentType = ContentType;
+
             foreach (var key in Headers?.Keys)
             {
                 retVal.Headers[key] = Headers[key];
             }
-#endif
 
-            //TODO: Reimplement
-            //#if (!NETFX_CORE && !SILVERLIGHT)
-            //            retVal.Timeout = timeOutMilliseconds;
-            //#endif
+            retVal.ContinueTimeout = TimeoutMilliseconds;
+#endif
 
             //Return the request
             return retVal;
         }
-
-
-
+    
         /// <summary>
         /// Given the response from the REST call, return the string(
         /// </summary>
