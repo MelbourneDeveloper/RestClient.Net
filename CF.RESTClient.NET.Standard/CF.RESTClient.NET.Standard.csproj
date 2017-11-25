@@ -79,6 +79,7 @@
       <Link>RESTTimeoutException.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.Title.cs" />
+    <Compile Include="TraceEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

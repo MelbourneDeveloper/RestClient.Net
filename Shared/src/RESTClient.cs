@@ -8,11 +8,6 @@ namespace CF.RESTClientDotNet
 {
     public class RESTClient
     {
-        #region Fields
-#if (!SILVERLIGHT)
-#endif
-        #endregion
-
         #region Public Properties 
         public Type ErrorType { get; set; }
         public int TimeoutMilliseconds { get; set; } = 10000;
@@ -33,6 +28,10 @@ namespace CF.RESTClientDotNet
 
 #endif
 
+        #endregion
+
+        #region Events
+        public event EventHandler<TraceEventArgs> OperationOccurred;
         #endregion
 
         #region Public Static Properties
@@ -131,18 +130,25 @@ namespace CF.RESTClientDotNet
         {
             try
             {
+                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(SerializationAdapter.DecodeStringAsync), TraceEventArgs.OperationState.Start));
                 //If the body is a string, convert it to binary
                 var bodyAsString = body as string;
                 if (bodyAsString != null)
                 {
                     body = await SerializationAdapter.DecodeStringAsync(bodyAsString);
                 }
+                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(SerializationAdapter.DecodeStringAsync), TraceEventArgs.OperationState.Complete));
 
                 //Get the Http Request object
+                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(GetRequestAsync), TraceEventArgs.OperationState.Start));
                 var request = await GetRequestAsync(body, queryString, verb);
+                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(GetRequestAsync), TraceEventArgs.OperationState.Complete));
 
                 //Get the response from the server
-                return await request.GetResponseAsync();
+                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(request.GetResponseAsync), TraceEventArgs.OperationState.Start));
+                var retVal = await request.GetResponseAsync();
+                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(request.GetResponseAsync), TraceEventArgs.OperationState.Complete));
+                return retVal;
             }
             catch (WebException wex)
             {
@@ -291,7 +297,7 @@ namespace CF.RESTClientDotNet
             //Return the request
             return retVal;
         }
-    
+
         /// <summary>
         /// Given the response from the REST call, return the string(
         /// </summary>
