@@ -184,9 +184,13 @@ namespace CF.RESTClientDotNet
 
         private async Task<TReturn> CallAsync<TReturn, TBody, TQueryString>(TBody body, TQueryString queryString, HttpVerb verb)
         {
+            OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(CallAsync), TraceEventArgs.OperationState.Start));
+
             var restResponse = await GetRESTResponse(body, queryString, verb);
 
             var retVal = await DeserialiseResponseAsync<TReturn>(restResponse);
+
+            OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(CallAsync), TraceEventArgs.OperationState.Complete));
 
             return retVal;
         }
@@ -303,7 +307,9 @@ namespace CF.RESTClientDotNet
         /// </summary>
         private async Task<byte[]> GetDataFromResponseStreamAsync(WebResponse response)
         {
+            OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(response.GetResponseStream), TraceEventArgs.OperationState.Start));
             var responseStream = response.GetResponseStream();
+            OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(response.GetResponseStream), TraceEventArgs.OperationState.Complete));
             byte[] responseBuffer;
 
             if (!ReadToEnd)
@@ -317,7 +323,9 @@ namespace CF.RESTClientDotNet
                 responseBuffer = new byte[responseStream.Length];
 
                 //Read from the stream (complete)
+                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(responseStream.ReadAsync), TraceEventArgs.OperationState.Start));
                 var responseLength = await responseStream.ReadAsync(responseBuffer, 0, (int)responseStream.Length);
+                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(responseStream.ReadAsync), TraceEventArgs.OperationState.Complete));
             }
             else
             {
@@ -325,6 +333,7 @@ namespace CF.RESTClientDotNet
 
                 //TODO: This method of getting the data looks like a performance hit because of the casting.
                 var eof = false;
+                OperationOccurred?.Invoke(this, new TraceEventArgs("ReadResponseBuffer", TraceEventArgs.OperationState.Start));
                 while (!eof)
                 {
                     var theByte = responseStream.ReadByte();
@@ -340,6 +349,8 @@ namespace CF.RESTClientDotNet
                 }
 
                 responseBuffer = bytes.ToArray();
+
+                OperationOccurred?.Invoke(this, new TraceEventArgs("ReadResponseBuffer", TraceEventArgs.OperationState.Complete));
             }
 
             //Convert the response from bytes to json string 
@@ -355,13 +366,17 @@ namespace CF.RESTClientDotNet
 
             if (typeof(TReturn) == typeof(string))
             {
+                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(SerializationAdapter.EncodeStringAsync), TraceEventArgs.OperationState.Start));
                 var textAsObject = (object)await SerializationAdapter.EncodeStringAsync(response.Data);
+                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(SerializationAdapter.EncodeStringAsync), TraceEventArgs.OperationState.Complete));
                 retVal = (TReturn)textAsObject;
             }
             else
             {
                 //Deserialise the json to the generic type
+                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(SerializationAdapter.DeserializeAsync), TraceEventArgs.OperationState.Start));
                 retVal = await SerializationAdapter.DeserializeAsync<TReturn>(response.Data);
+                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(SerializationAdapter.DeserializeAsync), TraceEventArgs.OperationState.Complete));
             }
 
             //Set the HttpWebResponse
