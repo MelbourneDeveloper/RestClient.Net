@@ -53,6 +53,12 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>StrongNameKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Shared\src\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
@@ -79,12 +85,14 @@
       <Link>RESTTimeoutException.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.Title.cs" />
-    <Compile Include="TraceEventArgs.cs" />
+    <Compile Include="BasicTrace.cs" />
+    <Compile Include="ITrace.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <CodeAnalysisDictionary Include="CodeRulesDictionary.xml" />
     <Content Include="project.json" />
   </ItemGroup>
   <ItemGroup>

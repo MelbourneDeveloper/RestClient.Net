@@ -14,6 +14,7 @@ namespace CF.RESTClientDotNet
         public bool ReadToEnd { get; set; } = true;
         public static ISerializationAdapter SerializationAdapter { get; set; }
         public Uri BaseUri { get; private set; }
+        public ITracer Trace { get; set; }
 
         /// <summary>
         /// Gets or sets the header value of Content-Type in the http request. Note: This will default to 'application/json'
@@ -28,10 +29,6 @@ namespace CF.RESTClientDotNet
 
 #endif
 
-        #endregion
-
-        #region Events
-        public event EventHandler<TraceEventArgs> OperationOccurred;
         #endregion
 
         #region Public Static Properties
@@ -130,24 +127,25 @@ namespace CF.RESTClientDotNet
         {
             try
             {
-                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(SerializationAdapter.DecodeStringAsync), TraceEventArgs.OperationState.Start));
+                Trace.Trace(nameof(SerializationAdapter.DecodeStringAsync), OperationState.Start);
+                Trace.Trace(nameof(SerializationAdapter.DecodeStringAsync), OperationState.Start);
                 //If the body is a string, convert it to binary
                 var bodyAsString = body as string;
                 if (bodyAsString != null)
                 {
                     body = await SerializationAdapter.DecodeStringAsync(bodyAsString);
                 }
-                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(SerializationAdapter.DecodeStringAsync), TraceEventArgs.OperationState.Complete));
+                Trace.Trace(nameof(SerializationAdapter.DecodeStringAsync), OperationState.Complete);
 
                 //Get the Http Request object
-                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(GetRequestAsync), TraceEventArgs.OperationState.Start));
+                Trace.Trace(nameof(GetRequestAsync), OperationState.Start);
                 var request = await GetRequestAsync(body, queryString, verb);
-                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(GetRequestAsync), TraceEventArgs.OperationState.Complete));
+                Trace.Trace(nameof(GetRequestAsync), OperationState.Complete);
 
                 //Get the response from the server
-                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(request.GetResponseAsync), TraceEventArgs.OperationState.Start));
+                Trace.Trace(nameof(request.GetResponseAsync), OperationState.Start);
                 var retVal = await request.GetResponseAsync();
-                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(request.GetResponseAsync), TraceEventArgs.OperationState.Complete));
+                Trace.Trace(nameof(request.GetResponseAsync), OperationState.Complete);
                 return retVal;
             }
             catch (WebException wex)
@@ -184,13 +182,13 @@ namespace CF.RESTClientDotNet
 
         private async Task<TReturn> CallAsync<TReturn, TBody, TQueryString>(TBody body, TQueryString queryString, HttpVerb verb)
         {
-            OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(CallAsync), TraceEventArgs.OperationState.Start));
+            Trace.Trace(nameof(CallAsync), OperationState.Start);
 
             var restResponse = await GetRESTResponse(body, queryString, verb);
 
             var retVal = await DeserialiseResponseAsync<TReturn>(restResponse);
 
-            OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(CallAsync), TraceEventArgs.OperationState.Complete));
+            Trace.Trace(nameof(CallAsync), OperationState.Complete);
 
             return retVal;
         }
@@ -307,9 +305,9 @@ namespace CF.RESTClientDotNet
         /// </summary>
         private async Task<byte[]> GetDataFromResponseStreamAsync(WebResponse response)
         {
-            OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(response.GetResponseStream), TraceEventArgs.OperationState.Start));
+            Trace.Trace(nameof(response.GetResponseStream), OperationState.Start);
             var responseStream = response.GetResponseStream();
-            OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(response.GetResponseStream), TraceEventArgs.OperationState.Complete));
+            Trace.Trace(nameof(response.GetResponseStream), OperationState.Complete);
             byte[] responseBuffer;
 
             if (!ReadToEnd)
@@ -323,9 +321,9 @@ namespace CF.RESTClientDotNet
                 responseBuffer = new byte[responseStream.Length];
 
                 //Read from the stream (complete)
-                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(responseStream.ReadAsync), TraceEventArgs.OperationState.Start));
+                Trace.Trace(nameof(responseStream.ReadAsync), OperationState.Start);
                 var responseLength = await responseStream.ReadAsync(responseBuffer, 0, (int)responseStream.Length);
-                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(responseStream.ReadAsync), TraceEventArgs.OperationState.Complete));
+                Trace.Trace(nameof(responseStream.ReadAsync), OperationState.Complete);
             }
             else
             {
@@ -333,7 +331,7 @@ namespace CF.RESTClientDotNet
 
                 //TODO: This method of getting the data looks like a performance hit because of the casting.
                 var eof = false;
-                OperationOccurred?.Invoke(this, new TraceEventArgs("ReadResponseBuffer", TraceEventArgs.OperationState.Start));
+                Trace.Trace("ReadResponseBuffer", OperationState.Start);
                 while (!eof)
                 {
                     var theByte = responseStream.ReadByte();
@@ -350,7 +348,7 @@ namespace CF.RESTClientDotNet
 
                 responseBuffer = bytes.ToArray();
 
-                OperationOccurred?.Invoke(this, new TraceEventArgs("ReadResponseBuffer", TraceEventArgs.OperationState.Complete));
+                Trace.Trace("ReadResponseBuffer", OperationState.Complete);
             }
 
             //Convert the response from bytes to json string 
@@ -366,17 +364,17 @@ namespace CF.RESTClientDotNet
 
             if (typeof(TReturn) == typeof(string))
             {
-                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(SerializationAdapter.EncodeStringAsync), TraceEventArgs.OperationState.Start));
+                Trace.Trace(nameof(SerializationAdapter.EncodeStringAsync), OperationState.Start);
                 var textAsObject = (object)await SerializationAdapter.EncodeStringAsync(response.Data);
-                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(SerializationAdapter.EncodeStringAsync), TraceEventArgs.OperationState.Complete));
+                Trace.Trace(nameof(SerializationAdapter.EncodeStringAsync), OperationState.Complete);
                 retVal = (TReturn)textAsObject;
             }
             else
             {
                 //Deserialise the json to the generic type
-                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(SerializationAdapter.DeserializeAsync), TraceEventArgs.OperationState.Start));
+                Trace.Trace(nameof(SerializationAdapter.DeserializeAsync), OperationState.Start);
                 retVal = await SerializationAdapter.DeserializeAsync<TReturn>(response.Data);
-                OperationOccurred?.Invoke(this, new TraceEventArgs(nameof(SerializationAdapter.DeserializeAsync), TraceEventArgs.OperationState.Complete));
+                Trace.Trace(nameof(SerializationAdapter.DeserializeAsync), OperationState.Complete);
             }
 
             //Set the HttpWebResponse
