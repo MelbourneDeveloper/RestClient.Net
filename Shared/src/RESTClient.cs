@@ -142,9 +142,9 @@ namespace CF.RESTClientDotNet
                 Tracer?.Trace(nameof(GetRequestAsync), OperationState.Complete);
 
                 //Get the response from the server
-                Tracer?.Trace(nameof(request.GetResponseAsync), OperationState.Start);
+                Tracer?.Trace("GetResponseAsync", OperationState.Start);
                 var retVal = await request.GetResponseAsync();
-                Tracer?.Trace(nameof(request.GetResponseAsync), OperationState.Complete);
+                Tracer?.Trace("GetResponseAsync", OperationState.Complete);
                 return retVal;
             }
             catch (WebException wex)
@@ -320,9 +320,9 @@ namespace CF.RESTClientDotNet
                 responseBuffer = new byte[responseStream.Length];
 
                 //Read from the stream (complete)
-                Tracer?.Trace(nameof(responseStream.ReadAsync), OperationState.Start);
+                Tracer?.Trace("ReadAsync", OperationState.Start);
                 var responseLength = await responseStream.ReadAsync(responseBuffer, 0, (int)responseStream.Length);
-                Tracer?.Trace(nameof(responseStream.ReadAsync), OperationState.Complete);
+                Tracer?.Trace("ReadAsync", OperationState.Complete);
             }
             else
             {
