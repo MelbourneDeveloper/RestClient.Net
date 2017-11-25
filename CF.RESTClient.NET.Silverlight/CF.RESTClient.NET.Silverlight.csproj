@@ -86,11 +86,11 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CF.RESTClient.NET.Standard\BasicTrace.cs">
-      <Link>BasicTrace.cs</Link>
+    <Compile Include="..\CF.RESTClient.NET.Standard\BasicTracer.cs">
+      <Link>BasicTracer.cs</Link>
     </Compile>
-    <Compile Include="..\CF.RESTClient.NET.Standard\ITrace.cs">
-      <Link>ITrace.cs</Link>
+    <Compile Include="..\CF.RESTClient.NET.Standard\ITracer.cs">
+      <Link>ITracer.cs</Link>
     </Compile>
     <Compile Include="..\Shared\src\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
