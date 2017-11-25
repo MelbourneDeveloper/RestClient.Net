@@ -86,7 +86,7 @@
     </Compile>
     <Compile Include="AssemblyInfo.Title.cs" />
     <Compile Include="BasicTrace.cs" />
-    <Compile Include="ITrace.cs" />
+    <Compile Include="ITracer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
