@@ -94,6 +94,14 @@ namespace CF.RESTClientDotNet
         /// <summary>
         /// Make a GET call and wait for the response
         /// </summary>
+        public async Task<TReturn> GetAsync<TReturn>(string queryString)
+        {
+            return await CallAsync<TReturn, object, string>(null, queryString, HttpVerb.Get);
+        }
+
+        /// <summary>
+        /// Make a GET call and wait for the response
+        /// </summary>
         public async Task<TReturn> GetAsync<TReturn, TQueryString>(TQueryString queryString)
         {
             return await CallAsync<TReturn, object, TQueryString>(null, queryString, HttpVerb.Get);
