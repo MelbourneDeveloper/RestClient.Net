@@ -300,7 +300,7 @@ namespace CF.RESTClientDotNet
                 retVal.Headers[key] = Headers[key];
             }
 
-            retVal.ContinueTimeout = TimeoutMilliseconds;
+            //retVal.ContinueTimeout = TimeoutMilliseconds;
 #endif
 
             //Return the request
