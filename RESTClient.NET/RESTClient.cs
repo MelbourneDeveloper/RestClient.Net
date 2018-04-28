@@ -64,29 +64,33 @@ namespace CF.RESTClientDotNet
             else
             {
                 StringContent stringContent = null;
+                long length = 0;
 
                 if (body is string bodyAsString)
                 {
                     stringContent = new StringContent(bodyAsString, Encoding, contentType);
+                    length = bodyAsString.Length;
                 }
                 else
                 {
-                    if (body is T t)
-                    {
-                        var decodedString = await SerializationAdapter.SerializeAsync(t);
-                        var bodyString = Encoding.GetString(decodedString);
-                        stringContent = new StringContent(bodyString, Encoding, contentType);
-                    }
-                    else if (body != null)
-                    {
-                        throw new Exception($"{nameof(body)} must be of type {typeof(T).GetType().FullName}");
-                    }
+                    throw new NotImplementedException();
+                    //if (body is T t)
+                    //{
+                    //    var decodedString = await SerializationAdapter.SerializeAsync(t);
+                    //    var bodyString = Encoding.GetString(decodedString);
+                    //    length = bodyString.Length;
+                    //    stringContent = new StringContent(bodyString, Encoding, contentType);
+                    //}
+                    //else if (body != null)
+                    //{
+                    //    throw new Exception($"{nameof(body)} must be of type {typeof(T).GetType().FullName}");
+                    //}
                 }
 
                 //Don't know why but this has to be set again, otherwise more text is added on to the Content-Type header...
                 stringContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
-                stringContent.Headers.ContentLength = bodyString.Length;
+                stringContent.Headers.ContentLength = length;
 
                 foreach (var key in Headers.Keys)
                 {
@@ -102,29 +106,20 @@ namespace CF.RESTClientDotNet
             if (result.IsSuccessStatusCode)
             {
                 var gzipHeader = result.Content.Headers.ContentEncoding.FirstOrDefault(h => !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.InvariantCultureIgnoreCase));
-                string json;
+                byte[] data;
                 if (gzipHeader != null && Zip != null)
                 {
                     var bytes = await result.Content.ReadAsByteArrayAsync();
                     var jsonUnzipped = Zip.Unzip(bytes);
 
-                    //TODO: Big assumption of UTF8 here.
-                    json = Encoding.UTF8.GetString(jsonUnzipped);
+                    data = jsonUnzipped;
                 }
                 else
                 {
-                    //TODO: This should be binary and we should use adapters like the old version of this lib so that it can actually be rereleased
-                    json = await result.Content.ReadAsStringAsync();
+                    data = await result.Content.ReadAsByteArrayAsync();
                 }
 
-                if (typeof(T) != typeof(string))
-                {
-                    return JsonConvert.DeserializeObject<T>(json);
-                }
-
-                //Just return the string
-                object jsonAsObject = json;
-                return (T)jsonAsObject;
+                return await SerializationAdapter.DeserializeAsync<T>(data);
             }
 
             var text = await result.Content.ReadAsStringAsync();
