@@ -12,31 +12,35 @@ namespace CF.RESTClientDotNet
     public class RESTClient
     {
         #region Fields
-        private readonly HttpClient _HttpClient = new HttpClient();
+        private readonly HttpClient _HttpClient = new HttpClient { Timeout = new TimeSpan(0, 3, 0) };
         #endregion
 
         #region Public Properties
         public Uri BaseUri => _HttpClient.BaseAddress;
-        public Dictionary<string, string> Headers { get; private set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Headers { get; } = new Dictionary<string, string>();
         public AuthenticationHeaderValue Authorization { get; set; }
         public Dictionary<HttpStatusCode, Func<string, object>> HttpStatusCodeFuncs = new Dictionary<HttpStatusCode, Func<string, object>>();
         public IZip Zip;
-        public ISerializationAdapter SerializationAdapter { get; set; }
+        public ISerializationAdapter SerializationAdapter { get; }
         public Encoding Encoding = Encoding.UTF8;
+        public TimeSpan Timeout
+        {
+            get => _HttpClient.Timeout;
+            set => _HttpClient.Timeout = value;
+        }
         #endregion
 
         #region Constructor
-        public RESTClient(Uri baseUri)
+        public RESTClient(Uri baseUri, ISerializationAdapter serializationAdapter)
         {
             _HttpClient.BaseAddress = baseUri;
-            _HttpClient.Timeout = new TimeSpan(0, 3, 0);
+            SerializationAdapter = serializationAdapter;
         }
 
-        public RESTClient(Uri baseUri, Encoding encoding) : this(baseUri)
+        public RESTClient(Uri baseUri, ISerializationAdapter serializationAdapter, Encoding encoding) : this(baseUri, serializationAdapter)
         {
             Encoding = encoding;
         }
-
         #endregion
 
         #region Private Methods
@@ -122,7 +126,7 @@ namespace CF.RESTClientDotNet
                 return (TReturn)HttpStatusCodeFuncs[result.StatusCode].Invoke(text);
             }
 
-            throw new HttpStatusException($"Nope {result.StatusCode}.\r\nBase Uri: {_HttpClient.BaseAddress}. Full Uri: {_HttpClient.BaseAddress + queryString}\r\nError:\r\n{text}", result.StatusCode);
+            throw new HttpStatusException($"Error. Status Code: {result.StatusCode}.\r\nBase Uri: {_HttpClient.BaseAddress}. Full Uri: {_HttpClient.BaseAddress + queryString}\r\nError:\r\n{text}", result.StatusCode);
         }
         #endregion
 

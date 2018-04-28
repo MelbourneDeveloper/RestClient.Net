@@ -4,6 +4,6 @@ namespace CF.RESTClientDotNet
 {
     public interface IRESTClientFactory
     {
-        RESTClient CreateRESTClient(Uri baseUri);
+        RESTClient CreateRESTClient(Uri baseUri, ISerializationAdapter serializationAdapter);
     }
 }
