@@ -49,15 +49,23 @@ namespace CF.RESTClient.NET.Sample
             return retVal;
         }
 
-        private void GetBitBucketClient(string password)
+        private void GetBitBucketClient(string password, bool isGet)
         {
             var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
             _BitbucketClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
 
             if (!string.IsNullOrEmpty(password))
             {
+
                 var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
+                //if (isGet)
+                //{
                 _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
+                //}
+                //else
+                //{
+                //    _BitbucketClient.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", "Basic " + credentials);
+                //}
             }
 
             _BitbucketClient.ErrorType = typeof(ErrorModel);
@@ -73,7 +81,7 @@ namespace CF.RESTClient.NET.Sample
                 ReposBox.IsEnabled = false;
 
                 //Ensure the client is ready to go
-                GetBitBucketClient(GetPassword());
+                GetBitBucketClient(GetPassword(), true);
 
                 var tracer = new BasicTracer();
                 _BitbucketClient.Tracer = tracer;
@@ -111,7 +119,7 @@ namespace CF.RESTClient.NET.Sample
                 }
 
                 //Ensure the client is ready to go
-                GetBitBucketClient(GetPassword());
+                GetBitBucketClient(GetPassword(), false);
 
                 var repoSlug = selectedRepo.full_name.Split('/')[1];
 

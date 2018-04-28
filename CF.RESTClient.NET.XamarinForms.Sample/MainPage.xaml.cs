@@ -68,8 +68,6 @@ namespace CF.RESTClient.NET.Sample
 
             try
             {
-                var tracer = new BasicTracer();
-                _BitbucketClient.Tracer = tracer;
 
                 ReposBox.ItemsSource = null;
                 ReposBox.IsEnabled = false;
@@ -84,10 +82,6 @@ namespace CF.RESTClient.NET.Sample
                 ReposBox.ItemsSource = repos.values;
                 ReposBox.IsEnabled = true;
 
-                foreach (var traceInfo in tracer.TraceInfos)
-                {
-                    Debug.WriteLine($"Operation: {traceInfo.OperationName} Milliseconds: {(traceInfo.CompleteTime - traceInfo.StartTime).TotalMilliseconds}");
-                }
             }
             catch (Exception ex)
             {

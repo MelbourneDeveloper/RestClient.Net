@@ -46,7 +46,7 @@ namespace CF.RESTClientDotNet
         #endregion
 
         #region Private Methods
-        private async Task<TReturn> Call<TReturn, TBody>(string queryString, bool isPost, string contentType, TBody body = default(TBody))
+        private async Task<TReturn> Call<TReturn, TBody>(string queryString, HttpVerb httpVerb, string contentType, TBody body = default(TBody))
         {
             _HttpClient.DefaultRequestHeaders.Clear();
 
@@ -55,8 +55,8 @@ namespace CF.RESTClientDotNet
                 _HttpClient.DefaultRequestHeaders.Authorization = Authorization;
             }
 
-            HttpResponseMessage result;
-            if (!isPost)
+            HttpResponseMessage result = null;
+            if (httpVerb != HttpVerb.Post)
             {
                 _HttpClient.DefaultRequestHeaders.Clear();
                 foreach (var key in Headers.Keys)
@@ -64,6 +64,28 @@ namespace CF.RESTClientDotNet
                     _HttpClient.DefaultRequestHeaders.Add(key, Headers[key]);
                 }
 
+                switch (httpVerb)
+                {
+                    case HttpVerb.Get:
+                        result = await _HttpClient.GetAsync(queryString);
+                        break;
+                    case HttpVerb.Put:
+
+
+                        throw new NotImplementedException("Use fiddler to trace this and see why the old version works but this doesn't");
+
+                        //var data = await SerializationAdapter.SerializeAsync<TBody>(body);
+                        //var bodyString = Encoding.GetString(data);
+                        //var length = bodyString.Length;
+                        //var stringContent = new StringContent(bodyString, Encoding, contentType);
+
+                        //stringContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+
+                        //stringContent.Headers.ContentLength = length;
+
+                        //result = await _HttpClient.PutAsync(queryString, stringContent);
+                        //break;
+                }
 
                 result = await _HttpClient.GetAsync(queryString);
             }
@@ -120,7 +142,6 @@ namespace CF.RESTClientDotNet
                 return await SerializationAdapter.DeserializeAsync<TReturn>(data);
             }
 
-
             if (HttpStatusCodeFuncs.ContainsKey(result.StatusCode))
             {
                 var text = await result.Content.ReadAsStringAsync();
@@ -132,7 +153,7 @@ namespace CF.RESTClientDotNet
                 if (ErrorType != null)
                 {
                     var error = await SerializationAdapter.DeserializeAsync(responseData, ErrorType);
-                    throw new RESTException(error, responseData, "An error occurred. Please see Error property of this exception");
+                    throw new RESTException(error, responseData, "An error occurred. Please see Error property of this exception", result.StatusCode);
                 }
                 else
                 {
@@ -150,17 +171,17 @@ namespace CF.RESTClientDotNet
 
         public async Task<TReturn> GetAsync<TReturn>(string queryString, string contentType = "application/json")
         {
-            return await Call<TReturn, object>(queryString, false, contentType);
+            return await Call<TReturn, object>(queryString, HttpVerb.Get, contentType);
         }
 
         public async Task<TReturn> PostAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
         {
-            return await Call<TReturn, TBody>(queryString, true, contentType, body);
+            return await Call<TReturn, TBody>(queryString, HttpVerb.Post, contentType, body);
         }
 
         public async Task<TReturn> PutAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
         {
-            return await Call<TReturn, TBody>(queryString, true, contentType, body);
+            return await Call<TReturn, TBody>(queryString, HttpVerb.Put, contentType, body);
         }
         #endregion
     }
