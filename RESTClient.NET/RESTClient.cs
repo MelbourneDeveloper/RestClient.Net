@@ -40,7 +40,7 @@ namespace CF.RESTClientDotNet
         #endregion
 
         #region Private Methods
-        private async Task<T> Call<T>(string queryString, bool isPost, string contentType, object body = null)
+        private async Task<TReturn> Call<TReturn, TBody>(string queryString, bool isPost, string contentType, TBody body = default(TBody))
         {
             _HttpClient.DefaultRequestHeaders.Clear();
 
@@ -66,25 +66,18 @@ namespace CF.RESTClientDotNet
                 StringContent stringContent = null;
                 long length = 0;
 
-                if (body is string bodyAsString)
+                var bodyAsString = body as string;
+                if (bodyAsString != null)
                 {
                     stringContent = new StringContent(bodyAsString, Encoding, contentType);
                     length = bodyAsString.Length;
                 }
                 else
                 {
-                    throw new NotImplementedException();
-                    //if (body is T t)
-                    //{
-                    //    var decodedString = await SerializationAdapter.SerializeAsync(t);
-                    //    var bodyString = Encoding.GetString(decodedString);
-                    //    length = bodyString.Length;
-                    //    stringContent = new StringContent(bodyString, Encoding, contentType);
-                    //}
-                    //else if (body != null)
-                    //{
-                    //    throw new Exception($"{nameof(body)} must be of type {typeof(T).GetType().FullName}");
-                    //}
+                    var data = await SerializationAdapter.SerializeAsync<TBody>(body);
+                    var bodyString = Encoding.GetString(data);
+                    length = bodyString.Length;
+                    stringContent = new StringContent(bodyString, Encoding, contentType);
                 }
 
                 //Don't know why but this has to be set again, otherwise more text is added on to the Content-Type header...
@@ -119,14 +112,14 @@ namespace CF.RESTClientDotNet
                     data = await result.Content.ReadAsByteArrayAsync();
                 }
 
-                return await SerializationAdapter.DeserializeAsync<T>(data);
+                return await SerializationAdapter.DeserializeAsync<TReturn>(data);
             }
 
             var text = await result.Content.ReadAsStringAsync();
 
             if (HttpStatusCodeFuncs.ContainsKey(result.StatusCode))
             {
-                return (T)HttpStatusCodeFuncs[result.StatusCode].Invoke(text);
+                return (TReturn)HttpStatusCodeFuncs[result.StatusCode].Invoke(text);
             }
 
             throw new HttpStatusException($"Nope {result.StatusCode}.\r\nBase Uri: {_HttpClient.BaseAddress}. Full Uri: {_HttpClient.BaseAddress + queryString}\r\nError:\r\n{text}", result.StatusCode);
@@ -134,14 +127,14 @@ namespace CF.RESTClientDotNet
         #endregion
 
         #region Public Methods
-        public async Task<T> GetAsync<T>(string queryString, string contentType = "application/json")
+        public async Task<TReturn> GetAsync<TReturn>(string queryString, string contentType = "application/json")
         {
-            return await Call<T>(queryString, false, contentType);
+            return await Call<TReturn, object>(queryString, false, contentType);
         }
 
         public async Task<TReturn> PostAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
         {
-            return await Call<TReturn>(queryString, true, contentType, body);
+            return await Call<TReturn, TBody>(queryString, true, contentType, body);
         }
         #endregion
     }
