@@ -116,7 +116,7 @@ namespace CF.RESTClient.NET.Sample
                 var repoSlug = selectedRepo.full_name.Split('/')[1];
 
                 //Post the change
-                var retVal = await _BitbucketClient.PutAsync<Repository, Repository, string>(selectedRepo, repoSlug);
+                var retVal = await _BitbucketClient.PutAsync<Repository, Repository>(selectedRepo, repoSlug);
 
                 await DisplayAlert("Saved", "Your repo was updated.");
             }

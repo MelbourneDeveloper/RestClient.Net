@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,9 +12,9 @@ namespace CF.RESTClientDotNet
         #endregion
 
         #region Implementation
-        public async Task<T> DeserializeAsync<T>(byte[] binary)
+        public async Task<T> DeserializeAsync<T>(byte[] data)
         {
-            var markup = Encoding.GetString(binary);
+            var markup = Encoding.GetString(data);
 
             object markupAsObject = markup;
 
@@ -22,9 +23,12 @@ namespace CF.RESTClientDotNet
                 return (T)markupAsObject;
             }
 
-            var retVal = await Task.Run(() => JsonConvert.DeserializeObject<T>(markup));
+            return await Task.Run(() => JsonConvert.DeserializeObject<T>(markup));
+        }
 
-            return retVal;
+        public async Task<object> DeserializeAsync(byte[] data, Type errorType)
+        {
+            return await Task.Run(() => JsonConvert.DeserializeObject(Encoding.GetString(data)));
         }
 
         public async Task<byte[]> SerializeAsync<T>(T value)

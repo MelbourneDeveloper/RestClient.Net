@@ -28,6 +28,8 @@ namespace CF.RESTClientDotNet
             get => _HttpClient.Timeout;
             set => _HttpClient.Timeout = value;
         }
+        public ITracer Tracer { get; set; }
+        public Type ErrorType { get; set; }
         #endregion
 
         #region Constructor
@@ -118,14 +120,25 @@ namespace CF.RESTClientDotNet
                 return await SerializationAdapter.DeserializeAsync<TReturn>(data);
             }
 
-            var text = await result.Content.ReadAsStringAsync();
 
             if (HttpStatusCodeFuncs.ContainsKey(result.StatusCode))
             {
+                var text = await result.Content.ReadAsStringAsync();
                 return (TReturn)HttpStatusCodeFuncs[result.StatusCode].Invoke(text);
             }
-
-            throw new HttpStatusException($"Error. Status Code: {result.StatusCode}.\r\nBase Uri: {_HttpClient.BaseAddress}. Full Uri: {_HttpClient.BaseAddress + queryString}\r\nError:\r\n{text}", result.StatusCode);
+            else
+            {
+                var responseData = await result.Content.ReadAsByteArrayAsync();
+                if (ErrorType != null)
+                {
+                    var error = await SerializationAdapter.DeserializeAsync(responseData, ErrorType);
+                    throw new RESTException(error, responseData, "An error occurred. Please see Error property of this exception");
+                }
+                else
+                {
+                    throw new Exception($"An error occurred\r\n\r\n{Encoding.GetString(responseData)}");
+                }
+            }
         }
         #endregion
 

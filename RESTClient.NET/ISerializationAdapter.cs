@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace CF.RESTClientDotNet
 {
@@ -13,5 +14,7 @@ namespace CF.RESTClientDotNet
         /// Takes binary data and converts it to an object of type T
         /// </summary>
         Task<T> DeserializeAsync<T>(byte[] binary);
+
+        Task<object> DeserializeAsync(byte[] data, Type errorType);
     }
 }
