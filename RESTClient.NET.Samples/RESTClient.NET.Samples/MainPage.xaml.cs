@@ -69,14 +69,14 @@ namespace CF.RESTClient.NET.Sample
 
             try
             {
-                var tracer = new BasicTracer();
-                _BitbucketClient.Tracer = tracer;
-
                 ReposBox.ItemsSource = null;
                 ReposBox.IsEnabled = false;
 
                 //Ensure the client is ready to go
                 GetBitBucketClient(GetPassword());
+
+                var tracer = new BasicTracer();
+                _BitbucketClient.Tracer = tracer;
 
                 //Download the repository data
                 var repos = (await _BitbucketClient.GetAsync<RepositoryList>());
