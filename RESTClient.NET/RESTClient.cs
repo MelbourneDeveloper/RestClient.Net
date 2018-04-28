@@ -144,6 +144,11 @@ namespace CF.RESTClientDotNet
         {
             return await Call<TReturn, TBody>(queryString, true, contentType, body);
         }
+
+        public async Task<TReturn> PutAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
+        {
+            return await Call<TReturn, TBody>(queryString, true, contentType, body);
+        }
         #endregion
     }
 }
