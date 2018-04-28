@@ -97,7 +97,6 @@ namespace CF.RESTClientDotNet
                 result = await _HttpClient.PostAsync(queryString, stringContent);
 
                 System.Diagnostics.Debug.WriteLine($"{_HttpClient.BaseAddress} OK");
-
             }
 
             if (result.IsSuccessStatusCode)
