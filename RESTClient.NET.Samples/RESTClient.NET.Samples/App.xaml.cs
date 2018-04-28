@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CF.RESTClient.NET.Sample;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace RESTClient.NET.Samples
 		{
 			InitializeComponent();
 
-			MainPage = new RESTClient.NET.Samples.MainPage();
+			MainPage = new MainPage();
 		}
 
 		protected override void OnStart ()

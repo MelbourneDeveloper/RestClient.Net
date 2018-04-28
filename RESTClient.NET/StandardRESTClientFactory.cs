@@ -13,7 +13,7 @@ namespace CF.RESTClientDotNet
 
         public RESTClient CreateRESTClient(Uri baseUri)
         {
-            return new RESTClient(baseUri, SerializationAdapter);
+            return new RESTClient(SerializationAdapter, baseUri);
         }
     }
 }

@@ -31,13 +31,13 @@ namespace CF.RESTClientDotNet
         #endregion
 
         #region Constructor
-        public RESTClient(Uri baseUri, ISerializationAdapter serializationAdapter)
+        public RESTClient(ISerializationAdapter serializationAdapter, Uri baseUri)
         {
             _HttpClient.BaseAddress = baseUri;
             SerializationAdapter = serializationAdapter;
         }
 
-        public RESTClient(Uri baseUri, ISerializationAdapter serializationAdapter, Encoding encoding) : this(baseUri, serializationAdapter)
+        public RESTClient(Uri baseUri, ISerializationAdapter serializationAdapter, Encoding encoding) : this(serializationAdapter, baseUri)
         {
             Encoding = encoding;
         }
@@ -130,6 +130,11 @@ namespace CF.RESTClientDotNet
         #endregion
 
         #region Public Methods
+        public async Task<T> GetAsync<T>()
+        {
+            return await GetAsync<T>(null);
+        }
+
         public async Task<TReturn> GetAsync<TReturn>(string queryString, string contentType = "application/json")
         {
             return await Call<TReturn, object>(queryString, false, contentType);
