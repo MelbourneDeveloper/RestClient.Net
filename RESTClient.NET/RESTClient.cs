@@ -21,7 +21,8 @@ namespace CF.RESTClientDotNet
         public AuthenticationHeaderValue Authorization { get; set; }
         public Dictionary<HttpStatusCode, Func<string, object>> HttpStatusCodeFuncs = new Dictionary<HttpStatusCode, Func<string, object>>();
         public IZip Zip;
-        public  ISerializationAdapter SerializationAdapter { get; set; }
+        public ISerializationAdapter SerializationAdapter { get; set; }
+        public Encoding Encoding = Encoding.UTF8;
         #endregion
 
         #region Constructor
@@ -30,6 +31,12 @@ namespace CF.RESTClientDotNet
             _HttpClient.BaseAddress = baseUri;
             _HttpClient.Timeout = new TimeSpan(0, 3, 0);
         }
+
+        public RESTClient(Uri baseUri, Encoding encoding) : this(baseUri)
+        {
+            Encoding = encoding;
+        }
+
         #endregion
 
         #region Private Methods
@@ -56,23 +63,25 @@ namespace CF.RESTClientDotNet
             }
             else
             {
-                string bodyString;
+                StringContent stringContent = null;
 
                 if (body is string bodyAsString)
                 {
-                    bodyString = bodyAsString;
+                    stringContent = new StringContent(bodyAsString, Encoding, contentType);
                 }
                 else
                 {
-                    if(body != null)
+                    if (body is T t)
                     {
-
+                        var decodedString = await SerializationAdapter.SerializeAsync(t);
+                        var bodyString = Encoding.GetString(decodedString);
+                        stringContent = new StringContent(bodyString, Encoding, contentType);
                     }
-
-                    bodyString = body != null ? await SerializationAdapter.SerializeAsync<T> ((T)body) : string.Empty;
+                    else if (body != null)
+                    {
+                        throw new Exception($"{nameof(body)} must be of type {typeof(T).GetType().FullName}");
+                    }
                 }
-
-                var stringContent = new StringContent(bodyString, Encoding.UTF8, contentType);
 
                 //Don't know why but this has to be set again, otherwise more text is added on to the Content-Type header...
                 stringContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
