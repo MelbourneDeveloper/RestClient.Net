@@ -72,19 +72,19 @@ namespace CF.RESTClientDotNet
                     case HttpVerb.Put:
 
 
-                        throw new NotImplementedException("Use fiddler to trace this and see why the old version works but this doesn't");
+                        // throw new NotImplementedException("Use fiddler to trace this and see why the old version works but this doesn't");
 
-                        //var data = await SerializationAdapter.SerializeAsync<TBody>(body);
-                        //var bodyString = Encoding.GetString(data);
-                        //var length = bodyString.Length;
-                        //var stringContent = new StringContent(bodyString, Encoding, contentType);
+                        var data = await SerializationAdapter.SerializeAsync<TBody>(body);
+                        var bodyString = Encoding.GetString(data);
+                        var length = bodyString.Length;
+                        var stringContent = new StringContent(bodyString, Encoding, contentType);
 
                         //stringContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
                         //stringContent.Headers.ContentLength = length;
 
-                        //result = await _HttpClient.PutAsync(queryString, stringContent);
-                        //break;
+                        result = await _HttpClient.PutAsync(queryString, stringContent);
+                        break;
                 }
 
                 result = await _HttpClient.GetAsync(queryString);
