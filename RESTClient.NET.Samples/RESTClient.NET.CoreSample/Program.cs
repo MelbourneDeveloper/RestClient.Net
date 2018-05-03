@@ -25,9 +25,10 @@ namespace RESTClient.NET.CoreSample
             GetBitBucketClient(true);
             var repos = (await _BitbucketClient.GetAsync<RepositoryList>());
             var backup = repos.values[3];
-            backup.description = "something";
+            backup.description = "smooper";
             var requestUri = $"https://api.bitbucket.org/2.0/repositories/{username}/{backup.full_name.Split('/')[1]}";
-            var response = await _BitbucketClient.PutAsync<Repository, Repository>(backup, requestUri);
+            backup = await _BitbucketClient.PutAsync<Repository, Repository>(backup, requestUri);
+            System.Diagnostics.Debug.WriteLine(backup.description);
         }
 
         private static void GetBitBucketClient(bool isGet)
