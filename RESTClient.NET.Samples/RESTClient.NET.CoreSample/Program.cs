@@ -33,17 +33,18 @@ namespace RESTClient.NET.CoreSample
             var httpClient = new HttpClient();
             var stringContent = new StringContent(JsonConvert.SerializeObject(backup), Encoding.UTF8, "application/json");
             var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(username + ":" + password));
-            //httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", "Basic " + credentials);
+            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", "Basic " + credentials);
 
-            var Headers = new Dictionary<string, string>();
-            Headers.Add("Authorization", "Basic " + credentials);
+            //var Headers = new Dictionary<string, string>();
+            //Headers.Add("Authorization", "Basic " + credentials);
 
-            foreach (var key in Headers.Keys)
-            {
-                stringContent.Headers.Add(key, Headers[key]);
-            }
+            //foreach (var key in Headers.Keys)
+            //{
+            //    stringContent.Headers.Add(key, Headers[key]);
+            //}
 
-            var response = await httpClient.PutAsync($"https://api.bitbucket.org/2.0/repositories/{username}/{backup.full_name.Split('/')[1]}", stringContent);
+            var requestUri = $"https://api.bitbucket.org/2.0/repositories/{username}/{backup.full_name.Split('/')[1]}";
+            var response = await httpClient.PutAsync(requestUri, stringContent);
             //backup = await _BitbucketClient.PostAsync<Repository, Repository>(backup, backup.full_name.Split('/')[1]);
         }
 
