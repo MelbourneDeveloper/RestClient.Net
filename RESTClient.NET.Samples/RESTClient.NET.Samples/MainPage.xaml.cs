@@ -56,16 +56,8 @@ namespace CF.RESTClient.NET.Sample
 
             if (!string.IsNullOrEmpty(password))
             {
-
                 var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
-                //if (isGet)
-                //{
                 _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
-                //}
-                //else
-                //{
-                //    _BitbucketClient.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", "Basic " + credentials);
-                //}
             }
 
             _BitbucketClient.ErrorType = typeof(ErrorModel);
@@ -121,10 +113,11 @@ namespace CF.RESTClient.NET.Sample
                 //Ensure the client is ready to go
                 GetBitBucketClient(GetPassword(), false);
 
-                var repoSlug = selectedRepo.full_name.Split('/')[1];
+                //var repoSlug = selectedRepo.full_name.Split('/')[1];
+                var requestUri = $"https://api.bitbucket.org/2.0/repositories/{UsernameBox.Text}/{selectedRepo.full_name.Split('/')[1]}";
 
                 //Post the change
-                var retVal = await _BitbucketClient.PutAsync<Repository, Repository>(selectedRepo, repoSlug);
+                var retVal = await _BitbucketClient.PutAsync<Repository, Repository>(selectedRepo, requestUri);
 
                 await DisplayAlert("Saved", "Your repo was updated.");
             }
