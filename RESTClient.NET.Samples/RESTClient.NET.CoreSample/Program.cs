@@ -33,7 +33,7 @@ namespace RESTClient.NET.CoreSample
             var httpClient = new HttpClient();
             var stringContent = new StringContent(JsonConvert.SerializeObject(backup), Encoding.UTF8, "application/json");
             var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(username + ":" + password));
-            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Authorization", "Basic " + credentials);
+            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", credentials);
 
             //var Headers = new Dictionary<string, string>();
             //Headers.Add("Authorization", "Basic " + credentials);
