@@ -17,6 +17,7 @@ namespace CF.RESTClientDotNet
         #region Public Properties
         public Uri BaseUri => _HttpClient.BaseAddress;
         public Dictionary<string, string> Headers { get; } = new Dictionary<string, string>();
+        public AuthenticationHeaderValue Authorization { get; set; }
         public Dictionary<HttpStatusCode, Func<string, object>> HttpStatusCodeFuncs = new Dictionary<HttpStatusCode, Func<string, object>>();
         public IZip Zip;
         public ISerializationAdapter SerializationAdapter { get; }
@@ -41,6 +42,11 @@ namespace CF.RESTClientDotNet
         private async Task<TReturn> Call<TReturn, TBody>(string queryString, HttpVerb httpVerb, string contentType, TBody body = default(TBody))
         {
             _HttpClient.DefaultRequestHeaders.Clear();
+
+            if (Authorization != null)
+            {
+                _HttpClient.DefaultRequestHeaders.Authorization = Authorization;
+            }
 
             HttpResponseMessage result = null;
             if (httpVerb != HttpVerb.Post)
