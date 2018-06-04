@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CF.RESTClientDotNet
 {
     public partial interface ISerializationAdapter
     {
+        Encoding Encoding { get; }
+
         /// <summary>
         /// Takes an object of Type T and converts it to binary data
         /// </summary>

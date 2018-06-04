@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CF.RESTClientDotNet
@@ -18,11 +17,9 @@ namespace CF.RESTClientDotNet
         #region Public Properties
         public Uri BaseUri => _HttpClient.BaseAddress;
         public Dictionary<string, string> Headers { get; } = new Dictionary<string, string>();
-        //public AuthenticationHeaderValue Authorization { get; set; }
         public Dictionary<HttpStatusCode, Func<string, object>> HttpStatusCodeFuncs = new Dictionary<HttpStatusCode, Func<string, object>>();
         public IZip Zip;
         public ISerializationAdapter SerializationAdapter { get; }
-        public Encoding Encoding = Encoding.UTF8;
         public TimeSpan Timeout
         {
             get => _HttpClient.Timeout;
@@ -38,22 +35,12 @@ namespace CF.RESTClientDotNet
             _HttpClient.BaseAddress = baseUri;
             SerializationAdapter = serializationAdapter;
         }
-
-        public RESTClient(Uri baseUri, ISerializationAdapter serializationAdapter, Encoding encoding) : this(serializationAdapter, baseUri)
-        {
-            Encoding = encoding;
-        }
         #endregion
 
         #region Private Methods
         private async Task<TReturn> Call<TReturn, TBody>(string queryString, HttpVerb httpVerb, string contentType, TBody body = default(TBody))
         {
             _HttpClient.DefaultRequestHeaders.Clear();
-
-            //if (Authorization != null)
-            //{
-            //    _HttpClient.DefaultRequestHeaders.Authorization = Authorization;
-            //}
 
             HttpResponseMessage result = null;
             if (httpVerb != HttpVerb.Post)
@@ -71,17 +58,10 @@ namespace CF.RESTClientDotNet
                         break;
                     case HttpVerb.Put:
 
-
-                        // throw new NotImplementedException("Use fiddler to trace this and see why the old version works but this doesn't");
-
-                        var data = await SerializationAdapter.SerializeAsync<TBody>(body);
-                        var bodyString = Encoding.GetString(data);
+                        var data = await SerializationAdapter.SerializeAsync(body);
+                        var bodyString = SerializationAdapter.Encoding.GetString(data);
                         var length = bodyString.Length;
-                        var stringContent = new StringContent(bodyString, Encoding, contentType);
-
-                        //stringContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
-
-                        //stringContent.Headers.ContentLength = length;
+                        var stringContent = new StringContent(bodyString, SerializationAdapter.Encoding, contentType);
 
                         result = await _HttpClient.PutAsync(queryString, stringContent);
                         break;
@@ -97,15 +77,15 @@ namespace CF.RESTClientDotNet
                 var bodyAsString = body as string;
                 if (bodyAsString != null)
                 {
-                    stringContent = new StringContent(bodyAsString, Encoding, contentType);
+                    stringContent = new StringContent(bodyAsString, SerializationAdapter.Encoding, contentType);
                     length = bodyAsString.Length;
                 }
                 else
                 {
-                    var data = await SerializationAdapter.SerializeAsync<TBody>(body);
-                    var bodyString = Encoding.GetString(data);
+                    var data = await SerializationAdapter.SerializeAsync(body);
+                    var bodyString = SerializationAdapter.Encoding.GetString(data);
                     length = bodyString.Length;
-                    stringContent = new StringContent(bodyString, Encoding, contentType);
+                    stringContent = new StringContent(bodyString, SerializationAdapter.Encoding, contentType);
                 }
 
                 //Don't know why but this has to be set again, otherwise more text is added on to the Content-Type header...
@@ -157,7 +137,7 @@ namespace CF.RESTClientDotNet
                 }
                 else
                 {
-                    throw new Exception($"An error occurred\r\n\r\n{Encoding.GetString(responseData)}");
+                    throw new Exception($"An error occurred\r\n\r\n{SerializationAdapter.Encoding.GetString(responseData)}");
                 }
             }
         }
