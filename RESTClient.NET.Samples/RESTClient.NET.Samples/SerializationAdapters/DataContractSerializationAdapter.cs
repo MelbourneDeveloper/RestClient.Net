@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CF.RESTClientDotNet
 {
-    public class DataContractSerializationAdapter : ISerializationAdapter
+    public class DataContractSerializationAdapter : RESTClientSerializationAdapterBase, ISerializationAdapter
     {
         #region Public Static Properties
         public static List<Type> KnownDataContracts { get; } = new List<Type>();

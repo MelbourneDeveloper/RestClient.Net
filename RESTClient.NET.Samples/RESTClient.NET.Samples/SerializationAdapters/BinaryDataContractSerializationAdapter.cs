@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace CF.RESTClientDotNet
 {
-    public class BinaryDataContractSerializationAdapter : ISerializationAdapter
+    public class BinaryDataContractSerializationAdapter : RESTClientSerializationAdapterBase, ISerializationAdapter
     {
         #region Public Static Properties
         public static List<Type> KnownDataContracts { get; } = new List<Type>();

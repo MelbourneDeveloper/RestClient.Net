@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace CF.RESTClientDotNet
 {
-    public class XmlSerializationAdapter : ISerializationAdapter
+    public class XmlSerializationAdapter : RESTClientSerializationAdapterBase, ISerializationAdapter
     {
         #region Public Methods
         public async Task<object> DeserializeAsync(byte[] binary, Type type)
