@@ -15,6 +15,6 @@ namespace CF.RESTClientDotNet
         /// </summary>
         Task<T> DeserializeAsync<T>(byte[] binary);
 
-        Task<object> DeserializeAsync(byte[] data, Type errorType);
+        Task<object> DeserializeAsync(byte[] data, Type type);
     }
 }
