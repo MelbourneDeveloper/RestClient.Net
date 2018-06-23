@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -8,7 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CryptoCurrency.Net
+namespace CF.RESTClientDotNet
 {
     public class RESTClient
     {
@@ -22,13 +21,15 @@ namespace CryptoCurrency.Net
         public AuthenticationHeaderValue Authorization { get; set; }
         public Dictionary<HttpStatusCode, Func<string, object>> HttpStatusCodeFuncs = new Dictionary<HttpStatusCode, Func<string, object>>();
         public IZip Zip;
+        public ISerializationAdapter SerializationAdapter { get; }
         #endregion
 
         #region Constructor
-        public RESTClient(Uri baseUri)
+        public RESTClient(ISerializationAdapter serializationAdapter, Uri baseUri)
         {
             _HttpClient.BaseAddress = baseUri;
             _HttpClient.Timeout = new TimeSpan(0, 3, 0);
+ 			 SerializationAdapter = serializationAdapter;
         }
         #endregion
 
