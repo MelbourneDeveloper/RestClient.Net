@@ -29,7 +29,7 @@ namespace CF.RESTClientDotNet
         {
             _HttpClient.BaseAddress = baseUri;
             _HttpClient.Timeout = new TimeSpan(0, 3, 0);
- 			 SerializationAdapter = serializationAdapter;
+            SerializationAdapter = serializationAdapter;
         }
         #endregion
 
@@ -65,7 +65,15 @@ namespace CF.RESTClientDotNet
                 }
                 else
                 {
-                    bodyString = body != null ? JsonConvert.SerializeObject(body) : string.Empty;
+                    if (body != null)
+                    {
+                        var data = await SerializationAdapter.SerializeAsync(body);
+                        bodyString = SerializationAdapter.Encoding.GetString(data);
+                    }
+                    else
+                    {
+                        bodyString = string.Empty;
+                    }
                 }
 
                 var stringContent = new StringContent(bodyString, Encoding.UTF8, contentType);
