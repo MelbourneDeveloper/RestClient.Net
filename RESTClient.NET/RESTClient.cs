@@ -19,7 +19,7 @@ namespace CF.RESTClientDotNet
         public Uri BaseUri => _HttpClient.BaseAddress;
         public Dictionary<string, string> Headers { get; private set; } = new Dictionary<string, string>();
         public AuthenticationHeaderValue Authorization { get; set; }
-        public Dictionary<HttpStatusCode, Func<string, object>> HttpStatusCodeFuncs = new Dictionary<HttpStatusCode, Func<string, object>>();
+        public Dictionary<HttpStatusCode, Func<byte[], object>> HttpStatusCodeFuncs = new Dictionary<HttpStatusCode, Func<byte[], object>>();
         public IZip Zip;
         public ISerializationAdapter SerializationAdapter { get; }
         #endregion
@@ -123,14 +123,14 @@ namespace CF.RESTClientDotNet
                 return await SerializationAdapter.DeserializeAsync<T>(data);
             }
 
-            var text = await result.Content.ReadAsStringAsync();
+            var errorData = await result.Content.ReadAsByteArrayAsync();
 
             if (HttpStatusCodeFuncs.ContainsKey(result.StatusCode))
             {
-                return (T)HttpStatusCodeFuncs[result.StatusCode].Invoke(text);
+                return (T)HttpStatusCodeFuncs[result.StatusCode].Invoke(errorData);
             }
 
-            throw new HttpStatusException($"Nope {result.StatusCode}.\r\nBase Uri: {_HttpClient.BaseAddress}. Full Uri: {_HttpClient.BaseAddress + queryString}\r\nError:\r\n{text}", result.StatusCode);
+            throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {_HttpClient.BaseAddress}. Full Uri: {_HttpClient.BaseAddress + queryString}", result.StatusCode, errorData);
         }
         #endregion
 

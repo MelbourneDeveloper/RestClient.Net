@@ -140,10 +140,13 @@ namespace CF.RESTClient.NET.Sample
         {
             ErrorModel errorModel = null;
 
-            var rex = ex as RESTException;
-            if (rex != null)
+            var hex = ex as HttpStatusException;
+            if (hex != null)
             {
-                errorModel = rex.Error as ErrorModel;
+                if (hex.ErrorData != null && hex.ErrorData.Length > 0)
+                {
+                    errorModel = await _BitbucketClient.SerializationAdapter.DeserializeAsync<ErrorModel>(hex.ErrorData);
+                }
             }
 
             string message = $"An error occurred while attempting to use a REST service.\r\nError: {ex.Message}\r\nInner Error: {ex.InnerException?.Message}\r\nInner Inner Error: {ex.InnerException?.InnerException?.Message}";
