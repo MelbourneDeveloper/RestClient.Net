@@ -1,14 +1,14 @@
 # .NET Standard REST Client for all .NET related platforms #
 
-### 2nd Beta Release (Looking for testers - Pull Requests Welcome) ###
+### 5th Beta Release (Looking for testers - Pull Requests Welcome) ###
 
 * Open Source. (MIT License)
 * Markup language agnostic. (Supports JSON, Binary, SOAP and other markup languages)
 * Use strong types with REST.
-* Supports Android, iOS, Windows 10, Windows 10 Phone, Silverlight, .NET, .NET Core, .NET Standard 1.4.
-* Incredibly simple (All source code just over 100 lines)
+* Supports Android, iOS, Windows 10, Windows 10 Phone, .NET, .NET Core, .NET Standard 2.0.
+* Incredibly simple (All source code less than 100 lines)
 * Async friendly (uses async, await keywords).
-* Only one .NET Standard library for all platforms except Silverlight
+* Only one .NET Standard library for all platforms
 
 ## Quick Start ##
 Samples for all platforms in this Git repo:
