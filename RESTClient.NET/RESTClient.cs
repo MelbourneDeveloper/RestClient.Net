@@ -122,6 +122,11 @@ namespace CF.RESTClientDotNet
         #endregion
 
         #region Public Methods
+        public async Task<T> GetAsync<T>()
+        {
+            return await GetAsync<T>(null);
+        }
+
         public async Task<T> GetAsync<T>(string queryString, string contentType = "application/json")
         {
             return await Call<T>(queryString, false, contentType);

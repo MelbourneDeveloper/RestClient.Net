@@ -41,8 +41,6 @@ namespace RESTClient.NET.CoreSample
                 var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(username + ":" + password));
                 _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
             }
-
-            _BitbucketClient.ErrorType = typeof(ErrorModel);
         }
     }
 }
