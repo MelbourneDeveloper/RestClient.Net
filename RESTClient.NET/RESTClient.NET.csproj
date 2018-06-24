@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <DebugType>pdbonly</DebugType>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>StrongNameKey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyVersion>0.8.0.0</AssemblyVersion>
+    <FileVersion>0.8.0.0</FileVersion>
+    <Version>0.8.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DelaySign>false</DelaySign>
+    <Authors>Christian Findlay</Authors>
+    <Description>.NET Standard REST Client for all .NET related platforms
+
+ Samples and Info: https://bitbucket.org/MelbourneDeveloper/restclient-.net
+
+
+5th Beta Release. This library is becoming more stable and has been used in several projects. I am very interested in feedback in order to get this to a versioned release. Please contact through the BitBucket repo's issue section.
+
+- Open Source. (MIT License)
+- Markup language agnostic. (Supports JSON, Binary, SOAP and other markup languages)
+- Use strong types with REST.
+- Supports Android, iOS, Windows 10, Windows 10 Phone, .NET, .NET Core, .NET Standard 2.0.
+- Incredibly simple (All source code less than 100 lines)
+- Async friendly (uses async, await keywords).
+- Only one .NET Standard library for all platforms
+Samples for all platforms in this Git repo: https://MelbourneDeveloper@bitbucket.org/MelbourneDeveloper/restclient-.net.git
+Note: 
+Open the NuGet package in NuGet folder for binaries
+Install -Package RestClient.NET -Version 0.8.0</Description>
+    <Copyright>© 2018 Christian Findlay</Copyright>
+    <PackageLicenseUrl>https://bitbucket.org/MelbourneDeveloper/restclient-.net/wiki/License</PackageLicenseUrl>
+    <PackageProjectUrl>https://bitbucket.org/MelbourneDeveloper/restclient-.net</PackageProjectUrl>
+    <RepositoryUrl>https://bitbucket.org/MelbourneDeveloper/restclient-.net</RepositoryUrl>
+    <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Async, json, soap, xml, http, https , Android, iOS Hardfolio</PackageTags>
+    <PackageReleaseNotes>-5th Beta Release
+
+-Performance issues fixed
+
+-Code minimization
+
+-NET Standard 2.0 only
+
+-Drop Silverlight support</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>C:\GitRepos\restclient-.net\NuGet\</OutputPath>
+  </PropertyGroup>
+
+</Project>
