@@ -2,7 +2,6 @@
 using CF.RESTClientDotNet;
 using groupkt;
 using System;
-using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using ThomasBayer;
@@ -42,7 +41,7 @@ namespace CF.RESTClient.NET.Sample
             }
             catch (Exception ex)
             {
-                HandleException(ex);
+                await HandleException(ex);
             }
 
             ToggleBusy(false);
@@ -59,8 +58,6 @@ namespace CF.RESTClient.NET.Sample
                 var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
                 _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
             }
-
-            _BitbucketClient.ErrorType = typeof(ErrorModel);
         }
 
         private async void OnGetReposClick()
@@ -81,11 +78,6 @@ namespace CF.RESTClient.NET.Sample
                 //Put it in the List Box
                 ReposBox.ItemsSource = repos.values;
                 ReposBox.IsEnabled = true;
-
-                foreach (var traceInfo in tracer.TraceInfos)
-                {
-                    Debug.WriteLine($"Operation: {traceInfo.OperationName} Milliseconds: {(traceInfo.CompleteTime - traceInfo.StartTime).TotalMilliseconds}");
-                }
             }
             catch (Exception ex)
             {
