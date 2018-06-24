@@ -34,7 +34,7 @@ namespace CF.RESTClientDotNet
         #endregion
 
         #region Private Methods
-        private async Task<T> Call<T>(string queryString, bool isPost, string contentType, object body = null)
+        private async Task<T> Call<T>(string queryString, HttpVerb httpVerb, string contentType, object body = null)
         {
             _HttpClient.DefaultRequestHeaders.Clear();
 
@@ -44,6 +44,7 @@ namespace CF.RESTClientDotNet
             }
 
             HttpResponseMessage result;
+            var isPost = httpVerb == HttpVerb.Post;
             if (!isPost)
             {
                 _HttpClient.DefaultRequestHeaders.Clear();
@@ -129,12 +130,17 @@ namespace CF.RESTClientDotNet
 
         public async Task<T> GetAsync<T>(string queryString, string contentType = "application/json")
         {
-            return await Call<T>(queryString, false, contentType);
+            return await Call<T>(queryString, HttpVerb.Get, contentType);
         }
 
         public async Task<TReturn> PostAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
         {
-            return await Call<TReturn>(queryString, true, contentType, body);
+            return await Call<TReturn>(queryString, HttpVerb.Post, contentType, body);
+        }
+
+        public async Task<TReturn> PutAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
+        {
+            return await Call<TReturn>(queryString, HttpVerb.Put, contentType, body);
         }
         #endregion
     }
