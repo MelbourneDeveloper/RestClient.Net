@@ -53,67 +53,67 @@ namespace CF.RESTClientDotNet
                     _HttpClient.DefaultRequestHeaders.Add(key, Headers[key]);
                 }
             }
-            else
-            {
-                string bodyString;
 
-                if (body is string bodyAsString)
-                {
-                    bodyString = bodyAsString;
-                }
-                else
-                {
-                    if (body != null)
+            string bodyString = null;
+            StringContent stringContent = null;
+            byte[] data = null;
+
+            switch (httpVerb)
+            {
+                case HttpVerb.Post:
+
+                    if (body is string bodyAsString)
                     {
-                        var data = await SerializationAdapter.SerializeAsync(body);
-                        bodyString = SerializationAdapter.Encoding.GetString(data);
+                        bodyString = bodyAsString;
                     }
                     else
                     {
-                        bodyString = string.Empty;
+                        if (body != null)
+                        {
+                            data = await SerializationAdapter.SerializeAsync(body);
+                            bodyString = SerializationAdapter.Encoding.GetString(data);
+                        }
+                        else
+                        {
+                            bodyString = string.Empty;
+                        }
                     }
-                }
 
-                var stringContent = new StringContent(bodyString, Encoding.UTF8, contentType);
+                    stringContent = new StringContent(bodyString, Encoding.UTF8, contentType);
 
-                //Don't know why but this has to be set again, otherwise more text is added on to the Content-Type header...
-                stringContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+                    //Don't know why but this has to be set again, otherwise more text is added on to the Content-Type header...
+                    stringContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
-                stringContent.Headers.ContentLength = bodyString.Length;
+                    stringContent.Headers.ContentLength = bodyString.Length;
 
-                foreach (var key in Headers.Keys)
-                {
-                    stringContent.Headers.Add(key, Headers[key]);
-                }
+                    foreach (var key in Headers.Keys)
+                    {
+                        stringContent.Headers.Add(key, Headers[key]);
+                    }
 
-                result = await _HttpClient.PostAsync(queryString, stringContent);
-            }
+                    result = await _HttpClient.PostAsync(queryString, stringContent);
+                    break;
 
-            if (httpVerb == HttpVerb.Get)
-            {
-                result = await _HttpClient.GetAsync(queryString);
-            }
+                case HttpVerb.Get:
+                    result = await _HttpClient.GetAsync(queryString);
+                    break;
 
-            if (httpVerb == HttpVerb.Put)
-            {
-                var data = await SerializationAdapter.SerializeAsync(body);
-                var bodyString = SerializationAdapter.Encoding.GetString(data);
-                var length = bodyString.Length;
-                var stringContent = new StringContent(bodyString, SerializationAdapter.Encoding, contentType);
-
-                result = await _HttpClient.PutAsync(queryString, stringContent);
+                case HttpVerb.Put:
+                    data = await SerializationAdapter.SerializeAsync(body);
+                    bodyString = SerializationAdapter.Encoding.GetString(data);
+                    var length = bodyString.Length;
+                    stringContent = new StringContent(bodyString, SerializationAdapter.Encoding, contentType);
+                    result = await _HttpClient.PutAsync(queryString, stringContent);
+                    break;
             }
 
             if (result.IsSuccessStatusCode)
             {
                 var gzipHeader = result.Content.Headers.ContentEncoding.FirstOrDefault(h => !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.InvariantCultureIgnoreCase));
-                byte[] data;
                 if (gzipHeader != null && Zip != null)
                 {
                     var bytes = await result.Content.ReadAsByteArrayAsync();
-                    var jsonUnzipped = Zip.Unzip(bytes);
-
-                    data = jsonUnzipped;
+                    data =  Zip.Unzip(bytes);
                 }
                 else
                 {
