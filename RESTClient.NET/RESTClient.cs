@@ -92,6 +92,16 @@ namespace CF.RESTClientDotNet
                 result = await _HttpClient.PostAsync(queryString, stringContent);
             }
 
+            if (httpVerb == HttpVerb.Put)
+            {
+                var data = await SerializationAdapter.SerializeAsync(body);
+                var bodyString = SerializationAdapter.Encoding.GetString(data);
+                var length = bodyString.Length;
+                var stringContent = new StringContent(bodyString, SerializationAdapter.Encoding, contentType);
+
+                result = await _HttpClient.PutAsync(queryString, stringContent);
+            }
+
             if (result.IsSuccessStatusCode)
             {
                 var gzipHeader = result.Content.Headers.ContentEncoding.FirstOrDefault(h => !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.InvariantCultureIgnoreCase));
