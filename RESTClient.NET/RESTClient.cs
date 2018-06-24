@@ -43,7 +43,7 @@ namespace CF.RESTClientDotNet
                 _HttpClient.DefaultRequestHeaders.Authorization = Authorization;
             }
 
-            HttpResponseMessage result;
+            HttpResponseMessage result = null;
             var isPost = httpVerb == HttpVerb.Post;
             if (!isPost)
             {
@@ -52,9 +52,6 @@ namespace CF.RESTClientDotNet
                 {
                     _HttpClient.DefaultRequestHeaders.Add(key, Headers[key]);
                 }
-
-
-                result = await _HttpClient.GetAsync(queryString);
             }
             else
             {
@@ -90,6 +87,11 @@ namespace CF.RESTClientDotNet
                 }
 
                 result = await _HttpClient.PostAsync(queryString, stringContent);
+            }
+
+            if (httpVerb == HttpVerb.Get)
+            {
+                result = await _HttpClient.GetAsync(queryString);
             }
 
             if (httpVerb == HttpVerb.Put)
