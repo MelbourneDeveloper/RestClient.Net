@@ -152,6 +152,10 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\RESTClient.NET\RESTClient.NET.csproj">
+      <Project>{fd9972b1-15ec-4d67-b50b-6db0efb255c2}</Project>
+      <Name>RESTClient.NET</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RESTClient.NET.Samples\RESTClient.NET.Samples.csproj">
       <Project>{EC5DB720-A7B1-461B-AEEF-18B3C41770FE}</Project>
       <Name>RESTClient.NET.Samples</Name>
