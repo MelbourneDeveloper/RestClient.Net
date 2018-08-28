@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\RESTClient.NET.Samples\Model\Atlassian.cs" Link="Model\Atlassian.cs" />
+    <Compile Include="..\RESTClient.NET.Samples\Model\CountryCodeData.cs" Link="Model\CountryCodeData.cs" />
+    <Compile Include="..\RESTClient.NET.Samples\Model\CUSTOMER.cs" Link="Model\CUSTOMER.cs" />
+    <Compile Include="..\RESTClient.NET.Samples\Model\PRODUCT.cs" Link="Model\PRODUCT.cs" />
+    <Compile Include="..\RESTClient.NET.Samples\SerializationAdapters\BinaryDataContractSerializationAdapter.cs" Link="SerializationAdapters\BinaryDataContractSerializationAdapter.cs" />
+    <Compile Include="..\RESTClient.NET.Samples\SerializationAdapters\DataContractSerializationAdapter.cs" Link="SerializationAdapters\DataContractSerializationAdapter.cs" />
+    <Compile Include="..\RESTClient.NET.Samples\SerializationAdapters\NewtonsoftSerializationAdapter.cs" Link="SerializationAdapters\NewtonsoftSerializationAdapter.cs" />
+    <Compile Include="..\RESTClient.NET.Samples\SerializationAdapters\XmlSerializationAdapter.cs" Link="SerializationAdapters\XmlSerializationAdapter.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\" />
+    <Folder Include="SerializationAdapters\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\RESTClient.NET\RestClient.Net.csproj" />
+  </ItemGroup>
+
+</Project>
