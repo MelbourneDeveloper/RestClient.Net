@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>StrongNameKey.pfx</AssemblyOriginatorKeyFile>
@@ -46,8 +46,8 @@ Install -Package RestClient.NET -Version 0.8.0</Description>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>C:\GitRepos\restclient-.net\NuGet\</OutputPath>
-  </PropertyGroup>
+<ItemGroup>
+  <PackageReference Include="System.Net.Http" Version="4.3.3" />
+</ItemGroup>
 
 </Project>
