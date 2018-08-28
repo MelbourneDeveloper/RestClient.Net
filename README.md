@@ -12,7 +12,8 @@
 
 ## Quick Start ##
 Samples for all platforms in this Git repo:
-https://MelbourneDeveloper@bitbucket.org/MelbourneDeveloper/restclient-.net.git
+
+https://github.com/MelbourneDeveloper/RestClient.Net.git
 
 NuGet: Install-Package RESTClient.NET
 
@@ -24,3 +25,13 @@ Blog: https://christianfindlay.wordpress.com/
             var countryCodeClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
             var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
 ```
+
+## Donate
+
+Bitcoin: 33LrG1p81kdzNUHoCnsYGj6EHRprTKWu3U
+
+Ethereum: 0x7ba0ea9975ac0efb5319886a287dcf5eecd3038e
+
+Litecoin: MVAbLaNPq7meGXvZMU4TwypUsDEuU6stpY
+
+
