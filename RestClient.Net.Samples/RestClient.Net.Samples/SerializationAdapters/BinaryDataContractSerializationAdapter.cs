@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace CF.RESTClientDotNet
+namespace RestClientDotNet
 {
     public class BinaryDataContractSerializationAdapter : RestClientSerializationAdapterBase, ISerializationAdapter
     {

@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CF.RESTClientDotNet
+namespace RestClientDotNet
 {
     public class DataContractSerializationAdapter : RestClientSerializationAdapterBase, ISerializationAdapter
     {

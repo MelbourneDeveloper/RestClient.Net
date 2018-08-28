@@ -4,7 +4,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CF.RESTClientDotNet
+namespace RestClientDotNet
 {
     public class NewtonsoftSerializationAdapter : ISerializationAdapter
     {

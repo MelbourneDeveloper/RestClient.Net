@@ -1,11 +1,11 @@
 ﻿using Atlassian;
-using CF.RESTClientDotNet;
+using RestClientDotNet;
 using RestClientDotNet;
 using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using restclientdotnet = CF.RESTClientDotNet;
+using restclientdotnet = RestClientDotNet;
 
 namespace RESTClient.NET.CoreSample
 {
