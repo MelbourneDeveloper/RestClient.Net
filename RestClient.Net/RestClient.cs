@@ -97,13 +97,31 @@ namespace RestClientDotNet
                 case HttpVerb.Get:
                     result = await _HttpClient.GetAsync(queryString);
                     break;
+                case HttpVerb.Delete:
+                    result = await _HttpClient.DeleteAsync(queryString);
+                    break;
 
                 case HttpVerb.Put:
+                case HttpVerb.Patch:
+
                     data = await SerializationAdapter.SerializeAsync(body);
                     bodyString = SerializationAdapter.Encoding.GetString(data);
                     var length = bodyString.Length;
                     stringContent = new StringContent(bodyString, SerializationAdapter.Encoding, contentType);
-                    result = await _HttpClient.PutAsync(queryString, stringContent);
+
+                    if (httpVerb == HttpVerb.Put)
+                    {
+                        result = await _HttpClient.PutAsync(queryString, stringContent);
+                    }
+                    else
+                    {
+                        var method = new HttpMethod("PATCH");
+                        var request = new HttpRequestMessage(method, queryString)
+                        {
+                            Content = stringContent
+                        };
+                        result = await _HttpClient.SendAsync(request);
+                    }
                     break;
             }
 
@@ -113,7 +131,7 @@ namespace RestClientDotNet
                 if (gzipHeader != null && Zip != null)
                 {
                     var bytes = await result.Content.ReadAsByteArrayAsync();
-                    data =  Zip.Unzip(bytes);
+                    data = Zip.Unzip(bytes);
                 }
                 else
                 {
@@ -153,6 +171,16 @@ namespace RestClientDotNet
         public async Task<TReturn> PutAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
         {
             return await Call<TReturn>(queryString, HttpVerb.Put, contentType, body);
+        }
+
+        public async Task DeleteAsync(string queryString, string contentType = "application/json")
+        {
+            await Call<object>(queryString, HttpVerb.Delete, contentType, null);
+        }
+
+        public async Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
+        {
+            return await Call<TReturn>(queryString, HttpVerb.Patch, contentType, body);
         }
         #endregion
     }

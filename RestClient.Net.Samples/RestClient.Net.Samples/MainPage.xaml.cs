@@ -1,6 +1,6 @@
 ﻿using Atlassian;
-using RestClientDotNet;
 using groupkt;
+using RestClient.Net.Samples.Model;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -210,6 +210,20 @@ namespace RestClientDotNet.Sample
             OnGetReposClick();
         }
 
+        private async void Delete_Clicked(object sender, EventArgs e)
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            await restClient.DeleteAsync("/posts/1");
+            await DisplayAlert("Post Deleted", $"The server pretended to delete the post 1");
+        }
+
+        private async void Patch_Clicked(object sender, EventArgs e)
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            var userPost = await restClient.PatchAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts/1");
+            await DisplayAlert("Post Patched", $"The server pretended to patch a post titled:\r\n{userPost.title}");
+
+        }
         #endregion
     }
 }

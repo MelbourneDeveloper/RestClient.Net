@@ -6,7 +6,7 @@
     <ProjectGuid>{486A4D3C-53FE-49D9-B061-A9E34D7F654C}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>RESTClient.NET.Samples.Droid</RootNamespace>
+    <RootNamespace>RestClient.Net.Samples.Droid</RootNamespace>
     <AssemblyName>RESTClient.NET.Samples.Android</AssemblyName>
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>

@@ -85,6 +85,18 @@
 
         </ContentPage>
 
+
+        <ContentPage Title="Patch/Delete"  >
+
+            <StackLayout  >
+
+                <Button Text="Delete" Clicked="Delete_Clicked" />
+                <Button Text="Patch" Clicked="Patch_Clicked" />
+
+            </StackLayout>
+
+        </ContentPage>
+
     </TabbedPage.Children>
 
 </TabbedPage>
