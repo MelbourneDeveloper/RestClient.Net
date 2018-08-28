@@ -2,11 +2,11 @@
 
 namespace RestClientDotNet
 {
-    public class StandardRESTClientFactory : IRestClientFactory
+    public class StandardRestClientFactory : IRestClientFactory
     {
         public ISerializationAdapter SerializationAdapter { get; }
 
-        public StandardRESTClientFactory(ISerializationAdapter serializationAdapter)
+        public StandardRestClientFactory(ISerializationAdapter serializationAdapter)
         {
             SerializationAdapter = serializationAdapter;
         }
