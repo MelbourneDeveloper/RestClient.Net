@@ -1,4 +1,4 @@
-# Cross Platform REST Client for all C# related platforms #
+# Cross Platform REST Client for all C# platforms #
 
 ### Features ###
 
