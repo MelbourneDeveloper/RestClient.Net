@@ -95,6 +95,7 @@ namespace RestClientDotNet
                     break;
 
                 case HttpVerb.Get:
+                case HttpVerb.Delete:
                     result = await _HttpClient.GetAsync(queryString);
                     break;
 
@@ -155,9 +156,9 @@ namespace RestClientDotNet
             return await Call<TReturn>(queryString, HttpVerb.Put, contentType, body);
         }
 
-        public async Task DeleteAsync(string queryString, string contentType = "application/json")
+        public async Task<T> DeleteAsync<T>(string queryString, string contentType = "application/json")
         {
-            await Call<object>(queryString, HttpVerb.Delete, contentType, null);
+            return await Call<T>(queryString, HttpVerb.Delete, contentType, null);
         }
 
         #endregion
