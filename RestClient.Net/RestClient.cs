@@ -100,13 +100,28 @@ namespace RestClientDotNet
                 case HttpVerb.Delete:
                     result = await _HttpClient.DeleteAsync(queryString);
                     break;
+
                 case HttpVerb.Put:
                 case HttpVerb.Patch:
+
                     data = await SerializationAdapter.SerializeAsync(body);
                     bodyString = SerializationAdapter.Encoding.GetString(data);
                     var length = bodyString.Length;
                     stringContent = new StringContent(bodyString, SerializationAdapter.Encoding, contentType);
-                    result = await _HttpClient.PutAsync(queryString, stringContent);
+
+                    if (httpVerb == HttpVerb.Put)
+                    {
+                        result = await _HttpClient.PutAsync(queryString, stringContent);
+                    }
+                    else
+                    {
+                        var method = new HttpMethod("PATCH");
+                        var request = new HttpRequestMessage(method, queryString)
+                        {
+                            Content = stringContent
+                        };
+                        result = await _HttpClient.SendAsync(request);
+                    }
                     break;
             }
 
