@@ -113,7 +113,7 @@ namespace RestClientDotNet
                 if (gzipHeader != null && Zip != null)
                 {
                     var bytes = await result.Content.ReadAsByteArrayAsync();
-                    data =  Zip.Unzip(bytes);
+                    data = Zip.Unzip(bytes);
                 }
                 else
                 {
@@ -154,6 +154,12 @@ namespace RestClientDotNet
         {
             return await Call<TReturn>(queryString, HttpVerb.Put, contentType, body);
         }
+
+        public async Task DeleteAsync(string queryString, string contentType = "application/json")
+        {
+            await Call<object>(queryString, HttpVerb.Delete, contentType, null);
+        }
+
         #endregion
     }
 }

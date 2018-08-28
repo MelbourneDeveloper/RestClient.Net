@@ -4,6 +4,8 @@
     {
         Post,
         Get,
-        Put
+        Put,
+        Delete,
+        Patch
     }
 }
