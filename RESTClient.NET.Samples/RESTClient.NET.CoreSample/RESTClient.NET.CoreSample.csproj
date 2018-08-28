@@ -17,16 +17,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RESTClient.NET\RESTClient.NET.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="SerializationAdapters\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\RESTClient.NET\RestClient.Net.csproj" />
   </ItemGroup>
 
 </Project>

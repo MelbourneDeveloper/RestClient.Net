@@ -123,9 +123,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\RESTClient.NET.Samples\RESTClient.NET.Samples.csproj">
-      <Project>{EC5DB720-A7B1-461B-AEEF-18B3C41770FE}</Project>
-      <Name>RESTClient.NET.Samples</Name>
+    <ProjectReference Include="..\RESTClient.NET.Samples\RestClient.Net.Samples.csproj">
+      <Project>{DC1496A6-1F14-468A-BCE6-3634B82B77F1}</Project>
+      <Name>RestClient.Net.Samples</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

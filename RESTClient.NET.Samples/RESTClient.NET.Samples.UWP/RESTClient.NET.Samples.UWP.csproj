@@ -152,13 +152,13 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.7" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\RESTClient.NET\RESTClient.NET.csproj">
+    <ProjectReference Include="..\..\RESTClient.NET\RestClient.Net.csproj">
       <Project>{fd9972b1-15ec-4d67-b50b-6db0efb255c2}</Project>
-      <Name>RESTClient.NET</Name>
+      <Name>RestClient.Net</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RESTClient.NET.Samples\RESTClient.NET.Samples.csproj">
-      <Project>{EC5DB720-A7B1-461B-AEEF-18B3C41770FE}</Project>
-      <Name>RESTClient.NET.Samples</Name>
+    <ProjectReference Include="..\RESTClient.NET.Samples\RestClient.Net.Samples.csproj">
+      <Project>{DC1496A6-1F14-468A-BCE6-3634B82B77F1}</Project>
+      <Name>RestClient.Net.Samples</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

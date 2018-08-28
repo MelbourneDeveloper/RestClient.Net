@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RESTClient.NET\RESTClient.NET.csproj" />
+    <ProjectReference Include="..\..\RESTClient.NET\RestClient.Net.csproj" />
   </ItemGroup>
 
   <ItemGroup>
