@@ -210,6 +210,15 @@ namespace RestClientDotNet.Sample
             OnGetReposClick();
         }
 
+        private void Delete_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Patch_Clicked(object sender, EventArgs e)
+        {
+
+        }
         #endregion
     }
 }
