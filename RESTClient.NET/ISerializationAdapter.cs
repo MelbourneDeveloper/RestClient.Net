@@ -2,7 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CF.RESTClientDotNet
+namespace RestClientDotNet
 {
     public partial interface ISerializationAdapter
     {

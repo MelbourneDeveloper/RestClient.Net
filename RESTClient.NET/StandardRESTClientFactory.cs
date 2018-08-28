@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace CF.RESTClientDotNet
+namespace RestClientDotNet
 {
-    public class StandardRESTClientFactory : IRESTClientFactory
+    public class StandardRESTClientFactory : IRestClientFactory
     {
         public ISerializationAdapter SerializationAdapter { get; }
 
@@ -11,9 +11,9 @@ namespace CF.RESTClientDotNet
             SerializationAdapter = serializationAdapter;
         }
 
-        public RESTClient CreateRESTClient(Uri baseUri)
+        public RestClient CreateRESTClient(Uri baseUri)
         {
-            return new RESTClient(SerializationAdapter, baseUri);
+            return new RestClient(SerializationAdapter, baseUri);
         }
     }
 }

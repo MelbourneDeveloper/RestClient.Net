@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CF.RESTClientDotNet
+namespace RestClientDotNet
 {
     public class BasicTracer : ITracer
     {

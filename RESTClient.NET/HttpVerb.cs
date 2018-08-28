@@ -1,4 +1,4 @@
-﻿namespace CF.RESTClientDotNet
+﻿namespace RestClientDotNet
 {
     public enum HttpVerb
     {

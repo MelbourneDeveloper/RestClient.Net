@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace CF.RESTClientDotNet
+namespace RestClientDotNet
 {
     public class HttpStatusException : Exception
     {

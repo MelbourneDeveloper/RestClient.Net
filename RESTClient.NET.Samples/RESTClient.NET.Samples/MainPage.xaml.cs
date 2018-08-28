@@ -1,13 +1,13 @@
 ﻿using Atlassian;
 using CF.RESTClientDotNet;
 using groupkt;
+using RestClientDotNet;
 using System;
 using System.Text;
 using System.Threading.Tasks;
 using ThomasBayer;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using restclientdotnet = CF.RESTClientDotNet;
 
 namespace CF.RESTClient.NET.Sample
 {
@@ -15,7 +15,7 @@ namespace CF.RESTClient.NET.Sample
     public partial class MainPage
     {
         #region Fields
-        private restclientdotnet.RESTClient _BitbucketClient;
+        private RestClient _BitbucketClient;
         #endregion
 
         #region Constructror
@@ -36,7 +36,7 @@ namespace CF.RESTClient.NET.Sample
             ToggleBusy(true);
             try
             {
-                var countryCodeClient = new restclientdotnet.RESTClient(new XmlSerializationAdapter(), new Uri("http://www.thomas-bayer.com/sqlrest/CUSTOMER/" + customerId));
+                var countryCodeClient = new RestClient(new XmlSerializationAdapter(), new Uri("http://www.thomas-bayer.com/sqlrest/CUSTOMER/" + customerId));
                 retVal = await countryCodeClient.GetAsync<CUSTOMER>();
             }
             catch (Exception ex)
@@ -51,7 +51,7 @@ namespace CF.RESTClient.NET.Sample
         private void GetBitBucketClient(string password, bool isGet)
         {
             var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
-            _BitbucketClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
+            _BitbucketClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri(url));
 
             if (!string.IsNullOrEmpty(password))
             {
@@ -124,7 +124,7 @@ namespace CF.RESTClient.NET.Sample
 
             try
             {
-                var countryCodeClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
+                var countryCodeClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
                 var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
                 CountryCodeList.ItemsSource = countryData.RestResponse.result;
             }

@@ -1,5 +1,6 @@
 ﻿using Atlassian;
 using CF.RESTClientDotNet;
+using RestClientDotNet;
 using System;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace RESTClient.NET.CoreSample
         private const string RepoDescription = "Some description";
         private static string username = "MelbourneDeveloper";
         private static string password = "";
-        private static restclientdotnet.RESTClient _BitbucketClient;
+        private static RestClient _BitbucketClient;
         #endregion
 
         #region Main Method
@@ -53,7 +54,7 @@ namespace RESTClient.NET.CoreSample
         private static void GetBitBucketClient(bool isGet)
         {
             var url = "https://api.bitbucket.org/2.0/repositories/" + username;
-            _BitbucketClient = new restclientdotnet.RESTClient(new NewtonsoftSerializationAdapter(), new Uri(url));
+            _BitbucketClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri(url));
 
             if (!string.IsNullOrEmpty(password))
             {

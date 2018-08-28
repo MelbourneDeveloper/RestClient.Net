@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CF.RESTClientDotNet
+namespace RestClientDotNet
 {
     public class DeserializationException : Exception
     {

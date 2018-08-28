@@ -7,9 +7,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CF.RESTClientDotNet
+namespace RestClientDotNet
 {
-    public class RESTClient
+    public class RestClient
     {
         #region Fields
         private readonly HttpClient _HttpClient = new HttpClient();
@@ -25,7 +25,7 @@ namespace CF.RESTClientDotNet
         #endregion
 
         #region Constructor
-        public RESTClient(ISerializationAdapter serializationAdapter, Uri baseUri)
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri)
         {
             _HttpClient.BaseAddress = baseUri;
             _HttpClient.Timeout = new TimeSpan(0, 3, 0);

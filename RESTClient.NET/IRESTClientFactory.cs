@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace CF.RESTClientDotNet
+namespace RestClientDotNet
 {
-    public interface IRESTClientFactory
+    public interface IRestClientFactory
     {
-        RESTClient CreateRESTClient(Uri baseUri);
+        RestClient CreateRESTClient(Uri baseUri);
     }
 }

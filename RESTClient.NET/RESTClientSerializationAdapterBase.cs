@@ -1,8 +1,8 @@
 ﻿using System.Text;
 
-namespace CF.RESTClientDotNet
+namespace RestClientDotNet
 {
-    public abstract  class RESTClientSerializationAdapterBase
+    public abstract  class RestClientSerializationAdapterBase
     {
         #region Public Properties
         public Encoding Encoding { get; set; } = Encoding.UTF8;

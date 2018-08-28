@@ -1,3 +1,4 @@
+using RestClientDotNet;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +9,7 @@ using System.Xml;
 
 namespace CF.RESTClientDotNet
 {
-    public class BinaryDataContractSerializationAdapter : RESTClientSerializationAdapterBase, ISerializationAdapter
+    public class BinaryDataContractSerializationAdapter : RestClientSerializationAdapterBase, ISerializationAdapter
     {
         #region Public Static Properties
         public static List<Type> KnownDataContracts { get; } = new List<Type>();

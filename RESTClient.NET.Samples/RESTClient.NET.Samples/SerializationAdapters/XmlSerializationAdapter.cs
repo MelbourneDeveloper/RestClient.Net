@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestClientDotNet;
+using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -6,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace CF.RESTClientDotNet
 {
-    public class XmlSerializationAdapter : RESTClientSerializationAdapterBase, ISerializationAdapter
+    public class XmlSerializationAdapter : RestClientSerializationAdapterBase, ISerializationAdapter
     {
         #region Public Methods
         public async Task<object> DeserializeAsync(byte[] binary, Type type)
