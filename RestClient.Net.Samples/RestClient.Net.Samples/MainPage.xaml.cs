@@ -1,7 +1,6 @@
 ﻿using Atlassian;
 using CF.RESTClientDotNet;
 using groupkt;
-using RestClientDotNet;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +8,7 @@ using ThomasBayer;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace CF.RESTClient.NET.Sample
+namespace RestClientDotNet.Sample
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage

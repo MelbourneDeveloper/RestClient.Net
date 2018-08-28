@@ -1,4 +1,4 @@
-﻿using CF.RESTClient.NET.Sample;
+﻿using RestClientDotNet.Sample;
 using System;
 using System.Collections.Generic;
 using System.Linq;
