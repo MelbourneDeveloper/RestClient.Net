@@ -213,12 +213,15 @@ namespace RestClientDotNet.Sample
         private async void Delete_Clicked(object sender, EventArgs e)
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-            var userPost = await restClient.DeleteAsync<UserPost>("/posts/1");
-            await DisplayAlert("Post Deleted", $"The server pretended to delete a post titled:\r\n{userPost.title}");
+            await restClient.DeleteAsync("/posts/1");
+            await DisplayAlert("Post Deleted", $"The server pretended to delete the post 1");
         }
 
-        private void Patch_Clicked(object sender, EventArgs e)
+        private async void Patch_Clicked(object sender, EventArgs e)
         {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            var userPost = await restClient.PatchAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts/1");
+            await DisplayAlert("Post Patched", $"The server pretended to patch a post titled:\r\n{userPost.title}");
 
         }
         #endregion

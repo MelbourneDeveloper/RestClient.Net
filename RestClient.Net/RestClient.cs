@@ -95,11 +95,13 @@ namespace RestClientDotNet
                     break;
 
                 case HttpVerb.Get:
-                case HttpVerb.Delete:
                     result = await _HttpClient.GetAsync(queryString);
                     break;
-
+                case HttpVerb.Delete:
+                    result = await _HttpClient.DeleteAsync(queryString);
+                    break;
                 case HttpVerb.Put:
+                case HttpVerb.Patch:
                     data = await SerializationAdapter.SerializeAsync(body);
                     bodyString = SerializationAdapter.Encoding.GetString(data);
                     var length = bodyString.Length;
@@ -156,11 +158,15 @@ namespace RestClientDotNet
             return await Call<TReturn>(queryString, HttpVerb.Put, contentType, body);
         }
 
-        public async Task<T> DeleteAsync<T>(string queryString, string contentType = "application/json")
+        public async Task DeleteAsync(string queryString, string contentType = "application/json")
         {
-            return await Call<T>(queryString, HttpVerb.Delete, contentType, null);
+            await Call<object>(queryString, HttpVerb.Delete, contentType, null);
         }
 
+        public async Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
+        {
+            return await Call<TReturn>(queryString, HttpVerb.Patch, contentType, null);
+        }
         #endregion
     }
 }
