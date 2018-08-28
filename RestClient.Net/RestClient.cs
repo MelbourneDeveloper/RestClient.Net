@@ -180,7 +180,7 @@ namespace RestClientDotNet
 
         public async Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
         {
-            return await Call<TReturn>(queryString, HttpVerb.Patch, contentType, null);
+            return await Call<TReturn>(queryString, HttpVerb.Patch, contentType, body);
         }
         #endregion
     }
