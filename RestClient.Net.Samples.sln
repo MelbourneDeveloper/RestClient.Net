@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.NET.Samples.Android", "RestClient.NET.Samples\RestClient.NET.Samples.Android\RestClient.NET.Samples.Android.csproj", "{486A4D3C-53FE-49D9-B061-A9E34D7F654C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net.Samples.Android", "RestClient.Net.Samples\RestClient.NET.Samples.Android\RestClient.Net.Samples.Android.csproj", "{486A4D3C-53FE-49D9-B061-A9E34D7F654C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.NET.Samples.iOS", "RestClient.NET.Samples\RestClient.NET.Samples.iOS\RestClient.NET.Samples.iOS.csproj", "{B50E502A-8DBC-46E2-AE1F-092F126DE838}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net.Samples.iOS", "RestClient.Net.Samples\RestClient.NET.Samples.iOS\RestClient.Net.Samples.iOS.csproj", "{B50E502A-8DBC-46E2-AE1F-092F126DE838}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.NET.Samples.UWP", "RestClient.NET.Samples\RestClient.NET.Samples.UWP\RestClient.NET.Samples.UWP.csproj", "{4CA1E1F8-43BF-4EC8-8E47-7D066616D5A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net.Samples.UWP", "RestClient.Net.Samples\RestClient.NET.Samples.UWP\RestClient.Net.Samples.UWP.csproj", "{4CA1E1F8-43BF-4EC8-8E47-7D066616D5A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.Samples", "RestClient.NET.Samples\RestClient.NET.Samples\RestClient.Net.Samples.csproj", "{DC1496A6-1F14-468A-BCE6-3634B82B77F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.Samples", "RestClient.Net.Samples\RestClient.NET.Samples\RestClient.Net.Samples.csproj", "{DC1496A6-1F14-468A-BCE6-3634B82B77F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net", "RESTClient.NET\RestClient.Net.csproj", "{FD9972B1-15EC-4D67-B50B-6DB0EFB255C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net", "RestClient.Net\RestClient.Net.csproj", "{FD9972B1-15EC-4D67-B50B-6DB0EFB255C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.CoreSample", "RestClient.NET.Samples\RESTClient.NET.CoreSample\RestClient.Net.CoreSample.csproj", "{E0A1ADD2-AA1D-4024-9443-60334BF385C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.CoreSample", "RestClient.Net.Samples\RESTClient.NET.CoreSample\RestClient.Net.CoreSample.csproj", "{E0A1ADD2-AA1D-4024-9443-60334BF385C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
