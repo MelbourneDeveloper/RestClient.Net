@@ -3,9 +3,9 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 
-namespace RESTClient.NET.Samples.Droid
+namespace RestClient.Net.Samples.Droid
 {
-    [Activity(Label = "RESTClient.NET.Samples", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "RestClient.Net.Samples", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)

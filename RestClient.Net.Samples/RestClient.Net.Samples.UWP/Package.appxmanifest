@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>RESTClient.NET.Samples.UWP</DisplayName>
+    <DisplayName>RestClient.Net.Samples.UWP</DisplayName>
     <PublisherDisplayName>3ff10943-0ff7-4e0c-9962-39e6550a35d4</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -30,12 +30,12 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="RESTClient.NET.Samples.UWP.App">
+      EntryPoint="RestClient.Net.Samples.UWP.App">
       <uap:VisualElements
-        DisplayName="RESTClient.NET.Samples.UWP"
+        DisplayName="RestClient.Net.Samples.UWP"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="RESTClient.NET.Samples.UWP"
+        Description="RestClient.Net.Samples.UWP"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />

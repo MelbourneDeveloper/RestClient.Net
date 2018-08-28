@@ -6,7 +6,7 @@ using System.Text;
 
 using Xamarin.Forms;
 
-namespace RESTClient.NET.Samples
+namespace RestClient.Net.Samples
 {
 	public partial class App : Application
 	{

@@ -1,8 +1,8 @@
 ﻿<Application
-    x:Class="RESTClient.NET.Samples.UWP.App"
+    x:Class="RestClient.Net.Samples.UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:RESTClient.NET.Samples.UWP"
+    xmlns:local="using:RestClient.Net.Samples.UWP"
     RequestedTheme="Light">
 
 </Application>

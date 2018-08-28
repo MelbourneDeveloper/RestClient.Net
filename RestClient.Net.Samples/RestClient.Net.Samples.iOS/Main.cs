@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace RESTClient.NET.Samples.iOS
+namespace RestClient.Net.Samples.iOS
 {
     public class Application
     {

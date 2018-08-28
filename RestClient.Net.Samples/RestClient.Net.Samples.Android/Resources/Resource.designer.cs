@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("RESTClient.NET.Samples.Droid.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("RestClient.Net.Samples.Droid.Resource", IsApplication=true)]
 
-namespace RESTClient.NET.Samples.Droid
+namespace RestClient.Net.Samples.Droid
 {
 	
 	
@@ -26,7 +26,7 @@ namespace RESTClient.NET.Samples.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::RESTClient.NET.Samples.Droid.Resource.Attribute.actionBarSize;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::RestClient.Net.Samples.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation
