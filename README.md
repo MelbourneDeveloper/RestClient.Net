@@ -1,5 +1,7 @@
 # Cross Platform REST Client for all C# platforms #
 
+*Please send [feedback](https://github.com/MelbourneDeveloper/RestClient.Net/issues/new)! I'd really like to know what challenges you are having and which features you would like this library to have.*
+
 ### Features ###
 
 * Open Source. (MIT License)
