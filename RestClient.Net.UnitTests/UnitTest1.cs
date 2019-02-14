@@ -13,7 +13,15 @@ namespace RestClient.Net.UnitTests
         public async Task PerformanceTestOne()
         {
             var countryCodeClient = new RestClientDotNet.RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
-            var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
+
+            groupktResult<CountriesResult> countryData = null;
+
+            var startTime = DateTime.Now;
+
+            for (var i = 0; i < 10; i++)
+                countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
+
+            Console.WriteLine($"RestClient Get : Total Milliseconds:{ (DateTime.Now - startTime).TotalMilliseconds}");
         }
     }
 }
