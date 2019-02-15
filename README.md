@@ -9,7 +9,7 @@ _NEW_ **.NET Framework 4.5+ Support added in Version 1.1. Please send [feedback]
 | Library | [.NET Framework Get 15x](https://github.com/MelbourneDeveloper/RestClient.Net/blob/f935c547d492ee2bf4ac0a7d64c5a563f6e338a2/RestClient.Net.UnitTests/PerformanceTests.cs#L14) | [.NET Core Get 15x](https://github.com/MelbourneDeveloper/RestClient.Net/blob/21eaff49ba8af1ddbaeff5f3d17b73144df97557/RestClient.Net.UnitTests/PerformanceTests.cs#L14) | [.NET Core Patch 15x](https://github.com/MelbourneDeveloper/RestClient.Net/blob/21eaff49ba8af1ddbaeff5f3d17b73144df97557/RestClient.Net.UnitTests/PerformanceTests.cs#L14) | [TAP (Awaitable)](https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap)
 | ------------- |:-------------:|:-------------:|:-------------:|:-------------:|
 | RestClient.Net | 5831.1539ms |5724.9672ms | 7569.8823ms | Yes |
-| RestSharp | 7010.3713ms | 12391.7717ms | 13420.5781ms | No |
+| [RestSharp](https://github.com/restsharp/RestSharp) | 7010.3713ms | 12391.7717ms | 13420.5781ms | No |
 
 *Note: benchmarks are biased! Please submit a [pull request](https://github.com/MelbourneDeveloper/RestClient.Net/compare) to fix these [benchmarks](https://github.com/MelbourneDeveloper/RestClient.Net/blob/21eaff49ba8af1ddbaeff5f3d17b73144df97557/RestClient.Net.UnitTests/PerformanceTests.cs#L8) and make them objective.*
 
