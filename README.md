@@ -19,7 +19,7 @@ _NEW_ **.NET Framework 4.5+ Support added in Version 1.1. Please send [feedback]
 * Markup language agnostic. (Supports JSON, Binary, SOAP and other markup languages with dependency injection)
 * Use strong types with REST.
 * Supports Android, iOS, Windows 10, .NET Framework, .NET Core (.NET Standard 2.0) .
-* Incredibly simple (All source code less than 100 lines)
+* Incredibly simple (All source code less than 200 lines)
 * Async friendly (uses async, await keywords).
 * Only one .NET Standard library for all platforms
 
