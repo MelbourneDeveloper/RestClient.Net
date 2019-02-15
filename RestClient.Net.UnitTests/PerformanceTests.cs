@@ -19,7 +19,7 @@ namespace RestClient.Net.UnitTests
 
             var startTime = DateTime.Now;
 
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < 15; i++)
                 countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
 
             var restClientTotalMilliseconds = (DateTime.Now - startTime).TotalMilliseconds;
@@ -34,7 +34,7 @@ namespace RestClient.Net.UnitTests
                 Resource = "/country/get/all"
             };
 
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < 15; i++)
             {
                 var taskCompletionSource = new TaskCompletionSource<groupktResult<CountriesResult>>();
                 var response = restSharpClient.ExecuteAsync<groupktResult<CountriesResult>>(request, (a) => { taskCompletionSource.SetResult(a.Data); });
