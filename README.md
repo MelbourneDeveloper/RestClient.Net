@@ -35,48 +35,48 @@ var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult
 Post basically the same
 
 ```cs
-        private void GetBitBucketClient(string password, bool isGet)
-        {
-            var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
-            _BitbucketClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri(url));
+private void GetBitBucketClient(string password, bool isGet)
+{
+    var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
+    _BitbucketClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri(url));
 
-            if (!string.IsNullOrEmpty(password))
-            {
-                var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
-                _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
-            }
-        }
+    if (!string.IsNullOrEmpty(password))
+    {
+        var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
+        _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
+    }
+}
         
-        private async Task OnSavedClicked()
+private async Task OnSavedClicked()
+{
+    ToggleBusy(true);
+
+    try
+    {
+        var selectedRepo = ReposBox.SelectedItem as Repository;
+        if (selectedRepo == null)
         {
-            ToggleBusy(true);
+            return;
+        }
 
-            try
-            {
-                var selectedRepo = ReposBox.SelectedItem as Repository;
-                if (selectedRepo == null)
-                {
-                    return;
-                }
+        //Ensure the client is ready to go
+        GetBitBucketClient(GetPassword(), false);
 
-                //Ensure the client is ready to go
-                GetBitBucketClient(GetPassword(), false);
+        //var repoSlug = selectedRepo.full_name.Split('/')[1];
+        var requestUri = $"https://api.bitbucket.org/2.0/repositories/{UsernameBox.Text}/{selectedRepo.full_name.Split('/')[1]}";
 
-                //var repoSlug = selectedRepo.full_name.Split('/')[1];
-                var requestUri = $"https://api.bitbucket.org/2.0/repositories/{UsernameBox.Text}/{selectedRepo.full_name.Split('/')[1]}";
+        //Post the change
+        var retVal = await _BitbucketClient.PutAsync<Repository, Repository>(selectedRepo, requestUri);
 
-                //Post the change
-                var retVal = await _BitbucketClient.PutAsync<Repository, Repository>(selectedRepo, requestUri);
+        await DisplayAlert("Saved", "Your repo was updated.");
+    }
+    catch (Exception ex)
+    {
+        await HandleException(ex);
+    }
 
-                await DisplayAlert("Saved", "Your repo was updated.");
-            }
-            catch (Exception ex)
-            {
-                await HandleException(ex);
-            }
-
-            ToggleBusy(false);
-        }               
+    ToggleBusy(false);
+}            
 ```
 
 Hardfolio runs on RestClient.Net
