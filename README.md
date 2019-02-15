@@ -6,10 +6,10 @@ _NEW_ **.NET Framework 4.5+ Support added in Version 1.1**
 
 ### Comparison ###
 
-| Platform | Library | Get 15x
+| Library | Get 15x .NET Framework | Get 15x .NET Core
 | ------------- |:-------------:|:-------------:|
-| .NET Framework     | RestClient.Net | 
-| .NET Core      | RestSharp  |
+|  RestClient.Net | 
+| RestSharp |
 
 Note: benchmarks are biased! Please submit a [pull request](https://github.com/MelbourneDeveloper/RestClient.Net/compare) to fix these [benchmarks](https://github.com/MelbourneDeveloper/RestClient.Net/blob/21eaff49ba8af1ddbaeff5f3d17b73144df97557/RestClient.Net.UnitTests/PerformanceTests.cs#L8)
 
