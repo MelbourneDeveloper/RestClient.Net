@@ -23,7 +23,7 @@ NuGet: Install-Package RestClient.NET
 
 Blog: https://christianfindlay.wordpress.com/
 
-### Get
+### [Get](https://github.com/MelbourneDeveloper/RestClient.Net/blob/d39df96bc7534bb92981047f60861a812bcaafa3/RestClient.Net.Samples/RestClient.Net.Samples/MainPage.xaml.cs#L126)
 
 ```cs
 var countryCodeClient = new RestClientDotNet.RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
