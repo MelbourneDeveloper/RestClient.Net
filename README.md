@@ -6,7 +6,7 @@ _NEW_ **.NET Framework 4.5+ Support added in Version 1.1**
 
 ### Comparison ###
 
-| Library | .NET Framework Get 15x | [.NET Core Get 15x](https://github.com/MelbourneDeveloper/RestClient.Net/blob/21eaff49ba8af1ddbaeff5f3d17b73144df97557/RestClient.Net.UnitTests/PerformanceTests.cs#L14) 
+| Library | [.NET Framework Get 15x](https://github.com/MelbourneDeveloper/RestClient.Net/blob/f935c547d492ee2bf4ac0a7d64c5a563f6e338a2/RestClient.Net.UnitTests/PerformanceTests.cs#L14) | [.NET Core Get 15x](https://github.com/MelbourneDeveloper/RestClient.Net/blob/21eaff49ba8af1ddbaeff5f3d17b73144df97557/RestClient.Net.UnitTests/PerformanceTests.cs#L14) 
 | ------------- |:-------------:|:-------------:|
 | RestClient.Net | 5831.1539ms |5724.9672ms |
 | RestSharp | 7010.3713ms | 12391.7717ms|
