@@ -1,5 +1,7 @@
 # Cross Platform REST Client for all C# platforms #
 
+_NEW_ **.NET Framework 4.5+ Support added in Version 1.1**
+
 **Please send [feedback](https://github.com/MelbourneDeveloper/RestClient.Net/issues/new)! I'd really like to know what challenges you are having and which features you would like this library to have.**
 
 ### Features ###
@@ -17,12 +19,12 @@ Samples for all platforms in this Git repo:
 
 https://github.com/MelbourneDeveloper/RestClient.Net.git
 
-NuGet: Install-Package RESTClient.NET
+NuGet: Install-Package RestClient.NET
 
 Blog: https://christianfindlay.wordpress.com/
 
 ```cs
-var countryCodeClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
+var countryCodeClient = new RestClientDotNet.RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
 var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
 ```
 
