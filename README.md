@@ -32,7 +32,7 @@ var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult
 
 ### Put
 
-Post basically the same
+Post is basically the same
 
 ```cs
 private void GetBitBucketClient(string password, bool isGet)
