@@ -95,8 +95,6 @@ Ethereum: 0x7ba0ea9975ac0efb5319886a287dcf5eecd3038e
 
 Litecoin: MVAbLaNPq7meGXvZMU4TwypUsDEuU6stpY
 
-## Contribution
-
-Contribution is welcome. Please fork, tighten up the code (real tight), test, and submit a pull request. Please log issues in the issues section.
+## [Contribution](https://github.com/MelbourneDeveloper/RestClient.Net/blob/master/CONTRIBUTING.md)
 
 
