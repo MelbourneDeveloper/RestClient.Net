@@ -30,7 +30,7 @@ var countryCodeClient = new RestClientDotNet.RestClient(new NewtonsoftSerializat
 var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
 ```
 
-### Put
+### [Put](https://github.com/MelbourneDeveloper/RestClient.Net/blob/d39df96bc7534bb92981047f60861a812bcaafa3/RestClient.Net.Samples/RestClient.Net.Samples/MainPage.xaml.cs#L108)
 
 Post is basically the same
 
