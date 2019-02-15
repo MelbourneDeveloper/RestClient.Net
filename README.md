@@ -23,9 +23,60 @@ NuGet: Install-Package RestClient.NET
 
 Blog: https://christianfindlay.wordpress.com/
 
+### Get
+
 ```cs
 var countryCodeClient = new RestClientDotNet.RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
 var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
+```
+
+### Put
+
+Post is basically the same
+
+```cs
+private void GetBitBucketClient(string password, bool isGet)
+{
+    var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
+    _BitbucketClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri(url));
+
+    if (!string.IsNullOrEmpty(password))
+    {
+        var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
+        _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
+    }
+}
+        
+private async Task OnSavedClicked()
+{
+    ToggleBusy(true);
+
+    try
+    {
+        var selectedRepo = ReposBox.SelectedItem as Repository;
+        if (selectedRepo == null)
+        {
+            return;
+        }
+
+        //Ensure the client is ready to go
+        GetBitBucketClient(GetPassword(), false);
+
+        //var repoSlug = selectedRepo.full_name.Split('/')[1];
+        var requestUri = $"https://api.bitbucket.org/2.0/repositories/{UsernameBox.Text}/{selectedRepo.full_name.Split('/')[1]}";
+
+        //Post the change
+        var retVal = await _BitbucketClient.PutAsync<Repository, Repository>(selectedRepo, requestUri);
+
+        await DisplayAlert("Saved", "Your repo was updated.");
+    }
+    catch (Exception ex)
+    {
+        await HandleException(ex);
+    }
+
+    ToggleBusy(false);
+}            
 ```
 
 Hardfolio runs on RestClient.Net
@@ -44,8 +95,6 @@ Ethereum: 0x7ba0ea9975ac0efb5319886a287dcf5eecd3038e
 
 Litecoin: MVAbLaNPq7meGXvZMU4TwypUsDEuU6stpY
 
-## Contribution
-
-Contribution is welcome. Please fork, tighten up the code (real tight), test, and submit a pull request. Please log issues in the issues section.
+## [Contribution](https://github.com/MelbourneDeveloper/RestClient.Net/blob/master/CONTRIBUTING.md)
 
 
