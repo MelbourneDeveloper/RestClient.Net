@@ -4,6 +4,15 @@ _NEW_ **.NET Framework 4.5+ Support added in Version 1.1**
 
 **Please send [feedback](https://github.com/MelbourneDeveloper/RestClient.Net/issues/new)! I'd really like to know what challenges you are having and which features you would like this library to have.**
 
+### Comparison ###
+
+| Platform | Library | Get 15x
+| ------------- |:-------------:|:-------------:|
+| .NET Framework     | RestClient.Net | 
+| .NET Core      | RestSharp  |
+
+Note: benchmarks are biased! Please submit a [pull request](https://github.com/MelbourneDeveloper/RestClient.Net/compare) to fix these [benchmarks](https://github.com/MelbourneDeveloper/RestClient.Net/blob/21eaff49ba8af1ddbaeff5f3d17b73144df97557/RestClient.Net.UnitTests/PerformanceTests.cs#L8)
+
 ### Features ###
 
 * Open Source. (MIT License)
