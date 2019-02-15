@@ -17,7 +17,7 @@ Samples for all platforms in this Git repo:
 
 https://github.com/MelbourneDeveloper/RestClient.Net.git
 
-NuGet: Install-Package RESTClient.NET
+NuGet: Install-Package RestClient.NET
 
 Blog: https://christianfindlay.wordpress.com/
 
