@@ -79,6 +79,16 @@ private async Task OnSavedClicked()
 }            
 ```
 
+### [Patch](https://github.com/MelbourneDeveloper/RestClient.Net/blob/d39df96bc7534bb92981047f60861a812bcaafa3/RestClient.Net.Samples/RestClient.Net.Samples/MainPage.xaml.cs#L222)
+
+var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+var userPost = await restClient.PatchAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts/1");
+
+### [Delete](https://github.com/MelbourneDeveloper/RestClient.Net/blob/d39df96bc7534bb92981047f60861a812bcaafa3/RestClient.Net.Samples/RestClient.Net.Samples/MainPage.xaml.cs#L215)
+
+var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+await restClient.DeleteAsync("/posts/1");
+
 Hardfolio runs on RestClient.Net
 
 Windows Store
