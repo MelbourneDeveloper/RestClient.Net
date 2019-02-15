@@ -22,8 +22,8 @@ NuGet: Install-Package RESTClient.NET
 Blog: https://christianfindlay.wordpress.com/
 
 ```cs
-var countryCodeClient = new RESTClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
-var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
+            var countryCodeClient = new RestClientDotNet.RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
+            var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
 ```
 
 Hardfolio runs on RestClient.Net
