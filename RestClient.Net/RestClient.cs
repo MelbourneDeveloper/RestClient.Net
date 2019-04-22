@@ -35,7 +35,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Private Methods
-        private async Task<T> Call<T>(string queryString, HttpVerb httpVerb, string contentType, object body = null)
+        private async Task<T> Call<T>(Uri queryString, HttpVerb httpVerb, string contentType, object body = null)
         {
             _HttpClient.DefaultRequestHeaders.Clear();
 
@@ -149,7 +149,7 @@ namespace RestClientDotNet
                 return (T)HttpStatusCodeFuncs[result.StatusCode].Invoke(errorData);
             }
 
-            throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {_HttpClient.BaseAddress}. Full Uri: {_HttpClient.BaseAddress + queryString}", result.StatusCode, errorData);
+            throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {_HttpClient.BaseAddress}. Full Uri: {new Uri(_HttpClient.BaseAddress, queryString)}", result.StatusCode, errorData);
         }
         #endregion
 
@@ -159,27 +159,27 @@ namespace RestClientDotNet
             return await GetAsync<T>(null);
         }
 
-        public async Task<T> GetAsync<T>(string queryString, string contentType = "application/json")
+        public async Task<T> GetAsync<T>(Uri queryString, string contentType = "application/json")
         {
             return await Call<T>(queryString, HttpVerb.Get, contentType);
         }
 
-        public async Task<TReturn> PostAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
+        public async Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType = "application/json")
         {
             return await Call<TReturn>(queryString, HttpVerb.Post, contentType, body);
         }
 
-        public async Task<TReturn> PutAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
+        public async Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType = "application/json")
         {
             return await Call<TReturn>(queryString, HttpVerb.Put, contentType, body);
         }
 
-        public async Task DeleteAsync(string queryString, string contentType = "application/json")
+        public async Task DeleteAsync(Uri queryString, string contentType = "application/json")
         {
             await Call<object>(queryString, HttpVerb.Delete, contentType, null);
         }
 
-        public async Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
+        public async Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType = "application/json")
         {
             return await Call<TReturn>(queryString, HttpVerb.Patch, contentType, body);
         }
