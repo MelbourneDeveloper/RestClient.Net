@@ -142,9 +142,11 @@ namespace RestClientDotNet.Sample
             var hex = ex as HttpStatusException;
             if (hex != null)
             {
-                if (hex.ErrorData != null && hex.ErrorData.Length > 0)
+                if (hex.HttpResponseMessage?.Content != null)
                 {
-                    errorModel = await _BitbucketClient.SerializationAdapter.DeserializeAsync<ErrorModel>(hex.ErrorData);
+                    var errorData = await hex.HttpResponseMessage.Content.ReadAsByteArrayAsync();
+
+                    errorModel = await _BitbucketClient.SerializationAdapter.DeserializeAsync<ErrorModel>(errorData);
                 }
             }
 

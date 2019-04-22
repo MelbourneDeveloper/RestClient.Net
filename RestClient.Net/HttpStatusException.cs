@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Net;
+using System.Net.Http;
 
 namespace RestClientDotNet
 {
     public class HttpStatusException : Exception
     {
-        public HttpStatusCode StatusCode { get; }
-        public byte[] ErrorData { get; }
+        public HttpResponseMessage HttpResponseMessage { get; }
 
-        public HttpStatusException(string message, HttpStatusCode statusCode, byte[] errorData) : base(message)
+        public HttpStatusException(string message, HttpResponseMessage httpResponseMessage) : base(message)
         {
-            StatusCode = statusCode;
-            ErrorData = errorData;
+            HttpResponseMessage = httpResponseMessage;
         }
     }
 }

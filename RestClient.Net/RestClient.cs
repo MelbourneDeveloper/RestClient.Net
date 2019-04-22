@@ -152,7 +152,8 @@ namespace RestClientDotNet
                 return (T)HttpStatusCodeFuncs[result.StatusCode].Invoke(errorData);
             }
 
-            throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {_HttpClient.BaseAddress}. Full Uri: {new Uri(_HttpClient.BaseAddress, queryString)}", result.StatusCode, errorData);
+            var fullUri = queryString != null ? new Uri(_HttpClient.BaseAddress, queryString) : _HttpClient.BaseAddress;
+            throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {_HttpClient.BaseAddress}. Full Uri: {fullUri}", result);
         }
         #endregion
 
