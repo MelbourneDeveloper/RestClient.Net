@@ -125,6 +125,8 @@ namespace RestClientDotNet
                         result = await _HttpClient.SendAsync(request);
                     }
                     break;
+                default:
+                    throw new NotImplementedException();
             }
 
             if (result.IsSuccessStatusCode)
@@ -190,14 +192,14 @@ namespace RestClientDotNet
             return await Call<TReturn>(queryString, HttpVerb.Put, contentType, body);
         }
 
-        public async Task DeleteAsync(string queryString, string contentType = DefaultContentType)
+        public Task DeleteAsync(string queryString, string contentType = DefaultContentType)
         {
-            await Call<object>(new Uri(queryString, UriKind.Relative), HttpVerb.Delete, contentType, null);
+            return Call<object>(new Uri(queryString, UriKind.Relative), HttpVerb.Delete, contentType, null);
         }
 
-        public async Task DeleteAsync(Uri queryString, string contentType = DefaultContentType)
+        public Task DeleteAsync(Uri queryString, string contentType = DefaultContentType)
         {
-            await Call<object>(queryString, HttpVerb.Delete, contentType, null);
+            return Call<object>(queryString, HttpVerb.Delete, contentType, null);
         }
 
         public async Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, string queryString, string contentType = DefaultContentType)
