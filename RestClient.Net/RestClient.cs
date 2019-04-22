@@ -154,9 +154,14 @@ namespace RestClientDotNet
         #endregion
 
         #region Public Methods
-        public async Task<T> GetAsync<T>()
+        public async Task<T> GetAsync<T>(string contentType = "application/json")
         {
-            return await GetAsync<T>(null);
+            return await Call<T>(null, HttpVerb.Get, contentType);
+        }
+
+        public async Task<T> GetAsync<T>(string queryString, string contentType = "application/json")
+        {
+            return await Call<T>(new Uri(queryString, UriKind.Relative), HttpVerb.Get, contentType);
         }
 
         public async Task<T> GetAsync<T>(Uri queryString, string contentType = "application/json")
@@ -164,9 +169,19 @@ namespace RestClientDotNet
             return await Call<T>(queryString, HttpVerb.Get, contentType);
         }
 
+        public async Task<TReturn> PostAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
+        {
+            return await Call<TReturn>(new Uri(queryString, UriKind.Relative), HttpVerb.Post, contentType, body);
+        }
+
         public async Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType = "application/json")
         {
             return await Call<TReturn>(queryString, HttpVerb.Post, contentType, body);
+        }
+
+        public async Task<TReturn> PutAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
+        {
+            return await Call<TReturn>(new Uri(queryString, UriKind.Relative), HttpVerb.Put, contentType, body);
         }
 
         public async Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType = "application/json")
@@ -174,9 +189,19 @@ namespace RestClientDotNet
             return await Call<TReturn>(queryString, HttpVerb.Put, contentType, body);
         }
 
+        public async Task DeleteAsync(string queryString, string contentType = "application/json")
+        {
+            await Call<object>(new Uri(queryString, UriKind.Relative), HttpVerb.Delete, contentType, null);
+        }
+
         public async Task DeleteAsync(Uri queryString, string contentType = "application/json")
         {
             await Call<object>(queryString, HttpVerb.Delete, contentType, null);
+        }
+
+        public async Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
+        {
+            return await Call<TReturn>(new Uri(queryString, UriKind.Relative), HttpVerb.Patch, contentType, body);
         }
 
         public async Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType = "application/json")

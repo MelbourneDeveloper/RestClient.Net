@@ -1,27 +1,25 @@
 ﻿using Atlassian;
 using RestClientDotNet;
-using RestClientDotNet;
 using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using restclientdotnet = RestClientDotNet;
 
 namespace RESTClient.NET.CoreSample
 {
-    class Program
+    internal class Program
     {
         #region Fields
         //TODO: Change these values to what you want them to be
         private const string RepoName = "Backup";
         private const string RepoDescription = "Some description";
-        private static string username = "MelbourneDeveloper";
-        private static string password = "";
+        private static readonly string username = "MelbourneDeveloper";
+        private static readonly string password = "";
         private static RestClient _BitbucketClient;
         #endregion
 
         #region Main Method
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Go();
             Console.ReadLine();
@@ -29,7 +27,7 @@ namespace RESTClient.NET.CoreSample
         #endregion
 
         #region Methods
-        private async static Task Go()
+        private static async Task Go()
         {
             GetBitBucketClient(true);
 
