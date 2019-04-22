@@ -32,6 +32,8 @@ Implement Patch/Delete
 
 Namespace cleanup (camel case)</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>    
+    <NoWarn>CA2007</NoWarn>
   </PropertyGroup>
 
   <Choose>
@@ -50,6 +52,7 @@ Namespace cleanup (camel case)</PackageReleaseNotes>
   </Choose>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 

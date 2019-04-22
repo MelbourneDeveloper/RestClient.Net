@@ -9,18 +9,19 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
-    public class RestClient
+    public class RestClient : IDisposable
     {
         #region Fields
         private readonly HttpClient _HttpClient = new HttpClient();
+        private bool disposed;
         #endregion
 
         #region Public Properties
         public Uri BaseUri => _HttpClient.BaseAddress;
         public Dictionary<string, string> Headers { get; private set; } = new Dictionary<string, string>();
         public AuthenticationHeaderValue Authorization { get; set; }
-        public Dictionary<HttpStatusCode, Func<byte[], object>> HttpStatusCodeFuncs = new Dictionary<HttpStatusCode, Func<byte[], object>>();
-        public IZip Zip;
+        public Dictionary<HttpStatusCode, Func<byte[], object>> HttpStatusCodeFuncs { get; } = new Dictionary<HttpStatusCode, Func<byte[], object>>();
+        public IZip Zip { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
         #endregion
 
@@ -127,7 +128,7 @@ namespace RestClientDotNet
 
             if (result.IsSuccessStatusCode)
             {
-                var gzipHeader = result.Content.Headers.ContentEncoding.FirstOrDefault(h => !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.InvariantCultureIgnoreCase));
+                var gzipHeader = result.Content.Headers.ContentEncoding.FirstOrDefault(h => !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.OrdinalIgnoreCase));
                 if (gzipHeader != null && Zip != null)
                 {
                     var bytes = await result.Content.ReadAsByteArrayAsync();
@@ -182,6 +183,17 @@ namespace RestClientDotNet
         {
             return await Call<TReturn>(queryString, HttpVerb.Patch, contentType, body);
         }
+
+        public void Dispose()
+        {
+            if (disposed) return;
+            disposed = true;
+
+            GC.SuppressFinalize(this);
+
+            _HttpClient.Dispose();
+        }
+
         #endregion
     }
 }
