@@ -158,60 +158,96 @@ namespace RestClientDotNet
         #endregion
 
         #region Public Methods
-        public async Task<T> GetAsync<T>(string contentType = DefaultContentType)
+
+        #region Get
+        public Task<T> GetAsync<T>()
         {
-            return await Call<T>(null, HttpVerb.Get, contentType);
+            return Call<T>(null, HttpVerb.Get, DefaultContentType);
         }
 
-        public async Task<T> GetAsync<T>(string queryString, string contentType = DefaultContentType)
+        public Task<T> GetAsync<T>(string queryString)
         {
-            return await Call<T>(new Uri(queryString, UriKind.Relative), HttpVerb.Get, contentType);
+            return GetAsync<T>(new Uri(queryString, UriKind.Relative));
         }
 
-        public async Task<T> GetAsync<T>(Uri queryString, string contentType = DefaultContentType)
+        public Task<T> GetAsync<T>(Uri queryString)
         {
-            return await Call<T>(queryString, HttpVerb.Get, contentType);
+            return GetAsync<T>(queryString, DefaultContentType);
         }
 
-        public async Task<TReturn> PostAsync<TReturn, TBody>(TBody body, string queryString, string contentType = DefaultContentType)
+        public Task<T> GetAsync<T>(Uri queryString, string contentType)
         {
-            return await Call<TReturn>(new Uri(queryString, UriKind.Relative), HttpVerb.Post, contentType, body);
+            return Call<T>(queryString, HttpVerb.Get, contentType);
+        }
+        #endregion
+
+        #region Post
+        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, string queryString)
+        {
+            return PostAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
         }
 
-        public async Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType = DefaultContentType)
+        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString)
         {
-            return await Call<TReturn>(queryString, HttpVerb.Post, contentType, body);
+            return PostAsync<TReturn, TBody>(body, queryString, DefaultContentType);
         }
 
-        public async Task<TReturn> PutAsync<TReturn, TBody>(TBody body, string queryString, string contentType = DefaultContentType)
+        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType)
         {
-            return await Call<TReturn>(new Uri(queryString, UriKind.Relative), HttpVerb.Put, contentType, body);
+            return Call<TReturn>(queryString, HttpVerb.Post, contentType, body);
+        }
+        #endregion
+
+        #region Put
+        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, string queryString)
+        {
+            return PutAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
         }
 
-        public async Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType = DefaultContentType)
+        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString)
         {
-            return await Call<TReturn>(queryString, HttpVerb.Put, contentType, body);
+            return PutAsync<TReturn, TBody>(body, queryString, DefaultContentType);
         }
 
-        public Task DeleteAsync(string queryString, string contentType = DefaultContentType)
+        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType)
         {
-            return Call<object>(new Uri(queryString, UriKind.Relative), HttpVerb.Delete, contentType, null);
+            return Call<TReturn>(queryString, HttpVerb.Put, contentType, body);
+        }
+        #endregion
+
+        #region Delete
+        public Task DeleteAsync(string queryString)
+        {
+            return DeleteAsync(new Uri(queryString, UriKind.Relative));
         }
 
-        public Task DeleteAsync(Uri queryString, string contentType = DefaultContentType)
+        public Task DeleteAsync(Uri queryString)
+        {
+            return DeleteAsync(queryString, DefaultContentType);
+        }
+
+        public Task DeleteAsync(Uri queryString, string contentType)
         {
             return Call<object>(queryString, HttpVerb.Delete, contentType, null);
         }
+        #endregion
 
-        public async Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, string queryString, string contentType = DefaultContentType)
+        #region Patch
+        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, string queryString)
         {
-            return await Call<TReturn>(new Uri(queryString, UriKind.Relative), HttpVerb.Patch, contentType, body);
+            return PatchAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
         }
 
-        public async Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType = DefaultContentType)
+        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString)
         {
-            return await Call<TReturn>(queryString, HttpVerb.Patch, contentType, body);
+            return PatchAsync<TReturn, TBody>(body, queryString, DefaultContentType);
         }
+
+        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType)
+        {
+            return Call<TReturn>(queryString, HttpVerb.Patch, contentType, body);
+        }
+        #endregion
 
         public void Dispose()
         {
