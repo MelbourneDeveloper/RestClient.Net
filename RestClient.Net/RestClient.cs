@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
-    public class RestClient : IDisposable
+    public class RestClient : IDisposable, IRestClient
     {
         #region Fields
         private const string DefaultContentType = "application/json";

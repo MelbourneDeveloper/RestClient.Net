@@ -4,6 +4,6 @@ namespace RestClientDotNet
 {
     public interface IRestClientFactory
     {
-        RestClient CreateRESTClient(Uri baseUri);
+        IRestClient CreateRESTClient(Uri baseUri);
     }
 }

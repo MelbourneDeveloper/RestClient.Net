@@ -233,7 +233,6 @@ namespace RestClientDotNet.Sample
             var userPost = await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts");
             await DisplayAlert("Post made", $"The server pretended to accept the post:\r\n{userPost.title}");
         }
-        #endregion
 
         private async void PostWithCancellation_Clicked(object sender, EventArgs e)
         {
@@ -259,5 +258,6 @@ namespace RestClientDotNet.Sample
                 await DisplayAlert("Error", "Cancellation didn't work :(");
             }
         }
+        #endregion
     }
 }
