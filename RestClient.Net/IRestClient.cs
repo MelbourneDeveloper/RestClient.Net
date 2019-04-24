@@ -8,7 +8,6 @@ namespace RestClientDotNet
     {
         Task DeleteAsync(Uri queryString);
         Task DeleteAsync(Uri queryString, CancellationToken cancellationToken);
-        void Dispose();
         Task<T> GetAsync<T>();
         Task<T> GetAsync<T>(Uri queryString);
         Task<T> GetAsync<T>(Uri queryString, CancellationToken cancellationToken);
