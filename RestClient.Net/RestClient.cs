@@ -13,18 +13,23 @@ namespace RestClientDotNet
     public class RestClient : IDisposable, IRestClient
     {
         #region Fields
-        private const string DefaultContentType = "application/json";
         private readonly HttpClient _HttpClient = new HttpClient();
         private bool disposed;
         #endregion
 
         #region Public Properties
+        public string DefaultContentType { get; set; } = "application/json";
         public Uri BaseUri => _HttpClient.BaseAddress;
         public Dictionary<string, string> Headers { get; private set; } = new Dictionary<string, string>();
         public AuthenticationHeaderValue Authorization { get; set; }
         public Dictionary<HttpStatusCode, Func<byte[], object>> HttpStatusCodeFuncs { get; } = new Dictionary<HttpStatusCode, Func<byte[], object>>();
         public IZip Zip { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
+        public TimeSpan Timeout
+        {
+            get => _HttpClient.Timeout;
+            set => _HttpClient.Timeout = value;
+        }
         #endregion
 
         #region Constructor

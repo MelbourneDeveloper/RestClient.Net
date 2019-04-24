@@ -6,6 +6,7 @@ namespace RestClientDotNet
 {
     public interface IRestClient
     {
+        TimeSpan Timeout { get; set; }
         Task DeleteAsync(Uri queryString);
         Task DeleteAsync(Uri queryString, CancellationToken cancellationToken);
         Task<T> GetAsync<T>();
