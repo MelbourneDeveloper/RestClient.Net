@@ -86,12 +86,13 @@
         </ContentPage>
 
 
-        <ContentPage Title="Patch/Delete"  >
+        <ContentPage Title="Post/Patch/Delete"  >
 
             <StackLayout  >
 
                 <Button Text="Delete" Clicked="Delete_Clicked" />
                 <Button Text="Patch" Clicked="Patch_Clicked" />
+                <Button Text="Post" Clicked="Post_Clicked" />
 
             </StackLayout>
 

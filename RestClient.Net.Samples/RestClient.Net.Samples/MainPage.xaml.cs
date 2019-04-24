@@ -103,7 +103,7 @@ namespace RestClientDotNet.Sample
 
                 var requestUri = $"{UsernameBox.Text}/{selectedRepo.full_name.Split('/')[1]}";
 
-                //Post the change
+                //Put the change
                 var retVal = await _BitbucketClient.PutAsync<Repository, Repository>(selectedRepo, requestUri);
 
                 await DisplayAlert("Saved", "Your repo was updated.");
@@ -224,7 +224,13 @@ namespace RestClientDotNet.Sample
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
             var userPost = await restClient.PatchAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts/1");
             await DisplayAlert("Post Patched", $"The server pretended to patch a post titled:\r\n{userPost.title}");
+        }
 
+        private async void Post_Clicked(object sender, EventArgs e)
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            var userPost = await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts");
+            await DisplayAlert("Post made", $"The server pretended to accept the post:\r\n{userPost.title}");
         }
         #endregion
     }
