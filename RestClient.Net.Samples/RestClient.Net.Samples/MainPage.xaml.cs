@@ -101,7 +101,7 @@ namespace RestClientDotNet.Sample
                 //Ensure the client is ready to go
                 GetBitBucketClient(GetPassword(), false);
 
-                var requestUri = $"/{selectedRepo.full_name.Split('/')[1]}";
+                var requestUri = $"{UsernameBox.Text}/{selectedRepo.full_name.Split('/')[1]}";
 
                 //Post the change
                 var retVal = await _BitbucketClient.PutAsync<Repository, Repository>(selectedRepo, requestUri);
