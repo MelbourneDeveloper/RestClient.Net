@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RestClientDotNet
@@ -36,7 +37,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Private Methods
-        private async Task<T> Call<T>(Uri queryString, HttpVerb httpVerb, string contentType, object body = null)
+        private async Task<T> Call<T>(Uri queryString, HttpVerb httpVerb, string contentType, object body, CancellationToken cancellationToken)
         {
             _HttpClient.DefaultRequestHeaders.Clear();
 
@@ -93,14 +94,14 @@ namespace RestClientDotNet
                         stringContent.Headers.Add(key, Headers[key]);
                     }
 
-                    result = await _HttpClient.PostAsync(queryString, stringContent);
+                    result = await _HttpClient.PostAsync(queryString, stringContent, cancellationToken);
                     break;
 
                 case HttpVerb.Get:
-                    result = await _HttpClient.GetAsync(queryString);
+                    result = await _HttpClient.GetAsync(queryString, cancellationToken);
                     break;
                 case HttpVerb.Delete:
-                    result = await _HttpClient.DeleteAsync(queryString);
+                    result = await _HttpClient.DeleteAsync(queryString, cancellationToken);
                     break;
 
                 case HttpVerb.Put:
@@ -113,7 +114,7 @@ namespace RestClientDotNet
 
                     if (httpVerb == HttpVerb.Put)
                     {
-                        result = await _HttpClient.PutAsync(queryString, stringContent);
+                        result = await _HttpClient.PutAsync(queryString, stringContent, cancellationToken);
                     }
                     else
                     {
@@ -122,7 +123,7 @@ namespace RestClientDotNet
                         {
                             Content = stringContent
                         };
-                        result = await _HttpClient.SendAsync(request);
+                        result = await _HttpClient.SendAsync(request, cancellationToken);
                     }
                     break;
                 default:
@@ -162,7 +163,7 @@ namespace RestClientDotNet
         #region Get
         public Task<T> GetAsync<T>()
         {
-            return Call<T>(null, HttpVerb.Get, DefaultContentType);
+            return Call<T>(null, HttpVerb.Get, DefaultContentType, null, default);
         }
 
         public Task<T> GetAsync<T>(string queryString)
@@ -177,7 +178,17 @@ namespace RestClientDotNet
 
         public Task<T> GetAsync<T>(Uri queryString, string contentType)
         {
-            return Call<T>(queryString, HttpVerb.Get, contentType);
+            return GetAsync<T>(queryString, contentType, default);
+        }
+
+        public Task<T> GetAsync<T>(Uri queryString, CancellationToken cancellationToken)
+        {
+            return GetAsync<T>(queryString, DefaultContentType, cancellationToken);
+        }
+
+        public Task<T> GetAsync<T>(Uri queryString, string contentType, CancellationToken cancellationToken)
+        {
+            return Call<T>(queryString, HttpVerb.Get, contentType, null, cancellationToken);
         }
         #endregion
 
@@ -189,12 +200,17 @@ namespace RestClientDotNet
 
         public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString)
         {
-            return PostAsync<TReturn, TBody>(body, queryString, DefaultContentType);
+            return PostAsync<TReturn, TBody>(body, queryString, default);
         }
 
-        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType)
+        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
         {
-            return Call<TReturn>(queryString, HttpVerb.Post, contentType, body);
+            return PostAsync<TReturn, TBody>(body, queryString, DefaultContentType, cancellationToken);
+        }
+
+        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
+        {
+            return Call<TReturn>(queryString, HttpVerb.Post, contentType, body, cancellationToken);
         }
         #endregion
 
@@ -206,12 +222,17 @@ namespace RestClientDotNet
 
         public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString)
         {
-            return PutAsync<TReturn, TBody>(body, queryString, DefaultContentType);
+            return PutAsync<TReturn, TBody>(body, queryString, DefaultContentType, default);
         }
 
-        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType)
+        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
         {
-            return Call<TReturn>(queryString, HttpVerb.Put, contentType, body);
+            return PutAsync<TReturn, TBody>(body, queryString, DefaultContentType, cancellationToken);
+        }
+
+        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
+        {
+            return Call<TReturn>(queryString, HttpVerb.Put, contentType, body, cancellationToken);
         }
         #endregion
 
@@ -223,12 +244,17 @@ namespace RestClientDotNet
 
         public Task DeleteAsync(Uri queryString)
         {
-            return DeleteAsync(queryString, DefaultContentType);
+            return DeleteAsync(queryString, default);
         }
 
-        public Task DeleteAsync(Uri queryString, string contentType)
+        public Task DeleteAsync(Uri queryString, CancellationToken cancellationToken)
         {
-            return Call<object>(queryString, HttpVerb.Delete, contentType, null);
+            return DeleteAsync(queryString, DefaultContentType, cancellationToken);
+        }
+
+        public Task DeleteAsync(Uri queryString, string contentType, CancellationToken cancellationToken)
+        {
+            return Call<object>(queryString, HttpVerb.Delete, contentType, null, cancellationToken);
         }
         #endregion
 
@@ -240,12 +266,17 @@ namespace RestClientDotNet
 
         public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString)
         {
-            return PatchAsync<TReturn, TBody>(body, queryString, DefaultContentType);
+            return PatchAsync<TReturn, TBody>(body, queryString, DefaultContentType, default);
         }
 
-        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType)
+        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
         {
-            return Call<TReturn>(queryString, HttpVerb.Patch, contentType, body);
+            return PatchAsync<TReturn, TBody>(body, queryString, DefaultContentType, cancellationToken);
+        }
+
+        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
+        {
+            return Call<TReturn>(queryString, HttpVerb.Patch, contentType, body, cancellationToken);
         }
         #endregion
 
