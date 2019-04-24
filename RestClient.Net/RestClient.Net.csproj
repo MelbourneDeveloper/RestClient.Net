@@ -20,7 +20,7 @@ Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
 - Async friendly (uses async, await keywords).
 - Only one .NET Standard library for all platforms</Description>
     <Copyright>© 2019 Christian Findlay</Copyright>
-    <PackageLicenseUrl>https://github.com/MelbourneDeveloper/RestClient.Net/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/MelbourneDeveloper/RestClient.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
     <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Async, json, soap, xml, http, https , Android, iOS, Hardfolio, cryptocurrency</PackageTags>
@@ -28,7 +28,8 @@ Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>    
     <NoWarn>CA2007</NoWarn>    
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>7.3</LangVersion>    
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <Choose>
@@ -49,6 +50,13 @@ Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
