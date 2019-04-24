@@ -154,6 +154,7 @@ namespace RestClientDotNet.Sample
             if (errorModel != null)
             {
                 message += $"\r\n{errorModel.error.message}";
+                message += $"\r\nStatus Code: {(int)hex.HttpResponseMessage.StatusCode}";
             }
 
             await DisplayAlert("Error", message);
