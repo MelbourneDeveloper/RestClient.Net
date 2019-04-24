@@ -94,6 +94,7 @@
                 <Button Text="Patch" Clicked="Patch_Clicked" />
                 <Button Text="Post" Clicked="Post_Clicked" />
                 <Button Text="Post With Cancellation" Clicked="PostWithCancellation_Clicked" />
+                <Button Text="Post With Timeout" Clicked="PostWithTimeout_Clicked" />
 
             </StackLayout>
 

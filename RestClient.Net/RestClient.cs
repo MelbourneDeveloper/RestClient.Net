@@ -33,10 +33,23 @@ namespace RestClientDotNet
         #endregion
 
         #region Constructor
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri)
+        public RestClient(ISerializationAdapter serializationAdapter) : this(serializationAdapter, null)
+        {
+        }
+
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri) : this(serializationAdapter, baseUri, default)
+        {
+        }
+
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout)
         {
             _HttpClient.BaseAddress = baseUri;
-            _HttpClient.Timeout = new TimeSpan(0, 3, 0);
+
+            if (timeout != default)
+            {
+                _HttpClient.Timeout = timeout;
+            }
+
             SerializationAdapter = serializationAdapter;
         }
         #endregion
