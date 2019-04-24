@@ -11,7 +11,7 @@ namespace RestClientDotNet
             SerializationAdapter = serializationAdapter;
         }
 
-        public RestClient CreateRESTClient(Uri baseUri)
+        public IRestClient CreateRESTClient(Uri baseUri)
         {
             return new RestClient(SerializationAdapter, baseUri);
         }

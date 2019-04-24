@@ -5,36 +5,57 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
-    public class RestClient
+    public class RestClient : IDisposable, IRestClient
     {
         #region Fields
         private readonly HttpClient _HttpClient = new HttpClient();
+        private bool disposed;
         #endregion
 
         #region Public Properties
+        public string DefaultContentType { get; set; } = "application/json";
         public Uri BaseUri => _HttpClient.BaseAddress;
         public Dictionary<string, string> Headers { get; private set; } = new Dictionary<string, string>();
         public AuthenticationHeaderValue Authorization { get; set; }
-        public Dictionary<HttpStatusCode, Func<byte[], object>> HttpStatusCodeFuncs = new Dictionary<HttpStatusCode, Func<byte[], object>>();
-        public IZip Zip;
+        public Dictionary<HttpStatusCode, Func<byte[], object>> HttpStatusCodeFuncs { get; } = new Dictionary<HttpStatusCode, Func<byte[], object>>();
+        public IZip Zip { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
+        public TimeSpan Timeout
+        {
+            get => _HttpClient.Timeout;
+            set => _HttpClient.Timeout = value;
+        }
         #endregion
 
         #region Constructor
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri)
+        public RestClient(ISerializationAdapter serializationAdapter) : this(serializationAdapter, null)
+        {
+        }
+
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri) : this(serializationAdapter, baseUri, default)
+        {
+        }
+
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout)
         {
             _HttpClient.BaseAddress = baseUri;
-            _HttpClient.Timeout = new TimeSpan(0, 3, 0);
+
+            if (timeout != default)
+            {
+                _HttpClient.Timeout = timeout;
+            }
+
             SerializationAdapter = serializationAdapter;
         }
         #endregion
 
         #region Private Methods
-        private async Task<T> Call<T>(string queryString, HttpVerb httpVerb, string contentType, object body = null)
+        private async Task<T> Call<T>(Uri queryString, HttpVerb httpVerb, string contentType, object body, CancellationToken cancellationToken)
         {
             _HttpClient.DefaultRequestHeaders.Clear();
 
@@ -91,14 +112,14 @@ namespace RestClientDotNet
                         stringContent.Headers.Add(key, Headers[key]);
                     }
 
-                    result = await _HttpClient.PostAsync(queryString, stringContent);
+                    result = await _HttpClient.PostAsync(queryString, stringContent, cancellationToken);
                     break;
 
                 case HttpVerb.Get:
-                    result = await _HttpClient.GetAsync(queryString);
+                    result = await _HttpClient.GetAsync(queryString, cancellationToken);
                     break;
                 case HttpVerb.Delete:
-                    result = await _HttpClient.DeleteAsync(queryString);
+                    result = await _HttpClient.DeleteAsync(queryString, cancellationToken);
                     break;
 
                 case HttpVerb.Put:
@@ -111,7 +132,7 @@ namespace RestClientDotNet
 
                     if (httpVerb == HttpVerb.Put)
                     {
-                        result = await _HttpClient.PutAsync(queryString, stringContent);
+                        result = await _HttpClient.PutAsync(queryString, stringContent, cancellationToken);
                     }
                     else
                     {
@@ -120,14 +141,16 @@ namespace RestClientDotNet
                         {
                             Content = stringContent
                         };
-                        result = await _HttpClient.SendAsync(request);
+                        result = await _HttpClient.SendAsync(request, cancellationToken);
                     }
                     break;
+                default:
+                    throw new NotImplementedException();
             }
 
             if (result.IsSuccessStatusCode)
             {
-                var gzipHeader = result.Content.Headers.ContentEncoding.FirstOrDefault(h => !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.InvariantCultureIgnoreCase));
+                var gzipHeader = result.Content.Headers.ContentEncoding.FirstOrDefault(h => !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.OrdinalIgnoreCase));
                 if (gzipHeader != null && Zip != null)
                 {
                     var bytes = await result.Content.ReadAsByteArrayAsync();
@@ -148,40 +171,142 @@ namespace RestClientDotNet
                 return (T)HttpStatusCodeFuncs[result.StatusCode].Invoke(errorData);
             }
 
-            throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {_HttpClient.BaseAddress}. Full Uri: {_HttpClient.BaseAddress + queryString}", result.StatusCode, errorData);
+            throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {_HttpClient.BaseAddress}. Querystring: {queryString}", result);
         }
         #endregion
 
         #region Public Methods
-        public async Task<T> GetAsync<T>()
+
+        #region Get
+        public Task<T> GetAsync<T>()
         {
-            return await GetAsync<T>(null);
+            return Call<T>(null, HttpVerb.Get, DefaultContentType, null, default);
         }
 
-        public async Task<T> GetAsync<T>(string queryString, string contentType = "application/json")
+        public Task<T> GetAsync<T>(string queryString)
         {
-            return await Call<T>(queryString, HttpVerb.Get, contentType);
+            return GetAsync<T>(new Uri(queryString, UriKind.Relative));
         }
 
-        public async Task<TReturn> PostAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
+        public Task<T> GetAsync<T>(Uri queryString)
         {
-            return await Call<TReturn>(queryString, HttpVerb.Post, contentType, body);
+            return GetAsync<T>(queryString, DefaultContentType);
         }
 
-        public async Task<TReturn> PutAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
+        public Task<T> GetAsync<T>(Uri queryString, string contentType)
         {
-            return await Call<TReturn>(queryString, HttpVerb.Put, contentType, body);
+            return GetAsync<T>(queryString, contentType, default);
         }
 
-        public async Task DeleteAsync(string queryString, string contentType = "application/json")
+        public Task<T> GetAsync<T>(Uri queryString, CancellationToken cancellationToken)
         {
-            await Call<object>(queryString, HttpVerb.Delete, contentType, null);
+            return GetAsync<T>(queryString, DefaultContentType, cancellationToken);
         }
 
-        public async Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, string queryString, string contentType = "application/json")
+        public Task<T> GetAsync<T>(Uri queryString, string contentType, CancellationToken cancellationToken)
         {
-            return await Call<TReturn>(queryString, HttpVerb.Patch, contentType, body);
+            return Call<T>(queryString, HttpVerb.Get, contentType, null, cancellationToken);
         }
+        #endregion
+
+        #region Post
+        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, string queryString)
+        {
+            return PostAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
+        }
+
+        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString)
+        {
+            return PostAsync<TReturn, TBody>(body, queryString, default);
+        }
+
+        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
+        {
+            return PostAsync<TReturn, TBody>(body, queryString, DefaultContentType, cancellationToken);
+        }
+
+        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
+        {
+            return Call<TReturn>(queryString, HttpVerb.Post, contentType, body, cancellationToken);
+        }
+        #endregion
+
+        #region Put
+        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, string queryString)
+        {
+            return PutAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
+        }
+
+        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString)
+        {
+            return PutAsync<TReturn, TBody>(body, queryString, DefaultContentType, default);
+        }
+
+        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
+        {
+            return PutAsync<TReturn, TBody>(body, queryString, DefaultContentType, cancellationToken);
+        }
+
+        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
+        {
+            return Call<TReturn>(queryString, HttpVerb.Put, contentType, body, cancellationToken);
+        }
+        #endregion
+
+        #region Delete
+        public Task DeleteAsync(string queryString)
+        {
+            return DeleteAsync(new Uri(queryString, UriKind.Relative));
+        }
+
+        public Task DeleteAsync(Uri queryString)
+        {
+            return DeleteAsync(queryString, default);
+        }
+
+        public Task DeleteAsync(Uri queryString, CancellationToken cancellationToken)
+        {
+            return DeleteAsync(queryString, DefaultContentType, cancellationToken);
+        }
+
+        public Task DeleteAsync(Uri queryString, string contentType, CancellationToken cancellationToken)
+        {
+            return Call<object>(queryString, HttpVerb.Delete, contentType, null, cancellationToken);
+        }
+        #endregion
+
+        #region Patch
+        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, string queryString)
+        {
+            return PatchAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
+        }
+
+        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString)
+        {
+            return PatchAsync<TReturn, TBody>(body, queryString, DefaultContentType, default);
+        }
+
+        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
+        {
+            return PatchAsync<TReturn, TBody>(body, queryString, DefaultContentType, cancellationToken);
+        }
+
+        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
+        {
+            return Call<TReturn>(queryString, HttpVerb.Patch, contentType, body, cancellationToken);
+        }
+        #endregion
+
+        public void Dispose()
+        {
+            if (disposed) return;
+            disposed = true;
+
+            GC.SuppressFinalize(this);
+
+            _HttpClient.Dispose();
+        }
+
         #endregion
     }
 }

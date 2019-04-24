@@ -3,6 +3,7 @@ using groupkt;
 using RestClient.Net.Samples.Model;
 using System;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ThomasBayer;
 using Xamarin.Forms;
@@ -101,10 +102,9 @@ namespace RestClientDotNet.Sample
                 //Ensure the client is ready to go
                 GetBitBucketClient(GetPassword(), false);
 
-                //var repoSlug = selectedRepo.full_name.Split('/')[1];
-                var requestUri = $"https://api.bitbucket.org/2.0/repositories/{UsernameBox.Text}/{selectedRepo.full_name.Split('/')[1]}";
+                var requestUri = $"{UsernameBox.Text}/{selectedRepo.full_name.Split('/')[1]}";
 
-                //Post the change
+                //Put the change
                 var retVal = await _BitbucketClient.PutAsync<Repository, Repository>(selectedRepo, requestUri);
 
                 await DisplayAlert("Saved", "Your repo was updated.");
@@ -142,17 +142,20 @@ namespace RestClientDotNet.Sample
             var hex = ex as HttpStatusException;
             if (hex != null)
             {
-                if (hex.ErrorData != null && hex.ErrorData.Length > 0)
+                if (hex.HttpResponseMessage?.Content != null)
                 {
-                    errorModel = await _BitbucketClient.SerializationAdapter.DeserializeAsync<ErrorModel>(hex.ErrorData);
+                    var errorData = await hex.HttpResponseMessage.Content.ReadAsByteArrayAsync();
+
+                    errorModel = await _BitbucketClient.SerializationAdapter.DeserializeAsync<ErrorModel>(errorData);
                 }
             }
 
-            string message = $"An error occurred while attempting to use a REST service.\r\nError: {ex.Message}\r\nInner Error: {ex.InnerException?.Message}\r\nInner Inner Error: {ex.InnerException?.InnerException?.Message}";
+            var message = $"An error occurred while attempting to use a REST service.\r\nError: {ex.Message}\r\nInner Error: {ex.InnerException?.Message}\r\nInner Inner Error: {ex.InnerException?.InnerException?.Message}";
 
             if (errorModel != null)
             {
                 message += $"\r\n{errorModel.error.message}";
+                message += $"\r\nStatus Code: {(int)hex.HttpResponseMessage.StatusCode}";
             }
 
             await DisplayAlert("Error", message);
@@ -222,8 +225,57 @@ namespace RestClientDotNet.Sample
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
             var userPost = await restClient.PatchAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts/1");
             await DisplayAlert("Post Patched", $"The server pretended to patch a post titled:\r\n{userPost.title}");
-
         }
+
+        private async void Post_Clicked(object sender, EventArgs e)
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            var userPost = await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts");
+            await DisplayAlert("Post made", $"The server pretended to accept the post:\r\n{userPost.title}");
+        }
+
+        private async void PostWithCancellation_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+
+                var tokenSource = new CancellationTokenSource();
+                var token = tokenSource.Token;
+
+                var task = restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative), token);
+
+                tokenSource.Cancel();
+
+                await task;
+            }
+            catch (OperationCanceledException ex)
+            {
+                await DisplayAlert("Cancellation", ex.Message);
+            }
+            catch (Exception)
+            {
+                await DisplayAlert("Error", "Cancellation didn't work :(");
+            }
+        }
+
+        private async void PostWithTimeout_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), new TimeSpan(0, 0, 0, 0, 1));
+                await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
+            }
+            catch (OperationCanceledException ex)
+            {
+                await DisplayAlert("Cancellation", ex.Message);
+            }
+            catch (Exception)
+            {
+                await DisplayAlert("Error", "Cancellation didn't work :(");
+            }
+        }
+
         #endregion
     }
 }
