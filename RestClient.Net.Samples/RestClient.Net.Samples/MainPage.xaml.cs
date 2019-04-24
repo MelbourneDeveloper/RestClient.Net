@@ -253,11 +253,29 @@ namespace RestClientDotNet.Sample
             {
                 await DisplayAlert("Cancellation", ex.Message);
             }
-            catch(Exception ex)
+            catch (Exception)
             {
                 await DisplayAlert("Error", "Cancellation didn't work :(");
             }
         }
+
+        private async void PostWithTimeout_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), new TimeSpan(0, 0, 0, 0, 1));
+                await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
+            }
+            catch (OperationCanceledException ex)
+            {
+                await DisplayAlert("Cancellation", ex.Message);
+            }
+            catch (Exception)
+            {
+                await DisplayAlert("Error", "Cancellation didn't work :(");
+            }
+        }
+
         #endregion
     }
 }
