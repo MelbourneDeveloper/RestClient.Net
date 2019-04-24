@@ -3,6 +3,7 @@ using groupkt;
 using RestClient.Net.Samples.Model;
 using System;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ThomasBayer;
 using Xamarin.Forms;
@@ -233,5 +234,30 @@ namespace RestClientDotNet.Sample
             await DisplayAlert("Post made", $"The server pretended to accept the post:\r\n{userPost.title}");
         }
         #endregion
+
+        private async void PostWithCancellation_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+
+                var tokenSource = new CancellationTokenSource();
+                var token = tokenSource.Token;
+
+                var task = restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative), token);
+
+                tokenSource.Cancel();
+
+                await task;
+            }
+            catch (OperationCanceledException ex)
+            {
+                await DisplayAlert("Cancellation", ex.Message);
+            }
+            catch(Exception ex)
+            {
+                await DisplayAlert("Error", "Cancellation didn't work :(");
+            }
+        }
     }
 }

@@ -93,6 +93,7 @@
                 <Button Text="Delete" Clicked="Delete_Clicked" />
                 <Button Text="Patch" Clicked="Patch_Clicked" />
                 <Button Text="Post" Clicked="Post_Clicked" />
+                <Button Text="Post With Cancellation" Clicked="PostWithCancellation_Clicked" />
 
             </StackLayout>
 
