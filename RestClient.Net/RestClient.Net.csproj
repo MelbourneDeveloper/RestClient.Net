@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <Version>1.1.0</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Christian Findlay</Authors>
     <Description>Cross Platform REST Client for all C# platforms
@@ -19,18 +19,12 @@ Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
 - Incredibly simple (All source code less than 100 lines)
 - Async friendly (uses async, await keywords).
 - Only one .NET Standard library for all platforms</Description>
-    <Copyright>© 2018 Christian Findlay</Copyright>
+    <Copyright>© 2019 Christian Findlay</Copyright>
     <PackageLicenseUrl>https://github.com/MelbourneDeveloper/RestClient.Net/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/MelbourneDeveloper/RestClient.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
     <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Async, json, soap, xml, http, https , Android, iOS, Hardfolio, cryptocurrency</PackageTags>
-    <PackageReleaseNotes>Full Release
-
-Implement Patch/Delete
-
-.NET Framework Version
-
-Namespace cleanup (camel case)</PackageReleaseNotes>
+    <PackageReleaseNotes>Exceptions contains status codes. Timeouts. Public interface cleanup. Cancellation tokens. Abstraction. Very slight potential breaking changes. https://github.com/MelbourneDeveloper/RestClient.Net/projects/1</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>    
     <NoWarn>CA2007</NoWarn>    
