@@ -2,7 +2,23 @@
 
 This most simple Task-based Async, strongly typed, cross-platform C# REST Client. 
 
-_NEW_ **.NET Framework 4.5+ Support added in Version 1.1. Please send [feedback](https://github.com/MelbourneDeveloper/RestClient.Net/issues/new)! I'd really like to know what challenges you are having and which features you would like this library to have.**
+### In Browser (Wasm) Support with [Uno Platform](https://platform.uno/) - New! ###
+
+RestClient.Net can now run inside the browser via WebAssembly. To see a sample:
+
+ - Clone the repo
+ - Make sure you've got .NET Core 3.0 installed
+ - Open the solution RestClient.Net.Samples.sln in Visual Studio 2017
+ - Switch to debug
+ - Unload or remove any projects whose frameworks are not installed (e.g. Android/iOS)
+ - Wait for NuGet packages to be restored 
+ - Build solution twice 
+ - Ensure the project RestClient.Net.Samples.Uno.Wasm is built
+ - Navigate to the project RestClient.Net.Samples.Uno.Wasm output folder's "dist" folder (RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Wasm\bin\Debug\netstandard2.0\dist)
+ - Open index.html in Edge . Not sure why other browsers don't work yet
+ - Click "Get My Repos" to get my public repos, or enter your own username/password for your private repos
+ - [This](https://github.com/MelbourneDeveloper/RestClient.Net/blob/master/RestClient.Net.Samples.Uno/RestClient.Net.Samples.Uno.Shared/MainPage.xaml.cs) is the code. It's shared across Wasm and UWP
+ - If you run the RestClient.Net.Samples.Uno.UWP project, you will see that the app is almost identicle to the one in the browser
 
 ### Comparison ###
 
