@@ -13,13 +13,13 @@ namespace RestClientDotNet
     public class RestClient : IDisposable, IRestClient
     {
         #region Fields
-        private readonly HttpClient _HttpClient = new HttpClient();
         private bool disposed;
         #endregion
 
         #region Public Properties
+        public HttpClient HttpClient { get; }
         public string DefaultContentType { get; set; } = "application/json";
-        public Uri BaseUri => _HttpClient.BaseAddress;
+        public Uri BaseUri => HttpClient.BaseAddress;
         public Dictionary<string, string> Headers { get; private set; } = new Dictionary<string, string>();
         public AuthenticationHeaderValue Authorization { get; set; }
         public Dictionary<HttpStatusCode, Func<byte[], object>> HttpStatusCodeFuncs { get; } = new Dictionary<HttpStatusCode, Func<byte[], object>>();
@@ -27,8 +27,8 @@ namespace RestClientDotNet
         public ISerializationAdapter SerializationAdapter { get; }
         public TimeSpan Timeout
         {
-            get => _HttpClient.Timeout;
-            set => _HttpClient.Timeout = value;
+            get => HttpClient.Timeout;
+            set => HttpClient.Timeout = value;
         }
         #endregion
 
@@ -37,17 +37,25 @@ namespace RestClientDotNet
         {
         }
 
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri) : this(serializationAdapter, baseUri, default)
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri) : this(serializationAdapter, baseUri, default, null)
         {
         }
 
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout)
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout) : this(serializationAdapter, baseUri, timeout, null)
         {
-            _HttpClient.BaseAddress = baseUri;
+        }
+
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, HttpClient httpClient)
+        {
+            HttpClient = httpClient;
+
+            if (HttpClient == null) HttpClient = new HttpClient();
+
+            HttpClient.BaseAddress = baseUri;
 
             if (timeout != default)
             {
-                _HttpClient.Timeout = timeout;
+                HttpClient.Timeout = timeout;
             }
 
             SerializationAdapter = serializationAdapter;
@@ -57,21 +65,21 @@ namespace RestClientDotNet
         #region Private Methods
         private async Task<T> Call<T>(Uri queryString, HttpVerb httpVerb, string contentType, object body, CancellationToken cancellationToken)
         {
-            _HttpClient.DefaultRequestHeaders.Clear();
+            HttpClient.DefaultRequestHeaders.Clear();
 
             if (Authorization != null)
             {
-                _HttpClient.DefaultRequestHeaders.Authorization = Authorization;
+                HttpClient.DefaultRequestHeaders.Authorization = Authorization;
             }
 
             HttpResponseMessage result = null;
             var isPost = httpVerb == HttpVerb.Post;
             if (!isPost)
             {
-                _HttpClient.DefaultRequestHeaders.Clear();
+                HttpClient.DefaultRequestHeaders.Clear();
                 foreach (var key in Headers.Keys)
                 {
-                    _HttpClient.DefaultRequestHeaders.Add(key, Headers[key]);
+                    HttpClient.DefaultRequestHeaders.Add(key, Headers[key]);
                 }
             }
 
@@ -112,14 +120,14 @@ namespace RestClientDotNet
                         stringContent.Headers.Add(key, Headers[key]);
                     }
 
-                    result = await _HttpClient.PostAsync(queryString, stringContent, cancellationToken);
+                    result = await HttpClient.PostAsync(queryString, stringContent, cancellationToken);
                     break;
 
                 case HttpVerb.Get:
-                    result = await _HttpClient.GetAsync(queryString, cancellationToken);
+                    result = await HttpClient.GetAsync(queryString, cancellationToken);
                     break;
                 case HttpVerb.Delete:
-                    result = await _HttpClient.DeleteAsync(queryString, cancellationToken);
+                    result = await HttpClient.DeleteAsync(queryString, cancellationToken);
                     break;
 
                 case HttpVerb.Put:
@@ -132,7 +140,7 @@ namespace RestClientDotNet
 
                     if (httpVerb == HttpVerb.Put)
                     {
-                        result = await _HttpClient.PutAsync(queryString, stringContent, cancellationToken);
+                        result = await HttpClient.PutAsync(queryString, stringContent, cancellationToken);
                     }
                     else
                     {
@@ -141,7 +149,7 @@ namespace RestClientDotNet
                         {
                             Content = stringContent
                         };
-                        result = await _HttpClient.SendAsync(request, cancellationToken);
+                        result = await HttpClient.SendAsync(request, cancellationToken);
                     }
                     break;
                 default:
@@ -171,7 +179,7 @@ namespace RestClientDotNet
                 return (T)HttpStatusCodeFuncs[result.StatusCode].Invoke(errorData);
             }
 
-            throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {_HttpClient.BaseAddress}. Querystring: {queryString}", result);
+            throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}", result);
         }
         #endregion
 
@@ -304,7 +312,7 @@ namespace RestClientDotNet
 
             GC.SuppressFinalize(this);
 
-            _HttpClient.Dispose();
+            HttpClient.Dispose();
         }
 
         #endregion
