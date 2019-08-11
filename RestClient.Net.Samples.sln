@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.Samples.Uno.Wasm", "RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Wasm\RestClient.Net.Samples.Uno.Wasm.csproj", "{4B455895-DEEB-4A2A-8633-ABDC9BF3E360}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net.Samples.Android", "RestClient.Net.Samples\RestClient.NET.Samples.Android\RestClient.Net.Samples.Android.csproj", "{486A4D3C-53FE-49D9-B061-A9E34D7F654C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net.Samples.iOS", "RestClient.Net.Samples\RestClient.NET.Samples.iOS\RestClient.Net.Samples.iOS.csproj", "{B50E502A-8DBC-46E2-AE1F-092F126DE838}"
@@ -18,8 +20,6 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "RestClient.Net.Samples.Uno.Shared", "RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Shared\RestClient.Net.Samples.Uno.Shared.shproj", "{6279C845-92F8-4333-AB99-3D213163593C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net.Samples.Uno.UWP", "RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.UWP\RestClient.Net.Samples.Uno.UWP.csproj", "{242EC010-6289-4B5A-A064-4F167044760B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.Samples.Uno.Wasm", "RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Wasm\RestClient.Net.Samples.Uno.Wasm.csproj", "{4B455895-DEEB-4A2A-8633-ABDC9BF3E360}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
