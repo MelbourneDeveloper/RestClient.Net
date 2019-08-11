@@ -158,7 +158,6 @@ namespace RestClient.Net.Samples.Uno
         private void ToggleBusy(bool isBusy)
         {
             ReposActivityIndicator.Visibility = isBusy ? Visibility.Visible : Visibility.Collapsed;
-            ReposActivityIndicator.Background = isBusy ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Transparent);
         }
 
         private void AttachEventHandlers()

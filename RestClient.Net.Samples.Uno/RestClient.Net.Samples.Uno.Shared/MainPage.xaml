@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-  
+   
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="ReposPage">
 
         <Grid.RowDefinitions>
@@ -45,7 +45,7 @@
 
         </StackPanel>
 
-        <TextBlock VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="Loading ..." TextAlignment="Center" x:Name="ReposActivityIndicator" Grid.Row="2"  />
+        <TextBlock VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="Loading ..." TextAlignment="Center" x:Name="ReposActivityIndicator" Grid.Row="2" Visibility="Collapsed"  />
 
     </Grid>
 
