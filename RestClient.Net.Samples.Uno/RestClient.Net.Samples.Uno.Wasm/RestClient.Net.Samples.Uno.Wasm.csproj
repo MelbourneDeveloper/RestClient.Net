@@ -36,11 +36,11 @@
     <DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.0-dev.137" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\RestClient.Net\RestClient.Net.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Dependencies\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="RestClient.Net">
-      <HintPath>..\..\RestClient.Net\bin\Debug\netstandard2.0\RestClient.NET.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="..\RestClient.Net.Samples.Uno.Shared\RestClient.Net.Samples.Uno.Shared.projitems" Label="Shared" Condition="Exists('..\RestClient.Net.Samples.Uno.Shared\RestClient.Net.Samples.Uno.Shared.projitems')" />
