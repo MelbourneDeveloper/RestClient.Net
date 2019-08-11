@@ -9,6 +9,8 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using restClient = RestClientDotNet.RestClient;
+using Windows.UI.Xaml.Media;
+using Windows.UI;
 
 #if __WASM__
 using Uno.UI.Wasm;
@@ -21,20 +23,20 @@ namespace RestClient.Net.Samples.Uno
     /// </summary>
     public sealed partial class MainPage : Page
     {
-#region Fields
+        #region Fields
         private restClient _BitbucketClient;
-#endregion
+        #endregion
 
-#region Constructror
+        #region Constructror
         public MainPage()
         {
             InitializeComponent();
             AttachEventHandlers();
         }
 
-#endregion
+        #endregion
 
-#region Private Methods
+        #region Private Methods
 
         private void GetBitBucketClient(string password, bool isGet)
         {
@@ -156,12 +158,7 @@ namespace RestClient.Net.Samples.Uno
         private void ToggleBusy(bool isBusy)
         {
             ReposActivityIndicator.Visibility = isBusy ? Visibility.Visible : Visibility.Collapsed;
-
-#if __WASM__
-            //ReposActivityIndicator.IsActive = isBusy;
-#else
-            ReposActivityIndicator.IsActive = isBusy;
-#endif
+            ReposActivityIndicator.Background = isBusy ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Transparent);
         }
 
         private void AttachEventHandlers()
@@ -196,9 +193,8 @@ namespace RestClient.Net.Samples.Uno
             OnGetReposClick();
         }
 
-   
 
-#endregion
 
+        #endregion
     }
 }

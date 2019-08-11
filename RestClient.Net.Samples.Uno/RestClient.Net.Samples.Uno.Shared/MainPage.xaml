@@ -6,19 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
-
   
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="ReposPage">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
         </Grid.RowDefinitions>      
-         
-      
-        <ProgressRing x:Name="ReposActivityIndicator" IsActive="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Visibility="Visible" Grid.RowSpan="2" Canvas.ZIndex="100" Height="300" Width="300" />
-
+               
         <StackPanel Orientation="Vertical" Grid.Row="1" >
 
             <StackPanel Orientation="Horizontal" >
@@ -48,6 +44,8 @@
             <Button Content="Save Repo"   x:Name="SaveButton"  />
 
         </StackPanel>
+
+        <TextBlock VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="Loading ..." TextAlignment="Center" x:Name="ReposActivityIndicator" Grid.Row="2"  />
 
     </Grid>
 
