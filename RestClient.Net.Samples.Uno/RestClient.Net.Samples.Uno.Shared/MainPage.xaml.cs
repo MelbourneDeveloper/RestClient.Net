@@ -1,16 +1,14 @@
 ﻿using RestClientDotNet;
 using RestClientNetSamples;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using restClient = RestClientDotNet.RestClient;
-using Windows.UI.Xaml.Media;
-using Windows.UI;
 
 #if __WASM__
 using Uno.UI.Wasm;
@@ -73,6 +71,7 @@ namespace RestClient.Net.Samples.Uno
 
                 //Put it in the List Box
                 ReposBox.ItemsSource = repos.values;
+                ReposBox.SelectedItem = repos.values.FirstOrDefault();
                 ReposBox.IsEnabled = true;
             }
             catch (Exception ex)

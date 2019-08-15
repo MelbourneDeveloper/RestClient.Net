@@ -12,10 +12,8 @@ RestClient.Net can now run inside the browser via WebAssembly. To see a sample:
  - Switch to debug
  - Unload or remove any projects whose frameworks are not installed (e.g. Android/iOS)
  - Wait for NuGet packages to be restored 
- - Build solution twice 
  - Ensure the project RestClient.Net.Samples.Uno.Wasm is built
- - Navigate to the project RestClient.Net.Samples.Uno.Wasm output folder's "dist" folder (RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Wasm\bin\Debug\netstandard2.0\dist)
- - Open index.html in Edge . Not sure why other browsers don't work yet
+ - Run the project RestClient.Net.Samples.Uno.Wasm
  - Click "Get My Repos" to get my public repos, or enter your own username/password for your private repos
  - [This](https://github.com/MelbourneDeveloper/RestClient.Net/blob/master/RestClient.Net.Samples.Uno/RestClient.Net.Samples.Uno.Shared/MainPage.xaml.cs) is the code. It's shared across Wasm and UWP
  - If you run the RestClient.Net.Samples.Uno.UWP project, you will see that the app is almost identicle to the one in the browser
