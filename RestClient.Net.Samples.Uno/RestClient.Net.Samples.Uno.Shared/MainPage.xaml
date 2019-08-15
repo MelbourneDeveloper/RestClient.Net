@@ -19,7 +19,7 @@
 
             <StackPanel Orientation="Horizontal" >
                 <TextBlock Text="Bitbucket Username: " VerticalAlignment="Center"  />
-                <TextBox x:Name="UsernameBox" Text="MelbourneDeveloper"  HorizontalAlignment="Stretch"  VerticalAlignment="Center" Width="150" />
+                <TextBox x:Name="UsernameBox"  Text="MelbourneDeveloper"  HorizontalAlignment="Stretch"  VerticalAlignment="Center" Width="150" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" >
