@@ -144,16 +144,9 @@ namespace RestClient.Net.Samples.Uno
             GetReposButton.Click += GetReposButton_Clicked;
             ReposBox.SelectionChanged += ReposBox_ItemSelected;
         }
-
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
 
         #region Event Handlers
-
         private void ReposBox_ItemSelected(object sender, SelectionChangedEventArgs e)
         {
             ReposPage.DataContext = ReposBox.SelectedItem as Repository;
@@ -169,9 +162,6 @@ namespace RestClient.Net.Samples.Uno
         {
             OnGetReposClick();
         }
-
-
-
         #endregion
     }
 }
