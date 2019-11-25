@@ -63,7 +63,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Private Methods
-        private async Task<T> Call<T>(Uri queryString, HttpVerb httpVerb, string contentType, object body, CancellationToken cancellationToken)
+        private async Task<TReturn> Call<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
         {
             HttpClient.DefaultRequestHeaders.Clear();
 
@@ -99,7 +99,7 @@ namespace RestClientDotNet
                     {
                         if (body != null)
                         {
-                            data = await SerializationAdapter.SerializeAsync(body);
+                            data = await SerializationAdapter.SerializeAsync<TBody>(body);
                             bodyString = SerializationAdapter.Encoding.GetString(data);
                         }
                         else
@@ -133,7 +133,7 @@ namespace RestClientDotNet
                 case HttpVerb.Put:
                 case HttpVerb.Patch:
 
-                    data = await SerializationAdapter.SerializeAsync(body);
+                    data = await SerializationAdapter.SerializeAsync<TBody>(body);
                     bodyString = SerializationAdapter.Encoding.GetString(data);
                     var length = bodyString.Length;
                     stringContent = new StringContent(bodyString, SerializationAdapter.Encoding, contentType);
@@ -169,7 +169,7 @@ namespace RestClientDotNet
                     data = await result.Content.ReadAsByteArrayAsync();
                 }
 
-                return await SerializationAdapter.DeserializeAsync<T>(data);
+                return await SerializationAdapter.DeserializeAsync<TReturn>(data);
             }
 
             var errorData = await result.Content.ReadAsByteArrayAsync();
@@ -235,7 +235,7 @@ namespace RestClientDotNet
 
         public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
         {
-            return Call<TReturn>(queryString, HttpVerb.Post, contentType, body, cancellationToken);
+            return Call<TReturn, TBody>(queryString, HttpVerb.Post, contentType, body, cancellationToken);
         }
         #endregion
 
@@ -257,7 +257,7 @@ namespace RestClientDotNet
 
         public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
         {
-            return Call<TReturn>(queryString, HttpVerb.Put, contentType, body, cancellationToken);
+            return Call<TReturn, TBody>(queryString, HttpVerb.Put, contentType, body, cancellationToken);
         }
         #endregion
 
