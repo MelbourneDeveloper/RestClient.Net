@@ -21,7 +21,18 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestPostWithCancellation()
+        public async Task TestPostUser()
+        {
+            var title = "Moops";
+            var userId = 10;
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            var userPost = await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = title, userId = userId }, "/posts");
+            Assert.AreEqual(userId, userPost.userId);
+            Assert.AreEqual(title, userPost.title);
+        }
+
+        [TestMethod]
+        public async Task TestPostUserWithCancellation()
         {
             try
             {

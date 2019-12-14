@@ -85,7 +85,7 @@ namespace RestClientDotNet
                 }
             }
 
-            string bodyString = null;
+            //string bodyString = null;
             var data = await SerializationAdapter.SerializeAsync(body);
             using (var httpContent = new ByteArrayContent(data))
             {
@@ -94,25 +94,8 @@ namespace RestClientDotNet
                 {
                     case HttpVerb.Post:
 
-                        if (body is string bodyAsString)
-                        {
-                            bodyString = bodyAsString;
-                        }
-                        else
-                        {
-                            if (body != null)
-                            {
-                            }
-                            else
-                            {
-                                bodyString = string.Empty;
-                            }
-                        }
-
                         //Don't know why but this has to be set again, otherwise more text is added on to the Content-Type header...
                         httpContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
-
-                        httpContent.Headers.ContentLength = bodyString.Length;
 
                         foreach (var key in Headers.Keys)
                         {
