@@ -87,7 +87,7 @@ namespace RestClientDotNet
 
             string bodyString = null;
             var data = await SerializationAdapter.SerializeAsync(body);
-            using (var stringContent = new ByteArrayContent(data))
+            using (var httpContent = new ByteArrayContent(data))
             {
 
                 switch (httpVerb)
@@ -110,16 +110,16 @@ namespace RestClientDotNet
                         }
 
                         //Don't know why but this has to be set again, otherwise more text is added on to the Content-Type header...
-                        stringContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+                        httpContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
-                        stringContent.Headers.ContentLength = bodyString.Length;
+                        httpContent.Headers.ContentLength = bodyString.Length;
 
                         foreach (var key in Headers.Keys)
                         {
-                            stringContent.Headers.Add(key, Headers[key]);
+                            httpContent.Headers.Add(key, Headers[key]);
                         }
 
-                        result = await HttpClient.PostAsync(queryString, stringContent, cancellationToken);
+                        result = await HttpClient.PostAsync(queryString, httpContent, cancellationToken);
                         break;
 
                     case HttpVerb.Get:
@@ -134,7 +134,7 @@ namespace RestClientDotNet
 
                         if (httpVerb == HttpVerb.Put)
                         {
-                            result = await HttpClient.PutAsync(queryString, stringContent, cancellationToken);
+                            result = await HttpClient.PutAsync(queryString, httpContent, cancellationToken);
                         }
                         else
                         {
@@ -142,7 +142,7 @@ namespace RestClientDotNet
                             using (var request =
                                 new HttpRequestMessage(method, queryString)
                                 {
-                                    Content = stringContent
+                                    Content = httpContent
                                 })
                             {
                                 result = await HttpClient.SendAsync(request, cancellationToken);
