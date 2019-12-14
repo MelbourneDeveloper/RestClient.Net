@@ -12,6 +12,6 @@ namespace RestClientDotNet
         /// <summary>
         /// Takes binary data and converts it to an object of type T
         /// </summary>
-        Task<T> DeserializeAsync<T>(byte[] binary);
+        Task<T> DeserializeAsync<T>(byte[] data);
     }
 }
