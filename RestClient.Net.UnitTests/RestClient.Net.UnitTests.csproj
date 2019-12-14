@@ -4,11 +4,12 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <RootNamespace>RestClientDotNet.UnitTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\Atlassian.cs" Link="Model\Atlassian.cs" />
-    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\CountryCodeData.cs" Link="Model\CountryCodeData.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\CUSTOMER.cs" Link="Model\CUSTOMER.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\PRODUCT.cs" Link="Model\PRODUCT.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\UserPost.cs" Link="Model\UserPost.cs" />
