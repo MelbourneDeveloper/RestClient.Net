@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -140,11 +139,14 @@ namespace RestClientDotNet
                         else
                         {
                             var method = new HttpMethod("PATCH");
-                            var request = new HttpRequestMessage(method, queryString)
+                            using (var request =
+                                new HttpRequestMessage(method, queryString)
+                                {
+                                    Content = stringContent
+                                })
                             {
-                                Content = stringContent
-                            };
-                            result = await HttpClient.SendAsync(request, cancellationToken);
+                                result = await HttpClient.SendAsync(request, cancellationToken);
+                            }
                         }
                         break;
                     default:
