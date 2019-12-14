@@ -1,16 +1,24 @@
 ﻿using groupkt;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net.Samples.Model;
-using RestClientDotNet;
+using RestClient.Net.UnitTests.Model;
 using RestSharp;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace RestClient.Net.UnitTests
+namespace RestClientDotNet.UnitTests
 {
     [TestClass]
     public class PerformanceTests
     {
+        [TestMethod]
+        public async Task TestRestCountries()
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
+            var countries = await restClient.GetAsync<List<RestCountry>>();
+        }
+
         [TestMethod]
         public async Task GetPerformanceTest()
         {
