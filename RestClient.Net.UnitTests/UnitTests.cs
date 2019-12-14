@@ -11,6 +11,7 @@ namespace RestClientDotNet.UnitTests
     [TestClass]
     public class UnitTests
     {
+        #region Tests
         [TestMethod]
         public async Task TestGetRestCountries()
         {
@@ -23,12 +24,13 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestPostUser()
         {
-            var title = "Moops";
-            var userId = 10;
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-            var userPost = await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = title, userId = userId }, "/posts");
-            Assert.AreEqual(userId, userPost.userId);
-            Assert.AreEqual(title, userPost.title);
+            await Update(false);
+        }
+
+        [TestMethod]
+        public async Task TestPatchUser()
+        {
+            await Update(true);
         }
 
         [TestMethod]
@@ -58,6 +60,27 @@ namespace RestClientDotNet.UnitTests
             }
 
             Assert.Fail("The operation completed successfully");
+        }
+        #endregion
+
+
+        private static async Task Update(bool isPatch)
+        {
+            var title = "Moops";
+            var userId = 10;
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            var requestUserPost = new UserPost { title = title, userId = userId, body = "testbody" };
+            UserPost responseUserPost = null;
+            if (isPatch)
+            {
+                responseUserPost = await restClient.PatchAsync<UserPost, UserPost>(requestUserPost, new Uri("/posts/1", UriKind.Relative), "application/json; charset=UTF-8", default);
+            }
+            else
+            {
+                responseUserPost = await restClient.PostAsync<UserPost, UserPost>(requestUserPost, "/posts");
+            }
+            Assert.AreEqual(userId, responseUserPost.userId);
+            Assert.AreEqual(title, responseUserPost.title);
         }
     }
 }

@@ -85,8 +85,8 @@ namespace RestClientDotNet
                 }
             }
 
-            //string bodyString = null;
             var data = await SerializationAdapter.SerializeAsync(body);
+
             using (var httpContent = new ByteArrayContent(data))
             {
 
