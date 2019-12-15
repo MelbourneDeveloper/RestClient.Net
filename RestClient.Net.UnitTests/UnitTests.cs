@@ -154,7 +154,7 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestConsoleLogdging()
+        public async Task TestGetWithXmlSerialization()
         {
             var restClient = new RestClient(new XmlSerializationAdapter(), new Uri("http://www.geoplugin.net/xml.gp"));
             var geoPlugin = await restClient.GetAsync<GeoPlugin>();

@@ -1,6 +1,4 @@
-﻿using RestClientDotNet;
-using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -10,27 +8,23 @@ namespace RestClientDotNet
     public class XmlSerializationAdapter : RestClientSerializationAdapterBase, ISerializationAdapter
     {
         #region Public Methods
-        public async Task<object> DeserializeAsync(byte[] binary, Type type)
-        {
-            var markup = await EncodeStringAsync(binary);
 
-            return await Task.Factory.StartNew(() =>
+        public async Task<T> DeserializeAsync<T>(byte[] binary)
+        {
+            var markup = Encoding.UTF8.GetString(binary);
+
+            return await Task.Run(() =>
             {
                 var bytes = Encoding.UTF8.GetBytes(markup);
 
-                var serializer = new XmlSerializer(type);
+                var serializer = new XmlSerializer(typeof(T));
                 using (var stream = new MemoryStream())
                 {
                     stream.Write(bytes, 0, bytes.Length);
                     stream.Seek(0, SeekOrigin.Begin);
-                    return serializer.Deserialize(stream);
+                    return (T)serializer.Deserialize(stream);
                 }
             });
-        }
-
-        public async Task<T> DeserializeAsync<T>(byte[] binary)
-        {
-            return (T)await DeserializeAsync(binary, typeof(T));
         }
 
         public async Task<byte[]> SerializeAsync<T>(T value)
@@ -51,16 +45,6 @@ namespace RestClientDotNet
 
             //TODO: This is unnecessary. The writer/reader should be doing this in binary and not as a string
             return Encoding.UTF8.GetBytes(markup);
-        }
-
-        public async Task<string> EncodeStringAsync(byte[] bytes)
-        {
-            return await Task.Factory.StartNew(() => Encoding.UTF8.GetString(bytes, 0, bytes.Length));
-        }
-
-      	public async Task<byte[]> DecodeStringAsync(string theString)
-        {
-            return await Task.Factory.StartNew(() => Encoding.UTF8.GetBytes(theString));
         }
 
         #endregion
