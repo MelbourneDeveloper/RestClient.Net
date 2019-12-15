@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45;net452;net46;net462;net47;net472</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
     <AssemblyVersion>2.1.0.0</AssemblyVersion>
     <FileVersion>2.1.0.0</FileVersion>
@@ -29,7 +29,8 @@ Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
     <CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>    
     <NoWarn>CA2007</NoWarn>    
     <LangVersion>7.3</LangVersion>    
-    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>    
+    <RootNamespace>RestClientDotNet</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,9 +41,14 @@ Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
     </None>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-  </ItemGroup>
+  <Choose>
+    <When Condition=" '$(TargetFramework)'=='netstandard2.0' " />
+    <Otherwise>  
+      <ItemGroup>
+        <PackageReference Include="System.Net.Http" Version="4.3.4" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
 
   <Choose>
     <When Condition=" '$(Configuration)'=='Debug' ">

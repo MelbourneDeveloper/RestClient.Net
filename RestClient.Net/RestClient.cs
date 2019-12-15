@@ -29,6 +29,7 @@ namespace RestClientDotNet
             get => HttpClient.Timeout;
             set => HttpClient.Timeout = value;
         }
+        public IRestTracer Tracer { get; }
         #endregion
 
         #region Constructor
@@ -44,7 +45,11 @@ namespace RestClientDotNet
         {
         }
 
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, HttpClient httpClient)
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, HttpClient httpClient) : this(serializationAdapter, baseUri, timeout, httpClient, null)
+        {
+        }
+
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, HttpClient httpClient, IRestTracer tracer)
         {
             HttpClient = httpClient;
 
@@ -61,11 +66,13 @@ namespace RestClientDotNet
             }
 
             SerializationAdapter = serializationAdapter;
+
+            Tracer = tracer;
         }
         #endregion
 
         #region Private Methods
-        private async Task<T> Call<T>(Uri queryString, HttpVerb httpVerb, string contentType, object body, CancellationToken cancellationToken)
+        private async Task<TReturn> Call<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
         {
             HttpClient.DefaultRequestHeaders.Clear();
 
@@ -152,14 +159,14 @@ namespace RestClientDotNet
                     data = await result.Content.ReadAsByteArrayAsync();
                 }
 
-                return await SerializationAdapter.DeserializeAsync<T>(data);
+                return await SerializationAdapter.DeserializeAsync<TReturn>(data);
             }
 
             var errorData = await result.Content.ReadAsByteArrayAsync();
 
             if (HttpStatusCodeFuncs.ContainsKey(result.StatusCode))
             {
-                return (T)HttpStatusCodeFuncs[result.StatusCode].Invoke(errorData);
+                return (TReturn)HttpStatusCodeFuncs[result.StatusCode].Invoke(errorData);
             }
 
             throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}", result);
@@ -171,12 +178,24 @@ namespace RestClientDotNet
         #region Get
         public Task<T> GetAsync<T>()
         {
-            return Call<T>(null, HttpVerb.Get, DefaultContentType, null, default);
+            return Call<T, object>(null, HttpVerb.Get, DefaultContentType, null, default);
         }
 
         public Task<T> GetAsync<T>(string queryString)
         {
-            return GetAsync<T>(new Uri(queryString, UriKind.Relative));
+            try
+            {
+                return GetAsync<T>(new Uri(queryString, UriKind.Relative));
+            }
+            catch (UriFormatException ufe)
+            {
+                if (ufe.Message == "A relative URI cannot be created because the 'uriString' parameter represents an absolute URI.")
+                {
+                    throw new UriFormatException(Messages.ErrorMessageAbsoluteUriAsString, ufe);
+                }
+
+                throw;
+            }
         }
 
         public Task<T> GetAsync<T>(Uri queryString)
@@ -196,7 +215,7 @@ namespace RestClientDotNet
 
         public Task<T> GetAsync<T>(Uri queryString, string contentType, CancellationToken cancellationToken)
         {
-            return Call<T>(queryString, HttpVerb.Get, contentType, null, cancellationToken);
+            return Call<T, object>(queryString, HttpVerb.Get, contentType, null, cancellationToken);
         }
         #endregion
 
@@ -218,7 +237,7 @@ namespace RestClientDotNet
 
         public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
         {
-            return Call<TReturn>(queryString, HttpVerb.Post, contentType, body, cancellationToken);
+            return Call<TReturn, TBody>(queryString, HttpVerb.Post, contentType, body, cancellationToken);
         }
         #endregion
 
@@ -240,7 +259,7 @@ namespace RestClientDotNet
 
         public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
         {
-            return Call<TReturn>(queryString, HttpVerb.Put, contentType, body, cancellationToken);
+            return Call<TReturn, TBody>(queryString, HttpVerb.Put, contentType, body, cancellationToken);
         }
         #endregion
 
@@ -262,7 +281,7 @@ namespace RestClientDotNet
 
         public Task DeleteAsync(Uri queryString, string contentType, CancellationToken cancellationToken)
         {
-            return Call<object>(queryString, HttpVerb.Delete, contentType, null, cancellationToken);
+            return Call<object, object>(queryString, HttpVerb.Delete, contentType, null, cancellationToken);
         }
         #endregion
 
@@ -284,7 +303,7 @@ namespace RestClientDotNet
 
         public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
         {
-            return Call<TReturn>(queryString, HttpVerb.Patch, contentType, body, cancellationToken);
+            return Call<TReturn, object>(queryString, HttpVerb.Patch, contentType, body, cancellationToken);
         }
         #endregion
 

@@ -76,7 +76,7 @@ namespace RestClient.Net.Samples.Uno
             }
             catch (Exception ex)
             {
-                await HandleException(ex);
+                await HandleException($"An error occurred while attempting to get repos.");
             }
 
             ToggleBusy(false);
@@ -106,35 +106,14 @@ namespace RestClient.Net.Samples.Uno
             }
             catch (Exception ex)
             {
-                await HandleException(ex);
+                await HandleException($"Save error. Please ensure you entered your credentials.");
             }
 
             ToggleBusy(false);
         }
 
-        private async Task HandleException(Exception ex)
+        private async Task HandleException(string message)
         {
-            ErrorModel errorModel = null;
-
-            var hex = ex as HttpStatusException;
-            if (hex != null)
-            {
-                if (hex.HttpResponseMessage?.Content != null)
-                {
-                    var errorData = await hex.HttpResponseMessage.Content.ReadAsByteArrayAsync();
-
-                    errorModel = await _BitbucketClient.SerializationAdapter.DeserializeAsync<ErrorModel>(errorData);
-                }
-            }
-
-            var message = $"An error occurred while attempting to use a REST service.\r\nError: {ex.Message}\r\nInner Error: {ex.InnerException?.Message}\r\nInner Inner Error: {ex.InnerException?.InnerException?.Message}";
-
-            if (errorModel != null)
-            {
-                message += $"\r\n{errorModel.error.message}";
-                message += $"\r\nStatus Code: {(int)hex.HttpResponseMessage.StatusCode}";
-            }
-
             await DisplayAlert("Error", message);
         }
 
@@ -165,16 +144,9 @@ namespace RestClient.Net.Samples.Uno
             GetReposButton.Click += GetReposButton_Clicked;
             ReposBox.SelectionChanged += ReposBox_ItemSelected;
         }
-
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
 
         #region Event Handlers
-
         private void ReposBox_ItemSelected(object sender, SelectionChangedEventArgs e)
         {
             ReposPage.DataContext = ReposBox.SelectedItem as Repository;
@@ -190,9 +162,6 @@ namespace RestClient.Net.Samples.Uno
         {
             OnGetReposClick();
         }
-
-
-
         #endregion
     }
 }
