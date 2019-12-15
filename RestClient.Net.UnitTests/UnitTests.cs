@@ -100,7 +100,10 @@ namespace RestClientDotNet.UnitTests
         [DataRow(HttpVerb.Put)]
         public async Task TestUpdate(HttpVerb verb)
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            var tracer = new Mock<ITracer>();
+            var baseUri = new Uri("https://jsonplaceholder.typicode.com");
+
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), tracer.Object);
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
             UserPost responseUserPost = null;
 
@@ -119,6 +122,9 @@ namespace RestClientDotNet.UnitTests
 
             Assert.AreEqual(requestUserPost.userId, responseUserPost.userId);
             Assert.AreEqual(requestUserPost.title, responseUserPost.title);
+
+            tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Request));
+            tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Response));
         }
     }
 }

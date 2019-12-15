@@ -105,6 +105,7 @@ namespace RestClientDotNet
                     result = await HttpClient.GetAsync(queryString, cancellationToken);
                     break;
                 case HttpVerb.Delete:
+                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request);
                     result = await HttpClient.DeleteAsync(queryString, cancellationToken);
                     break;
 
@@ -112,12 +113,14 @@ namespace RestClientDotNet
                 case HttpVerb.Put:
                 case HttpVerb.Patch:
 
-                    var data = await SerializationAdapter.SerializeAsync(body);
+                    var bodyData = await SerializationAdapter.SerializeAsync(body);
 
-                    using (var httpContent = new ByteArrayContent(data))
+                    using (var httpContent = new ByteArrayContent(bodyData))
                     {
 
                         httpContent.Headers.Add("Content-Type", contentType);
+
+                        Tracer?.Trace(httpVerb, BaseUri, queryString, bodyData, TraceType.Request);
 
                         if (httpVerb == HttpVerb.Put)
                         {
