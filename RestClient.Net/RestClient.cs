@@ -96,44 +96,42 @@ namespace RestClientDotNet
                 }
             }
 
-            var data = await SerializationAdapter.SerializeAsync(body);
 
-            using (var httpContent = new ByteArrayContent(data))
+            switch (httpVerb)
             {
 
-                switch (httpVerb)
-                {
-                    case HttpVerb.Post:
+                case HttpVerb.Get:
+                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request);
+                    result = await HttpClient.GetAsync(queryString, cancellationToken);
+                    break;
+                case HttpVerb.Delete:
+                    result = await HttpClient.DeleteAsync(queryString, cancellationToken);
+                    break;
 
-                        //Don't know why but this has to be set again, otherwise more text is added on to the Content-Type header...
-                        httpContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+                case HttpVerb.Post:
+                case HttpVerb.Put:
+                case HttpVerb.Patch:
 
-                        foreach (var key in Headers.Keys)
-                        {
-                            httpContent.Headers.Add(key, Headers[key]);
-                        }
+                    var data = await SerializationAdapter.SerializeAsync(body);
 
-                        result = await HttpClient.PostAsync(queryString, httpContent, cancellationToken);
-                        break;
-
-                    case HttpVerb.Get:
-
-                        Tracer?.Trace(HttpVerb.Get, BaseUri, queryString, data, TraceType.Request);
-
-                        result = await HttpClient.GetAsync(queryString, cancellationToken);
-                        break;
-                    case HttpVerb.Delete:
-                        result = await HttpClient.DeleteAsync(queryString, cancellationToken);
-                        break;
-
-                    case HttpVerb.Put:
-                    case HttpVerb.Patch:
+                    using (var httpContent = new ByteArrayContent(data))
+                    {
 
                         httpContent.Headers.Add("Content-Type", contentType);
 
                         if (httpVerb == HttpVerb.Put)
                         {
                             result = await HttpClient.PutAsync(queryString, httpContent, cancellationToken);
+                        }
+                        else if (httpVerb == HttpVerb.Post)
+                        {
+                            foreach (var key in Headers.Keys)
+                            {
+                                httpContent.Headers.Add(key, Headers[key]);
+                            }
+
+                            result = await HttpClient.PostAsync(queryString, httpContent, cancellationToken);
+                            break;
                         }
                         else
                         {
@@ -146,29 +144,30 @@ namespace RestClientDotNet
                                 result = await HttpClient.SendAsync(request, cancellationToken);
                             }
                         }
+                    }
 
-                        break;
-                    default:
-                        throw new NotImplementedException();
-                }
+                    break;
+                default:
+                    throw new NotImplementedException();
             }
 
+            byte[] responseData = null;
             if (result.IsSuccessStatusCode)
             {
                 var gzipHeader = result.Content.Headers.ContentEncoding.FirstOrDefault(h => !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.OrdinalIgnoreCase));
                 if (gzipHeader != null && Zip != null)
                 {
                     var bytes = await result.Content.ReadAsByteArrayAsync();
-                    data = Zip.Unzip(bytes);
+                    responseData = Zip.Unzip(bytes);
                 }
                 else
                 {
-                    data = await result.Content.ReadAsByteArrayAsync();
+                    responseData = await result.Content.ReadAsByteArrayAsync();
                 }
 
-                Tracer?.Trace(httpVerb, BaseUri, queryString, data, TraceType.Response);
+                Tracer?.Trace(httpVerb, BaseUri, queryString, responseData, TraceType.Response);
 
-                return await SerializationAdapter.DeserializeAsync<TReturn>(data);
+                return await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
             }
 
             var errorData = await result.Content.ReadAsByteArrayAsync();
