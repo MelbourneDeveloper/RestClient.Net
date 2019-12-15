@@ -115,6 +115,8 @@ namespace RestClientDotNet
                     case HttpVerb.Put:
                     case HttpVerb.Patch:
 
+                        httpContent.Headers.Add("Content-Type", contentType);
+
                         if (httpVerb == HttpVerb.Put)
                         {
                             result = await HttpClient.PutAsync(queryString, httpContent, cancellationToken);
@@ -122,16 +124,13 @@ namespace RestClientDotNet
                         else
                         {
                             var method = new HttpMethod("PATCH");
-                            using (var request =
-                                new HttpRequestMessage(method, queryString)
-                                {
-                                    Content = httpContent
-                                })
+                            var request = new HttpRequestMessage(method, queryString)
                             {
-                                request.Headers.Add("ContentType", contentType);
-                                result = await HttpClient.SendAsync(request, cancellationToken);
-                            }
+                                Content = httpContent
+                            };
+                            result = await HttpClient.SendAsync(request, cancellationToken);
                         }
+
                         break;
                     default:
                         throw new NotImplementedException();

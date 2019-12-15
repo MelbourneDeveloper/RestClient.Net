@@ -71,7 +71,7 @@ namespace RestClientDotNet.UnitTests
             UserPost responseUserPost = null;
             if (isPatch)
             {
-                responseUserPost = await restClient.PatchAsync<UserPost, UserPost>(requestUserPost, new Uri("/posts/1", UriKind.Relative), "application/json; charset=UTF-8", default);
+                responseUserPost = await restClient.PatchAsync<UserPost, UserPost>(requestUserPost, new Uri("/posts/1", UriKind.Relative));
             }
             else
             {
