@@ -21,18 +21,6 @@ namespace RestClientDotNet.UnitTests
             Assert.IsTrue(countries.Count > 0);
         }
 
-        //[TestMethod]
-        //public async Task TestPostUser()
-        //{
-        //    await Update(false);
-        //}
-
-        //[TestMethod]
-        //public async Task TestPatchUser()
-        //{
-        //    await Update(true);
-        //}
-
         [TestMethod]
         public async Task TestPostUserWithCancellation()
         {
