@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Newtonsoft.Json;
 using RestClient.Net.Samples.Model;
 using RestClient.Net.UnitTests.Model;
@@ -17,10 +18,14 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestGetRestCountries()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
+            var tracer = new Mock<ITracer>();
+            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, tracer.Object);
             var countries = await restClient.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
+
+            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, string.Empty, It.IsAny<byte[]>(), TraceType.Request));
         }
 
         [TestMethod]
