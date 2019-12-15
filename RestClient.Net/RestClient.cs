@@ -99,13 +99,12 @@ namespace RestClientDotNet
 
             switch (httpVerb)
             {
-
                 case HttpVerb.Get:
-                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request);
+                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null);
                     result = await HttpClient.GetAsync(queryString, cancellationToken);
                     break;
                 case HttpVerb.Delete:
-                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request);
+                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null);
                     result = await HttpClient.DeleteAsync(queryString, cancellationToken);
                     break;
 
@@ -120,7 +119,7 @@ namespace RestClientDotNet
 
                         httpContent.Headers.Add("Content-Type", contentType);
 
-                        Tracer?.Trace(httpVerb, BaseUri, queryString, bodyData, TraceType.Request);
+                        Tracer?.Trace(httpVerb, BaseUri, queryString, bodyData, TraceType.Request, null);
 
                         if (httpVerb == HttpVerb.Put)
                         {
@@ -134,7 +133,6 @@ namespace RestClientDotNet
                             }
 
                             result = await HttpClient.PostAsync(queryString, httpContent, cancellationToken);
-                            break;
                         }
                         else
                         {
@@ -168,7 +166,7 @@ namespace RestClientDotNet
                     responseData = await result.Content.ReadAsByteArrayAsync();
                 }
 
-                Tracer?.Trace(httpVerb, BaseUri, queryString, responseData, TraceType.Response);
+                Tracer?.Trace(httpVerb, BaseUri, queryString, responseData, TraceType.Response, result.StatusCode);
 
                 return await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
             }

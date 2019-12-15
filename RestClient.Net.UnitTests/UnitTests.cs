@@ -6,6 +6,7 @@ using RestClient.Net.UnitTests.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,8 +26,20 @@ namespace RestClientDotNet.UnitTests
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
 
-            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request));
-            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d != null && d.Length > 0), TraceType.Response));
+            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request, null));
+            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d != null && d.Length > 0), TraceType.Response, HttpStatusCode.OK));
+        }
+
+        [TestMethod]
+        public async Task TestDelete()
+        {
+            var tracer = new Mock<ITracer>();
+            var baseUri = new Uri("https://jsonplaceholder.typicode.com");
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, tracer.Object);
+            await restClient.DeleteAsync("posts/1");
+
+            tracer.Verify(t => t.Trace(HttpVerb.Delete, baseUri, It.IsAny<Uri>(), null, TraceType.Request, null));
+            tracer.Verify(t => t.Trace(HttpVerb.Delete, baseUri, It.IsAny<Uri>(), null, TraceType.Response, HttpStatusCode.OK));
         }
 
         [TestMethod]
@@ -107,6 +120,8 @@ namespace RestClientDotNet.UnitTests
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
             UserPost responseUserPost = null;
 
+            var expectedStatusCode = HttpStatusCode.OK;
+
             switch (verb)
             {
                 case HttpVerb.Patch:
@@ -114,6 +129,7 @@ namespace RestClientDotNet.UnitTests
                     break;
                 case HttpVerb.Post:
                     responseUserPost = await restClient.PostAsync<UserPost, UserPost>(requestUserPost, "/posts");
+                    expectedStatusCode = HttpStatusCode.Created;
                     break;
                 case HttpVerb.Put:
                     responseUserPost = await restClient.PutAsync<UserPost, UserPost>(requestUserPost, new Uri("/posts/1", UriKind.Relative));
@@ -123,8 +139,8 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(requestUserPost.userId, responseUserPost.userId);
             Assert.AreEqual(requestUserPost.title, responseUserPost.title);
 
-            tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Request));
-            tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Response));
+            tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Request, null));
+            tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, expectedStatusCode));
         }
     }
 }
