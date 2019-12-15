@@ -29,7 +29,8 @@ Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
     <CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>    
     <NoWarn>CA2007</NoWarn>    
     <LangVersion>7.3</LangVersion>    
-    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>    
+    <RootNamespace>RestClientDotNet</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
