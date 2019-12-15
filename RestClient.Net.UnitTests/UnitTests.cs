@@ -1,8 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using RestClient.Net.Samples.Model;
 using RestClient.Net.UnitTests.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,6 +21,15 @@ namespace RestClientDotNet.UnitTests
             var countries = await restClient.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
+        }
+
+        [TestMethod]
+        public async Task TestGetRestCountriesAsJson()
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/name/australia"));
+            var json = await restClient.GetAsync<string>();
+            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).FirstOrDefault();
+            Assert.AreEqual("Australia", country.name);
         }
 
         [TestMethod]
