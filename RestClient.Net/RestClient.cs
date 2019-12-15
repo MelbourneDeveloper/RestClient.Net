@@ -128,6 +128,7 @@ namespace RestClientDotNet
                                     Content = httpContent
                                 })
                             {
+                                request.Headers.Add("ContentType", contentType);
                                 result = await HttpClient.SendAsync(request, cancellationToken);
                             }
                         }

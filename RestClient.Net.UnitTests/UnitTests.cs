@@ -67,7 +67,7 @@ namespace RestClientDotNet.UnitTests
         private static async Task Update(bool isPatch)
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-            var requestUserPost = new UserPost { title = "Moops", userId = 10, body = "testbody" };
+            var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
             UserPost responseUserPost = null;
             if (isPatch)
             {
