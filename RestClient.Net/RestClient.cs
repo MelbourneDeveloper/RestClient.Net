@@ -117,6 +117,9 @@ namespace RestClientDotNet
                         break;
 
                     case HttpVerb.Get:
+
+                        Tracer?.Trace(HttpVerb.Get, BaseUri, queryString, data, TraceType.Request);
+
                         result = await HttpClient.GetAsync(queryString, cancellationToken);
                         break;
                     case HttpVerb.Delete:
@@ -162,6 +165,8 @@ namespace RestClientDotNet
                 {
                     data = await result.Content.ReadAsByteArrayAsync();
                 }
+
+                Tracer?.Trace(httpVerb, BaseUri, queryString, data, TraceType.Response);
 
                 return await SerializationAdapter.DeserializeAsync<TReturn>(data);
             }
