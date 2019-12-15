@@ -29,7 +29,7 @@ namespace RestClientDotNet
             get => HttpClient.Timeout;
             set => HttpClient.Timeout = value;
         }
-        public IRestTracer Tracer { get; }
+        public ITracer Tracer { get; }
         #endregion
 
         #region Constructor
@@ -49,7 +49,7 @@ namespace RestClientDotNet
         {
         }
 
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, HttpClient httpClient, IRestTracer tracer)
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, HttpClient httpClient, ITracer tracer)
         {
             HttpClient = httpClient;
 
