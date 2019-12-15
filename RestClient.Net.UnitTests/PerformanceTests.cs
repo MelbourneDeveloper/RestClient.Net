@@ -1,12 +1,12 @@
-﻿using groupkt;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net.Samples.Model;
-using RestClientDotNet;
+using RestClient.Net.UnitTests.Model;
 using RestSharp;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace RestClient.Net.UnitTests
+namespace RestClientDotNet.UnitTests
 {
     [TestClass]
     public class PerformanceTests
@@ -14,21 +14,21 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task GetPerformanceTest()
         {
-            var countryCodeClient = new RestClientDotNet.RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
+            var countryCodeClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
 
-            groupktResult<CountriesResult> countryData = null;
+            List<RestCountry> countryData = null;
 
             var startTime = DateTime.Now;
 
             for (var i = 0; i < 15; i++)
-                countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
+                countryData = await countryCodeClient.GetAsync<List<RestCountry>>();
 
             var restClientTotalMilliseconds = (DateTime.Now - startTime).TotalMilliseconds;
             Console.WriteLine($"RestClient Get : Total Milliseconds:{ restClientTotalMilliseconds}");
 
 
             startTime = DateTime.Now;
-            var restSharpClient = new RestSharp.RestClient("http://services.groupkt.com");
+            var restSharpClient = new RestSharp.RestClient("https://restcountries.eu/rest/v2/");
 
             var request = new RestRequest(Method.GET)
             {
@@ -37,8 +37,8 @@ namespace RestClient.Net.UnitTests
 
             for (var i = 0; i < 15; i++)
             {
-                var taskCompletionSource = new TaskCompletionSource<groupktResult<CountriesResult>>();
-                var response = restSharpClient.ExecuteAsync<groupktResult<CountriesResult>>(request, (a) => { taskCompletionSource.SetResult(a.Data); });
+                var taskCompletionSource = new TaskCompletionSource<List<RestCountry>>();
+                var response = restSharpClient.ExecuteAsync<List<RestCountry>>(request, (a) => { taskCompletionSource.SetResult(a.Data); });
                 countryData = await taskCompletionSource.Task;
             }
 
@@ -54,7 +54,7 @@ namespace RestClient.Net.UnitTests
         public async Task PatchPerformanceTest()
         {
 
-            var restClient = new RestClientDotNet.RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
 
             UserPost userPost = null;
 

@@ -1031,7 +1031,7 @@
     <Rule Id="CA1502" Action="Error" />
     <Rule Id="CA1505" Action="Error" />
     <Rule Id="CA1506" Action="Error" />
-    <Rule Id="CA1508" Action="Error" />
+    <Rule Id="CA1508" Action="Warning" />
     <Rule Id="CA1509" Action="Error" />
     <Rule Id="CA1707" Action="Error" />
     <Rule Id="CA1708" Action="Error" />

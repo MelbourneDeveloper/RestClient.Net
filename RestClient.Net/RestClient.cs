@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -49,7 +48,10 @@ namespace RestClientDotNet
         {
             HttpClient = httpClient;
 
-            if (HttpClient == null) HttpClient = new HttpClient();
+            if (HttpClient == null)
+            {
+                HttpClient = new HttpClient();
+            }
 
             HttpClient.BaseAddress = baseUri;
 
@@ -83,77 +85,58 @@ namespace RestClientDotNet
                 }
             }
 
-            string bodyString = null;
-            StringContent stringContent = null;
-            byte[] data = null;
+            var data = await SerializationAdapter.SerializeAsync(body);
 
-            switch (httpVerb)
+            using (var httpContent = new ByteArrayContent(data))
             {
-                case HttpVerb.Post:
 
-                    if (body is string bodyAsString)
-                    {
-                        bodyString = bodyAsString;
-                    }
-                    else
-                    {
-                        if (body != null)
+                switch (httpVerb)
+                {
+                    case HttpVerb.Post:
+
+                        //Don't know why but this has to be set again, otherwise more text is added on to the Content-Type header...
+                        httpContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+
+                        foreach (var key in Headers.Keys)
                         {
-                            data = await SerializationAdapter.SerializeAsync(body);
-                            bodyString = SerializationAdapter.Encoding.GetString(data);
+                            httpContent.Headers.Add(key, Headers[key]);
+                        }
+
+                        result = await HttpClient.PostAsync(queryString, httpContent, cancellationToken);
+                        break;
+
+                    case HttpVerb.Get:
+                        result = await HttpClient.GetAsync(queryString, cancellationToken);
+                        break;
+                    case HttpVerb.Delete:
+                        result = await HttpClient.DeleteAsync(queryString, cancellationToken);
+                        break;
+
+                    case HttpVerb.Put:
+                    case HttpVerb.Patch:
+
+                        httpContent.Headers.Add("Content-Type", contentType);
+
+                        if (httpVerb == HttpVerb.Put)
+                        {
+                            result = await HttpClient.PutAsync(queryString, httpContent, cancellationToken);
                         }
                         else
                         {
-                            bodyString = string.Empty;
+                            var method = new HttpMethod("PATCH");
+                            using (var request = new HttpRequestMessage(method, queryString)
+                            {
+                                Content = httpContent
+                            })
+                            {
+                                result = await HttpClient.SendAsync(request, cancellationToken);
+                            }
                         }
-                    }
 
-                    stringContent = new StringContent(bodyString, Encoding.UTF8, contentType);
-
-                    //Don't know why but this has to be set again, otherwise more text is added on to the Content-Type header...
-                    stringContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
-
-                    stringContent.Headers.ContentLength = bodyString.Length;
-
-                    foreach (var key in Headers.Keys)
-                    {
-                        stringContent.Headers.Add(key, Headers[key]);
-                    }
-
-                    result = await HttpClient.PostAsync(queryString, stringContent, cancellationToken);
-                    break;
-
-                case HttpVerb.Get:
-                    result = await HttpClient.GetAsync(queryString, cancellationToken);
-                    break;
-                case HttpVerb.Delete:
-                    result = await HttpClient.DeleteAsync(queryString, cancellationToken);
-                    break;
-
-                case HttpVerb.Put:
-                case HttpVerb.Patch:
-
-                    data = await SerializationAdapter.SerializeAsync(body);
-                    bodyString = SerializationAdapter.Encoding.GetString(data);
-                    var length = bodyString.Length;
-                    stringContent = new StringContent(bodyString, SerializationAdapter.Encoding, contentType);
-
-                    if (httpVerb == HttpVerb.Put)
-                    {
-                        result = await HttpClient.PutAsync(queryString, stringContent, cancellationToken);
-                    }
-                    else
-                    {
-                        var method = new HttpMethod("PATCH");
-                        var request = new HttpRequestMessage(method, queryString)
-                        {
-                            Content = stringContent
-                        };
-                        result = await HttpClient.SendAsync(request, cancellationToken);
-                    }
-                    break;
-                default:
-                    throw new NotImplementedException();
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
             }
 
             if (result.IsSuccessStatusCode)
@@ -307,7 +290,11 @@ namespace RestClientDotNet
 
         public void Dispose()
         {
-            if (disposed) return;
+            if (disposed)
+            {
+                return;
+            }
+
             disposed = true;
 
             GC.SuppressFinalize(this);
