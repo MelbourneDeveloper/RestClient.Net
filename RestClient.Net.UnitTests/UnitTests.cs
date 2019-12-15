@@ -39,7 +39,7 @@ namespace RestClientDotNet.UnitTests
             await restClient.DeleteAsync("posts/1");
 
             tracer.Verify(t => t.Trace(HttpVerb.Delete, baseUri, It.IsAny<Uri>(), null, TraceType.Request, null));
-            tracer.Verify(t => t.Trace(HttpVerb.Delete, baseUri, It.IsAny<Uri>(), null, TraceType.Response, HttpStatusCode.OK));
+            tracer.Verify(t => t.Trace(HttpVerb.Delete, baseUri, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, HttpStatusCode.OK));
         }
 
         [TestMethod]

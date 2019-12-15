@@ -155,13 +155,18 @@ namespace RestClientDotNet
             byte[] responseData = null;
             if (result.IsSuccessStatusCode)
             {
-                var gzipHeader = result.Content.Headers.ContentEncoding.FirstOrDefault(h => !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.OrdinalIgnoreCase));
-                if (gzipHeader != null && Zip != null)
+                if (Zip != null)
                 {
-                    var bytes = await result.Content.ReadAsByteArrayAsync();
-                    responseData = Zip.Unzip(bytes);
+                    //This is for cases where an unzipping utility needs to be used to unzip the content. This is actually a bug in UWP
+                    var gzipHeader = result.Content.Headers.ContentEncoding.FirstOrDefault(h => !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.OrdinalIgnoreCase));
+                    if (gzipHeader != null)
+                    {
+                        var bytes = await result.Content.ReadAsByteArrayAsync();
+                        responseData = Zip.Unzip(bytes);
+                    }
                 }
-                else
+
+                if (responseData == null)
                 {
                     responseData = await result.Content.ReadAsByteArrayAsync();
                 }
