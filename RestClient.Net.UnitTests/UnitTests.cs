@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Xml2CSharp;
 
 namespace RestClientDotNet.UnitTests
 {
@@ -152,5 +153,15 @@ namespace RestClientDotNet.UnitTests
             await restClient.PostAsync<UserPost, UserPost>(requestUserPost, "/posts");
         }
 
+        [TestMethod]
+        public async Task TestConsoleLogdging()
+        {
+            var restClient = new RestClient(new XmlSerializationAdapter(), new Uri("http://www.geoplugin.net/xml.gp"));
+            var geoPlugin = await restClient.GetAsync<GeoPlugin>();
+            Assert.IsNotNull(geoPlugin);
+        }
+
     }
+
+
 }
