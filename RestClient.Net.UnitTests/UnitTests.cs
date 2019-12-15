@@ -142,5 +142,15 @@ namespace RestClientDotNet.UnitTests
             tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Request, null));
             tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, expectedStatusCode));
         }
+
+        [TestMethod]
+        public async Task TestConsoleLogging()
+        {
+            var tracer = new ConsoleTracer();
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), tracer);
+            var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
+            await restClient.PostAsync<UserPost, UserPost>(requestUserPost, "/posts");
+        }
+
     }
 }
