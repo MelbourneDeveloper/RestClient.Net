@@ -41,6 +41,24 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
+        public async Task TestAbsoluteUriAsStringThrowsException()
+        {
+            try
+            {
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter());
+                var country = (await restClient.GetAsync<List<RestCountry>>("https://restcountries.eu/rest/v2/name/australia")).FirstOrDefault();
+            }
+            catch (UriFormatException ufe)
+            {
+                Assert.AreEqual(ufe.Message, Messages.ErrorMessageAbsoluteUriAsString);
+                return;
+            }
+
+            Assert.Fail("Incorrect error message returned");
+        }
+
+
+        [TestMethod]
         public async Task TestPostUserWithCancellation()
         {
             try

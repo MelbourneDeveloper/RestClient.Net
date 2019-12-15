@@ -176,7 +176,19 @@ namespace RestClientDotNet
 
         public Task<T> GetAsync<T>(string queryString)
         {
-            return GetAsync<T>(new Uri(queryString, UriKind.Relative));
+            try
+            {
+                return GetAsync<T>(new Uri(queryString, UriKind.Relative));
+            }
+            catch (UriFormatException ufe)
+            {
+                if (ufe.Message == "A relative URI cannot be created because the 'uriString' parameter represents an absolute URI.")
+                {
+                    throw new UriFormatException(Messages.ErrorMessageAbsoluteUriAsString, ufe);
+                }
+
+                throw;
+            }
         }
 
         public Task<T> GetAsync<T>(Uri queryString)
