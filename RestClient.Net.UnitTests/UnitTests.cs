@@ -21,17 +21,17 @@ namespace RestClientDotNet.UnitTests
             Assert.IsTrue(countries.Count > 0);
         }
 
-        [TestMethod]
-        public async Task TestPostUser()
-        {
-            await Update(false);
-        }
+        //[TestMethod]
+        //public async Task TestPostUser()
+        //{
+        //    await Update(false);
+        //}
 
-        [TestMethod]
-        public async Task TestPatchUser()
-        {
-            await Update(true);
-        }
+        //[TestMethod]
+        //public async Task TestPatchUser()
+        //{
+        //    await Update(true);
+        //}
 
         [TestMethod]
         public async Task TestPostUserWithCancellation()
@@ -63,20 +63,29 @@ namespace RestClientDotNet.UnitTests
         }
         #endregion
 
-
-        private static async Task Update(bool isPatch)
+        [TestMethod]
+        [DataRow(HttpVerb.Patch)]
+        [DataRow(HttpVerb.Post)]
+        [DataRow(HttpVerb.Put)]
+        public async Task TestUpdate(HttpVerb verb)
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
             UserPost responseUserPost = null;
-            if (isPatch)
+
+            switch (verb)
             {
-                responseUserPost = await restClient.PatchAsync<UserPost, UserPost>(requestUserPost, new Uri("/posts/1", UriKind.Relative));
+                case HttpVerb.Patch:
+                    responseUserPost = await restClient.PatchAsync<UserPost, UserPost>(requestUserPost, new Uri("/posts/1", UriKind.Relative));
+                    break;
+                case HttpVerb.Post:
+                    responseUserPost = await restClient.PostAsync<UserPost, UserPost>(requestUserPost, "/posts");
+                    break;
+                case HttpVerb.Put:
+                    responseUserPost = await restClient.PutAsync<UserPost, UserPost>(requestUserPost, new Uri("/posts/1", UriKind.Relative));
+                    break;
             }
-            else
-            {
-                responseUserPost = await restClient.PostAsync<UserPost, UserPost>(requestUserPost, "/posts");
-            }
+
             Assert.AreEqual(requestUserPost.userId, responseUserPost.userId);
             Assert.AreEqual(requestUserPost.title, responseUserPost.title);
         }

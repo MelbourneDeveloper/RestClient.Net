@@ -124,11 +124,13 @@ namespace RestClientDotNet
                         else
                         {
                             var method = new HttpMethod("PATCH");
-                            var request = new HttpRequestMessage(method, queryString)
+                            using (var request = new HttpRequestMessage(method, queryString)
                             {
                                 Content = httpContent
-                            };
-                            result = await HttpClient.SendAsync(request, cancellationToken);
+                            })
+                            {
+                                result = await HttpClient.SendAsync(request, cancellationToken);
+                            }
                         }
 
                         break;
