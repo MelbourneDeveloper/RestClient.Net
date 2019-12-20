@@ -1,6 +1,10 @@
 ﻿using Google.Protobuf;
 using Microsoft.AspNetCore.Mvc;
 using RestClientApiSamples;
+using System.IO;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ApiExamples.Controllers
 {
@@ -26,6 +30,13 @@ namespace ApiExamples.Controllers
             var data = person.ToByteArray();
 
             return File(data, "application/octet-stream");
-        }       
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post()
+        {
+            var stream = Request.BodyReader.AsStream();
+            return File(stream, "application/octet-stream");
+        }
     }
 }
