@@ -1,6 +1,4 @@
 ﻿using Google.Protobuf;
-using RestClientApiSamples;
-using RestClientDotNet;
 using System;
 using System.Threading.Tasks;
 
@@ -21,12 +19,10 @@ namespace RestClientDotNet
         public async Task<T> DeserializeAsync<T>(byte[] data)
         {
             var messageType = typeof(T);
-            var parser = messageType.GetProperty("Parser");
-            var parseFromMethod = parser.PropertyType.GetMethod("ParseFrom", new Type[] { typeof(byte[]) });
-
-            var afasdfasd = Person.Parser.ParseFrom(data);
-
-            var parsedObject = parseFromMethod.Invoke(data, null);
+            var parserProperty = messageType.GetProperty("Parser");
+            var parser = parserProperty.GetValue(parserProperty);
+            var parseFromMethod = parserProperty.PropertyType.GetMethod("ParseFrom", new Type[] { typeof(byte[]) });
+            var parsedObject = parseFromMethod.Invoke(parser,new object[] { data });
             return (T)parsedObject;
         }
     }

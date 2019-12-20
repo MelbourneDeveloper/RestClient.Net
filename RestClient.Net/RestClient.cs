@@ -234,6 +234,11 @@ namespace RestClientDotNet
         #endregion
 
         #region Post
+        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body)
+        {
+            return PostAsync<TReturn, TBody>(body, default(string));
+        }
+
         public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, string queryString)
         {
             return PostAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
