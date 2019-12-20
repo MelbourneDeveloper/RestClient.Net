@@ -19,10 +19,8 @@ namespace RESTClient.NET.CoreSample
         #region Methods
         private static async Task Go()
         {
-            //var asdasd = await new HttpClient().GetByteArrayAsync("http://localhost:42908/person");
-
             var restClient = new RestClient(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
-            var person = await restClient.GetAsync<Person>();
+            var person = await restClient.PostAsync<Person, Person>(new Person { FirstName="A" }, null, "application/octet-stream", default);
 
             Console.WriteLine($"Got person {person.FirstName}");
             Console.ReadLine();
