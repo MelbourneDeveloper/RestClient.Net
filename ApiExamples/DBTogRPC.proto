@@ -1,0 +1,47 @@
+
+
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.DBTogRPC";
+option java_outer_classname = "DBTogRPCProto";
+
+package DBTogRPC;
+
+service DBTogRPCService {
+  rpc Save (SaveRequest) returns (Result) {}
+  rpc Get (DTORequest) returns (google.protobuf.Any) {}
+  rpc Delete (DTORequest) returns (Result) {}
+}
+
+message DTORequest {
+ string TypeName = 1;
+ string KeyValue = 2;
+}
+
+message SaveRequest {
+ string TypeName = 1;
+ google.protobuf.Any DTO = 2;
+}
+
+message Person {
+  string PersonKey = 1;
+  string FirstName = 2;
+  string Surname=3;
+  Address BillingAddress = 4;
+}
+
+message Address {
+  string AddressKey = 1;
+  string StreeNumber = 2;
+  string Street=3;
+  string Suburb=4;
+}
+
+
+// The response message containing the greetings
+message Result {
+  string ErrorMessage = 1;
+}
