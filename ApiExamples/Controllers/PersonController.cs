@@ -23,6 +23,8 @@ namespace ApiExamples.Controllers
                 Surname = "Smith"
             };
 
+            Person.Parser.
+
             return person.ToByteArray();
         }
     }
