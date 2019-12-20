@@ -12,7 +12,7 @@ namespace ApiExamples.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class PersonController : ControllerBase
     {
         [HttpGet]
         public byte[] Get()
