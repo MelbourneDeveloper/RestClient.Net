@@ -1,10 +1,6 @@
-﻿using Google.Protobuf;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RestClientApiSamples;
 using System;
-using System.IO;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ApiExamples.Controllers
@@ -14,9 +10,9 @@ namespace ApiExamples.Controllers
     public class HeadersController : ControllerBase
     {
         [HttpGet]
-        public Person GetAsync()
+        public async Task<Person> GetAsync()
         {
-            if (Request.Headers.ContainsKey("Test") && Request.Headers["Test"]=="Test")
+            if (Request.Headers.ContainsKey("Test") && Request.Headers["Test"] == "Test")
             {
 
                 var person = new Person
@@ -37,11 +33,15 @@ namespace ApiExamples.Controllers
             throw new Exception("Incorrect header");
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> PostAsync()
-        //{
-        //    var stream = Request.BodyReader.AsStream();
-        //    return File(stream, "application/octet-stream");
-        //}
+        [HttpPost]
+        public async Task<Person> PostAsync([FromBody] Person person)
+        {
+            if (Request.Headers.ContainsKey("Test") && Request.Headers["Test"] == "Test")
+            {
+                return person;
+            }
+
+            throw new Exception("Incorrect header");
+        }
     }
 }
