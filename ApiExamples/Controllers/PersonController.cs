@@ -9,7 +9,7 @@ namespace ApiExamples.Controllers
     public class PersonController : ControllerBase
     {
         [HttpGet]
-        public byte[] Get()
+        public IActionResult Get()
         {
             var person = new Person
             {
@@ -24,7 +24,8 @@ namespace ApiExamples.Controllers
             };
 
             var data = person.ToByteArray();
-            return data;
-        }
+
+            return File(data, "application/octet-stream");
+        }       
     }
 }
