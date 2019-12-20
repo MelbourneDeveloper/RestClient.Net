@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using ApiExamples;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
 using RestClient.Net.Samples.Model;
@@ -16,6 +19,20 @@ namespace RestClientDotNet.UnitTests
     [TestClass]
     public class UnitTests
     {
+        #region Fields
+        private static TestServer _TestServer;
+        #endregion
+
+        #region Setup
+        [TestInitialize]
+        public void Initialize()
+        {
+            var hostBuilder = new WebHostBuilder();
+            hostBuilder.UseStartup<Startup>();
+            _TestServer = new TestServer(hostBuilder);
+        }
+        #endregion
+
         #region Tests
         [TestMethod]
         public async Task TestGetRestCountries()
@@ -106,7 +123,6 @@ namespace RestClientDotNet.UnitTests
 
             Assert.Fail("The operation completed successfully");
         }
-        #endregion
 
         [TestMethod]
         [DataRow(HttpVerb.Patch)]
@@ -160,6 +176,10 @@ namespace RestClientDotNet.UnitTests
             var geoPlugin = await restClient.GetAsync<GeoPlugin>();
             Assert.IsNotNull(geoPlugin);
         }
+        #endregion
+
+
+
 
     }
 
