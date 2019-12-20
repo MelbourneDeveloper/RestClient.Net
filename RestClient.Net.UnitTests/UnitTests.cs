@@ -6,6 +6,7 @@ using Moq;
 using Newtonsoft.Json;
 using RestClient.Net.Samples.Model;
 using RestClient.Net.UnitTests.Model;
+using RestClientApiSamples;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace RestClientDotNet.UnitTests
         public void Initialize()
         {
             var hostBuilder = new WebHostBuilder();
-            hostBuilder.UseStartup<Startup>();
+            hostBuilder.UseStartup<Startup>();            
             _TestServer = new TestServer(hostBuilder);
         }
         #endregion
@@ -175,6 +176,22 @@ namespace RestClientDotNet.UnitTests
             var restClient = new RestClient(new XmlSerializationAdapter(), new Uri("http://www.geoplugin.net/xml.gp"));
             var geoPlugin = await restClient.GetAsync<GeoPlugin>();
             Assert.IsNotNull(geoPlugin);
+        }
+
+        [TestMethod]
+        public async Task TestProtobufPostLocal()
+        {
+            var requestPerson = new Person 
+            { 
+                FirstName = "Bob", 
+                Surname = "Smith", 
+                BillingAddress = new Address { Street = "Test St" } 
+            };
+
+            var client = _TestServer.CreateClient();
+            var restClient = new RestClient(new ProtobufSerializationAdapter(),null,default, client);
+            var responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri("http://localhost/person"), "application/octet-stream", default);
+            Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
         }
         #endregion
 

@@ -62,7 +62,10 @@ namespace RestClientDotNet
                 HttpClient = new HttpClient();
             }
 
-            HttpClient.BaseAddress = baseUri;
+            if (HttpClient.BaseAddress == null && baseUri != null)
+            {
+                HttpClient.BaseAddress = baseUri;
+            }
 
             if (timeout != default)
             {
