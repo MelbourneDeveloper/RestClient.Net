@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf;
+using RestClientApiSamples;
 using RestClientDotNet;
 using System;
 using System.Threading.Tasks;
@@ -21,8 +22,12 @@ namespace RestClientDotNet
         {
             var messageType = typeof(T);
             var parser = messageType.GetProperty("Parser");
-            var parseFromMethod = parser.PropertyType.GetMethod("ParseFrom");
-            return (T)parseFromMethod.Invoke(data, null);
+            var parseFromMethod = parser.PropertyType.GetMethod("ParseFrom", new Type[] { typeof(byte[]) });
+
+            var afasdfasd = Person.Parser.ParseFrom(data);
+
+            var parsedObject = parseFromMethod.Invoke(data, null);
+            return (T)parsedObject;
         }
     }
 }
