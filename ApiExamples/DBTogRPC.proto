@@ -5,10 +5,10 @@ syntax = "proto3";
 import "google/protobuf/any.proto";
 
 option java_multiple_files = true;
-option java_package = "io.grpc.examples.DBTogRPC";
-option java_outer_classname = "DBTogRPCProto";
+option java_package = "io.grpc.examples.RestClientApiSamples";
+option java_outer_classname = "RestClientApiSamplesProto";
 
-package DBTogRPC;
+package RestClientApiSamples;
 
 service DBTogRPCService {
   rpc Save (SaveRequest) returns (Result) {}

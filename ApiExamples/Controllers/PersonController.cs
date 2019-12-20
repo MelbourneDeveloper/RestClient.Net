@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Google.Protobuf;
+﻿using Google.Protobuf;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.IO;
+using RestClientApiSamples;
 
 namespace ApiExamples.Controllers
 {
@@ -17,10 +11,10 @@ namespace ApiExamples.Controllers
         [HttpGet]
         public byte[] Get()
         {
-            var person = new DBTogRPC.Person
+            var person = new Person
             {
                 FirstName = "Sam",
-                BillingAddress = new DBTogRPC.Address
+                BillingAddress = new Address
                 {
                     StreeNumber = "100",
                     Street = "Somewhere",
