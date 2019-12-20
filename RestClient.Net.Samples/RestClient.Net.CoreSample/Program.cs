@@ -27,7 +27,7 @@ namespace RESTClient.NET.CoreSample
                 var restClient = new RestClient(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
 
                 Console.WriteLine($"Sending a POST with body of person {person.FirstName} {person.Surname} serialized to binary with Google Protobuffers");
-                person = await restClient.PostAsync<Person, Person>(person, null, "application/octet-stream", default);
+                person = await restClient.PostAsync<Person, Person>(person);
 
                 Console.WriteLine($"Success! The response has a body of person {person.FirstName} {person.Surname} serialized from binary with Google Protobuffers");
             }

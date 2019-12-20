@@ -244,7 +244,7 @@ namespace RestClientDotNet
 
         public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, string queryString)
         {
-            return PostAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
+            return PostAsync<TReturn, TBody>(body, queryString != null ? new Uri(queryString, UriKind.Relative) : null);
         }
 
         public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString)

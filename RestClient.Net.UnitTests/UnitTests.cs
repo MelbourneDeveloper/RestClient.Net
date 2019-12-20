@@ -189,7 +189,7 @@ namespace RestClientDotNet.UnitTests
             };
 
             var restClient = new RestClient(new ProtobufSerializationAdapter());
-            var responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri("http://localhost:42908/person"), "application/octet-stream", default);
+            var responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri("http://localhost:42908/person"));
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
         }
         #endregion
