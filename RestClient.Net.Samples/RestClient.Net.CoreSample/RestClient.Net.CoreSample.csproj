@@ -6,19 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\RESTClient.NET.Samples\Model\Atlassian.cs" Link="Model\Atlassian.cs" />
-    <Compile Include="..\RESTClient.NET.Samples\Model\CountryCodeData.cs" Link="Model\CountryCodeData.cs" />
-    <Compile Include="..\RESTClient.NET.Samples\Model\CUSTOMER.cs" Link="Model\CUSTOMER.cs" />
-    <Compile Include="..\RESTClient.NET.Samples\Model\PRODUCT.cs" Link="Model\PRODUCT.cs" />
+    <Compile Remove="Model\**" />
+    <EmbeddedResource Remove="Model\**" />
+    <None Remove="Model\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\RESTClient.NET.Samples\SerializationAdapters\BinaryDataContractSerializationAdapter.cs" Link="SerializationAdapters\BinaryDataContractSerializationAdapter.cs" />
     <Compile Include="..\RESTClient.NET.Samples\SerializationAdapters\DataContractSerializationAdapter.cs" Link="SerializationAdapters\DataContractSerializationAdapter.cs" />
     <Compile Include="..\RESTClient.NET.Samples\SerializationAdapters\NewtonsoftSerializationAdapter.cs" Link="SerializationAdapters\NewtonsoftSerializationAdapter.cs" />
     <Compile Include="..\RestClient.Net.Samples\SerializationAdapters\ProtobufSerializationAdapter.cs" Link="SerializationAdapters\ProtobufSerializationAdapter.cs" />
     <Compile Include="..\RESTClient.NET.Samples\SerializationAdapters\XmlSerializationAdapter.cs" Link="SerializationAdapters\XmlSerializationAdapter.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Model\" />
   </ItemGroup>
 
   <ItemGroup>
