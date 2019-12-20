@@ -192,6 +192,15 @@ namespace RestClientDotNet.UnitTests
             var responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri("http://localhost:42908/person"));
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
         }
+
+        [TestMethod]
+        public async Task TestGetWithRequestHeader()
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter());
+            restClient.Headers.Add("Test", "Test");
+            var responsePerson = await restClient.GetAsync<Person>(new Uri("http://localhost:42908/headers"));
+            Assert.IsNotNull(responsePerson);
+        }
         #endregion
 
 
