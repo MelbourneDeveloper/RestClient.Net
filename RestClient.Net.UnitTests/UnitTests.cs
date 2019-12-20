@@ -201,6 +201,28 @@ namespace RestClientDotNet.UnitTests
             var responsePerson = await restClient.GetAsync<Person>(new Uri("http://localhost:42908/headers"));
             Assert.IsNotNull(responsePerson);
         }
+
+        [TestMethod]
+        public async Task TestGetWithIncorrectRequestHeader()
+        {
+            try
+            {
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter());
+
+                //The server expects the value of "Test"
+                restClient.Headers.Add("Test", "Tests");
+
+                var responsePerson = await restClient.GetAsync<Person>(new Uri("http://localhost:42908/headers"));
+                Assert.Fail();
+            }
+            catch(HttpStatusException hse)
+            {
+                return;
+            }
+
+            //Wrong exception type
+            Assert.Fail();
+        }
         #endregion
 
 
