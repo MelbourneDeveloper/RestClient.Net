@@ -1,6 +1,7 @@
 ﻿using RestClientApiSamples;
 using RestClientDotNet;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace RESTClient.NET.CoreSample
@@ -18,8 +19,10 @@ namespace RESTClient.NET.CoreSample
         #region Methods
         private static async Task Go()
         {
+            //var asdasd = await new HttpClient().GetByteArrayAsync("http://localhost:42908/person");
+
             var restClient = new RestClient(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
-            var person = await restClient.GetAsync<Person>(null, "application/octet-stream");
+            var person = await restClient.GetAsync<Person>();
 
             Console.WriteLine($"Got person {person.FirstName}");
             Console.ReadLine();
