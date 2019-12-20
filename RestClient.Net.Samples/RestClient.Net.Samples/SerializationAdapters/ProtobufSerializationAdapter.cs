@@ -3,7 +3,7 @@ using RestClientDotNet;
 using System;
 using System.Threading.Tasks;
 
-namespace RestClient.Net.CoreSample.SerializationAdapters
+namespace RestClientDotNet
 {
     public class ProtobufSerializationAdapter : ISerializationAdapter
     {
