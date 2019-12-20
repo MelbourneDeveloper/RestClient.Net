@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Google.Protobuf;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.IO;
 
 namespace ApiExamples.Controllers
 {
@@ -13,22 +14,22 @@ namespace ApiExamples.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-
         [HttpGet]
         public byte[] Get()
         {
-            var person = new DBTogRPC.Person();
-
-            using (var s = new MemoryStream())
+            var person = new DBTogRPC.Person
             {
-
-                using (var stream = new CodedOutputStream(s))
+                FirstName = "Sam",
+                BillingAddress = new DBTogRPC.Address
                 {
-                    // Save the person to a stream
-                    person.WriteTo(stream);
-                    return s.ToArray();
-                }
-            }
+                    StreeNumber = "100",
+                    Street = "Somewhere",
+                    Suburb = "Sometown"
+                },
+                Surname = "Smith"
+            };
+
+            return person.ToByteArray();
         }
     }
 }
