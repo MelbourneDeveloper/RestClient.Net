@@ -14,6 +14,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Public Properties
+        public bool ThrowExceptionOnFailure { get; } = true;
         public HttpClient HttpClient { get; }
         public string DefaultContentType { get; set; } = "application/json";
         public Uri BaseUri => HttpClient.BaseAddress;
@@ -157,8 +158,19 @@ namespace RestClientDotNet
                 return new RestResponse<TReturn>(bodyObject, new RestResponseHeadersCollection(result.Headers), (int)result.StatusCode, result);
             }
 
-            throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}",
-                new RestResponse(new RestResponseHeadersCollection(result.Headers), (int)result.StatusCode, result));
+            var restResponse = new RestResponse<TReturn>(default, new RestResponseHeadersCollection(result.Headers), (int)result.StatusCode, result);
+
+            //TODO: It's possible to deserialize errors here. What's the best way?
+
+            if (ThrowExceptionOnFailure)
+            {
+                throw new HttpStatusException(
+                    $"{result.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}", restResponse);
+            }
+            else
+            {
+                return restResponse;
+            }
         }
         #endregion
 
