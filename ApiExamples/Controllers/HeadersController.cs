@@ -9,6 +9,8 @@ namespace ApiExamples.Controllers
     [Route("[controller]")]
     public class HeadersController : ControllerBase
     {
+        public const string ExceptionMessage = "Incorrect or missing header";
+
         [HttpGet]
         public async Task<Person> GetAsync()
         {
@@ -30,7 +32,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception("Incorrect header");
+            throw new Exception(ExceptionMessage);
         }
 
         [HttpPost]
@@ -41,7 +43,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception("Incorrect header");
+            throw new Exception(ExceptionMessage);
         }
 
         [HttpPut]
@@ -52,7 +54,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception("Incorrect header");
+            throw new Exception(ExceptionMessage);
         }
 
         [HttpPatch]
@@ -63,8 +65,21 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception("Incorrect header");
+            throw new Exception(ExceptionMessage);
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task DeleteAsync(string id)
+        {
+            if (string.IsNullOrEmpty(id)) throw new Exception("No id");
+
+            if (Request.Headers.ContainsKey("Test") && Request.Headers["Test"] == "Test")
+            {
+                return;
+            }
+
+            throw new Exception(ExceptionMessage);
+        }
     }
 }

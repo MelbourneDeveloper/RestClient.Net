@@ -1,4 +1,5 @@
 ﻿using ApiExamples;
+using ApiExamples.Controllers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -231,7 +232,7 @@ namespace RestClientDotNet.UnitTests
             {
                 //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
                 //This is only the case because it's use a Test HttpClient
-
+                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
                 return;
             }
 
@@ -255,7 +256,7 @@ namespace RestClientDotNet.UnitTests
             {
                 //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
                 //This is only the case because it's use a Test HttpClient
-
+                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
                 return;
             }
 
@@ -288,7 +289,7 @@ namespace RestClientDotNet.UnitTests
             {
                 //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
                 //This is only the case because it's use a Test HttpClient
-
+                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
                 return;
             }
 
@@ -321,7 +322,35 @@ namespace RestClientDotNet.UnitTests
             {
                 //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
                 //This is only the case because it's use a Test HttpClient
+                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
+                return;
+            }
 
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public async Task TestHeadersDelete()
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+            restClient.Headers.Add("Test", "Test");
+            await restClient.DeleteAsync(new Uri("headers/1", UriKind.Relative));
+        }
+
+        [TestMethod]
+        public async Task TestHeadersIncorrectDelete()
+        {
+            try
+            {
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+                await restClient.DeleteAsync(new Uri("headers/1", UriKind.Relative));
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
+                //This is only the case because it's use a Test HttpClient
+                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
                 return;
             }
 
