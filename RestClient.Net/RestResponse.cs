@@ -6,7 +6,7 @@
         public T Body { get; }
         public int StatusCode { get; }
         public object UnderlyingResponse { get; }
-        public IRestHeadersCollection RestHeadersCollection { get; }
+        public IRestHeadersCollection Headers { get; }
         #endregion
 
         #region Constructor
@@ -15,7 +15,7 @@
             Body = body;
             StatusCode = statusCode;
             UnderlyingResponse = underlyingResponse;
-            RestHeadersCollection = restHeadersCollection;
+            Headers = restHeadersCollection;
         }
         #endregion
 

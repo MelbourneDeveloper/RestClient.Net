@@ -222,8 +222,22 @@ namespace RestClientDotNet.UnitTests
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
-            var responsePerson = await restClient.GetAsync<Person>("headers");
+            Person responsePerson = await restClient.GetAsync<Person>("headers");
             Assert.IsNotNull(responsePerson);
+        }
+
+        [TestMethod]
+        public async Task TestResponseHeadersGet()
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+            restClient.DefaultRequestHeaders.Add("Test", "Test");
+            var response = await restClient.GetAsync<Person>("headers");
+
+            var asdasd = response.Headers["Test1"];
+            var asd2asd = response.Headers["Test2"];
+
+            Assert.IsNotNull(asdasd);
+            Assert.IsNotNull(asd2asd);
         }
 
         [TestMethod]

@@ -10,5 +10,12 @@ namespace RestClientDotNet
         void Add(string name, string value);
         void Add(string name, IEnumerable<string> values);
         void Clear();
+
+        IEnumerable<string> this[string name]
+        {
+            get;
+        }
+
+        bool ContainsName(string name);
     }
 }

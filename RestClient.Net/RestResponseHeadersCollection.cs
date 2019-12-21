@@ -8,6 +8,7 @@ namespace RestClientDotNet
     {
         #region Public Properties
         public HttpResponseHeaders HttpResponseHeaders { get; }
+        public IEnumerable<string> this[string name] => HttpResponseHeaders.GetValues(name);
         #endregion
 
         #region Constructor
@@ -41,6 +42,11 @@ namespace RestClientDotNet
         IEnumerator IEnumerable.GetEnumerator()
         {
             return HttpResponseHeaders.GetEnumerator();
+        }
+
+        public bool ContainsName(string name)
+        {
+            return HttpResponseHeaders.Contains(name);
         }
         #endregion
     }
