@@ -85,11 +85,11 @@ namespace RestClientDotNet
             switch (httpVerb)
             {
                 case HttpVerb.Get:
-                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null);
+                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null, DefaultRequestHeaders);
                     result = await HttpClient.GetAsync(queryString, cancellationToken);
                     break;
                 case HttpVerb.Delete:
-                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null);
+                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null, DefaultRequestHeaders);
                     result = await HttpClient.DeleteAsync(queryString, cancellationToken);
                     break;
 
@@ -104,7 +104,7 @@ namespace RestClientDotNet
                         //Why do we have to set the content type only in cases where there is a request body, and headers?
                         httpContent.Headers.Add("Content-Type", contentType);
 
-                        Tracer?.Trace(httpVerb, BaseUri, queryString, bodyData, TraceType.Request, null);
+                        Tracer?.Trace(httpVerb, BaseUri, queryString, bodyData, TraceType.Request, null, DefaultRequestHeaders);
 
                         if (httpVerb == HttpVerb.Put)
                         {
@@ -151,25 +151,28 @@ namespace RestClientDotNet
                     responseData = await result.Content.ReadAsByteArrayAsync();
                 }
 
-                Tracer?.Trace(httpVerb, BaseUri, queryString, responseData, TraceType.Response, result.StatusCode);
 
                 var bodyObject = await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
 
-                return new RestResponse<TReturn>(bodyObject, new RestResponseHeadersCollection(result.Headers), (int)result.StatusCode, result);
+                var restResponse = new RestResponse<TReturn>(bodyObject, new RestResponseHeadersCollection(result.Headers), (int)result.StatusCode, result);
+
+                Tracer?.Trace(httpVerb, BaseUri, queryString, responseData, TraceType.Response, result.StatusCode, DefaultRequestHeaders);
+
+                return restResponse;
             }
 
-            var restResponse = new RestResponse<TReturn>(default, new RestResponseHeadersCollection(result.Headers), (int)result.StatusCode, result);
+            var errorResponse = new RestResponse<TReturn>(default, new RestResponseHeadersCollection(result.Headers), (int)result.StatusCode, result);
 
             //TODO: It's possible to deserialize errors here. What's the best way?
 
             if (ThrowExceptionOnFailure)
             {
                 throw new HttpStatusException(
-                    $"{result.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}", restResponse);
+                    $"{result.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}", errorResponse);
             }
             else
             {
-                return restResponse;
+                return errorResponse;
             }
         }
         #endregion
