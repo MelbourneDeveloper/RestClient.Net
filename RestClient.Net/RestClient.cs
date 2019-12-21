@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
-
     public class RestClient : IDisposable, IRestClient
     {
         #region Fields
@@ -15,6 +14,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Public Properties
+        public IErrorHandlerFactory ErrorHandlerFactory { get; }
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public HttpClient HttpClient { get; }
         public string DefaultContentType { get; set; } = "application/json";
@@ -81,17 +81,17 @@ namespace RestClientDotNet
         #region Private Methods
         private async Task<RestResponse<TReturn>> Call<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
         {
-            HttpResponseMessage result = null;
+            HttpResponseMessage httpResponseMessage = null;
 
             switch (httpVerb)
             {
                 case HttpVerb.Get:
                     Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null, DefaultRequestHeaders);
-                    result = await HttpClient.GetAsync(queryString, cancellationToken);
+                    httpResponseMessage = await HttpClient.GetAsync(queryString, cancellationToken);
                     break;
                 case HttpVerb.Delete:
                     Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null, DefaultRequestHeaders);
-                    result = await HttpClient.DeleteAsync(queryString, cancellationToken);
+                    httpResponseMessage = await HttpClient.DeleteAsync(queryString, cancellationToken);
                     break;
 
                 case HttpVerb.Post:
@@ -109,11 +109,11 @@ namespace RestClientDotNet
 
                         if (httpVerb == HttpVerb.Put)
                         {
-                            result = await HttpClient.PutAsync(queryString, httpContent, cancellationToken);
+                            httpResponseMessage = await HttpClient.PutAsync(queryString, httpContent, cancellationToken);
                         }
                         else if (httpVerb == HttpVerb.Post)
                         {
-                            result = await HttpClient.PostAsync(queryString, httpContent, cancellationToken);
+                            httpResponseMessage = await HttpClient.PostAsync(queryString, httpContent, cancellationToken);
                         }
                         else
                         {
@@ -123,7 +123,7 @@ namespace RestClientDotNet
                                 Content = httpContent
                             })
                             {
-                                result = await HttpClient.SendAsync(request, cancellationToken);
+                                httpResponseMessage = await HttpClient.SendAsync(request, cancellationToken);
                             }
                         }
                     }
@@ -134,44 +134,63 @@ namespace RestClientDotNet
             }
 
             byte[] responseData = null;
-            if (result.IsSuccessStatusCode)
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
                 if (Zip != null)
                 {
                     //This is for cases where an unzipping utility needs to be used to unzip the content. This is actually a bug in UWP
-                    var gzipHeader = result.Content.Headers.ContentEncoding.FirstOrDefault(h => !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.OrdinalIgnoreCase));
+                    var gzipHeader = httpResponseMessage.Content.Headers.ContentEncoding.FirstOrDefault(h => !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.OrdinalIgnoreCase));
                     if (gzipHeader != null)
                     {
-                        var bytes = await result.Content.ReadAsByteArrayAsync();
+                        var bytes = await httpResponseMessage.Content.ReadAsByteArrayAsync();
                         responseData = Zip.Unzip(bytes);
                     }
                 }
 
                 if (responseData == null)
                 {
-                    responseData = await result.Content.ReadAsByteArrayAsync();
+                    responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
                 }
 
 
                 var bodyObject = await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
 
-                var restHeadersCollection = new RestResponseHeadersCollection(result.Headers);
+                var restHeadersCollection = new RestResponseHeadersCollection(httpResponseMessage.Headers);
 
-                var restResponse = new RestResponse<TReturn>(bodyObject, restHeadersCollection, (int)result.StatusCode, result);
+                var restResponse = new RestResponse<TReturn>(
+                    bodyObject,
+                    restHeadersCollection,
+                    (int)httpResponseMessage.StatusCode,
+                    httpResponseMessage,
+                    ErrorHandlerFactory.Create(httpResponseMessage)
+                    );
 
-                Tracer?.Trace(httpVerb, BaseUri, queryString, responseData, TraceType.Response, result.StatusCode, restHeadersCollection);
+                Tracer?.Trace(
+                    httpVerb,
+                    BaseUri,
+                    queryString,
+                    responseData,
+                    TraceType.Response,
+                    httpResponseMessage.StatusCode,
+                    restHeadersCollection);
 
                 return restResponse;
             }
 
-            var errorResponse = new RestResponse<TReturn>(default, new RestResponseHeadersCollection(result.Headers), (int)result.StatusCode, result);
+            var errorResponse = new RestResponse<TReturn>(
+                default,
+                new RestResponseHeadersCollection(httpResponseMessage.Headers),
+                (int)httpResponseMessage.StatusCode,
+                httpResponseMessage,
+                ErrorHandlerFactory.Create(httpResponseMessage)
+                );
 
             //TODO: It's possible to deserialize errors here. What's the best way?
 
             if (ThrowExceptionOnFailure)
             {
                 throw new HttpStatusException(
-                    $"{result.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}", errorResponse);
+                    $"{httpResponseMessage.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}", errorResponse);
             }
             else
             {
