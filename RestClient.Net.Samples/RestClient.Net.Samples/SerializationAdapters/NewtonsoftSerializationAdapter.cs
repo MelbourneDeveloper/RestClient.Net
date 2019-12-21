@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RestClientDotNet.Abstractions;
 using System.Text;
 using System.Threading.Tasks;
 

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace RestClientDotNet
+namespace RestClientDotNet.Abstractions
 {
     public partial interface ISerializationAdapter
     {

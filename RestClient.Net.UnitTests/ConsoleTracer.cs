@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestClientDotNet.Abstractions;
+using System;
 using System.Net;
 using System.Text;
 

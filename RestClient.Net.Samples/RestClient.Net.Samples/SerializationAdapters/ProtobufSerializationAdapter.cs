@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf;
+using RestClientDotNet.Abstractions;
 using System;
 using System.Threading.Tasks;
 

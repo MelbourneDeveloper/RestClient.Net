@@ -1,4 +1,6 @@
-﻿namespace RestClientDotNet
+﻿using RestClientDotNet.Abstractions;
+
+namespace RestClientDotNet
 {
     public class RestResponse<T> : RestResponse
     {
@@ -37,7 +39,5 @@
             Headers = restHeadersCollection;
         }
         #endregion
-
-
     }
 }

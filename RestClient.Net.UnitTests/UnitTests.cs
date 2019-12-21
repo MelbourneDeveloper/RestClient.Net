@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using RestClient.Net.Samples.Model;
 using RestClient.Net.UnitTests.Model;
 using RestClientApiSamples;
+using RestClientDotNet.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

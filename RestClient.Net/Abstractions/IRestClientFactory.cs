@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RestClientDotNet
+namespace RestClientDotNet.Abstractions
 {
     public interface IRestClientFactory
     {

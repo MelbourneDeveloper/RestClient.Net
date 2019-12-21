@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace RestClientDotNet
+namespace RestClientDotNet.Abstractions
 {
     public interface ITracer
     {

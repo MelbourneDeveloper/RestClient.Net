@@ -2,10 +2,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RestClientDotNet
+namespace RestClientDotNet.Abstractions
 {
     public interface IRestClient
     {
+        IRestHeadersCollection DefaultRequestHeaders { get; }
         TimeSpan Timeout { get; set; }
         Task DeleteAsync(Uri queryString);
         Task DeleteAsync(Uri queryString, CancellationToken cancellationToken);

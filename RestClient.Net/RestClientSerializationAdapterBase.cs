@@ -2,7 +2,7 @@
 
 namespace RestClientDotNet
 {
-    public abstract  class RestClientSerializationAdapterBase
+    public abstract class RestClientSerializationAdapterBase
     {
         #region Public Properties
         public Encoding Encoding { get; set; } = Encoding.UTF8;
