@@ -55,5 +55,16 @@ namespace ApiExamples.Controllers
             throw new Exception("Incorrect header");
         }
 
+        [HttpPatch]
+        public async Task<Person> PatchAsync([FromBody] Person person)
+        {
+            if (Request.Headers.ContainsKey("Test") && Request.Headers["Test"] == "Test")
+            {
+                return person;
+            }
+
+            throw new Exception("Incorrect header");
+        }
+
     }
 }

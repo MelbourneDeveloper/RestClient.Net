@@ -294,6 +294,39 @@ namespace RestClientDotNet.UnitTests
 
             Assert.Fail();
         }
+
+        [TestMethod]
+        public async Task TestHeadersPatch()
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+            restClient.Headers.Add("Test", "Test");
+            var responsePerson = await restClient.PatchAsync<Person, Person>(new Person { FirstName = "Bob" }, new Uri("headers", UriKind.Relative));
+            Assert.IsNotNull(responsePerson);
+        }
+
+        [TestMethod]
+        public async Task TestHeadersIncorrectPatch()
+        {
+            try
+            {
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+
+                //The server expects the value of "Test"
+                restClient.Headers.Add("Test", "Tests");
+
+                var responsePerson = await restClient.PatchAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative));
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
+                //This is only the case because it's use a Test HttpClient
+
+                return;
+            }
+
+            Assert.Fail();
+        }
         #endregion
 
 
