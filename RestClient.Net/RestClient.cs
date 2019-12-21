@@ -154,9 +154,11 @@ namespace RestClientDotNet
 
                 var bodyObject = await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
 
-                var restResponse = new RestResponse<TReturn>(bodyObject, new RestResponseHeadersCollection(result.Headers), (int)result.StatusCode, result);
+                var restHeadersCollection = new RestResponseHeadersCollection(result.Headers);
 
-                Tracer?.Trace(httpVerb, BaseUri, queryString, responseData, TraceType.Response, result.StatusCode, DefaultRequestHeaders);
+                var restResponse = new RestResponse<TReturn>(bodyObject, restHeadersCollection, (int)result.StatusCode, result);
+
+                Tracer?.Trace(httpVerb, BaseUri, queryString, responseData, TraceType.Response, result.StatusCode, restHeadersCollection);
 
                 return restResponse;
             }

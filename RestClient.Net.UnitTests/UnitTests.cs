@@ -250,6 +250,10 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual("b", header2[1]);
         }
 
+        /// <summary>
+        /// TODO: PUT, POST, PATCH etc.
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public async Task TestHeadersTraceGet()
         {
@@ -257,33 +261,13 @@ namespace RestClientDotNet.UnitTests
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var response = await restClient.GetAsync<Person>("headers");
 
-            Assert.IsTrue(response.Headers.Contains("Test1"));
-            Assert.IsTrue(response.Headers.Contains("Test2"));
-            Assert.IsFalse(response.Headers.Contains("Test3"));
-
-            var header1 = response.Headers["Test1"].ToList();
-            var header2 = response.Headers["Test2"].ToList();
-
-            Assert.IsNotNull(header1);
-            Assert.IsNotNull(header2);
-
-            Assert.AreEqual(1, header1.Count);
-            Assert.AreEqual(2, header2.Count);
-
-            Assert.AreEqual("b", header2[1]);
-
             _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request, null,
                 It.Is<RestRequestHeadersCollection>(c => CheckRequestHeaders(c))
                 ));
 
-            //_tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, expectedStatusCode, It.IsAny<IRestHeadersCollection>()));
-
-
-        }
-
-        private static bool CheckRequestHeaders(RestRequestHeadersCollection a)
-        {
-            return a.Contains("Test") && a["Test"].First() == "Test";
+            _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, It.IsAny<HttpStatusCode?>(),
+                It.Is<RestResponseHeadersCollection>(c => CheckResponseHeaders(c))
+                ));
         }
 
         [TestMethod]
@@ -308,7 +292,7 @@ namespace RestClientDotNet.UnitTests
                 var responsePerson = await restClient.GetAsync<Person>(new Uri("headers", UriKind.Relative));
                 Assert.Fail();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
                 //This is only the case because it's use a Test HttpClient
@@ -437,19 +421,22 @@ namespace RestClientDotNet.UnitTests
             Assert.Fail();
         }
 
-        //TODO: Test headers are being logged on requests and responses (put/post/get etc.)
-
         //TODO: Test error models
 
         //TODO: Test exceptions
 
-
         #endregion
 
+        #region Helpers
+        private static bool CheckRequestHeaders(RestRequestHeadersCollection restRequestHeadersCollection)
+        {
+            return restRequestHeadersCollection.Contains("Test") && restRequestHeadersCollection["Test"].First() == "Test";
+        }
 
-
-
+        private static bool CheckResponseHeaders(RestResponseHeadersCollection restResponseHeadersCollection)
+        {
+            return restResponseHeadersCollection.Contains("Test1") && restResponseHeadersCollection["Test1"].First() == "a";
+        }
+        #endregion
     }
-
-
 }
