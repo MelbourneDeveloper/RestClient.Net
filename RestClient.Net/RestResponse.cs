@@ -2,23 +2,24 @@
 
 namespace RestClientDotNet
 {
-    public class RestResponse<T> : RestResponse
+    public class RestResponse<TBody> : RestResponse
     {
-        public T Body { get; }
+        public TBody Body { get; }
 
-        public RestResponse(T body, IRestHeadersCollection restHeadersCollection, int statusCode, object underlyingResponse) : base(restHeadersCollection, statusCode, underlyingResponse)
+        public RestResponse(TBody body, IRestHeadersCollection restHeadersCollection, int statusCode, object underlyingResponse) : base(restHeadersCollection, statusCode, underlyingResponse)
         {
             Body = body;
         }
 
         #region Implicit Operator
-#pragma warning disable CA2225 // Operator overloads have named alternates
-        public static implicit operator T(RestResponse<T> readResult)
-#pragma warning restore CA2225 // Operator overloads have named alternates
+        public static implicit operator TBody(RestResponse<TBody> readResult)
         {
-#pragma warning disable CA1062 // Validate arguments of public methods
             return readResult.Body;
-#pragma warning restore CA1062 // Validate arguments of public methods
+        }
+
+        public TBody ToTBody()
+        {
+            return Body;
         }
         #endregion
     }
