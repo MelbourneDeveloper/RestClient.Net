@@ -12,7 +12,7 @@ namespace RestClientDotNet.UnitTests
 
             foreach (var header in restHeadersCollection)
             {
-                Console.WriteLine($"Header: {header.Key} {string.Join(", ", header.Value)}");
+                Console.WriteLine($"{traceType} Header: {header.Key} {string.Join(", ", header.Value)}");
             }
         }
     }
