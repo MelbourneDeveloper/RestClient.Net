@@ -1,23 +1,13 @@
 ﻿namespace RestClientDotNet
 {
-    public class RestResponse<T>
+    public class RestResponse<T> : RestResponse
     {
-        #region Public Properties
         public T Body { get; }
-        public int StatusCode { get; }
-        public object UnderlyingResponse { get; }
-        public IRestHeadersCollection Headers { get; }
-        #endregion
 
-        #region Constructor
-        public RestResponse(T body, IRestHeadersCollection restHeadersCollection, int statusCode, object underlyingResponse)
+        public RestResponse(T body, IRestHeadersCollection restHeadersCollection, int statusCode, object underlyingResponse) : base(restHeadersCollection, statusCode, underlyingResponse)
         {
             Body = body;
-            StatusCode = statusCode;
-            UnderlyingResponse = underlyingResponse;
-            Headers = restHeadersCollection;
         }
-        #endregion
 
         #region Implicit Operator
 #pragma warning disable CA2225 // Operator overloads have named alternates
@@ -29,5 +19,25 @@
 #pragma warning restore CA1062 // Validate arguments of public methods
         }
         #endregion
+    }
+
+    public class RestResponse
+    {
+        #region Public Properties
+        public int StatusCode { get; }
+        public object UnderlyingResponse { get; }
+        public IRestHeadersCollection Headers { get; }
+        #endregion
+
+        #region Constructor
+        public RestResponse(IRestHeadersCollection restHeadersCollection, int statusCode, object underlyingResponse)
+        {
+            StatusCode = statusCode;
+            UnderlyingResponse = underlyingResponse;
+            Headers = restHeadersCollection;
+        }
+        #endregion
+
+
     }
 }

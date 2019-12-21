@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Net.Http;
 
 namespace RestClientDotNet
 {
     public class HttpStatusException : Exception
     {
-        public HttpResponseMessage HttpResponseMessage { get; }
+        public RestResponse RestResponse { get; }
 
-        public HttpStatusException(string message, HttpResponseMessage httpResponseMessage) : base(message)
+        public HttpStatusException(string message, RestResponse restResponse) : base(message)
         {
-            HttpResponseMessage = httpResponseMessage;
+            RestResponse = restResponse;
         }
     }
 }

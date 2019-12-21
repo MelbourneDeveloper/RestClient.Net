@@ -157,7 +157,8 @@ namespace RestClientDotNet
                 return new RestResponse<TReturn>(bodyObject, new RestResponseHeadersCollection(result.Headers), (int)result.StatusCode, result);
             }
 
-            throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}", result);
+            throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}",
+                new RestResponse(new RestResponseHeadersCollection(result.Headers), (int)result.StatusCode, result));
         }
         #endregion
 
