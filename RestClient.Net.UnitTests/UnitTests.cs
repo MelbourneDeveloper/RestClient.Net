@@ -23,8 +23,9 @@ namespace RestClientDotNet.UnitTests
     public class UnitTests
     {
         #region Fields
-        private static TestServer _TestServer;
-        private static HttpClient _TestServerHttpClient;
+        private static TestServer _testServer;
+        private static HttpClient _testServerHttpClient;
+        private static Mock<ITracer> _tracer;
         #endregion
 
         #region Setup
@@ -33,8 +34,9 @@ namespace RestClientDotNet.UnitTests
         {
             var hostBuilder = new WebHostBuilder();
             hostBuilder.UseStartup<Startup>();
-            _TestServer = new TestServer(hostBuilder);
-            _TestServerHttpClient = _TestServer.CreateClient();
+            _testServer = new TestServer(hostBuilder);
+            _testServerHttpClient = _testServer.CreateClient();
+            _tracer = new Mock<ITracer>();
         }
         #endregion
 
@@ -137,10 +139,9 @@ namespace RestClientDotNet.UnitTests
         [DataRow(HttpVerb.Put)]
         public async Task TestUpdate(HttpVerb verb)
         {
-            var tracer = new Mock<ITracer>();
             var baseUri = new Uri("https://jsonplaceholder.typicode.com");
 
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), tracer.Object);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), _tracer.Object);
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
             UserPost responseUserPost = null;
 
@@ -163,8 +164,8 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(requestUserPost.userId, responseUserPost.userId);
             Assert.AreEqual(requestUserPost.title, responseUserPost.title);
 
-            tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
-            tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, expectedStatusCode, It.IsAny<IRestHeadersCollection>()));
+            _tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
+            _tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, expectedStatusCode, It.IsAny<IRestHeadersCollection>()));
         }
 
         [TestMethod]
@@ -194,7 +195,7 @@ namespace RestClientDotNet.UnitTests
                 BillingAddress = new Address { Street = "Test St" }
             };
 
-            var restClient = new RestClient(new ProtobufSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+            var restClient = new RestClient(new ProtobufSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             var responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri("http://localhost:42908/person"));
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.Body.BillingAddress.Street);
         }
@@ -209,7 +210,7 @@ namespace RestClientDotNet.UnitTests
                 BillingAddress = new Address { Street = "Test St" }
             };
 
-            var restClient = new RestClient(new ProtobufSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+            var restClient = new RestClient(new ProtobufSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             const string personKey = "123";
             restClient.DefaultRequestHeaders.Add("PersonKey", personKey);
             Person responsePerson = await restClient.PutAsync<Person, Person>(requestPerson, new Uri("http://localhost:42908/person"));
@@ -220,16 +221,16 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersGet()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             Person responsePerson = await restClient.GetAsync<Person>("headers");
             Assert.IsNotNull(responsePerson);
         }
 
         [TestMethod]
-        public async Task TestResponseHeadersGet()
+        public async Task TestHeadersResponseGet()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var response = await restClient.GetAsync<Person>("headers");
 
@@ -250,9 +251,45 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
+        public async Task TestHeadersTraceGet()
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient, _tracer.Object);
+            restClient.DefaultRequestHeaders.Add("Test", "Test");
+            var response = await restClient.GetAsync<Person>("headers");
+
+            Assert.IsTrue(response.Headers.Contains("Test1"));
+            Assert.IsTrue(response.Headers.Contains("Test2"));
+            Assert.IsFalse(response.Headers.Contains("Test3"));
+
+            var header1 = response.Headers["Test1"].ToList();
+            var header2 = response.Headers["Test2"].ToList();
+
+            Assert.IsNotNull(header1);
+            Assert.IsNotNull(header2);
+
+            Assert.AreEqual(1, header1.Count);
+            Assert.AreEqual(2, header2.Count);
+
+            Assert.AreEqual("b", header2[1]);
+
+            _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request, null,
+                It.Is<RestRequestHeadersCollection>(c => CheckRequestHeaders(c))
+                ));
+
+            //_tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, expectedStatusCode, It.IsAny<IRestHeadersCollection>()));
+
+
+        }
+
+        private static bool CheckRequestHeaders(RestRequestHeadersCollection a)
+        {
+            return a.Contains("Test") && a["Test"].First() == "Test";
+        }
+
+        [TestMethod]
         public async Task TestHeadersPost()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var responsePerson = await restClient.PostAsync<Person, Person>(new Person { FirstName = "Bob" }, new Uri("headers", UriKind.Relative));
             Assert.IsNotNull(responsePerson);
@@ -263,7 +300,7 @@ namespace RestClientDotNet.UnitTests
         {
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
 
                 //The server expects the value of "Test"
                 restClient.DefaultRequestHeaders.Add("Test", "Tests");
@@ -287,7 +324,7 @@ namespace RestClientDotNet.UnitTests
         {
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
 
                 //The server expects the value of "Test"
                 restClient.DefaultRequestHeaders.Add("Test", "Tests");
@@ -309,7 +346,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersPut()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var responsePerson = await restClient.PutAsync<Person, Person>(new Person { FirstName = "Bob" }, new Uri("headers", UriKind.Relative));
             Assert.IsNotNull(responsePerson);
@@ -320,7 +357,7 @@ namespace RestClientDotNet.UnitTests
         {
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
 
                 //The server expects the value of "Test"
                 restClient.DefaultRequestHeaders.Add("Test", "Tests");
@@ -342,7 +379,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersPatch()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var responsePerson = await restClient.PatchAsync<Person, Person>(new Person { FirstName = "Bob" }, new Uri("headers", UriKind.Relative));
             Assert.IsNotNull(responsePerson);
@@ -353,7 +390,7 @@ namespace RestClientDotNet.UnitTests
         {
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
 
                 //The server expects the value of "Test"
                 restClient.DefaultRequestHeaders.Add("Test", "Tests");
@@ -375,7 +412,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersDelete()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             await restClient.DeleteAsync(new Uri("headers/1", UriKind.Relative));
         }
@@ -385,7 +422,7 @@ namespace RestClientDotNet.UnitTests
         {
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
                 await restClient.DeleteAsync(new Uri("headers/1", UriKind.Relative));
                 Assert.Fail();
             }
