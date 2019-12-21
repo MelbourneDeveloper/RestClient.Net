@@ -90,15 +90,12 @@ namespace RestClientDotNet
 
             HttpResponseMessage result = null;
             var isPost = httpVerb == HttpVerb.Post;
-            if (!isPost)
-            {
-                HttpClient.DefaultRequestHeaders.Clear();
-                foreach (var key in Headers.Keys)
-                {
-                    HttpClient.DefaultRequestHeaders.Add(key, Headers[key]);
-                }
-            }
 
+            HttpClient.DefaultRequestHeaders.Clear();
+            foreach (var key in Headers.Keys)
+            {
+                HttpClient.DefaultRequestHeaders.Add(key, Headers[key]);
+            }
 
             switch (httpVerb)
             {
@@ -130,11 +127,6 @@ namespace RestClientDotNet
                         }
                         else if (httpVerb == HttpVerb.Post)
                         {
-                            foreach (var key in Headers.Keys)
-                            {
-                                httpContent.Headers.Add(key, Headers[key]);
-                            }
-
                             result = await HttpClient.PostAsync(queryString, httpContent, cancellationToken);
                         }
                         else
