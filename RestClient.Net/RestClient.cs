@@ -19,8 +19,7 @@ namespace RestClientDotNet
         public HttpClient HttpClient { get; }
         public string DefaultContentType { get; set; } = "application/json";
         public Uri BaseUri => HttpClient.BaseAddress;
-        public Dictionary<string, string> Headers { get; private set; } = new Dictionary<string, string>();
-        public AuthenticationHeaderValue Authorization { get; set; }
+        public HttpRequestHeaders DefaultRequestHeaders => HttpClient.DefaultRequestHeaders;
         public Dictionary<HttpStatusCode, Func<byte[], object>> HttpStatusCodeFuncs { get; } = new Dictionary<HttpStatusCode, Func<byte[], object>>();
         public IZip Zip { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
@@ -81,21 +80,7 @@ namespace RestClientDotNet
         #region Private Methods
         private async Task<TReturn> Call<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
         {
-            HttpClient.DefaultRequestHeaders.Clear();
-
-            if (Authorization != null)
-            {
-                HttpClient.DefaultRequestHeaders.Authorization = Authorization;
-            }
-
             HttpResponseMessage result = null;
-            var isPost = httpVerb == HttpVerb.Post;
-
-            HttpClient.DefaultRequestHeaders.Clear();
-            foreach (var key in Headers.Keys)
-            {
-                HttpClient.DefaultRequestHeaders.Add(key, Headers[key]);
-            }
 
             switch (httpVerb)
             {
