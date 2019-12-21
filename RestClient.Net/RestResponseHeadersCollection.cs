@@ -44,7 +44,7 @@ namespace RestClientDotNet
             return HttpResponseHeaders.GetEnumerator();
         }
 
-        public bool ContainsName(string name)
+        public bool Contains(string name)
         {
             return HttpResponseHeaders.Contains(name);
         }

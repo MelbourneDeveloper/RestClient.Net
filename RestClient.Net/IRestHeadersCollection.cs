@@ -16,6 +16,6 @@ namespace RestClientDotNet
             get;
         }
 
-        bool ContainsName(string name);
+        bool Contains(string name);
     }
 }

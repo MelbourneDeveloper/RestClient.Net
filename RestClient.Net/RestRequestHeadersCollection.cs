@@ -9,8 +9,12 @@ namespace RestClientDotNet
     /// </summary>
     public class RestRequestHeadersCollection : IRestHeadersCollection
     {
+        #region Public Properties
         public HttpRequestHeaders HttpRequestHeaders { get; }
+        public IEnumerable<string> this[string name] => HttpRequestHeaders.GetValues(name);
+        #endregion
 
+        #region Implementation
         public RestRequestHeadersCollection(HttpRequestHeaders httpRequestHeaders)
         {
             HttpRequestHeaders = httpRequestHeaders;
@@ -40,5 +44,11 @@ namespace RestClientDotNet
         {
             HttpRequestHeaders.Clear();
         }
+
+        public bool Contains(string name)
+        {
+            return HttpRequestHeaders.Contains(name);
+        }
+        #endregion
     }
 }

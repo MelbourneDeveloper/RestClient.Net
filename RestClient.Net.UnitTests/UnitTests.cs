@@ -233,11 +233,20 @@ namespace RestClientDotNet.UnitTests
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var response = await restClient.GetAsync<Person>("headers");
 
-            var asdasd = response.Headers["Test1"];
-            var asd2asd = response.Headers["Test2"];
+            Assert.IsTrue(response.Headers.Contains("Test1"));
+            Assert.IsTrue(response.Headers.Contains("Test2"));
+            Assert.IsFalse(response.Headers.Contains("Test3"));
 
-            Assert.IsNotNull(asdasd);
-            Assert.IsNotNull(asd2asd);
+            var header1 = response.Headers["Test1"].ToList();
+            var header2 = response.Headers["Test2"].ToList();
+
+            Assert.IsNotNull(header1);
+            Assert.IsNotNull(header2);
+
+            Assert.AreEqual(1, header1.Count);
+            Assert.AreEqual(2, header2.Count);
+
+            Assert.AreEqual("b", header2[1]);
         }
 
         [TestMethod]
