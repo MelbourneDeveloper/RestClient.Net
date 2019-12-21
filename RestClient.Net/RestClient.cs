@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
+
     public class RestClient : IDisposable, IRestClient
     {
         #region Fields
@@ -19,7 +19,7 @@ namespace RestClientDotNet
         public HttpClient HttpClient { get; }
         public string DefaultContentType { get; set; } = "application/json";
         public Uri BaseUri => HttpClient.BaseAddress;
-        public HttpRequestHeaders DefaultRequestHeaders => HttpClient.DefaultRequestHeaders;
+        public IRestRequestHeadersCollection DefaultRequestHeaders { get; }
         public Dictionary<HttpStatusCode, Func<byte[], object>> HttpStatusCodeFuncs { get; } = new Dictionary<HttpStatusCode, Func<byte[], object>>();
         public IZip Zip { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
@@ -70,6 +70,8 @@ namespace RestClientDotNet
             {
                 HttpClient.Timeout = timeout;
             }
+
+            DefaultRequestHeaders = new RestRequestHeadersCollection(HttpClient.DefaultRequestHeaders);
 
             SerializationAdapter = serializationAdapter;
 
