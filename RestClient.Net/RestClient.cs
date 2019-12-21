@@ -18,7 +18,6 @@ namespace RestClientDotNet
         public string DefaultContentType { get; set; } = "application/json";
         public Uri BaseUri => HttpClient.BaseAddress;
         public IRestHeadersCollection DefaultRequestHeaders { get; }
-        //public Dictionary<HttpStatusCode, Func<byte[], object>> HttpStatusCodeFuncs { get; } = new Dictionary<HttpStatusCode, Func<byte[], object>>();
         public IZip Zip { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
         public TimeSpan Timeout
@@ -157,13 +156,6 @@ namespace RestClientDotNet
 
                 return new RestResponse<TReturn>(bodyObject, new RestResponseHeadersCollection(result.Headers), (int)result.StatusCode, result);
             }
-
-            var errorData = await result.Content.ReadAsByteArrayAsync();
-
-            //if (HttpStatusCodeFuncs.ContainsKey(result.StatusCode))
-            //{
-            //    return (TReturn)HttpStatusCodeFuncs[result.StatusCode].Invoke(errorData);
-            //}
 
             throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}", result);
         }
