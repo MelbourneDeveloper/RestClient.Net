@@ -101,7 +101,7 @@ namespace RestClientDotNet
 
                     using (var httpContent = new ByteArrayContent(bodyData))
                     {
-
+                        //Why do we have to set the content type only in cases where there is a request body, and headers?
                         httpContent.Headers.Add("Content-Type", contentType);
 
                         Tracer?.Trace(httpVerb, BaseUri, queryString, bodyData, TraceType.Request, null);

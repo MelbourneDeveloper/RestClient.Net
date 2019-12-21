@@ -39,20 +39,6 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         #region Tests
-        //[TestMethod]
-        //public void A()
-        //{
-        //    var asdasd = new HttpClient();
-        //    asdasd.DefaultRequestHeaders.Add("test",  "test2" );
-
-        //    foreach(var asdasds in asdasd.DefaultRequestHeaders)
-        //    {
-        //        var asdasdds = asdasds.ToString();
-        //    }
-
-        //    var asdafsd = asdasd.DefaultRequestHeaders.ToString();
-        //}
-
         [TestMethod]
         public async Task TestGetRestCountries()
         {
@@ -209,6 +195,24 @@ namespace RestClientDotNet.UnitTests
             var restClient = new RestClient(new ProtobufSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
             var responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri("http://localhost:42908/person"));
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
+        }
+
+        [TestMethod]
+        public async Task TestProtobufPutWithHeaderLocal()
+        {
+            var requestPerson = new Person
+            {
+                FirstName = "Bob",
+                Surname = "Smith",
+                BillingAddress = new Address { Street = "Test St" }
+            };
+
+            var restClient = new RestClient(new ProtobufSerializationAdapter(), new Uri("http://localhost"), default, _TestServerHttpClient);
+            const string personKey = "123";
+            restClient.DefaultRequestHeaders.Add("PersonKey", personKey);
+            var responsePerson = await restClient.PutAsync<Person, Person>(requestPerson, new Uri("http://localhost:42908/person"));
+            Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
+            Assert.AreEqual(personKey, responsePerson.PersonKey);
         }
 
         [TestMethod]

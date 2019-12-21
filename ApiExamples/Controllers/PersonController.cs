@@ -1,9 +1,7 @@
 ﻿using Google.Protobuf;
 using Microsoft.AspNetCore.Mvc;
 using RestClientApiSamples;
-using System.IO;
-using System.Net.Http;
-using System.Text;
+using System;
 using System.Threading.Tasks;
 
 namespace ApiExamples.Controllers
@@ -37,6 +35,22 @@ namespace ApiExamples.Controllers
         {
             var stream = Request.BodyReader.AsStream();
             return File(stream, "application/octet-stream");
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put()
+        {
+            var stream = Request.BodyReader.AsStream();
+
+            var person = Person.Parser.ParseFrom(stream);
+
+            if (!Request.Headers.ContainsKey("PersonKey")) throw new Exception("No key");
+
+            person.PersonKey = Request.Headers["PersonKey"];
+
+            var data = person.ToByteArray();
+
+            return File(data, "application/octet-stream");
         }
     }
 }
