@@ -1,7 +1,9 @@
 ﻿using Atlassian;
-using groupkt;
 using RestClient.Net.Samples.Model;
+using RestClient.Net.UnitTests.Model;
 using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,7 +58,7 @@ namespace RestClientDotNet.Sample
             if (!string.IsNullOrEmpty(password))
             {
                 var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
-                _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
+                _BitbucketClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
             }
         }
 
@@ -73,7 +75,7 @@ namespace RestClientDotNet.Sample
                 GetBitBucketClient(GetPassword(), true);
 
                 //Download the repository data
-                var repos = (await _BitbucketClient.GetAsync<RepositoryList>());
+                RepositoryList repos = (await _BitbucketClient.GetAsync<RepositoryList>());
 
                 //Put it in the List Box
                 ReposBox.ItemsSource = repos.values;
@@ -123,9 +125,10 @@ namespace RestClientDotNet.Sample
 
             try
             {
-                var countryCodeClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
-                var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
-                CountryCodeList.ItemsSource = countryData.RestResponse.result;
+                var baseUri = new Uri("https://restcountries.eu/rest/v2/");
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri);
+                List<RestCountry> countries = await restClient.GetAsync<List<RestCountry>>();
+                CountryCodeList.ItemsSource = countries;
             }
             catch (Exception ex)
             {
@@ -142,9 +145,11 @@ namespace RestClientDotNet.Sample
             var hex = ex as HttpStatusException;
             if (hex != null)
             {
-                if (hex.HttpResponseMessage?.Content != null)
+                var httpResponseMessage = hex.RestResponse.UnderlyingResponse as HttpResponseMessage;
+
+                if (httpResponseMessage?.Content != null)
                 {
-                    var errorData = await hex.HttpResponseMessage.Content.ReadAsByteArrayAsync();
+                    var errorData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
 
                     errorModel = await _BitbucketClient.SerializationAdapter.DeserializeAsync<ErrorModel>(errorData);
                 }
@@ -155,7 +160,7 @@ namespace RestClientDotNet.Sample
             if (errorModel != null)
             {
                 message += $"\r\n{errorModel.error.message}";
-                message += $"\r\nStatus Code: {(int)hex.HttpResponseMessage.StatusCode}";
+                message += $"\r\nStatus Code: {hex.RestResponse.StatusCode}";
             }
 
             await DisplayAlert("Error", message);
@@ -223,14 +228,14 @@ namespace RestClientDotNet.Sample
         private async void Patch_Clicked(object sender, EventArgs e)
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-            var userPost = await restClient.PatchAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts/1");
+            UserPost userPost = await restClient.PatchAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts/1");
             await DisplayAlert("Post Patched", $"The server pretended to patch a post titled:\r\n{userPost.title}");
         }
 
         private async void Post_Clicked(object sender, EventArgs e)
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-            var userPost = await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts");
+            UserPost userPost = await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts");
             await DisplayAlert("Post made", $"The server pretended to accept the post:\r\n{userPost.title}");
         }
 

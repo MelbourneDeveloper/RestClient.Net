@@ -12,6 +12,7 @@
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\Atlassian.cs" Link="Model\Atlassian.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\CUSTOMER.cs" Link="Model\CUSTOMER.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\PRODUCT.cs" Link="Model\PRODUCT.cs" />
+    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\RestCountries.cs" Link="Model\RestCountries.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\UserPost.cs" Link="Model\UserPost.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\BinaryDataContractSerializationAdapter.cs" Link="SerializationAdapters\BinaryDataContractSerializationAdapter.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\DataContractSerializationAdapter.cs" Link="SerializationAdapters\DataContractSerializationAdapter.cs" />
