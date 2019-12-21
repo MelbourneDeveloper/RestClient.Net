@@ -78,7 +78,10 @@ namespace RestClientDotNet.UnitTests
         public async Task TestGetRestCountriesNoBaseUri()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter());
-            var country = (await restClient.GetAsync<List<RestCountry>>(new Uri("https://restcountries.eu/rest/v2/name/australia"))).FirstOrDefault();
+
+            var countries = await restClient.GetAsync<List<RestCountry>>(new Uri("https://restcountries.eu/rest/v2/name/australia");
+
+            var country = countries.FirstOrDefault();
             Assert.AreEqual("Australia", country.name);
         }
 

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,7 +18,7 @@ namespace RestClientDotNet
         public string DefaultContentType { get; set; } = "application/json";
         public Uri BaseUri => HttpClient.BaseAddress;
         public IRestHeadersCollection DefaultRequestHeaders { get; }
-        public Dictionary<HttpStatusCode, Func<byte[], object>> HttpStatusCodeFuncs { get; } = new Dictionary<HttpStatusCode, Func<byte[], object>>();
+        //public Dictionary<HttpStatusCode, Func<byte[], object>> HttpStatusCodeFuncs { get; } = new Dictionary<HttpStatusCode, Func<byte[], object>>();
         public IZip Zip { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
         public TimeSpan Timeout
@@ -80,7 +78,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Private Methods
-        private async Task<TReturn> Call<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
+        private async Task<RestResponse<TReturn>> Call<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
         {
             HttpResponseMessage result = null;
 
@@ -155,15 +153,17 @@ namespace RestClientDotNet
 
                 Tracer?.Trace(httpVerb, BaseUri, queryString, responseData, TraceType.Response, result.StatusCode);
 
-                return await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
+                var bodyObject = await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
+
+                return new RestResponse<TReturn>(bodyObject, new RestResponseHeadersCollection(result.Headers), (int)result.StatusCode, result);
             }
 
             var errorData = await result.Content.ReadAsByteArrayAsync();
 
-            if (HttpStatusCodeFuncs.ContainsKey(result.StatusCode))
-            {
-                return (TReturn)HttpStatusCodeFuncs[result.StatusCode].Invoke(errorData);
-            }
+            //if (HttpStatusCodeFuncs.ContainsKey(result.StatusCode))
+            //{
+            //    return (TReturn)HttpStatusCodeFuncs[result.StatusCode].Invoke(errorData);
+            //}
 
             throw new HttpStatusException($"{result.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}", result);
         }
@@ -172,12 +172,12 @@ namespace RestClientDotNet
         #region Public Methods
 
         #region Get
-        public Task<T> GetAsync<T>()
+        public Task<RestResponse<T>> GetAsync<T>()
         {
             return Call<T, object>(null, HttpVerb.Get, DefaultContentType, null, default);
         }
 
-        public Task<T> GetAsync<T>(string queryString)
+        public Task<RestResponse<T>> GetAsync<T>(string queryString)
         {
             try
             {
@@ -194,71 +194,71 @@ namespace RestClientDotNet
             }
         }
 
-        public Task<T> GetAsync<T>(Uri queryString)
+        public Task<RestResponse<T>> GetAsync<T>(Uri queryString)
         {
             return GetAsync<T>(queryString, DefaultContentType);
         }
 
-        public Task<T> GetAsync<T>(Uri queryString, string contentType)
+        public Task<RestResponse<T>> GetAsync<T>(Uri queryString, string contentType)
         {
             return GetAsync<T>(queryString, contentType, default);
         }
 
-        public Task<T> GetAsync<T>(Uri queryString, CancellationToken cancellationToken)
+        public Task<RestResponse<T>> GetAsync<T>(Uri queryString, CancellationToken cancellationToken)
         {
             return GetAsync<T>(queryString, DefaultContentType, cancellationToken);
         }
 
-        public Task<T> GetAsync<T>(Uri queryString, string contentType, CancellationToken cancellationToken)
+        public Task<RestResponse<T>> GetAsync<T>(Uri queryString, string contentType, CancellationToken cancellationToken)
         {
             return Call<T, object>(queryString, HttpVerb.Get, contentType, null, cancellationToken);
         }
         #endregion
 
         #region Post
-        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body)
+        public Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body)
         {
             return PostAsync<TReturn, TBody>(body, default(Uri));
         }
 
-        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, string queryString)
+        public Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body, string queryString)
         {
             return PostAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
         }
 
-        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString)
+        public Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body, Uri queryString)
         {
             return PostAsync<TReturn, TBody>(body, queryString, default);
         }
 
-        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
+        public Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
         {
             return PostAsync<TReturn, TBody>(body, queryString, DefaultContentType, cancellationToken);
         }
 
-        public Task<TReturn> PostAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
+        public Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
         {
             return Call<TReturn, TBody>(queryString, HttpVerb.Post, contentType, body, cancellationToken);
         }
         #endregion
 
         #region Put
-        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, string queryString)
+        public Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(TBody body, string queryString)
         {
             return PutAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
         }
 
-        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString)
+        public Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(TBody body, Uri queryString)
         {
             return PutAsync<TReturn, TBody>(body, queryString, DefaultContentType, default);
         }
 
-        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
+        public Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
         {
             return PutAsync<TReturn, TBody>(body, queryString, DefaultContentType, cancellationToken);
         }
 
-        public Task<TReturn> PutAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
+        public Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
         {
             return Call<TReturn, TBody>(queryString, HttpVerb.Put, contentType, body, cancellationToken);
         }
@@ -287,22 +287,22 @@ namespace RestClientDotNet
         #endregion
 
         #region Patch
-        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, string queryString)
+        public Task<RestResponse<TReturn>> PatchAsync<TReturn, TBody>(TBody body, string queryString)
         {
             return PatchAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
         }
 
-        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString)
+        public Task<RestResponse<TReturn>> PatchAsync<TReturn, TBody>(TBody body, Uri queryString)
         {
             return PatchAsync<TReturn, TBody>(body, queryString, DefaultContentType, default);
         }
 
-        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
+        public Task<RestResponse<TReturn>> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
         {
             return PatchAsync<TReturn, TBody>(body, queryString, DefaultContentType, cancellationToken);
         }
 
-        public Task<TReturn> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
+        public Task<RestResponse<TReturn>> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
         {
             return Call<TReturn, object>(queryString, HttpVerb.Patch, contentType, body, cancellationToken);
         }
