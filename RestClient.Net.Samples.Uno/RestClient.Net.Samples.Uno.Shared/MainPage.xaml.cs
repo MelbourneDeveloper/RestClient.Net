@@ -50,7 +50,7 @@ namespace RestClient.Net.Samples.Uno
             if (!string.IsNullOrEmpty(password))
             {
                 var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
-                _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
+                _BitbucketClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
             }
         }
 

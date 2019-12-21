@@ -72,9 +72,9 @@
                                 <StackLayout Orientation="Horizontal"    >
                                     <Label Text="{Binding name}" VerticalOptions="Center" />
                                     <Label Text=" - " VerticalOptions="Center" />
-                                    <Label Text="{Binding alpha2_code}" VerticalOptions="Center" />
+                                    <Label Text="{Binding alpha2Code}" VerticalOptions="Center" />
                                     <Label Text=" - " VerticalOptions="Center" />
-                                    <Label Text="{Binding alpha3_code}" VerticalOptions="Center" />
+                                    <Label Text="{Binding alpha3Code}" VerticalOptions="Center" />
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
