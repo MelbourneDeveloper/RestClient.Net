@@ -6,4 +6,4 @@
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "<Pending>", Scope = "member", Target = "~P:RestClientDotNet.DeserializationException.ResponseData")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "<Pending>", Scope = "member", Target = "~P:RestClientDotNet.HttpStatusException.ErrorData")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:RestClientDotNet.RestResponse`1.op_Implicit(RestClientDotNet.RestResponse`1)~`0")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:RestClientDotNet.Abstractions.RestResponse`1.op_Implicit(RestClientDotNet.Abstractions.RestResponse`1)~`0")]
