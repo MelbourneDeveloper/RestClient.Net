@@ -220,7 +220,7 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersGet()
+        public async Task TestHeadersLocalGet()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
@@ -229,7 +229,7 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersResponseGet()
+        public async Task TestHeadersResponseLocalGet()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
@@ -256,7 +256,7 @@ namespace RestClientDotNet.UnitTests
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        public async Task TestHeadersTraceGet()
+        public async Task TestHeadersTraceLocalGet()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient, _tracer.Object);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
@@ -272,7 +272,7 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersPost()
+        public async Task TestHeadersLocalPost()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
@@ -281,7 +281,7 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersIncorrectGet()
+        public async Task TestHeadersLocalIncorrectGet()
         {
             try
             {
@@ -305,7 +305,7 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersIncorrectPost()
+        public async Task TestHeadersLocalIncorrectPost()
         {
             try
             {
@@ -329,7 +329,7 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersPut()
+        public async Task TestHeadersLocalPut()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
@@ -338,7 +338,7 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersIncorrectPut()
+        public async Task TestHeadersLocalIncorrectPut()
         {
             try
             {
@@ -362,7 +362,7 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersPatch()
+        public async Task TestHeadersLocalPatch()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
@@ -371,7 +371,7 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersIncorrectPatch()
+        public async Task TestHeadersLocalIncorrectPatch()
         {
             try
             {
@@ -395,7 +395,7 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersDelete()
+        public async Task TestHeadersLocalDelete()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
@@ -403,7 +403,7 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersIncorrectDelete()
+        public async Task TestHeadersLocalIncorrectDelete()
         {
             try
             {
@@ -420,6 +420,16 @@ namespace RestClientDotNet.UnitTests
             }
 
             Assert.Fail();
+        }
+
+        [TestMethod]
+        public async Task TestErrorsLocalGet()
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
+            restClient.ThrowExceptionOnFailure = false;
+            var response = await restClient.GetAsync<string>("error");
+            var httpResponseMessage = response.UnderlyingResponse as HttpResponseMessage;
+            var responseString = await httpResponseMessage.Content.ReadAsStringAsync();
         }
 
         //TODO: Test error models

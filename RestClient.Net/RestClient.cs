@@ -15,7 +15,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Public Properties
-        public bool ThrowExceptionOnFailure { get; } = true;
+        public bool ThrowExceptionOnFailure { get; set; } = true;
         public HttpClient HttpClient { get; }
         public string DefaultContentType { get; set; } = "application/json";
         public Uri BaseUri => HttpClient.BaseAddress;
