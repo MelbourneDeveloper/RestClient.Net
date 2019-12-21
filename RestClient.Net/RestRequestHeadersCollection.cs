@@ -7,7 +7,7 @@ namespace RestClientDotNet
     /// <summary>
     /// A wrapper for HttpRequestHeaders
     /// </summary>
-    public class RestRequestHeadersCollection : IRestRequestHeadersCollection
+    public class RestRequestHeadersCollection : IRestHeadersCollection
     {
         public HttpRequestHeaders HttpRequestHeaders { get; }
 

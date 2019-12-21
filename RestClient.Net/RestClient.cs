@@ -19,7 +19,7 @@ namespace RestClientDotNet
         public HttpClient HttpClient { get; }
         public string DefaultContentType { get; set; } = "application/json";
         public Uri BaseUri => HttpClient.BaseAddress;
-        public IRestRequestHeadersCollection DefaultRequestHeaders { get; }
+        public IRestHeadersCollection DefaultRequestHeaders { get; }
         public Dictionary<HttpStatusCode, Func<byte[], object>> HttpStatusCodeFuncs { get; } = new Dictionary<HttpStatusCode, Func<byte[], object>>();
         public IZip Zip { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }

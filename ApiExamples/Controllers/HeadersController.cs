@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
 using RestClientApiSamples;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ApiExamples.Controllers
@@ -28,6 +30,9 @@ namespace ApiExamples.Controllers
                     },
                     Surname = "Smith"
                 };
+
+                Response.Headers.Add("Test1", "a");
+                Response.Headers.Add("Test2", new StringValues(new string[] { "a", "b" }));
 
                 return person;
             }
