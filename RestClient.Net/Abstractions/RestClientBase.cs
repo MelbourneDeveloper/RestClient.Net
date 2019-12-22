@@ -1,9 +1,8 @@
-﻿using RestClientDotNet.Abstractions;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RestClientDotNet
+namespace RestClientDotNet.Abstractions
 {
     public class RestClientBase : IDisposable
     {
