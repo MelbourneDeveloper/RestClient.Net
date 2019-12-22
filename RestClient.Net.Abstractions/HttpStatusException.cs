@@ -1,7 +1,7 @@
 ﻿using RestClientDotNet.Abstractions;
 using System;
 
-namespace RestClientDotNet
+namespace RestClientDotNet.Abstractions
 {
     public class HttpStatusException : Exception
     {

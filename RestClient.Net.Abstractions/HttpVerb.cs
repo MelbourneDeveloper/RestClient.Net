@@ -1,4 +1,4 @@
-﻿namespace RestClientDotNet
+﻿namespace RestClientDotNet.Abstractions
 {
     public enum HttpVerb
     {
