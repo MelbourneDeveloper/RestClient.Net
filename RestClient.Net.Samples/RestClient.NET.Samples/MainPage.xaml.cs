@@ -1,6 +1,7 @@
 ﻿using Atlassian;
 using RestClient.Net.Samples.Model;
 using RestClient.Net.UnitTests.Model;
+using RestClientDotNet.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -57,8 +58,7 @@ namespace RestClientDotNet.Sample
 
             if (!string.IsNullOrEmpty(password))
             {
-                var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
-                _BitbucketClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+                _BitbucketClient.UseBasicAuthentication(UsernameBox.Text, password);
             }
         }
 
