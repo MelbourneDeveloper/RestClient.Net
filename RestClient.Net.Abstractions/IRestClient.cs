@@ -10,8 +10,6 @@ namespace RestClientDotNet.Abstractions
         IRestHeadersCollection DefaultRequestHeaders { get; }
         string DefaultContentType { get; }
         TimeSpan Timeout { get; set; }
-        Task DeleteAsync(Uri queryString);
-        Task DeleteAsync(Uri queryString, CancellationToken cancellationToken);
         Task<RestResponse<TReturn>> PatchAsync<TReturn, TBody>(TBody body, Uri queryString);
         Task<RestResponse<TReturn>> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken);
         Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body, Uri queryString);

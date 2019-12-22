@@ -522,6 +522,8 @@ namespace RestClientDotNet.UnitTests
 
         //TODO: Test all constructor overloads
 
+        //TODO: Test extension method overloads
+
         #endregion
 
         #region Helpers

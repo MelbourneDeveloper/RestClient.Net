@@ -8,6 +8,7 @@ namespace RestClientDotNet
 {
     public static class Extensions
     {
+        #region Misc
         /// <summary>
         /// Sets the Authorization header for Basic Authentication with the specified credentials
         /// </summary>
@@ -17,6 +18,7 @@ namespace RestClientDotNet
             var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(userName + ":" + password));
             restClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
         }
+        #endregion
 
         #region Get
         public static Task<RestResponse<T>> GetAsync<T>(this IRestClient restClient)
@@ -61,6 +63,28 @@ namespace RestClientDotNet
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
 
             return restClient.SendAsync<T, object>(queryString, HttpVerb.Get, contentType, null, cancellationToken);
+        }
+        #endregion
+
+        #region Delete
+        public static Task DeleteAsync(this IRestClient restClient, string queryString)
+        {
+            return DeleteAsync(restClient, new Uri(queryString, UriKind.Relative));
+        }
+
+        public static Task DeleteAsync(this IRestClient restClient, Uri queryString)
+        {
+            return DeleteAsync(restClient, queryString, default);
+        }
+
+        public static Task DeleteAsync(this IRestClient restClient, Uri queryString, CancellationToken cancellationToken)
+        {
+            return DeleteAsync(restClient, queryString, restClient.DefaultContentType, cancellationToken);
+        }
+
+        public static Task DeleteAsync(this IRestClient restClient, Uri queryString, string contentType, CancellationToken cancellationToken)
+        {
+            return restClient.SendAsync<object, object>(queryString, HttpVerb.Delete, contentType, null, cancellationToken);
         }
         #endregion
 

@@ -128,28 +128,6 @@ namespace RestClientDotNet.Abstractions
         }
         #endregion
 
-        #region Delete
-        public Task DeleteAsync(string queryString)
-        {
-            return DeleteAsync(new Uri(queryString, UriKind.Relative));
-        }
-
-        public Task DeleteAsync(Uri queryString)
-        {
-            return DeleteAsync(queryString, default);
-        }
-
-        public Task DeleteAsync(Uri queryString, CancellationToken cancellationToken)
-        {
-            return DeleteAsync(queryString, DefaultContentType, cancellationToken);
-        }
-
-        public Task DeleteAsync(Uri queryString, string contentType, CancellationToken cancellationToken)
-        {
-            return Call<object, object>(queryString, HttpVerb.Delete, contentType, null, cancellationToken);
-        }
-        #endregion
-
         #region Patch
         public Task<RestResponse<TReturn>> PatchAsync<TReturn, TBody>(TBody body, string queryString)
         {
