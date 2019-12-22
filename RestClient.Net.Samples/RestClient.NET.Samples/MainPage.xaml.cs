@@ -145,7 +145,7 @@ namespace RestClientDotNet.Sample
             var hex = ex as HttpStatusException;
             if (hex != null)
             {
-                var httpResponseMessage = hex.RestResponse.UnderlyingResponse as HttpResponseMessage;
+                var httpResponseMessage = hex.RestResponse.ResponseProcessor.UnderlyingResponse as HttpResponseMessage;
 
                 if (httpResponseMessage?.Content != null)
                 {

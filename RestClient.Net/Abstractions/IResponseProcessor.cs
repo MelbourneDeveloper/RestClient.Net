@@ -9,6 +9,6 @@ namespace RestClientDotNet.Abstractions
         bool IsSuccess { get; }
         int StatusCode { get; }
         IRestHeadersCollection Headers { get; }
-        object UnderlyingResponseMessage { get; }
+        object UnderlyingResponse { get; }
     }
 }

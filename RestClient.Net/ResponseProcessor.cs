@@ -14,7 +14,7 @@ namespace RestClientDotNet
         public bool IsSuccess => HttpResponseMessage.IsSuccessStatusCode;
         public int StatusCode => (int)HttpResponseMessage.StatusCode;
         public IRestHeadersCollection Headers { get; }
-        public object UnderlyingResponseMessage => HttpResponseMessage;
+        public object UnderlyingResponse => HttpResponseMessage;
         public ITracer Tracer { get; }
         public HttpResponseMessage HttpResponseMessage { get; }
         #endregion
