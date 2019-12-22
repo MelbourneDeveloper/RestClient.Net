@@ -145,14 +145,7 @@ namespace RestClientDotNet.Sample
             var hex = ex as HttpStatusException;
             if (hex != null)
             {
-                var httpResponseMessage = hex.RestResponse.ResponseProcessor.UnderlyingResponse as HttpResponseMessage;
-
-                if (httpResponseMessage?.Content != null)
-                {
-                    var errorData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
-
-                    errorModel = await _BitbucketClient.SerializationAdapter.DeserializeAsync<ErrorModel>(errorData);
-                }
+                errorModel = await hex.RestResponse.ToModel<ErrorModel>();
             }
 
             var message = $"An error occurred while attempting to use a REST service.\r\nError: {ex.Message}\r\nInner Error: {ex.InnerException?.Message}\r\nInner Inner Error: {ex.InnerException?.InnerException?.Message}";
