@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xml2CSharp;
@@ -518,6 +519,17 @@ namespace RestClientDotNet.UnitTests
             Assert.Fail();
         }
 
+        #region All Extension Overloads
+        [TestMethod]
+        public async Task TestLocalGetStringUri()
+        {            
+            var restClient = GetJsonClient();
+            Person responsePerson = await restClient.GetAsync<Person>("JsonPerson");
+            Assert.IsNotNull(responsePerson);
+            Assert.IsNotNull("Sam", responsePerson.FirstName);
+        }
+        #endregion
+
         //TODO: Test exceptions
 
         //TODO: Test all constructor overloads
@@ -527,6 +539,11 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         #region Helpers
+        private IRestClient GetJsonClient()
+        {
+            return new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
+        }
+
         private static bool CheckRequestHeaders(RestRequestHeadersCollection restRequestHeadersCollection)
         {
             return restRequestHeadersCollection.Contains("Test") && restRequestHeadersCollection["Test"].First() == "Test";
