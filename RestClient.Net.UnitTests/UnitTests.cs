@@ -56,7 +56,7 @@ namespace RestClientDotNet.UnitTests
             Assert.IsTrue(countries.Count > 0);
 
             tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
-            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d != null && d.Length > 0), TraceType.Response, HttpStatusCode.OK, It.IsAny<IRestHeadersCollection>()));
+            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d != null && d.Length > 0), TraceType.Response,(int) HttpStatusCode.OK, It.IsAny<IRestHeadersCollection>()));
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace RestClientDotNet.UnitTests
             await restClient.DeleteAsync("posts/1");
 
             tracer.Verify(t => t.Trace(HttpVerb.Delete, baseUri, It.IsAny<Uri>(), null, TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
-            tracer.Verify(t => t.Trace(HttpVerb.Delete, baseUri, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, HttpStatusCode.OK, It.IsAny<IRestHeadersCollection>()));
+            tracer.Verify(t => t.Trace(HttpVerb.Delete, baseUri, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeadersCollection>()));
         }
 
         [TestMethod]
@@ -190,7 +190,7 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(requestUserPost.title, responseUserPost.title);
 
             _tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
-            _tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, expectedStatusCode, It.IsAny<IRestHeadersCollection>()));
+            _tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Response,(int) expectedStatusCode, It.IsAny<IRestHeadersCollection>()));
         }
 
         [TestMethod]
@@ -290,7 +290,7 @@ namespace RestClientDotNet.UnitTests
                 It.Is<RestRequestHeadersCollection>(c => CheckRequestHeaders(c))
                 ));
 
-            _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, It.IsAny<HttpStatusCode?>(),
+            _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, It.IsAny<int?>(),
                 It.Is<RestResponseHeadersCollection>(c => CheckResponseHeaders(c))
                 ));
         }

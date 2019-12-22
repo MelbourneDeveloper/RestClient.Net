@@ -78,7 +78,7 @@ namespace RestClientDotNet
                 queryString,
                 responseData,
                 TraceType.Response,
-                HttpResponseMessage.StatusCode,
+                (int)HttpResponseMessage.StatusCode,
                 restHeadersCollection);
 
             return restResponse;
