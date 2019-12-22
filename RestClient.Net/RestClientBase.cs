@@ -28,27 +28,11 @@ namespace RestClientDotNet
         #endregion
 
         #region Constructor
-        public RestClientBase(ISerializationAdapter serializationAdapter) : this(serializationAdapter, null)
+        public RestClientBase(ISerializationAdapter serializationAdapter, IResponseProcessorFactory responseProcessorFactory) : this(serializationAdapter, responseProcessorFactory, null)
         {
         }
 
-        public RestClientBase(ISerializationAdapter serializationAdapter, Uri baseUri, ITracer tracer) : this(serializationAdapter, baseUri, default, null, tracer)
-        {
-        }
-
-        public RestClientBase(ISerializationAdapter serializationAdapter, Uri baseUri) : this(serializationAdapter, baseUri, default, null)
-        {
-        }
-
-        public RestClientBase(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout) : this(serializationAdapter, baseUri, timeout, null)
-        {
-        }
-
-        public RestClientBase(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, IResponseProcessorFactory responseProcessorFactory) : this(serializationAdapter, baseUri, timeout, responseProcessorFactory, null)
-        {
-        }
-
-        public RestClientBase(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, IResponseProcessorFactory responseProcessorFactory, ITracer tracer)
+        public RestClientBase(ISerializationAdapter serializationAdapter, IResponseProcessorFactory responseProcessorFactory, ITracer tracer)
         {
             ResponseProcessorFactory = responseProcessorFactory;
             SerializationAdapter = serializationAdapter;
