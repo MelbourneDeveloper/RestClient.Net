@@ -8,14 +8,29 @@ namespace RestClientDotNet
 {
     public class ResponseProcessorFactory : IResponseProcessorFactory
     {
-        private IZip Zip { get; }
-        private ISerializationAdapter SerializationAdapter { get; }
-        private readonly ITracer Tracer;
+        public IZip Zip { get; }
+        public ISerializationAdapter SerializationAdapter { get; }
+        public ITracer Tracer { get; }
+        public IHttpClientFactory HttpClientFactory { get; }
+        public TimeSpan Timeout { get => HttpClientFactory.Timeout; set => HttpClientFactory.Timeout = value; }
+        public Uri BaseAddress => HttpClientFactory.BaseUri;
 
+        public ResponseProcessorFactory(
+            ISerializationAdapter serializationAdapter,
+            ITracer tracer,
+            IHttpClientFactory httpClientFactory,
+            IZip zip
+            )
+        {
+            SerializationAdapter = serializationAdapter;
+            Zip = zip;
+            HttpClientFactory = httpClientFactory;
+            Tracer = tracer;
+        }
 
         public async Task<IResponseProcessor> GetResponseProcessor<TBody>(HttpVerb httpVerb, Uri BaseUri, Uri queryString, TBody body, string contentType, IRestHeadersCollection defaultRequestHeaders, CancellationToken cancellationToken)
         {
-            HttpClient HttpClient = null;
+            var HttpClient = HttpClientFactory.Create();
 
             HttpResponseMessage httpResponseMessage = null;
 
@@ -78,6 +93,16 @@ namespace RestClientDotNet
             );
 
             return responseProcessor;
+        }
+
+        public Task<IResponseProcessor> GetResponseProcessor<TBody>(HttpVerb httpVerb, Uri BaseUri, Uri queryString, TBody body, string contentType, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 

@@ -6,70 +6,80 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
-    public class RestClient : IDisposable, IRestClient
+    public class RestClient : RestClientBase, IRestClient
+    {
+        public IRestHeadersCollection DefaultRequestHeaders => throw new NotImplementedException();
+
+        //public RestClient(ISerializationAdapter serializationAdapter) : this(serializationAdapter, null)
+        //{
+        //}
+
+        //public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, ITracer tracer) : this(serializationAdapter, baseUri, default, null, tracer)
+        //{
+        //}
+
+        //public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri) : this(serializationAdapter, baseUri, default, null)
+        //{
+        //}
+
+        //public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout) : this(serializationAdapter, baseUri, timeout, null)
+        //{
+        //}
+
+        //public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, HttpClient httpClient) : this(serializationAdapter, baseUri, timeout, httpClient, null, null, null);
+        //{
+        //}
+
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, ITracer tracer, IHttpClientFactory httpClientFactory, IZip zip) : base(serializationAdapter, baseUri, timeout, new ResponseProcessorFactory(serializationAdapter, tracer, httpClientFactory, zip), tracer)
+        {
+        }
+    }
+
+    public class RestClientBase : IDisposable
     {
         #region Fields
         private bool disposed;
         #endregion
 
         #region Public Properties
-        public IResponseProcessorFactory ResponseProcessorFactory { get; } = new ResponseProcessorFactory();
+        public IResponseProcessorFactory ResponseProcessorFactory { get; }
         public bool ThrowExceptionOnFailure { get; set; } = true;
-        public HttpClient HttpClient { get; }
         public string DefaultContentType { get; set; } = "application/json";
-        public Uri BaseUri => HttpClient.BaseAddress;
-        public IRestHeadersCollection DefaultRequestHeaders { get; }
+        public Uri BaseUri => ResponseProcessorFactory.BaseAddress;
         public IZip Zip { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
         public TimeSpan Timeout
         {
-            get => HttpClient.Timeout;
-            set => HttpClient.Timeout = value;
+            get => ResponseProcessorFactory.Timeout;
+            set => ResponseProcessorFactory.Timeout = value;
         }
         public ITracer Tracer { get; }
         #endregion
 
         #region Constructor
-        public RestClient(ISerializationAdapter serializationAdapter) : this(serializationAdapter, null)
+        public RestClientBase(ISerializationAdapter serializationAdapter) : this(serializationAdapter, null)
         {
         }
 
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, ITracer tracer) : this(serializationAdapter, baseUri, default, null, tracer)
+        public RestClientBase(ISerializationAdapter serializationAdapter, Uri baseUri, ITracer tracer) : this(serializationAdapter, baseUri, default, null, tracer)
         {
         }
 
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri) : this(serializationAdapter, baseUri, default, null)
+        public RestClientBase(ISerializationAdapter serializationAdapter, Uri baseUri) : this(serializationAdapter, baseUri, default, null)
         {
         }
 
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout) : this(serializationAdapter, baseUri, timeout, null)
+        public RestClientBase(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout) : this(serializationAdapter, baseUri, timeout, null)
         {
         }
 
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, HttpClient httpClient) : this(serializationAdapter, baseUri, timeout, httpClient, null)
+        public RestClientBase(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, IResponseProcessorFactory responseProcessorFactory) : this(serializationAdapter, baseUri, timeout, responseProcessorFactory, null)
         {
         }
 
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, HttpClient httpClient, ITracer tracer)
+        public RestClientBase(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, IResponseProcessorFactory responseProcessorFactory, ITracer tracer)
         {
-            HttpClient = httpClient;
-
-            if (HttpClient == null)
-            {
-                HttpClient = new HttpClient();
-            }
-
-            if (HttpClient.BaseAddress == null && baseUri != null)
-            {
-                HttpClient.BaseAddress = baseUri;
-            }
-
-            if (timeout != default)
-            {
-                HttpClient.Timeout = timeout;
-            }
-
-            DefaultRequestHeaders = new RestRequestHeadersCollection(HttpClient.DefaultRequestHeaders);
+            ResponseProcessorFactory = responseProcessorFactory;
             SerializationAdapter = serializationAdapter;
             Tracer = tracer;
         }
@@ -86,7 +96,6 @@ namespace RestClientDotNet
                 queryString,
                 body,
                 contentType,
-                DefaultRequestHeaders,
                 cancellationToken);
 
             if (responseProcessor.IsSuccess)
@@ -105,7 +114,7 @@ namespace RestClientDotNet
             if (ThrowExceptionOnFailure)
             {
                 throw new HttpStatusException(
-                    $"{responseProcessor.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}", errorResponse);
+                    $"{responseProcessor.StatusCode}.\r\nBase Uri: {BaseUri}. Querystring: {queryString}", errorResponse);
             }
             else
             {
@@ -264,19 +273,9 @@ namespace RestClientDotNet
 
             GC.SuppressFinalize(this);
 
-            HttpClient.Dispose();
+            ResponseProcessorFactory.Dispose();
         }
 
         #endregion
     }
-
-    //public class Afasdasd
-    //{
-    //    private ITracer Tracer;
-    //    private ISerializationAdapter SerializationAdapter;
-    //    private IZip Zip;
-
-
-    //}
-
 }
