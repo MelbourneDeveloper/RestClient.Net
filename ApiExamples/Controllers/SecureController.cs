@@ -11,13 +11,15 @@ namespace ApiExamples.Controllers
 
     public class SecureController : ControllerBase
     {
+        public const string NotAuthorizedMessage = "Not authorized";
+
         [HttpGet]
         [Route("basic")]
         public IActionResult Get()
         {
             if (Request.Headers["Authorization"] != "Basic Qm9iOkFOaWNlUGFzc3dvcmQ=")
             {
-                var json = JsonConvert.SerializeObject(new ApiResult { Errors = { "Not authorized" } });
+                var json = JsonConvert.SerializeObject(new ApiResult { Errors = { NotAuthorizedMessage } });
                 return Unauthorized(json);
             }
 

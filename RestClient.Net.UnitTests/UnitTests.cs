@@ -56,7 +56,7 @@ namespace RestClientDotNet.UnitTests
             Assert.IsTrue(countries.Count > 0);
 
             tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
-            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d != null && d.Length > 0), TraceType.Response,(int) HttpStatusCode.OK, It.IsAny<IRestHeadersCollection>()));
+            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d != null && d.Length > 0), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeadersCollection>()));
         }
 
         [TestMethod]
@@ -190,7 +190,7 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(requestUserPost.title, responseUserPost.title);
 
             _tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
-            _tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Response,(int) expectedStatusCode, It.IsAny<IRestHeadersCollection>()));
+            _tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, (int)expectedStatusCode, It.IsAny<IRestHeadersCollection>()));
         }
 
         [TestMethod]
@@ -491,12 +491,31 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestBasicAuthentication()
+        public async Task TestBasicAuthenticationLocal()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
             restClient.UseBasicAuthentication("Bob", "ANicePassword");
             Person person = await restClient.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative));
             Assert.AreEqual("Sam", person.FirstName);
+        }
+
+        [TestMethod]
+        public async Task TestBasicAuthenticationLocalWithError()
+        {
+            try
+            {
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
+                restClient.UseBasicAuthentication("Bob", "WrongPassword");
+                Person person = await restClient.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative));
+            }
+            catch (HttpStatusException ex)
+            {
+                Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.RestResponse.StatusCode);
+                var apiResult = await ex.RestResponse.ReadResponseAsync<ApiResult>();
+                Assert.AreEqual(SecureController.NotAuthorizedMessage, apiResult.Errors.First());
+                return;
+            }
+            Assert.Fail();
         }
 
         //TODO: Test exceptions
