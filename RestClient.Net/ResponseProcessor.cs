@@ -8,16 +8,18 @@ namespace RestClientDotNet
 {
     public class ResponseProcessor : IResponseProcessor
     {
-        private IZip Zip { get; }
-        private ISerializationAdapter SerializationAdapter { get; }
-        public bool IsSuccess => _httpResponseMessage.IsSuccessStatusCode;
-        public int StatusCode => (int)_httpResponseMessage.StatusCode;
+        #region Public Properties
+        public IZip Zip { get; }
+        public ISerializationAdapter SerializationAdapter { get; }
+        public bool IsSuccess => HttpResponseMessage.IsSuccessStatusCode;
+        public int StatusCode => (int)HttpResponseMessage.StatusCode;
         public IRestHeadersCollection Headers { get; }
-        public object UnderlyingResponseMessage => _httpResponseMessage;
+        public object UnderlyingResponseMessage => HttpResponseMessage;
+        public ITracer Tracer { get; }
+        public HttpResponseMessage HttpResponseMessage { get; }
+        #endregion
 
-        private readonly HttpResponseMessage _httpResponseMessage;
-        private readonly ITracer Tracer;
-
+        #region Constructor
         public ResponseProcessor
             (
                 IZip zip,
@@ -28,11 +30,13 @@ namespace RestClientDotNet
         {
             Zip = zip;
             SerializationAdapter = serializationAdapter;
-            _httpResponseMessage = httpResponseMessage ?? throw new ArgumentNullException(nameof(httpResponseMessage));
+            HttpResponseMessage = httpResponseMessage ?? throw new ArgumentNullException(nameof(httpResponseMessage));
             Tracer = tracer;
             Headers = new RestResponseHeadersCollection(httpResponseMessage.Headers);
         }
+        #endregion
 
+        #region Implementation
         public async Task<RestResponse<TReturn>> GetRestResponse<TReturn>(Uri baseUri, Uri queryString, HttpVerb httpVerb)
         {
             byte[] responseData = null;
@@ -40,29 +44,29 @@ namespace RestClientDotNet
             if (Zip != null)
             {
                 //This is for cases where an unzipping utility needs to be used to unzip the content. This is actually a bug in UWP
-                var gzipHeader = _httpResponseMessage.Content.Headers.ContentEncoding.FirstOrDefault(h =>
+                var gzipHeader = HttpResponseMessage.Content.Headers.ContentEncoding.FirstOrDefault(h =>
                     !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.OrdinalIgnoreCase));
                 if (gzipHeader != null)
                 {
-                    var bytes = await _httpResponseMessage.Content.ReadAsByteArrayAsync();
+                    var bytes = await HttpResponseMessage.Content.ReadAsByteArrayAsync();
                     responseData = Zip.Unzip(bytes);
                 }
             }
 
             if (responseData == null)
             {
-                responseData = await _httpResponseMessage.Content.ReadAsByteArrayAsync();
+                responseData = await HttpResponseMessage.Content.ReadAsByteArrayAsync();
             }
 
             var bodyObject = await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
 
-            var restHeadersCollection = new RestResponseHeadersCollection(_httpResponseMessage.Headers);
+            var restHeadersCollection = new RestResponseHeadersCollection(HttpResponseMessage.Headers);
 
             var restResponse = new RestResponse<TReturn>(
                 bodyObject,
                 restHeadersCollection,
-                (int)_httpResponseMessage.StatusCode,
-                _httpResponseMessage,
+                (int)HttpResponseMessage.StatusCode,
+                HttpResponseMessage,
                 this
             );
 
@@ -72,10 +76,11 @@ namespace RestClientDotNet
                 queryString,
                 responseData,
                 TraceType.Response,
-                _httpResponseMessage.StatusCode,
+                HttpResponseMessage.StatusCode,
                 restHeadersCollection);
 
             return restResponse;
         }
+        #endregion
     }
 }
