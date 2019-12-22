@@ -14,33 +14,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xml2CSharp;
 
 namespace RestClientDotNet.UnitTests
 {
-    public class TestClientFactory : IHttpClientFactory
-    {
-        HttpClient _testClient;
-
-        public TestClientFactory(HttpClient testClient)
-        {
-            _testClient = testClient;
-        }
-
-        public TimeSpan Timeout { get => _testClient.Timeout; set => _testClient.Timeout = value; }
-
-        public Uri BaseUri => _testClient.BaseAddress;
-
-        public IRestHeadersCollection DefaultRequestHeaders => new RestRequestHeadersCollection(_testClient.DefaultRequestHeaders);
-
-        public HttpClient Create()
-        {
-            return _testClient;
-        }
-    }
 
     [TestClass]
     public class UnitTests
@@ -246,7 +225,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersLocalGet()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(),_testServerHttpClientFactory);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             Person responsePerson = await restClient.GetAsync<Person>("headers");
             Assert.IsNotNull(responsePerson);
@@ -298,7 +277,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersLocalPost()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(),_testServerHttpClientFactory);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var responsePerson = await restClient.PostAsync<Person, Person>(new Person { FirstName = "Bob" }, new Uri("headers", UriKind.Relative));
             Assert.IsNotNull(responsePerson);
@@ -476,9 +455,9 @@ namespace RestClientDotNet.UnitTests
             Assert.Fail();
         }
 
-        //TODO: Test error models
-
         //TODO: Test exceptions
+
+        //TODO: Test all constructor overloads
 
         #endregion
 
