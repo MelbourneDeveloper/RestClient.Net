@@ -14,24 +14,26 @@ namespace RestClientDotNet
             }
             set
             {
+                //For some reason this can't be set to blank?
+                if (value == default) return;
+
                 HttpClient.Timeout = value;
             }
         }
 
-        public Uri BaseUri { get; }
+        public Uri BaseUri => HttpClient.BaseAddress;
         public IRestHeadersCollection DefaultRequestHeaders { get; }
         public HttpClient HttpClient = new HttpClient();
 
         public SingletonHttpClientFactory(TimeSpan timeout, Uri baseUri)
         {
-            if (BaseUri != null)
+            if (baseUri != null)
             {
-                HttpClient.BaseAddress = BaseUri;
+                HttpClient.BaseAddress = baseUri;
             }
 
             DefaultRequestHeaders = new RestRequestHeadersCollection(HttpClient.DefaultRequestHeaders);
             Timeout = timeout;
-            BaseUri = baseUri;
         }
 
         public HttpClient Create()

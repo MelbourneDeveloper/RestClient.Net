@@ -11,7 +11,7 @@ namespace RestClientDotNet
         {
         }
 
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, ITracer tracer) : this(serializationAdapter, baseUri, default, tracer, new SingletonHttpClientFactory(default, default), null)
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, ITracer tracer) : this(serializationAdapter, baseUri, default, tracer, new SingletonHttpClientFactory(default, baseUri), null)
         {
         }
 
