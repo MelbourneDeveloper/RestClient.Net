@@ -104,6 +104,7 @@ namespace RestClientDotNet
 
         public void Dispose()
         {
+            HttpClientFactory.Dispose();
         }
         #endregion
     }

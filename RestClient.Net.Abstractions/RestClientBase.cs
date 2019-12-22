@@ -79,58 +79,6 @@ namespace RestClientDotNet.Abstractions
         #endregion
 
         #region Public Methods
-
-
-        #region Post
-        public Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body)
-        {
-            return PostAsync<TReturn, TBody>(body, default(Uri));
-        }
-
-        public Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body, string queryString)
-        {
-            return PostAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
-        }
-
-        public Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body, Uri queryString)
-        {
-            return PostAsync<TReturn, TBody>(body, queryString, default);
-        }
-
-        public Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
-        {
-            return PostAsync<TReturn, TBody>(body, queryString, DefaultContentType, cancellationToken);
-        }
-
-        public Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
-        {
-            return Call<TReturn, TBody>(queryString, HttpVerb.Post, contentType, body, cancellationToken);
-        }
-        #endregion
-
-
-        #region Patch
-        public Task<RestResponse<TReturn>> PatchAsync<TReturn, TBody>(TBody body, string queryString)
-        {
-            return PatchAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
-        }
-
-        public Task<RestResponse<TReturn>> PatchAsync<TReturn, TBody>(TBody body, Uri queryString)
-        {
-            return PatchAsync<TReturn, TBody>(body, queryString, DefaultContentType, default);
-        }
-
-        public Task<RestResponse<TReturn>> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
-        {
-            return PatchAsync<TReturn, TBody>(body, queryString, DefaultContentType, cancellationToken);
-        }
-
-        public Task<RestResponse<TReturn>> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
-        {
-            return Call<TReturn, object>(queryString, HttpVerb.Patch, contentType, body, cancellationToken);
-        }
-        #endregion
-
         public void Dispose()
         {
             if (disposed)
@@ -144,7 +92,6 @@ namespace RestClientDotNet.Abstractions
 
             ResponseProcessorFactory.Dispose();
         }
-
         #endregion
     }
 }

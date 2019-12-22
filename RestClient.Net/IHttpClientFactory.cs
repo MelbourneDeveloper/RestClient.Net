@@ -4,7 +4,7 @@ using RestClientDotNet.Abstractions;
 
 namespace RestClientDotNet
 {
-    public interface IHttpClientFactory
+    public interface IHttpClientFactory : IDisposable
     {
         TimeSpan Timeout { get; set; }
         Uri BaseUri { get; }

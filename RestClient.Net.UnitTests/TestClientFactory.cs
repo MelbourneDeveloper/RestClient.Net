@@ -24,5 +24,10 @@ namespace RestClientDotNet.UnitTests
         {
             return _testClient;
         }
+
+        public void Dispose()
+        {
+            _testClient.Dispose();
+        }
     }
 }

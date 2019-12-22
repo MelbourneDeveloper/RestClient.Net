@@ -6,6 +6,11 @@ namespace RestClientDotNet
 {
     public class SingletonHttpClientFactory : IHttpClientFactory
     {
+        #region Fields
+        private bool disposed;
+        #endregion
+
+
         #region Public Properties
         public TimeSpan Timeout
         {
@@ -21,12 +26,20 @@ namespace RestClientDotNet
 
         public Uri BaseUri => HttpClient.BaseAddress;
         public IRestHeadersCollection DefaultRequestHeaders { get; }
-        public HttpClient HttpClient { get; } = new HttpClient();
+        public HttpClient HttpClient { get; }
         #endregion
 
         #region Constructor
-        public SingletonHttpClientFactory(TimeSpan timeout, Uri baseUri)
+        public SingletonHttpClientFactory(TimeSpan timeout, Uri baseUri) : this(timeout, baseUri, null)
         {
+        }
+
+        public SingletonHttpClientFactory(TimeSpan timeout, Uri baseUri, HttpClient httpClient)
+        {
+            if (httpClient == null) httpClient = new HttpClient();
+
+            HttpClient = httpClient;
+
             if (baseUri != null)
             {
                 HttpClient.BaseAddress = baseUri;
@@ -41,6 +54,13 @@ namespace RestClientDotNet
         public HttpClient CreateHttpClient()
         {
             return HttpClient;
+        }
+
+        public void Dispose()
+        {
+            if (disposed) return;
+            disposed = true;
+            HttpClient.Dispose();
         }
         #endregion
     }
