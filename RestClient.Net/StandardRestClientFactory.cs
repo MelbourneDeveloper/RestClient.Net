@@ -1,6 +1,5 @@
 ﻿using RestClientDotNet.Abstractions;
 using System;
-using System.Net.Http;
 
 namespace RestClientDotNet
 {
@@ -22,12 +21,12 @@ namespace RestClientDotNet
         #region Implementation
         public IRestClient CreateRestClient(Uri baseUri)
         {
-            return new RestClient(SerializationAdapter, baseUri, default, null, HttpClientFactory, null);
+            return new RestClient(SerializationAdapter, HttpClientFactory);
         }
 
         public IRestClient CreateRestClient()
         {
-            return new RestClient(SerializationAdapter, null, default, null, HttpClientFactory, null);
+            return new RestClient(SerializationAdapter, HttpClientFactory);
         }
         #endregion
     }
