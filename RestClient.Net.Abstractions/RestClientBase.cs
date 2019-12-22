@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet.Abstractions
 {
-    public class RestClientBase : IDisposable
+    public class RestClientBase : IDisposable, IRestClient
     {
         #region Fields
         private bool disposed;
@@ -35,6 +35,10 @@ namespace RestClientDotNet.Abstractions
         #endregion
 
         #region Private Methods
+        Task<RestResponse<TReturn>> IRestClient.SendAsync<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
+        {
+            return Call<TReturn, TBody>(queryString, httpVerb, contentType, body, cancellationToken);
+        }
 
         private async Task<RestResponse<TReturn>> Call<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
         {
@@ -74,49 +78,6 @@ namespace RestClientDotNet.Abstractions
 
         #region Public Methods
 
-        #region Get
-        public Task<RestResponse<T>> GetAsync<T>()
-        {
-            return Call<T, object>(null, HttpVerb.Get, DefaultContentType, null, default);
-        }
-
-        public Task<RestResponse<T>> GetAsync<T>(string queryString)
-        {
-            try
-            {
-                return GetAsync<T>(new Uri(queryString, UriKind.Relative));
-            }
-            catch (UriFormatException ufe)
-            {
-                if (ufe.Message == "A relative URI cannot be created because the 'uriString' parameter represents an absolute URI.")
-                {
-                    throw new UriFormatException(Messages.ErrorMessageAbsoluteUriAsString, ufe);
-                }
-
-                throw;
-            }
-        }
-
-        public Task<RestResponse<T>> GetAsync<T>(Uri queryString)
-        {
-            return GetAsync<T>(queryString, DefaultContentType);
-        }
-
-        public Task<RestResponse<T>> GetAsync<T>(Uri queryString, string contentType)
-        {
-            return GetAsync<T>(queryString, contentType, default);
-        }
-
-        public Task<RestResponse<T>> GetAsync<T>(Uri queryString, CancellationToken cancellationToken)
-        {
-            return GetAsync<T>(queryString, DefaultContentType, cancellationToken);
-        }
-
-        public Task<RestResponse<T>> GetAsync<T>(Uri queryString, string contentType, CancellationToken cancellationToken)
-        {
-            return Call<T, object>(queryString, HttpVerb.Get, contentType, null, cancellationToken);
-        }
-        #endregion
 
         #region Post
         public Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body)
