@@ -35,7 +35,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        public async Task<IResponseProcessor> GetResponseProcessor<TBody>(HttpVerb httpVerb, Uri baseUri, Uri queryString, TBody body, string contentType, CancellationToken cancellationToken)
+        public async Task<IResponseProcessor> CreateResponseProcessorAsync<TBody>(HttpVerb httpVerb, Uri baseUri, Uri queryString, TBody body, string contentType, CancellationToken cancellationToken)
         {
             var httpClient = HttpClientFactory.CreateHttpClient();
 

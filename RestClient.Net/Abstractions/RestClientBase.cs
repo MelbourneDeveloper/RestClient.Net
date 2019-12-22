@@ -38,7 +38,7 @@ namespace RestClientDotNet.Abstractions
 
         private async Task<RestResponse<TReturn>> Call<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
         {
-            var responseProcessor = await ResponseProcessorFactory.GetResponseProcessor
+            var responseProcessor = await ResponseProcessorFactory.CreateResponseProcessorAsync
                 (
                 httpVerb,
                 BaseUri,
