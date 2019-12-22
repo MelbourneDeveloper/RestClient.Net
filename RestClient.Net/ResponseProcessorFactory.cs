@@ -8,6 +8,7 @@ namespace RestClientDotNet
 {
     public class ResponseProcessorFactory : IResponseProcessorFactory
     {
+        #region Public Properties
         public IZip Zip { get; }
         public ISerializationAdapter SerializationAdapter { get; }
         public ITracer Tracer { get; }
@@ -15,7 +16,9 @@ namespace RestClientDotNet
         public TimeSpan Timeout { get => HttpClientFactory.Timeout; set => HttpClientFactory.Timeout = value; }
         public Uri BaseAddress => HttpClientFactory.BaseUri;
         public IRestHeadersCollection DefaultRequestHeaders => HttpClientFactory.DefaultRequestHeaders;
+        #endregion
 
+        #region Constructor
         public ResponseProcessorFactory(
             ISerializationAdapter serializationAdapter,
             ITracer tracer,
@@ -29,10 +32,12 @@ namespace RestClientDotNet
             Zip = zip;
             Tracer = tracer;
         }
+        #endregion
 
+        #region Implementation
         public async Task<IResponseProcessor> GetResponseProcessor<TBody>(HttpVerb httpVerb, Uri BaseUri, Uri queryString, TBody body, string contentType, CancellationToken cancellationToken)
         {
-            var HttpClient = HttpClientFactory.Create();
+            var HttpClient = HttpClientFactory.CreateHttpClient();
 
             HttpResponseMessage httpResponseMessage = null;
 
@@ -100,6 +105,7 @@ namespace RestClientDotNet
         public void Dispose()
         {
         }
+        #endregion
     }
 
 }

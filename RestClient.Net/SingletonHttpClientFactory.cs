@@ -38,7 +38,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        public HttpClient Create()
+        public HttpClient CreateHttpClient()
         {
             return HttpClient;
         }

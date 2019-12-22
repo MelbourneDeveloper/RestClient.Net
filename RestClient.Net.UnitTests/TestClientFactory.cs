@@ -20,7 +20,7 @@ namespace RestClientDotNet.UnitTests
 
         public IRestHeadersCollection DefaultRequestHeaders => new RestRequestHeadersCollection(_testClient.DefaultRequestHeaders);
 
-        public HttpClient Create()
+        public HttpClient CreateHttpClient()
         {
             return _testClient;
         }
