@@ -12,7 +12,7 @@ namespace RestClientDotNet.Abstractions
             IRestHeadersCollection restHeadersCollection,
             int statusCode,
             object underlyingResponse,
-            ResponseProcessor responseProcessor
+            IResponseProcessor responseProcessor
             ) : base(restHeadersCollection, responseProcessor, statusCode, underlyingResponse)
         {
             Body = body;
@@ -37,14 +37,14 @@ namespace RestClientDotNet.Abstractions
         public int StatusCode { get; }
         public object UnderlyingResponse { get; }
         public IRestHeadersCollection Headers { get; }
-        public ResponseProcessor ResponseProcessor { get; }
+        public IResponseProcessor ResponseProcessor { get; }
         public Uri BaseUri { get; }
         public Uri QueryString { get; }
         public HttpVerb HttpVerb { get; }
         #endregion
 
         #region Constructor
-        public RestResponse(IRestHeadersCollection restHeadersCollection, ResponseProcessor responseProcessor, int statusCode, object underlyingResponse)
+        public RestResponse(IRestHeadersCollection restHeadersCollection, IResponseProcessor responseProcessor, int statusCode, object underlyingResponse)
         {
             StatusCode = statusCode;
             UnderlyingResponse = underlyingResponse;

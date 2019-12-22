@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
-    public class ResponseProcessor
+    public class ResponseProcessor : IResponseProcessor
     {
         private IZip Zip { get; }
         private ISerializationAdapter SerializationAdapter { get; }
@@ -27,7 +27,7 @@ namespace RestClientDotNet
             Tracer = tracer;
         }
 
-        public async Task<RestResponse<TReturn>> GetRestResponse<TReturn>(Uri BaseUri, Uri queryString, HttpVerb httpVerb)
+        public async Task<RestResponse<TReturn>> GetRestResponse<TReturn>(Uri baseUri, Uri queryString, HttpVerb httpVerb)
         {
             byte[] responseData = null;
 
@@ -62,7 +62,7 @@ namespace RestClientDotNet
 
             Tracer?.Trace(
                 httpVerb,
-                BaseUri,
+                baseUri,
                 queryString,
                 responseData,
                 TraceType.Response,
