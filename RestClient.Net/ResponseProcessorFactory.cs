@@ -23,6 +23,7 @@ namespace RestClientDotNet
             IZip zip
             )
         {
+            if (httpClientFactory == null) throw new ArgumentNullException(nameof(httpClientFactory));
             SerializationAdapter = serializationAdapter;
             Zip = zip;
             HttpClientFactory = httpClientFactory;
