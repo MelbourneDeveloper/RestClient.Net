@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApiExamples.Model;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ApiExamples.Controllers
 {
@@ -6,12 +8,13 @@ namespace ApiExamples.Controllers
     [Route("[controller]")]
     public class ErrorController : ControllerBase
     {
-        public const string ExceptionMessage = "Incorrect or missing header";
+        public const string ErrorMessage = "Not this time buddy";
 
         [HttpGet]
         public IActionResult GetAsync()
         {
-            return BadRequest("Not this time buddy");
+            var json = JsonConvert.SerializeObject(new ApiResult { Errors = { ErrorMessage } });
+            return BadRequest(json);
         }
     }
 }

@@ -10,7 +10,7 @@
             int statusCode,
             object underlyingResponse,
             IErrorHandler errorHandler
-            ) : base(restHeadersCollection, statusCode, underlyingResponse, errorHandler)
+            ) : base(restHeadersCollection, errorHandler, statusCode, underlyingResponse)
         {
             Body = body;
         }
@@ -38,7 +38,7 @@
         #endregion
 
         #region Constructor
-        public RestResponse(IRestHeadersCollection restHeadersCollection, int statusCode, object underlyingResponse, IErrorHandler errorHandler)
+        public RestResponse(IRestHeadersCollection restHeadersCollection, IErrorHandler errorHandler, int statusCode, object underlyingResponse)
         {
             StatusCode = statusCode;
             UnderlyingResponse = underlyingResponse;
