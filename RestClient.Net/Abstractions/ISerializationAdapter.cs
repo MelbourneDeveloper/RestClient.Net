@@ -2,7 +2,7 @@
 
 namespace RestClientDotNet.Abstractions
 {
-    public partial interface ISerializationAdapter
+    public interface ISerializationAdapter
     {
         /// <summary>
         /// Takes an object of Type T and converts it to binary data

@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace RestClientDotNet
 {
-    public class XmlSerializationAdapter : RestClientSerializationAdapterBase, ISerializationAdapter
+    public class XmlSerializationAdapter : ISerializationAdapter
     {
         #region Public Methods
 

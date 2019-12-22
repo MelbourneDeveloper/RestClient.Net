@@ -9,7 +9,7 @@ using System.Xml;
 
 namespace RestClientDotNet
 {
-    public class BinaryDataContractSerializationAdapter : RestClientSerializationAdapterBase, ISerializationAdapter
+    public class BinaryDataContractSerializationAdapter : ISerializationAdapter
     {
         #region Public Static Properties
         public static List<Type> KnownDataContracts { get; } = new List<Type>();

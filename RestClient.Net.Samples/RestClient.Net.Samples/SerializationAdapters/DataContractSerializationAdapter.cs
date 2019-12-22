@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
-    public class DataContractSerializationAdapter : RestClientSerializationAdapterBase, ISerializationAdapter
+    public class DataContractSerializationAdapter : ISerializationAdapter
     {
         #region Public Static Properties
         public static List<Type> KnownDataContracts { get; } = new List<Type>();
@@ -37,7 +37,7 @@ namespace RestClientDotNet
             return await Task.Factory.StartNew(() => Encoding.UTF8.GetString(bytes, 0, bytes.Length));
         }
 
-      	public async Task<byte[]> DecodeStringAsync(string theString)
+        public async Task<byte[]> DecodeStringAsync(string theString)
         {
             return await Task.Factory.StartNew(() => Encoding.UTF8.GetBytes(theString));
         }
