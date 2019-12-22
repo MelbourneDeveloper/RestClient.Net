@@ -10,25 +10,29 @@ namespace RestClientDotNet
     {
         public IRestHeadersCollection DefaultRequestHeaders => throw new NotImplementedException();
 
-        //public RestClient(ISerializationAdapter serializationAdapter) : this(serializationAdapter, null)
-        //{
-        //}
+        public RestClient(ISerializationAdapter serializationAdapter) : this(serializationAdapter, null)
+        {
+        }
 
-        //public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, ITracer tracer) : this(serializationAdapter, baseUri, default, null, tracer)
-        //{
-        //}
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, ITracer tracer) : this(serializationAdapter, baseUri, default, tracer, new HttpClientFactory(default, default), null)
+        {
+        }
 
-        //public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri) : this(serializationAdapter, baseUri, default, null)
-        //{
-        //}
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri) : this(serializationAdapter, baseUri, default, null)
+        {
+        }
 
-        //public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout) : this(serializationAdapter, baseUri, timeout, null)
-        //{
-        //}
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout) : this(serializationAdapter, baseUri, timeout, null)
+        {
+        }
 
-        //public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, HttpClient httpClient) : this(serializationAdapter, baseUri, timeout, httpClient, null, null, null);
-        //{
-        //}
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, IHttpClientFactory httpClientFactory) : this(serializationAdapter, baseUri, timeout, null, httpClientFactory, null)
+        {
+        }
+
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, ITracer tracer, IHttpClientFactory httpClientFactory) : this(serializationAdapter, baseUri, timeout, null, httpClientFactory, null)
+        {
+        }
 
         public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, ITracer tracer, IHttpClientFactory httpClientFactory, IZip zip) : base(serializationAdapter, baseUri, timeout, new ResponseProcessorFactory(serializationAdapter, tracer, httpClientFactory, zip), tracer)
         {

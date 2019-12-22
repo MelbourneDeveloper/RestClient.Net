@@ -21,12 +21,32 @@ using Xml2CSharp;
 
 namespace RestClientDotNet.UnitTests
 {
+    public class TestClientFactory : IHttpClientFactory
+    {
+        HttpClient _testClient;
+
+        public TestClientFactory(HttpClient testClient)
+        {
+            _testClient = testClient;
+        }
+
+        public TimeSpan Timeout { get => _testClient.Timeout; set => _testClient.Timeout = value; }
+
+        public Uri BaseUri => _testClient.BaseAddress;
+
+        public HttpClient Create()
+        {
+            return _testClient;
+        }
+    }
+
     [TestClass]
     public class UnitTests
     {
         #region Fields
         private static TestServer _testServer;
-        private static HttpClient _testServerHttpClient;
+        //private static HttpClient _testServerHttpClients;
+        private static TestClientFactory _testServerHttpClient;
         private static Mock<ITracer> _tracer;
         #endregion
 
@@ -37,7 +57,9 @@ namespace RestClientDotNet.UnitTests
             var hostBuilder = new WebHostBuilder();
             hostBuilder.UseStartup<Startup>();
             _testServer = new TestServer(hostBuilder);
-            _testServerHttpClient = _testServer.CreateClient();
+            _testServerHttpClient = new TestClientFactory(_testServer.CreateClient());
+
+
             _tracer = new Mock<ITracer>();
         }
         #endregion
@@ -259,7 +281,14 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersTraceLocalGet()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient, _tracer.Object);
+            var restClient = new RestClient(
+                new NewtonsoftSerializationAdapter(),
+                new Uri("http://localhost"),
+                default,
+                _tracer.Object
+                , _testServerHttpClient
+                , null);
+
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var response = await restClient.GetAsync<Person>("headers");
 
@@ -423,7 +452,7 @@ namespace RestClientDotNet.UnitTests
             Assert.Fail();
         }
 
-        [TestMethod]   
+        [TestMethod]
         public async Task TestErrorsLocalGet()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
@@ -443,7 +472,7 @@ namespace RestClientDotNet.UnitTests
                 var response = await restClient.GetAsync<Person>("error");
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             }
-            catch(HttpStatusException hex)
+            catch (HttpStatusException hex)
             {
                 var apiResult = await hex.RestResponse.ToModel<ApiResult>();
                 Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
