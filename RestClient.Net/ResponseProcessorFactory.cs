@@ -14,6 +14,7 @@ namespace RestClientDotNet
         public IHttpClientFactory HttpClientFactory { get; }
         public TimeSpan Timeout { get => HttpClientFactory.Timeout; set => HttpClientFactory.Timeout = value; }
         public Uri BaseAddress => HttpClientFactory.BaseUri;
+        public IRestHeadersCollection DefaultRequestHeaders => HttpClientFactory.DefaultRequestHeaders;
 
         public ResponseProcessorFactory(
             ISerializationAdapter serializationAdapter,
@@ -28,7 +29,7 @@ namespace RestClientDotNet
             Tracer = tracer;
         }
 
-        public async Task<IResponseProcessor> GetResponseProcessor<TBody>(HttpVerb httpVerb, Uri BaseUri, Uri queryString, TBody body, string contentType, IRestHeadersCollection defaultRequestHeaders, CancellationToken cancellationToken)
+        public async Task<IResponseProcessor> GetResponseProcessor<TBody>(HttpVerb httpVerb, Uri BaseUri, Uri queryString, TBody body, string contentType, CancellationToken cancellationToken)
         {
             var HttpClient = HttpClientFactory.Create();
 
@@ -37,11 +38,11 @@ namespace RestClientDotNet
             switch (httpVerb)
             {
                 case HttpVerb.Get:
-                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null, defaultRequestHeaders);
+                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null, DefaultRequestHeaders);
                     httpResponseMessage = await HttpClient.GetAsync(queryString, cancellationToken);
                     break;
                 case HttpVerb.Delete:
-                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null, defaultRequestHeaders);
+                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null, DefaultRequestHeaders);
                     httpResponseMessage = await HttpClient.DeleteAsync(queryString, cancellationToken);
                     break;
 
@@ -56,7 +57,7 @@ namespace RestClientDotNet
                         //Why do we have to set the content type only in cases where there is a request body, and headers?
                         httpContent.Headers.Add("Content-Type", contentType);
 
-                        Tracer?.Trace(httpVerb, BaseUri, queryString, bodyData, TraceType.Request, null, defaultRequestHeaders);
+                        Tracer?.Trace(httpVerb, BaseUri, queryString, bodyData, TraceType.Request, null, DefaultRequestHeaders);
 
                         if (httpVerb == HttpVerb.Put)
                         {
@@ -95,14 +96,8 @@ namespace RestClientDotNet
             return responseProcessor;
         }
 
-        public Task<IResponseProcessor> GetResponseProcessor<TBody>(HttpVerb httpVerb, Uri BaseUri, Uri queryString, TBody body, string contentType, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Dispose()
         {
-            throw new NotImplementedException();
         }
     }
 

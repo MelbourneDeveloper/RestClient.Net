@@ -34,6 +34,8 @@ namespace RestClientDotNet.UnitTests
 
         public Uri BaseUri => _testClient.BaseAddress;
 
+        public IRestHeadersCollection DefaultRequestHeaders => new RestRequestHeadersCollection(_testClient.DefaultRequestHeaders);
+
         public HttpClient Create()
         {
             return _testClient;
