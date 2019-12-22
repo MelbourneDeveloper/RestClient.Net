@@ -428,8 +428,10 @@ namespace RestClientDotNet.UnitTests
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.ThrowExceptionOnFailure = false;
-            var response = await restClient.GetAsync<string>("error");
-            var asdasd = await response.ToModel<ApiResult>();
+            var response = await restClient.GetAsync<Person>("error");
+            Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
+            var apiResult = await response.ToModel<ApiResult>();
+            Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
         }
 
         //TODO: Test error models
