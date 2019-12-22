@@ -66,7 +66,6 @@ namespace RestClientDotNet
                 bodyObject,
                 restHeadersCollection,
                 (int)HttpResponseMessage.StatusCode,
-                HttpResponseMessage,
                 this
             );
 

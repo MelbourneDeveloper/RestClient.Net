@@ -57,7 +57,6 @@ namespace RestClientDotNet
                 default,
                 responseProcessor.Headers,
                 responseProcessor.StatusCode,
-                responseProcessor.UnderlyingResponseMessage,
                 responseProcessor
                 );
 
