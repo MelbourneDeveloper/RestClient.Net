@@ -521,10 +521,55 @@ namespace RestClientDotNet.UnitTests
 
         #region All Extension Overloads
         [TestMethod]
+        public async Task TestLocalGetNoArgs()
+        {
+            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson"));
+            Person responsePerson = await restClient.GetAsync<Person>();
+            Assert.IsNotNull(responsePerson);
+            Assert.IsNotNull("Sam", responsePerson.FirstName);
+        }
+
+        [TestMethod]
         public async Task TestLocalGetStringUri()
-        {            
+        {
             var restClient = GetJsonClient();
             Person responsePerson = await restClient.GetAsync<Person>("JsonPerson");
+            Assert.IsNotNull(responsePerson);
+            Assert.IsNotNull("Sam", responsePerson.FirstName);
+        }
+
+        [TestMethod]
+        public async Task TestLocalGetUri()
+        {
+            var restClient = GetJsonClient();
+            Person responsePerson = await restClient.GetAsync<Person>(new Uri("JsonPerson", UriKind.Relative));
+            Assert.IsNotNull(responsePerson);
+            Assert.IsNotNull("Sam", responsePerson.FirstName);
+        }
+
+        [TestMethod]
+        public async Task TestLocalGetUriCancellationToken()
+        {
+            var restClient = GetJsonClient();
+            Person responsePerson = await restClient.GetAsync<Person>(new Uri("JsonPerson", UriKind.Relative), new CancellationToken());
+            Assert.IsNotNull(responsePerson);
+            Assert.IsNotNull("Sam", responsePerson.FirstName);
+        }
+
+        [TestMethod]
+        public async Task TestLocalGetUriContentType()
+        {
+            var restClient = GetJsonClient();
+            Person responsePerson = await restClient.GetAsync<Person>(new Uri("JsonPerson", UriKind.Relative), "application/json");
+            Assert.IsNotNull(responsePerson);
+            Assert.IsNotNull("Sam", responsePerson.FirstName);
+        }
+
+        [TestMethod]
+        public async Task TestLocalGetUriContentTypeCancellationToken()
+        {
+            var restClient = GetJsonClient();
+            Person responsePerson = await restClient.GetAsync<Person>(new Uri("JsonPerson", UriKind.Relative), "application/json", new CancellationToken());
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
@@ -539,9 +584,23 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         #region Helpers
-        private IRestClient GetJsonClient()
+        private IRestClient GetJsonClient(Uri baseUri = null)
         {
-            return new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
+            IRestClient restClient;
+
+            if (baseUri != null)
+            {
+                var httpClient = _testServer.CreateClient();
+                httpClient.BaseAddress = baseUri;
+                var testClientFactory = new TestClientFactory(httpClient);
+                restClient = new RestClient(new NewtonsoftSerializationAdapter(), testClientFactory);
+            }
+            else
+            {
+                restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
+            }
+
+            return restClient;
         }
 
         private static bool CheckRequestHeaders(RestRequestHeadersCollection restRequestHeadersCollection)
