@@ -434,6 +434,25 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
         }
 
+        [TestMethod]
+        public async Task TestErrorsLocalGetThrowException()
+        {
+            try
+            {
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
+                var response = await restClient.GetAsync<Person>("error");
+                Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
+            }
+            catch(HttpStatusException hex)
+            {
+                var apiResult = await hex.RestResponse.ToModel<ApiResult>();
+                Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
+                return;
+            }
+
+            Assert.Fail();
+        }
+
         //TODO: Test error models
 
         //TODO: Test exceptions
