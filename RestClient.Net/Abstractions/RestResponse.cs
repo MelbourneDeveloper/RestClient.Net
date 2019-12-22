@@ -62,7 +62,7 @@ namespace RestClientDotNet.Abstractions
             HttpVerb = httpVerb;
         }
 
-        public async Task<T> ToModel<T>()
+        public async Task<T> ReadResponseAsync<T>()
         {
             return await ResponseProcessor.ProcessRestResponseAsync<T>(BaseUri, QueryString, HttpVerb);
         }

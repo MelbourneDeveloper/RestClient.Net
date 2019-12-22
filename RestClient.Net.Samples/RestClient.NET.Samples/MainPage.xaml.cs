@@ -145,7 +145,7 @@ namespace RestClientDotNet.Sample
             var hex = ex as HttpStatusException;
             if (hex != null)
             {
-                errorModel = await hex.RestResponse.ToModel<ErrorModel>();
+                errorModel = await hex.RestResponse.ReadResponseAsync<ErrorModel>();
             }
 
             var message = $"An error occurred while attempting to use a REST service.\r\nError: {ex.Message}\r\nInner Error: {ex.InnerException?.Message}\r\nInner Inner Error: {ex.InnerException?.InnerException?.Message}";

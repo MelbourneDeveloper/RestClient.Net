@@ -462,7 +462,7 @@ namespace RestClientDotNet.UnitTests
             restClient.ThrowExceptionOnFailure = false;
             var response = await restClient.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
-            var apiResult = await response.ToModel<ApiResult>();
+            var apiResult = await response.ReadResponseAsync<ApiResult>();
             Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
 
             //Check that the response values are getting set correctly
@@ -482,7 +482,7 @@ namespace RestClientDotNet.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                var apiResult = await hex.RestResponse.ToModel<ApiResult>();
+                var apiResult = await hex.RestResponse.ReadResponseAsync<ApiResult>();
                 Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
                 return;
             }
