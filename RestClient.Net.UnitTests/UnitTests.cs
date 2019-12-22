@@ -142,7 +142,7 @@ namespace RestClientDotNet.UnitTests
         {
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), new TimeSpan(0,0,0,0,1));
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), new TimeSpan(0, 0, 0, 0, 1));
                 await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
             }
             catch (TaskCanceledException ex)
@@ -358,6 +358,15 @@ namespace RestClientDotNet.UnitTests
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var responsePerson = await restClient.PutAsync<Person, Person>(new Person { FirstName = "Bob" }, new Uri("headers", UriKind.Relative));
+            Assert.IsNotNull(responsePerson);
+        }
+
+        [TestMethod]
+        public async Task TestHeadersLocalPutStringOverload()
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
+            restClient.DefaultRequestHeaders.Add("Test", "Test");
+            var responsePerson = await restClient.PutAsync<Person, Person>(new Person { FirstName = "Bob" }, "headers");
             Assert.IsNotNull(responsePerson);
         }
 

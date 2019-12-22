@@ -17,7 +17,6 @@ namespace RestClientDotNet
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public string DefaultContentType { get; set; } = "application/json";
         public Uri BaseUri => ResponseProcessorFactory.BaseAddress;
-        public IZip Zip { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
         public TimeSpan Timeout
         {
@@ -28,10 +27,6 @@ namespace RestClientDotNet
         #endregion
 
         #region Constructor
-        public RestClientBase(ISerializationAdapter serializationAdapter, IResponseProcessorFactory responseProcessorFactory) : this(serializationAdapter, responseProcessorFactory, null)
-        {
-        }
-
         public RestClientBase(ISerializationAdapter serializationAdapter, IResponseProcessorFactory responseProcessorFactory, ITracer tracer)
         {
             ResponseProcessorFactory = responseProcessorFactory;
@@ -71,10 +66,8 @@ namespace RestClientDotNet
                 throw new HttpStatusException(
                     $"{responseProcessor.StatusCode}.\r\nBase Uri: {BaseUri}. Querystring: {queryString}", errorResponse);
             }
-            else
-            {
-                return errorResponse;
-            }
+
+            return errorResponse;
         }
         #endregion
 
