@@ -6,12 +6,10 @@ namespace RestClientDotNet
 {
     public class SingletonHttpClientFactory : IHttpClientFactory
     {
+        #region Public Properties
         public TimeSpan Timeout
         {
-            get
-            {
-                return HttpClient.Timeout;
-            }
+            get => HttpClient.Timeout;
             set
             {
                 //For some reason this can't be set to blank?
@@ -23,8 +21,10 @@ namespace RestClientDotNet
 
         public Uri BaseUri => HttpClient.BaseAddress;
         public IRestHeadersCollection DefaultRequestHeaders { get; }
-        public HttpClient HttpClient = new HttpClient();
+        public HttpClient HttpClient { get; } = new HttpClient();
+        #endregion
 
+        #region Constructor
         public SingletonHttpClientFactory(TimeSpan timeout, Uri baseUri)
         {
             if (baseUri != null)
@@ -35,11 +35,14 @@ namespace RestClientDotNet
             DefaultRequestHeaders = new RestRequestHeadersCollection(HttpClient.DefaultRequestHeaders);
             Timeout = timeout;
         }
+        #endregion
 
+        #region Implementation
         public HttpClient Create()
         {
             return HttpClient;
         }
+        #endregion
     }
 
 }

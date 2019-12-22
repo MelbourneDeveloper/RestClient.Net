@@ -26,7 +26,7 @@ Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
     <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Async, json, soap, xml, http, https , Android, iOS, Hardfolio, cryptocurrency</PackageTags>
     <PackageReleaseNotes>Allow the HttpClient to be pass in in the constructor</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <CodeAnalysisRuleSet></CodeAnalysisRuleSet>    
+    <CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>    
     <NoWarn>CA2007</NoWarn>    
     <LangVersion>7.3</LangVersion>    
     <PackageLicenseFile>License.txt</PackageLicenseFile>    
@@ -34,6 +34,7 @@ Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8" />
     <None Include="License.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

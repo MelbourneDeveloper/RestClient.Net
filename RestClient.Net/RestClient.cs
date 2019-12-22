@@ -25,7 +25,7 @@ namespace RestClientDotNet
         {
         }
 
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, ITracer tracer, IHttpClientFactory httpClientFactory) : this(serializationAdapter, baseUri, timeout, null, httpClientFactory, null)
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout, IHttpClientFactory httpClientFactory, ITracer tracer) : this(serializationAdapter, baseUri, timeout, tracer, httpClientFactory, null)
         {
         }
 

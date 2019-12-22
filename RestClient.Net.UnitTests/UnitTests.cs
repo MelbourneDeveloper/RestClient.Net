@@ -47,7 +47,6 @@ namespace RestClientDotNet.UnitTests
     {
         #region Fields
         private static TestServer _testServer;
-        //private static HttpClient _testServerHttpClients;
         private static TestClientFactory _testServerHttpClient;
         private static Mock<ITracer> _tracer;
         #endregion
@@ -283,14 +282,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersTraceLocalGet()
         {
-            var restClient = new RestClient(
-                new NewtonsoftSerializationAdapter(),
-                new Uri("http://localhost"),
-                default,
-                _tracer.Object
-                , _testServerHttpClient
-                , null);
-
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient, _tracer.Object);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var response = await restClient.GetAsync<Person>("headers");
 
