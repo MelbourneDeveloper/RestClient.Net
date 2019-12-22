@@ -11,8 +11,11 @@ namespace RestClientDotNet.Abstractions
             TBody body,
             IRestHeadersCollection restHeadersCollection,
             int statusCode,
-            IResponseProcessor responseProcessor
-            ) : base(restHeadersCollection, responseProcessor, statusCode)
+            IResponseProcessor responseProcessor,
+            Uri baseUri,
+            Uri queryString,
+            HttpVerb httpVerb
+            ) : base(restHeadersCollection, responseProcessor, statusCode, baseUri, queryString, httpVerb)
         {
             Body = body;
         }
@@ -45,11 +48,18 @@ namespace RestClientDotNet.Abstractions
         public RestResponse(
             IRestHeadersCollection restHeadersCollection,
             IResponseProcessor responseProcessor,
-            int statusCode)
+            int statusCode,
+            Uri baseUri,
+            Uri queryString,
+            HttpVerb httpVerb
+            )
         {
             StatusCode = statusCode;
             Headers = restHeadersCollection;
             ResponseProcessor = responseProcessor;
+            BaseUri = baseUri;
+            QueryString = queryString;
+            HttpVerb = httpVerb;
         }
 
         public async Task<T> ToModel<T>()

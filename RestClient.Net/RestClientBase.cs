@@ -57,7 +57,10 @@ namespace RestClientDotNet
                 default,
                 responseProcessor.Headers,
                 responseProcessor.StatusCode,
-                responseProcessor
+                responseProcessor,
+                BaseUri,
+                queryString,
+                httpVerb
                 );
 
             if (ThrowExceptionOnFailure)

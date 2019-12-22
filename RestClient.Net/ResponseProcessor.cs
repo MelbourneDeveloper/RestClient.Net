@@ -66,7 +66,10 @@ namespace RestClientDotNet
                 bodyObject,
                 restHeadersCollection,
                 (int)HttpResponseMessage.StatusCode,
-                this
+                this,
+                baseUri,
+                queryString,
+                httpVerb
             );
 
             Tracer?.Trace(
