@@ -6,5 +6,9 @@ namespace RestClientDotNet.Abstractions
     public interface IResponseProcessor
     {
         Task<RestResponse<TReturn>> GetRestResponse<TReturn>(Uri baseUri, Uri queryString, HttpVerb httpVerb);
+        bool IsSuccess { get; }
+        int StatusCode { get; }
+        IRestHeadersCollection Headers { get; }
+        object UnderlyingResponseMessage { get; }
     }
 }

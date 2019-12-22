@@ -13,6 +13,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Public Properties
+        public IResponseProcessorFactory ResponseProcessorFactory { get; } = new ResponseProcessorFactory();
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public HttpClient HttpClient { get; }
         public string DefaultContentType { get; set; } = "application/json";
@@ -75,85 +76,36 @@ namespace RestClientDotNet
         #endregion
 
         #region Private Methods
+
         private async Task<RestResponse<TReturn>> Call<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
         {
-            HttpResponseMessage httpResponseMessage = null;
+            var responseProcessor = await ResponseProcessorFactory.GetResponseProcessor
+                (
+                httpVerb,
+                BaseUri,
+                queryString,
+                body,
+                contentType,
+                DefaultRequestHeaders,
+                cancellationToken);
 
-            switch (httpVerb)
-            {
-                case HttpVerb.Get:
-                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null, DefaultRequestHeaders);
-                    httpResponseMessage = await HttpClient.GetAsync(queryString, cancellationToken);
-                    break;
-                case HttpVerb.Delete:
-                    Tracer?.Trace(httpVerb, BaseUri, queryString, null, TraceType.Request, null, DefaultRequestHeaders);
-                    httpResponseMessage = await HttpClient.DeleteAsync(queryString, cancellationToken);
-                    break;
-
-                case HttpVerb.Post:
-                case HttpVerb.Put:
-                case HttpVerb.Patch:
-
-                    var bodyData = await SerializationAdapter.SerializeAsync(body);
-
-                    using (var httpContent = new ByteArrayContent(bodyData))
-                    {
-                        //Why do we have to set the content type only in cases where there is a request body, and headers?
-                        httpContent.Headers.Add("Content-Type", contentType);
-
-                        Tracer?.Trace(httpVerb, BaseUri, queryString, bodyData, TraceType.Request, null, DefaultRequestHeaders);
-
-                        if (httpVerb == HttpVerb.Put)
-                        {
-                            httpResponseMessage = await HttpClient.PutAsync(queryString, httpContent, cancellationToken);
-                        }
-                        else if (httpVerb == HttpVerb.Post)
-                        {
-                            httpResponseMessage = await HttpClient.PostAsync(queryString, httpContent, cancellationToken);
-                        }
-                        else
-                        {
-                            var method = new HttpMethod("PATCH");
-                            using (var request = new HttpRequestMessage(method, queryString)
-                            {
-                                Content = httpContent
-                            })
-                            {
-                                httpResponseMessage = await HttpClient.SendAsync(request, cancellationToken);
-                            }
-                        }
-                    }
-
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-
-            var responseProcessor = new ResponseProcessor
-            (
-                Zip,
-                SerializationAdapter,
-                httpResponseMessage,
-                Tracer
-            );
-
-            if (httpResponseMessage.IsSuccessStatusCode)
+            if (responseProcessor.IsSuccess)
             {
                 return await responseProcessor.GetRestResponse<TReturn>(BaseUri, queryString, httpVerb);
             }
 
             var errorResponse = new RestResponse<TReturn>(
                 default,
-                new RestResponseHeadersCollection(httpResponseMessage.Headers),
-                (int)httpResponseMessage.StatusCode,
-                httpResponseMessage,
+                responseProcessor.Headers,
+                responseProcessor.StatusCode,
+                responseProcessor.UnderlyingResponseMessage,
                 responseProcessor
                 );
 
             if (ThrowExceptionOnFailure)
             {
                 throw new HttpStatusException(
-                    $"{httpResponseMessage.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}", errorResponse);
+                    $"{responseProcessor.StatusCode}.\r\nBase Uri: {HttpClient.BaseAddress}. Querystring: {queryString}", errorResponse);
             }
             else
             {
@@ -317,4 +269,14 @@ namespace RestClientDotNet
 
         #endregion
     }
+
+    //public class Afasdasd
+    //{
+    //    private ITracer Tracer;
+    //    private ISerializationAdapter SerializationAdapter;
+    //    private IZip Zip;
+
+
+    //}
+
 }

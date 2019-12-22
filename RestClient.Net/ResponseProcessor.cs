@@ -10,6 +10,11 @@ namespace RestClientDotNet
     {
         private IZip Zip { get; }
         private ISerializationAdapter SerializationAdapter { get; }
+        public bool IsSuccess => _httpResponseMessage.IsSuccessStatusCode;
+        public int StatusCode => (int)_httpResponseMessage.StatusCode;
+        public IRestHeadersCollection Headers { get; }
+        public object UnderlyingResponseMessage => _httpResponseMessage;
+
         private readonly HttpResponseMessage _httpResponseMessage;
         private readonly ITracer Tracer;
 
@@ -23,8 +28,9 @@ namespace RestClientDotNet
         {
             Zip = zip;
             SerializationAdapter = serializationAdapter;
-            _httpResponseMessage = httpResponseMessage;
+            _httpResponseMessage = httpResponseMessage ?? throw new ArgumentNullException(nameof(httpResponseMessage));
             Tracer = tracer;
+            Headers = new RestResponseHeadersCollection(httpResponseMessage.Headers);
         }
 
         public async Task<RestResponse<TReturn>> GetRestResponse<TReturn>(Uri baseUri, Uri queryString, HttpVerb httpVerb)
@@ -72,5 +78,4 @@ namespace RestClientDotNet
             return restResponse;
         }
     }
-
 }
