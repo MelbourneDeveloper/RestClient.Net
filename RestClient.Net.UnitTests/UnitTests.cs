@@ -138,6 +138,27 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
+        public async Task TestPostUserTimeout()
+        {
+            try
+            {
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), new TimeSpan(0,0,0,0,1));
+                await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
+            }
+            catch (TaskCanceledException ex)
+            {
+                //Success
+                return;
+            }
+            catch (Exception)
+            {
+                Assert.Fail("The operation threw an exception that was not an TaskCanceledException");
+            }
+
+            Assert.Fail("The operation completed successfully");
+        }
+
+        [TestMethod]
         [DataRow(HttpVerb.Patch)]
         [DataRow(HttpVerb.Post)]
         [DataRow(HttpVerb.Put)]
