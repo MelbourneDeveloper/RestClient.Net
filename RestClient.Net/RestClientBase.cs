@@ -50,7 +50,7 @@ namespace RestClientDotNet
 
             if (responseProcessor.IsSuccess)
             {
-                return await responseProcessor.GetRestResponse<TReturn>(BaseUri, queryString, httpVerb);
+                return await responseProcessor.ProcessRestResponseAsync<TReturn>(BaseUri, queryString, httpVerb);
             }
 
             var errorResponse = new RestResponse<TReturn>(

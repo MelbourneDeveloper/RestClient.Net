@@ -39,7 +39,7 @@ namespace RestClientDotNet
         {
             var httpClient = HttpClientFactory.CreateHttpClient();
 
-            HttpResponseMessage httpResponseMessage = null;
+            HttpResponseMessage httpResponseMessage;
 
             switch (httpVerb)
             {

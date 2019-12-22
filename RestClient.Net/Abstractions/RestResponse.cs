@@ -44,7 +44,11 @@ namespace RestClientDotNet.Abstractions
         #endregion
 
         #region Constructor
-        public RestResponse(IRestHeadersCollection restHeadersCollection, IResponseProcessor responseProcessor, int statusCode, object underlyingResponse)
+        public RestResponse(
+            IRestHeadersCollection restHeadersCollection,
+            IResponseProcessor responseProcessor,
+            int statusCode,
+            object underlyingResponse)
         {
             StatusCode = statusCode;
             UnderlyingResponse = underlyingResponse;
@@ -54,7 +58,7 @@ namespace RestClientDotNet.Abstractions
 
         public async Task<T> ToModel<T>()
         {
-            return await ResponseProcessor.GetRestResponse<T>(BaseUri, QueryString, HttpVerb);
+            return await ResponseProcessor.ProcessRestResponseAsync<T>(BaseUri, QueryString, HttpVerb);
         }
         #endregion
     }

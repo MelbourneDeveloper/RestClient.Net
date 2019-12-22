@@ -37,7 +37,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        public async Task<RestResponse<TReturn>> GetRestResponse<TReturn>(Uri baseUri, Uri queryString, HttpVerb httpVerb)
+        public async Task<RestResponse<TReturn>> ProcessRestResponseAsync<TReturn>(Uri baseUri, Uri queryString, HttpVerb httpVerb)
         {
             byte[] responseData = null;
 
