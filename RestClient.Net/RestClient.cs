@@ -5,17 +5,15 @@ namespace RestClientDotNet
 {
     public class RestClient : RestClientBase, IRestClient
     {
-        public IRestHeadersCollection DefaultRequestHeaders => throw new NotImplementedException();
-
         public RestClient(ISerializationAdapter serializationAdapter) : this(serializationAdapter, null)
         {
         }
 
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, ITracer tracer) : this(serializationAdapter, baseUri, default, tracer, new SingletonHttpClientFactory(default, baseUri), null)
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri) : this(serializationAdapter, baseUri, default(ITracer))
         {
         }
 
-        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri) : this(serializationAdapter, baseUri, default, new SingletonHttpClientFactory(default, baseUri))
+        public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, ITracer tracer) : this(serializationAdapter, baseUri, default, tracer, new SingletonHttpClientFactory(default, baseUri), null)
         {
         }
 
