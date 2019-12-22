@@ -464,6 +464,11 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             var apiResult = await response.ToModel<ApiResult>();
             Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
+
+            //Check that the response values are getting set correctly
+            Assert.AreEqual(_testServerHttpClientFactory.BaseUri, response.BaseUri);
+            Assert.AreEqual(HttpVerb.Get, response.HttpVerb);
+            Assert.AreEqual(new Uri("error", UriKind.Relative), response.QueryString);
         }
 
         [TestMethod]
