@@ -23,7 +23,7 @@ namespace RestClientDotNet
         #region Get
         public static Task<RestResponse<T>> GetAsync<T>(this IRestClient restClient)
         {
-            return restClient.SendAsync<T, object>(null, HttpVerb.Get, restClient.DefaultContentType, null, default);
+            return GetAsync<T>(restClient, default(Uri));
         }
 
         public static Task<RestResponse<T>> GetAsync<T>(this IRestClient restClient, string queryString)
@@ -45,6 +45,7 @@ namespace RestClientDotNet
 
         public static Task<RestResponse<T>> GetAsync<T>(this IRestClient restClient, Uri queryString)
         {
+            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
             return GetAsync<T>(restClient, queryString, restClient.DefaultContentType);
         }
 
@@ -55,13 +56,13 @@ namespace RestClientDotNet
 
         public static Task<RestResponse<T>> GetAsync<T>(this IRestClient restClient, Uri queryString, CancellationToken cancellationToken)
         {
+            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
             return GetAsync<T>(restClient, queryString, restClient.DefaultContentType, cancellationToken);
         }
 
         public static Task<RestResponse<T>> GetAsync<T>(this IRestClient restClient, Uri queryString, string contentType, CancellationToken cancellationToken)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-
             return restClient.SendAsync<T, object>(queryString, HttpVerb.Get, contentType, null, cancellationToken);
         }
         #endregion
@@ -79,12 +80,38 @@ namespace RestClientDotNet
 
         public static Task DeleteAsync(this IRestClient restClient, Uri queryString, CancellationToken cancellationToken)
         {
+            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
             return DeleteAsync(restClient, queryString, restClient.DefaultContentType, cancellationToken);
         }
 
         public static Task DeleteAsync(this IRestClient restClient, Uri queryString, string contentType, CancellationToken cancellationToken)
         {
+            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
             return restClient.SendAsync<object, object>(queryString, HttpVerb.Delete, contentType, null, cancellationToken);
+        }
+        #endregion
+
+        #region Put
+        public static Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(this IRestClient restClient, TBody body, string queryString)
+        {
+            return PutAsync<TReturn, TBody>(restClient, body, new Uri(queryString, UriKind.Relative));
+        }
+
+        public static Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(this IRestClient restClient, TBody body, Uri queryString)
+        {
+            return PutAsync<TReturn, TBody>(restClient, body, queryString, default);
+        }
+
+        public static Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(this IRestClient restClient, TBody body, Uri queryString, CancellationToken cancellationToken)
+        {
+            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
+            return PutAsync<TReturn, TBody>(restClient, body, queryString, restClient.DefaultContentType, cancellationToken);
+        }
+
+        public static Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(this IRestClient restClient, TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
+        {
+            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
+            return restClient.SendAsync<TReturn, TBody>(queryString, HttpVerb.Put, contentType, body, cancellationToken);
         }
         #endregion
 

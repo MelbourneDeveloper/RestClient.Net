@@ -4,6 +4,7 @@
     <TargetFrameworks>netstandard2.0;net45;net452;net46;net462;net47;net472</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
     <RootNamespace>RestClientDotNet.Abstractions</RootNamespace>
+    <CodeAnalysisRuleSet>../RestClient.Net/CodeRules.ruleset</CodeAnalysisRuleSet>       
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +13,7 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\RestClient.Net\StrongNameKey.pfx" Link="StrongNameKey.pfx" />
+    <None Include="../RestClient.Net/StrongNameKey.pfx" Link="StrongNameKey.pfx" />
   </ItemGroup>
 
   <Choose>

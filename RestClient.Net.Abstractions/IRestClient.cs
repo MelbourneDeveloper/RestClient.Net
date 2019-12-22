@@ -14,7 +14,5 @@ namespace RestClientDotNet.Abstractions
         Task<RestResponse<TReturn>> PatchAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken);
         Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body, Uri queryString);
         Task<RestResponse<TReturn>> PostAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken);
-        Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(TBody body, Uri queryString);
-        Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken);
     }
 }

@@ -35,7 +35,9 @@ namespace RestClientDotNet.Abstractions
         #endregion
 
         #region Private Methods
+#pragma warning disable CA1033 // Interface methods should be callable by child types
         Task<RestResponse<TReturn>> IRestClient.SendAsync<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
+#pragma warning restore CA1033 // Interface methods should be callable by child types
         {
             return Call<TReturn, TBody>(queryString, httpVerb, contentType, body, cancellationToken);
         }
@@ -106,27 +108,6 @@ namespace RestClientDotNet.Abstractions
         }
         #endregion
 
-        #region Put
-        public Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(TBody body, string queryString)
-        {
-            return PutAsync<TReturn, TBody>(body, new Uri(queryString, UriKind.Relative));
-        }
-
-        public Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(TBody body, Uri queryString)
-        {
-            return PutAsync<TReturn, TBody>(body, queryString, DefaultContentType, default);
-        }
-
-        public Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(TBody body, Uri queryString, CancellationToken cancellationToken)
-        {
-            return PutAsync<TReturn, TBody>(body, queryString, DefaultContentType, cancellationToken);
-        }
-
-        public Task<RestResponse<TReturn>> PutAsync<TReturn, TBody>(TBody body, Uri queryString, string contentType, CancellationToken cancellationToken)
-        {
-            return Call<TReturn, TBody>(queryString, HttpVerb.Put, contentType, body, cancellationToken);
-        }
-        #endregion
 
         #region Patch
         public Task<RestResponse<TReturn>> PatchAsync<TReturn, TBody>(TBody body, string queryString)

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <RuleSet Name="New Rule Set" Description=" " ToolsVersion="16.0">
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
     <Rule Id="CA1000" Action="Error" />
@@ -1072,7 +1072,6 @@
     <Rule Id="CA1819" Action="Error" />
     <Rule Id="CA1822" Action="Error" />
     <Rule Id="CA1823" Action="Error" />
-    <Rule Id="CA2007" Action="Error" />
     <Rule Id="CA2119" Action="Error" />
     <Rule Id="CA2211" Action="Error" />
     <Rule Id="CA2214" Action="Error" />
