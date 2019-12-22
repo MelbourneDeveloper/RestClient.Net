@@ -490,6 +490,15 @@ namespace RestClientDotNet.UnitTests
             Assert.Fail();
         }
 
+        [TestMethod]
+        public async Task TestBasicAuthentication()
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
+            restClient.UseBasicAuthentication("Bob", "ANicePassword");
+            Person person = await restClient.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative));
+            Assert.AreEqual("Sam", person.FirstName);
+        }
+
         //TODO: Test exceptions
 
         //TODO: Test all constructor overloads
