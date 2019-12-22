@@ -34,15 +34,10 @@ namespace RestClientDotNet.Abstractions
         }
         #endregion
 
-        #region Private Methods
+        #region Explicit Implementation
 #pragma warning disable CA1033 // Interface methods should be callable by child types
-        Task<RestResponse<TReturn>> IRestClient.SendAsync<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
+        async Task<RestResponse<TReturn>> IRestClient.SendAsync<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
 #pragma warning restore CA1033 // Interface methods should be callable by child types
-        {
-            return Call<TReturn, TBody>(queryString, httpVerb, contentType, body, cancellationToken);
-        }
-
-        private async Task<RestResponse<TReturn>> Call<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
         {
             var responseProcessor = await ResponseProcessorFactory.CreateResponseProcessorAsync
                 (
