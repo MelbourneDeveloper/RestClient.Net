@@ -14,7 +14,6 @@ namespace RestClientDotNet
         #endregion
 
         #region Public Properties
-        public IErrorHandlerFactory ErrorHandlerFactory { get; }
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public HttpClient HttpClient { get; }
         public string DefaultContentType { get; set; } = "application/json";
@@ -73,7 +72,6 @@ namespace RestClientDotNet
             DefaultRequestHeaders = new RestRequestHeadersCollection(HttpClient.DefaultRequestHeaders);
             SerializationAdapter = serializationAdapter;
             Tracer = tracer;
-            ErrorHandlerFactory = new RestErrorHandlerFactory(serializationAdapter);
         }
         #endregion
 
@@ -132,9 +130,17 @@ namespace RestClientDotNet
                     throw new NotImplementedException();
             }
 
+            var responseProcessor = new ResponseProcessor
+            (
+                Zip,
+                SerializationAdapter,
+                httpResponseMessage,
+                Tracer
+            );
+
             if (httpResponseMessage.IsSuccessStatusCode)
             {
-                return await GetRestResponse<TReturn>(queryString, httpVerb, httpResponseMessage);
+                return await responseProcessor.GetRestResponse<TReturn>(BaseUri, queryString, httpVerb);
             }
 
             var errorResponse = new RestResponse<TReturn>(
@@ -142,10 +148,8 @@ namespace RestClientDotNet
                 new RestResponseHeadersCollection(httpResponseMessage.Headers),
                 (int)httpResponseMessage.StatusCode,
                 httpResponseMessage,
-                ErrorHandlerFactory.Create(httpResponseMessage)
+                responseProcessor
                 );
-
-            //TODO: It's possible to deserialize errors here. What's the best way?
 
             if (ThrowExceptionOnFailure)
             {
@@ -157,53 +161,6 @@ namespace RestClientDotNet
                 return errorResponse;
             }
         }
-
-        private async Task<RestResponse<TReturn>> GetRestResponse<TReturn>(Uri queryString, HttpVerb httpVerb,
-            HttpResponseMessage httpResponseMessage)
-        {
-            byte[] responseData = null;
-
-            if (Zip != null)
-            {
-                //This is for cases where an unzipping utility needs to be used to unzip the content. This is actually a bug in UWP
-                var gzipHeader = httpResponseMessage.Content.Headers.ContentEncoding.FirstOrDefault(h =>
-                    !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.OrdinalIgnoreCase));
-                if (gzipHeader != null)
-                {
-                    var bytes = await httpResponseMessage.Content.ReadAsByteArrayAsync();
-                    responseData = Zip.Unzip(bytes);
-                }
-            }
-
-            if (responseData == null)
-            {
-                responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
-            }
-
-            var bodyObject = await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
-
-            var restHeadersCollection = new RestResponseHeadersCollection(httpResponseMessage.Headers);
-
-            var restResponse = new RestResponse<TReturn>(
-                bodyObject,
-                restHeadersCollection,
-                (int)httpResponseMessage.StatusCode,
-                httpResponseMessage,
-                ErrorHandlerFactory.Create(httpResponseMessage)
-            );
-
-            Tracer?.Trace(
-                httpVerb,
-                BaseUri,
-                queryString,
-                responseData,
-                TraceType.Response,
-                httpResponseMessage.StatusCode,
-                restHeadersCollection);
-
-            return restResponse;
-        }
-
         #endregion
 
         #region Public Methods
@@ -361,4 +318,72 @@ namespace RestClientDotNet
 
         #endregion
     }
+
+    public class ResponseProcessor
+    {
+        private IZip Zip { get; }
+        private ISerializationAdapter SerializationAdapter { get; }
+        private readonly HttpResponseMessage _httpResponseMessage;
+        private readonly ITracer Tracer;
+
+        public ResponseProcessor
+            (
+                IZip zip,
+                ISerializationAdapter serializationAdapter,
+                HttpResponseMessage httpResponseMessage,
+                ITracer tracer
+            )
+        {
+            Zip = zip;
+            SerializationAdapter = serializationAdapter;
+            _httpResponseMessage = httpResponseMessage;
+            Tracer = tracer;
+        }
+
+        public async Task<RestResponse<TReturn>> GetRestResponse<TReturn>(Uri BaseUri, Uri queryString, HttpVerb httpVerb)
+        {
+            byte[] responseData = null;
+
+            if (Zip != null)
+            {
+                //This is for cases where an unzipping utility needs to be used to unzip the content. This is actually a bug in UWP
+                var gzipHeader = _httpResponseMessage.Content.Headers.ContentEncoding.FirstOrDefault(h =>
+                    !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.OrdinalIgnoreCase));
+                if (gzipHeader != null)
+                {
+                    var bytes = await _httpResponseMessage.Content.ReadAsByteArrayAsync();
+                    responseData = Zip.Unzip(bytes);
+                }
+            }
+
+            if (responseData == null)
+            {
+                responseData = await _httpResponseMessage.Content.ReadAsByteArrayAsync();
+            }
+
+            var bodyObject = await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
+
+            var restHeadersCollection = new RestResponseHeadersCollection(_httpResponseMessage.Headers);
+
+            var restResponse = new RestResponse<TReturn>(
+                bodyObject,
+                restHeadersCollection,
+                (int)_httpResponseMessage.StatusCode,
+                _httpResponseMessage,
+                this
+            );
+
+            Tracer?.Trace(
+                httpVerb,
+                BaseUri,
+                queryString,
+                responseData,
+                TraceType.Response,
+                _httpResponseMessage.StatusCode,
+                restHeadersCollection);
+
+            return restResponse;
+        }
+    }
+
 }

@@ -1,4 +1,7 @@
-﻿namespace RestClientDotNet.Abstractions
+﻿using System;
+using System.Threading.Tasks;
+
+namespace RestClientDotNet.Abstractions
 {
     public class RestResponse<TBody> : RestResponse
     {
@@ -9,8 +12,8 @@
             IRestHeadersCollection restHeadersCollection,
             int statusCode,
             object underlyingResponse,
-            IErrorHandler errorHandler
-            ) : base(restHeadersCollection, errorHandler, statusCode, underlyingResponse)
+            ResponseProcessor responseProcessor
+            ) : base(restHeadersCollection, responseProcessor, statusCode, underlyingResponse)
         {
             Body = body;
         }
@@ -34,32 +37,25 @@
         public int StatusCode { get; }
         public object UnderlyingResponse { get; }
         public IRestHeadersCollection Headers { get; }
-        public IErrorHandler ErrorHandler { get; }
+        public ResponseProcessor ResponseProcessor { get; }
+        public Uri BaseUri { get; }
+        public Uri QueryString { get; }
+        public HttpVerb HttpVerb { get; }
         #endregion
 
         #region Constructor
-        public RestResponse(IRestHeadersCollection restHeadersCollection, IErrorHandler errorHandler, int statusCode, object underlyingResponse)
+        public RestResponse(IRestHeadersCollection restHeadersCollection, ResponseProcessor responseProcessor, int statusCode, object underlyingResponse)
         {
             StatusCode = statusCode;
             UnderlyingResponse = underlyingResponse;
             Headers = restHeadersCollection;
-            ErrorHandler = errorHandler;
+            ResponseProcessor = responseProcessor;
         }
 
-        public T ToErrorModel<T>()
+        public async Task<T> ToModel<T>()
         {
-            return ErrorHandler.GetErrorModel<T>();
+            return await ResponseProcessor.GetRestResponse<T>(BaseUri, QueryString, HttpVerb);
         }
         #endregion
-    }
-
-    public interface IErrorHandler
-    {
-        T GetErrorModel<T>();
-    }
-
-    public interface IErrorHandlerFactory
-    {
-        IErrorHandler Create(object response);
     }
 }

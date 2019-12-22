@@ -1,5 +1,6 @@
 ﻿using ApiExamples;
 using ApiExamples.Controllers;
+using ApiExamples.Model;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -422,13 +423,13 @@ namespace RestClientDotNet.UnitTests
             Assert.Fail();
         }
 
-        [TestMethod]
+        [TestMethod]   
         public async Task TestErrorsLocalGet()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://localhost"), default, _testServerHttpClient);
             restClient.ThrowExceptionOnFailure = false;
             var response = await restClient.GetAsync<string>("error");
-            var asdasd = response.ToErrorModel<string>();
+            var asdasd = await response.ToModel<ApiResult>();
         }
 
         //TODO: Test error models
