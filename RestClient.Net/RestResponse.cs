@@ -4,45 +4,39 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
-    public class RestResponse<TBody> : RestResponse, IRestResponse<TBody>
-    {
-        public TBody Body { get; }
+    //public class RestResponse<TBody> : RestResponse
+    //{
+    //    public TBody Body { get; }
 
-        public RestResponse(
-            TBody body,
-            IRestHeadersCollection restHeadersCollection,
-            int statusCode,
-            IResponseProcessor responseProcessor,
-            Uri baseUri,
-            Uri resource,
-            HttpVerb httpVerb
-            ) : base(restHeadersCollection, responseProcessor, statusCode, baseUri, resource, httpVerb)
-        {
-            Body = body;
-        }
+    //    public RestResponse(
+    //        TBody body,
+    //        IRestHeadersCollection restHeadersCollection,
+    //        int statusCode,
+    //        IResponseProcessor responseProcessor,
+    //        Uri baseUri,
+    //        Uri resource,
+    //        HttpVerb httpVerb
+    //        ) : base(restHeadersCollection, responseProcessor, statusCode, baseUri, resource, httpVerb)
+    //    {
+    //        Body = body;
+    //    }
 
-        #region Implicit Operator
-        public static implicit operator TBody(RestResponse<TBody> readResult)
-        {
-            return readResult.Body;
-        }
+    //    #region Implicit Operator
 
-        public TBody ToTBody()
-        {
-            return Body;
-        }
-        #endregion
-    }
 
-    public class RestResponse : IRestResponse
+    //    public TBody ToTBody()
+    //    {
+    //        return Body;
+    //    }
+    //    #endregion
+    //}
+
+    public class RestResponse<TBody> : IRestResponse<TBody>
     {
         #region Public Properties
-        public int StatusCode { get; }
-        public IRestHeadersCollection Headers { get; }
         public IResponseProcessor ResponseProcessor { get; }
         public Uri BaseUri { get; }
         public Uri Resource { get; }
-        public HttpVerb HttpVerb { get; }
         #endregion
 
         #region Constructor
@@ -52,20 +46,18 @@ namespace RestClientDotNet
             int statusCode,
             Uri baseUri,
             Uri resource,
-            HttpVerb httpVerb
-            )
+            HttpVerb httpVerb,
+            TBody body
+            ) : base(restHeadersCollection, statusCode, httpVerb, body)
         {
-            StatusCode = statusCode;
-            Headers = restHeadersCollection;
             ResponseProcessor = responseProcessor;
             BaseUri = baseUri;
             Resource = resource;
-            HttpVerb = httpVerb;
         }
 
         public async Task<T> ReadResponseAsync<T>()
         {
-            return (T)await ResponseProcessor.ProcessRestResponseAsync<T>(BaseUri, Resource, HttpVerb);
+            return await ResponseProcessor.ProcessRestResponseAsync<T>(BaseUri, Resource, HttpVerb);
         }
         #endregion
     }

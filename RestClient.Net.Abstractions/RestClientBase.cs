@@ -59,7 +59,8 @@ namespace RestClientDotNet.Abstractions
                 responseProcessor,
                 BaseUri,
                 resource,
-                httpVerb
+                httpVerb,
+                default
                 );
 
             if (ThrowExceptionOnFailure)
