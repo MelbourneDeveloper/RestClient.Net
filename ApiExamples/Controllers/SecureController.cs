@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RestClientApiSamples;
-using System.Threading.Tasks;
 
 namespace ApiExamples.Controllers
 {

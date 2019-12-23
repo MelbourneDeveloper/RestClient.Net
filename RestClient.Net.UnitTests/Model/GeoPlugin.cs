@@ -1,6 +1,4 @@
-﻿using System;
-using System.Xml.Serialization;
-using System.Collections.Generic;
+﻿using System.Xml.Serialization;
 namespace Xml2CSharp
 {
     [XmlRoot(ElementName = "a")]

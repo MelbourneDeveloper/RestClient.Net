@@ -1,7 +1,6 @@
 ﻿using RestClientDotNet.Abstractions;
 using System;
 using System.Net.Http;
-using RestClientDotNet;
 
 namespace RestClientDotNet.UnitTests
 {
