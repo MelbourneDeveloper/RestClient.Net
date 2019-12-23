@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
-    public class NaughtyResponse<TBody> : IRestResponse<TBody>
+    public class NaughtyResponse<TBody> : RestResponse<TBody>
     {
         #region Public Properties
         public IResponseProcessor ResponseProcessor { get; }
