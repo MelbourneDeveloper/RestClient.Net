@@ -1,14 +1,10 @@
 ﻿using RestClientDotNet.Sample;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Xamarin.Forms;
 
 namespace RestClient.Net.Samples
 {
-	public partial class App : Application
+    public partial class App : Application
 	{
 		public App ()
 		{

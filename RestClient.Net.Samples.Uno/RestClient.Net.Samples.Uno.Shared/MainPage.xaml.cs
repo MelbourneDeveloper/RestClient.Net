@@ -1,11 +1,8 @@
 ﻿using RestClient.Net.Samples.Uno.Shared;
 using RestClientDotNet;
-using RestClientDotNet.Abstractions;
 using RestClientNetSamples;
 using System;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -18,7 +15,7 @@ using Uno.UI.Wasm;
 
 namespace RestClient.Net.Samples.Uno
 {
- 
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>

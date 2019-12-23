@@ -1,8 +1,5 @@
-﻿using Google.Protobuf;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RestClientApiSamples;
-using System;
-using System.Threading.Tasks;
 
 namespace ApiExamples.Controllers
 {
