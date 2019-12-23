@@ -18,8 +18,9 @@ namespace RestClientDotNet
             Uri baseUri,
             Uri resource,
             HttpVerb httpVerb,
+            byte[] responseContentData,
             TBody body
-            ) : base(restHeadersCollection, statusCode, httpVerb, body)
+            ) : base(restHeadersCollection, statusCode, httpVerb, responseContentData, body)
         {
             BaseUri = baseUri;
             Resource = resource;

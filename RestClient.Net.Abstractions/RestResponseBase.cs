@@ -8,8 +8,9 @@ namespace RestClientDotNet.Abstractions
         IRestHeadersCollection restHeadersCollection,
         int statusCode,
         HttpVerb httpVerb,
+        byte[] responseData,
         TBody body
-        ) : base(restHeadersCollection, statusCode, httpVerb)
+        ) : base(restHeadersCollection, statusCode, httpVerb, responseData)
         {
             Body = body;
         }
@@ -28,19 +29,35 @@ namespace RestClientDotNet.Abstractions
 
     public abstract class RestResponseBase
     {
-        protected RestResponseBase(
+		#region Fields
+		private byte[] _responseData;
+		#endregion
+
+		#region Public Methods
+		public int StatusCode { get; }
+		public IRestHeadersCollection Headers { get; }
+		public HttpVerb HttpVerb { get; }
+		#endregion
+
+		#region Constructor
+		protected RestResponseBase
+        (
         IRestHeadersCollection restHeadersCollection,
         int statusCode,
-        HttpVerb httpVerb
+        HttpVerb httpVerb,
+        byte[] responseData
         )
         {
             StatusCode = statusCode;
             Headers = restHeadersCollection;
             HttpVerb = httpVerb;
-        }
+			_responseData = responseData;
+		}
+		#endregion
 
-        public int StatusCode { get; }
-        public IRestHeadersCollection Headers { get; }
-        public HttpVerb HttpVerb { get; }
-    }
+        public byte[] GetResponseData()
+		{
+			return _responseData;
+		}
+	}
 }

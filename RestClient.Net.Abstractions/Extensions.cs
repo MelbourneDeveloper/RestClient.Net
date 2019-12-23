@@ -162,5 +162,7 @@ namespace RestClientDotNet
             return restClient.SendAsync<TReturn, object>(resource, HttpVerb.Patch, contentType, body, cancellationToken);
         }
         #endregion
+
+
     }
 }

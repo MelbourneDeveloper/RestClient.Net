@@ -68,7 +68,8 @@ namespace RestClientDotNet
                 baseUri,
                 resource,
                 httpVerb,
-                bodyObject
+				responseData,
+				bodyObject
             );
 
             Tracer?.Trace(
