@@ -1,9 +1,11 @@
 ﻿using RestClientDotNet;
 using RestClientDotNet.Abstractions;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
+
+#if __WASM__
+using Uno.UI.Wasm;
+#endif
 
 namespace RestClient.Net.Samples.Uno.Shared
 {
