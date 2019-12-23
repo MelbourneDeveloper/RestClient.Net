@@ -7,7 +7,6 @@ namespace RestClientDotNet
     public class RestResponse<TBody> : RestResponseBase<TBody>
     {
         #region Public Properties
-        public IResponseProcessor ResponseProcessor { get; }
         public Uri BaseUri { get; }
         public Uri Resource { get; }
         #endregion
@@ -15,7 +14,6 @@ namespace RestClientDotNet
         #region Constructor
         public RestResponse(
             IRestHeadersCollection restHeadersCollection,
-            IResponseProcessor responseProcessor,
             int statusCode,
             Uri baseUri,
             Uri resource,
@@ -23,14 +21,8 @@ namespace RestClientDotNet
             TBody body
             ) : base(restHeadersCollection, statusCode, httpVerb, body)
         {
-            ResponseProcessor = responseProcessor;
             BaseUri = baseUri;
             Resource = resource;
-        }
-
-        public override async Task<T> ReadResponseAsync<T>()
-        {
-            return await ResponseProcessor.ProcessRestResponseAsync<T>(BaseUri, Resource, HttpVerb);
         }
         #endregion
     }

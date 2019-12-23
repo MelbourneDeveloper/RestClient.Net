@@ -42,6 +42,5 @@ namespace RestClientDotNet.Abstractions
         public int StatusCode { get; }
         public IRestHeadersCollection Headers { get; }
         public HttpVerb HttpVerb { get; }
-        public abstract Task<T> ReadResponseAsync<T>();
     }
 }
