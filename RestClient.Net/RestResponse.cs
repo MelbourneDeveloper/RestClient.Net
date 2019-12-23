@@ -11,10 +11,11 @@ namespace RestClientDotNet
 		public Uri BaseUri { get; }
 		public Uri Resource { get; }
 		public HttpResponseMessage HttpResponseMessage {get;}
-        #endregion
+		public override bool IsSuccess => HttpResponseMessage.IsSuccessStatusCode;
+		#endregion
 
-        #region Constructor
-        public RestResponse
+		#region Constructor
+		public RestResponse
         (
             IRestHeadersCollection restHeadersCollection,
             int statusCode,

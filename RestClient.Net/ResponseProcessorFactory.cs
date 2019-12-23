@@ -106,20 +106,6 @@ namespace RestClientDotNet
         {
             HttpClientFactory.Dispose();
         }
-
-#pragma warning disable CA1822 // Mark members as static
-        public RestResponseBase<TReturn> CreateResponse<TReturn>(IRestHeadersCollection headers, int statusCode, IResponseProcessor responseProcessor, Uri baseUri, Uri resource, HttpVerb httpVerb,byte[] responseContentData, TReturn body)
-#pragma warning restore CA1822 // Mark members as static
-        {
-            return new RestResponse<TReturn>(
-                headers,
-                statusCode,
-                baseUri,
-                resource,
-                httpVerb,
-				responseContentData,
-				body);
-        }
         #endregion
     }
 

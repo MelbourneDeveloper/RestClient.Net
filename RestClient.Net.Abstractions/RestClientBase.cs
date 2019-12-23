@@ -51,16 +51,15 @@ namespace RestClientDotNet.Abstractions
 
 			var response = await responseProcessor.ProcessRestResponseAsync<TReturn>(BaseUri, resource, httpVerb);
 
-            if(response.IsSuccess || !ThrowExceptionOnFailure)
+			if (response.IsSuccess || !ThrowExceptionOnFailure)
 			{
 				return response;
 			}
-            
-			if (ThrowExceptionOnFailure)
-			{
-				throw new HttpStatusException(
-					$"{responseProcessor.StatusCode}.\r\nBase Uri: {BaseUri}. Resource: {resource}", response);
-			}
+
+
+			throw new HttpStatusException(
+				$"{responseProcessor.StatusCode}.\r\nBase Uri: {BaseUri}. Resource: {resource}", response);
+
 		}
 		#endregion
 

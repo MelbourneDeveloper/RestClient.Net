@@ -62,15 +62,17 @@ namespace RestClientDotNet
 
             var restHeadersCollection = new RestResponseHeadersCollection(HttpResponseMessage.Headers);
 
-            var restResponse = new RestResponse<TReturn>(
+            var restResponse = new RestResponse<TReturn>
+            (
                 restHeadersCollection,
                 (int)HttpResponseMessage.StatusCode,
                 baseUri,
                 resource,
                 httpVerb,
 				responseData,
-				bodyObject
-            );
+				bodyObject,
+				HttpResponseMessage
+			);
 
             Tracer?.Trace(
                 httpVerb,
