@@ -1,8 +1,10 @@
-﻿namespace RestClientDotNet.Abstractions
+﻿using System.Threading.Tasks;
+
+namespace RestClientDotNet.Abstractions
 {
-    public class RestResponse<TBody> : RestResponse
+    public abstract class RestResponseBase<TBody> : RestResponseBase
     {
-        public RestResponse(
+        protected RestResponseBase(
         IRestHeadersCollection restHeadersCollection,
         int statusCode,
         HttpVerb httpVerb,
@@ -13,7 +15,7 @@
         }
 
 #pragma warning disable CA2225 // Operator overloads have named alternates
-        public static implicit operator TBody(RestResponse<TBody> readResult)
+        public static implicit operator TBody(RestResponseBase<TBody> readResult)
 #pragma warning restore CA2225 // Operator overloads have named alternates
         {
 #pragma warning disable CA1062 // Validate arguments of public methods
@@ -24,9 +26,9 @@
         public TBody Body { get; }
     }
 
-    public class RestResponse
+    public abstract class RestResponseBase
     {
-        public RestResponse(
+        protected RestResponseBase(
         IRestHeadersCollection restHeadersCollection,
         int statusCode,
         HttpVerb httpVerb
@@ -40,5 +42,6 @@
         public int StatusCode { get; }
         public IRestHeadersCollection Headers { get; }
         public HttpVerb HttpVerb { get; }
+        public abstract Task<T> ReadResponseAsync<T>();
     }
 }

@@ -468,8 +468,8 @@ namespace RestClientDotNet.UnitTests
             restClient.ThrowExceptionOnFailure = false;
             var response = await restClient.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
-            var fullRestResponse = response as NaughtyResponse<Person>;
-            var apiResult = await fullRestResponse.ReadResponseAsync<ApiResult>();
+            var fullRestResponse = response as RestResponse<Person>;
+            var apiResult = await response.ReadResponseAsync<ApiResult>();
             Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
 
             //Check that the response values are getting set correctly
@@ -489,8 +489,7 @@ namespace RestClientDotNet.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                var fullRestResponse = hex.RestResponse as NaughtyResponse<Person>;
-                var apiResult = await fullRestResponse.ReadResponseAsync<ApiResult>();
+                var apiResult = await hex.RestResponse.ReadResponseAsync<ApiResult>();
                 Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
                 return;
             }
@@ -521,8 +520,7 @@ namespace RestClientDotNet.UnitTests
             catch (HttpStatusException ex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.RestResponse.StatusCode);
-                var fullRestResponse = ex.RestResponse as NaughtyResponse<Person>;
-                var apiResult = await fullRestResponse.ReadResponseAsync<ApiResult>();
+                var apiResult = await ex.RestResponse.ReadResponseAsync<ApiResult>();
                 Assert.AreEqual(SecureController.NotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -550,8 +548,7 @@ namespace RestClientDotNet.UnitTests
             catch (HttpStatusException ex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.RestResponse.StatusCode);
-                var fullRestResponse = ex.RestResponse as NaughtyResponse<Person>;
-                var apiResult = await fullRestResponse.ReadResponseAsync<ApiResult>();
+                var apiResult = await ex.RestResponse.ReadResponseAsync<ApiResult>();
                 Assert.AreEqual(SecureController.NotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }

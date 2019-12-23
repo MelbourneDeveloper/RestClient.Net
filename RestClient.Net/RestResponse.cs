@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
-    public class RestResponse<TBody> : IRestResponse<TBody>
+    public class RestResponse<TBody> : RestResponseBase<TBody>
     {
         #region Public Properties
         public IResponseProcessor ResponseProcessor { get; }
@@ -28,7 +28,7 @@ namespace RestClientDotNet
             Resource = resource;
         }
 
-        public async Task<T> ReadResponseAsync<T>()
+        public override async Task<T> ReadResponseAsync<T>()
         {
             return await ResponseProcessor.ProcessRestResponseAsync<T>(BaseUri, Resource, HttpVerb);
         }

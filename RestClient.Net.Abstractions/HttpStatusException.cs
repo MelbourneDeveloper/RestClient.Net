@@ -4,9 +4,9 @@ namespace RestClientDotNet.Abstractions
 {
     public class HttpStatusException : Exception
     {
-        public IRestResponse RestResponse { get; }
+        public RestResponseBase RestResponse { get; }
 
-        public HttpStatusException(string message, IRestResponse restResponse) : base(message)
+        public HttpStatusException(string message, RestResponseBase restResponse) : base(message)
         {
             RestResponse = restResponse;
         }
