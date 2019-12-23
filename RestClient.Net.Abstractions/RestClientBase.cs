@@ -53,8 +53,7 @@ namespace RestClientDotNet.Abstractions
                 return await responseProcessor.ProcessRestResponseAsync<TReturn>(BaseUri, resource, httpVerb);
             }
 
-            var errorResponse = new RestResponse<TReturn>(
-                default,
+            var errorResponse = ResponseProcessorFactory.CreateResponse<TReturn>(
                 responseProcessor.Headers,
                 responseProcessor.StatusCode,
                 responseProcessor,
