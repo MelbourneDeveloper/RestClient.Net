@@ -650,6 +650,44 @@ namespace RestClientDotNet.UnitTests
         }
         #endregion
 
+        #region Put
+        [TestMethod]
+        public async Task TestLocalPutBodyStringUri()
+        {
+            var restClient = GetJsonClient();
+            var requestPerson = new Person { FirstName = "Bob" };
+            Person responsePerson = await restClient.PutAsync<Person, Person>(requestPerson, "jsonperson/save");
+            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+        }
+
+        [TestMethod]
+        public async Task TestLocalPutBodyUri()
+        {
+            var restClient = GetJsonClient();
+            var requestPerson = new Person { FirstName = "Bob" };
+            Person responsePerson = await restClient.PutAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative));
+            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+        }
+
+        [TestMethod]
+        public async Task TestLocalPutBodyUriCancellationToken()
+        {
+            var restClient = GetJsonClient();
+            var requestPerson = new Person { FirstName = "Bob" };
+            Person responsePerson = await restClient.PutAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), new CancellationToken());
+            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+        }
+
+        [TestMethod]
+        public async Task TestLocalPutBodyUriCancellationTokenContentType()
+        {
+            var restClient = GetJsonClient();
+            var requestPerson = new Person { FirstName = "Bob" };
+            Person responsePerson = await restClient.PutAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), "application/json", new CancellationToken());
+            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+        }
+        #endregion
+
         #endregion
 
         //TODO: Test exceptions
