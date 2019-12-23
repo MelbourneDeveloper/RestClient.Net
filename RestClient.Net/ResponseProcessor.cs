@@ -64,7 +64,6 @@ namespace RestClientDotNet
 
             var restResponse = new RestResponse<TReturn>(
                 restHeadersCollection,
-                this,
                 (int)HttpResponseMessage.StatusCode,
                 baseUri,
                 resource,

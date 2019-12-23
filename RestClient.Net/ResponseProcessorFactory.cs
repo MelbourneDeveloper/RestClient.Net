@@ -113,7 +113,6 @@ namespace RestClientDotNet
         {
             return new RestResponse<TReturn>(
                 headers,
-                responseProcessor,
                 statusCode,
                 baseUri,
                 resource,
