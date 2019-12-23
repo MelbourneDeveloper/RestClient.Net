@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45;net452;net46;net462;net47;net472</TargetFrameworks>
+    <TargetFrameworks>net45;net452;net46;net462;net47;net472</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
     <RootNamespace>RestClientDotNet.Abstractions</RootNamespace>
     <CodeAnalysisRuleSet>../RestClient.Net/CodeRules.ruleset</CodeAnalysisRuleSet>
@@ -18,6 +18,12 @@
     </None>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8" />
     <None Include="../RestClient.Net/StrongNameKey.pfx" Link="StrongNameKey.pfx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\..\..\Program Files (x86)\Microsoft SDKs\UWPNuGetPackages\microsoft.netcore.universalwindowsplatform\6.2.9\ref\uap10.0.15138\System.Net.Http.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <Choose>
