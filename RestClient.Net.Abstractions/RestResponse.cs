@@ -1,8 +1,10 @@
-﻿namespace RestClientDotNet.Abstractions
+﻿using System.Threading.Tasks;
+
+namespace RestClientDotNet.Abstractions
 {
-    public class RestResponse<TBody> : RestResponse
+    public abstract class RestResponse<TBody> : RestResponse
     {
-        public RestResponse(
+        protected RestResponse(
         IRestHeadersCollection restHeadersCollection,
         int statusCode,
         HttpVerb httpVerb,
@@ -24,9 +26,9 @@
         public TBody Body { get; }
     }
 
-    public class RestResponse
+    public abstract class RestResponse
     {
-        public RestResponse(
+        protected RestResponse(
         IRestHeadersCollection restHeadersCollection,
         int statusCode,
         HttpVerb httpVerb
@@ -40,5 +42,7 @@
         public int StatusCode { get; }
         public IRestHeadersCollection Headers { get; }
         public HttpVerb HttpVerb { get; }
+
+        public abstract Task<T> ReadResponseAsync<T>();
     }
 }

@@ -28,7 +28,7 @@ namespace RestClientDotNet
             Resource = resource;
         }
 
-        public async Task<T> ReadResponseAsync<T>()
+        public override async Task<T> ReadResponseAsync<T>()
         {
             return await ResponseProcessor.ProcessRestResponseAsync<T>(BaseUri, Resource, HttpVerb);
         }
