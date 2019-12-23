@@ -42,7 +42,7 @@ namespace RestClientDotNet.Sample
             }
             catch (Exception ex)
             {
-                await HandleException(ex);
+                await HandleException<CUSTOMER>(ex);
             }
 
             ToggleBusy(false);
@@ -81,7 +81,7 @@ namespace RestClientDotNet.Sample
             }
             catch (Exception ex)
             {
-                await HandleException(ex);
+                await HandleException<RepositoryList>(ex);
             }
 
             ToggleBusy(false);
@@ -111,7 +111,7 @@ namespace RestClientDotNet.Sample
             }
             catch (Exception ex)
             {
-                await HandleException(ex);
+                await HandleException<Repository>(ex);
             }
 
             ToggleBusy(false);
@@ -130,20 +130,21 @@ namespace RestClientDotNet.Sample
             }
             catch (Exception ex)
             {
-                await HandleException(ex);
+                await HandleException<List<RestCountry>>(ex);
             }
 
             ToggleBusy(false);
         }
 
-        private async Task HandleException(Exception ex)
+        private async Task HandleException<T>(Exception ex)
         {
             ErrorModel errorModel = null;
 
             var hex = ex as HttpStatusException;
             if (hex != null)
             {
-                errorModel = await hex.RestResponse.ReadResponseAsync<ErrorModel>();
+                var fullResponse = hex.RestResponse as RestResponse<T>;
+                errorModel = await fullResponse.ReadResponseAsync<ErrorModel>();
             }
 
             var message = $"An error occurred while attempting to use a REST service.\r\nError: {ex.Message}\r\nInner Error: {ex.InnerException?.Message}\r\nInner Inner Error: {ex.InnerException?.InnerException?.Message}";

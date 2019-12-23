@@ -4,33 +4,6 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
-    //public class RestResponse<TBody> : RestResponse
-    //{
-    //    public TBody Body { get; }
-
-    //    public RestResponse(
-    //        TBody body,
-    //        IRestHeadersCollection restHeadersCollection,
-    //        int statusCode,
-    //        IResponseProcessor responseProcessor,
-    //        Uri baseUri,
-    //        Uri resource,
-    //        HttpVerb httpVerb
-    //        ) : base(restHeadersCollection, responseProcessor, statusCode, baseUri, resource, httpVerb)
-    //    {
-    //        Body = body;
-    //    }
-
-    //    #region Implicit Operator
-
-
-    //    public TBody ToTBody()
-    //    {
-    //        return Body;
-    //    }
-    //    #endregion
-    //}
-
     public class RestResponse<TBody> : IRestResponse<TBody>
     {
         #region Public Properties
