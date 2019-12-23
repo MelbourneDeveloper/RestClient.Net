@@ -11,6 +11,6 @@ namespace RestClientDotNet.Abstractions
         IRestHeadersCollection DefaultRequestHeaders { get; }
         Task<IResponseProcessor> CreateResponseProcessorAsync<TBody>(HttpVerb httpVerb, Uri baseUri, Uri resource, TBody body, string contentType, CancellationToken cancellationToken);
         void Dispose();
-        RestResponseBase<TReturn> CreateResponse<TReturn>(IRestHeadersCollection headers, int statusCode, IResponseProcessor responseProcessor, Uri baseUri, Uri resource, HttpVerb httpVerb, TReturn body);
+        RestResponseBase<TReturn> CreateResponse<TReturn>(IRestHeadersCollection headers, int statusCode, Uri baseUri, Uri resource, HttpVerb httpVerb, byte[] responseContentData, TReturn body);
     }
 }
