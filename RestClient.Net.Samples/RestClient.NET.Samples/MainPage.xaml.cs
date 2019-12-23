@@ -143,7 +143,7 @@ namespace RestClientDotNet.Sample
             var hex = ex as HttpStatusException;
             if (hex != null)
             {
-                var fullResponse = hex.RestResponse as NaughtyResponse<T>;
+                var fullResponse = hex.RestResponse as RestResponse<T>;
                 errorModel = await fullResponse.ReadResponseAsync<ErrorModel>();
             }
 

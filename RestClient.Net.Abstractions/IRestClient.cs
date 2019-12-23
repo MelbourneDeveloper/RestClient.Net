@@ -6,7 +6,7 @@ namespace RestClientDotNet.Abstractions
 {
     public interface IRestClient
     {
-        Task<RestResponse<TReturn>> SendAsync<TReturn, TBody>(Uri resource, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken);
+        Task<IRestResponse<TReturn>> SendAsync<TReturn, TBody>(Uri resource, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken);
         IRestHeadersCollection DefaultRequestHeaders { get; }
         string DefaultContentType { get; }
         TimeSpan Timeout { get; set; }
