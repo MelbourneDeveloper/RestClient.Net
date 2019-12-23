@@ -36,21 +36,21 @@ namespace RestClientDotNet.Abstractions
 
         #region Explicit Implementation
 #pragma warning disable CA1033 // Interface methods should be callable by child types
-        async Task<RestResponse<TReturn>> IRestClient.SendAsync<TReturn, TBody>(Uri queryString, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
+        async Task<RestResponse<TReturn>> IRestClient.SendAsync<TReturn, TBody>(Uri resource, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
 #pragma warning restore CA1033 // Interface methods should be callable by child types
         {
             var responseProcessor = await ResponseProcessorFactory.CreateResponseProcessorAsync
                 (
                 httpVerb,
                 BaseUri,
-                queryString,
+                resource,
                 body,
                 contentType,
                 cancellationToken);
 
             if (responseProcessor.IsSuccess)
             {
-                return await responseProcessor.ProcessRestResponseAsync<TReturn>(BaseUri, queryString, httpVerb);
+                return await responseProcessor.ProcessRestResponseAsync<TReturn>(BaseUri, resource, httpVerb);
             }
 
             var errorResponse = new RestResponse<TReturn>(
@@ -59,14 +59,14 @@ namespace RestClientDotNet.Abstractions
                 responseProcessor.StatusCode,
                 responseProcessor,
                 BaseUri,
-                queryString,
+                resource,
                 httpVerb
                 );
 
             if (ThrowExceptionOnFailure)
             {
                 throw new HttpStatusException(
-                    $"{responseProcessor.StatusCode}.\r\nBase Uri: {BaseUri}. Querystring: {queryString}", errorResponse);
+                    $"{responseProcessor.StatusCode}.\r\nBase Uri: {BaseUri}. Resource: {resource}", errorResponse);
             }
 
             return errorResponse;

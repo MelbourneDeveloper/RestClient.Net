@@ -9,7 +9,7 @@ namespace RestClientDotNet.Abstractions
         TimeSpan Timeout { get; set; }
         Uri BaseAddress { get; }
         IRestHeadersCollection DefaultRequestHeaders { get; }
-        Task<IResponseProcessor> CreateResponseProcessorAsync<TBody>(HttpVerb httpVerb, Uri baseUri, Uri queryString, TBody body, string contentType, CancellationToken cancellationToken);
+        Task<IResponseProcessor> CreateResponseProcessorAsync<TBody>(HttpVerb httpVerb, Uri baseUri, Uri resource, TBody body, string contentType, CancellationToken cancellationToken);
         void Dispose();
     }
 }

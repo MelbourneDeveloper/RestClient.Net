@@ -474,7 +474,7 @@ namespace RestClientDotNet.UnitTests
             //Check that the response values are getting set correctly
             Assert.AreEqual(_testServerHttpClientFactory.BaseUri, response.BaseUri);
             Assert.AreEqual(HttpVerb.Get, response.HttpVerb);
-            Assert.AreEqual(new Uri("error", UriKind.Relative), response.QueryString);
+            Assert.AreEqual(new Uri("error", UriKind.Relative), response.Resource);
         }
 
         [TestMethod]

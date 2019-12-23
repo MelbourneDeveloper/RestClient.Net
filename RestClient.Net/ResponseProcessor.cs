@@ -37,7 +37,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        public async Task<RestResponse<TReturn>> ProcessRestResponseAsync<TReturn>(Uri baseUri, Uri queryString, HttpVerb httpVerb)
+        public async Task<RestResponse<TReturn>> ProcessRestResponseAsync<TReturn>(Uri baseUri, Uri resource, HttpVerb httpVerb)
         {
             byte[] responseData = null;
 
@@ -68,14 +68,14 @@ namespace RestClientDotNet
                 (int)HttpResponseMessage.StatusCode,
                 this,
                 baseUri,
-                queryString,
+                resource,
                 httpVerb
             );
 
             Tracer?.Trace(
                 httpVerb,
                 baseUri,
-                queryString,
+                resource,
                 responseData,
                 TraceType.Response,
                 (int)HttpResponseMessage.StatusCode,

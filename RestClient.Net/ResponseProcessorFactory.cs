@@ -35,7 +35,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        public async Task<IResponseProcessor> CreateResponseProcessorAsync<TBody>(HttpVerb httpVerb, Uri baseUri, Uri queryString, TBody body, string contentType, CancellationToken cancellationToken)
+        public async Task<IResponseProcessor> CreateResponseProcessorAsync<TBody>(HttpVerb httpVerb, Uri baseUri, Uri resource, TBody body, string contentType, CancellationToken cancellationToken)
         {
             var httpClient = HttpClientFactory.CreateHttpClient();
 
@@ -44,12 +44,12 @@ namespace RestClientDotNet
             switch (httpVerb)
             {
                 case HttpVerb.Get:
-                    Tracer?.Trace(httpVerb, baseUri, queryString, null, TraceType.Request, null, DefaultRequestHeaders);
-                    httpResponseMessage = await httpClient.GetAsync(queryString, cancellationToken);
+                    Tracer?.Trace(httpVerb, baseUri, resource, null, TraceType.Request, null, DefaultRequestHeaders);
+                    httpResponseMessage = await httpClient.GetAsync(resource, cancellationToken);
                     break;
                 case HttpVerb.Delete:
-                    Tracer?.Trace(httpVerb, baseUri, queryString, null, TraceType.Request, null, DefaultRequestHeaders);
-                    httpResponseMessage = await httpClient.DeleteAsync(queryString, cancellationToken);
+                    Tracer?.Trace(httpVerb, baseUri, resource, null, TraceType.Request, null, DefaultRequestHeaders);
+                    httpResponseMessage = await httpClient.DeleteAsync(resource, cancellationToken);
                     break;
 
                 case HttpVerb.Post:
@@ -63,20 +63,20 @@ namespace RestClientDotNet
                         //Why do we have to set the content type only in cases where there is a request body, and headers?
                         httpContent.Headers.Add("Content-Type", contentType);
 
-                        Tracer?.Trace(httpVerb, baseUri, queryString, bodyData, TraceType.Request, null, DefaultRequestHeaders);
+                        Tracer?.Trace(httpVerb, baseUri, resource, bodyData, TraceType.Request, null, DefaultRequestHeaders);
 
                         if (httpVerb == HttpVerb.Put)
                         {
-                            httpResponseMessage = await httpClient.PutAsync(queryString, httpContent, cancellationToken);
+                            httpResponseMessage = await httpClient.PutAsync(resource, httpContent, cancellationToken);
                         }
                         else if (httpVerb == HttpVerb.Post)
                         {
-                            httpResponseMessage = await httpClient.PostAsync(queryString, httpContent, cancellationToken);
+                            httpResponseMessage = await httpClient.PostAsync(resource, httpContent, cancellationToken);
                         }
                         else
                         {
                             var method = new HttpMethod("PATCH");
-                            using (var request = new HttpRequestMessage(method, queryString)
+                            using (var request = new HttpRequestMessage(method, resource)
                             {
                                 Content = httpContent
                             })

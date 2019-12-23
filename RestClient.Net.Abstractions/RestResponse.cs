@@ -13,9 +13,9 @@ namespace RestClientDotNet.Abstractions
             int statusCode,
             IResponseProcessor responseProcessor,
             Uri baseUri,
-            Uri queryString,
+            Uri resource,
             HttpVerb httpVerb
-            ) : base(restHeadersCollection, responseProcessor, statusCode, baseUri, queryString, httpVerb)
+            ) : base(restHeadersCollection, responseProcessor, statusCode, baseUri, resource, httpVerb)
         {
             Body = body;
         }
@@ -40,7 +40,7 @@ namespace RestClientDotNet.Abstractions
         public IRestHeadersCollection Headers { get; }
         public IResponseProcessor ResponseProcessor { get; }
         public Uri BaseUri { get; }
-        public Uri QueryString { get; }
+        public Uri Resource { get; }
         public HttpVerb HttpVerb { get; }
         #endregion
 
@@ -50,7 +50,7 @@ namespace RestClientDotNet.Abstractions
             IResponseProcessor responseProcessor,
             int statusCode,
             Uri baseUri,
-            Uri queryString,
+            Uri resource,
             HttpVerb httpVerb
             )
         {
@@ -58,13 +58,13 @@ namespace RestClientDotNet.Abstractions
             Headers = restHeadersCollection;
             ResponseProcessor = responseProcessor;
             BaseUri = baseUri;
-            QueryString = queryString;
+            Resource = resource;
             HttpVerb = httpVerb;
         }
 
         public async Task<T> ReadResponseAsync<T>()
         {
-            return await ResponseProcessor.ProcessRestResponseAsync<T>(BaseUri, QueryString, HttpVerb);
+            return await ResponseProcessor.ProcessRestResponseAsync<T>(BaseUri, Resource, HttpVerb);
         }
         #endregion
     }
