@@ -65,7 +65,7 @@ namespace RestClientDotNet
 
         public async Task<T> ReadResponseAsync<T>()
         {
-            return await ResponseProcessor.ProcessRestResponseAsync<T>(BaseUri, Resource, HttpVerb);
+            return (T)await ResponseProcessor.ProcessRestResponseAsync<T>(BaseUri, Resource, HttpVerb);
         }
         #endregion
     }
