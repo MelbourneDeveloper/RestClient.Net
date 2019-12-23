@@ -62,7 +62,7 @@ namespace RestClientDotNet
 
             var restHeadersCollection = new RestResponseHeadersCollection(HttpResponseMessage.Headers);
 
-            var restResponse = new RestResponse<TReturn>(
+            var restResponse = new NaughtyResponse<TReturn>(
                 restHeadersCollection,
                 this,
                 (int)HttpResponseMessage.StatusCode,

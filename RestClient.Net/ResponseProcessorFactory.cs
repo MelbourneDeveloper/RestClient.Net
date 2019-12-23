@@ -111,7 +111,7 @@ namespace RestClientDotNet
         public IRestResponse<TReturn> CreateResponse<TReturn>(IRestHeadersCollection headers, int statusCode, IResponseProcessor responseProcessor, Uri baseUri, Uri resource, HttpVerb httpVerb, TReturn body)
 #pragma warning restore CA1822 // Mark members as static
         {
-            return new RestResponse<TReturn>(
+            return new NaughtyResponse<TReturn>(
                 headers,
                 responseProcessor,
                 statusCode,
