@@ -39,13 +39,13 @@ namespace RestClientDotNet.UnitTests
             hostBuilder.UseStartup<Startup>();
             _testServer = new TestServer(hostBuilder);
             _testServerHttpClientFactory = new TestClientFactory(_testServer.CreateClient());
-
-
             _tracer = new Mock<ITracer>();
         }
         #endregion
 
         #region Tests
+
+        #region External Api Tests
         [TestMethod]
         public async Task TestGetRestCountries()
         {
@@ -210,7 +210,9 @@ namespace RestClientDotNet.UnitTests
             var geoPlugin = await restClient.GetAsync<GeoPlugin>();
             Assert.IsNotNull(geoPlugin);
         }
+        #endregion
 
+        #region Local Protobuf
         [TestMethod]
         public async Task TestProtobufPostLocal()
         {
@@ -243,7 +245,9 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
             Assert.AreEqual(personKey, responsePerson.PersonKey);
         }
+        #endregion
 
+        #region Local Headers
         [TestMethod]
         public async Task TestHeadersLocalGet()
         {
@@ -455,7 +459,9 @@ namespace RestClientDotNet.UnitTests
 
             Assert.Fail();
         }
+        #endregion
 
+        #region Local Errors
         [TestMethod]
         public async Task TestErrorsLocalGet()
         {
@@ -490,7 +496,9 @@ namespace RestClientDotNet.UnitTests
 
             Assert.Fail();
         }
+        #endregion
 
+        #region Local Authentication
         [TestMethod]
         public async Task TestBasicAuthenticationLocal()
         {
@@ -518,6 +526,7 @@ namespace RestClientDotNet.UnitTests
             }
             Assert.Fail();
         }
+        #endregion
 
         #region All Extension Overloads
 
