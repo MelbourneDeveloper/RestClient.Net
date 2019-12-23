@@ -525,6 +525,34 @@ namespace RestClientDotNet.UnitTests
             }
             Assert.Fail();
         }
+
+        [TestMethod]
+        public async Task TestBasicAuthenticationPostLocal()
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
+            restClient.UseBasicAuthentication("Bob", "ANicePassword");
+            Person person = await restClient.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new Uri("secure/basic", UriKind.Relative));
+            Assert.AreEqual("Sam", person.FirstName);
+        }
+
+        [TestMethod]
+        public async Task TestBasicAuthenticationPostLocalWithError()
+        {
+            try
+            {
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
+                restClient.UseBasicAuthentication("Bob", "WrongPassword");
+                Person person = await restClient.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new Uri("secure/basic", UriKind.Relative));
+            }
+            catch (HttpStatusException ex)
+            {
+                Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.RestResponse.StatusCode);
+                var apiResult = await ex.RestResponse.ReadResponseAsync<ApiResult>();
+                Assert.AreEqual(SecureController.NotAuthorizedMessage, apiResult.Errors.First());
+                return;
+            }
+            Assert.Fail();
+        }
         #endregion
 
         #region All Extension Overloads

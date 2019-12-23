@@ -16,13 +16,37 @@ namespace ApiExamples.Controllers
         [Route("basic")]
         public IActionResult Get()
         {
-            if (Request.Headers["Authorization"] != "Basic Qm9iOkFOaWNlUGFzc3dvcmQ=")
+            if (Validate())
             {
-                var json = JsonConvert.SerializeObject(new ApiResult { Errors = { NotAuthorizedMessage } });
-                return Unauthorized(json);
+                var person = CreatePerson();
+                return Ok(person);
             }
 
-            var person = new Person
+            var json = JsonConvert.SerializeObject(new ApiResult { Errors = { NotAuthorizedMessage } });
+            return Unauthorized(json);
+        }
+
+        [HttpPost]
+        [Route("basic")]
+        public IActionResult Post([FromBody] Person person)
+        {
+            if (Validate())
+            {
+                return Ok(person);
+            }
+
+            var json = JsonConvert.SerializeObject(new ApiResult { Errors = { NotAuthorizedMessage } });
+            return Unauthorized(json);
+        }
+
+        private bool Validate()
+        {
+            return Request.Headers["Authorization"] == "Basic Qm9iOkFOaWNlUGFzc3dvcmQ=";
+        }
+
+        private static Person CreatePerson()
+        {
+            return new Person
             {
                 FirstName = "Sam",
                 BillingAddress = new Address
@@ -33,9 +57,6 @@ namespace ApiExamples.Controllers
                 },
                 Surname = "Smith"
             };
-
-            return Ok(person);
         }
-
     }
 }
