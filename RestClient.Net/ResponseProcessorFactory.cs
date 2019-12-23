@@ -106,6 +106,18 @@ namespace RestClientDotNet
         {
             HttpClientFactory.Dispose();
         }
+
+        public IRestResponse<TReturn> CreateResponse<TReturn>(IRestHeadersCollection headers, int statusCode, IResponseProcessor responseProcessor, Uri baseUri, Uri resource, HttpVerb httpVerb)
+        {
+            return new RestResponse<TReturn>(
+                default,
+                headers,
+                statusCode,
+                responseProcessor,
+                baseUri,
+                resource,
+                httpVerb);
+        }
         #endregion
     }
 
