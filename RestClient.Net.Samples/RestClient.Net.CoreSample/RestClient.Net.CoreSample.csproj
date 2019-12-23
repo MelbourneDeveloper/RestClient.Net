@@ -14,9 +14,9 @@
   <ItemGroup>
     <Compile Include="..\RESTClient.NET.Samples\SerializationAdapters\BinaryDataContractSerializationAdapter.cs" Link="SerializationAdapters\BinaryDataContractSerializationAdapter.cs" />
     <Compile Include="..\RESTClient.NET.Samples\SerializationAdapters\DataContractSerializationAdapter.cs" Link="SerializationAdapters\DataContractSerializationAdapter.cs" />
-    <Compile Include="..\RESTClient.NET.Samples\SerializationAdapters\NewtonsoftSerializationAdapter.cs" Link="SerializationAdapters\NewtonsoftSerializationAdapter.cs" />
+    <Compile Include="..\..\RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Shared\NewtonsoftSerializationAdapter.cs" Link="SerializationAdapters\NewtonsoftSerializationAdapter.cs" />
     <Compile Include="..\RestClient.Net.Samples\SerializationAdapters\ProtobufSerializationAdapter.cs" Link="SerializationAdapters\ProtobufSerializationAdapter.cs" />
-    <Compile Include="..\RESTClient.NET.Samples\SerializationAdapters\XmlSerializationAdapter.cs" Link="SerializationAdapters\XmlSerializationAdapter.cs" />
+    <Compile Include="..\RESTClient.NET.Samples\SerializationAdapters\XmlSerializationAdapter.cs" Link="SerializationAdapters\XmlSerializationAdapter.cs" />    
   </ItemGroup>
 
   <ItemGroup>

@@ -36,6 +36,7 @@
     <DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.0-dev.137" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\RestClient.Net.Abstractions\RestClient.Net.Abstractions.csproj" />
     <ProjectReference Include="..\..\RestClient.Net\RestClient.Net.csproj" />
   </ItemGroup>
   <ItemGroup>

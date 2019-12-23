@@ -1,4 +1,5 @@
 ﻿using RestClientDotNet;
+using RestClientDotNet.Abstractions;
 using RestClientNetSamples;
 using System;
 using System.Linq;
@@ -16,6 +17,38 @@ using Uno.UI.Wasm;
 
 namespace RestClient.Net.Samples.Uno
 {
+    public class UnoSampleHttpClientFactory : IHttpClientFactory
+    {
+        HttpClient httpClient;
+
+        public UnoSampleHttpClientFactory(Uri uri)
+        {
+#if __WASM__
+            httpClient = new HttpClient(new WasmHttpHandler());
+#else
+            httpClient = new HttpClient();
+#endif
+            httpClient.BaseAddress = uri;
+        }
+
+
+        public TimeSpan Timeout { get => httpClient.Timeout; set => httpClient.Timeout = value; }
+
+        public Uri BaseUri => httpClient.BaseAddress;
+
+        public IRestHeadersCollection DefaultRequestHeaders => new RestRequestHeadersCollection(httpClient.DefaultRequestHeaders);
+
+        public HttpClient CreateHttpClient()
+        {
+            return httpClient;
+        }
+
+        public void Dispose()
+        {
+            httpClient.Dispose();
+        }
+    }
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -39,13 +72,9 @@ namespace RestClient.Net.Samples.Uno
         private void GetBitBucketClient(string password, bool isGet)
         {
             var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
-#if __WASM__
-            var httpClient = new HttpClient(new WasmHttpHandler());
-#else
-            var httpClient = new HttpClient();
-#endif
 
-            _BitbucketClient = new restClient(new NewtonsoftSerializationAdapter(), new Uri(url), new TimeSpan(0, 3, 0), httpClient);
+
+            _BitbucketClient = new restClient(new NewtonsoftSerializationAdapter(),null,new UnoSampleHttpClientFactory(new Uri(url)),null  );
 
             if (!string.IsNullOrEmpty(password))
             {
@@ -67,7 +96,7 @@ namespace RestClient.Net.Samples.Uno
                 GetBitBucketClient(GetPassword(), true);
 
                 //Download the repository data
-                var repos = (await _BitbucketClient.GetAsync<RepositoryList>());
+                RepositoryList repos = (await _BitbucketClient.GetAsync<RepositoryList>());
 
                 //Put it in the List Box
                 ReposBox.ItemsSource = repos.values;
