@@ -38,7 +38,7 @@
             </ComboBox>
 
             <TextBlock Text="Description" />
-            <TextBox Text="{Binding description}"  Height="200"  />
+            <TextBox Text="{Binding description, Mode=TwoWay}"  Height="200"  />
 
             <Button Content="Save Repo"   x:Name="SaveButton"  />
 

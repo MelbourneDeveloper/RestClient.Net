@@ -1,4 +1,5 @@
-﻿using RestClientDotNet;
+﻿using RestClient.Net.Samples.Uno.Shared;
+using RestClientDotNet;
 using RestClientDotNet.Abstractions;
 using RestClientNetSamples;
 using System;
@@ -17,38 +18,7 @@ using Uno.UI.Wasm;
 
 namespace RestClient.Net.Samples.Uno
 {
-    public class UnoSampleHttpClientFactory : IHttpClientFactory
-    {
-        HttpClient httpClient;
-
-        public UnoSampleHttpClientFactory(Uri uri)
-        {
-#if __WASM__
-            httpClient = new HttpClient(new WasmHttpHandler());
-#else
-            httpClient = new HttpClient();
-#endif
-            httpClient.BaseAddress = uri;
-        }
-
-
-        public TimeSpan Timeout { get => httpClient.Timeout; set => httpClient.Timeout = value; }
-
-        public Uri BaseUri => httpClient.BaseAddress;
-
-        public IRestHeadersCollection DefaultRequestHeaders => new RestRequestHeadersCollection(httpClient.DefaultRequestHeaders);
-
-        public HttpClient CreateHttpClient()
-        {
-            return httpClient;
-        }
-
-        public void Dispose()
-        {
-            httpClient.Dispose();
-        }
-    }
-
+ 
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -73,13 +43,11 @@ namespace RestClient.Net.Samples.Uno
         {
             var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
 
-
             _BitbucketClient = new restClient(new NewtonsoftSerializationAdapter(),null,new UnoSampleHttpClientFactory(new Uri(url)),null  );
 
             if (!string.IsNullOrEmpty(password))
             {
-                var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
-                _BitbucketClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+                _BitbucketClient.UseBasicAuthentication(UsernameBox.Text, password);
             }
         }
 
