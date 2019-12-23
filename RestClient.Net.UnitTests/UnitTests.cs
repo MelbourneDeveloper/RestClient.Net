@@ -520,6 +520,8 @@ namespace RestClientDotNet.UnitTests
         }
 
         #region All Extension Overloads
+
+        #region Get
         [TestMethod]
         public async Task TestLocalGetNoArgs()
         {
@@ -573,6 +575,45 @@ namespace RestClientDotNet.UnitTests
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
+        #endregion
+
+        #region Delete
+        [TestMethod]
+        public async Task TestLocalDeleteStringUri()
+        {
+            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson"));
+            var response = await restClient.DeleteAsync("?personKey=abc");
+            Assert.AreEqual(200, response.StatusCode);
+        }
+
+        [TestMethod]
+        public async Task TestLocalDeleteUri()
+        {
+            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson"));
+            var response = await restClient.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative));
+            Assert.AreEqual(200, response.StatusCode);
+        }
+
+        [TestMethod]
+        public async Task TestLocalDeleteUriCancellationToken()
+        {
+            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson"));
+            var response = await restClient.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative), new CancellationToken());
+            Assert.AreEqual(200, response.StatusCode);
+        }
+        #endregion
+
+        #region Post
+        [TestMethod]
+        public async Task TestLocalPostBody()
+        {
+            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson/save"));
+            var requestPerson = new Person { FirstName = "Bob" };
+            Person responsePerson = await restClient.PostAsync<Person, Person>(requestPerson);
+            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+        }
+        #endregion
+
         #endregion
 
         //TODO: Test exceptions

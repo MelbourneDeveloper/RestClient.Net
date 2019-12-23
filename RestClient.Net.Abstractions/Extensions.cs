@@ -68,26 +68,20 @@ namespace RestClientDotNet
         #endregion
 
         #region Delete
-        public static Task DeleteAsync(this IRestClient restClient, string queryString)
+        public static Task<RestResponse> DeleteAsync(this IRestClient restClient, string queryString)
         {
             return DeleteAsync(restClient, new Uri(queryString, UriKind.Relative));
         }
 
-        public static Task DeleteAsync(this IRestClient restClient, Uri queryString)
+        public static Task<RestResponse> DeleteAsync(this IRestClient restClient, Uri queryString)
         {
             return DeleteAsync(restClient, queryString, default);
         }
 
-        public static Task DeleteAsync(this IRestClient restClient, Uri queryString, CancellationToken cancellationToken)
+        public static async Task<RestResponse> DeleteAsync(this IRestClient restClient, Uri queryString, CancellationToken cancellationToken)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return DeleteAsync(restClient, queryString, restClient.DefaultContentType, cancellationToken);
-        }
-
-        public static Task DeleteAsync(this IRestClient restClient, Uri queryString, string contentType, CancellationToken cancellationToken)
-        {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return restClient.SendAsync<object, object>(queryString, HttpVerb.Delete, contentType, null, cancellationToken);
+            return await restClient.SendAsync<object, object>(queryString, HttpVerb.Delete, restClient.DefaultContentType, null, cancellationToken);
         }
         #endregion
 

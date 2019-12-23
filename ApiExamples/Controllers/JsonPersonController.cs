@@ -49,7 +49,7 @@ namespace ApiExamples.Controllers
             return person;
         }
 
-        [HttpPatch]
+        [HttpDelete]
         public IActionResult Delete(string personKey)
         {
             return Ok();
