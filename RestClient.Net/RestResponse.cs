@@ -1,9 +1,10 @@
-﻿using System;
+﻿using RestClientDotNet.Abstractions;
+using System;
 using System.Threading.Tasks;
 
-namespace RestClientDotNet.Abstractions
+namespace RestClientDotNet
 {
-    public class RestResponse<TBody> : RestResponse
+    public class RestResponse<TBody> : RestResponse, IRestResponse<TBody>
     {
         public TBody Body { get; }
 
