@@ -612,6 +612,42 @@ namespace RestClientDotNet.UnitTests
             Person responsePerson = await restClient.PostAsync<Person, Person>(requestPerson);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
+
+        [TestMethod]
+        public async Task TestLocalPostBodyStringUri()
+        {
+            var restClient = GetJsonClient();
+            var requestPerson = new Person { FirstName = "Bob" };
+            Person responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, "jsonperson/save");
+            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+        }
+
+        [TestMethod]
+        public async Task TestLocalPostBodyUri()
+        {
+            var restClient = GetJsonClient();
+            var requestPerson = new Person { FirstName = "Bob" };
+            Person responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative));
+            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+        }
+
+        [TestMethod]
+        public async Task TestLocalPostBodyUriCancellationToken()
+        {
+            var restClient = GetJsonClient();
+            var requestPerson = new Person { FirstName = "Bob" };
+            Person responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), new CancellationToken());
+            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+        }
+
+        [TestMethod]
+        public async Task TestLocalPostBodyUriCancellationTokenContentType()
+        {
+            var restClient = GetJsonClient();
+            var requestPerson = new Person { FirstName = "Bob" };
+            Person responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), "application/json", new CancellationToken());
+            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+        }
         #endregion
 
         #endregion
@@ -619,8 +655,6 @@ namespace RestClientDotNet.UnitTests
         //TODO: Test exceptions
 
         //TODO: Test all constructor overloads
-
-        //TODO: Test extension method overloads
 
         #endregion
 
