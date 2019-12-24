@@ -189,7 +189,7 @@ namespace RestClientDotNet
                 return restResponse;
             }
 
-            throw new HttpStatusException($"{restResponse.StatusCode}.\r\nResource: {resource}", restResponse);
+            throw new HttpStatusException($"{restResponse.StatusCode}.\r\nResource: {resource}", restResponse, this);
         }
         #endregion
     }

@@ -19,7 +19,7 @@ namespace RestClientDotNet
             restClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
         }
 
-        public static Task<TBody> GetResponseBodyAsync<TBody>(this IRestClient restClient, RestResponseBase response)
+        public static Task<TBody> DeserializeResponseBodyAsync<TBody>(this IRestClient restClient, RestResponseBase response)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
             if (response == null) throw new ArgumentNullException(nameof(response));
