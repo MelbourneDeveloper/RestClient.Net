@@ -295,7 +295,7 @@ namespace RestClientDotNet.UnitTests
                 ));
 
             _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, It.IsAny<int?>(),
-                It.Is<RestResponseHeadersCollection>(c => CheckResponseHeaders(c))
+                It.Is<RestResponseHeaders>(c => CheckResponseHeaders(c))
                 ));
         }
 
@@ -797,7 +797,7 @@ namespace RestClientDotNet.UnitTests
             return restRequestHeadersCollection.Contains("Test") && restRequestHeadersCollection["Test"].First() == "Test";
         }
 
-        private static bool CheckResponseHeaders(RestResponseHeadersCollection restResponseHeadersCollection)
+        private static bool CheckResponseHeaders(RestResponseHeaders restResponseHeadersCollection)
         {
             return restResponseHeadersCollection.Contains("Test1") && restResponseHeadersCollection["Test1"].First() == "a";
         }

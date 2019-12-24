@@ -160,7 +160,7 @@ namespace RestClientDotNet
 
             var responseBody = await SerializationAdapter.DeserializeAsync<TResponseBody>(responseData);
 
-            var restHeadersCollection = new RestResponseHeadersCollection(httpResponseMessage.Headers);
+            var restHeadersCollection = new RestResponseHeaders(httpResponseMessage.Headers);
 
             var restResponse = new RestResponse<TResponseBody>
             (
