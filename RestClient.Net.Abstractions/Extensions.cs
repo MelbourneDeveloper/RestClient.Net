@@ -1,4 +1,4 @@
-﻿using RestClientDotNet.Abstractions;
+using RestClientDotNet.Abstractions;
 using System;
 using System.Text;
 using System.Threading;
@@ -17,6 +17,13 @@ namespace RestClientDotNet
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
             var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(userName + ":" + password));
             restClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+        }
+
+        public static Task<TBody> GetResponseBodyAsync<TBody>(this IRestClient restClient, RestResponseBase response)
+        {
+            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
+            if (response == null) throw new ArgumentNullException(nameof(response));
+            return restClient.SerializationAdapter.DeserializeAsync<TBody>(response.GetResponseData());
         }
         #endregion
 
