@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace RestClientDotNet.Abstractions
 {
@@ -10,29 +11,41 @@ namespace RestClientDotNet.Abstractions
         public HttpVerb HttpVerb { get; set; } = HttpVerb.Get;
         public string ContentType { get; set; } = "application/json";
         public TBody Body { get; set; }
+        public CancellationToken CancellationToken { get; set; }
         #endregion
 
-        public RestRequest(TBody body, IRestHeadersCollection headers, IRestClient client)
+        public RestRequest(TBody body,
+            IRestHeadersCollection headers,
+            IRestClient client,
+            Uri resource,
+            HttpVerb httpVerb,
+            string contentType,
+            CancellationToken cancellationToken)
         {
             Body = body;
-            Headers = headers ?? throw new ArgumentNullException(nameof(headers));
+            Headers = headers;
+            Resource = resource;
+            HttpVerb = httpVerb;
+            ContentType = contentType;
+            CancellationToken = cancellationToken;
 
             if (client == null) return;
 
-            var contentType = client.DefaultContentType;
-            if (!string.IsNullOrEmpty(contentType))
+            var defaultContentType = client.DefaultContentType;
+            if (!string.IsNullOrEmpty(defaultContentType))
             {
-                ContentType = contentType;
+                ContentType = defaultContentType;
             }
 
-            var clientHeaders = client.DefaultRequestHeaders;
-            if (clientHeaders != null)
-            {
-                foreach (var header in clientHeaders)
-                {
-                    Headers.Add(header.Key, header.Value);
-                }
-            }
+            //TODO:
+            //var clientHeaders = client.DefaultRequestHeaders;
+            //if (clientHeaders != null)
+            //{
+            //    foreach (var header in clientHeaders)
+            //    {
+            //        Headers.Add(header.Key, header.Value);
+            //    }
+            //}
         }
     }
 }

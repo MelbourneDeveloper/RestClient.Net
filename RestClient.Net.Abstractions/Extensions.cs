@@ -70,7 +70,16 @@ namespace RestClientDotNet
         public static Task<RestResponseBase<T>> GetAsync<T>(this IRestClient restClient, Uri resource, string contentType, CancellationToken cancellationToken)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return restClient.SendAsync<T, object>(resource, HttpVerb.Get, contentType, null, cancellationToken);
+            return restClient.SendAsync<T, object>(
+                new RestRequest<object>(
+                    default,
+                    null,
+                    restClient,
+                    resource,
+                    HttpVerb.Get,
+                    contentType,
+                    cancellationToken)
+                );
         }
         #endregion
 
@@ -169,7 +178,5 @@ namespace RestClientDotNet
             return restClient.SendAsync<TReturn, object>(resource, HttpVerb.Patch, contentType, body, cancellationToken);
         }
         #endregion
-
-
     }
 }
