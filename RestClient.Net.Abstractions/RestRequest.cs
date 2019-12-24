@@ -29,7 +29,7 @@ namespace RestClientDotNet.Abstractions
             ContentType = contentType;
             CancellationToken = cancellationToken;
 
-            if (Headers == null) Headers = new RestRequestHeadersCollection();
+            if (Headers == null) Headers = new RestRequestHeaders();
 
             if (client == null) return;
 
