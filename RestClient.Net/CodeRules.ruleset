@@ -1102,12 +1102,12 @@
     <Rule Id="CA1308" Action="Error" />
     <Rule Id="CA1401" Action="Error" />
     <Rule Id="CA1813" Action="Error" />
-    <Rule Id="CA1816" Action="Warning" />
+    <Rule Id="CA1816" Action="Error" />
     <Rule Id="CA1820" Action="Error" />
     <Rule Id="CA1826" Action="Error" />
     <Rule Id="CA1827" Action="Error" />
     <Rule Id="CA1828" Action="Error" />
-    <Rule Id="CA2000" Action="Warning" />
+    <Rule Id="CA2000" Action="Error" />
     <Rule Id="CA2002" Action="Error" />
     <Rule Id="CA2008" Action="Error" />
     <Rule Id="CA2009" Action="Error" />
