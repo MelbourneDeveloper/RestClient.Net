@@ -466,30 +466,30 @@ namespace RestClientDotNet.UnitTests
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
             restClient.ThrowExceptionOnFailure = false;
-            var response = await restClient.GetAsync<Person>("error");
+            var response = (RestResponse<Person>) await restClient.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
-            var fullRestResponse = response as RestResponse<Person>;
-            var apiResult = await response.ReadResponseAsync<ApiResult>();
+            var apiResult = await restClient.GetResponseBodyAsync<ApiResult>(response);
             Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
 
             //Check that the response values are getting set correctly
-            Assert.AreEqual(_testServerHttpClientFactory.BaseUri, fullRestResponse.BaseUri);
+            Assert.AreEqual(_testServerHttpClientFactory.BaseUri, response.BaseUri);
             Assert.AreEqual(HttpVerb.Get, response.HttpVerb);
-            Assert.AreEqual(new Uri("error", UriKind.Relative), fullRestResponse.Resource);
+            Assert.AreEqual(new Uri("error", UriKind.Relative), response.Resource);
         }
 
         [TestMethod]
         public async Task TestErrorsLocalGetThrowException()
         {
+            RestClient restClient = null;
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
+                restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
                 var response = await restClient.GetAsync<Person>("error");
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             }
             catch (HttpStatusException hex)
             {
-                var apiResult = await hex.RestResponse.ReadResponseAsync<ApiResult>();
+                var apiResult = await restClient.GetResponseBodyAsync<ApiResult>(hex.RestResponse);
                 Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
                 return;
             }
@@ -511,16 +511,17 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationLocalWithError()
         {
+            RestClient restClient = null;
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
+                restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
                 restClient.UseBasicAuthentication("Bob", "WrongPassword");
                 Person person = await restClient.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative));
             }
-            catch (HttpStatusException ex)
+            catch (HttpStatusException hex)
             {
-                Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.RestResponse.StatusCode);
-                var apiResult = await ex.RestResponse.ReadResponseAsync<ApiResult>();
+                Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.RestResponse.StatusCode);
+                var apiResult = await restClient.GetResponseBodyAsync<ApiResult>(hex.RestResponse);
                 Assert.AreEqual(SecureController.NotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -539,16 +540,17 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationPostLocalWithError()
         {
+            RestClient restClient = null;
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
+                restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
                 restClient.UseBasicAuthentication("Bob", "WrongPassword");
                 Person person = await restClient.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new Uri("secure/basic", UriKind.Relative));
             }
             catch (HttpStatusException ex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.RestResponse.StatusCode);
-                var apiResult = await ex.RestResponse.ReadResponseAsync<ApiResult>();
+                var apiResult = await restClient.GetResponseBodyAsync<ApiResult>(ex.RestResponse);
                 Assert.AreEqual(SecureController.NotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
