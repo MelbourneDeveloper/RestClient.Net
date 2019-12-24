@@ -460,6 +460,21 @@ namespace RestClientDotNet.UnitTests
         }
         #endregion
 
+        #region Local Headers In RestRequest
+        [TestMethod]
+        public async Task TestHeadersLocalGet2()
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
+            var restRequestHeaders = new RestRequestHeaders();
+            restRequestHeaders.Add("Test", "Test");
+            Person responsePerson = await restClient.SendAsync<Person, object>
+                (
+                new RestRequest<object>(null, null, restRequestHeaders, HttpVerb.Get, restClient, null, default)
+                ); ;
+            Assert.IsNotNull(responsePerson);
+        }
+        #endregion
+
         #region Local Errors
         [TestMethod]
         public async Task TestErrorsLocalGet()
