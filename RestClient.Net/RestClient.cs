@@ -7,13 +7,18 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
-    public sealed class RestClient : RestClientBase, IRestClient
+    public sealed class RestClient : IRestClient
     {
         #region Public Properties
         public IHttpClientFactory HttpClientFactory { get; }
         public IZip Zip { get; }
-        public override IRestHeadersCollection DefaultRequestHeaders => HttpClientFactory.DefaultRequestHeaders;
-        public override TimeSpan Timeout { get => HttpClientFactory.Timeout; set => HttpClientFactory.Timeout = value; }
+        public IRestHeadersCollection DefaultRequestHeaders => HttpClientFactory.DefaultRequestHeaders;
+        public TimeSpan Timeout { get => HttpClientFactory.Timeout; set => HttpClientFactory.Timeout = value; }
+        public ISerializationAdapter SerializationAdapter { get; }
+        public ITracer Tracer { get; }
+        public bool ThrowExceptionOnFailure { get; set; } = true;
+        public string DefaultContentType { get; set; } = "application/json";
+
         #endregion
 
         #region Constructors
@@ -69,9 +74,11 @@ namespace RestClientDotNet
         public RestClient(
        ISerializationAdapter serializationAdapter,
        IHttpClientFactory httpClientFactory,
-       ITracer tracer) : base(serializationAdapter, tracer)
+       ITracer tracer)
         {
+            SerializationAdapter = serializationAdapter;
             HttpClientFactory = httpClientFactory;
+            Tracer = tracer;
         }
 
         #endregion

@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace RestClientDotNet.Abstractions
+﻿namespace RestClientDotNet.Abstractions
 {
     public abstract class RestResponseBase<TBody> : RestResponseBase
     {
@@ -29,19 +27,19 @@ namespace RestClientDotNet.Abstractions
 
     public abstract class RestResponseBase
     {
-		#region Fields
-		private byte[] _responseData;
-		#endregion
+        #region Fields
+        private readonly byte[] _responseData;
+        #endregion
 
-		#region Public Methods
-		public int StatusCode { get; }
-		public IRestHeadersCollection Headers { get; }
-		public HttpVerb HttpVerb { get; }
+        #region Public Methods
+        public int StatusCode { get; }
+        public IRestHeadersCollection Headers { get; }
+        public HttpVerb HttpVerb { get; }
         public abstract bool IsSuccess { get; }
-		#endregion
+        #endregion
 
-		#region Constructor
-		protected RestResponseBase
+        #region Constructor
+        protected RestResponseBase
         (
         IRestHeadersCollection restHeadersCollection,
         int statusCode,
@@ -52,13 +50,15 @@ namespace RestClientDotNet.Abstractions
             StatusCode = statusCode;
             Headers = restHeadersCollection;
             HttpVerb = httpVerb;
-			_responseData = responseData;
-		}
-		#endregion
+            _responseData = responseData;
+        }
+        #endregion
 
+        #region Public Methods
         public byte[] GetResponseData()
-		{
-			return _responseData;
-		}
-	}
+        {
+            return _responseData;
+        }
+        #endregion
+    }
 }
