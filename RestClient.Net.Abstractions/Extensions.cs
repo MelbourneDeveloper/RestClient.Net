@@ -77,11 +77,11 @@ namespace RestClientDotNet
         {
             return SendAsync<TResponseBody, object>(restClient,
                 new RestRequest<object>(
+                    resource,
                     default,
                     null,
-                    restClient,
-                    resource,
                     HttpVerb.Get,
+                    restClient,
                     contentType,
                     cancellationToken));
         }
@@ -102,13 +102,13 @@ namespace RestClientDotNet
         {
             var response = (RestResponseBase)await SendAsync<object, object>(restClient,
             new RestRequest<object>(
-                  default,
-                  null,
-                  restClient,
                   resource,
-                  HttpVerb.Delete,
-                  null,
-                  cancellationToken));
+                default,
+                null,
+                HttpVerb.Delete,
+                restClient,
+                null,
+                cancellationToken));
 
             return response;
         }
@@ -135,11 +135,11 @@ namespace RestClientDotNet
         {
             return SendAsync<TResponseBody, TRequestBody>(restClient,
                 new RestRequest<TRequestBody>(
+                    resource,
                     body,
                     null,
-                    restClient,
-                    resource,
                     HttpVerb.Put,
+                    restClient,
                     contentType,
                     cancellationToken));
         }
@@ -171,11 +171,11 @@ namespace RestClientDotNet
         {
             return SendAsync<TResponseBody, TRequestBody>(restClient,
                 new RestRequest<TRequestBody>(
+                    resource,
                     body,
                     null,
-                    restClient,
-                    resource,
                     HttpVerb.Post,
+                    restClient,
                     contentType,
                     cancellationToken));
         }
@@ -203,11 +203,11 @@ namespace RestClientDotNet
         {
             return SendAsync<TResponseBody, TRequestBody>(restClient,
                 new RestRequest<TRequestBody>(
+                    resource,
                     body,
                     null,
-                    restClient,
-                    resource,
                     HttpVerb.Patch,
+                    restClient,
                     contentType,
                     cancellationToken));
         }

@@ -2,7 +2,7 @@
 
 namespace RestClientDotNet
 {
-    public class StandardRestClientFactory : IRestClientFactory
+    public class RestClientFactory : IRestClientFactory
     {
         #region Public Properties
         public ISerializationAdapter SerializationAdapter { get; }
@@ -11,7 +11,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Constructor
-        public StandardRestClientFactory(ISerializationAdapter serializationAdapter,
+        public RestClientFactory(ISerializationAdapter serializationAdapter,
                                          IHttpClientFactory httpClientFactory,
                                          ITracer tracer)
         {

@@ -14,11 +14,11 @@ namespace RestClientDotNet.Abstractions
         public CancellationToken CancellationToken { get; set; }
         #endregion
 
-        public RestRequest(TRequestBody body,
+        public RestRequest(Uri resource,
+            TRequestBody body,
             IRestHeadersCollection headers,
-            IRestClient client,
-            Uri resource,
             HttpVerb httpVerb,
+            IRestClient client,
             string contentType,
             CancellationToken cancellationToken)
         {
@@ -37,17 +37,14 @@ namespace RestClientDotNet.Abstractions
                 ContentType = defaultContentType;
             }
 
-            throw new NotImplementedException();
-
-            //TODO:
-            //var clientHeaders = client.DefaultRequestHeaders;
-            //if (clientHeaders != null)
-            //{
-            //    foreach (var header in clientHeaders)
-            //    {
-            //        Headers.Add(header.Key, header.Value);
-            //    }
-            //}
+            var clientHeaders = client.DefaultRequestHeaders;
+            if (clientHeaders != null)
+            {
+                foreach (var header in clientHeaders)
+                {
+                    Headers.Add(header.Key, header.Value);
+                }
+            }
         }
     }
 }

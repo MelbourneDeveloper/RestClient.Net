@@ -10,7 +10,6 @@ namespace RestClientDotNet
         private bool disposed;
         #endregion
 
-
         #region Public Properties
         public TimeSpan Timeout
         {
@@ -45,7 +44,7 @@ namespace RestClientDotNet
                 HttpClient.BaseAddress = baseUri;
             }
 
-            DefaultRequestHeaders = new RestRequestHeadersCollection(HttpClient.DefaultRequestHeaders);
+            DefaultRequestHeaders = new HttpRequestHeadersCollection(HttpClient.DefaultRequestHeaders);
             Timeout = timeout;
         }
         #endregion

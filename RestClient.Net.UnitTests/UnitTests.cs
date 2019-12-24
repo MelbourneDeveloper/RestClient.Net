@@ -291,7 +291,7 @@ namespace RestClientDotNet.UnitTests
             var response = await restClient.GetAsync<Person>("headers");
 
             _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request, null,
-                It.Is<RestRequestHeadersCollection>(c => CheckRequestHeaders(c))
+                It.Is<HttpRequestHeadersCollection>(c => CheckRequestHeaders(c))
                 ));
 
             _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, It.IsAny<int?>(),
@@ -792,7 +792,7 @@ namespace RestClientDotNet.UnitTests
             return restClient;
         }
 
-        private static bool CheckRequestHeaders(RestRequestHeadersCollection restRequestHeadersCollection)
+        private static bool CheckRequestHeaders(HttpRequestHeadersCollection restRequestHeadersCollection)
         {
             return restRequestHeadersCollection.Contains("Test") && restRequestHeadersCollection["Test"].First() == "Test";
         }
