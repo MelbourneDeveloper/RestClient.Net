@@ -3,18 +3,18 @@ using System.Threading;
 
 namespace RestClientDotNet.Abstractions
 {
-    public class RestRequest<TBody>
+    public class RestRequest<TRequestBody>
     {
         #region Public Properties
         public IRestHeadersCollection Headers { get; }
         public Uri Resource { get; set; }
         public HttpVerb HttpVerb { get; set; } = HttpVerb.Get;
         public string ContentType { get; set; } = "application/json";
-        public TBody Body { get; set; }
+        public TRequestBody Body { get; set; }
         public CancellationToken CancellationToken { get; set; }
         #endregion
 
-        public RestRequest(TBody body,
+        public RestRequest(TRequestBody body,
             IRestHeadersCollection headers,
             IRestClient client,
             Uri resource,
@@ -37,7 +37,7 @@ namespace RestClientDotNet.Abstractions
                 ContentType = defaultContentType;
             }
 
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
 
             //TODO:
             //var clientHeaders = client.DefaultRequestHeaders;

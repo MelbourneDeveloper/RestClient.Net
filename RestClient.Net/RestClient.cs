@@ -83,7 +83,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        async Task<RestResponseBase<TReturn>> IRestClient.SendAsync<TReturn, TBody>(RestRequest<TBody> restRequest)
+        async Task<RestResponseBase<TResponseBody>> IRestClient.SendAsync<TResponseBody, TBody>(RestRequest<TBody> restRequest)
         {
             var httpClient = HttpClientFactory.CreateHttpClient();
 
@@ -158,11 +158,11 @@ namespace RestClientDotNet
                 responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
             }
 
-            var responseBody = await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
+            var responseBody = await SerializationAdapter.DeserializeAsync<TResponseBody>(responseData);
 
             var restHeadersCollection = new RestResponseHeadersCollection(httpResponseMessage.Headers);
 
-            var restResponse = new RestResponse<TReturn>
+            var restResponse = new RestResponse<TResponseBody>
             (
                 restHeadersCollection,
                 (int)httpResponseMessage.StatusCode,

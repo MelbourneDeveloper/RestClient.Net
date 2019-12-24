@@ -1,20 +1,20 @@
 ﻿namespace RestClientDotNet.Abstractions
 {
-    public abstract class RestResponseBase<TBody> : RestResponseBase
+    public abstract class RestResponseBase<TResponseBody> : RestResponseBase
     {
         protected RestResponseBase(
         IRestHeadersCollection restHeadersCollection,
         int statusCode,
         HttpVerb httpVerb,
         byte[] responseData,
-        TBody body
+        TResponseBody body
         ) : base(restHeadersCollection, statusCode, httpVerb, responseData)
         {
             Body = body;
         }
 
 #pragma warning disable CA2225 // Operator overloads have named alternates
-        public static implicit operator TBody(RestResponseBase<TBody> readResult)
+        public static implicit operator TResponseBody(RestResponseBase<TResponseBody> readResult)
 #pragma warning restore CA2225 // Operator overloads have named alternates
         {
 #pragma warning disable CA1062 // Validate arguments of public methods
@@ -22,7 +22,7 @@
 #pragma warning restore CA1062 // Validate arguments of public methods
         }
 
-        public TBody Body { get; }
+        public TResponseBody Body { get; }
     }
 
     public abstract class RestResponseBase
