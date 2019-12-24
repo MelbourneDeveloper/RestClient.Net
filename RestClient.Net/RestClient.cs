@@ -14,6 +14,20 @@ namespace RestClientDotNet
         #endregion
 
         #region Constructors
+
+
+        public RestClient(
+            ISerializationAdapter serializationAdapter,
+            IHttpClientFactory httpClientFactory,
+            ITracer tracer)
+        : this(
+          serializationAdapter,
+          tracer,
+          new ResponseProcessor(null, serializationAdapter, tracer, httpClientFactory))
+
+        {
+        }
+
         public RestClient(ISerializationAdapter serializationAdapter,
                           ITracer tracer,
                           IResponseProcessor responseProcessor)
