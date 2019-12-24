@@ -1,5 +1,6 @@
 ﻿using RestClientDotNet.Abstractions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -113,62 +114,28 @@ namespace RestClientDotNet
 #pragma warning disable CA2000 // Dispose objects before losing scope
             var httpRequestMessage = new HttpRequestMessage
             {
-                Method = httpMethod
+                Method = httpMethod,
+                RequestUri = restRequest.Resource
             };
 #pragma warning restore CA2000 // Dispose objects before losing scope
 
-            Tracer?.Trace(restRequest.HttpVerb, HttpClientFactory.BaseUri, restRequest.Resource, null, TraceType.Request, null, restRequest.Headers);
+            Tracer?.Trace(restRequest.HttpVerb, httpClient.BaseAddress, restRequest.Resource, null, TraceType.Request, null, restRequest.Headers);
+
+            if (new List<HttpVerb> { HttpVerb.Put, HttpVerb.Post, HttpVerb.Patch }.Contains(restRequest.HttpVerb))
+            {
+                var bodyData = await SerializationAdapter.SerializeAsync(restRequest.Body);
+                var httpContent = new ByteArrayContent(bodyData);
+                //Why do we have to set the content type only in cases where there is a request restRequest.Body, and headers?
+                httpContent.Headers.Add("Content-Type", restRequest.ContentType);
+                httpRequestMessage.Content = httpContent;
+            }
+
+            foreach (var headerName in restRequest.Headers.Names)
+            {
+                httpRequestMessage.Headers.Add(headerName, restRequest.Headers[headerName]);
+            }
+
             var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
-
-            //switch (restRequest.HttpVerb)
-            //{
-            //    case HttpVerb.Get:
-            //        Tracer?.Trace(restRequest.HttpVerb, HttpClientFactory.BaseUri, restRequest.Resource, null, TraceType.Request, null, HttpClientFactory.DefaultRequestHeaders);
-            //        httpResponseMessage = await httpClient.GetAsync(restRequest.Resource, restRequest.CancellationToken);
-            //        break;
-            //    case HttpVerb.Delete:
-            //        Tracer?.Trace(restRequest.HttpVerb, HttpClientFactory.BaseUri, restRequest.Resource, null, TraceType.Request, null, HttpClientFactory.DefaultRequestHeaders);
-            //        httpResponseMessage = await httpClient.DeleteAsync(restRequest.Resource, restRequest.CancellationToken);
-            //        break;
-
-            //    case HttpVerb.Post:
-            //    case HttpVerb.Put:
-            //    case HttpVerb.Patch:
-
-            //        var bodyData = await SerializationAdapter.SerializeAsync(restRequest.Body);
-
-            //        using (var httpContent = new ByteArrayContent(bodyData))
-            //        {
-            //            //Why do we have to set the content type only in cases where there is a request restRequest.Body, and headers?
-            //            httpContent.Headers.Add("Content-Type", restRequest.ContentType);
-
-            //            Tracer?.Trace(restRequest.HttpVerb, HttpClientFactory.BaseUri, restRequest.Resource, bodyData, TraceType.Request, null, HttpClientFactory.DefaultRequestHeaders);
-
-            //            if (restRequest.HttpVerb == HttpVerb.Put)
-            //            {
-            //                httpResponseMessage = await httpClient.PutAsync(restRequest.Resource, httpContent, restRequest.CancellationToken);
-            //            }
-            //            else if (restRequest.HttpVerb == HttpVerb.Post)
-            //            {
-            //                httpResponseMessage = await httpClient.PostAsync(restRequest.Resource, httpContent, restRequest.CancellationToken);
-            //            }
-            //            else
-            //            {
-            //                var method = new HttpMethod("PATCH");
-            //                using (var request = new HttpRequestMessage(method, restRequest.Resource)
-            //                {
-            //                    Content = httpContent
-            //                })
-            //                {
-            //                    httpResponseMessage = await httpClient.SendAsync(request, restRequest.CancellationToken);
-            //                }
-            //            }
-            //        }
-
-            //        break;
-            //    default:
-            //        throw new NotImplementedException();
-            //}
 
             byte[] responseData = null;
 
@@ -207,7 +174,7 @@ namespace RestClientDotNet
 
             Tracer?.Trace(
                 restRequest.HttpVerb,
-                HttpClientFactory.BaseUri,
+                httpClient.BaseAddress,
                 restRequest.Resource,
                 responseData,
                 TraceType.Response,

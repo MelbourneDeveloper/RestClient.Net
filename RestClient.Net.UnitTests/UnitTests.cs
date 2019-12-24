@@ -469,7 +469,7 @@ namespace RestClientDotNet.UnitTests
             restRequestHeaders.Add("Test", "Test");
             Person responsePerson = await restClient.SendAsync<Person, object>
                 (
-                new RestRequest<object>(null, null, restRequestHeaders, HttpVerb.Get, restClient, null, default)
+                new RestRequest<object>(new Uri("headers", UriKind.Relative), null, restRequestHeaders, HttpVerb.Get, restClient, null, default)
                 ); ;
             Assert.IsNotNull(responsePerson);
         }
