@@ -20,7 +20,7 @@ namespace RestClientDotNet.Abstractions
         #endregion
 
         #region Constructor
-        public RestClientBase(ISerializationAdapter serializationAdapter, ITracer tracer)
+        protected RestClientBase(ISerializationAdapter serializationAdapter, ITracer tracer)
         {
             SerializationAdapter = serializationAdapter;
             Tracer = tracer;

@@ -12,12 +12,7 @@ namespace RestClientDotNet
         #region Public Properties
         public IZip Zip { get; }
         public ISerializationAdapter SerializationAdapter { get; }
-        public bool IsSuccess => HttpResponseMessage.IsSuccessStatusCode;
-        public int StatusCode => (int)HttpResponseMessage.StatusCode;
-        public IRestHeadersCollection Headers { get; }
-        public object UnderlyingResponse => HttpResponseMessage;
         public ITracer Tracer { get; }
-        public HttpResponseMessage HttpResponseMessage { get; }
         public IHttpClientFactory HttpClientFactory { get; }
         public IRestHeadersCollection DefaultRequestHeaders => HttpClientFactory.DefaultRequestHeaders;
         public TimeSpan Timeout { get => HttpClientFactory.Timeout; set => HttpClientFactory.Timeout = value; }
@@ -28,23 +23,19 @@ namespace RestClientDotNet
             (
                 IZip zip,
                 ISerializationAdapter serializationAdapter,
-                HttpResponseMessage httpResponseMessage,
                 ITracer tracer,
                 IHttpClientFactory httpClientFactory
             )
         {
             Zip = zip;
             SerializationAdapter = serializationAdapter;
-            HttpResponseMessage = httpResponseMessage ?? throw new ArgumentNullException(nameof(httpResponseMessage));
             Tracer = tracer;
-            Headers = new RestResponseHeadersCollection(httpResponseMessage.Headers);
             HttpClientFactory = httpClientFactory;
-
         }
         #endregion
 
         #region Implementation
-        public async Task<RestResponseBase<TReturn>> ProcessRestResponseAsync<TReturn, TBody>(Uri resource, HttpVerb httpVerb, TBody body, string contentType, CancellationToken cancellationToken)
+        public async Task<RestResponseBase<TReturn>> SendAsync<TReturn, TBody>(Uri resource, HttpVerb httpVerb, TBody body, string contentType, CancellationToken cancellationToken)
         {
             var httpClient = HttpClientFactory.CreateHttpClient();
 
@@ -105,34 +96,34 @@ namespace RestClientDotNet
             if (Zip != null)
             {
                 //This is for cases where an unzipping utility needs to be used to unzip the content. This is actually a bug in UWP
-                var gzipHeader = HttpResponseMessage.Content.Headers.ContentEncoding.FirstOrDefault(h =>
+                var gzipHeader = httpResponseMessage.Content.Headers.ContentEncoding.FirstOrDefault(h =>
                     !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.OrdinalIgnoreCase));
                 if (gzipHeader != null)
                 {
-                    var bytes = await HttpResponseMessage.Content.ReadAsByteArrayAsync();
+                    var bytes = await httpResponseMessage.Content.ReadAsByteArrayAsync();
                     responseData = Zip.Unzip(bytes);
                 }
             }
 
             if (responseData == null)
             {
-                responseData = await HttpResponseMessage.Content.ReadAsByteArrayAsync();
+                responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
             }
 
             var bodyObject = await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
 
-            var restHeadersCollection = new RestResponseHeadersCollection(HttpResponseMessage.Headers);
+            var restHeadersCollection = new RestResponseHeadersCollection(httpResponseMessage.Headers);
 
             var restResponse = new RestResponse<TReturn>
             (
                 restHeadersCollection,
-                (int)HttpResponseMessage.StatusCode,
+                (int)httpResponseMessage.StatusCode,
                 HttpClientFactory.BaseUri,
                 resource,
                 httpVerb,
                 responseData,
                 bodyObject,
-                HttpResponseMessage
+                httpResponseMessage
             );
 
             Tracer?.Trace(
@@ -141,15 +132,10 @@ namespace RestClientDotNet
                 resource,
                 responseData,
                 TraceType.Response,
-                (int)HttpResponseMessage.StatusCode,
+                (int)httpResponseMessage.StatusCode,
                 restHeadersCollection);
 
             return restResponse;
-        }
-
-        public Task<RestResponseBase<TReturn>> ProcessRestResponseAsync<TReturn>(Uri resource, HttpVerb httpVerb, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }
