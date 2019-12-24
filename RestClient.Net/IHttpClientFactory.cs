@@ -8,7 +8,7 @@ namespace RestClientDotNet
     {
         TimeSpan Timeout { get; set; }
         Uri BaseUri { get; }
-        IRestHeadersCollection DefaultRequestHeaders { get; }
+        IRestHeaders DefaultRequestHeaders { get; }
         HttpClient CreateHttpClient();
     }
 

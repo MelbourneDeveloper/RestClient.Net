@@ -24,7 +24,7 @@ namespace RestClientDotNet
         }
 
         public Uri BaseUri => HttpClient.BaseAddress;
-        public IRestHeadersCollection DefaultRequestHeaders { get; }
+        public IRestHeaders DefaultRequestHeaders { get; }
         public HttpClient HttpClient { get; }
         #endregion
 

@@ -2,12 +2,10 @@
 
 namespace RestClientDotNet.Abstractions
 {
-#pragma warning disable CA1711 // Identifiers should not have incorrect suffix
     /// <summary>
     /// Abstraction for storing and enumerating Http Request headers
     /// </summary>
-    public interface IRestHeadersCollection
-#pragma warning restore CA1711 // Identifiers should not have incorrect suffix
+    public interface IRestHeaders
     {
         void Add(string name, string value);
         void Add(string name, IEnumerable<string> values);

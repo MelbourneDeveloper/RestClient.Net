@@ -3,7 +3,7 @@
     public abstract class RestResponseBase<TResponseBody> : RestResponseBase
     {
         protected RestResponseBase(
-        IRestHeadersCollection restHeadersCollection,
+        IRestHeaders restHeadersCollection,
         int statusCode,
         HttpVerb httpVerb,
         byte[] responseData,
@@ -33,7 +33,7 @@
 
         #region Public Methods
         public int StatusCode { get; }
-        public IRestHeadersCollection Headers { get; }
+        public IRestHeaders Headers { get; }
         public HttpVerb HttpVerb { get; }
         public abstract bool IsSuccess { get; }
         #endregion
@@ -41,7 +41,7 @@
         #region Constructor
         protected RestResponseBase
         (
-        IRestHeadersCollection restHeadersCollection,
+        IRestHeaders restHeadersCollection,
         int statusCode,
         HttpVerb httpVerb,
         byte[] responseData

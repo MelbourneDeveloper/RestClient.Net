@@ -6,7 +6,7 @@ namespace RestClientDotNet.Abstractions
     public class RestRequest<TRequestBody>
     {
         #region Public Properties
-        public IRestHeadersCollection Headers { get; }
+        public IRestHeaders Headers { get; }
         public Uri Resource { get; set; }
         public HttpVerb HttpVerb { get; set; } = HttpVerb.Get;
         public string ContentType { get; set; } = "application/json";
@@ -16,7 +16,7 @@ namespace RestClientDotNet.Abstractions
 
         public RestRequest(Uri resource,
             TRequestBody body,
-            IRestHeadersCollection headers,
+            IRestHeaders headers,
             HttpVerb httpVerb,
             IRestClient client,
             string contentType,

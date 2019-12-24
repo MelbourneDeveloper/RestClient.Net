@@ -11,7 +11,7 @@ namespace RestClientDotNet
         #region Public Properties
         public IHttpClientFactory HttpClientFactory { get; }
         public IZip Zip { get; }
-        public IRestHeadersCollection DefaultRequestHeaders => HttpClientFactory.DefaultRequestHeaders;
+        public IRestHeaders DefaultRequestHeaders => HttpClientFactory.DefaultRequestHeaders;
         public TimeSpan Timeout { get => HttpClientFactory.Timeout; set => HttpClientFactory.Timeout = value; }
         public ISerializationAdapter SerializationAdapter { get; }
         public ITracer Tracer { get; }

@@ -16,7 +16,7 @@ namespace RestClientDotNet
         #region Constructor
         public RestResponse
         (
-            IRestHeadersCollection restHeadersCollection,
+            IRestHeaders restHeadersCollection,
             int statusCode,
             Uri baseUri,
             Uri resource,
