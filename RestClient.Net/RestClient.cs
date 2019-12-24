@@ -18,7 +18,7 @@ namespace RestClientDotNet
         public ITracer Tracer { get; }
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public string DefaultContentType { get; set; } = "application/json";
-
+        public Uri BaseUri => HttpClientFactory.BaseUri;
         #endregion
 
         #region Constructors
