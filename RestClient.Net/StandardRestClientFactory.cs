@@ -24,13 +24,10 @@ namespace RestClientDotNet
         #region Implementation
         public IRestClient CreateRestClient()
         {
-            return new RestClient(SerializationAdapter,
-                Tracer,
-                new ResponseProcessor(
-                    null,
-                    SerializationAdapter,
-                    Tracer,
-                    HttpClientFactory));
+            return new RestClient(
+                SerializationAdapter,
+                HttpClientFactory,
+                Tracer);
         }
         #endregion
     }
