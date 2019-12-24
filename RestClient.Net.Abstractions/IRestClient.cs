@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ namespace RestClientDotNet.Abstractions
 {
     public interface IRestClient
     {
-        //Task<RestResponse<TReturn>> SendAsync<TReturn, TBody>(Uri resource, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken);
+        ISerializationAdapter SerializationAdapter { get; }
         Task<RestResponse<TReturn>> SendAsync<TReturn, TBody>(RestRequest<TBody> restRequest);
         IRestHeadersCollection DefaultRequestHeaders { get; }
         string DefaultContentType { get; }
