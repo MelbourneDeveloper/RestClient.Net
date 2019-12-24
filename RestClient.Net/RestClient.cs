@@ -119,11 +119,10 @@ namespace RestClientDotNet
             };
 #pragma warning restore CA2000 // Dispose objects before losing scope
 
-            Tracer?.Trace(restRequest.HttpVerb, httpClient.BaseAddress, restRequest.Resource, null, TraceType.Request, null, restRequest.Headers);
-
+            byte[] bodyData = null;
             if (new List<HttpVerb> { HttpVerb.Put, HttpVerb.Post, HttpVerb.Patch }.Contains(restRequest.HttpVerb))
             {
-                var bodyData = await SerializationAdapter.SerializeAsync(restRequest.Body);
+                bodyData = await SerializationAdapter.SerializeAsync(restRequest.Body);
                 var httpContent = new ByteArrayContent(bodyData);
                 //Why do we have to set the content type only in cases where there is a request restRequest.Body, and headers?
                 httpContent.Headers.Add("Content-Type", restRequest.ContentType);
@@ -134,6 +133,8 @@ namespace RestClientDotNet
             {
                 httpRequestMessage.Headers.Add(headerName, restRequest.Headers[headerName]);
             }
+
+            Tracer?.Trace(restRequest.HttpVerb, httpClient.BaseAddress, restRequest.Resource, bodyData, TraceType.Request, null, restRequest.Headers);
 
             var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
 
