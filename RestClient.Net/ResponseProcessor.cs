@@ -19,6 +19,8 @@ namespace RestClientDotNet
         public ITracer Tracer { get; }
         public HttpResponseMessage HttpResponseMessage { get; }
         public IHttpClientFactory HttpClientFactory { get; }
+        public IRestHeadersCollection DefaultRequestHeaders => HttpClientFactory.DefaultRequestHeaders;
+        public TimeSpan Timeout { get => HttpClientFactory.Timeout; set => HttpClientFactory.Timeout = value; }
         #endregion
 
         #region Constructor
@@ -37,11 +39,12 @@ namespace RestClientDotNet
             Tracer = tracer;
             Headers = new RestResponseHeadersCollection(httpResponseMessage.Headers);
             HttpClientFactory = httpClientFactory;
+
         }
         #endregion
 
         #region Implementation
-        public async Task<RestResponse<TBody>> CreateResponseProcessorAsync<TBody>(HttpVerb httpVerb, Uri baseUri, Uri resource, TBody body, string contentType, IRestHeadersCollection defaultRequestHeaders, CancellationToken cancellationToken)
+        public async Task<RestResponseBase<TReturn>> ProcessRestResponseAsync<TReturn, TBody>(Uri resource, HttpVerb httpVerb, TBody body, string contentType, CancellationToken cancellationToken)
         {
             var httpClient = HttpClientFactory.CreateHttpClient();
 
@@ -50,11 +53,11 @@ namespace RestClientDotNet
             switch (httpVerb)
             {
                 case HttpVerb.Get:
-                    Tracer?.Trace(httpVerb, baseUri, resource, null, TraceType.Request, null, defaultRequestHeaders);
+                    Tracer?.Trace(httpVerb, HttpClientFactory.BaseUri, resource, null, TraceType.Request, null, HttpClientFactory.DefaultRequestHeaders);
                     httpResponseMessage = await httpClient.GetAsync(resource, cancellationToken);
                     break;
                 case HttpVerb.Delete:
-                    Tracer?.Trace(httpVerb, baseUri, resource, null, TraceType.Request, null, defaultRequestHeaders);
+                    Tracer?.Trace(httpVerb, HttpClientFactory.BaseUri, resource, null, TraceType.Request, null, HttpClientFactory.DefaultRequestHeaders);
                     httpResponseMessage = await httpClient.DeleteAsync(resource, cancellationToken);
                     break;
 
@@ -69,7 +72,7 @@ namespace RestClientDotNet
                         //Why do we have to set the content type only in cases where there is a request body, and headers?
                         httpContent.Headers.Add("Content-Type", contentType);
 
-                        Tracer?.Trace(httpVerb, baseUri, resource, bodyData, TraceType.Request, null, defaultRequestHeaders);
+                        Tracer?.Trace(httpVerb, HttpClientFactory.BaseUri, resource, bodyData, TraceType.Request, null, HttpClientFactory.DefaultRequestHeaders);
 
                         if (httpVerb == HttpVerb.Put)
                         {
@@ -116,15 +119,15 @@ namespace RestClientDotNet
                 responseData = await HttpResponseMessage.Content.ReadAsByteArrayAsync();
             }
 
-            var bodyObject = await SerializationAdapter.DeserializeAsync<TBody>(responseData);
+            var bodyObject = await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
 
             var restHeadersCollection = new RestResponseHeadersCollection(HttpResponseMessage.Headers);
 
-            var restResponse = new RestResponse<TBody>
+            var restResponse = new RestResponse<TReturn>
             (
                 restHeadersCollection,
                 (int)HttpResponseMessage.StatusCode,
-                baseUri,
+                HttpClientFactory.BaseUri,
                 resource,
                 httpVerb,
                 responseData,
@@ -134,7 +137,7 @@ namespace RestClientDotNet
 
             Tracer?.Trace(
                 httpVerb,
-                baseUri,
+                HttpClientFactory.BaseUri,
                 resource,
                 responseData,
                 TraceType.Response,
@@ -142,6 +145,11 @@ namespace RestClientDotNet
                 restHeadersCollection);
 
             return restResponse;
+        }
+
+        public Task<RestResponseBase<TReturn>> ProcessRestResponseAsync<TReturn>(Uri resource, HttpVerb httpVerb, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

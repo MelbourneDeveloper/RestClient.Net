@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
-    public class RestClient : RestClientBase, IRestClient
+    public sealed class RestClient : RestClientBase, IRestClient
     {
         public IResponseProcessor ResponseProcessor { get; }
 
-        public override IRestHeadersCollection DefaultRequestHeaders => ResponseProcessor.Headers;
+        public override IRestHeadersCollection DefaultRequestHeaders => ResponseProcessor.DefaultRequestHeaders;
 
-        public override TimeSpan Timeout { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override TimeSpan Timeout { get => ResponseProcessor.Timeout; set => ResponseProcessor.Timeout = value; }
 
         public RestClient(ISerializationAdapter serializationAdapter) : this(serializationAdapter, default(Uri))
         {
@@ -21,11 +21,19 @@ namespace RestClientDotNet
         {
         }
 
+#pragma warning disable CA2000 // Dispose objects before losing scope
+#pragma warning disable IDE0067 // Dispose objects before losing scope
         public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, ITracer tracer) : this(serializationAdapter, tracer, new SingletonHttpClientFactory(default, baseUri), null)
+#pragma warning restore IDE0067 // Dispose objects before losing scope
+#pragma warning restore CA2000 // Dispose objects before losing scope
         {
         }
 
+#pragma warning disable CA2000 // Dispose objects before losing scope
+#pragma warning disable IDE0067 // Dispose objects before losing scope
         public RestClient(ISerializationAdapter serializationAdapter, Uri baseUri, TimeSpan timeout) : this(serializationAdapter, new SingletonHttpClientFactory(timeout, baseUri))
+#pragma warning restore IDE0067 // Dispose objects before losing scope
+#pragma warning restore CA2000 // Dispose objects before losing scope
         {
         }
 
@@ -37,14 +45,16 @@ namespace RestClientDotNet
         {
         }
 
+#pragma warning disable IDE0060 // Remove unused parameter
         public RestClient(ISerializationAdapter serializationAdapter, ITracer tracer, IHttpClientFactory httpClientFactory, IZip zip) : base(serializationAdapter, tracer)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
         }
 
         async Task<RestResponseBase<TReturn>> IRestClient.SendAsync<TReturn, TBody>(Uri resource, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
 #pragma warning restore CA1033 // Interface methods should be callable by child types
         {
-            var response = await ResponseProcessor.ProcessRestResponseAsync<TReturn>(resource, httpVerb);
+            var response = await ResponseProcessor.ProcessRestResponseAsync<TReturn, TBody>(resource, httpVerb, body, contentType, cancellationToken);
 
             if (response.IsSuccess || !ThrowExceptionOnFailure)
             {

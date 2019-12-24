@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace RestClientDotNet.Abstractions
 {
+#pragma warning disable CA1012 // Abstract types should not have constructors
     public abstract class RestClientBase : IDisposable
+#pragma warning restore CA1012 // Abstract types should not have constructors
     {
         #region Fields
         private bool disposed;
