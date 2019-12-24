@@ -25,6 +25,12 @@ namespace RestClientDotNet
             if (response == null) throw new ArgumentNullException(nameof(response));
             return restClient.SerializationAdapter.DeserializeAsync<TBody>(response.GetResponseData());
         }
+
+        public static Task<RestResponseBase<T>> SendAsync<T, TBody>(this IRestClient restClient, RestRequest<TBody> restRequest)
+        {
+            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
+            return restClient.SendAsync<T, TBody>(restRequest);
+        }
         #endregion
 
         #region Get
@@ -69,8 +75,7 @@ namespace RestClientDotNet
 
         public static Task<RestResponseBase<T>> GetAsync<T>(this IRestClient restClient, Uri resource, string contentType, CancellationToken cancellationToken)
         {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return restClient.SendAsync<T, object>(
+            return SendAsync<T, object>(restClient,
                 new RestRequest<object>(
                     default,
                     null,
@@ -78,8 +83,7 @@ namespace RestClientDotNet
                     resource,
                     HttpVerb.Get,
                     contentType,
-                    cancellationToken)
-                );
+                    cancellationToken));
         }
         #endregion
 
@@ -96,8 +100,17 @@ namespace RestClientDotNet
 
         public static async Task<RestResponseBase> DeleteAsync(this IRestClient restClient, Uri resource, CancellationToken cancellationToken)
         {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return await restClient.SendAsync<object, object>(resource, HttpVerb.Delete, restClient.DefaultContentType, null, cancellationToken);
+            var response = (RestResponseBase)await SendAsync<object, object>(restClient,
+            new RestRequest<object>(
+                  default,
+                  null,
+                  restClient,
+                  resource,
+                  HttpVerb.Delete,
+                  null,
+                  cancellationToken));
+
+            return response;
         }
         #endregion
 
