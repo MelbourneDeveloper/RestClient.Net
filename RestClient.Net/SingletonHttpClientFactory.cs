@@ -44,7 +44,7 @@ namespace RestClientDotNet
                 HttpClient.BaseAddress = baseUri;
             }
 
-            DefaultRequestHeaders = new HttpRequestHeadersCollection(HttpClient.DefaultRequestHeaders);
+            DefaultRequestHeaders = new RestHttpRequestHeaders(HttpClient.DefaultRequestHeaders);
             Timeout = timeout;
         }
         #endregion

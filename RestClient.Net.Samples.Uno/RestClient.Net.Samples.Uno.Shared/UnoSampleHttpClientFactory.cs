@@ -28,7 +28,7 @@ namespace RestClient.Net.Samples.Uno.Shared
 
         public Uri BaseUri => httpClient.BaseAddress;
 
-        public IRestHeadersCollection DefaultRequestHeaders => new RestClientDotNet.HttpRequestHeadersCollection(httpClient.DefaultRequestHeaders);
+        public IRestHeadersCollection DefaultRequestHeaders => new RestClientDotNet.RestHttpRequestHeaders(httpClient.DefaultRequestHeaders);
 
         public HttpClient CreateHttpClient()
         {

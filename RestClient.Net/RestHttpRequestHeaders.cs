@@ -5,12 +5,10 @@ using System.Net.Http.Headers;
 
 namespace RestClientDotNet
 {
-#pragma warning disable CA1711 // Identifiers should not have incorrect suffix
     /// <summary>
     /// A wrapper for HttpRequestHeaders
     /// </summary>
-    public class HttpRequestHeadersCollection : IRestHeadersCollection
-#pragma warning restore CA1711 // Identifiers should not have incorrect suffix
+    public class RestHttpRequestHeaders : IRestHeadersCollection
     {
         #region Public Properties
         public HttpRequestHeaders HttpRequestHeaders { get; }
@@ -19,7 +17,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        public HttpRequestHeadersCollection(HttpRequestHeaders httpRequestHeaders)
+        public RestHttpRequestHeaders(HttpRequestHeaders httpRequestHeaders)
         {
             HttpRequestHeaders = httpRequestHeaders;
         }
