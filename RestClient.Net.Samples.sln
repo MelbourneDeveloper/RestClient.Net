@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net.Samples.iOS"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.Samples", "RestClient.Net.Samples\RestClient.NET.Samples\RestClient.Net.Samples.csproj", "{DC1496A6-1F14-468A-BCE6-3634B82B77F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net", "RestClient.Net\RestClient.Net.csproj", "{FD9972B1-15EC-4D67-B50B-6DB0EFB255C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net", "RestClient.Net\RestClient.Net.csproj", "{FD9972B1-15EC-4D67-B50B-6DB0EFB255C2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.CoreSample", "RestClient.Net.Samples\RESTClient.NET.CoreSample\RestClient.Net.CoreSample.csproj", "{E0A1ADD2-AA1D-4024-9443-60334BF385C0}"
 EndProject
