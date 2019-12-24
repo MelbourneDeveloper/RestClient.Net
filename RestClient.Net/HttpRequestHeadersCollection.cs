@@ -1,17 +1,20 @@
 ﻿using RestClientDotNet.Abstractions;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http.Headers;
 
 namespace RestClientDotNet
 {
+#pragma warning disable CA1711 // Identifiers should not have incorrect suffix
     /// <summary>
     /// A wrapper for HttpRequestHeaders
     /// </summary>
     public class HttpRequestHeadersCollection : IRestHeadersCollection
+#pragma warning restore CA1711 // Identifiers should not have incorrect suffix
     {
         #region Public Properties
         public HttpRequestHeaders HttpRequestHeaders { get; }
+        public IEnumerable<string> Names => HttpRequestHeaders.ToList().Select(kvp => kvp.Key);
         public IEnumerable<string> this[string name] => HttpRequestHeaders.GetValues(name);
         #endregion
 
@@ -29,16 +32,6 @@ namespace RestClientDotNet
         public void Add(string name, IEnumerable<string> values)
         {
             HttpRequestHeaders.Add(name, values);
-        }
-
-        public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator()
-        {
-            return HttpRequestHeaders.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return HttpRequestHeaders.GetEnumerator();
         }
 
         public void Clear()

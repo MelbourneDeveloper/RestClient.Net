@@ -10,9 +10,11 @@ namespace RestClientDotNet.UnitTests
         {
             Console.WriteLine($"{traceType} {baseUri} {resource}\r\n{Encoding.UTF8.GetString(body)}\r\nStatus Code: {httpStatusCode}");
 
-            foreach (var header in restHeadersCollection)
+            if (restHeadersCollection == null) return;
+
+            foreach (var headerName in restHeadersCollection.Names)
             {
-                Console.WriteLine($"{traceType} Header: {header.Key} {string.Join(", ", header.Value)}");
+                Console.WriteLine($"{traceType} Header: {headerName} {string.Join(", ", restHeadersCollection[headerName])}");
             }
         }
     }

@@ -29,20 +29,22 @@ namespace RestClientDotNet.Abstractions
             ContentType = contentType;
             CancellationToken = cancellationToken;
 
+            if (Headers == null) Headers = new RestRequestHeadersCollection();
+
             if (client == null) return;
 
             var defaultContentType = client.DefaultContentType;
-            if (!string.IsNullOrEmpty(defaultContentType))
+            if (string.IsNullOrEmpty(ContentType) && !string.IsNullOrEmpty(defaultContentType))
             {
                 ContentType = defaultContentType;
             }
 
-            var clientHeaders = client.DefaultRequestHeaders;
-            if (clientHeaders != null)
+            var headerNames = client.DefaultRequestHeaders?.Names;
+            if (headerNames != null)
             {
-                foreach (var header in clientHeaders)
+                foreach (var headerName in headerNames)
                 {
-                    Headers.Add(header.Key, header.Value);
+                    Headers.Add(headerName, client.DefaultRequestHeaders[headerName]);
                 }
             }
         }

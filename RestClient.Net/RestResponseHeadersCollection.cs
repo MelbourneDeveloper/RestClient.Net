@@ -1,13 +1,16 @@
 ﻿using RestClientDotNet.Abstractions;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http.Headers;
 
 namespace RestClientDotNet
 {
+#pragma warning disable CA1711 // Identifiers should not have incorrect suffix
     public class RestResponseHeadersCollection : IRestHeadersCollection
+#pragma warning restore CA1711 // Identifiers should not have incorrect suffix
     {
         #region Public Properties
+        public IEnumerable<string> Names => HttpResponseHeaders.ToList().Select(l => l.Key);
         public HttpResponseHeaders HttpResponseHeaders { get; }
         public IEnumerable<string> this[string name] => HttpResponseHeaders.GetValues(name);
         #endregion
@@ -33,16 +36,6 @@ namespace RestClientDotNet
         public void Clear()
         {
             throw new System.NotImplementedException();
-        }
-
-        public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator()
-        {
-            return HttpResponseHeaders.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return HttpResponseHeaders.GetEnumerator();
         }
 
         public bool Contains(string name)
