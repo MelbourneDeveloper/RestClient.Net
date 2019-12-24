@@ -15,17 +15,22 @@ namespace RestClientDotNet
 
         #region Constructors
         public RestClient(
+            ISerializationAdapter serializationAdapter)
+        : this(
+            serializationAdapter,
+            default(Uri),
+            null)
+        {
+        }
+
+        public RestClient(
             ISerializationAdapter serializationAdapter,
             Uri baseUri,
             ITracer tracer)
         : this(
           serializationAdapter,
-          tracer,
-          new ResponseProcessor(
-              null,
-              serializationAdapter,
-              tracer,
-              new SingletonHttpClientFactory(default, baseUri)))
+          new SingletonHttpClientFactory(default, baseUri),
+          tracer)
         {
         }
 
