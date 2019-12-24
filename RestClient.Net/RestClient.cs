@@ -83,7 +83,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        async Task<RestResponseBase<TResponseBody>> IRestClient.SendAsync<TResponseBody, TBody>(RestRequest<TBody> restRequest)
+        async Task<RestResponseBase<TResponseBody>> IRestClient.SendAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest)
         {
             var httpClient = HttpClientFactory.CreateHttpClient();
 

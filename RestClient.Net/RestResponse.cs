@@ -4,7 +4,7 @@ using System.Net.Http;
 
 namespace RestClientDotNet
 {
-    public class RestResponse<TBody> : RestResponseBase<TBody>
+    public class RestResponse<TResponseBody> : RestResponseBase<TResponseBody>
     {
         #region Public Properties
         public Uri BaseUri { get; }
@@ -22,7 +22,7 @@ namespace RestClientDotNet
             Uri resource,
             HttpVerb httpVerb,
             byte[] responseContentData,
-            TBody body,
+            TResponseBody body,
             HttpResponseMessage httpResponseMessage
             ) : base(restHeadersCollection, statusCode, httpVerb, responseContentData, body)
         {
