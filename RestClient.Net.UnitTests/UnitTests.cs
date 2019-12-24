@@ -291,7 +291,7 @@ namespace RestClientDotNet.UnitTests
             var response = await restClient.GetAsync<Person>("headers");
 
             _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request, null,
-                It.Is<RestHttpRequestHeaders>(c => CheckRequestHeaders(c))
+                It.Is<IRestHeaders>(c => CheckRequestHeaders(c))
                 ));
 
             _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, It.IsAny<int?>(),
@@ -462,7 +462,7 @@ namespace RestClientDotNet.UnitTests
 
         #region Local Headers In RestRequest
         [TestMethod]
-        public async Task TestHeadersLocalGet2()
+        public async Task TestHeadersLocalInRestRequest()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
             var restRequestHeaders = new RestRequestHeaders();
@@ -807,7 +807,7 @@ namespace RestClientDotNet.UnitTests
             return restClient;
         }
 
-        private static bool CheckRequestHeaders(RestHttpRequestHeaders restRequestHeadersCollection)
+        private static bool CheckRequestHeaders(IRestHeaders restRequestHeadersCollection)
         {
             return restRequestHeadersCollection.Contains("Test") && restRequestHeadersCollection["Test"].First() == "Test";
         }
