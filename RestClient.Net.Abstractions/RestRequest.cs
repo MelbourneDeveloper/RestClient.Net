@@ -37,7 +37,7 @@ namespace RestClientDotNet.Abstractions
                 ContentType = defaultContentType;
             }
 
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
 
             //TODO:
             //var clientHeaders = client.DefaultRequestHeaders;
