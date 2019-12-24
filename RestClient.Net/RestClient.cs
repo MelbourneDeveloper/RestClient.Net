@@ -18,8 +18,27 @@ namespace RestClientDotNet
             ISerializationAdapter serializationAdapter)
         : this(
             serializationAdapter,
-            default(Uri),
+            default(Uri))
+        {
+        }
+
+        public RestClient(
+            ISerializationAdapter serializationAdapter,
+            Uri baseUri)
+        : this(
+            serializationAdapter,
+            baseUri,
             null)
+        {
+        }
+
+        public RestClient(
+            ISerializationAdapter serializationAdapter,
+            Uri baseUri,
+            TimeSpan timeout)
+        : this(
+            serializationAdapter,
+            new SingletonHttpClientFactory(timeout, baseUri))
         {
         }
 
@@ -31,6 +50,16 @@ namespace RestClientDotNet
           serializationAdapter,
           new SingletonHttpClientFactory(default, baseUri),
           tracer)
+        {
+        }
+
+        public RestClient(
+            ISerializationAdapter serializationAdapter,
+            IHttpClientFactory httpClientFactory)
+        : this(
+          serializationAdapter,
+          httpClientFactory,
+          null)
         {
         }
 
