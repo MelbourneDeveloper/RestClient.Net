@@ -2,7 +2,6 @@
 using System;
 using System.Linq;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace RestClientDotNet
@@ -84,53 +83,53 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        async Task<RestResponseBase<TReturn>> IRestClient.SendAsync<TReturn, TBody>(Uri resource, HttpVerb httpVerb, string contentType, TBody body, CancellationToken cancellationToken)
+        async Task<RestResponseBase<TReturn>> IRestClient.SendAsync<TReturn, TBody>(RestRequest<TBody> restRequest)
         {
             var httpClient = HttpClientFactory.CreateHttpClient();
 
             HttpResponseMessage httpResponseMessage;
 
-            switch (httpVerb)
+            switch (restRequest.HttpVerb)
             {
                 case HttpVerb.Get:
-                    Tracer?.Trace(httpVerb, HttpClientFactory.BaseUri, resource, null, TraceType.Request, null, HttpClientFactory.DefaultRequestHeaders);
-                    httpResponseMessage = await httpClient.GetAsync(resource, cancellationToken);
+                    Tracer?.Trace(restRequest.HttpVerb, HttpClientFactory.BaseUri, restRequest.Resource, null, TraceType.Request, null, HttpClientFactory.DefaultRequestHeaders);
+                    httpResponseMessage = await httpClient.GetAsync(restRequest.Resource, restRequest.CancellationToken);
                     break;
                 case HttpVerb.Delete:
-                    Tracer?.Trace(httpVerb, HttpClientFactory.BaseUri, resource, null, TraceType.Request, null, HttpClientFactory.DefaultRequestHeaders);
-                    httpResponseMessage = await httpClient.DeleteAsync(resource, cancellationToken);
+                    Tracer?.Trace(restRequest.HttpVerb, HttpClientFactory.BaseUri, restRequest.Resource, null, TraceType.Request, null, HttpClientFactory.DefaultRequestHeaders);
+                    httpResponseMessage = await httpClient.DeleteAsync(restRequest.Resource, restRequest.CancellationToken);
                     break;
 
                 case HttpVerb.Post:
                 case HttpVerb.Put:
                 case HttpVerb.Patch:
 
-                    var bodyData = await SerializationAdapter.SerializeAsync(body);
+                    var bodyData = await SerializationAdapter.SerializeAsync(restRequest.Body);
 
                     using (var httpContent = new ByteArrayContent(bodyData))
                     {
-                        //Why do we have to set the content type only in cases where there is a request body, and headers?
-                        httpContent.Headers.Add("Content-Type", contentType);
+                        //Why do we have to set the content type only in cases where there is a request restRequest.Body, and headers?
+                        httpContent.Headers.Add("Content-Type", restRequest.ContentType);
 
-                        Tracer?.Trace(httpVerb, HttpClientFactory.BaseUri, resource, bodyData, TraceType.Request, null, HttpClientFactory.DefaultRequestHeaders);
+                        Tracer?.Trace(restRequest.HttpVerb, HttpClientFactory.BaseUri, restRequest.Resource, bodyData, TraceType.Request, null, HttpClientFactory.DefaultRequestHeaders);
 
-                        if (httpVerb == HttpVerb.Put)
+                        if (restRequest.HttpVerb == HttpVerb.Put)
                         {
-                            httpResponseMessage = await httpClient.PutAsync(resource, httpContent, cancellationToken);
+                            httpResponseMessage = await httpClient.PutAsync(restRequest.Resource, httpContent, restRequest.CancellationToken);
                         }
-                        else if (httpVerb == HttpVerb.Post)
+                        else if (restRequest.HttpVerb == HttpVerb.Post)
                         {
-                            httpResponseMessage = await httpClient.PostAsync(resource, httpContent, cancellationToken);
+                            httpResponseMessage = await httpClient.PostAsync(restRequest.Resource, httpContent, restRequest.CancellationToken);
                         }
                         else
                         {
                             var method = new HttpMethod("PATCH");
-                            using (var request = new HttpRequestMessage(method, resource)
+                            using (var request = new HttpRequestMessage(method, restRequest.Resource)
                             {
                                 Content = httpContent
                             })
                             {
-                                httpResponseMessage = await httpClient.SendAsync(request, cancellationToken);
+                                httpResponseMessage = await httpClient.SendAsync(request, restRequest.CancellationToken);
                             }
                         }
                     }
@@ -159,7 +158,7 @@ namespace RestClientDotNet
                 responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
             }
 
-            var bodyObject = await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
+            var responseBody = await SerializationAdapter.DeserializeAsync<TReturn>(responseData);
 
             var restHeadersCollection = new RestResponseHeadersCollection(httpResponseMessage.Headers);
 
@@ -168,17 +167,17 @@ namespace RestClientDotNet
                 restHeadersCollection,
                 (int)httpResponseMessage.StatusCode,
                 HttpClientFactory.BaseUri,
-                resource,
-                httpVerb,
+                restRequest.Resource,
+                restRequest.HttpVerb,
                 responseData,
-                bodyObject,
+                responseBody,
                 httpResponseMessage
             );
 
             Tracer?.Trace(
-                httpVerb,
+                restRequest.HttpVerb,
                 HttpClientFactory.BaseUri,
-                resource,
+                restRequest.Resource,
                 responseData,
                 TraceType.Response,
                 (int)httpResponseMessage.StatusCode,
@@ -189,7 +188,7 @@ namespace RestClientDotNet
                 return restResponse;
             }
 
-            throw new HttpStatusException($"{restResponse.StatusCode}.\r\nResource: {resource}", restResponse, this);
+            throw new HttpStatusException($"{restResponse.StatusCode}.\r\nrestRequest.Resource: {restRequest.Resource}", restResponse, this);
         }
         #endregion
     }

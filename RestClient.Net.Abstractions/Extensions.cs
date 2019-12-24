@@ -133,8 +133,15 @@ namespace RestClientDotNet
 
         public static Task<RestResponseBase<TReturn>> PutAsync<TReturn, TBody>(this IRestClient restClient, TBody body, Uri resource, string contentType, CancellationToken cancellationToken)
         {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return restClient.SendAsync<TReturn, TBody>(resource, HttpVerb.Put, contentType, body, cancellationToken);
+            return SendAsync<TReturn, TBody>(restClient,
+                new RestRequest<TBody>(
+                    body,
+                    null,
+                    restClient,
+                    resource,
+                    HttpVerb.Put,
+                    contentType,
+                    cancellationToken));
         }
         #endregion
 
@@ -162,8 +169,15 @@ namespace RestClientDotNet
 
         public static Task<RestResponseBase<TReturn>> PostAsync<TReturn, TBody>(this IRestClient restClient, TBody body, Uri resource, string contentType, CancellationToken cancellationToken)
         {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return restClient.SendAsync<TReturn, TBody>(resource, HttpVerb.Post, contentType, body, cancellationToken);
+            return SendAsync<TReturn, TBody>(restClient,
+                new RestRequest<TBody>(
+                    body,
+                    null,
+                    restClient,
+                    resource,
+                    HttpVerb.Post,
+                    contentType,
+                    cancellationToken));
         }
         #endregion
 
@@ -187,8 +201,15 @@ namespace RestClientDotNet
 
         public static Task<RestResponseBase<TReturn>> PatchAsync<TReturn, TBody>(this IRestClient restClient, TBody body, Uri resource, string contentType, CancellationToken cancellationToken)
         {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return restClient.SendAsync<TReturn, object>(resource, HttpVerb.Patch, contentType, body, cancellationToken);
+            return SendAsync<TReturn, TBody>(restClient,
+                new RestRequest<TBody>(
+                    body,
+                    null,
+                    restClient,
+                    resource,
+                    HttpVerb.Patch,
+                    contentType,
+                    cancellationToken));
         }
         #endregion
     }
