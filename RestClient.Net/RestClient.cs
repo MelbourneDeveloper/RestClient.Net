@@ -18,7 +18,7 @@ namespace RestClientDotNet
         public ITracer Tracer { get; }
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public string DefaultContentType { get; set; } = "application/json";
-        public Uri BaseUri => HttpClientFactory.BaseUri;
+        public Uri BaseUri { get; }
         #endregion
 
         #region Constructors
@@ -31,8 +31,8 @@ namespace RestClientDotNet
         }
 
         public RestClient(
-            ISerializationAdapter serializationAdapter,
-            Uri baseUri)
+        ISerializationAdapter serializationAdapter,
+        Uri baseUri)
         : this(
             serializationAdapter,
             baseUri,
@@ -57,7 +57,9 @@ namespace RestClientDotNet
         : this(
           serializationAdapter,
           new SingletonHttpClientFactory(default, baseUri),
-          tracer)
+          tracer,
+          //TODO: This is nasty
+          baseUri)
         {
         }
 
@@ -67,18 +69,21 @@ namespace RestClientDotNet
         : this(
           serializationAdapter,
           httpClientFactory,
+          null,
           null)
         {
         }
 
         public RestClient(
-       ISerializationAdapter serializationAdapter,
-       IHttpClientFactory httpClientFactory,
-       ITracer tracer)
+        ISerializationAdapter serializationAdapter,
+        IHttpClientFactory httpClientFactory,
+        ITracer tracer,
+        Uri baseUri)
         {
             SerializationAdapter = serializationAdapter;
             HttpClientFactory = httpClientFactory;
             Tracer = tracer;
+            BaseUri = baseUri;
         }
 
         #endregion
@@ -86,7 +91,7 @@ namespace RestClientDotNet
         #region Implementation
         async Task<RestResponseBase<TResponseBody>> IRestClient.SendAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest)
         {
-            var httpClient = HttpClientFactory.CreateHttpClient();
+            var httpClient = HttpClientFactory.CreateHttpClient(BaseUri);
 
             var httpMethod = HttpMethod.Get;
             switch (restRequest.HttpVerb)
@@ -165,7 +170,7 @@ namespace RestClientDotNet
             (
                 restHeadersCollection,
                 (int)httpResponseMessage.StatusCode,
-                HttpClientFactory.BaseUri,
+                httpClient.BaseAddress,
                 restRequest.Resource,
                 restRequest.HttpVerb,
                 responseData,

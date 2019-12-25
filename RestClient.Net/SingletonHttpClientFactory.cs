@@ -23,7 +23,6 @@ namespace RestClientDotNet
             }
         }
 
-        public Uri BaseUri => HttpClient.BaseAddress;
         public IRestHeaders DefaultRequestHeaders { get; }
         public HttpClient HttpClient { get; }
         #endregion
@@ -50,8 +49,10 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        public HttpClient CreateHttpClient()
+        public HttpClient CreateHttpClient(Uri baseUri)
         {
+            //TODO: this is really nasty. Fix this
+            HttpClient.BaseAddress = baseUri ?? HttpClient.BaseAddress;
             return HttpClient;
         }
 
