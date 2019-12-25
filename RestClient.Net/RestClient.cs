@@ -92,8 +92,7 @@ namespace RestClientDotNet
         async Task<RestResponseBase<TResponseBody>> IRestClient.SendAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest)
         {
             var httpClient = HttpClientFactory.CreateHttpClient(BaseUri);
-
-            var httpMethod = HttpMethod.Get;
+            HttpMethod httpMethod;
             switch (restRequest.HttpVerb)
             {
                 case HttpVerb.Get:
@@ -143,6 +142,11 @@ namespace RestClientDotNet
 
             var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
 
+            return await ProcessResponseAsync<TResponseBody, TRequestBody>(restRequest, httpClient, httpResponseMessage);
+        }
+
+        private async Task<RestResponseBase<TResponseBody>> ProcessResponseAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest, HttpClient httpClient, HttpResponseMessage httpResponseMessage)
+        {
             byte[] responseData = null;
 
             if (Zip != null)
@@ -162,7 +166,15 @@ namespace RestClientDotNet
                 responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
             }
 
-            var responseBody = await SerializationAdapter.DeserializeAsync<TResponseBody>(responseData);
+            var responseBody = default(TResponseBody);
+            try
+            {
+                responseBody = await SerializationAdapter.DeserializeAsync<TResponseBody>(responseData);
+            }
+            catch (Exception ex)
+            {
+                throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
+            }
 
             var restHeadersCollection = new RestResponseHeaders(httpResponseMessage.Headers);
 
