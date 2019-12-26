@@ -786,6 +786,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestConcurrentCallsLocal()
         {
+            var createdClients = 0;
             var restClientFactory = new RestClientFactory(
                 new NewtonsoftSerializationAdapter(),
                 new DefaultHttpClientFactory
@@ -794,6 +795,7 @@ namespace RestClientDotNet.UnitTests
                     {
                         return new Lazy<HttpClient>(() =>
                         {
+                            createdClients++;
                             return _testServer.CreateClient();
                         }, LazyThreadSafetyMode.ExecutionAndPublication);
                     }
@@ -802,7 +804,9 @@ namespace RestClientDotNet.UnitTests
             var clients = new List<IRestClient>();
 
             var tasks = new List<Task<RestResponseBase<Person>>>();
-            for (var i = 0; i < 10; i++)
+            const int maxCalls = 100;
+
+            for (var i = 0; i < maxCalls; i++)
             {
                 var restClient = restClientFactory.CreateRestClient();
                 restClient.DefaultRequestHeaders.Add("Test", "Test");
@@ -811,6 +815,9 @@ namespace RestClientDotNet.UnitTests
             }
 
             var results = await Task.WhenAll(tasks);
+
+            //Ensure only one http client is created
+            Assert.AreEqual(1, createdClients);
         }
 
         //TODO: Test exceptions
