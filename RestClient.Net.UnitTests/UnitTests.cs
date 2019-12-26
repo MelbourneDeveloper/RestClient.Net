@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xml2CSharp;
@@ -37,7 +38,8 @@ namespace RestClientDotNet.UnitTests
             var hostBuilder = new WebHostBuilder();
             hostBuilder.UseStartup<Startup>();
             _testServer = new TestServer(hostBuilder);
-            _testServerHttpClientFactory = new TestClientFactory(_testServer.CreateClient());
+            var testClient = _testServer.CreateClient();
+            _testServerHttpClientFactory = new TestClientFactory(testClient);
             _tracer = new Mock<ITracer>();
         }
         #endregion
@@ -780,6 +782,34 @@ namespace RestClientDotNet.UnitTests
         }
         #endregion
         #endregion
+
+        [TestMethod]
+        public async Task Test()
+        {
+            var restClientFactory = new RestClientFactory(
+                new NewtonsoftSerializationAdapter(),
+                new DefaultHttpClientFactory
+                (
+                    (name) =>
+                    {
+                        return new Lazy<HttpClient>(() =>
+                        {
+                            return _testServer.CreateClient();
+                        }, LazyThreadSafetyMode.ExecutionAndPublication);
+                    }
+                ),
+                null);
+            var clients = new List<IRestClient>();
+
+            var tasks = new List<Task<RestResponseBase<Person>>>();
+            for (var i = 0; i < 10; i++)
+            {
+                clients.Add(restClientFactory.CreateRestClient());
+                tasks.Add(clients[i].GetAsync<Person>());
+            }
+
+            var results = await Task.WhenAll(tasks);
+        }
 
         //TODO: Test exceptions
 

@@ -21,7 +21,7 @@ namespace RestClientDotNet
         public DefaultHttpClientFactory(Func<string, Lazy<HttpClient>> func)
         {
             _getOrAddFunc = func;
-            _httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();            if (_getOrAddFunc != null) return;            _getOrAddFunc = (name) =>            {                return new Lazy<HttpClient>(() =>                {                    return MintClient();                }, LazyThreadSafetyMode.ExecutionAndPublication);            };
+            _httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();            if (_getOrAddFunc != null) return;            _getOrAddFunc = (name) =>            {                return new Lazy<HttpClient>(() =>                {                    return new HttpClient();                }, LazyThreadSafetyMode.ExecutionAndPublication);            };
         }
         #endregion
 
@@ -40,13 +40,6 @@ namespace RestClientDotNet
             {
                 _httpClients[name].Value.Dispose();
             }
-        }
-        #endregion
-
-        #region Private Methods
-        private HttpClient MintClient()
-        {
-            return new HttpClient();
         }
         #endregion
     }
