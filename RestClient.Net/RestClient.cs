@@ -67,7 +67,7 @@ namespace RestClientDotNet
           tracer,
           baseUri,
           default,
-          nameof(RestClient))
+          null)
         {
         }
 
@@ -80,7 +80,7 @@ namespace RestClientDotNet
           null,
           null,
           default,
-          nameof(RestClient))
+          null)
         {
         }
 
@@ -98,7 +98,7 @@ namespace RestClientDotNet
             BaseUri = baseUri;
             Timeout = timeout;
             DefaultRequestHeaders = new RestRequestHeaders();
-            Name = name;
+            Name = name ?? nameof(RestClient);
         }
 
         #endregion
