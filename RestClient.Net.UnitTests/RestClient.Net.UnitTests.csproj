@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net45</TargetFramework>
 
     <IsPackable>false</IsPackable>
 
@@ -28,9 +28,18 @@
     <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\XmlSerializationAdapter.cs" Link="SerializationAdapters\XmlSerializationAdapter.cs" />
   </ItemGroup>
 
+  <Choose>
+    <When Condition=" '$(TargetFramework)'=='netcoreapp3.1' " >
+      <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.0" />
+        <ProjectReference Include="..\ApiExamples\ApiExamples.csproj" />
+      </ItemGroup>
+    </When>
+  </Choose>
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.0" />
+
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
@@ -47,7 +56,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApiExamples.Model\ApiExamples.Model.csproj" />
-    <ProjectReference Include="..\ApiExamples\ApiExamples.csproj" />
     <ProjectReference Include="..\RestClient.NET\RestClient.Net.csproj" />
   </ItemGroup>
 
