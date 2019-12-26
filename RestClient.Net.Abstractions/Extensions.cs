@@ -95,7 +95,6 @@ namespace RestClientDotNet
                 null,
                 HttpVerb.Delete,
                 restClient,
-                null,
                 cancellationToken));
 
             return response;
@@ -115,12 +114,6 @@ namespace RestClientDotNet
 
         public static Task<RestResponseBase<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IRestClient restClient, TRequestBody body, Uri resource, CancellationToken cancellationToken)
         {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return PutAsync<TResponseBody, TRequestBody>(restClient, body, resource, restClient.DefaultContentType, cancellationToken);
-        }
-
-        public static Task<RestResponseBase<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IRestClient restClient, TRequestBody body, Uri resource, string contentType, CancellationToken cancellationToken)
-        {
             return SendAsync<TResponseBody, TRequestBody>(restClient,
                 new RestRequest<TRequestBody>(
                     resource,
@@ -128,7 +121,6 @@ namespace RestClientDotNet
                     null,
                     HttpVerb.Put,
                     restClient,
-                    contentType,
                     cancellationToken));
         }
         #endregion
@@ -151,12 +143,6 @@ namespace RestClientDotNet
 
         public static Task<RestResponseBase<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IRestClient restClient, TRequestBody body, Uri resource, CancellationToken cancellationToken)
         {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return PostAsync<TResponseBody, TRequestBody>(restClient, body, resource, restClient.DefaultContentType, cancellationToken);
-        }
-
-        public static Task<RestResponseBase<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IRestClient restClient, TRequestBody body, Uri resource, string contentType, CancellationToken cancellationToken)
-        {
             return SendAsync<TResponseBody, TRequestBody>(restClient,
                 new RestRequest<TRequestBody>(
                     resource,
@@ -164,7 +150,6 @@ namespace RestClientDotNet
                     null,
                     HttpVerb.Post,
                     restClient,
-                    contentType,
                     cancellationToken));
         }
         #endregion
@@ -178,16 +163,10 @@ namespace RestClientDotNet
         public static Task<RestResponseBase<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IRestClient restClient, TRequestBody body, Uri resource)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return PatchAsync<TResponseBody, TRequestBody>(restClient, body, resource, restClient.DefaultContentType, default);
+            return PatchAsync<TResponseBody, TRequestBody>(restClient, body, resource, default);
         }
 
         public static Task<RestResponseBase<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IRestClient restClient, TRequestBody body, Uri resource, CancellationToken cancellationToken)
-        {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return PatchAsync<TResponseBody, TRequestBody>(restClient, body, resource, restClient.DefaultContentType, cancellationToken);
-        }
-
-        public static Task<RestResponseBase<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IRestClient restClient, TRequestBody body, Uri resource, string contentType, CancellationToken cancellationToken)
         {
             return SendAsync<TResponseBody, TRequestBody>(restClient,
                 new RestRequest<TRequestBody>(
@@ -196,7 +175,6 @@ namespace RestClientDotNet
                     null,
                     HttpVerb.Patch,
                     restClient,
-                    contentType,
                     cancellationToken));
         }
         #endregion

@@ -9,7 +9,6 @@ namespace RestClientDotNet.Abstractions
         public IRestHeaders Headers { get; }
         public Uri Resource { get; set; }
         public HttpVerb HttpVerb { get; set; } = HttpVerb.Get;
-        public string ContentType { get; set; } = "application/json";
         public TRequestBody Body { get; set; }
         public CancellationToken CancellationToken { get; set; }
         #endregion
@@ -19,25 +18,17 @@ namespace RestClientDotNet.Abstractions
             IRestHeaders headers,
             HttpVerb httpVerb,
             IRestClient client,
-            string contentType,
             CancellationToken cancellationToken)
         {
             Body = body;
             Headers = headers;
             Resource = resource;
             HttpVerb = httpVerb;
-            ContentType = contentType;
             CancellationToken = cancellationToken;
 
             if (Headers == null) Headers = new RestRequestHeaders();
 
             if (client == null) return;
-
-            var defaultContentType = client.DefaultContentType;
-            if (string.IsNullOrEmpty(ContentType) && !string.IsNullOrEmpty(defaultContentType))
-            {
-                ContentType = defaultContentType;
-            }
 
             var headerNames = client.DefaultRequestHeaders?.Names;
             if (headerNames != null)
