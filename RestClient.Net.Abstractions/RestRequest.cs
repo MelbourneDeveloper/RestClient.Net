@@ -8,7 +8,7 @@ namespace RestClientDotNet.Abstractions
         #region Public Properties
         public IRestHeaders Headers { get; }
         public Uri Resource { get; set; }
-        public HttpVerb HttpVerb { get; set; } = HttpVerb.Get;
+        public HttpVerb HttpVerb { get; set; }
         public TRequestBody Body { get; set; }
         public CancellationToken CancellationToken { get; set; }
         #endregion
@@ -28,15 +28,12 @@ namespace RestClientDotNet.Abstractions
 
             if (Headers == null) Headers = new RestRequestHeaders();
 
-            if (client == null) return;
+            var headerNames = client?.DefaultRequestHeaders?.Names;
+            if (headerNames == null) return;
 
-            var headerNames = client.DefaultRequestHeaders?.Names;
-            if (headerNames != null)
+            foreach (var headerName in headerNames)
             {
-                foreach (var headerName in headerNames)
-                {
-                    Headers.Add(headerName, client.DefaultRequestHeaders[headerName]);
-                }
+                Headers.Add(headerName, client.DefaultRequestHeaders[headerName]);
             }
         }
     }

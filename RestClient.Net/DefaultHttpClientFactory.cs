@@ -21,7 +21,7 @@ namespace RestClientDotNet
         public DefaultHttpClientFactory(Func<string, Lazy<HttpClient>> func)
         {
             _getOrAddFunc = func;
-            _httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();            if (_getOrAddFunc != null) return;            _getOrAddFunc = (name) =>            {                return new Lazy<HttpClient>(() =>                {                    return new HttpClient();                }, LazyThreadSafetyMode.ExecutionAndPublication);            };
+            _httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();            if (_getOrAddFunc != null) return;            _getOrAddFunc = name =>            {                return new Lazy<HttpClient>(() => new HttpClient(), LazyThreadSafetyMode.ExecutionAndPublication);            };
         }
         #endregion
 

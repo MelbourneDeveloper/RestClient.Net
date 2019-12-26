@@ -13,7 +13,7 @@ namespace RestClientDotNet
     {
         #region Public Properties
         public IHttpClientFactory HttpClientFactory { get; }
-        public IZip Zip { get; }
+        public IZip Zip { get; set; }
         public IRestHeaders DefaultRequestHeaders { get; }
         public TimeSpan Timeout { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
@@ -153,11 +153,8 @@ namespace RestClientDotNet
                     if (string.Compare(headerName, "Content-Type", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         //Note: not sure why this is necessary...
-                        //The HttpClient class seems to differentiate between content headers and request message headers, but this dictinctionary doesn't exist in the real world...
-                        if (httpContent != null)
-                        {
-                            httpContent.Headers.Add("Content-Type", restRequest.Headers[headerName]);
-                        }
+                        //The HttpClient class seems to differentiate between content headers and request message headers, but this distinction doesn't exist in the real world...
+                        httpContent?.Headers.Add("Content-Type", restRequest.Headers[headerName]);
                     }
                     else
                     {
@@ -196,7 +193,7 @@ namespace RestClientDotNet
 
             var restHeadersCollection = new RestResponseHeaders(httpResponseMessage.Headers);
 
-            var responseBody = default(TResponseBody);
+            TResponseBody responseBody;
             try
             {
                 responseBody = SerializationAdapter.Deserialize<TResponseBody>(responseData, restHeadersCollection);

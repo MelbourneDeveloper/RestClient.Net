@@ -1,8 +1,9 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 
 namespace RestClientDotNet
 {
-    public class SingletonHttpClientFactory : IHttpClientFactory
+    public class SingletonHttpClientFactory : IHttpClientFactory, IDisposable
     {
         #region Fields
         private bool disposed;
