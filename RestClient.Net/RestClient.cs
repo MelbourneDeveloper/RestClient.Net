@@ -108,15 +108,7 @@ namespace RestClientDotNet
         {
             var httpClient = HttpClientFactory.CreateClient(Name);
 
-            //TODO: This is unnecessary in the Singleton scenario
-            //TODO: In other scenarios this is no good because the client may be used to hit two different Uris at the same time and this will break it
-            //Possible solution: The HttpClientFactory could return a flag indicating if the client is fresh...
-            httpClient.DefaultRequestHeaders.Clear();
-            foreach (var name in DefaultRequestHeaders.Names)
-            {
-                httpClient.DefaultRequestHeaders.Add(name, DefaultRequestHeaders[name]);
-            }
-
+            //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
             if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
             if (BaseUri != null) httpClient.BaseAddress = BaseUri;
 

@@ -784,7 +784,7 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         [TestMethod]
-        public async Task Test()
+        public async Task TestConcurrentCallsLocal()
         {
             var restClientFactory = new RestClientFactory(
                 new NewtonsoftSerializationAdapter(),
@@ -804,8 +804,10 @@ namespace RestClientDotNet.UnitTests
             var tasks = new List<Task<RestResponseBase<Person>>>();
             for (var i = 0; i < 10; i++)
             {
-                clients.Add(restClientFactory.CreateRestClient());
-                tasks.Add(clients[i].GetAsync<Person>());
+                var restClient = restClientFactory.CreateRestClient();
+                restClient.DefaultRequestHeaders.Add("Test", "Test");
+                clients.Add(restClient);
+                tasks.Add(restClient.GetAsync<Person>(new Uri("headers", UriKind.Relative)));
             }
 
             var results = await Task.WhenAll(tasks);
