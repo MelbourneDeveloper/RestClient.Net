@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using RestClientDotNet.Abstractions;
 
 namespace RestClientDotNet
 {
@@ -23,7 +22,6 @@ namespace RestClientDotNet
             }
         }
 
-        public IRestHeaders DefaultRequestHeaders { get; }
         public HttpClient HttpClient { get; }
         #endregion
 
@@ -43,16 +41,13 @@ namespace RestClientDotNet
                 HttpClient.BaseAddress = baseUri;
             }
 
-            DefaultRequestHeaders = new RestHttpRequestHeaders(HttpClient.DefaultRequestHeaders);
             Timeout = timeout;
         }
         #endregion
 
         #region Implementation
-        public HttpClient CreateHttpClient(Uri baseUri)
+        public HttpClient CreateClient(string name)
         {
-            //TODO: this is really nasty. Fix this
-            HttpClient.BaseAddress = baseUri ?? HttpClient.BaseAddress;
             return HttpClient;
         }
 

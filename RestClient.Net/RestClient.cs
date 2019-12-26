@@ -12,13 +12,14 @@ namespace RestClientDotNet
         #region Public Properties
         public IHttpClientFactory HttpClientFactory { get; }
         public IZip Zip { get; }
-        public IRestHeaders DefaultRequestHeaders => HttpClientFactory.DefaultRequestHeaders;
-        public TimeSpan Timeout { get => HttpClientFactory.Timeout; set => HttpClientFactory.Timeout = value; }
+        public IRestHeaders DefaultRequestHeaders { get; }
+        public TimeSpan Timeout { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
         public ITracer Tracer { get; }
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public string DefaultContentType { get; set; } = "application/json";
         public Uri BaseUri { get; }
+        public string HttpClientName { get; }
         #endregion
 
         #region Constructors
@@ -58,8 +59,8 @@ namespace RestClientDotNet
           serializationAdapter,
           new SingletonHttpClientFactory(default, baseUri),
           tracer,
-          //TODO: This is nasty
-          baseUri)
+          baseUri,
+          nameof(RestClient))
         {
         }
 
@@ -70,7 +71,8 @@ namespace RestClientDotNet
           serializationAdapter,
           httpClientFactory,
           null,
-          null)
+          null,
+          nameof(RestClient))
         {
         }
 
@@ -78,12 +80,15 @@ namespace RestClientDotNet
         ISerializationAdapter serializationAdapter,
         IHttpClientFactory httpClientFactory,
         ITracer tracer,
-        Uri baseUri)
+        Uri baseUri,
+        string httpClientName)
         {
             SerializationAdapter = serializationAdapter;
             HttpClientFactory = httpClientFactory;
             Tracer = tracer;
             BaseUri = baseUri;
+            DefaultRequestHeaders = new RestRequestHeaders();
+            HttpClientName = httpClientName;
         }
 
         #endregion
@@ -91,7 +96,14 @@ namespace RestClientDotNet
         #region Implementation
         async Task<RestResponseBase<TResponseBody>> IRestClient.SendAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest)
         {
-            var httpClient = HttpClientFactory.CreateHttpClient(BaseUri);
+            var httpClient = HttpClientFactory.CreateClient(HttpClientName);
+
+            httpClient.DefaultRequestHeaders.Clear();
+            foreach (var name in DefaultRequestHeaders.Names)
+            {
+                httpClient.DefaultRequestHeaders.Add(name, DefaultRequestHeaders[name]);
+            }
+
             HttpMethod httpMethod;
             switch (restRequest.HttpVerb)
             {

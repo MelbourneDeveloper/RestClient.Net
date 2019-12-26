@@ -23,16 +23,17 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        public IRestClient CreateRestClient()
+        public IRestClient CreateRestClient(string httpClientName)
         {
             return new RestClient(
                 SerializationAdapter,
                 HttpClientFactory,
                 Tracer,
-                null);
+                null,
+                httpClientName);
         }
 
-        public IRestClient CreateRestClient(Uri baseUri)
+        public IRestClient CreateRestClient(string httpClientName, Uri baseUri)
         {
             return new RestClient(
                 SerializationAdapter,
