@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using RestClientApiSamples;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ApiExamples.Controllers
@@ -35,7 +36,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ApiMessages.HeadersControllerExceptionMessage);
+            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
@@ -46,7 +47,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ApiMessages.HeadersControllerExceptionMessage);
+            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
         }
 
         [HttpPut]
@@ -57,7 +58,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ApiMessages.HeadersControllerExceptionMessage);
+            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
         }
 
         [HttpPatch]
@@ -68,7 +69,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ApiMessages.HeadersControllerExceptionMessage);
+            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
         }
 
         [HttpDelete]
@@ -82,7 +83,7 @@ namespace ApiExamples.Controllers
                 return;
             }
 
-            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, System.Net.HttpStatusCode.BadRequest);
+            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
         }
     }
 }
