@@ -605,7 +605,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalGetNoArgs()
         {
-            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}JsonPerson"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
             Person responsePerson = await restClient.GetAsync<Person>();
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
@@ -643,7 +643,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalDeleteStringUri()
         {
-            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}JsonPerson"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
             var response = await restClient.DeleteAsync("?personKey=abc");
             Assert.AreEqual(200, response.StatusCode);
         }
@@ -651,7 +651,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalDeleteUri()
         {
-            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}JsonPerson"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
             var response = await restClient.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative));
             Assert.AreEqual(200, response.StatusCode);
         }
@@ -659,7 +659,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalDeleteUriCancellationToken()
         {
-            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}JsonPerson"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
             var response = await restClient.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative), new CancellationToken());
             Assert.AreEqual(200, response.StatusCode);
         }
@@ -669,7 +669,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalPostBody()
         {
-            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}JsonPerson/save"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson/save"));
             var requestPerson = new Person { FirstName = "Bob" };
             Person responsePerson = await restClient.PostAsync<Person, Person>(requestPerson);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
