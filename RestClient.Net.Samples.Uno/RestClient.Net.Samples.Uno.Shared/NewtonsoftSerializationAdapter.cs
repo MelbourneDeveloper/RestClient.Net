@@ -8,24 +8,29 @@ namespace RestClientDotNet
     public class NewtonsoftSerializationAdapter : ISerializationAdapter
     {
         #region Implementation
-        public async Task<T> DeserializeAsync<T>(byte[] data)
+        public TResponseBody Deserialize<TResponseBody>(byte[] data, IRestHeaders responseHeaders)
         {
+            //This here is why I don't like JSON serialization. 😢
+            //Note: on some services the headers should be checked for encoding 
             var markup = Encoding.UTF8.GetString(data);
 
             object markupAsObject = markup;
 
-            if (typeof(T) == typeof(string))
+            if (typeof(TResponseBody) == typeof(string))
             {
-                return (T)markupAsObject;
+                return (TResponseBody)markupAsObject;
             }
 
-            return await Task.Run(() => JsonConvert.DeserializeObject<T>(markup));
+            return JsonConvert.DeserializeObject<TResponseBody>(markup);
         }
 
-        public async Task<byte[]> SerializeAsync<T>(T value)
+        public byte[] Serialize<TRequestBody>(TRequestBody value, IRestHeaders requestHeaders)
         {
-            var json = await Task.Run(() => JsonConvert.SerializeObject(value));
-            var binary = await Task.Run(() => Encoding.UTF8.GetBytes(json));
+            var json = JsonConvert.SerializeObject(value);
+
+            //This here is why I don't like JSON serialization. 😢
+            var binary = Encoding.UTF8.GetBytes(json);
+
             return binary;
         }
         #endregion

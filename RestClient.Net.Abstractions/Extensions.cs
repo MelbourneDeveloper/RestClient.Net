@@ -19,11 +19,11 @@ namespace RestClientDotNet
             restClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
         }
 
-        public static Task<TResponseBody> DeserializeResponseBodyAsync<TResponseBody>(this IRestClient restClient, RestResponseBase response)
+        public static TResponseBody DeserializeResponseBodyAsync<TResponseBody>(this IRestClient restClient, RestResponseBase response)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
             if (response == null) throw new ArgumentNullException(nameof(response));
-            return restClient.SerializationAdapter.DeserializeAsync<TResponseBody>(response.GetResponseData());
+            return restClient.SerializationAdapter.Deserialize<TResponseBody>(response.GetResponseData(), response.Headers);
         }
 
         public static Task<RestResponseBase<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(this IRestClient restClient, RestRequest<TRequestBody> restRequest)

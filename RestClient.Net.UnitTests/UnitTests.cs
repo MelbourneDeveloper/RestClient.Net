@@ -485,7 +485,7 @@ namespace RestClientDotNet.UnitTests
             restClient.ThrowExceptionOnFailure = false;
             var response = (RestResponse<Person>)await restClient.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
-            var apiResult = await restClient.DeserializeResponseBodyAsync<ApiResult>(response);
+            var apiResult = restClient.DeserializeResponseBodyAsync<ApiResult>(response);
             Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
 
             //Check that the response values are getting set correctly
@@ -506,7 +506,7 @@ namespace RestClientDotNet.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                var apiResult = await restClient.DeserializeResponseBodyAsync<ApiResult>(hex.RestResponse);
+                var apiResult = restClient.DeserializeResponseBodyAsync<ApiResult>(hex.RestResponse);
                 Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
                 return;
             }
@@ -538,7 +538,7 @@ namespace RestClientDotNet.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.RestResponse.StatusCode);
-                var apiResult = await restClient.DeserializeResponseBodyAsync<ApiResult>(hex.RestResponse);
+                var apiResult = restClient.DeserializeResponseBodyAsync<ApiResult>(hex.RestResponse);
                 Assert.AreEqual(SecureController.NotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -567,7 +567,7 @@ namespace RestClientDotNet.UnitTests
             catch (HttpStatusException ex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.RestResponse.StatusCode);
-                var apiResult = await restClient.DeserializeResponseBodyAsync<ApiResult>(ex.RestResponse);
+                var apiResult = restClient.DeserializeResponseBodyAsync<ApiResult>(ex.RestResponse);
                 Assert.AreEqual(SecureController.NotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }

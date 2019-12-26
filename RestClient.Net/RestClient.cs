@@ -143,7 +143,7 @@ namespace RestClientDotNet
                 byte[] requestBodyData = null;
                 if (new List<HttpVerb> { HttpVerb.Put, HttpVerb.Post, HttpVerb.Patch }.Contains(restRequest.HttpVerb))
                 {
-                    requestBodyData = await SerializationAdapter.SerializeAsync(restRequest.Body);
+                    requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
                     var httpContent = new ByteArrayContent(requestBodyData);
                     //Why do we have to set the content type only in cases where there is a request restRequest.Body, and headers?
                     httpContent.Headers.Add("Content-Type", restRequest.ContentType);
@@ -184,17 +184,17 @@ namespace RestClientDotNet
                 responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
             }
 
+            var restHeadersCollection = new RestResponseHeaders(httpResponseMessage.Headers);
+
             var responseBody = default(TResponseBody);
             try
             {
-                responseBody = await SerializationAdapter.DeserializeAsync<TResponseBody>(responseData);
+                responseBody = SerializationAdapter.Deserialize<TResponseBody>(responseData, restHeadersCollection);
             }
             catch (Exception ex)
             {
                 throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
             }
-
-            var restHeadersCollection = new RestResponseHeaders(httpResponseMessage.Headers);
 
             var restResponse = new RestResponse<TResponseBody>
             (

@@ -1,17 +1,23 @@
-﻿using System.Threading.Tasks;
-
-namespace RestClientDotNet.Abstractions
+﻿namespace RestClientDotNet.Abstractions
 {
     public interface ISerializationAdapter
     {
         /// <summary>
-        /// Takes an object of Type T and converts it to binary data
+        /// Takes an object of Type T and converts it to binary data for the Http Request
         /// </summary>
-        Task<byte[]> SerializeAsync<T>(T value);
+        /// <typeparam name="TRequestBody">The type to be serialized from</typeparam>
+        /// <param name="value">The object to be serialized</param>
+        /// <param name="requestHeaders">Headers that will be sent as part of the Http Request</param>
+        /// <returns></returns>
+        byte[] Serialize<TRequestBody>(TRequestBody value, IRestHeaders requestHeaders);
 
         /// <summary>
-        /// Takes binary data and converts it to an object of type T
+        /// Takes binary data from the Http Response and converts it to an object of type T
         /// </summary>
-        Task<T> DeserializeAsync<T>(byte[] data);
+        /// <typeparam name="TResponseBody">The type to serialize to</typeparam>
+        /// <param name="data">The Http Response's body data</param>
+        /// <param name="responseHeaders">The headers on the Http Response from the server</param>
+        /// <returns></returns>
+        TResponseBody Deserialize<TResponseBody>(byte[] data, IRestHeaders responseHeaders);
     }
 }

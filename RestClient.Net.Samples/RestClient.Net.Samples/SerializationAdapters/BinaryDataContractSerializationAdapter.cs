@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace RestClientDotNet
@@ -16,24 +14,19 @@ namespace RestClientDotNet
         #endregion
 
         #region Public Methods
-        public async Task<object> DeserializeAsync(byte[] binary, Type type)
+        public TResponseBody Deserialize<TResponseBody>(byte[] data, IRestHeaders responseHeaders)
         {
-            var serializer = new DataContractSerializer(type, KnownDataContracts);
-            using (var stream = new MemoryStream(binary))
+            var serializer = new DataContractSerializer(typeof(TResponseBody), KnownDataContracts);
+            using (var stream = new MemoryStream(data))
             using (var reader = XmlDictionaryReader.CreateBinaryReader(stream, XmlDictionaryReaderQuotas.Max))
             {
-                return serializer.ReadObject(reader);
+                return (TResponseBody)serializer.ReadObject(reader);
             }
         }
 
-        public async Task<T> DeserializeAsync<T>(byte[] binary)
+        public byte[] Serialize<TRequestBody>(TRequestBody value, IRestHeaders requestHeaders)
         {
-            return (T)await DeserializeAsync(binary, typeof(T));
-        }
-
-        public async Task<byte[]> SerializeAsync<T>(T value)
-        {
-            var serializer = new DataContractSerializer(typeof(T), KnownDataContracts);
+            var serializer = new DataContractSerializer(typeof(TRequestBody), KnownDataContracts);
             var stream = new MemoryStream();
             using (var writer = XmlDictionaryWriter.CreateBinaryWriter(stream))
             {
@@ -41,17 +34,6 @@ namespace RestClientDotNet
             }
             return stream.ToArray();
         }
-
-        public async Task<string> EncodeStringAsync(byte[] bytes)
-        {
-            return await Task.Factory.StartNew(() => Encoding.UTF8.GetString(bytes, 0, bytes.Length));
-        }
-
-        public async Task<byte[]> DecodeStringAsync(string theString)
-        {
-            return await Task.Factory.StartNew(() => Encoding.UTF8.GetBytes(theString));
-        }
-
         #endregion
     }
 }
