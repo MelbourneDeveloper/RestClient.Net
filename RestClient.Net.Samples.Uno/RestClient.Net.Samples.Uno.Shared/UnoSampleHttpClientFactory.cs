@@ -1,6 +1,4 @@
 ﻿using RestClientDotNet;
-using RestClientDotNet.Abstractions;
-using System;
 using System.Net.Http;
 
 #if __WASM__
@@ -9,35 +7,17 @@ using Uno.UI.Wasm;
 
 namespace RestClient.Net.Samples.Uno.Shared
 {
-    public class UnoSampleHttpClientFactory : IHttpClientFactory
+    public class UnoSampleHttpClientFactory : SingletonHttpClientFactory
     {
-        HttpClient httpClient;
-
-        public UnoSampleHttpClientFactory(Uri uri)
-        {
+        public UnoSampleHttpClientFactory() : base
+            (
 #if __WASM__
-            httpClient = new HttpClient(new WasmHttpHandler());
+            new HttpClient(new WasmHttpHandler())
 #else
-            httpClient = new HttpClient();
+            new HttpClient()
 #endif
-            httpClient.BaseAddress = uri;
-        }
-
-
-        public TimeSpan Timeout { get => httpClient.Timeout; set => httpClient.Timeout = value; }
-
-        public Uri BaseUri => httpClient.BaseAddress;
-
-        public IRestHeadersCollection DefaultRequestHeaders => new RestClientDotNet.RestHttpRequestHeaders(httpClient.DefaultRequestHeaders);
-
-        public HttpClient CreateHttpClient()
+            )
         {
-            return httpClient;
-        }
-
-        public void Dispose()
-        {
-            httpClient.Dispose();
         }
     }
 }
