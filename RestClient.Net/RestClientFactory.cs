@@ -30,6 +30,7 @@ namespace RestClientDotNet
                 HttpClientFactory,
                 Tracer,
                 null,
+                default,
                 name);
         }
 
@@ -40,6 +41,7 @@ namespace RestClientDotNet
                 HttpClientFactory,
                 Tracer,
                 baseUri,
+                default,
                 name);
         }
         #endregion

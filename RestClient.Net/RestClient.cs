@@ -46,8 +46,12 @@ namespace RestClientDotNet
             Uri baseUri,
             TimeSpan timeout)
         : this(
-            serializationAdapter,
-            new SingletonHttpClientFactory(timeout, baseUri))
+              serializationAdapter,
+              new SingletonHttpClientFactory(),
+              null,
+              baseUri,
+              timeout,
+              null)
         {
         }
 
@@ -57,9 +61,10 @@ namespace RestClientDotNet
             ITracer tracer)
         : this(
           serializationAdapter,
-          new SingletonHttpClientFactory(default, baseUri),
+          new SingletonHttpClientFactory(),
           tracer,
           baseUri,
+          default,
           nameof(RestClient))
         {
         }
@@ -72,6 +77,7 @@ namespace RestClientDotNet
           httpClientFactory,
           null,
           null,
+          default,
           nameof(RestClient))
         {
         }
@@ -81,12 +87,14 @@ namespace RestClientDotNet
         IHttpClientFactory httpClientFactory,
         ITracer tracer,
         Uri baseUri,
+        TimeSpan timeout,
         string name)
         {
             SerializationAdapter = serializationAdapter;
             HttpClientFactory = httpClientFactory;
             Tracer = tracer;
             BaseUri = baseUri;
+            Timeout = timeout;
             DefaultRequestHeaders = new RestRequestHeaders();
             Name = name;
         }

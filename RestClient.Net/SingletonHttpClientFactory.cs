@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 
 namespace RestClientDotNet
 {
@@ -10,38 +9,18 @@ namespace RestClientDotNet
         #endregion
 
         #region Public Properties
-        public TimeSpan Timeout
-        {
-            get => HttpClient.Timeout;
-            set
-            {
-                //For some reason this can't be set to blank?
-                if (value == default) return;
-
-                HttpClient.Timeout = value;
-            }
-        }
-
         public HttpClient HttpClient { get; }
         #endregion
 
         #region Constructor
-        public SingletonHttpClientFactory(TimeSpan timeout, Uri baseUri) : this(timeout, baseUri, null)
+        public SingletonHttpClientFactory() : this(null)
         {
         }
 
-        public SingletonHttpClientFactory(TimeSpan timeout, Uri baseUri, HttpClient httpClient)
+        public SingletonHttpClientFactory(HttpClient httpClient)
         {
             if (httpClient == null) httpClient = new HttpClient();
-
             HttpClient = httpClient;
-
-            if (baseUri != null)
-            {
-                HttpClient.BaseAddress = baseUri;
-            }
-
-            Timeout = timeout;
         }
         #endregion
 

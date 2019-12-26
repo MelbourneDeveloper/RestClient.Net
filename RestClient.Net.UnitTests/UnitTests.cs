@@ -286,7 +286,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersTraceLocalGet()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory, _tracer.Object, null, null);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory, _tracer.Object, null, default, null);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var response = await restClient.GetAsync<Person>("headers");
 
@@ -481,7 +481,7 @@ namespace RestClientDotNet.UnitTests
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
             restClient.ThrowExceptionOnFailure = false;
-            var response = (RestResponse<Person>) await restClient.GetAsync<Person>("error");
+            var response = (RestResponse<Person>)await restClient.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             var apiResult = await restClient.DeserializeResponseBodyAsync<ApiResult>(response);
             Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
