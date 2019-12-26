@@ -19,7 +19,7 @@ namespace RestClientDotNet
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public string DefaultContentType { get; set; } = "application/json";
         public Uri BaseUri { get; }
-        public string HttpClientName { get; }
+        public string Name { get; }
         #endregion
 
         #region Constructors
@@ -81,14 +81,14 @@ namespace RestClientDotNet
         IHttpClientFactory httpClientFactory,
         ITracer tracer,
         Uri baseUri,
-        string httpClientName)
+        string name)
         {
             SerializationAdapter = serializationAdapter;
             HttpClientFactory = httpClientFactory;
             Tracer = tracer;
             BaseUri = baseUri;
             DefaultRequestHeaders = new RestRequestHeaders();
-            HttpClientName = httpClientName;
+            Name = name;
         }
 
         #endregion
@@ -96,7 +96,7 @@ namespace RestClientDotNet
         #region Implementation
         async Task<RestResponseBase<TResponseBody>> IRestClient.SendAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest)
         {
-            var httpClient = HttpClientFactory.CreateClient(HttpClientName);
+            var httpClient = HttpClientFactory.CreateClient(Name);
 
             httpClient.DefaultRequestHeaders.Clear();
             foreach (var name in DefaultRequestHeaders.Names)

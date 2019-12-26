@@ -286,7 +286,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersTraceLocalGet()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory, _tracer.Object, null);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory, _tracer.Object, null, null);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var response = await restClient.GetAsync<Person>("headers");
 
@@ -487,7 +487,7 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
 
             //Check that the response values are getting set correctly
-            Assert.AreEqual(_testServerHttpClientFactory.BaseUri, response.BaseUri);
+            Assert.AreEqual(response.BaseUri, response.BaseUri);
             Assert.AreEqual(HttpVerb.Get, response.HttpVerb);
             Assert.AreEqual(new Uri("error", UriKind.Relative), response.Resource);
         }
