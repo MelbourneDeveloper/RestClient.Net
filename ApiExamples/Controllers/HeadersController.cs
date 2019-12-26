@@ -82,7 +82,7 @@ namespace ApiExamples.Controllers
                 return;
             }
 
-            throw new Exception(ApiMessages.HeadersControllerExceptionMessage);
+            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, System.Net.HttpStatusCode.BadRequest);
         }
     }
 }

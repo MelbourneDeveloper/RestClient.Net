@@ -472,11 +472,10 @@ namespace RestClientDotNet.UnitTests
                 await restClient.DeleteAsync(new Uri("headers/1", UriKind.Relative));
                 Assert.Fail();
             }
-            catch (Exception ex)
+            catch (HttpStatusException hex)
             {
-                //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
-                //This is only the case because it's use a Test HttpClient
-                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, ex.Message);
+                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
 
