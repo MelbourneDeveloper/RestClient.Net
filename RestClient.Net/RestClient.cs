@@ -140,16 +140,29 @@ namespace RestClientDotNet
             })
             {
                 byte[] requestBodyData = null;
+                ByteArrayContent httpContent = null;
                 if (new List<HttpVerb> { HttpVerb.Put, HttpVerb.Post, HttpVerb.Patch }.Contains(restRequest.HttpVerb))
                 {
                     requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
-                    var httpContent = new ByteArrayContent(requestBodyData);
+                    httpContent = new ByteArrayContent(requestBodyData);
                     httpRequestMessage.Content = httpContent;
                 }
 
                 foreach (var headerName in restRequest.Headers.Names)
                 {
-                    httpRequestMessage.Headers.Add(headerName, restRequest.Headers[headerName]);
+                    if (string.Compare(headerName, "Content-Type", StringComparison.OrdinalIgnoreCase) == 0)
+                    {
+                        //Note: not sure why this is necessary...
+                        //The HttpClient class seems to differentiate between content headers and request message headers, but this dictinctionary doesn't exist in the real world...
+                        if (httpContent != null)
+                        {
+                            httpContent.Headers.Add("Content-Type", restRequest.Headers[headerName]);
+                        }
+                    }
+                    else
+                    {
+                        httpRequestMessage.Headers.Add(headerName, restRequest.Headers[headerName]);
+                    }
                 }
 
                 Tracer?.Trace(restRequest.HttpVerb, httpClient.BaseAddress, restRequest.Resource, requestBodyData, TraceType.Request, null, restRequest.Headers);
