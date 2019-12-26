@@ -32,7 +32,7 @@ namespace RestClientDotNet
             if (disposed) return;
             disposed = true;
 
-            foreach(var name in _httpClients.Keys)
+            foreach (var name in _httpClients.Keys)
             {
                 _httpClients[name].Value.Dispose();
             }
