@@ -20,12 +20,6 @@
     <None Include="../RestClient.Net/StrongNameKey.pfx" Link="StrongNameKey.pfx" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="System.Net.Http">
-      <HintPath>..\..\..\Program Files (x86)\Microsoft SDKs\UWPNuGetPackages\microsoft.netcore.universalwindowsplatform\6.2.9\ref\uap10.0.15138\System.Net.Http.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
   <Choose>
     <When Condition=" '$(Configuration)'=='Debug' ">
       <PropertyGroup>
