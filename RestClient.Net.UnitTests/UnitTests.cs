@@ -783,6 +783,7 @@ namespace RestClientDotNet.UnitTests
         #endregion
         #endregion
 
+        #region Misc
         [TestMethod]
         public async Task TestConcurrentCallsLocal()
         {
@@ -819,6 +820,7 @@ namespace RestClientDotNet.UnitTests
             //Ensure only one http client is created
             Assert.AreEqual(1, createdClients);
         }
+        #endregion
 
         //TODO: Test exceptions
 
