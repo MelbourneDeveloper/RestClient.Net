@@ -15,7 +15,7 @@ namespace RestClientDotNet.Abstractions.Extensions
             restClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
         }
 
-        public static TResponseBody DeserializeResponseBodyAsync<TResponseBody>(this IRestClient restClient, RestResponseBase response)
+        public static TResponseBody DeserializeResponseBody<TResponseBody>(this IRestClient restClient, RestResponseBase response)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
             if (response == null) throw new ArgumentNullException(nameof(response));
@@ -28,6 +28,10 @@ namespace RestClientDotNet.Abstractions.Extensions
             if (!restClient.DefaultRequestHeaders.Contains("Content-Type"))
             {
                 restClient.DefaultRequestHeaders.Add("Content-Type", "application/json");
+            }
+            else
+            {
+                throw new ValidationException(Messages.ErrorMessageHeaderAlreadyExists);
             }
         }
     }

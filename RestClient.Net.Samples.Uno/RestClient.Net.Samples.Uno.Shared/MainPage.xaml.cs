@@ -7,6 +7,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using restClient = RestClientDotNet.RestClient;
+using RestClientDotNet.Abstractions.Extensions;
 
 #if __WASM__
 using Uno.UI.Wasm;

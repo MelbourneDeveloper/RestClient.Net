@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using ThomasBayer;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using RestClientDotNet.Abstractions.Extensions;
 
 namespace RestClientDotNet.Sample
 {
@@ -143,7 +144,7 @@ namespace RestClientDotNet.Sample
             var hex = ex as HttpStatusException;
             if (hex != null)
             {
-                errorModel = hex.RestClient.DeserializeResponseBodyAsync<ErrorModel>(hex.RestResponse);
+                errorModel = hex.RestClient.DeserializeResponseBody<ErrorModel>(hex.RestResponse);
             }
 
             var message = $"An error occurred while attempting to use a REST service.\r\nError: {ex.Message}\r\nInner Error: {ex.InnerException?.Message}\r\nInner Inner Error: {ex.InnerException?.InnerException?.Message}";
