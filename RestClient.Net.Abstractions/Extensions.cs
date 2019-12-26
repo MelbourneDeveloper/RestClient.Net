@@ -59,21 +59,10 @@ namespace RestClientDotNet
         public static Task<RestResponseBase<TResponseBody>> GetAsync<TResponseBody>(this IRestClient restClient, Uri resource)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return GetAsync<TResponseBody>(restClient, resource, restClient.DefaultContentType);
-        }
-
-        public static Task<RestResponseBase<TResponseBody>> GetAsync<TResponseBody>(this IRestClient restClient, Uri resource, string contentType)
-        {
-            return GetAsync<TResponseBody>(restClient, resource, contentType, default);
+            return GetAsync<TResponseBody>(restClient, resource, default);
         }
 
         public static Task<RestResponseBase<TResponseBody>> GetAsync<TResponseBody>(this IRestClient restClient, Uri resource, CancellationToken cancellationToken)
-        {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return GetAsync<TResponseBody>(restClient, resource, restClient.DefaultContentType, cancellationToken);
-        }
-
-        public static Task<RestResponseBase<TResponseBody>> GetAsync<TResponseBody>(this IRestClient restClient, Uri resource, string contentType, CancellationToken cancellationToken)
         {
             return SendAsync<TResponseBody, object>(restClient,
                 new RestRequest<object>(
@@ -82,7 +71,6 @@ namespace RestClientDotNet
                     null,
                     HttpVerb.Get,
                     restClient,
-                    contentType,
                     cancellationToken));
         }
         #endregion

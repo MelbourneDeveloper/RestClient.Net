@@ -627,7 +627,7 @@ namespace RestClientDotNet.UnitTests
         public async Task TestLocalGetUriContentTypeCancellationToken()
         {
             var restClient = GetJsonClient();
-            Person responsePerson = await restClient.GetAsync<Person>(new Uri("JsonPerson", UriKind.Relative), "application/json", new CancellationToken());
+            Person responsePerson = await restClient.GetAsync<Person>(new Uri("JsonPerson", UriKind.Relative), new CancellationToken());
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }

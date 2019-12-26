@@ -19,7 +19,6 @@ namespace RestClientDotNet
         public ISerializationAdapter SerializationAdapter { get; }
         public ITracer Tracer { get; }
         public bool ThrowExceptionOnFailure { get; set; } = true;
-        public string DefaultContentType { get; set; } = "application/json";
         public Uri BaseUri { get; }
         public string Name { get; }
         #endregion
@@ -145,8 +144,6 @@ namespace RestClientDotNet
                 {
                     requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
                     var httpContent = new ByteArrayContent(requestBodyData);
-                    //Why do we have to set the content type only in cases where there is a request restRequest.Body, and headers?
-                    httpContent.Headers.Add("Content-Type", restRequest.ContentType);
                     httpRequestMessage.Content = httpContent;
                 }
 
