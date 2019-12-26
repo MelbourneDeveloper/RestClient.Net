@@ -1,5 +1,4 @@
-﻿using RestClient.Net.Samples.Uno.Shared;
-using RestClientDotNet;
+﻿using RestClientDotNet;
 using RestClientNetSamples;
 using System;
 using System.Linq;
