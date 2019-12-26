@@ -14,6 +14,10 @@ namespace RestClientDotNet
         #endregion
 
         #region Constructor
+        public DefaultHttpClientFactory() : this(null)
+        {
+        }
+
         public DefaultHttpClientFactory(Func<string, Lazy<HttpClient>> func)
         {
             _getOrAddFunc = func;

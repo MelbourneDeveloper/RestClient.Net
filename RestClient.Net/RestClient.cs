@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+#pragma warning disable CA2000
+
 namespace RestClientDotNet
 {
     public sealed class RestClient : IRestClient
@@ -47,7 +49,7 @@ namespace RestClientDotNet
             TimeSpan timeout)
         : this(
               serializationAdapter,
-              new SingletonHttpClientFactory(),
+              new DefaultHttpClientFactory(),
               null,
               baseUri,
               timeout,
@@ -61,7 +63,7 @@ namespace RestClientDotNet
             ITracer tracer)
         : this(
           serializationAdapter,
-          new SingletonHttpClientFactory(),
+          new DefaultHttpClientFactory(),
           tracer,
           baseUri,
           default,
@@ -233,3 +235,5 @@ namespace RestClientDotNet
         #endregion
     }
 }
+
+#pragma warning restore CA2000
