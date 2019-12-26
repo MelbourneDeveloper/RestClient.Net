@@ -10,6 +10,7 @@ using RestClient.Net.Samples.Model;
 using RestClient.Net.UnitTests.Model;
 using RestClientApiSamples;
 using RestClientDotNet.Abstractions;
+using RestClientDotNet.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -550,6 +551,7 @@ namespace RestClientDotNet.UnitTests
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory);
             restClient.UseBasicAuthentication("Bob", "ANicePassword");
+            restClient.UseJsonContentType();
             Person person = await restClient.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new Uri("secure/basic", UriKind.Relative));
             Assert.AreEqual("Sam", person.FirstName);
         }
