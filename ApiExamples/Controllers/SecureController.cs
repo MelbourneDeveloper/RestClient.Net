@@ -10,7 +10,6 @@ namespace ApiExamples.Controllers
 
     public class SecureController : ControllerBase
     {
-        public const string NotAuthorizedMessage = "Not authorized";
 
         [HttpGet]
         [Route("basic")]
@@ -22,7 +21,7 @@ namespace ApiExamples.Controllers
                 return Ok(person);
             }
 
-            var json = JsonConvert.SerializeObject(new ApiResult { Errors = { NotAuthorizedMessage } });
+            var json = JsonConvert.SerializeObject(new ApiResult { Errors = { ApiMessages.SecureControllerNotAuthorizedMessage } });
             return Unauthorized(json);
         }
 
@@ -35,7 +34,7 @@ namespace ApiExamples.Controllers
                 return Ok(person);
             }
 
-            var json = JsonConvert.SerializeObject(new ApiResult { Errors = { NotAuthorizedMessage } });
+            var json = JsonConvert.SerializeObject(new ApiResult { Errors = { ApiMessages.SecureControllerNotAuthorizedMessage } });
             return Unauthorized(json);
         }
 

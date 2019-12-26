@@ -1,8 +1,5 @@
-﻿using ApiExamples;
-using ApiExamples.Controllers;
+﻿
 using ApiExamples.Model;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
@@ -20,6 +17,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xml2CSharp;
 
+#if (NETCOREAPP3_1)
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using ApiExamples;
+using ApiExamples.Controllers;
+#endif
+
 namespace RestClientDotNet.UnitTests
 {
 
@@ -36,18 +40,22 @@ namespace RestClientDotNet.UnitTests
         [TestInitialize]
         public void Initialize()
         {
+#if (NETCOREAPP3_1)
             var hostBuilder = new WebHostBuilder();
             hostBuilder.UseStartup<Startup>();
             _testServer = new TestServer(hostBuilder);
             var testClient = _testServer.CreateClient();
+#else
+            var testClient = new HttpClient { BaseAddress = new Uri("http://localhost:42908") };
+#endif
             _testServerHttpClientFactory = new TestClientFactory(testClient);
             _tracer = new Mock<ITracer>();
         }
-        #endregion
+#endregion
 
-        #region Tests
+#region Tests
 
-        #region External Api Tests
+#region External Api Tests
         [TestMethod]
         public async Task TestGetRestCountries()
         {
@@ -213,9 +221,9 @@ namespace RestClientDotNet.UnitTests
             var geoPlugin = await restClient.GetAsync<GeoPlugin>();
             Assert.IsNotNull(geoPlugin);
         }
-        #endregion
+#endregion
 
-        #region Local Protobuf
+#region Local Protobuf
         [TestMethod]
         public async Task TestProtobufPostLocal()
         {
@@ -248,9 +256,9 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
             Assert.AreEqual(personKey, responsePerson.PersonKey);
         }
-        #endregion
+#endregion
 
-        #region Local Headers
+#region Local Headers
         [TestMethod]
         public async Task TestHeadersLocalGet()
         {
@@ -469,9 +477,9 @@ namespace RestClientDotNet.UnitTests
 
             Assert.Fail();
         }
-        #endregion
+#endregion
 
-        #region Local Headers In RestRequest
+#region Local Headers In RestRequest
         [TestMethod]
         public async Task TestHeadersLocalInRestRequest()
         {
@@ -484,9 +492,9 @@ namespace RestClientDotNet.UnitTests
                 ); ;
             Assert.IsNotNull(responsePerson);
         }
-        #endregion
+#endregion
 
-        #region Local Errors
+#region Local Errors
         [TestMethod]
         public async Task TestErrorsLocalGet()
         {
@@ -522,9 +530,9 @@ namespace RestClientDotNet.UnitTests
 
             Assert.Fail();
         }
-        #endregion
+#endregion
 
-        #region Local Authentication
+#region Local Authentication
         [TestMethod]
         public async Task TestBasicAuthenticationLocal()
         {
@@ -548,7 +556,7 @@ namespace RestClientDotNet.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.RestResponse.StatusCode);
                 var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
-                Assert.AreEqual(SecureController.NotAuthorizedMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
             Assert.Fail();
@@ -579,16 +587,16 @@ namespace RestClientDotNet.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.RestResponse.StatusCode);
                 var apiResult = restClient.DeserializeResponseBody<ApiResult>(ex.RestResponse);
-                Assert.AreEqual(SecureController.NotAuthorizedMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
             Assert.Fail();
         }
-        #endregion
+#endregion
 
-        #region All Extension Overloads
+#region All Extension Overloads
 
-        #region Get
+#region Get
         [TestMethod]
         public async Task TestLocalGetNoArgs()
         {
@@ -624,9 +632,9 @@ namespace RestClientDotNet.UnitTests
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
-        #endregion
+#endregion
 
-        #region Delete
+#region Delete
         [TestMethod]
         public async Task TestLocalDeleteStringUri()
         {
@@ -650,9 +658,9 @@ namespace RestClientDotNet.UnitTests
             var response = await restClient.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative), new CancellationToken());
             Assert.AreEqual(200, response.StatusCode);
         }
-        #endregion
+#endregion
 
-        #region Post
+#region Post
         [TestMethod]
         public async Task TestLocalPostBody()
         {
@@ -688,9 +696,9 @@ namespace RestClientDotNet.UnitTests
             Person responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), new CancellationToken());
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
-        #endregion
+#endregion
 
-        #region Put
+#region Put
         [TestMethod]
         public async Task TestLocalPutBodyStringUri()
         {
@@ -717,9 +725,9 @@ namespace RestClientDotNet.UnitTests
             Person responsePerson = await restClient.PutAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), new CancellationToken());
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
-        #endregion
+#endregion
 
-        #region Patch
+#region Patch
         [TestMethod]
         public async Task TestLocalPatchBodyStringUri()
         {
@@ -755,10 +763,10 @@ namespace RestClientDotNet.UnitTests
             Person responsePerson = await restClient.PatchAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), new CancellationToken());
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
-        #endregion
-        #endregion
+#endregion
+#endregion
 
-        #region Misc
+#region Misc
         [TestMethod]
         public async Task TestConcurrentCallsLocal()
         {
@@ -795,15 +803,15 @@ namespace RestClientDotNet.UnitTests
             //Ensure only one http client is created
             Assert.AreEqual(1, createdClients);
         }
-        #endregion
+#endregion
 
         //TODO: Test exceptions
 
         //TODO: Test all constructor overloads
 
-        #endregion
+#endregion
 
-        #region Helpers
+#region Helpers
         private IRestClient GetJsonClient(Uri baseUri = null)
         {
             IRestClient restClient;
@@ -834,6 +842,6 @@ namespace RestClientDotNet.UnitTests
         {
             return restResponseHeadersCollection.Contains("Test1") && restResponseHeadersCollection["Test1"].First() == "a";
         }
-        #endregion
+#endregion
     }
 }
