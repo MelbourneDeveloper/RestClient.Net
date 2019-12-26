@@ -8,7 +8,6 @@ namespace ApiExamples.Controllers
     [Route("[controller]")]
     public class ErrorController : ControllerBase
     {
-        public const string ErrorMessage = "Not this time buddy";
 
         [HttpGet]
         public IActionResult GetAsync()

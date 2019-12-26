@@ -31,7 +31,9 @@ namespace RestClientDotNet.UnitTests
     public class UnitTests
     {
         #region Fields
+#if (NETCOREAPP3_1)
         private static TestServer _testServer;
+#endif
         private static TestClientFactory _testServerHttpClientFactory;
         private static Mock<ITracer> _tracer;
         #endregion
@@ -44,18 +46,17 @@ namespace RestClientDotNet.UnitTests
             var hostBuilder = new WebHostBuilder();
             hostBuilder.UseStartup<Startup>();
             _testServer = new TestServer(hostBuilder);
-            var testClient = _testServer.CreateClient();
 #else
-            var testClient = new HttpClient { BaseAddress = new Uri("http://localhost:42908") };
+            var testClient = MintClient();
 #endif
             _testServerHttpClientFactory = new TestClientFactory(testClient);
             _tracer = new Mock<ITracer>();
         }
-#endregion
+        #endregion
 
-#region Tests
+        #region Tests
 
-#region External Api Tests
+        #region External Api Tests
         [TestMethod]
         public async Task TestGetRestCountries()
         {
@@ -221,9 +222,9 @@ namespace RestClientDotNet.UnitTests
             var geoPlugin = await restClient.GetAsync<GeoPlugin>();
             Assert.IsNotNull(geoPlugin);
         }
-#endregion
+        #endregion
 
-#region Local Protobuf
+        #region Local Protobuf
         [TestMethod]
         public async Task TestProtobufPostLocal()
         {
@@ -256,9 +257,9 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
             Assert.AreEqual(personKey, responsePerson.PersonKey);
         }
-#endregion
+        #endregion
 
-#region Local Headers
+        #region Local Headers
         [TestMethod]
         public async Task TestHeadersLocalGet()
         {
@@ -338,7 +339,7 @@ namespace RestClientDotNet.UnitTests
             {
                 //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
                 //This is only the case because it's use a Test HttpClient
-                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, ex.Message);
                 return;
             }
 
@@ -363,7 +364,7 @@ namespace RestClientDotNet.UnitTests
             {
                 //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
                 //This is only the case because it's use a Test HttpClient
-                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, ex.Message);
                 return;
             }
 
@@ -408,7 +409,7 @@ namespace RestClientDotNet.UnitTests
             {
                 //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
                 //This is only the case because it's use a Test HttpClient
-                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, ex.Message);
                 return;
             }
 
@@ -443,7 +444,7 @@ namespace RestClientDotNet.UnitTests
             {
                 //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
                 //This is only the case because it's use a Test HttpClient
-                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, ex.Message);
                 return;
             }
 
@@ -471,15 +472,15 @@ namespace RestClientDotNet.UnitTests
             {
                 //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
                 //This is only the case because it's use a Test HttpClient
-                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, ex.Message);
                 return;
             }
 
             Assert.Fail();
         }
-#endregion
+        #endregion
 
-#region Local Headers In RestRequest
+        #region Local Headers In RestRequest
         [TestMethod]
         public async Task TestHeadersLocalInRestRequest()
         {
@@ -492,9 +493,9 @@ namespace RestClientDotNet.UnitTests
                 ); ;
             Assert.IsNotNull(responsePerson);
         }
-#endregion
+        #endregion
 
-#region Local Errors
+        #region Local Errors
         [TestMethod]
         public async Task TestErrorsLocalGet()
         {
@@ -503,7 +504,7 @@ namespace RestClientDotNet.UnitTests
             var response = (RestResponse<Person>)await restClient.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             var apiResult = restClient.DeserializeResponseBody<ApiResult>(response);
-            Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
+            Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
 
             //Check that the response values are getting set correctly
             Assert.AreEqual(response.BaseUri, response.BaseUri);
@@ -524,15 +525,15 @@ namespace RestClientDotNet.UnitTests
             catch (HttpStatusException hex)
             {
                 var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
-                Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
                 return;
             }
 
             Assert.Fail();
         }
-#endregion
+        #endregion
 
-#region Local Authentication
+        #region Local Authentication
         [TestMethod]
         public async Task TestBasicAuthenticationLocal()
         {
@@ -592,11 +593,11 @@ namespace RestClientDotNet.UnitTests
             }
             Assert.Fail();
         }
-#endregion
+        #endregion
 
-#region All Extension Overloads
+        #region All Extension Overloads
 
-#region Get
+        #region Get
         [TestMethod]
         public async Task TestLocalGetNoArgs()
         {
@@ -632,9 +633,9 @@ namespace RestClientDotNet.UnitTests
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
-#endregion
+        #endregion
 
-#region Delete
+        #region Delete
         [TestMethod]
         public async Task TestLocalDeleteStringUri()
         {
@@ -658,9 +659,9 @@ namespace RestClientDotNet.UnitTests
             var response = await restClient.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative), new CancellationToken());
             Assert.AreEqual(200, response.StatusCode);
         }
-#endregion
+        #endregion
 
-#region Post
+        #region Post
         [TestMethod]
         public async Task TestLocalPostBody()
         {
@@ -696,9 +697,9 @@ namespace RestClientDotNet.UnitTests
             Person responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), new CancellationToken());
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
-#endregion
+        #endregion
 
-#region Put
+        #region Put
         [TestMethod]
         public async Task TestLocalPutBodyStringUri()
         {
@@ -725,9 +726,9 @@ namespace RestClientDotNet.UnitTests
             Person responsePerson = await restClient.PutAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), new CancellationToken());
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
-#endregion
+        #endregion
 
-#region Patch
+        #region Patch
         [TestMethod]
         public async Task TestLocalPatchBodyStringUri()
         {
@@ -763,10 +764,10 @@ namespace RestClientDotNet.UnitTests
             Person responsePerson = await restClient.PatchAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), new CancellationToken());
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
-#endregion
-#endregion
+        #endregion
+        #endregion
 
-#region Misc
+        #region Misc
         [TestMethod]
         public async Task TestConcurrentCallsLocal()
         {
@@ -780,7 +781,7 @@ namespace RestClientDotNet.UnitTests
                         return new Lazy<HttpClient>(() =>
                         {
                             createdClients++;
-                            return _testServer.CreateClient();
+                            return MintClient();
                         }, LazyThreadSafetyMode.ExecutionAndPublication);
                     }
                 ),
@@ -803,22 +804,31 @@ namespace RestClientDotNet.UnitTests
             //Ensure only one http client is created
             Assert.AreEqual(1, createdClients);
         }
-#endregion
+        #endregion
 
         //TODO: Test exceptions
 
         //TODO: Test all constructor overloads
 
-#endregion
+        #endregion
 
-#region Helpers
+        #region Helpers
+        private HttpClient MintClient()
+        {
+#if (NETCOREAPP3_1)
+            return _testServer.CreateClient();
+#else
+            return new HttpClient { BaseAddress = new Uri("http://localhost:42908") };
+#endif
+        }
+
         private IRestClient GetJsonClient(Uri baseUri = null)
         {
             IRestClient restClient;
 
             if (baseUri != null)
             {
-                var httpClient = _testServer.CreateClient();
+                var httpClient = MintClient();
                 httpClient.BaseAddress = baseUri;
                 var testClientFactory = new TestClientFactory(httpClient);
                 restClient = new RestClient(new NewtonsoftSerializationAdapter(), testClientFactory);

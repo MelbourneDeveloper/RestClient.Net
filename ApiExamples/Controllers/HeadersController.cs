@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApiExamples.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using RestClientApiSamples;
 using System;
@@ -10,8 +11,6 @@ namespace ApiExamples.Controllers
     [Route("[controller]")]
     public class HeadersController : ControllerBase
     {
-        public const string ExceptionMessage = "Incorrect or missing header";
-
         [HttpGet]
         public async Task<Person> GetAsync()
         {
@@ -36,7 +35,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ExceptionMessage);
+            throw new Exception(ApiMessages.ErrorControllerErrorMessage);
         }
 
         [HttpPost]
@@ -47,7 +46,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ExceptionMessage);
+            throw new Exception(ApiMessages.ErrorControllerErrorMessage);
         }
 
         [HttpPut]
@@ -58,7 +57,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ExceptionMessage);
+            throw new Exception(ApiMessages.ErrorControllerErrorMessage);
         }
 
         [HttpPatch]
@@ -69,7 +68,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ExceptionMessage);
+            throw new Exception(ApiMessages.ErrorControllerErrorMessage);
         }
 
         [HttpDelete]
@@ -83,7 +82,7 @@ namespace ApiExamples.Controllers
                 return;
             }
 
-            throw new Exception(ExceptionMessage);
+            throw new Exception(ApiMessages.ErrorControllerErrorMessage);
         }
     }
 }
