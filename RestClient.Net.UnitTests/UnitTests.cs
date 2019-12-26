@@ -49,9 +49,8 @@ namespace RestClientDotNet.UnitTests
             var hostBuilder = new WebHostBuilder();
             hostBuilder.UseStartup<Startup>();
             _testServer = new TestServer(hostBuilder);
-#else
-            var testClient = MintClient();
 #endif
+            var testClient = MintClient();
             _testServerHttpClientFactory = new TestClientFactory(testClient);
             _tracer = new Mock<ITracer>();
         }
@@ -857,6 +856,6 @@ namespace RestClientDotNet.UnitTests
         {
             return restResponseHeadersCollection.Contains("Test1") && restResponseHeadersCollection["Test1"].First() == "a";
         }
-#endregion
+        #endregion
     }
 }

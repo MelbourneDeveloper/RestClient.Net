@@ -35,7 +35,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ApiMessages.ErrorControllerErrorMessage);
+            throw new Exception(ApiMessages.HeadersControllerExceptionMessage);
         }
 
         [HttpPost]
@@ -46,7 +46,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ApiMessages.ErrorControllerErrorMessage);
+            throw new Exception(ApiMessages.HeadersControllerExceptionMessage);
         }
 
         [HttpPut]
@@ -57,7 +57,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ApiMessages.ErrorControllerErrorMessage);
+            throw new Exception(ApiMessages.HeadersControllerExceptionMessage);
         }
 
         [HttpPatch]
@@ -68,7 +68,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ApiMessages.ErrorControllerErrorMessage);
+            throw new Exception(ApiMessages.HeadersControllerExceptionMessage);
         }
 
         [HttpDelete]
@@ -82,7 +82,7 @@ namespace ApiExamples.Controllers
                 return;
             }
 
-            throw new Exception(ApiMessages.ErrorControllerErrorMessage);
+            throw new Exception(ApiMessages.HeadersControllerExceptionMessage);
         }
     }
 }
