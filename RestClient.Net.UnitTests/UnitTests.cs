@@ -32,7 +32,10 @@ namespace RestClientDotNet.UnitTests
     {
         #region Fields
 #if (NETCOREAPP3_1)
+        private const string LocalBaseUriString = "http://localhost";
         private static TestServer _testServer;
+#else
+        private const string LocalBaseUriString = "http://localhost:42908";
 #endif
         private static TestClientFactory _testServerHttpClientFactory;
         private static Mock<ITracer> _tracer;
@@ -225,6 +228,8 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         #region Local Protobuf
+
+        //TODO: Danger. This method was pointing to the physical local port. Why was this method passing the tests?
         [TestMethod]
         public async Task TestProtobufPostLocal()
         {
@@ -236,7 +241,7 @@ namespace RestClientDotNet.UnitTests
             };
 
             var restClient = new RestClient(new ProtobufSerializationAdapter(), _testServerHttpClientFactory);
-            var responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri("http://localhost:42908/person"));
+            var responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri($"{LocalBaseUriString}/person"));
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.Body.BillingAddress.Street);
         }
 
@@ -253,7 +258,7 @@ namespace RestClientDotNet.UnitTests
             var restClient = new RestClient(new ProtobufSerializationAdapter(), _testServerHttpClientFactory);
             const string personKey = "123";
             restClient.DefaultRequestHeaders.Add("PersonKey", personKey);
-            Person responsePerson = await restClient.PutAsync<Person, Person>(requestPerson, new Uri("http://localhost:42908/person"));
+            Person responsePerson = await restClient.PutAsync<Person, Person>(requestPerson, new Uri($"{LocalBaseUriString}/person"));
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
             Assert.AreEqual(personKey, responsePerson.PersonKey);
         }
@@ -601,7 +606,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalGetNoArgs()
         {
-            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}JsonPerson"));
             Person responsePerson = await restClient.GetAsync<Person>();
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
@@ -639,7 +644,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalDeleteStringUri()
         {
-            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}JsonPerson"));
             var response = await restClient.DeleteAsync("?personKey=abc");
             Assert.AreEqual(200, response.StatusCode);
         }
@@ -647,7 +652,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalDeleteUri()
         {
-            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}JsonPerson"));
             var response = await restClient.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative));
             Assert.AreEqual(200, response.StatusCode);
         }
@@ -655,7 +660,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalDeleteUriCancellationToken()
         {
-            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}JsonPerson"));
             var response = await restClient.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative), new CancellationToken());
             Assert.AreEqual(200, response.StatusCode);
         }
@@ -665,7 +670,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalPostBody()
         {
-            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson/save"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}JsonPerson/save"));
             var requestPerson = new Person { FirstName = "Bob" };
             Person responsePerson = await restClient.PostAsync<Person, Person>(requestPerson);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
@@ -818,7 +823,7 @@ namespace RestClientDotNet.UnitTests
 #if (NETCOREAPP3_1)
             return _testServer.CreateClient();
 #else
-            return new HttpClient { BaseAddress = new Uri("http://localhost:42908") };
+            return new HttpClient { BaseAddress = new Uri(LocalBaseUriString) };
 #endif
         }
 

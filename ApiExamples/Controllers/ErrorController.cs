@@ -12,7 +12,7 @@ namespace ApiExamples.Controllers
         [HttpGet]
         public IActionResult GetAsync()
         {
-            var json = JsonConvert.SerializeObject(new ApiResult { Errors = { ErrorMessage } });
+            var json = JsonConvert.SerializeObject(new ApiResult { Errors = { ApiMessages.ErrorControllerErrorMessage } });
             return BadRequest(json);
         }
     }
