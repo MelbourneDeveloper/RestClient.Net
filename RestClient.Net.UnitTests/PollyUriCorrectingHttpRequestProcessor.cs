@@ -1,15 +1,14 @@
 ﻿using Polly;
 using Polly.Extensions.Http;
-using RestClientDotNet;
 using RestClientDotNet.Abstractions;
 using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace RESTClient.NET.CoreSample
+namespace RestClientDotNet.UnitTests
 {
-    public class PollyHttpRequestProcessor : DefaultHttpRequestProcessor
+    public class PollyUriCorrectingHttpRequestProcessor : DefaultHttpRequestProcessor
     {
         public async override Task<HttpResponseMessage> SendRestRequestAsync<TRequestBody>(HttpClient httpClient, RestRequest<TRequestBody> restRequest, byte[] requestBodyData)
         {

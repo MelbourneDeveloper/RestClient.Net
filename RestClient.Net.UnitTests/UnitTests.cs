@@ -798,7 +798,7 @@ namespace RestClientDotNet.UnitTests
             var tasks = new List<Task<RestResponseBase<Person>>>();
             const int maxCalls = 100;
 
-            Parallel.For(0, maxCalls, (i) => 
+            Parallel.For(0, maxCalls, (i) =>
             {
                 var restClient = restClientFactory.CreateRestClient();
                 restClient.DefaultRequestHeaders.Add("Test", "Test");
@@ -810,6 +810,24 @@ namespace RestClientDotNet.UnitTests
 
             //Ensure only one http client is created
             Assert.AreEqual(1, createdClients);
+        }
+
+        [TestMethod]
+        public async Task TestPollyIncorrectUri()
+        {
+            var restClient = new RestClient(
+                new ProtobufSerializationAdapter(),
+                null,
+                null,
+                new Uri("http://localhost:42908"),
+                default,
+                null,
+                new PollyUriCorrectingHttpRequestProcessor());
+
+            var person = new Person { FirstName = "Bob", Surname = "Smith" };
+
+            //Note the Uri here is deliberately incorrect. It will cause a 404 Not found response. This is to make sure that polly is working
+            person = await restClient.PostAsync<Person, Person>(new Uri("person2", UriKind.Relative), person);
         }
         #endregion
 
