@@ -22,7 +22,12 @@ namespace RESTClient.NET.CoreSample
             {
                 var httpRequestMessage = GetHttpRequestMessage(restRequest, requestBodyData);
 
-                return httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
+                var httpResponseMessage = await  httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
+
+                //This is a hacky workaround. The call has already finished so there should be not need to return a task
+                var taskCompletionSource = new TaskCompletionSource<HttpResponseMessage>();
+                taskCompletionSource.SetResult(httpResponseMessage);
+                return taskCompletionSource.Task;
             });
 
             return await task;
