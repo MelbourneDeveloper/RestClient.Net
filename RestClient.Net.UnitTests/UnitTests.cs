@@ -304,7 +304,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersTraceLocalGet()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory, _tracer.Object, null, default, null);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _testServerHttpClientFactory, _tracer.Object, null, default, null, null);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var response = await restClient.GetAsync<Person>("headers");
 

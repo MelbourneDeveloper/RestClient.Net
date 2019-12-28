@@ -31,7 +31,8 @@ namespace RestClientDotNet
                 Tracer,
                 null,
                 default,
-                name);
+                name,
+                null);
         }
 
         public IRestClient CreateRestClient(string name, Uri baseUri)
@@ -42,7 +43,8 @@ namespace RestClientDotNet
                 Tracer,
                 baseUri,
                 default,
-                name);
+                name,
+                null);
         }
         #endregion
     }

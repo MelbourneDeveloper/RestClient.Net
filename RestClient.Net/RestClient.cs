@@ -1,6 +1,5 @@
 ﻿using RestClientDotNet.Abstractions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -9,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet
 {
+
     public sealed class RestClient : IRestClient
     {
-        private static readonly List<HttpVerb> _updateVerbs = new List<HttpVerb> { HttpVerb.Put, HttpVerb.Post, HttpVerb.Patch };
-
-
         #region Public Properties
         public IHttpClientFactory HttpClientFactory { get; }
         public IZip Zip { get; set; }
@@ -24,6 +21,7 @@ namespace RestClientDotNet
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public Uri BaseUri { get; }
         public string Name { get; }
+        public IHttpRequestProcessor HttpRequestProcessor { get; }
         #endregion
 
         #region Constructors
@@ -55,6 +53,7 @@ namespace RestClientDotNet
               null,
               baseUri,
               timeout,
+              null,
               null)
         {
         }
@@ -69,6 +68,7 @@ namespace RestClientDotNet
           tracer,
           baseUri,
           default,
+          null,
           null)
         {
         }
@@ -82,6 +82,7 @@ namespace RestClientDotNet
           null,
           null,
           default,
+          null,
           null)
         {
         }
@@ -92,7 +93,8 @@ namespace RestClientDotNet
         ITracer tracer,
         Uri baseUri,
         TimeSpan timeout,
-        string name)
+        string name,
+        IHttpRequestProcessor httpRequestProcessor)
         {
             SerializationAdapter = serializationAdapter;
             HttpClientFactory = httpClientFactory;
@@ -101,13 +103,12 @@ namespace RestClientDotNet
             Timeout = timeout;
             DefaultRequestHeaders = new RestRequestHeaders();
             Name = name ?? nameof(RestClient);
+            HttpRequestProcessor = httpRequestProcessor ?? new DefaultHttpRequestProcessor();
         }
 
         #endregion
 
         #region Implementation
-
-
         async Task<RestResponseBase<TResponseBody>> IRestClient.SendAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest)
         {
             var httpClient = HttpClientFactory.CreateClient(Name);
@@ -118,76 +119,22 @@ namespace RestClientDotNet
 
             byte[] requestBodyData = null;
 
-            if (_updateVerbs.Contains(restRequest.HttpVerb))
+            if (DefaultHttpRequestProcessor.UpdateVerbs.Contains(restRequest.HttpVerb))
             {
                 requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
             }
 
-            var httpRequestMessage = GetHttpRequestMessage(restRequest, requestBodyData);
+            var httpRequestMessage = HttpRequestProcessor.GetHttpRequestMessage(restRequest, requestBodyData);
 
             //TODO: There will be no trace in cases where an exception occurs here
 
-            var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
+            var httpResponseMessage = await HttpRequestProcessor.SendAsync(httpClient, httpRequestMessage, restRequest.CancellationToken);
 
             Tracer?.Trace(restRequest.HttpVerb, httpResponseMessage.RequestMessage.RequestUri, requestBodyData, TraceType.Request, null, restRequest.Headers);
 
             return await ProcessResponseAsync<TResponseBody, TRequestBody>(restRequest, httpClient, httpResponseMessage);
         }
 
-        private static HttpRequestMessage GetHttpRequestMessage<TRequestBody>(RestRequest<TRequestBody> restRequest, byte[] requestBodyData)
-        {
-            HttpMethod httpMethod;
-            switch (restRequest.HttpVerb)
-            {
-                case HttpVerb.Get:
-                    httpMethod = HttpMethod.Get;
-                    break;
-                case HttpVerb.Post:
-                    httpMethod = HttpMethod.Post;
-                    break;
-                case HttpVerb.Put:
-                    httpMethod = HttpMethod.Put;
-                    break;
-                case HttpVerb.Delete:
-                    httpMethod = HttpMethod.Delete;
-                    break;
-                case HttpVerb.Patch:
-                    httpMethod = new HttpMethod("PATCH");
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-
-            var httpRequestMessage = new HttpRequestMessage
-            {
-                Method = httpMethod,
-                RequestUri = restRequest.Resource,
-            };
-
-            ByteArrayContent httpContent = null;
-            if (_updateVerbs.Contains(restRequest.HttpVerb))
-            {
-                httpContent = new ByteArrayContent(requestBodyData);
-                httpRequestMessage.Content = httpContent;
-            }
-
-            foreach (var headerName in restRequest.Headers.Names)
-            {
-                if (string.Compare(headerName, "Content-Type", StringComparison.OrdinalIgnoreCase) == 0)
-                {
-                    //Note: not sure why this is necessary...
-                    //The HttpClient class seems to differentiate between content headers and request message headers, but this distinction doesn't exist in the real world...
-                    //TODO: Other Content headers
-                    httpContent?.Headers.Add("Content-Type", restRequest.Headers[headerName]);
-                }
-                else
-                {
-                    httpRequestMessage.Headers.Add(headerName, restRequest.Headers[headerName]);
-                }
-            }
-
-            return httpRequestMessage;
-        }
 
         private async Task<RestResponseBase<TResponseBody>> ProcessResponseAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest, HttpClient httpClient, HttpResponseMessage httpResponseMessage)
         {
