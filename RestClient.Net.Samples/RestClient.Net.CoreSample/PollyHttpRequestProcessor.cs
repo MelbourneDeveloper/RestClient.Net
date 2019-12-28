@@ -20,9 +20,13 @@ namespace RESTClient.NET.CoreSample
 
             var task = await policy.ExecuteAsync(async () =>
             {
+                if (retries == 2) restRequest.Resource = new Uri("Person", UriKind.Relative);
+
                 var httpRequestMessage = GetHttpRequestMessage(restRequest, requestBodyData);
 
                 var httpResponseMessage = await  httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
+
+                if (!httpResponseMessage.IsSuccessStatusCode) throw new Exception("Ouch");
 
                 //This is a hacky workaround. The call has already finished so there should be not need to return a task
                 var taskCompletionSource = new TaskCompletionSource<HttpResponseMessage>();

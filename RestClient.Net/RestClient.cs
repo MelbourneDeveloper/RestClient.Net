@@ -97,13 +97,13 @@ namespace RestClientDotNet
         IHttpRequestProcessor httpRequestProcessor)
         {
             SerializationAdapter = serializationAdapter;
-            HttpClientFactory = httpClientFactory;
             Tracer = tracer;
             BaseUri = baseUri;
             Timeout = timeout;
             DefaultRequestHeaders = new RestRequestHeaders();
             Name = name ?? nameof(RestClient);
             HttpRequestProcessor = httpRequestProcessor ?? new DefaultHttpRequestProcessor();
+            HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();
         }
 
         #endregion
