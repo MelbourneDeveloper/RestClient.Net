@@ -30,7 +30,7 @@ namespace RESTClient.NET.CoreSample
 
                 Console.WriteLine($"Success! The response has a body of person {person.FirstName} {person.Surname} serialized from binary with Google Protobuffers");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("The sample failed. Is the ApiExamples web service running?\r\nTry: Right click on ApiExamples -> View -> View In Browser -> Run this sample again\r\n\r\n");
                 Console.WriteLine(ex.ToString());

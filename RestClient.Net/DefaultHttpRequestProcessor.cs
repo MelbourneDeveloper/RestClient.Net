@@ -13,7 +13,7 @@ namespace RestClientDotNet
     {
         public static readonly List<HttpVerb> UpdateVerbs = new List<HttpVerb> { HttpVerb.Put, HttpVerb.Post, HttpVerb.Patch };
 
-        public HttpRequestMessage GetHttpRequestMessage<TRequestBody>(RestRequest<TRequestBody> restRequest, byte[] requestBodyData)
+        public virtual HttpRequestMessage GetHttpRequestMessage<TRequestBody>(RestRequest<TRequestBody> restRequest, byte[] requestBodyData)
         {
             if (restRequest == null) throw new ArgumentNullException(nameof(restRequest));
 
@@ -70,7 +70,7 @@ namespace RestClientDotNet
             return httpRequestMessage;
         }
 
-        public Task<HttpResponseMessage> SendAsync(HttpClient httpClient, HttpRequestMessage httpRequestMessage, CancellationToken cancellationToken)
+        public virtual Task<HttpResponseMessage> SendAsync(HttpClient httpClient, HttpRequestMessage httpRequestMessage, CancellationToken cancellationToken)
         {
             if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
