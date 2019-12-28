@@ -124,16 +124,13 @@ namespace RestClientDotNet
                 requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
             }
 
-            var httpRequestMessage = HttpRequestProcessor.GetHttpRequestMessage(restRequest, requestBodyData);
-
-            //TODO: There will be no trace in cases where an exception occurs here
-
-            var httpResponseMessage = await HttpRequestProcessor.SendAsync(httpClient, httpRequestMessage, restRequest.CancellationToken);
+            var httpResponseMessage = await HttpRequestProcessor.SendRestRequestAsync(httpClient, restRequest, requestBodyData);
 
             Tracer?.Trace(restRequest.HttpVerb, httpResponseMessage.RequestMessage.RequestUri, requestBodyData, TraceType.Request, null, restRequest.Headers);
 
             return await ProcessResponseAsync<TResponseBody, TRequestBody>(restRequest, httpClient, httpResponseMessage);
         }
+
 
 
         private async Task<RestResponseBase<TResponseBody>> ProcessResponseAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest, HttpClient httpClient, HttpResponseMessage httpResponseMessage)

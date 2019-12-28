@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 
 #pragma warning disable CA2000
@@ -70,11 +69,14 @@ namespace RestClientDotNet
             return httpRequestMessage;
         }
 
-        public virtual Task<HttpResponseMessage> SendAsync(HttpClient httpClient, HttpRequestMessage httpRequestMessage, CancellationToken cancellationToken)
+        public virtual Task<HttpResponseMessage> SendRestRequestAsync<TRequestBody>(HttpClient httpClient, RestRequest<TRequestBody> restRequest, byte[] requestBodyData)
         {
+            if (restRequest == null) throw new ArgumentNullException(nameof(restRequest));
             if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
-            return httpClient.SendAsync(httpRequestMessage, cancellationToken);
+            var httpRequestMessage = GetHttpRequestMessage(restRequest, requestBodyData);
+
+            return httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
         }
     }
 }
