@@ -776,12 +776,15 @@ namespace RestClientDotNet.UnitTests
 
         //TODO: Do this again, but mint 100 clients
         [TestMethod]
-        public async Task TestConcurrentCallsLocal()
+        [DataRow(true)]
+        [DataRow(false)]
+        public async Task TestConcurrentCallsLocal(bool useDefaultFactory)
         {
             var createdClients = 0;
-            var restClientFactory = new RestClientFactory(
-                new NewtonsoftSerializationAdapter(),
-                new DefaultHttpClientFactory
+
+            IHttpClientFactory httpClientFactory;
+            if (useDefaultFactory)
+                httpClientFactory = new DefaultHttpClientFactory
                 (
                     (name) =>
                     {
@@ -791,7 +794,22 @@ namespace RestClientDotNet.UnitTests
                             return MintClient();
                         }, LazyThreadSafetyMode.ExecutionAndPublication);
                     }
-                ),
+                );
+            else
+            {
+                httpClientFactory = new OverzealousHttpClientFactory
+                    (
+                        (name) =>
+                        {
+                            createdClients++;
+                            return MintClient();
+                        }
+                    );
+            }
+
+            var restClientFactory = new RestClientFactory(
+                new NewtonsoftSerializationAdapter(),
+                httpClientFactory,
                 null);
             var clients = new List<IRestClient>();
 
@@ -809,7 +827,8 @@ namespace RestClientDotNet.UnitTests
             var results = await Task.WhenAll(tasks);
 
             //Ensure only one http client is created
-            Assert.AreEqual(1, createdClients);
+            var expectedCreated = useDefaultFactory ? 1 : maxCalls;
+            Assert.AreEqual(expectedCreated, createdClients);
         }
 
         [TestMethod]
