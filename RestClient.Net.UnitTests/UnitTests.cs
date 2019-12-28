@@ -796,13 +796,13 @@ namespace RestClientDotNet.UnitTests
             var tasks = new List<Task<RestResponseBase<Person>>>();
             const int maxCalls = 100;
 
-            for (var i = 0; i < maxCalls; i++)
+            Parallel.For(0, maxCalls, (i) => 
             {
                 var restClient = restClientFactory.CreateRestClient();
                 restClient.DefaultRequestHeaders.Add("Test", "Test");
                 clients.Add(restClient);
                 tasks.Add(restClient.GetAsync<Person>(new Uri("headers", UriKind.Relative)));
-            }
+            });
 
             var results = await Task.WhenAll(tasks);
 
