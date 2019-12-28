@@ -1,8 +1,5 @@
-﻿using ApiExamples;
-using ApiExamples.Controllers;
+﻿
 using ApiExamples.Model;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
@@ -20,6 +17,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xml2CSharp;
 
+#if (NETCOREAPP3_1)
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using ApiExamples;
+using ApiExamples.Controllers;
+#endif
+
 namespace RestClientDotNet.UnitTests
 {
 
@@ -27,7 +31,12 @@ namespace RestClientDotNet.UnitTests
     public class UnitTests
     {
         #region Fields
+#if (NETCOREAPP3_1)
+        private const string LocalBaseUriString = "https://localhost";
         private static TestServer _testServer;
+#else
+        private const string LocalBaseUriString = "https://localhost:44337";
+#endif
         private static TestClientFactory _testServerHttpClientFactory;
         private static Mock<ITracer> _tracer;
         #endregion
@@ -36,10 +45,12 @@ namespace RestClientDotNet.UnitTests
         [TestInitialize]
         public void Initialize()
         {
+#if (NETCOREAPP3_1)
             var hostBuilder = new WebHostBuilder();
             hostBuilder.UseStartup<Startup>();
             _testServer = new TestServer(hostBuilder);
-            var testClient = _testServer.CreateClient();
+#endif
+            var testClient = MintClient();
             _testServerHttpClientFactory = new TestClientFactory(testClient);
             _tracer = new Mock<ITracer>();
         }
@@ -216,6 +227,8 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         #region Local Protobuf
+
+        //TODO: Danger. This method was pointing to the physical local port. Why was this method passing the tests?
         [TestMethod]
         public async Task TestProtobufPostLocal()
         {
@@ -227,7 +240,7 @@ namespace RestClientDotNet.UnitTests
             };
 
             var restClient = new RestClient(new ProtobufSerializationAdapter(), _testServerHttpClientFactory);
-            var responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri("http://localhost:42908/person"));
+            var responsePerson = await restClient.PostAsync<Person, Person>(requestPerson, new Uri($"{LocalBaseUriString}/person"));
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.Body.BillingAddress.Street);
         }
 
@@ -244,7 +257,7 @@ namespace RestClientDotNet.UnitTests
             var restClient = new RestClient(new ProtobufSerializationAdapter(), _testServerHttpClientFactory);
             const string personKey = "123";
             restClient.DefaultRequestHeaders.Add("PersonKey", personKey);
-            Person responsePerson = await restClient.PutAsync<Person, Person>(requestPerson, new Uri("http://localhost:42908/person"));
+            Person responsePerson = await restClient.PutAsync<Person, Person>(requestPerson, new Uri($"{LocalBaseUriString}/person"));
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
             Assert.AreEqual(personKey, responsePerson.PersonKey);
         }
@@ -326,11 +339,11 @@ namespace RestClientDotNet.UnitTests
                 var responsePerson = await restClient.GetAsync<Person>(new Uri("headers", UriKind.Relative));
                 Assert.Fail();
             }
-            catch (Exception ex)
+            catch (HttpStatusException hex)
             {
-                //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
-                //This is only the case because it's use a Test HttpClient
-                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
+                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.RestResponse.StatusCode);
+                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
 
@@ -351,11 +364,11 @@ namespace RestClientDotNet.UnitTests
                 var responsePerson = await restClient.PostAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative));
                 Assert.Fail();
             }
-            catch (Exception ex)
+            catch (HttpStatusException hex)
             {
-                //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
-                //This is only the case because it's use a Test HttpClient
-                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
+                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.RestResponse.StatusCode);
+                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
 
@@ -396,11 +409,11 @@ namespace RestClientDotNet.UnitTests
                 var responsePerson = await restClient.PutAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative));
                 Assert.Fail();
             }
-            catch (Exception ex)
+            catch (HttpStatusException hex)
             {
-                //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
-                //This is only the case because it's use a Test HttpClient
-                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
+                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.RestResponse.StatusCode);
+                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
 
@@ -431,11 +444,11 @@ namespace RestClientDotNet.UnitTests
                 var responsePerson = await restClient.PatchAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative));
                 Assert.Fail();
             }
-            catch (Exception ex)
+            catch (HttpStatusException hex)
             {
-                //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
-                //This is only the case because it's use a Test HttpClient
-                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
+                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.RestResponse.StatusCode);
+                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
 
@@ -459,11 +472,11 @@ namespace RestClientDotNet.UnitTests
                 await restClient.DeleteAsync(new Uri("headers/1", UriKind.Relative));
                 Assert.Fail();
             }
-            catch (Exception ex)
+            catch (HttpStatusException hex)
             {
-                //TODO: This is not a good test. The server is throwing a simple exception but we should be handling a HttpStatusException here. 
-                //This is only the case because it's use a Test HttpClient
-                Assert.AreEqual(HeadersController.ExceptionMessage, ex.Message);
+                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.RestResponse.StatusCode);
+                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
 
@@ -495,7 +508,7 @@ namespace RestClientDotNet.UnitTests
             var response = (RestResponse<Person>)await restClient.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             var apiResult = restClient.DeserializeResponseBody<ApiResult>(response);
-            Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
+            Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
 
             //Check that the response values are getting set correctly
             Assert.AreEqual(response.BaseUri, response.BaseUri);
@@ -516,7 +529,7 @@ namespace RestClientDotNet.UnitTests
             catch (HttpStatusException hex)
             {
                 var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
-                Assert.AreEqual(ErrorController.ErrorMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
                 return;
             }
 
@@ -548,7 +561,7 @@ namespace RestClientDotNet.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.RestResponse.StatusCode);
                 var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
-                Assert.AreEqual(SecureController.NotAuthorizedMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
             Assert.Fail();
@@ -579,7 +592,7 @@ namespace RestClientDotNet.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.RestResponse.StatusCode);
                 var apiResult = restClient.DeserializeResponseBody<ApiResult>(ex.RestResponse);
-                Assert.AreEqual(SecureController.NotAuthorizedMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
             Assert.Fail();
@@ -592,7 +605,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalGetNoArgs()
         {
-            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
             Person responsePerson = await restClient.GetAsync<Person>();
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
@@ -630,7 +643,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalDeleteStringUri()
         {
-            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
             var response = await restClient.DeleteAsync("?personKey=abc");
             Assert.AreEqual(200, response.StatusCode);
         }
@@ -638,7 +651,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalDeleteUri()
         {
-            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
             var response = await restClient.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative));
             Assert.AreEqual(200, response.StatusCode);
         }
@@ -646,7 +659,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalDeleteUriCancellationToken()
         {
-            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
             var response = await restClient.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative), new CancellationToken());
             Assert.AreEqual(200, response.StatusCode);
         }
@@ -656,7 +669,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestLocalPostBody()
         {
-            var restClient = GetJsonClient(new Uri("http://localhost/JsonPerson/save"));
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson/save"));
             var requestPerson = new Person { FirstName = "Bob" };
             Person responsePerson = await restClient.PostAsync<Person, Person>(requestPerson);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
@@ -772,7 +785,7 @@ namespace RestClientDotNet.UnitTests
                         return new Lazy<HttpClient>(() =>
                         {
                             createdClients++;
-                            return _testServer.CreateClient();
+                            return MintClient();
                         }, LazyThreadSafetyMode.ExecutionAndPublication);
                     }
                 ),
@@ -804,13 +817,22 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         #region Helpers
+        private HttpClient MintClient()
+        {
+#if (NETCOREAPP3_1)
+            return _testServer.CreateClient();
+#else
+            return new HttpClient { BaseAddress = new Uri(LocalBaseUriString) };
+#endif
+        }
+
         private IRestClient GetJsonClient(Uri baseUri = null)
         {
             IRestClient restClient;
 
             if (baseUri != null)
             {
-                var httpClient = _testServer.CreateClient();
+                var httpClient = MintClient();
                 httpClient.BaseAddress = baseUri;
                 var testClientFactory = new TestClientFactory(httpClient);
                 restClient = new RestClient(new NewtonsoftSerializationAdapter(), testClientFactory);

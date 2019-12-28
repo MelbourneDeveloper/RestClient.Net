@@ -8,12 +8,11 @@ namespace ApiExamples.Controllers
     [Route("[controller]")]
     public class ErrorController : ControllerBase
     {
-        public const string ErrorMessage = "Not this time buddy";
 
         [HttpGet]
         public IActionResult GetAsync()
         {
-            var json = JsonConvert.SerializeObject(new ApiResult { Errors = { ErrorMessage } });
+            var json = JsonConvert.SerializeObject(new ApiResult { Errors = { ApiMessages.ErrorControllerErrorMessage } });
             return BadRequest(json);
         }
     }

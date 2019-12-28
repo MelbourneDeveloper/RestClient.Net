@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApiExamples.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using RestClientApiSamples;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ApiExamples.Controllers
@@ -10,8 +12,6 @@ namespace ApiExamples.Controllers
     [Route("[controller]")]
     public class HeadersController : ControllerBase
     {
-        public const string ExceptionMessage = "Incorrect or missing header";
-
         [HttpGet]
         public async Task<Person> GetAsync()
         {
@@ -36,7 +36,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ExceptionMessage);
+            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
@@ -47,7 +47,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ExceptionMessage);
+            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
         }
 
         [HttpPut]
@@ -58,7 +58,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ExceptionMessage);
+            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
         }
 
         [HttpPatch]
@@ -69,7 +69,7 @@ namespace ApiExamples.Controllers
                 return person;
             }
 
-            throw new Exception(ExceptionMessage);
+            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
         }
 
         [HttpDelete]
@@ -83,7 +83,7 @@ namespace ApiExamples.Controllers
                 return;
             }
 
-            throw new Exception(ExceptionMessage);
+            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
         }
     }
 }
