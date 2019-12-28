@@ -32,10 +32,10 @@ namespace RestClientDotNet.UnitTests
     {
         #region Fields
 #if (NETCOREAPP3_1)
-        private const string LocalBaseUriString = "http://localhost";
+        private const string LocalBaseUriString = "https://localhost";
         private static TestServer _testServer;
 #else
-        private const string LocalBaseUriString = "http://localhost:42908";
+        private const string LocalBaseUriString = "https://localhost:44337";
 #endif
         private static TestClientFactory _testServerHttpClientFactory;
         private static Mock<ITracer> _tracer;
