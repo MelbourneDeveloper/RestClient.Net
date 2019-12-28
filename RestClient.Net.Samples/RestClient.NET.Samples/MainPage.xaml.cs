@@ -106,7 +106,7 @@ namespace RestClientDotNet.Sample
                 var requestUri = $"{UsernameBox.Text}/{selectedRepo.full_name.Split('/')[1]}";
 
                 //Put the change
-                var retVal = await _BitbucketClient.PutAsync<Repository, Repository>(selectedRepo, requestUri);
+                var retVal = await _BitbucketClient.PutAsync<Repository, Repository>(requestUri, selectedRepo);
 
                 await DisplayAlert("Saved", "Your repo was updated.");
             }
@@ -220,14 +220,14 @@ namespace RestClientDotNet.Sample
         private async void Patch_Clicked(object sender, EventArgs e)
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-            UserPost userPost = await restClient.PatchAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts/1");
+            UserPost userPost = await restClient.PatchAsync<UserPost, UserPost>("/posts/1", new UserPost { title = "Moops" });
             await DisplayAlert("Post Patched", $"The server pretended to patch a post titled:\r\n{userPost.title}");
         }
 
         private async void Post_Clicked(object sender, EventArgs e)
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-            UserPost userPost = await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts");
+            UserPost userPost = await restClient.PostAsync<UserPost, UserPost>("/posts", new UserPost { title = "Moops" });
             await DisplayAlert("Post made", $"The server pretended to accept the post:\r\n{userPost.title}");
         }
 
@@ -240,7 +240,7 @@ namespace RestClientDotNet.Sample
                 var tokenSource = new CancellationTokenSource();
                 var token = tokenSource.Token;
 
-                var task = restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative), token);
+                var task = restClient.PostAsync<UserPost, UserPost>(new Uri("/posts", UriKind.Relative), new UserPost { title = "Moops" }, token);
 
                 tokenSource.Cancel();
 
@@ -261,7 +261,7 @@ namespace RestClientDotNet.Sample
             try
             {
                 var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), new TimeSpan(0, 0, 0, 0, 1));
-                await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
+                await restClient.PostAsync<UserPost, UserPost>(new Uri("/posts", UriKind.Relative), new UserPost { title = "Moops" });
             }
             catch (OperationCanceledException ex)
             {
