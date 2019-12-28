@@ -162,9 +162,11 @@ namespace RestClientDotNet
                     }
                 }
 
-                Tracer?.Trace(restRequest.HttpVerb, httpClient.BaseAddress, restRequest.Resource, requestBodyData, TraceType.Request, null, restRequest.Headers);
+                //TODO: There will be no trace in cases where an exception occurs here
 
                 var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
+
+                Tracer?.Trace(restRequest.HttpVerb, httpResponseMessage.RequestMessage.RequestUri, requestBodyData, TraceType.Request, null, restRequest.Headers);
 
                 return await ProcessResponseAsync<TResponseBody, TRequestBody>(restRequest, httpClient, httpResponseMessage);
             }
@@ -217,8 +219,7 @@ namespace RestClientDotNet
 
             Tracer?.Trace(
                 restRequest.HttpVerb,
-                httpClient.BaseAddress,
-                restRequest.Resource,
+                httpResponseMessage.RequestMessage.RequestUri,
                 responseData,
                 TraceType.Response,
                 (int)httpResponseMessage.StatusCode,

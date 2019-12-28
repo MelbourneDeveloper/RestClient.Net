@@ -69,8 +69,8 @@ namespace RestClientDotNet.UnitTests
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
 
-            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request, null, It.IsAny<IRestHeaders>()));
-            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d != null && d.Length > 0), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeaders>()));
+            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<byte[]>(), TraceType.Request, null, It.IsAny<IRestHeaders>()));
+            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.Is<byte[]>(d => d != null && d.Length > 0), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeaders>()));
         }
 
         [TestMethod]
@@ -81,8 +81,9 @@ namespace RestClientDotNet.UnitTests
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, tracer.Object);
             await restClient.DeleteAsync("posts/1");
 
-            tracer.Verify(t => t.Trace(HttpVerb.Delete, baseUri, It.IsAny<Uri>(), null, TraceType.Request, null, It.IsAny<IRestHeaders>()));
-            tracer.Verify(t => t.Trace(HttpVerb.Delete, baseUri, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeaders>()));
+            var requestUri = new Uri("https://jsonplaceholder.typicode.com/posts/1");
+            tracer.Verify(t => t.Trace(HttpVerb.Delete, requestUri, null, TraceType.Request, null, It.IsAny<IRestHeaders>()));
+            tracer.Verify(t => t.Trace(HttpVerb.Delete, requestUri, It.IsAny<byte[]>(), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeaders>()));
         }
 
         [TestMethod]
@@ -204,8 +205,8 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(requestUserPost.userId, responseUserPost.userId);
             Assert.AreEqual(requestUserPost.title, responseUserPost.title);
 
-            _tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Request, null, It.IsAny<IRestHeaders>()));
-            _tracer.Verify(t => t.Trace(verb, baseUri, It.IsAny<Uri>(), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, (int)expectedStatusCode, It.IsAny<IRestHeaders>()));
+            _tracer.Verify(t => t.Trace(verb, It.Is<Uri>(a => a.ToString().Contains(baseUri.ToString())), It.Is<byte[]>(d => d.Length > 0), TraceType.Request, null, It.IsAny<IRestHeaders>()));
+            _tracer.Verify(t => t.Trace(verb, It.Is<Uri>(a => a.ToString().Contains(baseUri.ToString())), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, (int)expectedStatusCode, It.IsAny<IRestHeaders>()));
         }
 
         [TestMethod]
@@ -307,11 +308,11 @@ namespace RestClientDotNet.UnitTests
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var response = await restClient.GetAsync<Person>("headers");
 
-            _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request, null,
+            _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request, null,
                 It.Is<IRestHeaders>(c => CheckRequestHeaders(c))
                 ));
 
-            _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, It.IsAny<int?>(),
+            _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, It.IsAny<int?>(),
                 It.Is<RestResponseHeaders>(c => CheckResponseHeaders(c))
                 ));
         }

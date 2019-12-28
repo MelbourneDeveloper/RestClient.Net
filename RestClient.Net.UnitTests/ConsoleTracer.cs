@@ -6,9 +6,9 @@ namespace RestClientDotNet.UnitTests
 {
     public class ConsoleTracer : ITracer
     {
-        public void Trace(HttpVerb httpVerb, Uri baseUri, Uri resource, byte[] body, TraceType traceType, int? httpStatusCode, IRestHeaders restHeadersCollection)
+        public void Trace(HttpVerb httpVerb, Uri requestUri, byte[] body, TraceType traceType, int? httpStatusCode, IRestHeaders restHeadersCollection)
         {
-            Console.WriteLine($"{traceType} {baseUri} {resource}\r\n{Encoding.UTF8.GetString(body)}\r\nStatus Code: {httpStatusCode}");
+            Console.WriteLine($"{traceType} {requestUri}\r\n{Encoding.UTF8.GetString(body)}\r\nStatus Code: {httpStatusCode}");
 
             if (restHeadersCollection == null) return;
 
