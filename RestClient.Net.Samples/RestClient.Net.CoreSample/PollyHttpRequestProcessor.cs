@@ -1,7 +1,9 @@
 ﻿using Polly;
+using Polly.Extensions.Http;
 using RestClientDotNet;
 using RestClientDotNet.Abstractions;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -11,32 +13,26 @@ namespace RESTClient.NET.CoreSample
     {
         public async override Task<HttpResponseMessage> SendRestRequestAsync<TRequestBody>(HttpClient httpClient, RestRequest<TRequestBody> restRequest, byte[] requestBodyData)
         {
-            var retries = 0;
+            var tries = 0;
 
-            var policy = Policy.Handle<Exception>().RetryAsync(3, (exception, attempt) =>
-            {
-                retries++;
-            });
+            var policy = HttpPolicyExtensions
+              .HandleTransientHttpError()
+              .OrResult(response => response.StatusCode == HttpStatusCode.NotFound)
+              .RetryAsync(3);
 
-            var func = new Func<Task<Task<HttpResponseMessage>>>(async ()=> 
+            var func = new Func<Context, Task<HttpResponseMessage>>(async (a) =>
             {
-                if (retries == 2) restRequest.Resource = new Uri("Person", UriKind.Relative);
+                if (tries == 2) restRequest.Resource = new Uri("Person", UriKind.Relative);
+
+                tries++;
 
                 var httpRequestMessage = GetHttpRequestMessage(restRequest, requestBodyData);
 
-                var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
-
-                if (!httpResponseMessage.IsSuccessStatusCode) throw new Exception("Ouch");
-
-                //This is a hacky workaround. The call has already finished so there should be not need to return a task
-                var taskCompletionSource = new TaskCompletionSource<HttpResponseMessage>();
-                taskCompletionSource.SetResult(httpResponseMessage);
-                return taskCompletionSource.Task;
+                return await httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
             });
 
-            var task = await policy.ExecuteAsync(func);
+            return await policy.ExecuteAsync(func, new Context());
 
-            return await task;
         }
     }
 }
