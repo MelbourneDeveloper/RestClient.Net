@@ -11,6 +11,9 @@ namespace RestClientDotNet
 {
     public sealed class RestClient : IRestClient
     {
+        private static readonly List<HttpVerb> _updateVerbs = new List<HttpVerb> { HttpVerb.Put, HttpVerb.Post, HttpVerb.Patch };
+
+
         #region Public Properties
         public IHttpClientFactory HttpClientFactory { get; }
         public IZip Zip { get; set; }
@@ -103,6 +106,8 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
+
+
         async Task<RestResponseBase<TResponseBody>> IRestClient.SendAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest)
         {
             var httpClient = HttpClientFactory.CreateClient(Name);
@@ -111,6 +116,26 @@ namespace RestClientDotNet
             if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
             if (BaseUri != null) httpClient.BaseAddress = BaseUri;
 
+            byte[] requestBodyData = null;
+
+            if (_updateVerbs.Contains(restRequest.HttpVerb))
+            {
+                requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
+            }
+
+            var httpRequestMessage = GetHttpRequestMessage(restRequest, requestBodyData);
+
+            //TODO: There will be no trace in cases where an exception occurs here
+
+            var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
+
+            Tracer?.Trace(restRequest.HttpVerb, httpResponseMessage.RequestMessage.RequestUri, requestBodyData, TraceType.Request, null, restRequest.Headers);
+
+            return await ProcessResponseAsync<TResponseBody, TRequestBody>(restRequest, httpClient, httpResponseMessage);
+        }
+
+        private static HttpRequestMessage GetHttpRequestMessage<TRequestBody>(RestRequest<TRequestBody> restRequest, byte[] requestBodyData)
+        {
             HttpMethod httpMethod;
             switch (restRequest.HttpVerb)
             {
@@ -133,43 +158,35 @@ namespace RestClientDotNet
                     throw new NotImplementedException();
             }
 
-            using (var httpRequestMessage = new HttpRequestMessage
+            var httpRequestMessage = new HttpRequestMessage
             {
                 Method = httpMethod,
-                RequestUri = restRequest.Resource
-            })
+                RequestUri = restRequest.Resource,
+            };
+
+            ByteArrayContent httpContent = null;
+            if (_updateVerbs.Contains(restRequest.HttpVerb))
             {
-                byte[] requestBodyData = null;
-                ByteArrayContent httpContent = null;
-                if (new List<HttpVerb> { HttpVerb.Put, HttpVerb.Post, HttpVerb.Patch }.Contains(restRequest.HttpVerb))
-                {
-                    requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
-                    httpContent = new ByteArrayContent(requestBodyData);
-                    httpRequestMessage.Content = httpContent;
-                }
-
-                foreach (var headerName in restRequest.Headers.Names)
-                {
-                    if (string.Compare(headerName, "Content-Type", StringComparison.OrdinalIgnoreCase) == 0)
-                    {
-                        //Note: not sure why this is necessary...
-                        //The HttpClient class seems to differentiate between content headers and request message headers, but this distinction doesn't exist in the real world...
-                        httpContent?.Headers.Add("Content-Type", restRequest.Headers[headerName]);
-                    }
-                    else
-                    {
-                        httpRequestMessage.Headers.Add(headerName, restRequest.Headers[headerName]);
-                    }
-                }
-
-                //TODO: There will be no trace in cases where an exception occurs here
-
-                var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
-
-                Tracer?.Trace(restRequest.HttpVerb, httpResponseMessage.RequestMessage.RequestUri, requestBodyData, TraceType.Request, null, restRequest.Headers);
-
-                return await ProcessResponseAsync<TResponseBody, TRequestBody>(restRequest, httpClient, httpResponseMessage);
+                httpContent = new ByteArrayContent(requestBodyData);
+                httpRequestMessage.Content = httpContent;
             }
+
+            foreach (var headerName in restRequest.Headers.Names)
+            {
+                if (string.Compare(headerName, "Content-Type", StringComparison.OrdinalIgnoreCase) == 0)
+                {
+                    //Note: not sure why this is necessary...
+                    //The HttpClient class seems to differentiate between content headers and request message headers, but this distinction doesn't exist in the real world...
+                    //TODO: Other Content headers
+                    httpContent?.Headers.Add("Content-Type", restRequest.Headers[headerName]);
+                }
+                else
+                {
+                    httpRequestMessage.Headers.Add(headerName, restRequest.Headers[headerName]);
+                }
+            }
+
+            return httpRequestMessage;
         }
 
         private async Task<RestResponseBase<TResponseBody>> ProcessResponseAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest, HttpClient httpClient, HttpResponseMessage httpResponseMessage)
