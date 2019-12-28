@@ -18,13 +18,13 @@ namespace RESTClient.NET.CoreSample
                 retries++;
             });
 
-            var task = await policy.ExecuteAsync(async () =>
+            var func = new Func<Task<Task<HttpResponseMessage>>>(async ()=> 
             {
                 if (retries == 2) restRequest.Resource = new Uri("Person", UriKind.Relative);
 
                 var httpRequestMessage = GetHttpRequestMessage(restRequest, requestBodyData);
 
-                var httpResponseMessage = await  httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
+                var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
 
                 if (!httpResponseMessage.IsSuccessStatusCode) throw new Exception("Ouch");
 
@@ -33,6 +33,8 @@ namespace RESTClient.NET.CoreSample
                 taskCompletionSource.SetResult(httpResponseMessage);
                 return taskCompletionSource.Task;
             });
+
+            var task = await policy.ExecuteAsync(func);
 
             return await task;
         }
