@@ -20,7 +20,7 @@ namespace RESTClient.NET.CoreSample
               .OrResult(response => response.StatusCode == HttpStatusCode.NotFound)
               .RetryAsync(3);
 
-            var func = new Func<Context, Task<HttpResponseMessage>>(async (a) =>
+            var func = new Func<Task<HttpResponseMessage>>(async () =>
             {
                 if (tries == 2) restRequest.Resource = new Uri("Person", UriKind.Relative);
 
@@ -31,7 +31,7 @@ namespace RESTClient.NET.CoreSample
                 return await httpClient.SendAsync(httpRequestMessage, restRequest.CancellationToken);
             });
 
-            return await policy.ExecuteAsync(func, new Context());
+            return await policy.ExecuteAsync(func);
 
         }
     }
