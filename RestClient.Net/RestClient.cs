@@ -38,35 +38,35 @@ namespace RestClientDotNet
         public RestClient(
             ISerializationAdapter serializationAdapter)
         : this(
-            null,
-            serializationAdapter)
+            serializationAdapter,
+            default(Uri))
         {
         }
 
         public RestClient(
-        Uri baseUri,
-            ISerializationAdapter serializationAdapter)
+        ISerializationAdapter serializationAdapter,
+            Uri baseUri)
         : this(
-            baseUri,
             serializationAdapter,
+            baseUri,
             null)
         {
         }
 
         public RestClient(
-            Uri baseUri,
             ISerializationAdapter serializationAdapter,
+            Uri baseUri,
             ITracer tracer)
         : this(
-              null,
-              baseUri,
               serializationAdapter,
-              tracer,
-              default,
-              null,
-              null,
-              null,
-              default)
+            baseUri,
+            tracer,
+            null,
+            default,
+            null,
+            null,
+            null,
+            default)
         {
         }
 
@@ -74,34 +74,34 @@ namespace RestClientDotNet
             ISerializationAdapter serializationAdapter,
             IHttpClientFactory httpClientFactory)
         : this(
-              null,
-              null,
               serializationAdapter,
-              null,
-              default,
-              httpClientFactory,
-              null,
-              null,
-              default)
+            null,
+            null,
+            null,
+            default,
+            httpClientFactory,
+            null,
+            null,
+            default)
         {
         }
 
-        public RestClient(string name,
+        public RestClient(ISerializationAdapter serializationAdapter,
             Uri baseUri,
-            ISerializationAdapter serializationAdapter,
             ITracer tracer,
+            string name,
             TimeSpan timeout,
             IHttpClientFactory httpClientFactory,
             IRestRequestConverter restRequestConverter,
             IRestHeaders defaultRequestHeaders,
             Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc)
         {
-            SerializationAdapter = serializationAdapter;
+            SerializationAdapter = serializationAdapter ?? throw new ArgumentNullException(nameof(serializationAdapter));
             Tracer = tracer;
             BaseUri = baseUri;
             Timeout = timeout;
-            DefaultRequestHeaders = defaultRequestHeaders ?? new RestRequestHeaders();
             Name = name ?? nameof(RestClient);
+            DefaultRequestHeaders = defaultRequestHeaders ?? new RestRequestHeaders();
             RestRequestConverter = restRequestConverter ?? new DefaultRestRequestConverter();
             HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();
             SendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
