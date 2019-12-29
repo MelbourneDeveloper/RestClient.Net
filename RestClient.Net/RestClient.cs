@@ -56,22 +56,6 @@ namespace RestClientDotNet
         public RestClient(
             Uri baseUri,
             ISerializationAdapter serializationAdapter,
-            TimeSpan timeout)
-        : this(null,
-              baseUri,
-              serializationAdapter,
-              null,
-              timeout,
-              null,
-              null,
-              null,
-              default)
-        {
-        }
-
-        public RestClient(
-            Uri baseUri,
-            ISerializationAdapter serializationAdapter,
             ITracer tracer)
         : this(
               null,

@@ -159,7 +159,7 @@ namespace RestClientDotNet.UnitTests
         {
             try
             {
-                var restClient = new RestClient(new Uri("https://jsonplaceholder.typicode.com"), new NewtonsoftSerializationAdapter(), new TimeSpan(0, 0, 0, 0, 1));
+                var restClient = new RestClient(new Uri("https://jsonplaceholder.typicode.com"), new NewtonsoftSerializationAdapter()) { Timeout = new TimeSpan(0, 0, 0, 0, 1) } ;
                 await restClient.PostAsync<UserPost, UserPost>(new Uri("/posts", UriKind.Relative), new UserPost { title = "Moops" });
             }
             catch (TaskCanceledException ex)
