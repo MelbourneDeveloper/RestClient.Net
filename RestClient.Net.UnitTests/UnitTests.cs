@@ -831,14 +831,15 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(expectedCreated, createdClients);
         }
 
+#if (NETCOREAPP3_1)
         [TestMethod]
         public async Task TestPollyIncorrectUri()
         {
             var restClient = new RestClient(
                 new ProtobufSerializationAdapter(),
+                _testServerHttpClientFactory,
                 null,
-                null,
-                new Uri("http://localhost:42908"),
+                new Uri(LocalBaseUriString),
                 default,
                 null,
                 new PollyUriCorrectingHttpRequestProcessor());
@@ -848,6 +849,7 @@ namespace RestClientDotNet.UnitTests
             //Note the Uri here is deliberately incorrect. It will cause a 404 Not found response. This is to make sure that polly is working
             person = await restClient.PostAsync<Person, Person>(new Uri("person2", UriKind.Relative), person);
         }
+#endif
         #endregion
 
         //TODO: Test exceptions

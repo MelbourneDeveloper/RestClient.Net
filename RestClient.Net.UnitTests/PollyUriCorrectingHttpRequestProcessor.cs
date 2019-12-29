@@ -1,4 +1,6 @@
-﻿using Polly;
+﻿#if (NETCOREAPP3_1)
+
+using Polly;
 using Polly.Extensions.Http;
 using RestClientDotNet.Abstractions;
 using System;
@@ -35,3 +37,5 @@ namespace RestClientDotNet.UnitTests
         }
     }
 }
+
+#endif
