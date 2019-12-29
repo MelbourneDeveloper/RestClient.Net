@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 #pragma warning disable CA2000
@@ -124,14 +125,23 @@ namespace RestClientDotNet
                 requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
             }
 
-            var httpResponseMessage = await HttpRequestProcessor.SendRestRequestAsync(httpClient, restRequest, requestBodyData);
+            var httpRequestMessage = HttpRequestProcessor.GetHttpRequestMessage(restRequest, requestBodyData);
+
+            var httpResponseMessage = await func.Invoke(
+                httpClient,
+                httpRequestMessage,
+                restRequest.CancellationToken
+                );
 
             Tracer?.Trace(restRequest.HttpVerb, httpResponseMessage.RequestMessage.RequestUri, requestBodyData, TraceType.Request, null, restRequest.Headers);
 
             return await ProcessResponseAsync<TResponseBody, TRequestBody>(restRequest, httpClient, httpResponseMessage);
         }
 
-
+        private readonly Func<HttpClient, HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> func = (httpClient, httpRequestMessage, cancellationToken) =>
+        {
+            return httpClient.SendAsync(httpRequestMessage, cancellationToken);
+        };
 
         private async Task<RestResponseBase<TResponseBody>> ProcessResponseAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest, HttpClient httpClient, HttpResponseMessage httpResponseMessage)
         {
