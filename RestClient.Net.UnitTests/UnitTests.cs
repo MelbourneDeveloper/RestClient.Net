@@ -16,10 +16,10 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xml2CSharp;
-using Polly.Extensions.Http;
-using Polly;
 
 #if (NETCOREAPP3_1)
+using Polly.Extensions.Http;
+using Polly;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ApiExamples;
@@ -809,10 +809,11 @@ namespace RestClientDotNet.UnitTests
                 default,
                 null,
                 null,
-                (httpClient, httpRequestMessage, cancellationToken) =>
+                (httpClient, httpRequestMessageFunc, cancellationToken) =>
                 {
                     return policy.ExecuteAsync(()=> 
                     {
+                        var httpRequestMessage = httpRequestMessageFunc.Invoke();
                         if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);
                         tries++;
                         return httpClient.SendAsync(httpRequestMessage, cancellationToken);

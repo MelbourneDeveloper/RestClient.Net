@@ -23,12 +23,13 @@ namespace RestClientDotNet
         public Uri BaseUri { get; }
         public string Name { get; }
         public IHttpRequestProcessor HttpRequestProcessor { get; }
-        public Func<HttpClient, HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> SendHttpRequestFunc { get; }
+        public Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> SendHttpRequestFunc { get; }
         #endregion
 
         #region Func
-        private static readonly Func<HttpClient, HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> DefaultSendHttpRequestMessageFunc = (httpClient, httpRequestMessage, cancellationToken) =>
+        private static readonly Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> DefaultSendHttpRequestMessageFunc = (httpClient, httpRequestMessageFunc, cancellationToken) =>
         {
+            var httpRequestMessage = httpRequestMessageFunc.Invoke();
             return httpClient.SendAsync(httpRequestMessage, cancellationToken);
         };
         #endregion
@@ -116,7 +117,7 @@ namespace RestClientDotNet
         TimeSpan timeout,
         string name,
         IHttpRequestProcessor httpRequestProcessor,
-        Func<HttpClient, HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc)
+        Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc)
         {
             SerializationAdapter = serializationAdapter;
             Tracer = tracer;
@@ -147,11 +148,9 @@ namespace RestClientDotNet
                 requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
             }
 
-            var httpRequestMessage = HttpRequestProcessor.GetHttpRequestMessage(restRequest, requestBodyData);
-
             var httpResponseMessage = await SendHttpRequestFunc.Invoke(
                 httpClient,
-                httpRequestMessage,
+                () => HttpRequestProcessor.GetHttpRequestMessage(restRequest, requestBodyData),
                 restRequest.CancellationToken
                 );
 
