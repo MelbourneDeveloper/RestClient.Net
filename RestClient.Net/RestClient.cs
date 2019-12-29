@@ -149,7 +149,7 @@ namespace RestClientDotNet
 
             var httpRequestMessage = HttpRequestProcessor.GetHttpRequestMessage(restRequest, requestBodyData);
 
-            var httpResponseMessage = await DefaultSendHttpRequestMessageFunc.Invoke(
+            var httpResponseMessage = await SendHttpRequestFunc.Invoke(
                 httpClient,
                 httpRequestMessage,
                 restRequest.CancellationToken

@@ -16,6 +16,8 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xml2CSharp;
+using Polly.Extensions.Http;
+using Polly;
 
 #if (NETCOREAPP3_1)
 using Microsoft.AspNetCore.Hosting;
@@ -793,6 +795,12 @@ namespace RestClientDotNet.UnitTests
         {
             var tries = 0;
 
+            var policy = HttpPolicyExtensions
+              .HandleTransientHttpError()
+              .OrResult(response => response.StatusCode == HttpStatusCode.NotFound)
+              .RetryAsync(3);
+
+
             var restClient = new RestClient(
                 new ProtobufSerializationAdapter(),
                 _testServerHttpClientFactory,
@@ -803,10 +811,12 @@ namespace RestClientDotNet.UnitTests
                 null,
                 (httpClient, httpRequestMessage, cancellationToken) =>
                 {
-
-                    if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);
-                    tries++;
-                    return httpClient.SendAsync(httpRequestMessage, cancellationToken);
+                    return policy.ExecuteAsync(()=> 
+                    {
+                        if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);
+                        tries++;
+                        return httpClient.SendAsync(httpRequestMessage, cancellationToken);
+                    });
                 }
                 );
 
