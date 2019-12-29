@@ -814,6 +814,8 @@ namespace RestClientDotNet.UnitTests
                     return policy.ExecuteAsync(()=> 
                     {
                         var httpRequestMessage = httpRequestMessageFunc.Invoke();
+
+                        //On the third try change the Url to a the correct one
                         if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);
                         tries++;
                         return httpClient.SendAsync(httpRequestMessage, cancellationToken);
