@@ -42,5 +42,14 @@ namespace RestClientDotNet
             }
         }
         #endregion
+
+        #region Public Methods
+        public void AddClient(string name, HttpClient httpClient)
+        {
+            var lazy = new Lazy<HttpClient>(() => httpClient);
+            var lazyFunc = new Func<string, Lazy<HttpClient>, Lazy<HttpClient>>((n, l) => lazy);
+            _httpClients.AddOrUpdate(name, lazy, lazyFunc);
+        }
+        #endregion
     }
 }
