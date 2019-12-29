@@ -57,14 +57,15 @@ namespace RestClientDotNet
             ISerializationAdapter serializationAdapter,
             Uri baseUri,
             TimeSpan timeout)
-        : this(
-              serializationAdapter,
-              new DefaultHttpClientFactory(),
-              null,
+        : this(null,
               baseUri,
+              serializationAdapter,
+              null,
               timeout,
               null,
-              null)
+              null,
+              null,
+              default)
         {
         }
 
@@ -73,13 +74,15 @@ namespace RestClientDotNet
             Uri baseUri,
             ITracer tracer)
         : this(
-          serializationAdapter,
-          new DefaultHttpClientFactory(),
-          tracer,
-          baseUri,
-          default,
-          null,
-          null)
+              null,
+              baseUri,
+              serializationAdapter,
+              tracer,
+              default,
+              null,
+              null,
+              null,
+              default)
         {
         }
 
@@ -87,40 +90,40 @@ namespace RestClientDotNet
             ISerializationAdapter serializationAdapter,
             IHttpClientFactory httpClientFactory)
         : this(
-          serializationAdapter,
-          httpClientFactory,
-          null,
-          null,
-          default,
-          null,
-          null)
+              null,
+              null,
+              serializationAdapter,
+              null,
+              default,
+              httpClientFactory,
+              null,
+              null,
+              default)
         {
         }
 
         public RestClient(
             ISerializationAdapter serializationAdapter,
-            IHttpClientFactory httpClientFactory,
             ITracer tracer,
             Uri baseUri,
             TimeSpan timeout,
-            string name,
-            IRestRequestConverter httpRequestProcessor)
+            string name)
             : this(
                   name,
-                  serializationAdapter,
-                  baseUri,
-                  tracer,
-                  timeout,
-                  httpClientFactory,
-                  httpRequestProcessor,
-                  null,
-                  null)
+                baseUri,
+                serializationAdapter,
+                tracer,
+                timeout,
+                null,
+                null,
+                null,
+                null)
         {
         }
 
         public RestClient(string name,
-            ISerializationAdapter serializationAdapter,
             Uri baseUri,
+            ISerializationAdapter serializationAdapter,
             ITracer tracer,
             TimeSpan timeout,
             IHttpClientFactory httpClientFactory,

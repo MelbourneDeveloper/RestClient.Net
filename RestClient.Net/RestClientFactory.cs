@@ -26,25 +26,31 @@ namespace RestClientDotNet
         public IRestClient CreateRestClient(string name)
         {
             return new RestClient(
-                SerializationAdapter,
-                HttpClientFactory,
-                Tracer,
-                null,
-                default,
                 name,
-                null);
+                null,
+                SerializationAdapter,
+                Tracer,
+                default,
+                HttpClientFactory,
+                null,
+                null,
+                null
+                );
         }
 
         public IRestClient CreateRestClient(string name, Uri baseUri)
         {
             return new RestClient(
-                SerializationAdapter,
-                HttpClientFactory,
-                Tracer,
-                baseUri,
-                default,
                 name,
-                null);
+                baseUri,
+                SerializationAdapter,
+                Tracer,
+                default,
+                HttpClientFactory,
+                null,
+                null,
+                null
+                );
         }
         #endregion
     }
