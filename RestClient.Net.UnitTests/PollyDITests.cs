@@ -18,25 +18,14 @@ namespace RestClientDotNet.UnitTests
         public void Test()
         {
             var serviceCollection = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
-            serviceCollection.AddHttpClient();
+            serviceCollection.AddHttpClient("test", (a)=> { a.BaseAddress = new Uri("http://www.test.com"); });
             var asdasd = serviceCollection.BuildServiceProvider();
             var adaadf = asdasd.GetService<IHttpClientFactory>();
 
-            var defaultHttpClientFactory = new DefaultHttpClientFactory();
-            defaultHttpClientFactory.AddClient("test", new HttpClient { BaseAddress = new Uri("http://www.test.com") });
 
-            var asdasds = defaultHttpClientFactory.CreateClient("test");
+            var asdasds = adaadf.CreateClient("test");
 
-            var container = new Container(c =>
-            {
-                c.Scan(s =>
-                {
-                    s.TheCallingAssembly();
-                    s.WithDefaultConventions();
-                });
 
-                c.For<IHttpClientFactory>().Use<DefaultHttpClientFactory>(defaultHttpClientFactory);
-            });
         }
     }
 
