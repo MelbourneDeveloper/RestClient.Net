@@ -105,25 +105,34 @@ namespace RestClientDotNet
             TimeSpan timeout,
             string name,
             IRestRequestConverter httpRequestProcessor)
-            : this(serializationAdapter, httpClientFactory, tracer, baseUri, timeout, name, httpRequestProcessor, null)
+            : this(
+                  name,
+                  serializationAdapter,
+                  baseUri,
+                  tracer,
+                  timeout,
+                  httpClientFactory,
+                  httpRequestProcessor,
+                  null,
+                  null)
         {
         }
 
-        public RestClient(
-        ISerializationAdapter serializationAdapter,
-        IHttpClientFactory httpClientFactory,
-        ITracer tracer,
-        Uri baseUri,
-        TimeSpan timeout,
-        string name,
-        IRestRequestConverter restRequestConverter,
-        Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc)
+        public RestClient(string name,
+            ISerializationAdapter serializationAdapter,
+            Uri baseUri,
+            ITracer tracer,
+            TimeSpan timeout,
+            IHttpClientFactory httpClientFactory,
+            IRestRequestConverter restRequestConverter,
+            IRestHeaders defaultRequestHeaders,
+            Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc)
         {
             SerializationAdapter = serializationAdapter;
             Tracer = tracer;
             BaseUri = baseUri;
             Timeout = timeout;
-            DefaultRequestHeaders = new RestRequestHeaders();
+            DefaultRequestHeaders = defaultRequestHeaders ?? new RestRequestHeaders();
             Name = name ?? nameof(RestClient);
             RestRequestConverter = restRequestConverter ?? new DefaultRestRequestConverter();
             HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();

@@ -801,11 +801,12 @@ namespace RestClientDotNet.UnitTests
 
 
             var restClient = new RestClient(
-                new ProtobufSerializationAdapter(),
-                _testServerHttpClientFactory,
                 null,
+                new ProtobufSerializationAdapter(),
                 new Uri(LocalBaseUriString),
+                null,
                 default,
+                _testServerHttpClientFactory,
                 null,
                 null,
                 (httpClient, httpRequestMessageFunc, cancellationToken) =>
