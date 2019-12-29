@@ -29,9 +29,9 @@ namespace RestClientDotNet
                 SerializationAdapter,
                 null,
                 Tracer,
+                HttpClientFactory,
                 name,
                 default,
-                HttpClientFactory,
                 null,
                 null,
                 null
@@ -44,9 +44,9 @@ namespace RestClientDotNet
                 SerializationAdapter,
                 baseUri,
                 Tracer,
+                HttpClientFactory,
                 name,
                 default,
-                HttpClientFactory,
                 null,
                 null,
                 null

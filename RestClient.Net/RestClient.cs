@@ -61,6 +61,7 @@ namespace RestClientDotNet
               serializationAdapter,
             baseUri,
             tracer,
+            null,
             null)
         {
         }
@@ -69,26 +70,27 @@ namespace RestClientDotNet
             ISerializationAdapter serializationAdapter,
             Uri baseUri,
             ITracer tracer,
+            string name,
             IHttpClientFactory httpClientFactory)
         : this(
               serializationAdapter,
-              baseUri,
-              tracer,
-              null,
-              default,
-              httpClientFactory,
-              null,
-              null,
-              default)
+            baseUri,
+            tracer,
+            httpClientFactory,
+            name,
+            default,
+            null,
+            null,
+            default)
         {
         }
 
         public RestClient(ISerializationAdapter serializationAdapter,
             Uri baseUri,
             ITracer tracer,
+            IHttpClientFactory httpClientFactory,
             string name,
             TimeSpan timeout,
-            IHttpClientFactory httpClientFactory,
             IRestRequestConverter restRequestConverter,
             IRestHeaders defaultRequestHeaders,
             Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc)
