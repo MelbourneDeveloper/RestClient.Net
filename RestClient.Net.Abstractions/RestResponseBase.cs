@@ -1,4 +1,6 @@
-﻿namespace RestClientDotNet.Abstractions
+﻿using System;
+
+namespace RestClientDotNet.Abstractions
 {
     public abstract class RestResponseBase<TResponseBody> : RestResponseBase
     {
@@ -7,8 +9,9 @@
         int statusCode,
         HttpVerb httpVerb,
         byte[] responseData,
-        TResponseBody body
-        ) : base(restHeadersCollection, statusCode, httpVerb, responseData)
+        TResponseBody body,
+        Uri requestUri
+        ) : base(restHeadersCollection, statusCode, httpVerb, responseData, requestUri)
         {
             Body = body;
         }
@@ -31,11 +34,12 @@
         private readonly byte[] _responseData;
         #endregion
 
-        #region Public Methods
+        #region Public Properties
         public int StatusCode { get; }
         public IRestHeaders Headers { get; }
         public HttpVerb HttpVerb { get; }
         public abstract bool IsSuccess { get; }
+        public Uri RequestUri { get; }
         #endregion
 
         #region Constructor
@@ -44,12 +48,14 @@
         IRestHeaders restHeadersCollection,
         int statusCode,
         HttpVerb httpVerb,
-        byte[] responseData
+        byte[] responseData,
+        Uri requestUri
         )
         {
             StatusCode = statusCode;
             Headers = restHeadersCollection;
             HttpVerb = httpVerb;
+            RequestUri = requestUri;
             _responseData = responseData;
         }
         #endregion

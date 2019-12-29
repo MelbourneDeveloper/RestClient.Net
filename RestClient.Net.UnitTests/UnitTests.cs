@@ -34,7 +34,7 @@ namespace RestClientDotNet.UnitTests
     {
         #region Fields
 #if (NETCOREAPP3_1)
-        private const string LocalBaseUriString = "https://localhost";
+        private const string LocalBaseUriString = "http://localhost";
         private static TestServer _testServer;
 #else
         private const string LocalBaseUriString = "https://localhost:44337";
@@ -514,9 +514,8 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
 
             //Check that the response values are getting set correctly
-            Assert.AreEqual(response.BaseUri, response.BaseUri);
+            Assert.AreEqual(new Uri($"{LocalBaseUriString}/error"), response.RequestUri);
             Assert.AreEqual(HttpVerb.Get, response.HttpVerb);
-            Assert.AreEqual(new Uri("error", UriKind.Relative), response.Resource);
         }
 
         [TestMethod]
@@ -811,7 +810,7 @@ namespace RestClientDotNet.UnitTests
                 null,
                 (httpClient, httpRequestMessageFunc, cancellationToken) =>
                 {
-                    return policy.ExecuteAsync(()=> 
+                    return policy.ExecuteAsync(() =>
                     {
                         var httpRequestMessage = httpRequestMessageFunc.Invoke();
 

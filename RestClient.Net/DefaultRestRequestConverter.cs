@@ -7,10 +7,13 @@ using System.Net.Http;
 
 namespace RestClientDotNet
 {
-    public class DefaultHttpRequestProcessor : IHttpRequestProcessor
+    public class DefaultRestRequestConverter : IRestRequestConverter
     {
+        #region Public Methods
         public static readonly List<HttpVerb> UpdateVerbs = new List<HttpVerb> { HttpVerb.Put, HttpVerb.Post, HttpVerb.Patch };
+        #endregion
 
+        #region Implementation
         public virtual HttpRequestMessage GetHttpRequestMessage<TRequestBody>(RestRequest<TRequestBody> restRequest, byte[] requestBodyData)
         {
             if (restRequest == null) throw new ArgumentNullException(nameof(restRequest));
@@ -67,6 +70,7 @@ namespace RestClientDotNet
 
             return httpRequestMessage;
         }
+        #endregion
     }
 }
 

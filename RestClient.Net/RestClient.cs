@@ -22,7 +22,7 @@ namespace RestClientDotNet
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public Uri BaseUri { get; }
         public string Name { get; }
-        public IHttpRequestProcessor HttpRequestProcessor { get; }
+        public IRestRequestConverter RestRequestConverter { get; }
         public Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> SendHttpRequestFunc { get; }
         #endregion
 
@@ -104,7 +104,7 @@ namespace RestClientDotNet
             Uri baseUri,
             TimeSpan timeout,
             string name,
-            IHttpRequestProcessor httpRequestProcessor)
+            IRestRequestConverter httpRequestProcessor)
             : this(serializationAdapter, httpClientFactory, tracer, baseUri, timeout, name, httpRequestProcessor, null)
         {
         }
@@ -116,7 +116,7 @@ namespace RestClientDotNet
         Uri baseUri,
         TimeSpan timeout,
         string name,
-        IHttpRequestProcessor httpRequestProcessor,
+        IRestRequestConverter restRequestConverter,
         Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc)
         {
             SerializationAdapter = serializationAdapter;
@@ -125,7 +125,7 @@ namespace RestClientDotNet
             Timeout = timeout;
             DefaultRequestHeaders = new RestRequestHeaders();
             Name = name ?? nameof(RestClient);
-            HttpRequestProcessor = httpRequestProcessor ?? new DefaultHttpRequestProcessor();
+            RestRequestConverter = restRequestConverter ?? new DefaultRestRequestConverter();
             HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();
             SendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
         }
@@ -143,23 +143,23 @@ namespace RestClientDotNet
 
             byte[] requestBodyData = null;
 
-            if (DefaultHttpRequestProcessor.UpdateVerbs.Contains(restRequest.HttpVerb))
+            if (DefaultRestRequestConverter.UpdateVerbs.Contains(restRequest.HttpVerb))
             {
                 requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
             }
 
             var httpResponseMessage = await SendHttpRequestFunc.Invoke(
                 httpClient,
-                () => HttpRequestProcessor.GetHttpRequestMessage(restRequest, requestBodyData),
+                () => RestRequestConverter.GetHttpRequestMessage(restRequest, requestBodyData),
                 restRequest.CancellationToken
                 );
 
             Tracer?.Trace(restRequest.HttpVerb, httpResponseMessage.RequestMessage.RequestUri, requestBodyData, TraceType.Request, null, restRequest.Headers);
 
-            return await ProcessResponseAsync<TResponseBody, TRequestBody>(restRequest, httpClient, httpResponseMessage);
+            return await ProcessResponseAsync<TResponseBody, TRequestBody>(restRequest, httpResponseMessage);
         }
 
-        private async Task<RestResponseBase<TResponseBody>> ProcessResponseAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest, HttpClient httpClient, HttpResponseMessage httpResponseMessage)
+        private async Task<RestResponseBase<TResponseBody>> ProcessResponseAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest, HttpResponseMessage httpResponseMessage)
         {
             byte[] responseData = null;
 
@@ -196,8 +196,6 @@ namespace RestClientDotNet
             (
                 restHeadersCollection,
                 (int)httpResponseMessage.StatusCode,
-                httpClient.BaseAddress,
-                restRequest.Resource,
                 restRequest.HttpVerb,
                 responseData,
                 responseBody,
