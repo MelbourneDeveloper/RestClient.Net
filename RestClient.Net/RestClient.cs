@@ -39,7 +39,7 @@ namespace RestClientDotNet
             ISerializationAdapter serializationAdapter)
         : this(
             serializationAdapter,
-            default(Uri))
+            default)
         {
         }
 
@@ -61,28 +61,25 @@ namespace RestClientDotNet
               serializationAdapter,
             baseUri,
             tracer,
-            null,
-            default,
-            null,
-            null,
-            null,
-            default)
+            null)
         {
         }
 
         public RestClient(
             ISerializationAdapter serializationAdapter,
+            Uri baseUri,
+            ITracer tracer,
             IHttpClientFactory httpClientFactory)
         : this(
               serializationAdapter,
-            null,
-            null,
-            null,
-            default,
-            httpClientFactory,
-            null,
-            null,
-            default)
+              baseUri,
+              tracer,
+              null,
+              default,
+              httpClientFactory,
+              null,
+              null,
+              default)
         {
         }
 
