@@ -102,25 +102,6 @@ namespace RestClientDotNet
         {
         }
 
-        public RestClient(
-            string name,
-            Uri baseUri,
-            ISerializationAdapter serializationAdapter,
-            ITracer tracer,
-            TimeSpan timeout)
-            : this(
-                  name,
-                baseUri,
-                serializationAdapter,
-                tracer,
-                timeout,
-                null,
-                null,
-                null,
-                null)
-        {
-        }
-
         public RestClient(string name,
             Uri baseUri,
             ISerializationAdapter serializationAdapter,
