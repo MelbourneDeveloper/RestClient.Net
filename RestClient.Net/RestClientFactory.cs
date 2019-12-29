@@ -1,5 +1,9 @@
-﻿using System;
-using RestClientDotNet.Abstractions;
+﻿using RestClientDotNet.Abstractions;
+using System;
+
+#if NETSTANDARD2_0 
+using System.Net.Http;
+#endif
 
 namespace RestClientDotNet
 {
