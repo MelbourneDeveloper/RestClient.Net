@@ -23,6 +23,14 @@ namespace RestClientDotNet
         public Uri BaseUri { get; }
         public string Name { get; }
         public IHttpRequestProcessor HttpRequestProcessor { get; }
+        public Func<HttpClient, HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> SendHttpRequestFunc { get; }
+        #endregion
+
+        #region Func
+        private static readonly Func<HttpClient, HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> DefaultSendHttpRequestMessageFunc = (httpClient, httpRequestMessage, cancellationToken) =>
+        {
+            return httpClient.SendAsync(httpRequestMessage, cancellationToken);
+        };
         #endregion
 
         #region Constructors
@@ -89,13 +97,26 @@ namespace RestClientDotNet
         }
 
         public RestClient(
+            ISerializationAdapter serializationAdapter,
+            IHttpClientFactory httpClientFactory,
+            ITracer tracer,
+            Uri baseUri,
+            TimeSpan timeout,
+            string name,
+            IHttpRequestProcessor httpRequestProcessor)
+            : this(serializationAdapter, httpClientFactory, tracer, baseUri, timeout, name, httpRequestProcessor, null)
+        {
+        }
+
+        public RestClient(
         ISerializationAdapter serializationAdapter,
         IHttpClientFactory httpClientFactory,
         ITracer tracer,
         Uri baseUri,
         TimeSpan timeout,
         string name,
-        IHttpRequestProcessor httpRequestProcessor)
+        IHttpRequestProcessor httpRequestProcessor,
+        Func<HttpClient, HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc)
         {
             SerializationAdapter = serializationAdapter;
             Tracer = tracer;
@@ -105,6 +126,7 @@ namespace RestClientDotNet
             Name = name ?? nameof(RestClient);
             HttpRequestProcessor = httpRequestProcessor ?? new DefaultHttpRequestProcessor();
             HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();
+            SendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
         }
 
         #endregion
@@ -127,7 +149,7 @@ namespace RestClientDotNet
 
             var httpRequestMessage = HttpRequestProcessor.GetHttpRequestMessage(restRequest, requestBodyData);
 
-            var httpResponseMessage = await func.Invoke(
+            var httpResponseMessage = await DefaultSendHttpRequestMessageFunc.Invoke(
                 httpClient,
                 httpRequestMessage,
                 restRequest.CancellationToken
@@ -137,11 +159,6 @@ namespace RestClientDotNet
 
             return await ProcessResponseAsync<TResponseBody, TRequestBody>(restRequest, httpClient, httpResponseMessage);
         }
-
-        private readonly Func<HttpClient, HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> func = (httpClient, httpRequestMessage, cancellationToken) =>
-        {
-            return httpClient.SendAsync(httpRequestMessage, cancellationToken);
-        };
 
         private async Task<RestResponseBase<TResponseBody>> ProcessResponseAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest, HttpClient httpClient, HttpResponseMessage httpResponseMessage)
         {

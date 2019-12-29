@@ -791,6 +791,8 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestPollyIncorrectUri()
         {
+            var tries = 0;
+
             var restClient = new RestClient(
                 new ProtobufSerializationAdapter(),
                 _testServerHttpClientFactory,
@@ -798,7 +800,15 @@ namespace RestClientDotNet.UnitTests
                 new Uri(LocalBaseUriString),
                 default,
                 null,
-                new PollyUriCorrectingHttpRequestProcessor());
+                null,
+                (httpClient, httpRequestMessage, cancellationToken) =>
+                {
+
+                    if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);
+                    tries++;
+                    return httpClient.SendAsync(httpRequestMessage, cancellationToken);
+                }
+                );
 
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
 
