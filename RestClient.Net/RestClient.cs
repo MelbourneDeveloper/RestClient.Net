@@ -80,8 +80,7 @@ namespace RestClientDotNet
             name,
             default,
             null,
-            null,
-            default)
+            null)
         {
         }
 
@@ -90,15 +89,13 @@ namespace RestClientDotNet
             ITracer tracer,
             IHttpClientFactory httpClientFactory,
             string name,
-            TimeSpan timeout,
-            IRestRequestConverter restRequestConverter,
-            IRestHeaders defaultRequestHeaders,
-            Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc)
+            Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,
+            IRestRequestConverter restRequestConverter = null,
+            IRestHeaders defaultRequestHeaders = null)
         {
             SerializationAdapter = serializationAdapter ?? throw new ArgumentNullException(nameof(serializationAdapter));
             Tracer = tracer;
             BaseUri = baseUri;
-            Timeout = timeout;
             Name = name ?? nameof(RestClient);
             DefaultRequestHeaders = defaultRequestHeaders ?? new RestRequestHeaders();
             RestRequestConverter = restRequestConverter ?? new DefaultRestRequestConverter();

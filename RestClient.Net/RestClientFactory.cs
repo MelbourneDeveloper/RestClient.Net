@@ -30,12 +30,7 @@ namespace RestClientDotNet
                 null,
                 Tracer,
                 HttpClientFactory,
-                name,
-                default,
-                null,
-                null,
-                null
-                );
+                name);
         }
 
         public IRestClient CreateRestClient(string name, Uri baseUri)
@@ -45,12 +40,7 @@ namespace RestClientDotNet
                 baseUri,
                 Tracer,
                 HttpClientFactory,
-                name,
-                default,
-                null,
-                null,
-                null
-                );
+                name);
         }
         #endregion
     }

@@ -306,7 +306,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersTraceLocalGet()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), null, _tracer.Object, _testServerHttpClientFactory, null, default, null, null, null);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), null, _tracer.Object, _testServerHttpClientFactory, null);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var response = await restClient.GetAsync<Person>("headers");
 
@@ -806,9 +806,6 @@ namespace RestClientDotNet.UnitTests
                 null,
                 _testServerHttpClientFactory,
                 null,
-                default,
-                null,
-                null,
                 (httpClient, httpRequestMessageFunc, cancellationToken) =>
                 {
                     return policy.ExecuteAsync(() =>
@@ -820,8 +817,7 @@ namespace RestClientDotNet.UnitTests
                         tries++;
                         return httpClient.SendAsync(httpRequestMessage, cancellationToken);
                     });
-                }
-                );
+                });
 
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
 
