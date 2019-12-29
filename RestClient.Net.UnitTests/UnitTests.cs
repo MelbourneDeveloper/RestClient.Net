@@ -774,11 +774,51 @@ namespace RestClientDotNet.UnitTests
 
         #region Misc
 
-        //TODO: Do this again, but mint 100 clients
+        //TODO: This test occasionally fails. It seems to mint only 98 clients. Why?
         [TestMethod]
-        [DataRow(true)]
-        [DataRow(false)]
-        public async Task TestConcurrentCallsLocal(bool useDefaultFactory)
+        public async Task TestConcurrentCallsLocalSingleton()
+        {
+            await DoTestConcurrentCalls(true);
+        }
+
+        [TestMethod]
+        public async Task TestConcurrentCallsLocal()
+        {
+            await DoTestConcurrentCalls(false);
+        }
+
+#if (NETCOREAPP3_1)
+        [TestMethod]
+        public async Task TestPollyIncorrectUri()
+        {
+            var restClient = new RestClient(
+                new ProtobufSerializationAdapter(),
+                _testServerHttpClientFactory,
+                null,
+                new Uri(LocalBaseUriString),
+                default,
+                null,
+                new PollyUriCorrectingHttpRequestProcessor());
+
+            var person = new Person { FirstName = "Bob", Surname = "Smith" };
+
+            //Note the Uri here is deliberately incorrect. It will cause a 404 Not found response. This is to make sure that polly is working
+            person = await restClient.PostAsync<Person, Person>(new Uri("person2", UriKind.Relative), person);
+        }
+#endif
+        #endregion
+
+        //TODO: Test exceptions
+
+        //TODO: Test all constructor overloads
+
+        #endregion
+
+        #region Helpers
+        /// <summary>
+        /// There were issues with DataRow so doing this instead. These sometimes fail but no idea why...
+        /// </summary>
+        private async Task DoTestConcurrentCalls(bool useDefaultFactory)
         {
             var createdClients = 0;
 
@@ -831,34 +871,6 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(expectedCreated, createdClients);
         }
 
-#if (NETCOREAPP3_1)
-        [TestMethod]
-        public async Task TestPollyIncorrectUri()
-        {
-            var restClient = new RestClient(
-                new ProtobufSerializationAdapter(),
-                _testServerHttpClientFactory,
-                null,
-                new Uri(LocalBaseUriString),
-                default,
-                null,
-                new PollyUriCorrectingHttpRequestProcessor());
-
-            var person = new Person { FirstName = "Bob", Surname = "Smith" };
-
-            //Note the Uri here is deliberately incorrect. It will cause a 404 Not found response. This is to make sure that polly is working
-            person = await restClient.PostAsync<Person, Person>(new Uri("person2", UriKind.Relative), person);
-        }
-#endif
-        #endregion
-
-        //TODO: Test exceptions
-
-        //TODO: Test all constructor overloads
-
-        #endregion
-
-        #region Helpers
         private HttpClient MintClient()
         {
 #if (NETCOREAPP3_1)
