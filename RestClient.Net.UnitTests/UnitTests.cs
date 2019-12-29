@@ -826,6 +826,7 @@ namespace RestClientDotNet.UnitTests
 
             //Note the Uri here is deliberately incorrect. It will cause a 404 Not found response. This is to make sure that polly is working
             person = await restClient.PostAsync<Person, Person>(new Uri("person2", UriKind.Relative), person);
+            Assert.AreEqual("Bob", person.FirstName);
         }
 #endif
         #endregion
