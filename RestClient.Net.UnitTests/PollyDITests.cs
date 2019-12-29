@@ -1,9 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StructureMap;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 
 namespace RestClientDotNet.UnitTests
 {
@@ -13,9 +11,10 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public void Test()
         {
-            //var factory = new DefaultHttpClientFactory();
-
             var defaultHttpClientFactory = new DefaultHttpClientFactory();
+            defaultHttpClientFactory.AddClient("test", new HttpClient { BaseAddress = new Uri("http://www.test.com") });
+
+            var asdasds = defaultHttpClientFactory.CreateClient("test");
 
             var container = new Container(c =>
             {
@@ -24,7 +23,6 @@ namespace RestClientDotNet.UnitTests
                     s.TheCallingAssembly();
                     s.WithDefaultConventions();
                 });
-
 
                 c.For<IHttpClientFactory>().Use<DefaultHttpClientFactory>(defaultHttpClientFactory);
             });

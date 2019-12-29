@@ -48,7 +48,9 @@ namespace RestClientDotNet
         {
             var lazy = new Lazy<HttpClient>(() => httpClient);
             var lazyFunc = new Func<string, Lazy<HttpClient>, Lazy<HttpClient>>((n, l) => lazy);
+#pragma warning disable IDE0058 // Expression value is never used
             _httpClients.AddOrUpdate(name, lazy, lazyFunc);
+#pragma warning restore IDE0058 // Expression value is never used
         }
         #endregion
     }
