@@ -38,24 +38,24 @@ namespace RestClientDotNet
         public RestClient(
             ISerializationAdapter serializationAdapter)
         : this(
-            serializationAdapter,
-            default(Uri))
+            null,
+            serializationAdapter)
         {
         }
 
         public RestClient(
-        ISerializationAdapter serializationAdapter,
-        Uri baseUri)
+        Uri baseUri,
+            ISerializationAdapter serializationAdapter)
         : this(
-            serializationAdapter,
             baseUri,
+            serializationAdapter,
             null)
         {
         }
 
         public RestClient(
-            ISerializationAdapter serializationAdapter,
             Uri baseUri,
+            ISerializationAdapter serializationAdapter,
             TimeSpan timeout)
         : this(null,
               baseUri,
@@ -70,8 +70,8 @@ namespace RestClientDotNet
         }
 
         public RestClient(
-            ISerializationAdapter serializationAdapter,
             Uri baseUri,
+            ISerializationAdapter serializationAdapter,
             ITracer tracer)
         : this(
               null,
@@ -103,11 +103,11 @@ namespace RestClientDotNet
         }
 
         public RestClient(
+            string name,
+            Uri baseUri,
             ISerializationAdapter serializationAdapter,
             ITracer tracer,
-            Uri baseUri,
-            TimeSpan timeout,
-            string name)
+            TimeSpan timeout)
             : this(
                   name,
                 baseUri,

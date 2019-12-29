@@ -66,7 +66,7 @@ namespace RestClientDotNet.UnitTests
         {
             var tracer = new Mock<ITracer>();
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, tracer.Object);
+            var restClient = new RestClient(baseUri, new NewtonsoftSerializationAdapter(), tracer.Object);
             List<RestCountry> countries = await restClient.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
@@ -80,7 +80,7 @@ namespace RestClientDotNet.UnitTests
         {
             var tracer = new Mock<ITracer>();
             var baseUri = new Uri("https://jsonplaceholder.typicode.com");
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, tracer.Object);
+            var restClient = new RestClient(baseUri, new NewtonsoftSerializationAdapter(), tracer.Object);
             await restClient.DeleteAsync("posts/1");
 
             var requestUri = new Uri("https://jsonplaceholder.typicode.com/posts/1");
@@ -91,7 +91,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestGetRestCountriesAsJson()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/name/australia"));
+            var restClient = new RestClient(new Uri("https://restcountries.eu/rest/v2/name/australia"), new NewtonsoftSerializationAdapter());
             var json = await restClient.GetAsync<string>();
             var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).FirstOrDefault();
             Assert.AreEqual("Australia", country.name);
@@ -130,7 +130,7 @@ namespace RestClientDotNet.UnitTests
         {
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+                var restClient = new RestClient(new Uri("https://jsonplaceholder.typicode.com"), new NewtonsoftSerializationAdapter());
 
                 var tokenSource = new CancellationTokenSource();
                 var token = tokenSource.Token;
@@ -159,7 +159,7 @@ namespace RestClientDotNet.UnitTests
         {
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), new TimeSpan(0, 0, 0, 0, 1));
+                var restClient = new RestClient(new Uri("https://jsonplaceholder.typicode.com"), new NewtonsoftSerializationAdapter(), new TimeSpan(0, 0, 0, 0, 1));
                 await restClient.PostAsync<UserPost, UserPost>(new Uri("/posts", UriKind.Relative), new UserPost { title = "Moops" });
             }
             catch (TaskCanceledException ex)
@@ -183,7 +183,7 @@ namespace RestClientDotNet.UnitTests
         {
             var baseUri = new Uri("https://jsonplaceholder.typicode.com");
 
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), _tracer.Object);
+            var restClient = new RestClient(new Uri("https://jsonplaceholder.typicode.com"), new NewtonsoftSerializationAdapter(), _tracer.Object);
             restClient.UseJsonContentType();
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
             UserPost responseUserPost = null;
@@ -215,7 +215,7 @@ namespace RestClientDotNet.UnitTests
         public async Task TestConsoleLogging()
         {
             var tracer = new ConsoleTracer();
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), tracer);
+            var restClient = new RestClient(new Uri("https://jsonplaceholder.typicode.com"), new NewtonsoftSerializationAdapter(), tracer);
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
             await restClient.PostAsync<UserPost, UserPost>("/posts", requestUserPost);
         }
@@ -223,7 +223,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestGetWithXmlSerialization()
         {
-            var restClient = new RestClient(new XmlSerializationAdapter(), new Uri("http://www.geoplugin.net/xml.gp"));
+            var restClient = new RestClient(new Uri("http://www.geoplugin.net/xml.gp"), new XmlSerializationAdapter());
             var geoPlugin = await restClient.GetAsync<GeoPlugin>();
             Assert.IsNotNull(geoPlugin);
         }
