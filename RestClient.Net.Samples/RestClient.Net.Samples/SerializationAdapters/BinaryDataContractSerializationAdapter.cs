@@ -14,7 +14,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Public Methods
-        public TResponseBody Deserialize<TResponseBody>(byte[] data, IRestHeaders responseHeaders)
+        public TResponseBody Deserialize<TResponseBody>(byte[] data, IRestHeadersCollection responseHeaders)
         {
             var serializer = new DataContractSerializer(typeof(TResponseBody), KnownDataContracts);
             using (var stream = new MemoryStream(data))
@@ -24,7 +24,7 @@ namespace RestClientDotNet
             }
         }
 
-        public byte[] Serialize<TRequestBody>(TRequestBody value, IRestHeaders requestHeaders)
+        public byte[] Serialize<TRequestBody>(TRequestBody value, IRestHeadersCollection requestHeaders)
         {
             var serializer = new DataContractSerializer(typeof(TRequestBody), KnownDataContracts);
             var stream = new MemoryStream();

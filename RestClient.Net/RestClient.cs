@@ -15,7 +15,7 @@ namespace RestClientDotNet
         #region Public Properties
         public IHttpClientFactory HttpClientFactory { get; }
         public IZip Zip { get; set; }
-        public IRestHeaders DefaultRequestHeaders { get; }
+        public IRestHeadersCollection DefaultRequestHeaders { get; }
         public TimeSpan Timeout { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
         public ITracer Tracer { get; }
@@ -107,13 +107,13 @@ namespace RestClientDotNet
             string name,
             Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,
             IRestRequestConverter restRequestConverter = null,
-            IRestHeaders defaultRequestHeaders = null)
+            IRestHeadersCollection defaultRequestHeaders = null)
         {
             SerializationAdapter = serializationAdapter ?? throw new ArgumentNullException(nameof(serializationAdapter));
             Tracer = tracer;
             BaseUri = baseUri;
             Name = name ?? nameof(RestClient);
-            DefaultRequestHeaders = defaultRequestHeaders ?? new RestRequestHeaders();
+            DefaultRequestHeaders = defaultRequestHeaders ?? new RestRequestHeadersCollection();
             RestRequestConverter = restRequestConverter ?? new DefaultRestRequestConverter();
             HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();
             SendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
@@ -169,7 +169,7 @@ namespace RestClientDotNet
                 responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
             }
 
-            var restHeadersCollection = new RestResponseHeaders(httpResponseMessage.Headers);
+            var restHeadersCollection = new RestResponseHeadersCollection(httpResponseMessage.Headers);
 
             TResponseBody responseBody;
             try

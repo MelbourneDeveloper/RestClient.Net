@@ -7,14 +7,14 @@ namespace RestClientDotNet
 {
     public class ProtobufSerializationAdapter : ISerializationAdapter
     {
-        public byte[] Serialize<TRequestBody>(TRequestBody value, IRestHeaders requestHeaders)
+        public byte[] Serialize<TRequestBody>(TRequestBody value, IRestHeadersCollection requestHeaders)
         {
             var message = (IMessage)value as IMessage;           
             if (message == null) throw new Exception("The object is not a Google Protobuf Message");
             return message.ToByteArray();
         }
 
-        public TResponseBody Deserialize<TResponseBody>(byte[] data, IRestHeaders responseHeaders)
+        public TResponseBody Deserialize<TResponseBody>(byte[] data, IRestHeadersCollection responseHeaders)
         {
             var messageType = typeof(TResponseBody);
             var parserProperty = messageType.GetProperty("Parser");

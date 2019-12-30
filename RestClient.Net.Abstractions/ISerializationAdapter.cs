@@ -9,7 +9,7 @@
         /// <param name="value">The object to be serialized</param>
         /// <param name="requestHeaders">Headers that will be sent as part of the Http Request</param>
         /// <returns></returns>
-        byte[] Serialize<TRequestBody>(TRequestBody value, IRestHeaders requestHeaders);
+        byte[] Serialize<TRequestBody>(TRequestBody value, IRestHeadersCollection requestHeaders);
 
         /// <summary>
         /// Takes binary data from the Http Response and converts it to an object of type T
@@ -18,6 +18,6 @@
         /// <param name="data">The Http Response's body data</param>
         /// <param name="responseHeaders">The headers on the Http Response from the server</param>
         /// <returns></returns>
-        TResponseBody Deserialize<TResponseBody>(byte[] data, IRestHeaders responseHeaders);
+        TResponseBody Deserialize<TResponseBody>(byte[] data, IRestHeadersCollection responseHeaders);
     }
 }

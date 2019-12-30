@@ -6,7 +6,7 @@ namespace RestClientDotNet.Abstractions
     public class RestRequest<TRequestBody>
     {
         #region Public Properties
-        public IRestHeaders Headers { get; }
+        public IRestHeadersCollection Headers { get; }
         public Uri Resource { get; set; }
         public HttpVerb HttpVerb { get; set; }
         public TRequestBody Body { get; set; }
@@ -15,7 +15,7 @@ namespace RestClientDotNet.Abstractions
 
         public RestRequest(Uri resource,
             TRequestBody body,
-            IRestHeaders headers,
+            IRestHeadersCollection headers,
             HttpVerb httpVerb,
             IRestClient client,
             CancellationToken cancellationToken)
@@ -26,7 +26,7 @@ namespace RestClientDotNet.Abstractions
             HttpVerb = httpVerb;
             CancellationToken = cancellationToken;
 
-            if (Headers == null) Headers = new RestRequestHeaders();
+            if (Headers == null) Headers = new RestRequestHeadersCollection();
 
             var headerNames = client?.DefaultRequestHeaders?.Names;
             if (headerNames == null) return;

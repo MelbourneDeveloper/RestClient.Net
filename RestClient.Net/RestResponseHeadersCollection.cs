@@ -1,11 +1,12 @@
 ﻿using RestClientDotNet.Abstractions;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 
 namespace RestClientDotNet
 {
-    public class RestResponseHeaders : IRestHeaders
+    public class RestResponseHeadersCollection : IRestHeadersCollection
     {
         #region Public Properties
         public IEnumerable<string> Names => HttpResponseHeaders.ToList().Select(l => l.Key);
@@ -14,7 +15,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Constructor
-        public RestResponseHeaders(HttpResponseHeaders httpResponseHeaders)
+        public RestResponseHeadersCollection(HttpResponseHeaders httpResponseHeaders)
         {
             HttpResponseHeaders = httpResponseHeaders;
         }
@@ -39,6 +40,16 @@ namespace RestClientDotNet
         public bool Contains(string name)
         {
             return HttpResponseHeaders.Contains(name);
+        }
+
+        public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator()
+        {
+            return HttpResponseHeaders.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return HttpResponseHeaders.GetEnumerator();
         }
         #endregion
     }

@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RestClientDotNet.Abstractions
 {
-    public sealed class RestRequestHeaders : IRestHeaders
+    public sealed class RestRequestHeadersCollection : IRestHeadersCollection
     {
         #region Fields
-        private readonly Dictionary<string, List<string>> _dictionary = new Dictionary<string, List<string>>();
+        private readonly Dictionary<string, IEnumerable<string>> _dictionary = new Dictionary<string, IEnumerable<string>>();
         #endregion
 
         #region Public Properties
-        IEnumerable<string> IRestHeaders.this[string name] => _dictionary[name];
+        IEnumerable<string> IRestHeadersCollection.this[string name] => _dictionary[name];
         public IEnumerable<string> Names => _dictionary.Keys;
         #endregion
 
@@ -33,6 +34,16 @@ namespace RestClientDotNet.Abstractions
         public bool Contains(string name)
         {
             return _dictionary.ContainsKey(name);
+        }
+
+        public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator()
+        {
+            return _dictionary.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _dictionary.GetEnumerator();
         }
         #endregion
     }

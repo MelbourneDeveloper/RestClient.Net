@@ -71,8 +71,8 @@ namespace RestClientDotNet.UnitTests
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
 
-            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<byte[]>(), TraceType.Request, null, It.IsAny<IRestHeaders>()));
-            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.Is<byte[]>(d => d != null && d.Length > 0), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeaders>()));
+            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<byte[]>(), TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
+            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.Is<byte[]>(d => d != null && d.Length > 0), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeadersCollection>()));
         }
 
         [TestMethod]
@@ -84,8 +84,8 @@ namespace RestClientDotNet.UnitTests
             await restClient.DeleteAsync("posts/1");
 
             var requestUri = new Uri("https://jsonplaceholder.typicode.com/posts/1");
-            tracer.Verify(t => t.Trace(HttpVerb.Delete, requestUri, null, TraceType.Request, null, It.IsAny<IRestHeaders>()));
-            tracer.Verify(t => t.Trace(HttpVerb.Delete, requestUri, It.IsAny<byte[]>(), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeaders>()));
+            tracer.Verify(t => t.Trace(HttpVerb.Delete, requestUri, null, TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
+            tracer.Verify(t => t.Trace(HttpVerb.Delete, requestUri, It.IsAny<byte[]>(), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeadersCollection>()));
         }
 
         [TestMethod]
@@ -207,8 +207,8 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(requestUserPost.userId, responseUserPost.userId);
             Assert.AreEqual(requestUserPost.title, responseUserPost.title);
 
-            _tracer.Verify(t => t.Trace(verb, It.Is<Uri>(a => a.ToString().Contains(baseUri.ToString())), It.Is<byte[]>(d => d.Length > 0), TraceType.Request, null, It.IsAny<IRestHeaders>()));
-            _tracer.Verify(t => t.Trace(verb, It.Is<Uri>(a => a.ToString().Contains(baseUri.ToString())), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, (int)expectedStatusCode, It.IsAny<IRestHeaders>()));
+            _tracer.Verify(t => t.Trace(verb, It.Is<Uri>(a => a.ToString().Contains(baseUri.ToString())), It.Is<byte[]>(d => d.Length > 0), TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
+            _tracer.Verify(t => t.Trace(verb, It.Is<Uri>(a => a.ToString().Contains(baseUri.ToString())), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, (int)expectedStatusCode, It.IsAny<IRestHeadersCollection>()));
         }
 
         [TestMethod]
@@ -311,11 +311,11 @@ namespace RestClientDotNet.UnitTests
             var response = await restClient.GetAsync<Person>("headers");
 
             _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request, null,
-                It.Is<IRestHeaders>(c => CheckRequestHeaders(c))
+                It.Is<IRestHeadersCollection>(c => CheckRequestHeaders(c))
                 ));
 
             _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, It.IsAny<int?>(),
-                It.Is<RestResponseHeaders>(c => CheckResponseHeaders(c))
+                It.Is<RestResponseHeadersCollection>(c => CheckResponseHeaders(c))
                 ));
         }
 
@@ -492,7 +492,7 @@ namespace RestClientDotNet.UnitTests
         public async Task TestHeadersLocalInRestRequest()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), null, null, null, _testServerHttpClientFactory);
-            var restRequestHeaders = new RestRequestHeaders();
+            var restRequestHeaders = new RestRequestHeadersCollection();
             restRequestHeaders.Add("Test", "Test");
             Person responsePerson = await restClient.SendAsync<Person, object>
                 (
@@ -923,12 +923,12 @@ namespace RestClientDotNet.UnitTests
             return restClient;
         }
 
-        private static bool CheckRequestHeaders(IRestHeaders restRequestHeadersCollection)
+        private static bool CheckRequestHeaders(IRestHeadersCollection restRequestHeadersCollection)
         {
             return restRequestHeadersCollection.Contains("Test") && restRequestHeadersCollection["Test"].First() == "Test";
         }
 
-        private static bool CheckResponseHeaders(RestResponseHeaders restResponseHeadersCollection)
+        private static bool CheckResponseHeaders(RestResponseHeadersCollection restResponseHeadersCollection)
         {
             return restResponseHeadersCollection.Contains("Test1") && restResponseHeadersCollection["Test1"].First() == "a";
         }
