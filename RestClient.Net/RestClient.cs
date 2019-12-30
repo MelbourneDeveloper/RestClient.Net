@@ -44,7 +44,7 @@ namespace RestClientDotNet
         }
 
         public RestClient(
-        ISerializationAdapter serializationAdapter,
+            ISerializationAdapter serializationAdapter,
             Uri baseUri)
         : this(
             serializationAdapter,
