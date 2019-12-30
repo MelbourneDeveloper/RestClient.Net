@@ -260,7 +260,7 @@ namespace RestClientDotNet.Sample
         {
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), new TimeSpan(0, 0, 0, 0, 1));
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com")) { Timeout = new TimeSpan(0, 0, 0, 0, 1) };
                 await restClient.PostAsync<UserPost, UserPost>(new Uri("/posts", UriKind.Relative), new UserPost { title = "Moops" });
             }
             catch (OperationCanceledException ex)

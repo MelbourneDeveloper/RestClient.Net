@@ -1,9 +1,12 @@
 ﻿using RestClientDotNet.Abstractions;
 using System;
 
-#if NETSTANDARD2_0 
-using System.Net.Http;
+#if NET45
+using RestClientDotNet.Abstractions.Logging;
+#else
+using Microsoft.Extensions.Logging;
 #endif
+
 
 namespace RestClientDotNet
 {
@@ -12,17 +15,17 @@ namespace RestClientDotNet
         #region Public Properties
         public ISerializationAdapter SerializationAdapter { get; }
         public IHttpClientFactory HttpClientFactory { get; }
-        public ITracer Tracer { get; }
+        public ILogger Logger { get; }
         #endregion
 
         #region Constructor
         public RestClientFactory(ISerializationAdapter serializationAdapter,
                                          IHttpClientFactory httpClientFactory,
-                                         ITracer tracer)
+                                         ILogger logger)
         {
             SerializationAdapter = serializationAdapter;
             HttpClientFactory = httpClientFactory;
-            Tracer = tracer;
+            Logger = logger;
         }
         #endregion
 
@@ -32,7 +35,7 @@ namespace RestClientDotNet
             return new RestClient(
                 SerializationAdapter,
                 null,
-                Tracer,
+                Logger,
                 HttpClientFactory,
                 name);
         }
@@ -42,7 +45,7 @@ namespace RestClientDotNet
             return new RestClient(
                 SerializationAdapter,
                 baseUri,
-                Tracer,
+                Logger,
                 HttpClientFactory,
                 name);
         }

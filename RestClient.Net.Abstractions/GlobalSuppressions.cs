@@ -5,3 +5,4 @@
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>", Scope = "member", Target = "~M:RestClientDotNet.Abstractions.RestResponse`1.op_Implicit(RestClientDotNet.Abstractions.RestResponse`1)~`0")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>", Scope = "member", Target = "~M:RestClientDotNet.Abstractions.Extensions.MiscExtensions.UseJsonContentType(RestClientDotNet.Abstractions.IRestClient)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "<Pending>", Scope = "member", Target = "~P:RestClientDotNet.Abstractions.RestTrace.BodyData")]

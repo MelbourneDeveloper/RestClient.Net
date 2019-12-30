@@ -1,4 +1,11 @@
-﻿using RestClientDotNet.Abstractions;
+﻿
+#if NET45
+using RestClientDotNet.Abstractions.Logging;
+#else
+using Microsoft.Extensions.Logging;
+#endif
+
+using RestClientDotNet.Abstractions;
 using System;
 using System.Linq;
 using System.Net.Http;
@@ -18,7 +25,7 @@ namespace RestClientDotNet
         public IRestHeadersCollection DefaultRequestHeaders { get; }
         public TimeSpan Timeout { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
-        public ITracer Tracer { get; }
+        public ILogger Logger { get; }
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public Uri BaseUri { get; }
         public string Name { get; }
@@ -44,7 +51,7 @@ namespace RestClientDotNet
         }
 
         public RestClient(
-        ISerializationAdapter serializationAdapter,
+            ISerializationAdapter serializationAdapter,
             Uri baseUri)
         : this(
             serializationAdapter,
@@ -56,11 +63,11 @@ namespace RestClientDotNet
         public RestClient(
             ISerializationAdapter serializationAdapter,
             Uri baseUri,
-            ITracer tracer)
+            ILogger logger)
         : this(
               serializationAdapter,
             baseUri,
-            tracer,
+            logger,
             null,
             null)
         {
@@ -68,12 +75,12 @@ namespace RestClientDotNet
 
         public RestClient(
             ISerializationAdapter serializationAdapter,
-            ITracer tracer,
+            ILogger logger,
             IHttpClientFactory httpClientFactory)
         : this(
             serializationAdapter,
             null,
-            tracer,
+            logger,
             httpClientFactory,
             null,
             default,
@@ -85,13 +92,13 @@ namespace RestClientDotNet
         public RestClient(
             ISerializationAdapter serializationAdapter,
             Uri baseUri,
-            ITracer tracer,
+            ILogger logger,
             string name,
             IHttpClientFactory httpClientFactory)
         : this(
               serializationAdapter,
             baseUri,
-            tracer,
+            logger,
             httpClientFactory,
             name,
             default,
@@ -102,7 +109,7 @@ namespace RestClientDotNet
 
         public RestClient(ISerializationAdapter serializationAdapter,
             Uri baseUri,
-            ITracer tracer,
+            ILogger logger,
             IHttpClientFactory httpClientFactory,
             string name,
             Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,
@@ -110,7 +117,7 @@ namespace RestClientDotNet
             IRestHeadersCollection defaultRequestHeaders = null)
         {
             SerializationAdapter = serializationAdapter ?? throw new ArgumentNullException(nameof(serializationAdapter));
-            Tracer = tracer;
+            Logger = logger;
             BaseUri = baseUri;
             Name = name ?? nameof(RestClient);
             DefaultRequestHeaders = defaultRequestHeaders ?? new RestRequestHeadersCollection();
@@ -143,7 +150,15 @@ namespace RestClientDotNet
                 restRequest.CancellationToken
                 );
 
-            Tracer?.Trace(restRequest.HttpVerb, httpResponseMessage.RequestMessage.RequestUri, requestBodyData, TraceType.Request, null, restRequest.Headers);
+            Log(LogLevel.Trace, new RestTrace
+                (
+                 restRequest.HttpVerb,
+                 httpResponseMessage.RequestMessage.RequestUri,
+                 requestBodyData,
+                 TraceType.Request,
+                 null,
+                 restRequest.Headers
+                ), null);
 
             return await ProcessResponseAsync<TResponseBody, TRequestBody>(restRequest, httpResponseMessage);
         }
@@ -191,13 +206,15 @@ namespace RestClientDotNet
                 httpResponseMessage
             );
 
-            Tracer?.Trace(
-                restRequest.HttpVerb,
-                httpResponseMessage.RequestMessage.RequestUri,
-                responseData,
-                TraceType.Response,
-                (int)httpResponseMessage.StatusCode,
-                restHeadersCollection);
+            Log(LogLevel.Trace, new RestTrace
+            (
+             restRequest.HttpVerb,
+             httpResponseMessage.RequestMessage.RequestUri,
+             responseData,
+             TraceType.Response,
+             (int)httpResponseMessage.StatusCode,
+             restHeadersCollection
+            ), null);
 
             if (restResponse.IsSuccess || !ThrowExceptionOnFailure)
             {
@@ -205,6 +222,13 @@ namespace RestClientDotNet
             }
 
             throw new HttpStatusException($"{restResponse.StatusCode}.\r\nrestRequest.Resource: {restRequest.Resource}", restResponse, this);
+        }
+        #endregion
+
+        #region Private Methods
+        private void Log(LogLevel loglevel, RestTrace restTrace, Exception exception)
+        {
+            Logger?.Log(loglevel, new EventId((int)restTrace.TraceType, restTrace.TraceType.ToString()), restTrace, exception, null);
         }
         #endregion
     }

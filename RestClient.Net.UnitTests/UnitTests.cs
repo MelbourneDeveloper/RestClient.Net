@@ -18,12 +18,15 @@ using System.Threading.Tasks;
 using Xml2CSharp;
 
 #if (NETCOREAPP3_1)
-using Polly.Extensions.Http;
-using Polly;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ApiExamples;
-using ApiExamples.Controllers;
+#endif
+
+#if NET45
+using RestClientDotNet.Abstractions.Logging;
+#else
+using Microsoft.Extensions.Logging;
 #endif
 
 namespace RestClientDotNet.UnitTests
@@ -34,13 +37,13 @@ namespace RestClientDotNet.UnitTests
     {
         #region Fields
 #if (NETCOREAPP3_1)
-        private const string LocalBaseUriString = "http://localhost";
+        public const string LocalBaseUriString = "http://localhost";
         private static TestServer _testServer;
 #else
-        private const string LocalBaseUriString = "https://localhost:44337";
+        public const string LocalBaseUriString = "https://localhost:44337";
 #endif
         private static TestClientFactory _testServerHttpClientFactory;
-        private static Mock<ITracer> _tracer;
+        private static Mock<ILogger> _logger;
         #endregion
 
         #region Setup
@@ -52,9 +55,18 @@ namespace RestClientDotNet.UnitTests
             hostBuilder.UseStartup<Startup>();
             _testServer = new TestServer(hostBuilder);
 #endif
+            var testServerHttpClientFactory = GetTestClientFactory();
+            _testServerHttpClientFactory = testServerHttpClientFactory;
+            _logger = new Mock<ILogger>();
+        }
+        #endregion
+
+        #region Public Static Methods
+        public static TestClientFactory GetTestClientFactory()
+        {
             var testClient = MintClient();
-            _testServerHttpClientFactory = new TestClientFactory(testClient);
-            _tracer = new Mock<ITracer>();
+            var testServerHttpClientFactory = new TestClientFactory(testClient);
+            return testServerHttpClientFactory;
         }
         #endregion
 
@@ -64,28 +76,27 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestGetRestCountries()
         {
-            var tracer = new Mock<ITracer>();
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, tracer.Object);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, _logger.Object);
             List<RestCountry> countries = await restClient.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
 
-            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<byte[]>(), TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
-            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.Is<byte[]>(d => d != null && d.Length > 0), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeadersCollection>()));
+            VerifyLog(baseUri, HttpVerb.Get, TraceType.Request);
+            VerifyLog(baseUri, HttpVerb.Get, TraceType.Response, (int)HttpStatusCode.OK);
         }
 
         [TestMethod]
         public async Task TestDelete()
         {
-            var tracer = new Mock<ITracer>();
             var baseUri = new Uri("https://jsonplaceholder.typicode.com");
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, tracer.Object);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, _logger.Object);
             await restClient.DeleteAsync("posts/1");
 
             var requestUri = new Uri("https://jsonplaceholder.typicode.com/posts/1");
-            tracer.Verify(t => t.Trace(HttpVerb.Delete, requestUri, null, TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
-            tracer.Verify(t => t.Trace(HttpVerb.Delete, requestUri, It.IsAny<byte[]>(), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeadersCollection>()));
+
+            VerifyLog(requestUri, HttpVerb.Delete, TraceType.Request, null, null);
+            VerifyLog(requestUri, HttpVerb.Delete, TraceType.Response, (int)HttpStatusCode.OK, null);
         }
 
         [TestMethod]
@@ -183,7 +194,7 @@ namespace RestClientDotNet.UnitTests
         {
             var baseUri = new Uri("https://jsonplaceholder.typicode.com");
 
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), _tracer.Object);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), _logger.Object);
             restClient.UseJsonContentType();
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
             UserPost responseUserPost = null;
@@ -207,14 +218,14 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(requestUserPost.userId, responseUserPost.userId);
             Assert.AreEqual(requestUserPost.title, responseUserPost.title);
 
-            _tracer.Verify(t => t.Trace(verb, It.Is<Uri>(a => a.ToString().Contains(baseUri.ToString())), It.Is<byte[]>(d => d.Length > 0), TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
-            _tracer.Verify(t => t.Trace(verb, It.Is<Uri>(a => a.ToString().Contains(baseUri.ToString())), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, (int)expectedStatusCode, It.IsAny<IRestHeadersCollection>()));
+            VerifyLog(It.IsAny<Uri>(), verb, TraceType.Request, null, null);
+            VerifyLog(It.IsAny<Uri>(), verb, TraceType.Response, (int)expectedStatusCode, null);
         }
 
         [TestMethod]
         public async Task TestConsoleLogging()
         {
-            var tracer = new ConsoleTracer();
+            var tracer = new ConsoleLogger();
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), tracer);
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
             await restClient.PostAsync<UserPost, UserPost>("/posts", requestUserPost);
@@ -306,17 +317,12 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersTraceLocalGet()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), null, _tracer.Object, _testServerHttpClientFactory, null);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), null, _logger.Object, _testServerHttpClientFactory, null);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var response = await restClient.GetAsync<Person>("headers");
 
-            _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request, null,
-                It.Is<IRestHeadersCollection>(c => CheckRequestHeaders(c))
-                ));
-
-            _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, It.IsAny<int?>(),
-                It.Is<RestResponseHeadersCollection>(c => CheckResponseHeaders(c))
-                ));
+            VerifyLog(It.IsAny<Uri>(), HttpVerb.Get, TraceType.Request, null, null, CheckRequestHeaders);
+            VerifyLog(It.IsAny<Uri>(), HttpVerb.Get, TraceType.Response, (int)HttpStatusCode.OK, null, CheckResponseHeaders);
         }
 
         [TestMethod]
@@ -774,7 +780,6 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         #region Misc
-
         //TODO: This test occasionally fails. It seems to mint only 98 clients. Why?
         [TestMethod]
         public async Task TestConcurrentCallsLocalSingleton()
@@ -787,47 +792,6 @@ namespace RestClientDotNet.UnitTests
         {
             await DoTestConcurrentCalls(false);
         }
-
-#if (NETCOREAPP3_1)
-        [TestMethod]
-        public async Task TestPollyIncorrectUri()
-        {
-            var tries = 0;
-
-            var policy = HttpPolicyExtensions
-              .HandleTransientHttpError()
-              .OrResult(response => response.StatusCode == HttpStatusCode.NotFound)
-              .RetryAsync(3);
-
-
-            var restClient = new RestClient(
-                new ProtobufSerializationAdapter(),
-                new Uri(LocalBaseUriString),
-                null,
-                _testServerHttpClientFactory,
-                null,
-                (httpClient, httpRequestMessageFunc, cancellationToken) =>
-                {
-                    return policy.ExecuteAsync(() =>
-                    {
-                        var httpRequestMessage = httpRequestMessageFunc.Invoke();
-
-                        //On the third try change the Url to a the correct one
-                        if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);
-                        tries++;
-                        return httpClient.SendAsync(httpRequestMessage, cancellationToken);
-                    });
-                });
-
-            var person = new Person { FirstName = "Bob", Surname = "Smith" };
-
-            //Note the Uri here is deliberately incorrect. It will cause a 404 Not found response. This is to make sure that polly is working
-            person = await restClient.PostAsync<Person, Person>(new Uri("person2", UriKind.Relative), person);
-            Assert.AreEqual("Bob", person.FirstName);
-            Assert.AreEqual(3, tries);
-
-        }
-#endif
         #endregion
 
         //TODO: Test exceptions
@@ -837,6 +801,36 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         #region Helpers
+        private void VerifyLog(
+            Uri uri,
+            HttpVerb httpVerb,
+            TraceType traceType,
+            int? httpStatusCode = null,
+            Exception exception = null,
+            Func<IRestHeadersCollection, bool> checkHeadersFunc = null)
+        {
+            _logger.Verify(t => t.Log(
+                exception == null ? LogLevel.Trace : LogLevel.Error,
+                It.Is<EventId>(
+                    e => e.Id == (int)traceType && e.Name == traceType.ToString()),
+                It.Is<RestTrace>(
+                rt =>
+                    DebugTraceExpression(rt) &&
+                    rt.TraceType == traceType &&
+                    rt.RequestUri == uri &&
+                    rt.HttpVerb == httpVerb &&
+                    (rt.TraceType == TraceType.Response || new List<HttpVerb> { HttpVerb.Patch, HttpVerb.Post, HttpVerb.Patch }.Contains(rt.HttpVerb))
+                    ? rt.BodyData != null && rt.BodyData.Length > 0 : true &&
+                    rt.HttpStatusCode == httpStatusCode &&
+                    checkHeadersFunc != null ? checkHeadersFunc(rt.RestHeadersCollection) : true
+                ), exception, It.IsAny<Func<RestTrace, Exception, string>>()));
+        }
+
+        private bool DebugTraceExpression(RestTrace restTrace)
+        {
+            return true;
+        }
+
         /// <summary>
         /// There were issues with DataRow so doing this instead. These sometimes fail but no idea why...
         /// </summary>
@@ -893,7 +887,7 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(expectedCreated, createdClients);
         }
 
-        private HttpClient MintClient()
+        private static HttpClient MintClient()
         {
 #if (NETCOREAPP3_1)
             return _testServer.CreateClient();
@@ -928,7 +922,7 @@ namespace RestClientDotNet.UnitTests
             return restRequestHeadersCollection.Contains("Test") && restRequestHeadersCollection["Test"].First() == "Test";
         }
 
-        private static bool CheckResponseHeaders(RestResponseHeadersCollection restResponseHeadersCollection)
+        private static bool CheckResponseHeaders(IRestHeadersCollection restResponseHeadersCollection)
         {
             return restResponseHeadersCollection.Contains("Test1") && restResponseHeadersCollection["Test1"].First() == "a";
         }
