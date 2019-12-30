@@ -26,6 +26,12 @@ using ApiExamples;
 using ApiExamples.Controllers;
 #endif
 
+#if NET45
+using RestClientDotNet.Abstractions.Logging;
+#else
+using Microsoft.Extensions.Logging;
+#endif
+
 namespace RestClientDotNet.UnitTests
 {
 
@@ -40,7 +46,7 @@ namespace RestClientDotNet.UnitTests
         private const string LocalBaseUriString = "https://localhost:44337";
 #endif
         private static TestClientFactory _testServerHttpClientFactory;
-        private static Mock<ITracer> _tracer;
+        private static Mock<ILogger> _tracer;
         #endregion
 
         #region Setup
@@ -54,7 +60,7 @@ namespace RestClientDotNet.UnitTests
 #endif
             var testClient = MintClient();
             _testServerHttpClientFactory = new TestClientFactory(testClient);
-            _tracer = new Mock<ITracer>();
+            _tracer = new Mock<ILogger>();
         }
         #endregion
 
@@ -64,7 +70,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestGetRestCountries()
         {
-            var tracer = new Mock<ITracer>();
+            var tracer = new Mock<ILogger>();
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, tracer.Object);
             List<RestCountry> countries = await restClient.GetAsync<List<RestCountry>>();
@@ -78,7 +84,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestDelete()
         {
-            var tracer = new Mock<ITracer>();
+            var tracer = new Mock<ILogger>();
             var baseUri = new Uri("https://jsonplaceholder.typicode.com");
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, tracer.Object);
             await restClient.DeleteAsync("posts/1");
