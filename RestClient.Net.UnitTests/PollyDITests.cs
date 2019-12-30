@@ -15,14 +15,13 @@ namespace RestClientDotNet.UnitTests
         public void Test()
         {
             var serviceCollection = new ServiceCollection();
-            serviceCollection.AddHttpClient("test", (a)=> { a.BaseAddress = new Uri("http://www.test.com"); });
+            var baseUri = new Uri("http://www.test.com");
+            serviceCollection.AddHttpClient("test", (c)=> { c.BaseAddress = baseUri; });
             serviceCollection.AddSingleton(typeof(IHttpClientFactory), typeof(MicrosoftHttpClientFactoryWrapper));
-
-            var asdasd = serviceCollection.BuildServiceProvider();
-            var adaadf = asdasd.GetService<IHttpClientFactory>();
-
-            var asdasds = adaadf.CreateClient("test");
-
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            var httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
+            var httpClient = httpClientFactory.CreateClient("test");
+            Assert.AreEqual(baseUri, httpClient.BaseAddress);
         }
     }  
 }
