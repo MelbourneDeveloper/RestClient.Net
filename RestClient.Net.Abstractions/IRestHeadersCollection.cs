@@ -7,8 +7,7 @@ namespace RestClientDotNet.Abstractions
     /// </summary>
     public interface IRestHeadersCollection : IEnumerable<KeyValuePair<string, IEnumerable<string>>>
     {
-        void Add(string name, string value);
-        void Add(string name, IEnumerable<string> values);
+        void Add(KeyValuePair<string, IEnumerable<string>> keyValuePair);
         void Clear();
 
         IEnumerable<string> this[string name]

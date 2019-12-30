@@ -28,12 +28,12 @@ namespace RestClientDotNet.Abstractions
 
             if (Headers == null) Headers = new RestRequestHeadersCollection();
 
-            var headerNames = client?.DefaultRequestHeaders?.Names;
-            if (headerNames == null) return;
+            var defaultRequestHeaders = client?.DefaultRequestHeaders;
+            if (defaultRequestHeaders == null) return;
 
-            foreach (var headerName in headerNames)
+            foreach (var kvp in defaultRequestHeaders)
             {
-                Headers.Add(headerName, client.DefaultRequestHeaders[headerName]);
+                Headers.Add(kvp);
             }
         }
     }

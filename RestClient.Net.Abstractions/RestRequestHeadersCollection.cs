@@ -26,6 +26,11 @@ namespace RestClientDotNet.Abstractions
             _dictionary.Add(name, values.ToList());
         }
 
+        public void Add(KeyValuePair<string, IEnumerable<string>> keyValuePair)
+        {
+            _dictionary.Add(keyValuePair.Key, keyValuePair.Value);
+        }
+
         public void Clear()
         {
             _dictionary.Clear();

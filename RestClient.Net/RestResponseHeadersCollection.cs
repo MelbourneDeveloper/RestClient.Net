@@ -22,16 +22,6 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        public void Add(string name, string value)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Add(string name, IEnumerable<string> values)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void Clear()
         {
             throw new System.NotImplementedException();
@@ -50,6 +40,11 @@ namespace RestClientDotNet
         IEnumerator IEnumerable.GetEnumerator()
         {
             return HttpResponseHeaders.GetEnumerator();
+        }
+
+        public void Add(KeyValuePair<string, IEnumerable<string>> keyValuePair)
+        {
+            throw new System.NotImplementedException();
         }
         #endregion
     }
