@@ -5,8 +5,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net.Polly;
 using RestClientDotNet.Abstractions;
 using System;
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace RestClientDotNet.UnitTests
