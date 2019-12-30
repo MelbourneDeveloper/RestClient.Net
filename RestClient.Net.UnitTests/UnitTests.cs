@@ -77,8 +77,16 @@ namespace RestClientDotNet.UnitTests
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
 
-            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.IsAny<byte[]>(), TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
-            tracer.Verify(t => t.Trace(HttpVerb.Get, baseUri, It.Is<byte[]>(d => d != null && d.Length > 0), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeadersCollection>()));
+            tracer.Verify(t => t.Log(LogLevel.Trace, It.IsAny<EventId>(), It.Is<RestTrace>(
+                rt => rt.TraceType == TraceType.Request &&
+                rt.RequestUri == baseUri
+                ), null, It.IsAny<Func<RestTrace, Exception, string>>()));
+
+            tracer.Verify(t => t.Log(LogLevel.Trace, It.IsAny<EventId>(), It.Is<RestTrace>(
+                rt => rt.BodyData!=null && rt.BodyData.Length>0 && 
+                rt.TraceType == TraceType.Response &&
+                rt.HttpStatusCode== (int)HttpStatusCode.OK
+                ), null, It.IsAny<Func<RestTrace, Exception, string>>()));
         }
 
         [TestMethod]
