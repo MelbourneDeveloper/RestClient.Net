@@ -12,7 +12,9 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net45'">
-    <Compile Remove="ILogger.cs" />
+    <Compile Remove="Logging/ILogger.cs" />
+    <Compile Remove="Logging/EventId.cs" />
+    <Compile Remove="Logging/LogLevel.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,13 +1,5 @@
-﻿using System;
-
-namespace RestClientDotNet.Abstractions.Logging
+﻿namespace RestClientDotNet.Abstractions.Logging
 {
-    public interface ILogger
-    {
-        void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter);
-    }
-
-
     public enum LogLevel
     {
         //
@@ -48,20 +40,5 @@ namespace RestClientDotNet.Abstractions.Logging
         //     Not used for writing log messages. Specifies that a logging category should not
         //     write any messages.
         None = 6
-    }
-
-#pragma warning disable CA1815 // Override equals and operator equals on value types
-    public readonly struct EventId
-#pragma warning restore CA1815 // Override equals and operator equals on value types
-    {
-        public EventId(int id, string name = null)
-        {
-            Id = id;
-            Name = name;
-        }
-
-        public int Id { get; }
-        public string Name { get; }
-
     }
 }
