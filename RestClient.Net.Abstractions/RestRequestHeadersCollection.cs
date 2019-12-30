@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace RestClientDotNet.Abstractions
 {
@@ -16,16 +15,6 @@ namespace RestClientDotNet.Abstractions
         #endregion
 
         #region Public Methods
-        public void Add(string name, string value)
-        {
-            _dictionary.Add(name, new List<string> { value });
-        }
-
-        public void Add(string name, IEnumerable<string> values)
-        {
-            _dictionary.Add(name, values.ToList());
-        }
-
         public void Add(KeyValuePair<string, IEnumerable<string>> keyValuePair)
         {
             _dictionary.Add(keyValuePair.Key, keyValuePair.Value);
