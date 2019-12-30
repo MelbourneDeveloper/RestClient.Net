@@ -1,4 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿
+#if NET45
+using RestClientDotNet.Abstractions.Logging;
+#else
+using Microsoft.Extensions.Logging;
+#endif
+
 using RestClientDotNet.Abstractions;
 using System;
 using System.Linq;
@@ -19,7 +25,7 @@ namespace RestClientDotNet
         public IRestHeadersCollection DefaultRequestHeaders { get; }
         public TimeSpan Timeout { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
-        public ILogger<IRestClient> Logger { get; }
+        public ILogger Logger { get; }
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public Uri BaseUri { get; }
         public string Name { get; }
@@ -57,7 +63,7 @@ namespace RestClientDotNet
         public RestClient(
             ISerializationAdapter serializationAdapter,
             Uri baseUri,
-            ILogger<IRestClient> logger)
+            ILogger logger)
         : this(
               serializationAdapter,
             baseUri,
@@ -69,7 +75,7 @@ namespace RestClientDotNet
 
         public RestClient(
             ISerializationAdapter serializationAdapter,
-            ILogger<IRestClient> logger,
+            ILogger logger,
             IHttpClientFactory httpClientFactory)
         : this(
             serializationAdapter,
@@ -86,7 +92,7 @@ namespace RestClientDotNet
         public RestClient(
             ISerializationAdapter serializationAdapter,
             Uri baseUri,
-            ILogger<IRestClient> logger,
+            ILogger logger,
             string name,
             IHttpClientFactory httpClientFactory)
         : this(
@@ -103,7 +109,7 @@ namespace RestClientDotNet
 
         public RestClient(ISerializationAdapter serializationAdapter,
             Uri baseUri,
-            ILogger<IRestClient> logger,
+            ILogger logger,
             IHttpClientFactory httpClientFactory,
             string name,
             Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,
