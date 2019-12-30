@@ -2,31 +2,9 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
-
     <IsPackable>false</IsPackable>
-
     <RootNamespace>RestClientDotNet.UnitTests</RootNamespace>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <CodeAnalysisRuleSet />
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <CodeAnalysisRuleSet />
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="..\RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Shared\NewtonsoftSerializationAdapter.cs" Link="SerializationAdapters\NewtonsoftSerializationAdapter.cs" />
-    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\Atlassian.cs" Link="Model\Atlassian.cs" />
-    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\CUSTOMER.cs" Link="Model\CUSTOMER.cs" />
-    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\PRODUCT.cs" Link="Model\PRODUCT.cs" />
-    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\RestCountries.cs" Link="Model\RestCountries.cs" />
-    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\UserPost.cs" Link="Model\UserPost.cs" />
-    <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\BinaryDataContractSerializationAdapter.cs" Link="SerializationAdapters\BinaryDataContractSerializationAdapter.cs" />
-    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\SerializationAdapters\ProtobufSerializationAdapter.cs" Link="SerializationAdapters\ProtobufSerializationAdapter.cs" />
-    <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\XmlSerializationAdapter.cs" Link="SerializationAdapters\XmlSerializationAdapter.cs" />
-  </ItemGroup>
 
   <Choose>
     <When Condition=" '$(TargetFramework)'=='netcoreapp3.1' ">
@@ -39,8 +17,21 @@
     </When>
   </Choose>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <Compile Remove="PollyTests.cs" />
+    <Compile Remove="MicrosoftDependencyInjectionTests.cs" />
+   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="..\RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Shared\NewtonsoftSerializationAdapter.cs" Link="SerializationAdapters\NewtonsoftSerializationAdapter.cs" />
+    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\Atlassian.cs" Link="Model\Atlassian.cs" />
+    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\CUSTOMER.cs" Link="Model\CUSTOMER.cs" />
+    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\PRODUCT.cs" Link="Model\PRODUCT.cs" />
+    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\RestCountries.cs" Link="Model\RestCountries.cs" />
+    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\UserPost.cs" Link="Model\UserPost.cs" />
+    <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\BinaryDataContractSerializationAdapter.cs" Link="SerializationAdapters\BinaryDataContractSerializationAdapter.cs" />
+    <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\SerializationAdapters\ProtobufSerializationAdapter.cs" Link="SerializationAdapters\ProtobufSerializationAdapter.cs" />
+    <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\XmlSerializationAdapter.cs" Link="SerializationAdapters\XmlSerializationAdapter.cs" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
@@ -51,13 +42,7 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="structuremap" Version="4.7.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="SerializationAdapters\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ApiExamples.Model\ApiExamples.Model.csproj" />
     <ProjectReference Include="..\RestClient.NET\RestClient.Net.csproj" />
   </ItemGroup>

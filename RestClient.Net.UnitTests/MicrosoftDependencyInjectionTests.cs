@@ -1,6 +1,4 @@
-﻿#if NETCOREAPP3_1
-
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net.Polly;
@@ -13,7 +11,7 @@ namespace RestClientDotNet.UnitTests
     //https://github.com/microsoft/aspnet-api-versioning/blob/master/src/Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer/Microsoft.Extensions.DependencyInjection/IServiceCollectionExtensions.cs
 
     [TestClass]
-    public class PollyDITests
+    public class MicrosoftDependencyInjectionTests
     {
         [TestMethod]
         public void TestDIMapping()
@@ -36,7 +34,7 @@ namespace RestClientDotNet.UnitTests
                 var serviceCollection = new ServiceCollection();
                 var baseUri = new Uri("http://www.test.com");
                 serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
-                serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleTracer));
+                serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleLogger));
                 serviceCollection.AddSingleton(typeof(IRestClient), typeof(RestClient));
                 serviceCollection.AddDependencyInjectionMapping();
                 serviceCollection.AddTransient<TestHandler>();
@@ -56,4 +54,3 @@ namespace RestClientDotNet.UnitTests
 
     }
 }
-#endif

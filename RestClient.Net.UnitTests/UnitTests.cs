@@ -18,8 +18,6 @@ using System.Threading.Tasks;
 using Xml2CSharp;
 
 #if (NETCOREAPP3_1)
-using Polly.Extensions.Http;
-using Polly;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ApiExamples;
@@ -39,10 +37,10 @@ namespace RestClientDotNet.UnitTests
     {
         #region Fields
 #if (NETCOREAPP3_1)
-        private const string LocalBaseUriString = "http://localhost";
+        public const string LocalBaseUriString = "http://localhost";
         private static TestServer _testServer;
 #else
-        private const string LocalBaseUriString = "https://localhost:44337";
+        public const string LocalBaseUriString = "https://localhost:44337";
 #endif
         private static TestClientFactory _testServerHttpClientFactory;
         private static Mock<ILogger> _logger;
@@ -57,9 +55,18 @@ namespace RestClientDotNet.UnitTests
             hostBuilder.UseStartup<Startup>();
             _testServer = new TestServer(hostBuilder);
 #endif
-            var testClient = MintClient();
-            _testServerHttpClientFactory = new TestClientFactory(testClient);
+            var testServerHttpClientFactory = GetTestClientFactory();
+            _testServerHttpClientFactory = testServerHttpClientFactory;
             _logger = new Mock<ILogger>();
+        }
+        #endregion
+
+        #region Public Static Methods
+        public static TestClientFactory GetTestClientFactory()
+        {
+            var testClient = MintClient();
+            var testServerHttpClientFactory = new TestClientFactory(testClient);
+            return testServerHttpClientFactory;
         }
         #endregion
 
@@ -218,7 +225,7 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestConsoleLogging()
         {
-            var tracer = new ConsoleTracer();
+            var tracer = new ConsoleLogger();
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), tracer);
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
             await restClient.PostAsync<UserPost, UserPost>("/posts", requestUserPost);
@@ -773,7 +780,6 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         #region Misc
-
         //TODO: This test occasionally fails. It seems to mint only 98 clients. Why?
         [TestMethod]
         public async Task TestConcurrentCallsLocalSingleton()
@@ -786,47 +792,6 @@ namespace RestClientDotNet.UnitTests
         {
             await DoTestConcurrentCalls(false);
         }
-
-#if (NETCOREAPP3_1)
-        [TestMethod]
-        public async Task TestPollyIncorrectUri()
-        {
-            var tries = 0;
-
-            var policy = HttpPolicyExtensions
-              .HandleTransientHttpError()
-              .OrResult(response => response.StatusCode == HttpStatusCode.NotFound)
-              .RetryAsync(3);
-
-
-            var restClient = new RestClient(
-                new ProtobufSerializationAdapter(),
-                new Uri(LocalBaseUriString),
-                null,
-                _testServerHttpClientFactory,
-                null,
-                (httpClient, httpRequestMessageFunc, cancellationToken) =>
-                {
-                    return policy.ExecuteAsync(() =>
-                    {
-                        var httpRequestMessage = httpRequestMessageFunc.Invoke();
-
-                        //On the third try change the Url to a the correct one
-                        if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);
-                        tries++;
-                        return httpClient.SendAsync(httpRequestMessage, cancellationToken);
-                    });
-                });
-
-            var person = new Person { FirstName = "Bob", Surname = "Smith" };
-
-            //Note the Uri here is deliberately incorrect. It will cause a 404 Not found response. This is to make sure that polly is working
-            person = await restClient.PostAsync<Person, Person>(new Uri("person2", UriKind.Relative), person);
-            Assert.AreEqual("Bob", person.FirstName);
-            Assert.AreEqual(3, tries);
-
-        }
-#endif
         #endregion
 
         //TODO: Test exceptions
@@ -922,7 +887,7 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(expectedCreated, createdClients);
         }
 
-        private HttpClient MintClient()
+        private static HttpClient MintClient()
         {
 #if (NETCOREAPP3_1)
             return _testServer.CreateClient();

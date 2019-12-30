@@ -11,7 +11,7 @@ using System.Text;
 
 namespace RestClientDotNet.UnitTests
 {
-    public class ConsoleTracer : ILogger
+    public class ConsoleLogger : ILogger
     {
         public IDisposable BeginScope<TState>(TState state)
         {
