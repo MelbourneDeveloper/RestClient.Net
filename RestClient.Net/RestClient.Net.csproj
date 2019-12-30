@@ -46,8 +46,7 @@ Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
   </ItemGroup>
 
   <Choose>
-    <When Condition=" '$(TargetFramework)'=='netstandard2.0' " >
-    </When>
+    <When Condition=" '$(TargetFramework)'=='netstandard2.0' " />
     <Otherwise>  
       <ItemGroup>
         <PackageReference Include="System.Net.Http" Version="4.3.4" />
