@@ -68,6 +68,22 @@ namespace RestClientDotNet
 
         public RestClient(
             ISerializationAdapter serializationAdapter,
+            ITracer tracer,
+            IHttpClientFactory httpClientFactory)
+        : this(
+            serializationAdapter,
+            null,
+            tracer,
+            httpClientFactory,
+            null,
+            default,
+            null,
+            null)
+        {
+        }
+
+        public RestClient(
+            ISerializationAdapter serializationAdapter,
             Uri baseUri,
             ITracer tracer,
             string name,

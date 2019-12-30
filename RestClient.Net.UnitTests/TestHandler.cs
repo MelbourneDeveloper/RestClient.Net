@@ -12,7 +12,7 @@ namespace RestClientDotNet.UnitTests
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            throw new HttpStatusException(null,null, null);
+            throw new HttpStatusException("Ouch", null, null);
         }
     }
 }

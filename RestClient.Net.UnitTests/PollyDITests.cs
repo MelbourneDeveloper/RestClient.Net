@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet.UnitTests
 {
+    //https://github.com/microsoft/aspnet-api-versioning/blob/master/src/Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer/Microsoft.Extensions.DependencyInjection/IServiceCollectionExtensions.cs
+
     [TestClass]
     public class PollyDITests
     {
@@ -32,17 +34,20 @@ namespace RestClientDotNet.UnitTests
             {
                 var serviceCollection = new ServiceCollection();
                 var baseUri = new Uri("http://www.test.com");
+                serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
+                serviceCollection.AddSingleton(typeof(ITracer), typeof(ConsoleTracer));
+                serviceCollection.AddSingleton(typeof(IRestClient), typeof(RestClient));
                 serviceCollection.AddDependencyInjectionMapping();
                 serviceCollection.AddTransient<TestHandler>();
-                serviceCollection.AddHttpClient("test", (c) => { c.BaseAddress = baseUri; })
+                serviceCollection.AddHttpClient("RestClient", (c) => { c.BaseAddress = baseUri; })
                     .AddHttpMessageHandler<TestHandler>();
                 var serviceProvider = serviceCollection.BuildServiceProvider();
-                var httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
-                var httpClient = httpClientFactory.CreateClient("test");
-                await httpClient.GetAsync("");
+                var restClient = serviceProvider.GetService<IRestClient>();
+                await restClient.GetAsync<object>();
             }
             catch (HttpStatusException hse)
             {
+                Assert.AreEqual("Ouch", hse.Message);
                 return;
             }
             Assert.Fail();
