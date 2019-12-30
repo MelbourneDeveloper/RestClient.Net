@@ -23,7 +23,6 @@ using Polly;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ApiExamples;
-using ApiExamples.Controllers;
 #endif
 
 #if NET45
@@ -46,7 +45,7 @@ namespace RestClientDotNet.UnitTests
         private const string LocalBaseUriString = "https://localhost:44337";
 #endif
         private static TestClientFactory _testServerHttpClientFactory;
-        private static Mock<ILogger> _tracer;
+        private static Mock<ILogger> _logger;
         #endregion
 
         #region Setup
@@ -60,7 +59,7 @@ namespace RestClientDotNet.UnitTests
 #endif
             var testClient = MintClient();
             _testServerHttpClientFactory = new TestClientFactory(testClient);
-            _tracer = new Mock<ILogger>();
+            _logger = new Mock<ILogger>();
         }
         #endregion
 
@@ -70,36 +69,27 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestGetRestCountries()
         {
-            var tracer = new Mock<ILogger>();
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, tracer.Object);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, _logger.Object);
             List<RestCountry> countries = await restClient.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
 
-            tracer.Verify(t => t.Log(LogLevel.Trace, It.IsAny<EventId>(), It.Is<RestTrace>(
-                rt => rt.TraceType == TraceType.Request &&
-                rt.RequestUri == baseUri
-                ), null, It.IsAny<Func<RestTrace, Exception, string>>()));
-
-            tracer.Verify(t => t.Log(LogLevel.Trace, It.IsAny<EventId>(), It.Is<RestTrace>(
-                rt => rt.BodyData!=null && rt.BodyData.Length>0 && 
-                rt.TraceType == TraceType.Response &&
-                rt.HttpStatusCode== (int)HttpStatusCode.OK
-                ), null, It.IsAny<Func<RestTrace, Exception, string>>()));
+            VerifyLog(baseUri, HttpVerb.Get, TraceType.Request);
+            VerifyLog(baseUri, HttpVerb.Get, TraceType.Response, (int)HttpStatusCode.OK);
         }
 
         [TestMethod]
         public async Task TestDelete()
         {
-            var tracer = new Mock<ILogger>();
             var baseUri = new Uri("https://jsonplaceholder.typicode.com");
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, tracer.Object);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri, _logger.Object);
             await restClient.DeleteAsync("posts/1");
 
             var requestUri = new Uri("https://jsonplaceholder.typicode.com/posts/1");
-            tracer.Verify(t => t.Trace(HttpVerb.Delete, requestUri, null, TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
-            tracer.Verify(t => t.Trace(HttpVerb.Delete, requestUri, It.IsAny<byte[]>(), TraceType.Response, (int)HttpStatusCode.OK, It.IsAny<IRestHeadersCollection>()));
+
+            VerifyLog(requestUri, HttpVerb.Delete, TraceType.Request, null, null);
+            VerifyLog(requestUri, HttpVerb.Delete, TraceType.Response, (int)HttpStatusCode.OK, null);
         }
 
         [TestMethod]
@@ -197,7 +187,7 @@ namespace RestClientDotNet.UnitTests
         {
             var baseUri = new Uri("https://jsonplaceholder.typicode.com");
 
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), _tracer.Object);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"), _logger.Object);
             restClient.UseJsonContentType();
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
             UserPost responseUserPost = null;
@@ -221,8 +211,8 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(requestUserPost.userId, responseUserPost.userId);
             Assert.AreEqual(requestUserPost.title, responseUserPost.title);
 
-            _tracer.Verify(t => t.Trace(verb, It.Is<Uri>(a => a.ToString().Contains(baseUri.ToString())), It.Is<byte[]>(d => d.Length > 0), TraceType.Request, null, It.IsAny<IRestHeadersCollection>()));
-            _tracer.Verify(t => t.Trace(verb, It.Is<Uri>(a => a.ToString().Contains(baseUri.ToString())), It.Is<byte[]>(d => d.Length > 0), TraceType.Response, (int)expectedStatusCode, It.IsAny<IRestHeadersCollection>()));
+            VerifyLog(It.IsAny<Uri>(), verb, TraceType.Request, null, null);
+            VerifyLog(It.IsAny<Uri>(), verb, TraceType.Response, (int)expectedStatusCode, null);
         }
 
         [TestMethod]
@@ -320,17 +310,12 @@ namespace RestClientDotNet.UnitTests
         [TestMethod]
         public async Task TestHeadersTraceLocalGet()
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), null, _tracer.Object, _testServerHttpClientFactory, null);
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), null, _logger.Object, _testServerHttpClientFactory, null);
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var response = await restClient.GetAsync<Person>("headers");
 
-            _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Request, null,
-                It.Is<IRestHeadersCollection>(c => CheckRequestHeaders(c))
-                ));
-
-            _tracer.Verify(t => t.Trace(HttpVerb.Get, It.IsAny<Uri>(), It.IsAny<byte[]>(), TraceType.Response, It.IsAny<int?>(),
-                It.Is<RestResponseHeadersCollection>(c => CheckResponseHeaders(c))
-                ));
+            VerifyLog(It.IsAny<Uri>(), HttpVerb.Get, TraceType.Request, null, null, CheckRequestHeaders);
+            VerifyLog(It.IsAny<Uri>(), HttpVerb.Get, TraceType.Response, (int)HttpStatusCode.OK, null, CheckResponseHeaders);
         }
 
         [TestMethod]
@@ -851,6 +836,36 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         #region Helpers
+        private void VerifyLog(
+            Uri uri,
+            HttpVerb httpVerb,
+            TraceType traceType,
+            int? httpStatusCode = null,
+            Exception exception = null,
+            Func<IRestHeadersCollection, bool> checkHeadersFunc = null)
+        {
+            _logger.Verify(t => t.Log(
+                exception == null ? LogLevel.Trace : LogLevel.Error,
+                It.Is<EventId>(
+                    e => e.Id == (int)traceType && e.Name == traceType.ToString()),
+                It.Is<RestTrace>(
+                rt =>
+                    DebugTraceExpression(rt) &&
+                    rt.TraceType == traceType &&
+                    rt.RequestUri == uri &&
+                    rt.HttpVerb == httpVerb &&
+                    (rt.TraceType == TraceType.Response || new List<HttpVerb> { HttpVerb.Patch, HttpVerb.Post, HttpVerb.Patch }.Contains(rt.HttpVerb))
+                    ? rt.BodyData != null && rt.BodyData.Length > 0 : true &&
+                    rt.HttpStatusCode == httpStatusCode &&
+                    checkHeadersFunc != null ? checkHeadersFunc(rt.RestHeadersCollection) : true
+                ), exception, It.IsAny<Func<RestTrace, Exception, string>>()));
+        }
+
+        private bool DebugTraceExpression(RestTrace restTrace)
+        {
+            return true;
+        }
+
         /// <summary>
         /// There were issues with DataRow so doing this instead. These sometimes fail but no idea why...
         /// </summary>
@@ -942,7 +957,7 @@ namespace RestClientDotNet.UnitTests
             return restRequestHeadersCollection.Contains("Test") && restRequestHeadersCollection["Test"].First() == "Test";
         }
 
-        private static bool CheckResponseHeaders(RestResponseHeadersCollection restResponseHeadersCollection)
+        private static bool CheckResponseHeaders(IRestHeadersCollection restResponseHeadersCollection)
         {
             return restResponseHeadersCollection.Contains("Test1") && restResponseHeadersCollection["Test1"].First() == "a";
         }

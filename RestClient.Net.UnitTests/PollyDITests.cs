@@ -1,6 +1,7 @@
 ﻿#if NETCOREAPP3_1
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net.Polly;
 using RestClientDotNet.Abstractions;
@@ -35,7 +36,7 @@ namespace RestClientDotNet.UnitTests
                 var serviceCollection = new ServiceCollection();
                 var baseUri = new Uri("http://www.test.com");
                 serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
-                serviceCollection.AddSingleton(typeof(ITracer), typeof(ConsoleTracer));
+                serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleTracer));
                 serviceCollection.AddSingleton(typeof(IRestClient), typeof(RestClient));
                 serviceCollection.AddDependencyInjectionMapping();
                 serviceCollection.AddTransient<TestHandler>();
