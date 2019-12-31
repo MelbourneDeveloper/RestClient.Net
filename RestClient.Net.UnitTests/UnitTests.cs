@@ -901,6 +901,15 @@ namespace RestClientDotNet.UnitTests
             }
             Assert.Fail();
         }
+
+        [TestMethod]
+        public async Task TestFactoryCreationWithUri()
+        {
+            IClientFactory clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter());
+            var baseUri = new Uri("http://www.test.com");
+            var client = clientFactory.CreateClient("test", baseUri);
+            Assert.AreEqual(baseUri, client.BaseUri);
+        }
         #endregion
 
         #endregion
@@ -994,7 +1003,7 @@ namespace RestClientDotNet.UnitTests
 
             Parallel.For(0, maxCalls, (i) =>
             {
-                var restClient = restClientFactory.CreateRestClient();
+                var restClient = restClientFactory.CreateClient();
                 restClient.DefaultRequestHeaders.Add("Test", "Test");
                 clients.Add(restClient);
                 tasks.Add(restClient.GetAsync<Person>(new Uri("headers", UriKind.Relative)));

@@ -20,8 +20,8 @@ namespace RestClientDotNet
 
         #region Constructor
         public ClientFactory(ISerializationAdapter serializationAdapter,
-                                         IHttpClientFactory httpClientFactory,
-                                         ILogger logger)
+                                         IHttpClientFactory httpClientFactory = null,
+                                         ILogger logger = null)
         {
             SerializationAdapter = serializationAdapter;
             HttpClientFactory = httpClientFactory;
@@ -30,7 +30,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        public IClient CreateRestClient(string name)
+        public IClient CreateClient(string name)
         {
             return new Client(
                 SerializationAdapter,

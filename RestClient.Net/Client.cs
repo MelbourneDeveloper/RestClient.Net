@@ -27,7 +27,7 @@ namespace RestClientDotNet
         public ISerializationAdapter SerializationAdapter { get; }
         public ILogger Logger { get; }
         public bool ThrowExceptionOnFailure { get; set; } = true;
-        public Uri BaseUri { get; }
+        public Uri BaseUri { get; set; }
         public string Name { get; }
         public IRequestConverter RestRequestConverter { get; }
         public Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> SendHttpRequestFunc { get; }

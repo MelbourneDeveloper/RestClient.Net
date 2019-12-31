@@ -9,5 +9,6 @@ namespace RestClientDotNet.Abstractions
         Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(Request<TRequestBody> restRequest);
         IHeadersCollection DefaultRequestHeaders { get; }
         TimeSpan Timeout { get; set; }
+        Uri BaseUri { get; set; }
     }
 }
