@@ -285,11 +285,14 @@ namespace RestClientDotNet.UnitTests
 
         #region Local Headers
         [TestMethod]
-        public async Task TestHeadersLocalGet()
+        [DataRow(true)]
+        [DataRow(false)]
+
+        public async Task TestHeadersLocalGet(bool useDefault)
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), null, null, null, _testServerHttpClientFactory);
-            restClient.DefaultRequestHeaders.Add("Test", "Test");
-            Person responsePerson = await restClient.GetAsync<Person>("headers");
+            var headers = GetHeaders(useDefault, restClient);
+            Person responsePerson = await restClient.GetAsync<Person>(new Uri("headers", UriKind.Relative), headers);
             Assert.IsNotNull(responsePerson);
         }
 
@@ -316,10 +319,6 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual("b", header2[1]);
         }
 
-        /// <summary>
-        /// TODO: PUT, POST, PATCH etc.
-        /// </summary>
-        /// <returns></returns>
         [TestMethod]
         [DataRow(true)]
         [DataRow(false)]
@@ -408,7 +407,7 @@ namespace RestClientDotNet.UnitTests
             restClient.SetJsonContentTypeHeader();
             var headers = GetHeaders(useDefault, restClient);
             var responsePerson = await restClient.PutAsync<Person, Person>(
-                new Uri("headers", UriKind.Relative), 
+                new Uri("headers", UriKind.Relative),
                 new Person { FirstName = "Bob" },
                 requestHeaders: headers
                 );
@@ -451,11 +450,13 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersLocalPatch()
+        [DataRow(true)]
+        [DataRow(false)]
+        public async Task TestHeadersLocalPatch(bool useDefault)
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), null, null, null, _testServerHttpClientFactory);
             restClient.SetJsonContentTypeHeader();
-            restClient.DefaultRequestHeaders.Add("Test", "Test");
+            var headers = GetHeaders(useDefault, restClient);
             var responsePerson = await restClient.PatchAsync<Person, Person>(new Uri("headers", UriKind.Relative), new Person { FirstName = "Bob" });
             Assert.IsNotNull(responsePerson);
         }
@@ -486,11 +487,14 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersLocalDelete()
+        [DataRow(true)]
+        [DataRow(false)]
+
+        public async Task TestHeadersLocalDelete(bool useDefault)
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), null, null, null, _testServerHttpClientFactory);
-            restClient.DefaultRequestHeaders.Add("Test", "Test");
-            await restClient.DeleteAsync(new Uri("headers/1", UriKind.Relative));
+            var headers = GetHeaders(useDefault, restClient);
+            await restClient.DeleteAsync(new Uri("headers/1", UriKind.Relative), headers);
         }
 
         [TestMethod]
@@ -689,7 +693,7 @@ namespace RestClientDotNet.UnitTests
         public async Task TestLocalDeleteUriCancellationToken()
         {
             var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
-            var response = await restClient.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative), new CancellationToken());
+            var response = await restClient.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative), cancellationToken: new CancellationToken());
             Assert.AreEqual(200, response.StatusCode);
 
             //TODO: Verify the log

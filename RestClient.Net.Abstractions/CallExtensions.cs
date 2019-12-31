@@ -66,13 +66,13 @@ namespace RestClientDotNet
             return DeleteAsync(restClient, resource, default);
         }
 
-        public static async Task<RestResponseBase> DeleteAsync(this IRestClient restClient, Uri resource, CancellationToken cancellationToken)
+        public static async Task<RestResponseBase> DeleteAsync(this IRestClient restClient, Uri resource, IRestHeadersCollection requestHeaders = null, CancellationToken cancellationToken = default)
         {
             var response = (RestResponseBase)await SendAsync<object, object>(restClient,
             new RestRequest<object>(
                   resource,
                 default,
-                null,
+                requestHeaders,
                 HttpRequestMethod.Delete,
                 restClient,
                 cancellationToken));
