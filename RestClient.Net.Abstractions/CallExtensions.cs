@@ -82,9 +82,14 @@ namespace RestClientDotNet
         #endregion
 
         #region Put
+        public static Task<RestResponseBase<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IRestClient restClient, TRequestBody body)
+        {
+            return PutAsync<TResponseBody, TRequestBody>(restClient, default(string), body);
+        }
+
         public static async Task<RestResponseBase<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IRestClient restClient, string resource, TRequestBody body)
         {
-            return await PutAsync<TResponseBody, TRequestBody>(restClient, new Uri(resource, UriKind.Relative), body);
+            return await PutAsync<TResponseBody, TRequestBody>(restClient, resource != null ? new Uri(resource, UriKind.Relative) : null, body);
         }
 
         public static Task<RestResponseBase<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IRestClient restClient, Uri resource, TRequestBody body)
@@ -135,9 +140,14 @@ namespace RestClientDotNet
         #endregion
 
         #region Patch
+        public static Task<RestResponseBase<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IRestClient restClient, TRequestBody body)
+        {
+            return PatchAsync<TResponseBody, TRequestBody>(restClient, default(string), body);
+        }
+
         public static Task<RestResponseBase<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IRestClient restClient, string resource, TRequestBody body)
         {
-            return PatchAsync<TResponseBody, TRequestBody>(restClient, new Uri(resource, UriKind.Relative), body);
+            return PatchAsync<TResponseBody, TRequestBody>(restClient, resource != null ? new Uri(resource, UriKind.Relative) : default, body);
         }
 
         public static Task<RestResponseBase<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IRestClient restClient, Uri resource, TRequestBody body)

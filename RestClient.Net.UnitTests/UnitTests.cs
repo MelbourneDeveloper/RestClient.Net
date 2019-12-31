@@ -717,6 +717,15 @@ namespace RestClientDotNet.UnitTests
 
         #region Put
         [TestMethod]
+        public async Task TestLocalPutBody()
+        {
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/jsonperson/save"));
+            var requestPerson = new Person { FirstName = "Bob" };
+            Person responsePerson = await restClient.PutAsync<Person, Person>(requestPerson);
+            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+        }
+
+        [TestMethod]
         public async Task TestLocalPutBodyStringUri()
         {
             var restClient = GetJsonClient();
@@ -745,6 +754,15 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         #region Patch
+        [TestMethod]
+        public async Task TestLocalPatchBody()
+        {
+            var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/jsonperson/save"));
+            var requestPerson = new Person { FirstName = "Bob" };
+            Person responsePerson = await restClient.PatchAsync<Person, Person>(requestPerson);
+            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+        }
+
         [TestMethod]
         public async Task TestLocalPatchBodyStringUri()
         {
