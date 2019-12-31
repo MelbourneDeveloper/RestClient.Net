@@ -84,7 +84,7 @@ namespace RestClientDotNet
         #region Put
         public static Task<RestResponseBase<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IRestClient restClient, TRequestBody body)
         {
-            return PutAsync<TResponseBody, TRequestBody>(restClient, default(string), body);
+            return PutAsync<TResponseBody, TRequestBody>(restClient, default, body);
         }
 
         public static async Task<RestResponseBase<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IRestClient restClient, string resource, TRequestBody body)
@@ -92,18 +92,13 @@ namespace RestClientDotNet
             return await PutAsync<TResponseBody, TRequestBody>(restClient, resource != null ? new Uri(resource, UriKind.Relative) : null, body);
         }
 
-        public static Task<RestResponseBase<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IRestClient restClient, Uri resource, TRequestBody body)
-        {
-            return PutAsync<TResponseBody, TRequestBody>(restClient, resource, body, default);
-        }
-
-        public static Task<RestResponseBase<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IRestClient restClient, Uri resource, TRequestBody body, CancellationToken cancellationToken)
+        public static Task<RestResponseBase<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IRestClient restClient, Uri resource, TRequestBody body, IRestHeadersCollection requestHeaders = null, CancellationToken cancellationToken = default)
         {
             return SendAsync<TResponseBody, TRequestBody>(restClient,
                 new RestRequest<TRequestBody>(
                     resource,
                     body,
-                    null,
+                    headers: requestHeaders,
                     HttpRequestMethod.Put,
                     restClient,
                     cancellationToken));
