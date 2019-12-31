@@ -150,7 +150,7 @@ namespace RestClientDotNet.UnitTests
                 var tokenSource = new CancellationTokenSource();
                 var token = tokenSource.Token;
 
-                var task = restClient.PostAsync<UserPost, UserPost>(new Uri("/posts", UriKind.Relative), new UserPost { title = "Moops" }, token);
+                var task = restClient.PostAsync<UserPost, UserPost>(new Uri("/posts", UriKind.Relative), new UserPost { title = "Moops" }, cancellationToken: token);
 
                 tokenSource.Cancel();
 
@@ -188,6 +188,8 @@ namespace RestClientDotNet.UnitTests
             }
 
             Assert.Fail("The operation completed successfully");
+
+            //TODO: Verify the log
         }
 
         [TestMethod]
@@ -319,23 +321,32 @@ namespace RestClientDotNet.UnitTests
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        public async Task TestHeadersTraceLocalGet()
+        [DataRow(true)]
+        [DataRow(false)]
+        public async Task TestHeadersTraceLocalGet(bool useDefault)
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), null, _logger.Object, _testServerHttpClientFactory, null);
-            restClient.DefaultRequestHeaders.Add("Test", "Test");
-            var response = await restClient.GetAsync<Person>("headers");
+            var headers = GetHeaders(useDefault, restClient);
+            var response = await restClient.GetAsync<Person>(new Uri("headers", UriKind.Relative), requestHeaders: headers);
 
             VerifyLog(It.IsAny<Uri>(), HttpRequestMethod.Get, RestEvent.Request, null, null, CheckRequestHeaders);
             VerifyLog(It.IsAny<Uri>(), HttpRequestMethod.Get, RestEvent.Response, (int)HttpStatusCode.OK, null, CheckResponseHeaders);
         }
 
         [TestMethod]
-        public async Task TestHeadersLocalPost()
+        [DataRow(true)]
+        [DataRow(false)]
+        public async Task TestHeadersLocalPost(bool useDefault)
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), null, null, null, _testServerHttpClientFactory);
             restClient.SetJsonContentTypeHeader();
-            restClient.DefaultRequestHeaders.Add("Test", "Test");
-            var responsePerson = await restClient.PostAsync<Person, Person>(new Uri("headers", UriKind.Relative), new Person { FirstName = "Bob" });
+            var headers = GetHeaders(useDefault, restClient);
+
+            var responsePerson = await restClient.PostAsync<Person, Person>(
+                new Uri("headers", UriKind.Relative),
+                new Person { FirstName = "Bob" },
+                requestHeaders: headers
+                );
             Assert.IsNotNull(responsePerson);
         }
 
@@ -645,7 +656,7 @@ namespace RestClientDotNet.UnitTests
         public async Task TestLocalGetUriCancellationToken()
         {
             var restClient = GetJsonClient();
-            Person responsePerson = await restClient.GetAsync<Person>(new Uri("JsonPerson", UriKind.Relative), new CancellationToken());
+            Person responsePerson = await restClient.GetAsync<Person>(new Uri("JsonPerson", UriKind.Relative), cancellationToken: new CancellationToken());
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
@@ -674,12 +685,14 @@ namespace RestClientDotNet.UnitTests
             var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
             var response = await restClient.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative), new CancellationToken());
             Assert.AreEqual(200, response.StatusCode);
+
+            //TODO: Verify the log
         }
         #endregion
 
         #region Post
         [TestMethod]
-        public async Task TestLocalPostBody()
+        public async Task TestLocalPostBody(bool useDefault)
         {
             var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson/save"));
             var requestPerson = new Person { FirstName = "Bob" };
@@ -710,7 +723,7 @@ namespace RestClientDotNet.UnitTests
         {
             var restClient = GetJsonClient();
             var requestPerson = new Person { FirstName = "Bob" };
-            Person responsePerson = await restClient.PostAsync<Person, Person>(new Uri("jsonperson/save", UriKind.Relative), requestPerson, new CancellationToken());
+            Person responsePerson = await restClient.PostAsync<Person, Person>(new Uri("jsonperson/save", UriKind.Relative), requestPerson, null, new CancellationToken());
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
         #endregion
@@ -838,6 +851,21 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         #region Helpers
+        private static IRestHeadersCollection GetHeaders(bool useDefault, RestClient restClient)
+        {
+            IRestHeadersCollection headers = null;
+            if (useDefault)
+            {
+                restClient.DefaultRequestHeaders.Add("Test", "Test");
+            }
+            else
+            {
+                headers = new RestRequestHeadersCollection { new KeyValuePair<string, IEnumerable<string>>("Test", new List<string> { "Test" }) };
+            }
+
+            return headers;
+        }
+
         private void VerifyLog(
             Uri uri,
             HttpRequestMethod httpRequestMethod,

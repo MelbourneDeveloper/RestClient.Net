@@ -42,13 +42,13 @@ namespace RestClientDotNet
             return GetAsync<TResponseBody>(restClient, resource, default);
         }
 
-        public static Task<RestResponseBase<TResponseBody>> GetAsync<TResponseBody>(this IRestClient restClient, Uri resource, CancellationToken cancellationToken)
+        public static Task<RestResponseBase<TResponseBody>> GetAsync<TResponseBody>(this IRestClient restClient, Uri resource, IRestHeadersCollection requestHeaders = null, CancellationToken cancellationToken = default)
         {
             return SendAsync<TResponseBody, object>(restClient,
                 new RestRequest<object>(
                     resource,
                     default,
-                    null,
+                    requestHeaders,
                     HttpRequestMethod.Get,
                     restClient,
                     cancellationToken));
@@ -113,7 +113,7 @@ namespace RestClientDotNet
         #region Post
         public static Task<RestResponseBase<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IRestClient restClient, TRequestBody body)
         {
-            return PostAsync<TResponseBody, TRequestBody>(restClient, default(string), body);
+            return PostAsync<TResponseBody, TRequestBody>(restClient, default, body);
         }
 
         public static Task<RestResponseBase<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IRestClient restClient, string resource, TRequestBody body)
@@ -121,18 +121,13 @@ namespace RestClientDotNet
             return PostAsync<TResponseBody, TRequestBody>(restClient, resource != null ? new Uri(resource, UriKind.Relative) : default, body);
         }
 
-        public static Task<RestResponseBase<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IRestClient restClient, Uri resource, TRequestBody body)
-        {
-            return PostAsync<TResponseBody, TRequestBody>(restClient, resource, body, default);
-        }
-
-        public static Task<RestResponseBase<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IRestClient restClient, Uri resource, TRequestBody body, CancellationToken cancellationToken)
+        public static Task<RestResponseBase<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IRestClient restClient, Uri resource, TRequestBody body, IRestHeadersCollection requestHeaders = null, CancellationToken cancellationToken = default)
         {
             return SendAsync<TResponseBody, TRequestBody>(restClient,
                 new RestRequest<TRequestBody>(
                     resource,
                     body,
-                    null,
+                    requestHeaders,
                     HttpRequestMethod.Post,
                     restClient,
                     cancellationToken));
