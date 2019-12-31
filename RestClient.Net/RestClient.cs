@@ -55,21 +55,8 @@ namespace RestClientDotNet
             Uri baseUri)
         : this(
             serializationAdapter,
-            baseUri,
-            null)
-        {
-        }
-
-        public RestClient(
-            ISerializationAdapter serializationAdapter,
-            Uri baseUri,
-            ILogger logger)
-        : this(
-              serializationAdapter,
-            baseUri,
-            logger,
             null,
-            null)
+            baseUri)
         {
         }
 
@@ -80,35 +67,21 @@ namespace RestClientDotNet
         : this(
             serializationAdapter,
             null,
-            logger,
-            httpClientFactory,
-            null)
+            null,
+            logger: logger,
+            httpClientFactory: httpClientFactory)
         {
         }
 
         public RestClient(
             ISerializationAdapter serializationAdapter,
-            Uri baseUri,
-            ILogger logger,
-            string name,
-            IHttpClientFactory httpClientFactory)
-        : this(
-              serializationAdapter,
-            baseUri,
-            logger,
-            httpClientFactory,
-            name)
-        {
-        }
-
-        public RestClient(ISerializationAdapter serializationAdapter,
-            Uri baseUri,
-            ILogger logger,
-            IHttpClientFactory httpClientFactory,
-            string name,
+            string name = null,
+            Uri baseUri = null,
+            IRestHeadersCollection defaultRequestHeaders = null,
+            ILogger logger = null,
+            IHttpClientFactory httpClientFactory = null,
             Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,
-            IRestRequestConverter restRequestConverter = null,
-            IRestHeadersCollection defaultRequestHeaders = null)
+            IRestRequestConverter restRequestConverter = null)
         {
             SerializationAdapter = serializationAdapter ?? throw new ArgumentNullException(nameof(serializationAdapter));
             Logger = logger;

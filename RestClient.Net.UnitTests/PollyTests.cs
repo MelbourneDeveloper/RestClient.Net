@@ -24,22 +24,22 @@ namespace RestClientDotNet.UnitTests
 
             var restClient = new RestClient(
                 new ProtobufSerializationAdapter(),
+                null,
                 new Uri(UnitTests.LocalBaseUriString),
-                null,
-                UnitTests.GetTestClientFactory(),
-                null,
-                (httpClient, httpRequestMessageFunc, cancellationToken) =>
-                {
-                    return policy.ExecuteAsync(() =>
-                    {
-                        var httpRequestMessage = httpRequestMessageFunc.Invoke();
+                logger: null,
+                httpClientFactory: UnitTests.GetTestClientFactory(),
+                sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, cancellationToken) =>
+ {
+     return policy.ExecuteAsync(() =>
+     {
+         var httpRequestMessage = httpRequestMessageFunc.Invoke();
 
-                        //On the third try change the Url to a the correct one
-                        if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);
-                        tries++;
-                        return httpClient.SendAsync(httpRequestMessage, cancellationToken);
-                    });
-                });
+         //On the third try change the Url to a the correct one
+         if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);
+         tries++;
+         return httpClient.SendAsync(httpRequestMessage, cancellationToken);
+     });
+ });
 
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
 

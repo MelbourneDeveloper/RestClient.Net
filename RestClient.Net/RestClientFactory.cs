@@ -34,20 +34,20 @@ namespace RestClientDotNet
         {
             return new RestClient(
                 SerializationAdapter,
+                name,
                 null,
-                Logger,
-                HttpClientFactory,
-                name);
+                logger: Logger,
+                httpClientFactory: HttpClientFactory);
         }
 
         public IRestClient CreateRestClient(string name, Uri baseUri)
         {
             return new RestClient(
                 SerializationAdapter,
+                name,
                 baseUri,
-                Logger,
-                HttpClientFactory,
-                name);
+                logger: Logger,
+                httpClientFactory: HttpClientFactory);
         }
         #endregion
     }
