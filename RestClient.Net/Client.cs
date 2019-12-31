@@ -29,7 +29,7 @@ namespace RestClient.Net
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public Uri BaseUri { get; set; }
         public string Name { get; }
-        public IRequestConverter RestRequestConverter { get; }
+        public IRequestConverter RequestConverter { get; }
         public Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> SendHttpRequestFunc { get; }
         #endregion
 
@@ -88,7 +88,7 @@ namespace RestClient.Net
             BaseUri = baseUri;
             Name = name ?? "RestClient";
             DefaultRequestHeaders = defaultRequestHeaders ?? new RequestHeadersCollection();
-            RestRequestConverter = restRequestConverter ?? new DefaultRequestConverter();
+            RequestConverter = restRequestConverter ?? new DefaultRequestConverter();
             HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();
             SendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
         }
@@ -116,7 +116,7 @@ namespace RestClient.Net
             {
                 httpResponseMessage = await SendHttpRequestFunc.Invoke(
                     httpClient,
-                    () => RestRequestConverter.GetHttpRequestMessage(restRequest, requestBodyData),
+                    () => RequestConverter.GetHttpRequestMessage(restRequest, requestBodyData),
                     restRequest.CancellationToken
                     );
             }
@@ -172,21 +172,21 @@ namespace RestClient.Net
                 responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
             }
 
-            var restHeadersCollection = new HttpResponseHeadersCollection(httpResponseMessage.Headers);
+            var httpResponseHeadersCollection = new HttpResponseHeadersCollection(httpResponseMessage.Headers);
 
             TResponseBody responseBody;
             try
             {
-                responseBody = SerializationAdapter.Deserialize<TResponseBody>(responseData, restHeadersCollection);
+                responseBody = SerializationAdapter.Deserialize<TResponseBody>(responseData, httpResponseHeadersCollection);
             }
             catch (Exception ex)
             {
                 throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
             }
 
-            var restResponse = new HttpResponseMessageResponse<TResponseBody>
+            var httpResponseMessageResponse = new HttpResponseMessageResponse<TResponseBody>
             (
-                restHeadersCollection,
+                httpResponseHeadersCollection,
                 (int)httpResponseMessage.StatusCode,
                 restRequest.HttpRequestMethod,
                 responseData,
@@ -201,15 +201,15 @@ namespace RestClient.Net
              responseData,
              RestEvent.Response,
              (int)httpResponseMessage.StatusCode,
-             restHeadersCollection
+             httpResponseHeadersCollection
             ), null);
 
-            if (restResponse.IsSuccess || !ThrowExceptionOnFailure)
+            if (httpResponseMessageResponse.IsSuccess || !ThrowExceptionOnFailure)
             {
-                return restResponse;
+                return httpResponseMessageResponse;
             }
 
-            throw new HttpStatusException($"{restResponse.StatusCode}.\r\nrestRequest.Resource: {restRequest.Resource}", restResponse, this);
+            throw new HttpStatusException($"{httpResponseMessageResponse.StatusCode}.\r\nrestRequest.Resource: {restRequest.Resource}", httpResponseMessageResponse, this);
         }
         #endregion
 
