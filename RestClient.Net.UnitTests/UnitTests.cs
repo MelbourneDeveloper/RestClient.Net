@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using RestClient.Net.Samples.Model;
 using RestClient.Net.UnitTests.Model;
 using RestClientApiSamples;
-using RestClientDotNet.Abstractions;
-using RestClientDotNet.Abstractions.Extensions;
+using RestClient.Net.Abstractions;
+using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,12 +24,12 @@ using ApiExamples;
 #endif
 
 #if NET45
-using RestClientDotNet.Abstractions.Logging;
+using RestClient.Net.Abstractions.Logging;
 #else
 using Microsoft.Extensions.Logging;
 #endif
 
-namespace RestClientDotNet.UnitTests
+namespace RestClient.Net.UnitTests
 {
 
     [TestClass]

@@ -1,14 +1,13 @@
-﻿using RestClientDotNet.Abstractions;
-using System;
+﻿using RestClient.Net.Abstractions;
 
 #if NET45
-using RestClientDotNet.Abstractions.Logging;
+using RestClient.Net.Abstractions.Logging;
 #else
 using Microsoft.Extensions.Logging;
 #endif
 
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     public class ClientFactory : IClientFactory
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RestClientDotNet.Abstractions
+namespace RestClient.Net.Abstractions
 {
     public static class ClientFactoryExtensions
     {

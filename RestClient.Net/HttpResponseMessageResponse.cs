@@ -1,8 +1,8 @@
-﻿using RestClientDotNet.Abstractions;
+﻿using RestClient.Net.Abstractions;
 using System;
 using System.Net.Http;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     public class HttpResponseMessageResponse<TResponseBody> : Response<TResponseBody>
     {

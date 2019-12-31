@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RestClientDotNet;
+using RestClient.Net;
 
 namespace RestClient.Net.Polly
 {

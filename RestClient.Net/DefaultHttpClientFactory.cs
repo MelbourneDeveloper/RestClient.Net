@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Net.Http;
 using System.Threading;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     public class DefaultHttpClientFactory : IHttpClientFactory, IDisposable
     {

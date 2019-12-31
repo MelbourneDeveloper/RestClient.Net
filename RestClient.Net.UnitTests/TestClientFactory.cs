@@ -1,8 +1,8 @@
-﻿using RestClientDotNet.Abstractions;
+﻿using RestClient.Net.Abstractions;
 using System;
 using System.Net.Http;
 
-namespace RestClientDotNet.UnitTests
+namespace RestClient.Net.UnitTests
 {
     public class TestClientFactory : IHttpClientFactory
     {

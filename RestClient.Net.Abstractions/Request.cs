@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace RestClientDotNet.Abstractions
+namespace RestClient.Net.Abstractions
 {
     public class Request<TRequestBody>
     {

@@ -1,11 +1,11 @@
-﻿using RestClientDotNet.Abstractions;
+﻿using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 
 #pragma warning disable CA2000
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     public class DefaultRequestConverter : IRequestConverter
     {

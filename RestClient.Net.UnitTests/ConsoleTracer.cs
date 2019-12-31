@@ -1,15 +1,15 @@
 ﻿
 #if NET45
-using RestClientDotNet.Abstractions.Logging;
+using RestClient.Net.Abstractions.Logging;
 #else
 using Microsoft.Extensions.Logging;
 #endif
 
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 using System;
 using System.Text;
 
-namespace RestClientDotNet.UnitTests
+namespace RestClient.Net.UnitTests
 {
     public class ConsoleLogger : ILogger
     {

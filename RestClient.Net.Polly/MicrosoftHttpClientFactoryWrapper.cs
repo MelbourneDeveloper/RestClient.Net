@@ -1,4 +1,4 @@
-﻿using RestClientDotNet;
+﻿using RestClient.Net;
 using snh = System.Net.Http;
 
 namespace RestClient.Net.Polly

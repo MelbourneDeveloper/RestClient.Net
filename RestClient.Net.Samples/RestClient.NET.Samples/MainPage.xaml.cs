@@ -1,7 +1,7 @@
 ﻿using Atlassian;
 using RestClient.Net.Samples.Model;
 using RestClient.Net.UnitTests.Model;
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using ThomasBayer;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using RestClientDotNet.Abstractions.Extensions;
+using RestClient.Net.Abstractions.Extensions;
 
-namespace RestClientDotNet.Sample
+namespace RestClient.Net.Sample
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage

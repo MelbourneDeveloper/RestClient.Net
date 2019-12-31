@@ -1,11 +1,11 @@
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     public class BinaryDataContractSerializationAdapter : ISerializationAdapter
     {

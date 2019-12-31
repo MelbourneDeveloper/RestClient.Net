@@ -1,9 +1,9 @@
 ﻿using Google.Protobuf;
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 using System;
 using System.Threading.Tasks;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     public class ProtobufSerializationAdapter : ISerializationAdapter
     {

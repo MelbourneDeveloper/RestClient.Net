@@ -1,7 +1,7 @@
-﻿using RestClientDotNet.Abstractions;
+﻿using RestClient.Net.Abstractions;
 using System.Net.Http;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     public interface IRequestConverter
     {

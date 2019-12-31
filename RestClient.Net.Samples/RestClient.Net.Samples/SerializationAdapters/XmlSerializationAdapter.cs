@@ -1,10 +1,10 @@
-﻿using RestClientDotNet.Abstractions;
+﻿using RestClient.Net.Abstractions;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     public class XmlSerializationAdapter : ISerializationAdapter
     {

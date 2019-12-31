@@ -1,9 +1,9 @@
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     public static class CallExtensions
     {

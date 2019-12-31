@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace RestClientDotNet.Abstractions
+namespace RestClient.Net.Abstractions
 {
     public interface IClient
     {

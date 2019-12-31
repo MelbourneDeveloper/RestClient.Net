@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     /// <summary>
     /// Generates HttpClients as necessary

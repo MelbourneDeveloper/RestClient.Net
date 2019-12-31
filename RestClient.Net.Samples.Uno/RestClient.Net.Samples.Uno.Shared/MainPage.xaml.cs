@@ -1,4 +1,4 @@
-﻿using RestClientDotNet;
+﻿using RestClient.Net;
 using RestClientNetSamples;
 using System;
 using System.Linq;
@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using restClient = RestClientDotNet.Client;
-using RestClientDotNet.Abstractions.Extensions;
+using restClient = RestClient.Net.Client;
+using RestClient.Net.Abstractions.Extensions;
 
 #if __WASM__
 using Uno.UI.Wasm;

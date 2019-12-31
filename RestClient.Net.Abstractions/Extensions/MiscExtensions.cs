@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace RestClientDotNet.Abstractions.Extensions
+namespace RestClient.Net.Abstractions.Extensions
 {
     public static class MiscExtensions
     {

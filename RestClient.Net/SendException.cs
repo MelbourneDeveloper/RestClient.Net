@@ -1,7 +1,7 @@
-﻿using RestClientDotNet.Abstractions;
+﻿using RestClient.Net.Abstractions;
 using System;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     [Serializable]
     public class SendException<TRequestBody> : Exception

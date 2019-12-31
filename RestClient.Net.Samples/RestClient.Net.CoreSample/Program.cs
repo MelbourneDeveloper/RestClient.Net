@@ -1,5 +1,5 @@
 ﻿using RestClientApiSamples;
-using RestClientDotNet;
+using RestClient.Net;
 using System;
 using System.Threading.Tasks;
 
