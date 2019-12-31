@@ -44,8 +44,8 @@ namespace RestClient.Net.UnitTests
                 serviceCollection.AddHttpClient("RestClient", (c) => { c.BaseAddress = baseUri; })
                     .AddHttpMessageHandler<TestHandler>();
                 var serviceProvider = serviceCollection.BuildServiceProvider();
-                var restClient = serviceProvider.GetService<IClient>();
-                await restClient.GetAsync<object>();
+                var client = serviceProvider.GetService<IClient>();
+                await client.GetAsync<object>();
             }
             catch (SendException<object> hse)
             {

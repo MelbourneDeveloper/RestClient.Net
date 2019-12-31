@@ -125,8 +125,8 @@ namespace RestClient.Net.Sample
             try
             {
                 var baseUri = new Uri("https://restcountries.eu/rest/v2/");
-                var restClient = new Client(new NewtonsoftSerializationAdapter(), baseUri);
-                List<RestCountry> countries = await restClient.GetAsync<List<RestCountry>>();
+                var client = new Client(new NewtonsoftSerializationAdapter(), baseUri);
+                List<RestCountry> countries = await client.GetAsync<List<RestCountry>>();
                 CountryCodeList.ItemsSource = countries;
             }
             catch (Exception ex)
@@ -212,22 +212,22 @@ namespace RestClient.Net.Sample
 
         private async void Delete_Clicked(object sender, EventArgs e)
         {
-            var restClient = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-            await restClient.DeleteAsync("/posts/1");
+            var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            await client.DeleteAsync("/posts/1");
             await DisplayAlert("Post Deleted", $"The server pretended to delete the post 1");
         }
 
         private async void Patch_Clicked(object sender, EventArgs e)
         {
-            var restClient = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-            UserPost userPost = await restClient.PatchAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts/1");
+            var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            UserPost userPost = await client.PatchAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts/1");
             await DisplayAlert("Post Patched", $"The server pretended to patch a post titled:\r\n{userPost.title}");
         }
 
         private async void Post_Clicked(object sender, EventArgs e)
         {
-            var restClient = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-            UserPost userPost = await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts");
+            var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            UserPost userPost = await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts");
             await DisplayAlert("Post made", $"The server pretended to accept the post:\r\n{userPost.title}");
         }
 
@@ -235,12 +235,12 @@ namespace RestClient.Net.Sample
         {
             try
             {
-                var restClient = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+                var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
 
                 var tokenSource = new CancellationTokenSource();
                 var token = tokenSource.Token;
 
-                var task = restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative), cancellationToken: token);
+                var task = client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative), cancellationToken: token);
 
                 tokenSource.Cancel();
 
@@ -260,8 +260,8 @@ namespace RestClient.Net.Sample
         {
             try
             {
-                var restClient = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com")) { Timeout = new TimeSpan(0, 0, 0, 0, 1) };
-                await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
+                var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com")) { Timeout = new TimeSpan(0, 0, 0, 0, 1) };
+                await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
             }
             catch (OperationCanceledException ex)
             {

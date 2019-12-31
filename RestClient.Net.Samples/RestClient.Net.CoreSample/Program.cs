@@ -23,10 +23,10 @@ namespace RESTClient.NET.CoreSample
                 Console.WriteLine($"This sample is calling the local Api in ApiExamples. It must be running for this sample to work.");
 
                 var person = new Person { FirstName = "Bob", Surname = "Smith" };
-                var restClient = new Client(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
+                var client = new Client(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
 
                 Console.WriteLine($"Sending a POST with body of person {person.FirstName} {person.Surname} serialized to binary with Google Protobuffers");
-                person = await restClient.PostAsync<Person, Person>(person);
+                person = await client.PostAsync<Person, Person>(person);
 
                 Console.WriteLine($"Success! The response has a body of person {person.FirstName} {person.Surname} serialized from binary with Google Protobuffers");
             }
