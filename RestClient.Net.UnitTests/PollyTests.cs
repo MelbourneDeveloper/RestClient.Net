@@ -3,9 +3,7 @@ using Polly;
 using Polly.Extensions.Http;
 using RestClientApiSamples;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RestClientDotNet.UnitTests
@@ -14,7 +12,7 @@ namespace RestClientDotNet.UnitTests
     public class PollyTests
     {
         [TestMethod]
-        public async Task TestPollyIncorrectUri()
+        public async Task TestPollyManualIncorrectUri()
         {
             var tries = 0;
 

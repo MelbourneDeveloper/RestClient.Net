@@ -748,7 +748,7 @@ namespace RestClientDotNet.UnitTests
         {
             var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/jsonperson/save"));
             var requestPerson = new Person { FirstName = "Bob" };
-            Person responsePerson = await restClient.PutAsync<Person, Person>(requestPerson);
+            Person responsePerson = await restClient.PutAsync<Person, Person>(body: requestPerson);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 

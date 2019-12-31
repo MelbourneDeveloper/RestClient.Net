@@ -23,7 +23,7 @@ namespace RestClientDotNet
         {
             try
             {
-                return GetAsync<TResponseBody>(restClient, new Uri(resource, UriKind.Relative));
+                return GetAsync<TResponseBody>(restClient, resource != null ? new Uri(resource, UriKind.Relative) : null);
             }
             catch (UriFormatException ufe)
             {
@@ -36,13 +36,7 @@ namespace RestClientDotNet
             }
         }
 
-        public static Task<RestResponseBase<TResponseBody>> GetAsync<TResponseBody>(this IRestClient restClient, Uri resource)
-        {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return GetAsync<TResponseBody>(restClient, resource, default);
-        }
-
-        public static Task<RestResponseBase<TResponseBody>> GetAsync<TResponseBody>(this IRestClient restClient, Uri resource, IRestHeadersCollection requestHeaders = null, CancellationToken cancellationToken = default)
+        public static Task<RestResponseBase<TResponseBody>> GetAsync<TResponseBody>(this IRestClient restClient, Uri resource = null, IRestHeadersCollection requestHeaders = null, CancellationToken cancellationToken = default)
         {
             return SendAsync<TResponseBody, object>(restClient,
                 new RestRequest<object>(
@@ -58,15 +52,10 @@ namespace RestClientDotNet
         #region Delete
         public static Task<RestResponseBase> DeleteAsync(this IRestClient restClient, string resource)
         {
-            return DeleteAsync(restClient, new Uri(resource, UriKind.Relative));
+            return DeleteAsync(restClient, resource != null ? new Uri(resource, UriKind.Relative) : null);
         }
 
-        public static Task<RestResponseBase> DeleteAsync(this IRestClient restClient, Uri resource)
-        {
-            return DeleteAsync(restClient, resource, default);
-        }
-
-        public static async Task<RestResponseBase> DeleteAsync(this IRestClient restClient, Uri resource, IRestHeadersCollection requestHeaders = null, CancellationToken cancellationToken = default)
+        public static async Task<RestResponseBase> DeleteAsync(this IRestClient restClient, Uri resource = null, IRestHeadersCollection requestHeaders = null, CancellationToken cancellationToken = default)
         {
             var response = (RestResponseBase)await SendAsync<object, object>(restClient,
             new RestRequest<object>(
@@ -92,7 +81,7 @@ namespace RestClientDotNet
             return await PutAsync<TResponseBody, TRequestBody>(restClient, resource != null ? new Uri(resource, UriKind.Relative) : null, body);
         }
 
-        public static Task<RestResponseBase<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IRestClient restClient, Uri resource, TRequestBody body, IRestHeadersCollection requestHeaders = null, CancellationToken cancellationToken = default)
+        public static Task<RestResponseBase<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IRestClient restClient, Uri resource = null, TRequestBody body = default, IRestHeadersCollection requestHeaders = null, CancellationToken cancellationToken = default)
         {
             return SendAsync<TResponseBody, TRequestBody>(restClient,
                 new RestRequest<TRequestBody>(
