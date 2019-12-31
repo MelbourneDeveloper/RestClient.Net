@@ -906,9 +906,10 @@ namespace RestClientDotNet.UnitTests
         public async Task TestFactoryCreationWithUri()
         {
             IClientFactory clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter());
-            var baseUri = new Uri("http://www.test.com");
+            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
             var client = clientFactory.CreateClient("test", baseUri);
-            Assert.AreEqual(baseUri, client.BaseUri);
+            var response = await client.GetAsync<List<RestCountry>>();
+            Assert.IsTrue(response.Body.Count > 0);
         }
         #endregion
 

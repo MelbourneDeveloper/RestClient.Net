@@ -68,8 +68,8 @@ namespace RestClientDotNet.UnitTests
             serviceCollection.AddHttpClient("test", (c) => { c.BaseAddress = baseUri; });
             serviceCollection.AddDependencyInjectionMapping();
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            var mockASpController = serviceProvider.GetService<MockAspController>();
-            var reponse = await mockASpController.RestClient.GetAsync<List<RestCountry>>();
+            var mockAspController = serviceProvider.GetService<MockAspController>();
+            var reponse = await mockAspController.RestClient.GetAsync<List<RestCountry>>();
         }
 
     }
