@@ -132,7 +132,7 @@ namespace RestClientDotNet
         #region Patch
         public static Task<RestResponseBase<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IRestClient restClient, TRequestBody body)
         {
-            return PatchAsync<TResponseBody, TRequestBody>(restClient, default(string), body);
+            return PatchAsync<TResponseBody, TRequestBody>(restClient, default, body);
         }
 
         public static Task<RestResponseBase<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IRestClient restClient, string resource, TRequestBody body)
@@ -140,19 +140,13 @@ namespace RestClientDotNet
             return PatchAsync<TResponseBody, TRequestBody>(restClient, resource != null ? new Uri(resource, UriKind.Relative) : default, body);
         }
 
-        public static Task<RestResponseBase<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IRestClient restClient, Uri resource, TRequestBody body)
-        {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            return PatchAsync<TResponseBody, TRequestBody>(restClient, resource, body, default);
-        }
-
-        public static Task<RestResponseBase<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IRestClient restClient, Uri resource, TRequestBody body, CancellationToken cancellationToken)
+        public static Task<RestResponseBase<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IRestClient restClient, Uri resource, TRequestBody body, IRestHeadersCollection requestHeaders = null, CancellationToken cancellationToken = default)
         {
             return SendAsync<TResponseBody, TRequestBody>(restClient,
                 new RestRequest<TRequestBody>(
                     resource,
                     body,
-                    null,
+                    requestHeaders,
                     HttpRequestMethod.Patch,
                     restClient,
                     cancellationToken));

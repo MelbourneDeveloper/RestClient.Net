@@ -457,7 +457,11 @@ namespace RestClientDotNet.UnitTests
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), null, null, null, _testServerHttpClientFactory);
             restClient.SetJsonContentTypeHeader();
             var headers = GetHeaders(useDefault, restClient);
-            var responsePerson = await restClient.PatchAsync<Person, Person>(new Uri("headers", UriKind.Relative), new Person { FirstName = "Bob" });
+            var responsePerson = await restClient.PatchAsync<Person, Person>(
+                new Uri("headers", UriKind.Relative),
+                new Person { FirstName = "Bob" },
+                 requestHeaders: headers
+                );
             Assert.IsNotNull(responsePerson);
         }
 
@@ -702,7 +706,7 @@ namespace RestClientDotNet.UnitTests
 
         #region Post
         [TestMethod]
-        public async Task TestLocalPostBody(bool useDefault)
+        public async Task TestLocalPostBody()
         {
             var restClient = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson/save"));
             var requestPerson = new Person { FirstName = "Bob" };
@@ -809,7 +813,7 @@ namespace RestClientDotNet.UnitTests
         {
             var restClient = GetJsonClient();
             var requestPerson = new Person { FirstName = "Bob" };
-            Person responsePerson = await restClient.PatchAsync<Person, Person>(new Uri("jsonperson/save", UriKind.Relative), requestPerson, new CancellationToken());
+            Person responsePerson = await restClient.PatchAsync<Person, Person>(new Uri("jsonperson/save", UriKind.Relative), requestPerson, cancellationToken: new CancellationToken());
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 
@@ -818,7 +822,7 @@ namespace RestClientDotNet.UnitTests
         {
             var restClient = GetJsonClient();
             var requestPerson = new Person { FirstName = "Bob" };
-            Person responsePerson = await restClient.PatchAsync<Person, Person>(new Uri("jsonperson/save", UriKind.Relative), requestPerson, new CancellationToken());
+            Person responsePerson = await restClient.PatchAsync<Person, Person>(new Uri("jsonperson/save", UriKind.Relative), requestPerson, cancellationToken: new CancellationToken());
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
         #endregion
