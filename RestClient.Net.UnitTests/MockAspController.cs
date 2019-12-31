@@ -4,11 +4,11 @@ namespace RestClientDotNet.UnitTests
 {
     public class MockAspController
     {
-        public IClient RestClient { get; }
+        public IClient Client { get; }
 
         public MockAspController(IClientFactory restClientFactory)
         {
-            RestClient = restClientFactory.CreateClient("test");
+            Client = restClientFactory.CreateClient("test");
         }
     }
 }
