@@ -6,7 +6,7 @@ namespace RestClientDotNet.Abstractions
     public interface IClient
     {
         ISerializationAdapter SerializationAdapter { get; }
-        Task<RestResponseBase<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest);
+        Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(Request<TRequestBody> restRequest);
         IHeadersCollection DefaultRequestHeaders { get; }
         TimeSpan Timeout { get; set; }
     }

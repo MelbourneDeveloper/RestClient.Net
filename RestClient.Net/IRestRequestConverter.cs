@@ -5,6 +5,6 @@ namespace RestClientDotNet
 {
     public interface IRestRequestConverter
     {
-        HttpRequestMessage GetHttpRequestMessage<TRequestBody>(RestRequest<TRequestBody> restRequest, byte[] requestBodyData);
+        HttpRequestMessage GetHttpRequestMessage<TRequestBody>(Request<TRequestBody> restRequest, byte[] requestBodyData);
     }
 }

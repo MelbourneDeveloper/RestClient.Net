@@ -536,7 +536,7 @@ namespace RestClientDotNet.UnitTests
             restRequestHeaders.Add("Test", "Test");
             Person responsePerson = await restClient.SendAsync<Person, object>
                 (
-                new RestRequest<object>(new Uri("headers", UriKind.Relative), null, restRequestHeaders, HttpRequestMethod.Get, restClient, default)
+                new Request<object>(new Uri("headers", UriKind.Relative), null, restRequestHeaders, HttpRequestMethod.Get, restClient, default)
                 ); ;
             Assert.IsNotNull(responsePerson);
         }
@@ -989,7 +989,7 @@ namespace RestClientDotNet.UnitTests
                 null);
             var clients = new List<IClient>();
 
-            var tasks = new List<Task<RestResponseBase<Person>>>();
+            var tasks = new List<Task<Response<Person>>>();
             const int maxCalls = 100;
 
             Parallel.For(0, maxCalls, (i) =>

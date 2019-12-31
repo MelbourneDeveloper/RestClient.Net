@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace RestClientDotNet.Abstractions
 {
-    public class RestRequest<TRequestBody>
+    public class Request<TRequestBody>
     {
         #region Public Properties
         public IHeadersCollection Headers { get; }
@@ -13,7 +13,7 @@ namespace RestClientDotNet.Abstractions
         public CancellationToken CancellationToken { get; set; }
         #endregion
 
-        public RestRequest(Uri resource,
+        public Request(Uri resource,
             TRequestBody body,
             IHeadersCollection headers,
             HttpRequestMethod httpRequestMethod,

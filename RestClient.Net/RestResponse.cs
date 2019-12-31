@@ -4,7 +4,7 @@ using System.Net.Http;
 
 namespace RestClientDotNet
 {
-    public class RestResponse<TResponseBody> : RestResponseBase<TResponseBody>
+    public class RestResponse<TResponseBody> : Response<TResponseBody>
     {
         #region Public Properties
         public HttpResponseMessage HttpResponseMessage { get; }

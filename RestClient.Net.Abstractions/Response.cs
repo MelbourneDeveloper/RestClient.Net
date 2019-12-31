@@ -2,9 +2,9 @@
 
 namespace RestClientDotNet.Abstractions
 {
-    public abstract class RestResponseBase<TResponseBody> : RestResponseBase
+    public abstract class Response<TResponseBody> : Response
     {
-        protected RestResponseBase(
+        protected Response(
         IHeadersCollection restHeadersCollection,
         int statusCode,
         HttpRequestMethod httpRequestMethod,
@@ -22,7 +22,7 @@ namespace RestClientDotNet.Abstractions
         }
 
 #pragma warning disable CA2225 // Operator overloads have named alternates
-        public static implicit operator TResponseBody(RestResponseBase<TResponseBody> readResult)
+        public static implicit operator TResponseBody(Response<TResponseBody> readResult)
 #pragma warning restore CA2225 // Operator overloads have named alternates
         {
 #pragma warning disable CA1062 // Validate arguments of public methods
@@ -33,7 +33,7 @@ namespace RestClientDotNet.Abstractions
         public TResponseBody Body { get; }
     }
 
-    public abstract class RestResponseBase
+    public abstract class Response
     {
         #region Fields
         private readonly byte[] _responseData;
@@ -48,7 +48,7 @@ namespace RestClientDotNet.Abstractions
         #endregion
 
         #region Constructor
-        protected RestResponseBase
+        protected Response
         (
         IHeadersCollection restHeadersCollection,
         int statusCode,

@@ -14,7 +14,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        public virtual HttpRequestMessage GetHttpRequestMessage<TRequestBody>(RestRequest<TRequestBody> restRequest, byte[] requestBodyData)
+        public virtual HttpRequestMessage GetHttpRequestMessage<TRequestBody>(Request<TRequestBody> restRequest, byte[] requestBodyData)
         {
             if (restRequest == null) throw new ArgumentNullException(nameof(restRequest));
 
