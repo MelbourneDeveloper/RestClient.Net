@@ -86,7 +86,7 @@ namespace RestClientDotNet
             SerializationAdapter = serializationAdapter ?? throw new ArgumentNullException(nameof(serializationAdapter));
             Logger = logger;
             BaseUri = baseUri;
-            Name = name ?? nameof(Client);
+            Name = name ?? "RestClient";
             DefaultRequestHeaders = defaultRequestHeaders ?? new RequestHeadersCollection();
             RestRequestConverter = restRequestConverter ?? new DefaultRequestConverter();
             HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();

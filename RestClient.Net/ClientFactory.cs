@@ -39,16 +39,6 @@ namespace RestClientDotNet
                 logger: Logger,
                 httpClientFactory: HttpClientFactory);
         }
-
-        public IClient CreateRestClient(string name, Uri baseUri)
-        {
-            return new Client(
-                SerializationAdapter,
-                name,
-                baseUri,
-                logger: Logger,
-                httpClientFactory: HttpClientFactory);
-        }
         #endregion
     }
 }
