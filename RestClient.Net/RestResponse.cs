@@ -16,14 +16,14 @@ namespace RestClientDotNet
         (
             IRestHeadersCollection restHeadersCollection,
             int statusCode,
-            HttpVerb httpVerb,
+            HttpRequestMethod HttpRequestMethod,
             byte[] responseContentData,
             TResponseBody body,
             HttpResponseMessage httpResponseMessage
             ) : base(
                 restHeadersCollection,
                 statusCode,
-                httpVerb,
+                HttpRequestMethod,
                 responseContentData,
                 body,
                 httpResponseMessage != null ? httpResponseMessage.RequestMessage.RequestUri : throw new ArgumentNullException(nameof(httpResponseMessage)))

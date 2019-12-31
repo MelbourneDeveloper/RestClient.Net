@@ -4,7 +4,7 @@ namespace RestClientDotNet.Abstractions
 {
     public class RestTrace
     {
-        public HttpVerb HttpVerb { get; }
+        public HttpRequestMethod HttpRequestMethod { get; }
         public Uri RequestUri { get; }
         public byte[] BodyData { get; }
         public TraceType TraceType { get; }
@@ -12,14 +12,14 @@ namespace RestClientDotNet.Abstractions
         public IRestHeadersCollection RestHeadersCollection { get; }
 
         public RestTrace(
-            HttpVerb httpVerb,
+            HttpRequestMethod httpRequestMethod,
             Uri requestUri,
             byte[] bodyData,
             TraceType traceType,
             int? httpStatusCode,
             IRestHeadersCollection restHeadersCollection)
         {
-            HttpVerb = httpVerb;
+            HttpRequestMethod = httpRequestMethod;
             RequestUri = requestUri;
             BodyData = bodyData;
             TraceType = traceType;

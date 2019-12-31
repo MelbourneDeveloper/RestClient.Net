@@ -8,7 +8,7 @@ namespace RestClientDotNet.Abstractions
         #region Public Properties
         public IRestHeadersCollection Headers { get; }
         public Uri Resource { get; set; }
-        public HttpVerb HttpVerb { get; set; }
+        public HttpRequestMethod HttpRequestMethod { get; set; }
         public TRequestBody Body { get; set; }
         public CancellationToken CancellationToken { get; set; }
         #endregion
@@ -16,14 +16,14 @@ namespace RestClientDotNet.Abstractions
         public RestRequest(Uri resource,
             TRequestBody body,
             IRestHeadersCollection headers,
-            HttpVerb httpVerb,
+            HttpRequestMethod httpRequestMethod,
             IRestClient client,
             CancellationToken cancellationToken)
         {
             Body = body;
             Headers = headers;
             Resource = resource;
-            HttpVerb = httpVerb;
+            HttpRequestMethod = httpRequestMethod;
             CancellationToken = cancellationToken;
 
             if (Headers == null) Headers = new RestRequestHeadersCollection();

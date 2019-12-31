@@ -10,7 +10,7 @@ namespace RestClientDotNet
     public class DefaultRestRequestConverter : IRestRequestConverter
     {
         #region Public Methods
-        public static readonly List<HttpVerb> UpdateVerbs = new List<HttpVerb> { HttpVerb.Put, HttpVerb.Post, HttpVerb.Patch };
+        public static readonly List<HttpRequestMethod> UpdateHttpRequestMethods = new List<HttpRequestMethod> { HttpRequestMethod.Put, HttpRequestMethod.Post, HttpRequestMethod.Patch };
         #endregion
 
         #region Implementation
@@ -19,21 +19,21 @@ namespace RestClientDotNet
             if (restRequest == null) throw new ArgumentNullException(nameof(restRequest));
 
             HttpMethod httpMethod;
-            switch (restRequest.HttpVerb)
+            switch (restRequest.HttpRequestMethod)
             {
-                case HttpVerb.Get:
+                case HttpRequestMethod.Get:
                     httpMethod = HttpMethod.Get;
                     break;
-                case HttpVerb.Post:
+                case HttpRequestMethod.Post:
                     httpMethod = HttpMethod.Post;
                     break;
-                case HttpVerb.Put:
+                case HttpRequestMethod.Put:
                     httpMethod = HttpMethod.Put;
                     break;
-                case HttpVerb.Delete:
+                case HttpRequestMethod.Delete:
                     httpMethod = HttpMethod.Delete;
                     break;
-                case HttpVerb.Patch:
+                case HttpRequestMethod.Patch:
                     httpMethod = new HttpMethod("PATCH");
                     break;
                 default:
@@ -47,7 +47,7 @@ namespace RestClientDotNet
             };
 
             ByteArrayContent httpContent = null;
-            if (UpdateVerbs.Contains(restRequest.HttpVerb))
+            if (UpdateHttpRequestMethods.Contains(restRequest.HttpRequestMethod))
             {
                 httpContent = new ByteArrayContent(requestBodyData);
                 httpRequestMessage.Content = httpContent;

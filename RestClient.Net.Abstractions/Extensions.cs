@@ -49,7 +49,7 @@ namespace RestClientDotNet
                     resource,
                     default,
                     null,
-                    HttpVerb.Get,
+                    HttpRequestMethod.Get,
                     restClient,
                     cancellationToken));
         }
@@ -73,7 +73,7 @@ namespace RestClientDotNet
                   resource,
                 default,
                 null,
-                HttpVerb.Delete,
+                HttpRequestMethod.Delete,
                 restClient,
                 cancellationToken));
 
@@ -99,7 +99,7 @@ namespace RestClientDotNet
                     resource,
                     body,
                     null,
-                    HttpVerb.Put,
+                    HttpRequestMethod.Put,
                     restClient,
                     cancellationToken));
         }
@@ -128,7 +128,7 @@ namespace RestClientDotNet
                     resource,
                     body,
                     null,
-                    HttpVerb.Post,
+                    HttpRequestMethod.Post,
                     restClient,
                     cancellationToken));
         }
@@ -153,7 +153,7 @@ namespace RestClientDotNet
                     resource,
                     body,
                     null,
-                    HttpVerb.Patch,
+                    HttpRequestMethod.Patch,
                     restClient,
                     cancellationToken));
         }

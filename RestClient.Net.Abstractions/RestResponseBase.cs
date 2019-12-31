@@ -7,11 +7,16 @@ namespace RestClientDotNet.Abstractions
         protected RestResponseBase(
         IRestHeadersCollection restHeadersCollection,
         int statusCode,
-        HttpVerb httpVerb,
+        HttpRequestMethod httpRequestMethod,
         byte[] responseData,
         TResponseBody body,
         Uri requestUri
-        ) : base(restHeadersCollection, statusCode, httpVerb, responseData, requestUri)
+        ) : base(
+            restHeadersCollection,
+            statusCode,
+            httpRequestMethod,
+            responseData,
+            requestUri)
         {
             Body = body;
         }
@@ -37,7 +42,7 @@ namespace RestClientDotNet.Abstractions
         #region Public Properties
         public int StatusCode { get; }
         public IRestHeadersCollection Headers { get; }
-        public HttpVerb HttpVerb { get; }
+        public HttpRequestMethod HttpRequestMethod { get; }
         public abstract bool IsSuccess { get; }
         public Uri RequestUri { get; }
         #endregion
@@ -47,14 +52,14 @@ namespace RestClientDotNet.Abstractions
         (
         IRestHeadersCollection restHeadersCollection,
         int statusCode,
-        HttpVerb httpVerb,
+        HttpRequestMethod httpRequestMethod,
         byte[] responseData,
         Uri requestUri
         )
         {
             StatusCode = statusCode;
             Headers = restHeadersCollection;
-            HttpVerb = httpVerb;
+            HttpRequestMethod = httpRequestMethod;
             RequestUri = requestUri;
             _responseData = responseData;
         }

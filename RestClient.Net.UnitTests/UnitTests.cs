@@ -50,11 +50,6 @@ namespace RestClientDotNet.UnitTests
         [TestInitialize]
         public void Initialize()
         {
-#if (NETCOREAPP3_1)
-            var hostBuilder = new WebHostBuilder();
-            hostBuilder.UseStartup<Startup>();
-            _testServer = new TestServer(hostBuilder);
-#endif
             var testServerHttpClientFactory = GetTestClientFactory();
             _testServerHttpClientFactory = testServerHttpClientFactory;
             _logger = new Mock<ILogger>();
@@ -64,6 +59,15 @@ namespace RestClientDotNet.UnitTests
         #region Public Static Methods
         public static TestClientFactory GetTestClientFactory()
         {
+#if (NETCOREAPP3_1)
+            if (_testServer == null)
+            {
+                var hostBuilder = new WebHostBuilder();
+                hostBuilder.UseStartup<Startup>();
+                _testServer = new TestServer(hostBuilder);
+            }
+#endif
+
             var testClient = MintClient();
             var testServerHttpClientFactory = new TestClientFactory(testClient);
             return testServerHttpClientFactory;
@@ -82,8 +86,8 @@ namespace RestClientDotNet.UnitTests
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
 
-            VerifyLog(baseUri, HttpVerb.Get, TraceType.Request);
-            VerifyLog(baseUri, HttpVerb.Get, TraceType.Response, (int)HttpStatusCode.OK);
+            VerifyLog(baseUri, HttpRequestMethod.Get, TraceType.Request);
+            VerifyLog(baseUri, HttpRequestMethod.Get, TraceType.Response, (int)HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -95,8 +99,8 @@ namespace RestClientDotNet.UnitTests
 
             var requestUri = new Uri("https://jsonplaceholder.typicode.com/posts/1");
 
-            VerifyLog(requestUri, HttpVerb.Delete, TraceType.Request, null, null);
-            VerifyLog(requestUri, HttpVerb.Delete, TraceType.Response, (int)HttpStatusCode.OK, null);
+            VerifyLog(requestUri, HttpRequestMethod.Delete, TraceType.Request, null, null);
+            VerifyLog(requestUri, HttpRequestMethod.Delete, TraceType.Response, (int)HttpStatusCode.OK, null);
         }
 
         [TestMethod]
@@ -187,10 +191,10 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        [DataRow(HttpVerb.Patch)]
-        [DataRow(HttpVerb.Post)]
-        [DataRow(HttpVerb.Put)]
-        public async Task TestUpdate(HttpVerb verb)
+        [DataRow(HttpRequestMethod.Patch)]
+        [DataRow(HttpRequestMethod.Post)]
+        [DataRow(HttpRequestMethod.Put)]
+        public async Task TestUpdate(HttpRequestMethod httpRequestMethod)
         {
             var baseUri = new Uri("https://jsonplaceholder.typicode.com");
 
@@ -201,16 +205,16 @@ namespace RestClientDotNet.UnitTests
 
             var expectedStatusCode = HttpStatusCode.OK;
 
-            switch (verb)
+            switch (httpRequestMethod)
             {
-                case HttpVerb.Patch:
+                case HttpRequestMethod.Patch:
                     responseUserPost = await restClient.PatchAsync<UserPost, UserPost>(new Uri("/posts/1", UriKind.Relative), requestUserPost);
                     break;
-                case HttpVerb.Post:
+                case HttpRequestMethod.Post:
                     responseUserPost = await restClient.PostAsync<UserPost, UserPost>("/posts", requestUserPost);
                     expectedStatusCode = HttpStatusCode.Created;
                     break;
-                case HttpVerb.Put:
+                case HttpRequestMethod.Put:
                     responseUserPost = await restClient.PutAsync<UserPost, UserPost>(new Uri("/posts/1", UriKind.Relative), requestUserPost);
                     break;
             }
@@ -218,8 +222,8 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(requestUserPost.userId, responseUserPost.userId);
             Assert.AreEqual(requestUserPost.title, responseUserPost.title);
 
-            VerifyLog(It.IsAny<Uri>(), verb, TraceType.Request, null, null);
-            VerifyLog(It.IsAny<Uri>(), verb, TraceType.Response, (int)expectedStatusCode, null);
+            VerifyLog(It.IsAny<Uri>(), httpRequestMethod, TraceType.Request, null, null);
+            VerifyLog(It.IsAny<Uri>(), httpRequestMethod, TraceType.Response, (int)expectedStatusCode, null);
         }
 
         [TestMethod]
@@ -321,8 +325,8 @@ namespace RestClientDotNet.UnitTests
             restClient.DefaultRequestHeaders.Add("Test", "Test");
             var response = await restClient.GetAsync<Person>("headers");
 
-            VerifyLog(It.IsAny<Uri>(), HttpVerb.Get, TraceType.Request, null, null, CheckRequestHeaders);
-            VerifyLog(It.IsAny<Uri>(), HttpVerb.Get, TraceType.Response, (int)HttpStatusCode.OK, null, CheckResponseHeaders);
+            VerifyLog(It.IsAny<Uri>(), HttpRequestMethod.Get, TraceType.Request, null, null, CheckRequestHeaders);
+            VerifyLog(It.IsAny<Uri>(), HttpRequestMethod.Get, TraceType.Response, (int)HttpStatusCode.OK, null, CheckResponseHeaders);
         }
 
         [TestMethod]
@@ -502,7 +506,7 @@ namespace RestClientDotNet.UnitTests
             restRequestHeaders.Add("Test", "Test");
             Person responsePerson = await restClient.SendAsync<Person, object>
                 (
-                new RestRequest<object>(new Uri("headers", UriKind.Relative), null, restRequestHeaders, HttpVerb.Get, restClient, default)
+                new RestRequest<object>(new Uri("headers", UriKind.Relative), null, restRequestHeaders, HttpRequestMethod.Get, restClient, default)
                 ); ;
             Assert.IsNotNull(responsePerson);
         }
@@ -521,7 +525,7 @@ namespace RestClientDotNet.UnitTests
 
             //Check that the response values are getting set correctly
             Assert.AreEqual(new Uri($"{LocalBaseUriString}/error"), response.RequestUri);
-            Assert.AreEqual(HttpVerb.Get, response.HttpVerb);
+            Assert.AreEqual(HttpRequestMethod.Get, response.HttpRequestMethod);
         }
 
         [TestMethod]
@@ -803,7 +807,7 @@ namespace RestClientDotNet.UnitTests
         #region Helpers
         private void VerifyLog(
             Uri uri,
-            HttpVerb httpVerb,
+            HttpRequestMethod httpRequestMethod,
             TraceType traceType,
             int? httpStatusCode = null,
             Exception exception = null,
@@ -818,8 +822,8 @@ namespace RestClientDotNet.UnitTests
                     DebugTraceExpression(rt) &&
                     rt.TraceType == traceType &&
                     rt.RequestUri == uri &&
-                    rt.HttpVerb == httpVerb &&
-                    (rt.TraceType == TraceType.Response || new List<HttpVerb> { HttpVerb.Patch, HttpVerb.Post, HttpVerb.Patch }.Contains(rt.HttpVerb))
+                    rt.HttpRequestMethod == httpRequestMethod &&
+                    (rt.TraceType == TraceType.Response || new List<HttpRequestMethod> { HttpRequestMethod.Patch, HttpRequestMethod.Post, HttpRequestMethod.Patch }.Contains(rt.HttpRequestMethod))
                     ? rt.BodyData != null && rt.BodyData.Length > 0 : true &&
                     rt.HttpStatusCode == httpStatusCode &&
                     checkHeadersFunc != null ? checkHeadersFunc(rt.RestHeadersCollection) : true

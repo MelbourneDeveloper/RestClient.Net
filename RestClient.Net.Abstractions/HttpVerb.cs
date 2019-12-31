@@ -1,6 +1,6 @@
 ﻿namespace RestClientDotNet.Abstractions
 {
-    public enum HttpVerb
+    public enum HttpRequestMethod
     {
         Post,
         Get,

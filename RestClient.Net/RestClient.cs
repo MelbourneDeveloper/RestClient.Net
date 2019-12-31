@@ -133,7 +133,7 @@ namespace RestClientDotNet
 
             byte[] requestBodyData = null;
 
-            if (DefaultRestRequestConverter.UpdateVerbs.Contains(restRequest.HttpVerb))
+            if (DefaultRestRequestConverter.UpdateHttpRequestMethods.Contains(restRequest.HttpRequestMethod))
             {
                 requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
             }
@@ -146,7 +146,7 @@ namespace RestClientDotNet
 
             Log(LogLevel.Trace, new RestTrace
                 (
-                 restRequest.HttpVerb,
+                 restRequest.HttpRequestMethod,
                  httpResponseMessage.RequestMessage.RequestUri,
                  requestBodyData,
                  TraceType.Request,
@@ -194,7 +194,7 @@ namespace RestClientDotNet
             (
                 restHeadersCollection,
                 (int)httpResponseMessage.StatusCode,
-                restRequest.HttpVerb,
+                restRequest.HttpRequestMethod,
                 responseData,
                 responseBody,
                 httpResponseMessage
@@ -202,7 +202,7 @@ namespace RestClientDotNet
 
             Log(LogLevel.Trace, new RestTrace
             (
-             restRequest.HttpVerb,
+             restRequest.HttpRequestMethod,
              httpResponseMessage.RequestMessage.RequestUri,
              responseData,
              TraceType.Response,
