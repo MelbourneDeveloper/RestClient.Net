@@ -3,6 +3,9 @@ using System.Net.Http;
 
 namespace RestClientDotNet
 {
+    /// <summary>
+    /// Factory for using a single HttpClient. This can be used in the simplest scenarios. 
+    /// </summary>
     public class SingletonHttpClientFactory : IHttpClientFactory, IDisposable
     {
         #region Fields

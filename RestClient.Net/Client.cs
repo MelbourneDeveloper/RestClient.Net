@@ -29,7 +29,7 @@ namespace RestClientDotNet
         public bool ThrowExceptionOnFailure { get; set; } = true;
         public Uri BaseUri { get; }
         public string Name { get; }
-        public IRestRequestConverter RestRequestConverter { get; }
+        public IRequestConverter RestRequestConverter { get; }
         public Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> SendHttpRequestFunc { get; }
         #endregion
 
@@ -81,7 +81,7 @@ namespace RestClientDotNet
             ILogger logger = null,
             IHttpClientFactory httpClientFactory = null,
             Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,
-            IRestRequestConverter restRequestConverter = null)
+            IRequestConverter restRequestConverter = null)
         {
             SerializationAdapter = serializationAdapter ?? throw new ArgumentNullException(nameof(serializationAdapter));
             Logger = logger;

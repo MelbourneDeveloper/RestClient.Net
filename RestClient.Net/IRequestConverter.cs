@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace RestClientDotNet
 {
-    public interface IRestRequestConverter
+    public interface IRequestConverter
     {
         HttpRequestMessage GetHttpRequestMessage<TRequestBody>(Request<TRequestBody> restRequest, byte[] requestBodyData);
     }
