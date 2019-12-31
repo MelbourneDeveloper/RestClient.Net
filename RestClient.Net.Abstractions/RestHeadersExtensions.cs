@@ -5,12 +5,12 @@ namespace RestClientDotNet.Abstractions
 {
     public static class RestHeadersExtensions
     {
-        public static void Add(this IRestHeadersCollection restHeadersCollection, string name, IEnumerable<string> value)
+        public static void Add(this IHeadersCollection restHeadersCollection, string name, IEnumerable<string> value)
         {
             if (restHeadersCollection == null) throw new ArgumentNullException(nameof(restHeadersCollection));
             restHeadersCollection.Add(new KeyValuePair<string, IEnumerable<string>>(name, value));
         }
-        public static void Add(this IRestHeadersCollection restHeadersCollection, string name, string value)
+        public static void Add(this IHeadersCollection restHeadersCollection, string name, string value)
         {
             if (restHeadersCollection == null) throw new ArgumentNullException(nameof(restHeadersCollection));
             if (restHeadersCollection.Contains(name))

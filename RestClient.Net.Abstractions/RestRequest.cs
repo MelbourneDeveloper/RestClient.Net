@@ -6,7 +6,7 @@ namespace RestClientDotNet.Abstractions
     public class RestRequest<TRequestBody>
     {
         #region Public Properties
-        public IRestHeadersCollection Headers { get; }
+        public IHeadersCollection Headers { get; }
         public Uri Resource { get; set; }
         public HttpRequestMethod HttpRequestMethod { get; set; }
         public TRequestBody Body { get; set; }
@@ -15,7 +15,7 @@ namespace RestClientDotNet.Abstractions
 
         public RestRequest(Uri resource,
             TRequestBody body,
-            IRestHeadersCollection headers,
+            IHeadersCollection headers,
             HttpRequestMethod httpRequestMethod,
             IClient client,
             CancellationToken cancellationToken)

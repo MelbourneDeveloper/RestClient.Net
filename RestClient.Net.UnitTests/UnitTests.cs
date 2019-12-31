@@ -906,9 +906,9 @@ namespace RestClientDotNet.UnitTests
         #endregion
 
         #region Helpers
-        private static IRestHeadersCollection GetHeaders(bool useDefault, Client restClient)
+        private static IHeadersCollection GetHeaders(bool useDefault, Client restClient)
         {
-            IRestHeadersCollection headers = null;
+            IHeadersCollection headers = null;
             if (useDefault)
             {
                 restClient.DefaultRequestHeaders.Add("Test", "Test");
@@ -927,7 +927,7 @@ namespace RestClientDotNet.UnitTests
             RestEvent traceType,
             int? httpStatusCode = null,
             Exception exception = null,
-            Func<IRestHeadersCollection, bool> checkHeadersFunc = null)
+            Func<IHeadersCollection, bool> checkHeadersFunc = null)
         {
             _logger.Verify(t => t.Log(
                 exception == null ? LogLevel.Trace : LogLevel.Error,
@@ -1037,12 +1037,12 @@ namespace RestClientDotNet.UnitTests
             return restClient;
         }
 
-        private static bool CheckRequestHeaders(IRestHeadersCollection restRequestHeadersCollection)
+        private static bool CheckRequestHeaders(IHeadersCollection restRequestHeadersCollection)
         {
             return restRequestHeadersCollection.Contains("Test") && restRequestHeadersCollection["Test"].First() == "Test";
         }
 
-        private static bool CheckResponseHeaders(IRestHeadersCollection restResponseHeadersCollection)
+        private static bool CheckResponseHeaders(IHeadersCollection restResponseHeadersCollection)
         {
             return restResponseHeadersCollection.Contains("Test1") && restResponseHeadersCollection["Test1"].First() == "a";
         }

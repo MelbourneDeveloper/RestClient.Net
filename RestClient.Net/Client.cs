@@ -22,7 +22,7 @@ namespace RestClientDotNet
         #region Public Properties
         public IHttpClientFactory HttpClientFactory { get; }
         public IZip Zip { get; set; }
-        public IRestHeadersCollection DefaultRequestHeaders { get; }
+        public IHeadersCollection DefaultRequestHeaders { get; }
         public TimeSpan Timeout { get; set; }
         public ISerializationAdapter SerializationAdapter { get; }
         public ILogger Logger { get; }
@@ -77,7 +77,7 @@ namespace RestClientDotNet
             ISerializationAdapter serializationAdapter,
             string name = null,
             Uri baseUri = null,
-            IRestHeadersCollection defaultRequestHeaders = null,
+            IHeadersCollection defaultRequestHeaders = null,
             ILogger logger = null,
             IHttpClientFactory httpClientFactory = null,
             Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,

@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 
 namespace RestClientDotNet
 {
-    public class RestResponseHeadersCollection : IRestHeadersCollection
+    public class RestResponseHeadersCollection : IHeadersCollection
     {
         #region Public Properties
         public IEnumerable<string> Names => HttpResponseHeaders.ToList().Select(l => l.Key);

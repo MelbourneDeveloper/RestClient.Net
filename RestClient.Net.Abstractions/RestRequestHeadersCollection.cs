@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace RestClientDotNet.Abstractions
 {
-    public sealed class RestRequestHeadersCollection : IRestHeadersCollection
+    public sealed class RestRequestHeadersCollection : IHeadersCollection
     {
         #region Fields
         private readonly Dictionary<string, IEnumerable<string>> _dictionary = new Dictionary<string, IEnumerable<string>>();
         #endregion
 
         #region Public Properties
-        IEnumerable<string> IRestHeadersCollection.this[string name] => _dictionary[name];
+        IEnumerable<string> IHeadersCollection.this[string name] => _dictionary[name];
         public IEnumerable<string> Names => _dictionary.Keys;
         #endregion
 

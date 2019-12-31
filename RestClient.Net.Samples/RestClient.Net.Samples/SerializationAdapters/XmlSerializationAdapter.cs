@@ -10,7 +10,7 @@ namespace RestClientDotNet
     {
         #region Public Methods
 
-        public TResponseBody Deserialize<TResponseBody>(byte[] data, IRestHeadersCollection responseHeaders)
+        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders)
         {
             var serializer = new XmlSerializer(typeof(TResponseBody));
             using (var stream = new MemoryStream())
@@ -21,7 +21,7 @@ namespace RestClientDotNet
             }
         }
 
-        public byte[] Serialize<TRequestBody>(TRequestBody value, IRestHeadersCollection requestHeaders)
+        public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)
         {
 
             var serializer = new XmlSerializer(typeof(TRequestBody));

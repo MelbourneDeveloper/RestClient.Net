@@ -5,7 +5,7 @@ namespace RestClientDotNet.Abstractions
     public abstract class RestResponseBase<TResponseBody> : RestResponseBase
     {
         protected RestResponseBase(
-        IRestHeadersCollection restHeadersCollection,
+        IHeadersCollection restHeadersCollection,
         int statusCode,
         HttpRequestMethod httpRequestMethod,
         byte[] responseData,
@@ -41,7 +41,7 @@ namespace RestClientDotNet.Abstractions
 
         #region Public Properties
         public int StatusCode { get; }
-        public IRestHeadersCollection Headers { get; }
+        public IHeadersCollection Headers { get; }
         public HttpRequestMethod HttpRequestMethod { get; }
         public abstract bool IsSuccess { get; }
         public Uri RequestUri { get; }
@@ -50,7 +50,7 @@ namespace RestClientDotNet.Abstractions
         #region Constructor
         protected RestResponseBase
         (
-        IRestHeadersCollection restHeadersCollection,
+        IHeadersCollection restHeadersCollection,
         int statusCode,
         HttpRequestMethod httpRequestMethod,
         byte[] responseData,
