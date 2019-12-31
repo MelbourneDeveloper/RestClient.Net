@@ -799,6 +799,7 @@ namespace RestClientDotNet.UnitTests
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
         #endregion
+
         #endregion
 
         #region Misc
@@ -814,11 +815,25 @@ namespace RestClientDotNet.UnitTests
         {
             await DoTestConcurrentCalls(false);
         }
+
+        [TestMethod]
+        public async Task TestErrorLogging()
+        {
+            try
+            {
+                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), _logger.Object, null);
+                var requestPerson = new Person();
+                Person responsePerson = await restClient.PostAsync<Person, Person>(requestPerson);
+            }
+            catch (SendException<Person>)
+            {
+                _logger.Verify(l => l.Log<RestTrace>(LogLevel.Error, It.IsAny<EventId>(), null,
+                    It.Is<SendException<Person>>(e => e.InnerException != null), null));
+                return;
+            }
+            Assert.Fail();
+        }
         #endregion
-
-        //TODO: Test exceptions
-
-        //TODO: Test all constructor overloads
 
         #endregion
 

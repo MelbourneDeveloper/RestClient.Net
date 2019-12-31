@@ -147,10 +147,21 @@ namespace RestClientDotNet
                     restRequest.CancellationToken
                     );
             }
+            catch (TaskCanceledException tce)
+            {
+                Log(LogLevel.Error, null, tce);
+                throw;
+            }
+            catch (OperationCanceledException oce)
+            {
+                Log(LogLevel.Error, null, oce);
+                throw;
+            }
             catch (Exception ex)
             {
-                Log(LogLevel.Error, null, new SendException<TRequestBody>("HttpClient Send Exception", restRequest, ex));
-                throw;
+                var exception = new SendException<TRequestBody>("HttpClient Send Exception", restRequest, ex);
+                Log(LogLevel.Error, null, exception);
+                throw exception;
             }
 
             Log(LogLevel.Trace, new RestTrace
