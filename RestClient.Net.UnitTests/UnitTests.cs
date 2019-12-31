@@ -590,7 +590,8 @@ namespace RestClientDotNet.UnitTests
                 new Uri("secure/authenticate", UriKind.Relative)
                 );
 
-            restClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + response.Body.BearerToken);
+            restClient.SetBearerTokenuthenticationHeader(response.Body.BearerToken);
+
             Person person = await restClient.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative));
             Assert.AreEqual("Bear", person.FirstName);
         }
