@@ -82,9 +82,6 @@ namespace RestClientDotNet
             null,
             logger,
             httpClientFactory,
-            null,
-            default,
-            null,
             null)
         {
         }
@@ -100,10 +97,7 @@ namespace RestClientDotNet
             baseUri,
             logger,
             httpClientFactory,
-            name,
-            default,
-            null,
-            null)
+            name)
         {
         }
 

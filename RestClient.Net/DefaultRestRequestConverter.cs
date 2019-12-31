@@ -43,7 +43,7 @@ namespace RestClientDotNet
             var httpRequestMessage = new HttpRequestMessage
             {
                 Method = httpMethod,
-                RequestUri = restRequest.Resource,
+                RequestUri = restRequest.Resource
             };
 
             ByteArrayContent httpContent = null;
