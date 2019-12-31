@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RestClientDotNet.Abstractions
 {
-    public static class RestHeadersExtensions
+    public static class HeadersExtensions
     {
         public static void Add(this IHeadersCollection restHeadersCollection, string name, IEnumerable<string> value)
         {

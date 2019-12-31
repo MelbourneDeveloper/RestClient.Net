@@ -2,7 +2,7 @@
 
 namespace RestClientDotNet.Abstractions
 {
-    public static class RestClientFactoryExtensions
+    public static class ClientFactoryExtensions
     {
         public static IClient CreateRestClient(this IClientFactory restClientFactory)
         {
