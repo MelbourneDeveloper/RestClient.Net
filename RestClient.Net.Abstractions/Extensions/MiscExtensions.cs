@@ -8,7 +8,7 @@ namespace RestClientDotNet.Abstractions.Extensions
         /// <summary>
         /// Sets the Authorization header for Basic Authentication with the specified credentials
         /// </summary>
-        public static void UseBasicAuthentication(this IRestClient restClient, string userName, string password)
+        public static void SetBasicAuthenticationHeader(this IRestClient restClient, string userName, string password)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
             var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(userName + ":" + password));
@@ -22,7 +22,7 @@ namespace RestClientDotNet.Abstractions.Extensions
             return restClient.SerializationAdapter.Deserialize<TResponseBody>(response.GetResponseData(), response.Headers);
         }
 
-        public static void UseJsonContentType(this IRestClient restClient)
+        public static void SetJsonContentTypeHeader(this IRestClient restClient)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
             if (!restClient.DefaultRequestHeaders.Contains("Content-Type"))

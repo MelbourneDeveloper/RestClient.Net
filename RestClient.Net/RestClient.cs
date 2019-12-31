@@ -138,18 +138,27 @@ namespace RestClientDotNet
                 requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
             }
 
-            var httpResponseMessage = await SendHttpRequestFunc.Invoke(
-                httpClient,
-                () => RestRequestConverter.GetHttpRequestMessage(restRequest, requestBodyData),
-                restRequest.CancellationToken
-                );
+            HttpResponseMessage httpResponseMessage = null;
+            try
+            {
+                httpResponseMessage = await SendHttpRequestFunc.Invoke(
+                    httpClient,
+                    () => RestRequestConverter.GetHttpRequestMessage(restRequest, requestBodyData),
+                    restRequest.CancellationToken
+                    );
+            }
+            catch (Exception ex)
+            {
+                Log(LogLevel.Error, null, new SendException<TRequestBody>("HttpClient Send Exception", restRequest, ex));
+                throw;
+            }
 
             Log(LogLevel.Trace, new RestTrace
                 (
                  restRequest.HttpRequestMethod,
                  httpResponseMessage.RequestMessage.RequestUri,
                  requestBodyData,
-                 TraceType.Request,
+                 RestEvent.Request,
                  null,
                  restRequest.Headers
                 ), null);
@@ -205,7 +214,7 @@ namespace RestClientDotNet
              restRequest.HttpRequestMethod,
              httpResponseMessage.RequestMessage.RequestUri,
              responseData,
-             TraceType.Response,
+             RestEvent.Response,
              (int)httpResponseMessage.StatusCode,
              restHeadersCollection
             ), null);
@@ -222,7 +231,11 @@ namespace RestClientDotNet
         #region Private Methods
         private void Log(LogLevel loglevel, RestTrace restTrace, Exception exception)
         {
-            Logger?.Log(loglevel, new EventId((int)restTrace.TraceType, restTrace.TraceType.ToString()), restTrace, exception, null);
+            Logger?.Log(loglevel,
+                restTrace != null ?
+                new EventId((int)restTrace.RestEvent, restTrace.RestEvent.ToString()) :
+                new EventId((int)RestEvent.Error, RestEvent.Error.ToString()),
+                restTrace, exception, null);
         }
         #endregion
     }

@@ -27,7 +27,7 @@ namespace RestClientDotNet.UnitTests
         {
             var trace = (RestTrace)(object)state;
 
-            Console.WriteLine($"{trace.TraceType} {trace.RequestUri}\r\n{Encoding.UTF8.GetString(trace.BodyData)}\r\nStatus Code: {trace.HttpStatusCode}");
+            Console.WriteLine($"{trace.RestEvent} {trace.RequestUri}\r\n{Encoding.UTF8.GetString(trace.BodyData)}\r\nStatus Code: {trace.HttpStatusCode}");
 
             if (trace.RestHeadersCollection == null) return;
 

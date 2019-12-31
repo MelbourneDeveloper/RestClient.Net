@@ -57,7 +57,7 @@ namespace RestClientDotNet.Sample
 
             if (!string.IsNullOrEmpty(password))
             {
-                _BitbucketClient.UseBasicAuthentication(UsernameBox.Text, password);
+                _BitbucketClient.SetBasicAuthenticationHeader(UsernameBox.Text, password);
             }
         }
 
