@@ -581,6 +581,20 @@ namespace RestClientDotNet.UnitTests
 
         #region Local Authentication
         [TestMethod]
+        public async Task TestBearerTokenAuthenticationLocal()
+        {
+            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), httpClientFactory: _testServerHttpClientFactory);
+            restClient.SetJsonContentTypeHeader();
+            var response = await restClient.PostAsync<AuthenticationResult, AuthenticationRequest>(
+                new AuthenticationRequest { ClientId = "a", ClientSecret = "b" },
+                new Uri("secure/authenticate", UriKind.Relative)
+                );
+            restClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + response.Body.BearerToken);
+            Person person = await restClient.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative));
+            Assert.AreEqual("Bear", person.FirstName);
+        }
+
+        [TestMethod]
         public async Task TestBasicAuthenticationLocal()
         {
             var restClient = new RestClient(new NewtonsoftSerializationAdapter(), httpClientFactory: _testServerHttpClientFactory);

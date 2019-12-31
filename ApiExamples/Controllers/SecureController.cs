@@ -15,7 +15,7 @@ namespace ApiExamples.Controllers
         [Route("basic")]
         public IActionResult Get()
         {
-            if (Validate())
+            if (ValidateBasic())
             {
                 var person = CreatePerson();
                 return Ok(person);
@@ -29,7 +29,7 @@ namespace ApiExamples.Controllers
         [Route("basic")]
         public IActionResult Post([FromBody] Person person)
         {
-            if (Validate())
+            if (ValidateBasic())
             {
                 return Ok(person);
             }
@@ -38,9 +38,14 @@ namespace ApiExamples.Controllers
             return Unauthorized(json);
         }
 
-        private bool Validate()
+        private bool ValidateBasic()
         {
             return Request.Headers["Authorization"] == "Basic Qm9iOkFOaWNlUGFzc3dvcmQ=";
+        }
+
+        private bool ValidateBearer()
+        {
+            return Request.Headers["Authorization"] == "Bearer 123";
         }
 
         private static Person CreatePerson()
@@ -56,6 +61,32 @@ namespace ApiExamples.Controllers
                 },
                 Surname = "Smith"
             };
+        }
+
+        [HttpPost]
+        [Route("authenticate")]
+        public IActionResult Post([FromBody] AuthenticationRequest request)
+        {
+            if (request.ClientId == "a" && request.ClientSecret == "b")
+            {
+                return Ok(new AuthenticationResult { BearerToken = "123" });
+            }
+
+            var json = JsonConvert.SerializeObject(new ApiResult { Errors = { ApiMessages.SecureControllerNotAuthorizedMessage } });
+            return Unauthorized(json);
+        }
+
+        [HttpGet]
+        [Route("bearer")]
+        public IActionResult GetBearer()
+        {
+            if (ValidateBearer())
+            {
+                return Ok(new Person { FirstName="Bear" });
+            }
+
+            var json = JsonConvert.SerializeObject(new ApiResult { Errors = { ApiMessages.SecureControllerNotAuthorizedMessage } });
+            return Unauthorized(json);
         }
     }
 }
