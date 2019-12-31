@@ -4,7 +4,7 @@ namespace RestClientDotNet.UnitTests
 {
     public class MockAspController
     {
-        public IRestClient RestClient { get; }
+        public IClient RestClient { get; }
 
         public MockAspController(IRestClientFactory restClientFactory)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using restClient = RestClientDotNet.RestClient;
+using restClient = RestClientDotNet.Client;
 using RestClientDotNet.Abstractions.Extensions;
 
 #if __WASM__

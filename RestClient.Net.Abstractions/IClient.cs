@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace RestClientDotNet.Abstractions
 {
-    public interface IRestClient
+    public interface IClient
     {
         ISerializationAdapter SerializationAdapter { get; }
         Task<RestResponseBase<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(RestRequest<TRequestBody> restRequest);

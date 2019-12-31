@@ -17,7 +17,7 @@ namespace RestClientDotNet.Abstractions
             TRequestBody body,
             IRestHeadersCollection headers,
             HttpRequestMethod httpRequestMethod,
-            IRestClient client,
+            IClient client,
             CancellationToken cancellationToken)
         {
             Body = body;

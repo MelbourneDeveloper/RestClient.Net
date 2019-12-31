@@ -17,7 +17,7 @@ namespace RestClientDotNet.Sample
     public partial class MainPage
     {
         #region Fields
-        private RestClient _BitbucketClient;
+        private Client _BitbucketClient;
         #endregion
 
         #region Constructror
@@ -38,7 +38,7 @@ namespace RestClientDotNet.Sample
             ToggleBusy(true);
             try
             {
-                var countryCodeClient = new RestClient(new XmlSerializationAdapter(), new Uri("http://www.thomas-bayer.com/sqlrest/CUSTOMER/" + customerId));
+                var countryCodeClient = new Client(new XmlSerializationAdapter(), new Uri("http://www.thomas-bayer.com/sqlrest/CUSTOMER/" + customerId));
                 retVal = await countryCodeClient.GetAsync<CUSTOMER>();
             }
             catch (Exception ex)
@@ -53,7 +53,7 @@ namespace RestClientDotNet.Sample
         private void GetBitBucketClient(string password, bool isGet)
         {
             var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
-            _BitbucketClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri(url));
+            _BitbucketClient = new Client(new NewtonsoftSerializationAdapter(), new Uri(url));
 
             if (!string.IsNullOrEmpty(password))
             {
@@ -125,7 +125,7 @@ namespace RestClientDotNet.Sample
             try
             {
                 var baseUri = new Uri("https://restcountries.eu/rest/v2/");
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), baseUri);
+                var restClient = new Client(new NewtonsoftSerializationAdapter(), baseUri);
                 List<RestCountry> countries = await restClient.GetAsync<List<RestCountry>>();
                 CountryCodeList.ItemsSource = countries;
             }
@@ -212,21 +212,21 @@ namespace RestClientDotNet.Sample
 
         private async void Delete_Clicked(object sender, EventArgs e)
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            var restClient = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
             await restClient.DeleteAsync("/posts/1");
             await DisplayAlert("Post Deleted", $"The server pretended to delete the post 1");
         }
 
         private async void Patch_Clicked(object sender, EventArgs e)
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            var restClient = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
             UserPost userPost = await restClient.PatchAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts/1");
             await DisplayAlert("Post Patched", $"The server pretended to patch a post titled:\r\n{userPost.title}");
         }
 
         private async void Post_Clicked(object sender, EventArgs e)
         {
-            var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            var restClient = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
             UserPost userPost = await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts");
             await DisplayAlert("Post made", $"The server pretended to accept the post:\r\n{userPost.title}");
         }
@@ -235,7 +235,7 @@ namespace RestClientDotNet.Sample
         {
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+                var restClient = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
 
                 var tokenSource = new CancellationTokenSource();
                 var token = tokenSource.Token;
@@ -260,7 +260,7 @@ namespace RestClientDotNet.Sample
         {
             try
             {
-                var restClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com")) { Timeout = new TimeSpan(0, 0, 0, 0, 1) };
+                var restClient = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com")) { Timeout = new TimeSpan(0, 0, 0, 0, 1) };
                 await restClient.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
             }
             catch (OperationCanceledException ex)

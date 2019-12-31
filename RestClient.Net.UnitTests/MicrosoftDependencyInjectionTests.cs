@@ -38,13 +38,13 @@ namespace RestClientDotNet.UnitTests
                 var baseUri = new Uri("http://www.test.com");
                 serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
                 serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleLogger));
-                serviceCollection.AddSingleton(typeof(IRestClient), typeof(RestClient));
+                serviceCollection.AddSingleton(typeof(IClient), typeof(Client));
                 serviceCollection.AddDependencyInjectionMapping();
                 serviceCollection.AddTransient<TestHandler>();
                 serviceCollection.AddHttpClient("RestClient", (c) => { c.BaseAddress = baseUri; })
                     .AddHttpMessageHandler<TestHandler>();
                 var serviceProvider = serviceCollection.BuildServiceProvider();
-                var restClient = serviceProvider.GetService<IRestClient>();
+                var restClient = serviceProvider.GetService<IClient>();
                 await restClient.GetAsync<object>();
             }
             catch (SendException<object> hse)

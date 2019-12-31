@@ -22,7 +22,7 @@ namespace RestClientDotNet.UnitTests
               .RetryAsync(3);
 
 
-            var restClient = new RestClient(
+            var restClient = new Client(
                 new ProtobufSerializationAdapter(),
                 null,
                 new Uri(UnitTests.LocalBaseUriString),

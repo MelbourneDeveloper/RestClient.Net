@@ -30,9 +30,9 @@ namespace RestClientDotNet
         #endregion
 
         #region Implementation
-        public IRestClient CreateRestClient(string name)
+        public IClient CreateRestClient(string name)
         {
-            return new RestClient(
+            return new Client(
                 SerializationAdapter,
                 name,
                 null,
@@ -40,9 +40,9 @@ namespace RestClientDotNet
                 httpClientFactory: HttpClientFactory);
         }
 
-        public IRestClient CreateRestClient(string name, Uri baseUri)
+        public IClient CreateRestClient(string name, Uri baseUri)
         {
-            return new RestClient(
+            return new Client(
                 SerializationAdapter,
                 name,
                 baseUri,
