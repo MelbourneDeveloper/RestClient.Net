@@ -130,6 +130,7 @@ namespace RestClientDotNet
                 Log(LogLevel.Error, null, oce);
                 throw;
             }
+            //TODO: Does this need to be handled like this?
             catch (Exception ex)
             {
                 var exception = new SendException<TRequestBody>("HttpClient Send Exception", restRequest, ex);

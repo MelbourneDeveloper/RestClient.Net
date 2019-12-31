@@ -18,7 +18,7 @@ namespace RestClientDotNet.UnitTests
         {
             var serviceCollection = new ServiceCollection();
             var baseUri = new Uri("http://www.test.com");
-            serviceCollection.AddHttpClient("test", (c)=> { c.BaseAddress = baseUri; });
+            serviceCollection.AddHttpClient("test", (c) => { c.BaseAddress = baseUri; });
             serviceCollection.AddDependencyInjectionMapping();
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
@@ -49,8 +49,8 @@ namespace RestClientDotNet.UnitTests
                 Assert.AreEqual("Ouch", hse.Message);
                 return;
             }
+
             Assert.Fail();
         }
-
     }
 }
