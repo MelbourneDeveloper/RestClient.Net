@@ -589,9 +589,30 @@ namespace RestClientDotNet.UnitTests
                 new AuthenticationRequest { ClientId = "a", ClientSecret = "b" },
                 new Uri("secure/authenticate", UriKind.Relative)
                 );
+
             restClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + response.Body.BearerToken);
             Person person = await restClient.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative));
             Assert.AreEqual("Bear", person.FirstName);
+        }
+
+        [TestMethod]
+        public async Task TestBasicAuthenticationLocalWithError()
+        {
+            RestClient restClient = null;
+            try
+            {
+                restClient = new RestClient(new NewtonsoftSerializationAdapter(), httpClientFactory: _testServerHttpClientFactory);
+                restClient.SetBasicAuthenticationHeader("Bob", "WrongPassword");
+                Person person = await restClient.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative));
+            }
+            catch (HttpStatusException hex)
+            {
+                Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.RestResponse.StatusCode);
+                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
+                return;
+            }
+            Assert.Fail();
         }
 
         [TestMethod]
@@ -604,14 +625,14 @@ namespace RestClientDotNet.UnitTests
         }
 
         [TestMethod]
-        public async Task TestBasicAuthenticationLocalWithError()
+        public async Task TestBearerTokenAuthenticationLocalWithError()
         {
             RestClient restClient = null;
             try
             {
                 restClient = new RestClient(new NewtonsoftSerializationAdapter(), httpClientFactory: _testServerHttpClientFactory);
-                restClient.SetBasicAuthenticationHeader("Bob", "WrongPassword");
-                Person person = await restClient.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative));
+                restClient.SetBearerTokenuthenticationHeader("321");
+                Person person = await restClient.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative));
             }
             catch (HttpStatusException hex)
             {

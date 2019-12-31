@@ -15,6 +15,12 @@ namespace RestClientDotNet.Abstractions.Extensions
             restClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
         }
 
+        public static void SetBearerTokenuthenticationHeader(this IRestClient restClient, string bearerToken)
+        {
+            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
+            restClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + bearerToken);
+        }
+
         public static TResponseBody DeserializeResponseBody<TResponseBody>(this IRestClient restClient, RestResponseBase response)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
