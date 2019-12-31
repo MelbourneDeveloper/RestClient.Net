@@ -184,7 +184,7 @@ namespace RestClientDotNet
                 throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
             }
 
-            var restResponse = new RestResponse<TResponseBody>
+            var restResponse = new HttpResponseMessageResponse<TResponseBody>
             (
                 restHeadersCollection,
                 (int)httpResponseMessage.StatusCode,

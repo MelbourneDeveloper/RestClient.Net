@@ -4,7 +4,7 @@ using System.Net.Http;
 
 namespace RestClientDotNet
 {
-    public class RestResponse<TResponseBody> : Response<TResponseBody>
+    public class HttpResponseMessageResponse<TResponseBody> : Response<TResponseBody>
     {
         #region Public Properties
         public HttpResponseMessage HttpResponseMessage { get; }
@@ -12,7 +12,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Constructor
-        public RestResponse
+        public HttpResponseMessageResponse
         (
             IHeadersCollection restHeadersCollection,
             int statusCode,

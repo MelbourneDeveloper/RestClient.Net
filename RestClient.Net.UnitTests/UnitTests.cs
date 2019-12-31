@@ -548,7 +548,7 @@ namespace RestClientDotNet.UnitTests
         {
             var restClient = new Client(new NewtonsoftSerializationAdapter(), httpClientFactory: _testServerHttpClientFactory);
             restClient.ThrowExceptionOnFailure = false;
-            var response = (RestResponse<Person>)await restClient.GetAsync<Person>("error");
+            var response = await restClient.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             var apiResult = restClient.DeserializeResponseBody<ApiResult>(response);
             Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
