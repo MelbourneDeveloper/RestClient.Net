@@ -26,7 +26,7 @@ namespace RestClientDotNet.Abstractions
             HttpRequestMethod = httpRequestMethod;
             CancellationToken = cancellationToken;
 
-            if (Headers == null) Headers = new RestRequestHeadersCollection();
+            if (Headers == null) Headers = new RequestHeadersCollection();
 
             var defaultRequestHeaders = client?.DefaultRequestHeaders;
             if (defaultRequestHeaders == null) return;

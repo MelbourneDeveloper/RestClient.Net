@@ -15,7 +15,7 @@ namespace RestClientDotNet.UnitTests
 
         public TimeSpan Timeout { get => _testClient.Timeout; set => _testClient.Timeout = value; }
 
-        public IHeadersCollection DefaultRequestHeaders { get; } = new RestRequestHeadersCollection();
+        public IHeadersCollection DefaultRequestHeaders { get; } = new RequestHeadersCollection();
 
         public HttpClient CreateClient(string name)
         {

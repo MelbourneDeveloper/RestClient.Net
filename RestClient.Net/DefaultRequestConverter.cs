@@ -7,7 +7,7 @@ using System.Net.Http;
 
 namespace RestClientDotNet
 {
-    public class DefaultRestRequestConverter : IRestRequestConverter
+    public class DefaultRequestConverter : IRestRequestConverter
     {
         #region Public Methods
         public static readonly List<HttpRequestMethod> UpdateHttpRequestMethods = new List<HttpRequestMethod> { HttpRequestMethod.Put, HttpRequestMethod.Post, HttpRequestMethod.Patch };

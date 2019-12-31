@@ -87,8 +87,8 @@ namespace RestClientDotNet
             Logger = logger;
             BaseUri = baseUri;
             Name = name ?? nameof(Client);
-            DefaultRequestHeaders = defaultRequestHeaders ?? new RestRequestHeadersCollection();
-            RestRequestConverter = restRequestConverter ?? new DefaultRestRequestConverter();
+            DefaultRequestHeaders = defaultRequestHeaders ?? new RequestHeadersCollection();
+            RestRequestConverter = restRequestConverter ?? new DefaultRequestConverter();
             HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();
             SendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
         }
@@ -106,7 +106,7 @@ namespace RestClientDotNet
 
             byte[] requestBodyData = null;
 
-            if (DefaultRestRequestConverter.UpdateHttpRequestMethods.Contains(restRequest.HttpRequestMethod))
+            if (DefaultRequestConverter.UpdateHttpRequestMethods.Contains(restRequest.HttpRequestMethod))
             {
                 requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
             }

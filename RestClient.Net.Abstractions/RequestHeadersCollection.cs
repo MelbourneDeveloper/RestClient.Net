@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RestClientDotNet.Abstractions
 {
-    public sealed class RestRequestHeadersCollection : IHeadersCollection
+    public sealed class RequestHeadersCollection : IHeadersCollection
     {
         #region Fields
         private readonly Dictionary<string, IEnumerable<string>> _dictionary = new Dictionary<string, IEnumerable<string>>();

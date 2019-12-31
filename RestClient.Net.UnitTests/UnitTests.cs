@@ -532,7 +532,7 @@ namespace RestClientDotNet.UnitTests
         public async Task TestHeadersLocalInRestRequest()
         {
             var restClient = new Client(new NewtonsoftSerializationAdapter(), httpClientFactory: _testServerHttpClientFactory);
-            var restRequestHeaders = new RestRequestHeadersCollection();
+            var restRequestHeaders = new RequestHeadersCollection();
             restRequestHeaders.Add("Test", "Test");
             Person responsePerson = await restClient.SendAsync<Person, object>
                 (
@@ -915,7 +915,7 @@ namespace RestClientDotNet.UnitTests
             }
             else
             {
-                headers = new RestRequestHeadersCollection { new KeyValuePair<string, IEnumerable<string>>("Test", new List<string> { "Test" }) };
+                headers = new RequestHeadersCollection { new KeyValuePair<string, IEnumerable<string>>("Test", new List<string> { "Test" }) };
             }
 
             return headers;
