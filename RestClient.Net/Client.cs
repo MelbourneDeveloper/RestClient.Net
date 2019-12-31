@@ -172,7 +172,7 @@ namespace RestClientDotNet
                 responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
             }
 
-            var restHeadersCollection = new RestResponseHeadersCollection(httpResponseMessage.Headers);
+            var restHeadersCollection = new HttpResponseHeadersCollection(httpResponseMessage.Headers);
 
             TResponseBody responseBody;
             try

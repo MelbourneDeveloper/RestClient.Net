@@ -14,7 +14,7 @@ namespace RestClientDotNet
         #region Constructor
         public HttpResponseMessageResponse
         (
-            IHeadersCollection restHeadersCollection,
+            HttpResponseHeadersCollection restHeadersCollection,
             int statusCode,
             HttpRequestMethod HttpRequestMethod,
             byte[] responseContentData,
