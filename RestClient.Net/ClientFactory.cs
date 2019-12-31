@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace RestClientDotNet
 {
-    public class RestClientFactory : IRestClientFactory
+    public class ClientFactory : IClientFactory
     {
         #region Public Properties
         public ISerializationAdapter SerializationAdapter { get; }
@@ -19,7 +19,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Constructor
-        public RestClientFactory(ISerializationAdapter serializationAdapter,
+        public ClientFactory(ISerializationAdapter serializationAdapter,
                                          IHttpClientFactory httpClientFactory,
                                          ILogger logger)
         {

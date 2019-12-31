@@ -983,7 +983,7 @@ namespace RestClientDotNet.UnitTests
                     );
             }
 
-            var restClientFactory = new RestClientFactory(
+            var restClientFactory = new ClientFactory(
                 new NewtonsoftSerializationAdapter(),
                 httpClientFactory,
                 null);
