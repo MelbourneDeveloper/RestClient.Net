@@ -29,7 +29,12 @@ namespace RestClientDotNet.UnitTests
 
             if (trace != null)
             {
-                Console.WriteLine($"{trace?.RestEvent} {trace?.RequestUri}\r\n{Encoding.UTF8.GetString(trace?.BodyData)}\r\nStatus Code: {trace?.HttpStatusCode}");
+                Console.WriteLine($"{trace?.RestEvent} {trace?.RequestUri}\r\nStatus Code: {trace?.HttpStatusCode}");
+
+                if(trace.BodyData!=null)
+                {
+                    Console.WriteLine($"Body: {Encoding.UTF8.GetString(trace?.BodyData)}\r\n");
+                }
 
                 if (trace.RestHeadersCollection == null) return;
 

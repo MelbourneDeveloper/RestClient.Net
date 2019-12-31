@@ -2,8 +2,11 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net.Polly;
+using RestClient.Net.UnitTests.Model;
+using RestClientApiSamples;
 using RestClientDotNet.Abstractions;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RestClientDotNet.UnitTests
@@ -52,5 +55,22 @@ namespace RestClientDotNet.UnitTests
 
             Assert.Fail();
         }
+
+        [TestMethod]
+        public async Task TestFactoryWithNames()
+        {
+            var serviceCollection = new ServiceCollection();
+            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
+            serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
+            serviceCollection.AddSingleton(typeof(IRestClientFactory), typeof(RestClientFactory));
+            serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleLogger));
+            serviceCollection.AddSingleton<MockAspController>();
+            serviceCollection.AddHttpClient("test", (c) => { c.BaseAddress = baseUri; });
+            serviceCollection.AddDependencyInjectionMapping();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            var mockASpController = serviceProvider.GetService<MockAspController>();
+            var reponse = await mockASpController.RestClient.GetAsync<List<RestCountry>>();
+        }
+
     }
 }
