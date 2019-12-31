@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net45;net47</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <RootNamespace>RestClientDotNet.UnitTests</RootNamespace>
   </PropertyGroup>
@@ -17,7 +17,7 @@
     </When>
   </Choose>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.1'">
     <Compile Remove="PollyTests.cs" />
     <Compile Remove="MicrosoftDependencyInjectionTests.cs" />
    </ItemGroup>
