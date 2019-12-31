@@ -47,9 +47,9 @@ namespace RestClientDotNet.UnitTests
                 var restClient = serviceProvider.GetService<IRestClient>();
                 await restClient.GetAsync<object>();
             }
-            catch (HttpStatusException hse)
+            catch (SendException<object> hse)
             {
-                Assert.AreEqual("Ouch", hse.Message);
+                Assert.AreEqual("Ouch", hse.InnerException.Message);
                 return;
             }
 
