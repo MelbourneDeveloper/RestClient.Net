@@ -138,12 +138,12 @@ namespace RestClient.Net
                 throw exception;
             }
 
-            Log(LogLevel.Trace, new RestTrace
+            Log(LogLevel.Trace, new Trace
                 (
                  request.HttpRequestMethod,
                  httpResponseMessage.RequestMessage.RequestUri,
                  requestBodyData,
-                 RestEvent.Request,
+                 TraceEvent.Request,
                  null,
                  request.Headers
                 ), null);
@@ -194,12 +194,12 @@ namespace RestClient.Net
                 httpResponseMessage
             );
 
-            Log(LogLevel.Trace, new RestTrace
+            Log(LogLevel.Trace, new Trace
             (
              request.HttpRequestMethod,
              httpResponseMessage.RequestMessage.RequestUri,
              responseData,
-             RestEvent.Response,
+             TraceEvent.Response,
              (int)httpResponseMessage.StatusCode,
              httpResponseHeadersCollection
             ), null);
@@ -214,12 +214,12 @@ namespace RestClient.Net
         #endregion
 
         #region Private Methods
-        private void Log(LogLevel loglevel, RestTrace restTrace, Exception exception)
+        private void Log(LogLevel loglevel, Trace restTrace, Exception exception)
         {
             Logger?.Log(loglevel,
                 restTrace != null ?
                 new EventId((int)restTrace.RestEvent, restTrace.RestEvent.ToString()) :
-                new EventId((int)RestEvent.Error, RestEvent.Error.ToString()),
+                new EventId((int)TraceEvent.Error, TraceEvent.Error.ToString()),
                 restTrace, exception, null);
         }
         #endregion

@@ -1,6 +1,6 @@
 ﻿namespace RestClient.Net.Abstractions
 {
-    public enum RestEvent
+    public enum TraceEvent
     {
         Request,
         Response,

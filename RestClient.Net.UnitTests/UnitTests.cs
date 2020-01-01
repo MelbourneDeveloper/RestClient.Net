@@ -86,8 +86,8 @@ namespace RestClient.Net.UnitTests
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
 
-            VerifyLog(baseUri, HttpRequestMethod.Get, RestEvent.Request);
-            VerifyLog(baseUri, HttpRequestMethod.Get, RestEvent.Response, (int)HttpStatusCode.OK);
+            VerifyLog(baseUri, HttpRequestMethod.Get, TraceEvent.Request);
+            VerifyLog(baseUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -99,8 +99,8 @@ namespace RestClient.Net.UnitTests
 
             var requestUri = new Uri("https://jsonplaceholder.typicode.com/posts/1");
 
-            VerifyLog(requestUri, HttpRequestMethod.Delete, RestEvent.Request, null, null);
-            VerifyLog(requestUri, HttpRequestMethod.Delete, RestEvent.Response, (int)HttpStatusCode.OK, null);
+            VerifyLog(requestUri, HttpRequestMethod.Delete, TraceEvent.Request, null, null);
+            VerifyLog(requestUri, HttpRequestMethod.Delete, TraceEvent.Response, (int)HttpStatusCode.OK, null);
         }
 
         [TestMethod]
@@ -227,8 +227,8 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(requestUserPost.userId, responseUserPost.userId);
             Assert.AreEqual(requestUserPost.title, responseUserPost.title);
 
-            VerifyLog(It.IsAny<Uri>(), httpRequestMethod, RestEvent.Request, null, null);
-            VerifyLog(It.IsAny<Uri>(), httpRequestMethod, RestEvent.Response, (int)expectedStatusCode, null);
+            VerifyLog(It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Request, null, null);
+            VerifyLog(It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Response, (int)expectedStatusCode, null);
         }
 
         [TestMethod]
@@ -334,8 +334,8 @@ namespace RestClient.Net.UnitTests
             var headers = GetHeaders(useDefault, client);
             var response = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative), requestHeaders: headers);
 
-            VerifyLog(It.IsAny<Uri>(), HttpRequestMethod.Get, RestEvent.Request, null, null, CheckRequestHeaders);
-            VerifyLog(It.IsAny<Uri>(), HttpRequestMethod.Get, RestEvent.Response, (int)HttpStatusCode.OK, null, CheckResponseHeaders);
+            VerifyLog(It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Request, null, null, CheckRequestHeaders);
+            VerifyLog(It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK, null, CheckResponseHeaders);
         }
 
         [TestMethod]
@@ -789,7 +789,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient(new Uri($"{LocalBaseUriString}/jsonperson/save"));
             var requestPerson = new Person { FirstName = "Bob" };
-            Person responsePerson = await client.PutAsync<Person, Person>(body: requestPerson);
+            Person responsePerson = await client.PutAsync<Person, Person>(requestBody: requestPerson);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 
@@ -895,7 +895,7 @@ namespace RestClient.Net.UnitTests
             }
             catch (SendException<Person>)
             {
-                _logger.Verify(l => l.Log<RestTrace>(LogLevel.Error, It.IsAny<EventId>(), null,
+                _logger.Verify(l => l.Log<Trace>(LogLevel.Error, It.IsAny<EventId>(), null,
                     It.Is<SendException<Person>>(e => e.InnerException != null), null));
                 return;
             }
@@ -934,7 +934,7 @@ namespace RestClient.Net.UnitTests
         private void VerifyLog(
             Uri uri,
             HttpRequestMethod httpRequestMethod,
-            RestEvent traceType,
+            TraceEvent traceType,
             int? httpStatusCode = null,
             Exception exception = null,
             Func<IHeadersCollection, bool> checkHeadersFunc = null)
@@ -943,20 +943,20 @@ namespace RestClient.Net.UnitTests
                 exception == null ? LogLevel.Trace : LogLevel.Error,
                 It.Is<EventId>(
                     e => e.Id == (int)traceType && e.Name == traceType.ToString()),
-                It.Is<RestTrace>(
+                It.Is<Trace>(
                 rt =>
                     DebugTraceExpression(rt) &&
                     rt.RestEvent == traceType &&
                     rt.RequestUri == uri &&
                     rt.HttpRequestMethod == httpRequestMethod &&
-                    (rt.RestEvent == RestEvent.Response || new List<HttpRequestMethod> { HttpRequestMethod.Patch, HttpRequestMethod.Post, HttpRequestMethod.Patch }.Contains(rt.HttpRequestMethod))
+                    (rt.RestEvent == TraceEvent.Response || new List<HttpRequestMethod> { HttpRequestMethod.Patch, HttpRequestMethod.Post, HttpRequestMethod.Patch }.Contains(rt.HttpRequestMethod))
                     ? rt.BodyData != null && rt.BodyData.Length > 0 : true &&
                     rt.HttpStatusCode == httpStatusCode &&
                     checkHeadersFunc != null ? checkHeadersFunc(rt.HeadersCollection) : true
-                ), exception, It.IsAny<Func<RestTrace, Exception, string>>()));
+                ), exception, It.IsAny<Func<Trace, Exception, string>>()));
         }
 
-        private bool DebugTraceExpression(RestTrace restTrace)
+        private bool DebugTraceExpression(Trace restTrace)
         {
             return true;
         }

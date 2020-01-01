@@ -2,20 +2,20 @@
 
 namespace RestClient.Net.Abstractions
 {
-    public class RestTrace
+    public class Trace
     {
         public HttpRequestMethod HttpRequestMethod { get; }
         public Uri RequestUri { get; }
         public byte[] BodyData { get; }
-        public RestEvent RestEvent { get; }
+        public TraceEvent RestEvent { get; }
         public int? HttpStatusCode { get; }
         public IHeadersCollection HeadersCollection { get; }
 
-        public RestTrace(
+        public Trace(
             HttpRequestMethod httpRequestMethod,
             Uri requestUri,
             byte[] bodyData,
-            RestEvent traceType,
+            TraceEvent traceType,
             int? httpStatusCode,
             IHeadersCollection headersCollection)
         {

@@ -25,7 +25,7 @@ namespace RestClient.Net.UnitTests
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            var trace = (RestTrace)(object)state;
+            var trace = (Trace)(object)state;
 
             if (trace != null)
             {
