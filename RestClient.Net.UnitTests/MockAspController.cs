@@ -6,9 +6,9 @@ namespace RestClient.Net.UnitTests
     {
         public IClient Client { get; }
 
-        public MockAspController(IClientFactory restClientFactory)
+        public MockAspController(IClientFactory clientFactory)
         {
-            Client = restClientFactory.CreateClient("test");
+            Client = clientFactory.CreateClient("test");
         }
     }
 }
