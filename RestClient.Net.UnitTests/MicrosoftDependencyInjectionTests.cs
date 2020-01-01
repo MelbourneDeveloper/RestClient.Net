@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestClient.Net.Polly;
+using RestClient.Net.DependencyInjection;
 using RestClient.Net.UnitTests.Model;
-using RestClientApiSamples;
 using RestClientDotNet.Abstractions;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿using RestClientDotNet;
 using snh = System.Net.Http;
 
-namespace RestClient.Net.Polly
+namespace RestClient.Net.DependencyInjection
 {
     public class MicrosoftHttpClientFactoryWrapper : IHttpClientFactory
     {
