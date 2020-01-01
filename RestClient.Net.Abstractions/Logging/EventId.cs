@@ -1,4 +1,4 @@
-﻿namespace RestClientDotNet.Abstractions.Logging
+﻿namespace RestClient.Net.Abstractions.Logging
 {
 #pragma warning disable CA1815 // Override equals and operator equals on value types
     public readonly struct EventId

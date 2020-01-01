@@ -6,7 +6,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace RestClientDotNet.UnitTests
+namespace RestClient.Net.UnitTests
 {
     [TestClass]
     public class PollyTests
@@ -22,7 +22,7 @@ namespace RestClientDotNet.UnitTests
               .RetryAsync(3);
 
 
-            var restClient = new RestClient(
+            var client = new Client(
                 new ProtobufSerializationAdapter(),
                 null,
                 new Uri(UnitTests.LocalBaseUriString),
@@ -44,7 +44,7 @@ namespace RestClientDotNet.UnitTests
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
 
             //Note the Uri here is deliberately incorrect. It will cause a 404 Not found response. This is to make sure that polly is working
-            person = await restClient.PostAsync<Person, Person>(person, new Uri("person2", UriKind.Relative));
+            person = await client.PostAsync<Person, Person>(person, new Uri("person2", UriKind.Relative));
             Assert.AreEqual("Bob", person.FirstName);
             Assert.AreEqual(3, tries);
 

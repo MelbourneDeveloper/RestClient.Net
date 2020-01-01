@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RestClientDotNet.Abstractions.Logging
+namespace RestClient.Net.Abstractions.Logging
 {
     public interface ILogger
     {

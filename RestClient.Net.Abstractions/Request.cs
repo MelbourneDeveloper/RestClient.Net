@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Threading;
 
-namespace RestClientDotNet.Abstractions
+namespace RestClient.Net.Abstractions
 {
-    public class RestRequest<TRequestBody>
+    public class Request<TRequestBody>
     {
         #region Public Properties
-        public IRestHeadersCollection Headers { get; }
+        public IHeadersCollection Headers { get; }
         public Uri Resource { get; set; }
         public HttpRequestMethod HttpRequestMethod { get; set; }
         public TRequestBody Body { get; set; }
         public CancellationToken CancellationToken { get; set; }
         #endregion
 
-        public RestRequest(Uri resource,
+        public Request(Uri resource,
             TRequestBody body,
-            IRestHeadersCollection headers,
+            IHeadersCollection headers,
             HttpRequestMethod httpRequestMethod,
-            IRestClient client,
+            IClient client,
             CancellationToken cancellationToken)
         {
             Body = body;
@@ -26,7 +26,7 @@ namespace RestClientDotNet.Abstractions
             HttpRequestMethod = httpRequestMethod;
             CancellationToken = cancellationToken;
 
-            if (Headers == null) Headers = new RestRequestHeadersCollection();
+            if (Headers == null) Headers = new RequestHeadersCollection();
 
             var defaultRequestHeaders = client?.DefaultRequestHeaders;
             if (defaultRequestHeaders == null) return;

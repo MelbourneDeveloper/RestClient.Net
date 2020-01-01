@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 
-namespace RestClientDotNet.UnitTests
+namespace RestClient.Net.UnitTests
 {
     public class OverzealousHttpClientFactory : IHttpClientFactory
     {

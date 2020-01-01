@@ -1,20 +1,20 @@
 ﻿using System;
 
-namespace RestClientDotNet.Abstractions
+namespace RestClient.Net.Abstractions
 {
     public class DeserializationException : Exception
     {
         private readonly byte[] _responseData;
-        public IRestClient RestClient { get; }
+        public IClient Client { get; }
 
         public DeserializationException(
             string message,
             byte[] responseData,
-            IRestClient restClient,
+            IClient client,
             Exception innerException) : base(message, innerException)
         {
             _responseData = responseData;
-            RestClient = restClient;
+            Client = client;
         }
 
         public byte[] GetResponseData()

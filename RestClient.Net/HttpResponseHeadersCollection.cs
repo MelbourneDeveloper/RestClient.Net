@@ -1,12 +1,12 @@
-﻿using RestClientDotNet.Abstractions;
+﻿using RestClient.Net.Abstractions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
-    public class RestResponseHeadersCollection : IRestHeadersCollection
+    public class HttpResponseHeadersCollection : IHeadersCollection
     {
         #region Public Properties
         public IEnumerable<string> Names => HttpResponseHeaders.ToList().Select(l => l.Key);
@@ -15,7 +15,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Constructor
-        public RestResponseHeadersCollection(HttpResponseHeaders httpResponseHeaders)
+        public HttpResponseHeadersCollection(HttpResponseHeaders httpResponseHeaders)
         {
             HttpResponseHeaders = httpResponseHeaders;
         }

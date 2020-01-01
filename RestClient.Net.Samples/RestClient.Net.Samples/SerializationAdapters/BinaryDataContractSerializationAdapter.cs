@@ -1,11 +1,11 @@
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     public class BinaryDataContractSerializationAdapter : ISerializationAdapter
     {
@@ -14,7 +14,7 @@ namespace RestClientDotNet
         #endregion
 
         #region Public Methods
-        public TResponseBody Deserialize<TResponseBody>(byte[] data, IRestHeadersCollection responseHeaders)
+        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders)
         {
             var serializer = new DataContractSerializer(typeof(TResponseBody), KnownDataContracts);
             using (var stream = new MemoryStream(data))
@@ -24,7 +24,7 @@ namespace RestClientDotNet
             }
         }
 
-        public byte[] Serialize<TRequestBody>(TRequestBody value, IRestHeadersCollection requestHeaders)
+        public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)
         {
             var serializer = new DataContractSerializer(typeof(TRequestBody), KnownDataContracts);
             var stream = new MemoryStream();

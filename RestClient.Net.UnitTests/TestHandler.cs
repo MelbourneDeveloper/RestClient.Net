@@ -1,11 +1,11 @@
 ﻿#if NETCOREAPP3_1
 
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RestClientDotNet.UnitTests
+namespace RestClient.Net.UnitTests
 {
     public class TestHandler : DelegatingHandler
     {

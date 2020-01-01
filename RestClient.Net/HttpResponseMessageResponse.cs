@@ -1,10 +1,10 @@
-﻿using RestClientDotNet.Abstractions;
+﻿using RestClient.Net.Abstractions;
 using System;
 using System.Net.Http;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
-    public class RestResponse<TResponseBody> : RestResponseBase<TResponseBody>
+    public class HttpResponseMessageResponse<TResponseBody> : Response<TResponseBody>
     {
         #region Public Properties
         public HttpResponseMessage HttpResponseMessage { get; }
@@ -12,18 +12,18 @@ namespace RestClientDotNet
         #endregion
 
         #region Constructor
-        public RestResponse
+        public HttpResponseMessageResponse
         (
-            IRestHeadersCollection restHeadersCollection,
+            HttpResponseHeadersCollection httpResponseHeadersCollection,
             int statusCode,
-            HttpRequestMethod HttpRequestMethod,
+            HttpRequestMethod httpRequestMethod,
             byte[] responseContentData,
             TResponseBody body,
             HttpResponseMessage httpResponseMessage
             ) : base(
-                restHeadersCollection,
+                httpResponseHeadersCollection,
                 statusCode,
-                HttpRequestMethod,
+                httpRequestMethod,
                 responseContentData,
                 body,
                 httpResponseMessage != null ? httpResponseMessage.RequestMessage.RequestUri : throw new ArgumentNullException(nameof(httpResponseMessage)))

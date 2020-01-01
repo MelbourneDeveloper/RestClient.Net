@@ -3,12 +3,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net.DependencyInjection;
 using RestClient.Net.UnitTests.Model;
-using RestClientDotNet.Abstractions;
+using RestClientApiSamples;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace RestClientDotNet.UnitTests
+namespace RestClient.Net.UnitTests
 {
     //https://github.com/microsoft/aspnet-api-versioning/blob/master/src/Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer/Microsoft.Extensions.DependencyInjection/IServiceCollectionExtensions.cs
 
@@ -37,14 +38,14 @@ namespace RestClientDotNet.UnitTests
                 var baseUri = new Uri("http://www.test.com");
                 serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
                 serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleLogger));
-                serviceCollection.AddSingleton(typeof(IRestClient), typeof(RestClient));
+                serviceCollection.AddSingleton(typeof(IClient), typeof(Client));
                 serviceCollection.AddDependencyInjectionMapping();
                 serviceCollection.AddTransient<TestHandler>();
                 serviceCollection.AddHttpClient("RestClient", (c) => { c.BaseAddress = baseUri; })
                     .AddHttpMessageHandler<TestHandler>();
                 var serviceProvider = serviceCollection.BuildServiceProvider();
-                var restClient = serviceProvider.GetService<IRestClient>();
-                await restClient.GetAsync<object>();
+                var client = serviceProvider.GetService<IClient>();
+                await client.GetAsync<object>();
             }
             catch (SendException<object> hse)
             {
@@ -61,14 +62,14 @@ namespace RestClientDotNet.UnitTests
             var serviceCollection = new ServiceCollection();
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
             serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
-            serviceCollection.AddSingleton(typeof(IRestClientFactory), typeof(RestClientFactory));
+            serviceCollection.AddSingleton(typeof(IClientFactory), typeof(ClientFactory));
             serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleLogger));
             serviceCollection.AddSingleton<MockAspController>();
             serviceCollection.AddHttpClient("test", (c) => { c.BaseAddress = baseUri; });
             serviceCollection.AddDependencyInjectionMapping();
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            var mockASpController = serviceProvider.GetService<MockAspController>();
-            var reponse = await mockASpController.RestClient.GetAsync<List<RestCountry>>();
+            var mockAspController = serviceProvider.GetService<MockAspController>();
+            var reponse = await mockAspController.Client.GetAsync<List<RestCountry>>();
         }
 
     }

@@ -1,8 +1,8 @@
-﻿using RestClientDotNet.Abstractions;
+﻿using RestClient.Net.Abstractions;
 using System;
 using System.Net.Http;
 
-namespace RestClientDotNet.UnitTests
+namespace RestClient.Net.UnitTests
 {
     public class TestClientFactory : IHttpClientFactory
     {
@@ -15,7 +15,7 @@ namespace RestClientDotNet.UnitTests
 
         public TimeSpan Timeout { get => _testClient.Timeout; set => _testClient.Timeout = value; }
 
-        public IRestHeadersCollection DefaultRequestHeaders { get; } = new RestRequestHeadersCollection();
+        public IHeadersCollection DefaultRequestHeaders { get; } = new RequestHeadersCollection();
 
         public HttpClient CreateClient(string name)
         {

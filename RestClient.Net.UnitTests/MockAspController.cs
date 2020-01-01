@@ -1,14 +1,14 @@
-﻿using RestClientDotNet.Abstractions;
+﻿using RestClient.Net.Abstractions;
 
-namespace RestClientDotNet.UnitTests
+namespace RestClient.Net.UnitTests
 {
     public class MockAspController
     {
-        public IRestClient RestClient { get; }
+        public IClient Client { get; }
 
-        public MockAspController(IRestClientFactory restClientFactory)
+        public MockAspController(IClientFactory clientFactory)
         {
-            RestClient = restClientFactory.CreateRestClient("test");
+            Client = clientFactory.CreateClient("test");
         }
     }
 }

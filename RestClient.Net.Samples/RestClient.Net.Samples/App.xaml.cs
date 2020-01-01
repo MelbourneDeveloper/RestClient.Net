@@ -1,4 +1,4 @@
-﻿using RestClientDotNet.Sample;
+﻿using RestClient.Net.Sample;
 
 using Xamarin.Forms;
 

@@ -1,4 +1,4 @@
-﻿namespace RestClientDotNet.Abstractions.Logging
+﻿namespace RestClient.Net.Abstractions.Logging
 {
     public enum LogLevel
     {

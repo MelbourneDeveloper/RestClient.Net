@@ -1,4 +1,4 @@
-﻿namespace RestClientDotNet.Abstractions
+﻿namespace RestClient.Net.Abstractions
 {
     public enum HttpRequestMethod
     {

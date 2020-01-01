@@ -1,16 +1,16 @@
-﻿using RestClientDotNet.Abstractions;
+﻿using RestClient.Net.Abstractions;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     public class XmlSerializationAdapter : ISerializationAdapter
     {
         #region Public Methods
 
-        public TResponseBody Deserialize<TResponseBody>(byte[] data, IRestHeadersCollection responseHeaders)
+        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders)
         {
             var serializer = new XmlSerializer(typeof(TResponseBody));
             using (var stream = new MemoryStream())
@@ -21,7 +21,7 @@ namespace RestClientDotNet
             }
         }
 
-        public byte[] Serialize<TRequestBody>(TRequestBody value, IRestHeadersCollection requestHeaders)
+        public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)
         {
 
             var serializer = new XmlSerializer(typeof(TRequestBody));

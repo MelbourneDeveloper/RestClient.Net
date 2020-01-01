@@ -1,15 +1,15 @@
 ﻿
 #if NET45
-using RestClientDotNet.Abstractions.Logging;
+using RestClient.Net.Abstractions.Logging;
 #else
 using Microsoft.Extensions.Logging;
 #endif
 
-using RestClientDotNet.Abstractions;
+using RestClient.Net.Abstractions;
 using System;
 using System.Text;
 
-namespace RestClientDotNet.UnitTests
+namespace RestClient.Net.UnitTests
 {
     public class ConsoleLogger : ILogger
     {
@@ -25,7 +25,7 @@ namespace RestClientDotNet.UnitTests
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            var trace = (RestTrace)(object)state;
+            var trace = (Trace)(object)state;
 
             if (trace != null)
             {
@@ -36,9 +36,9 @@ namespace RestClientDotNet.UnitTests
                     Console.WriteLine($"Body: {Encoding.UTF8.GetString(trace?.BodyData)}\r\n");
                 }
 
-                if (trace.RestHeadersCollection == null) return;
+                if (trace.HeadersCollection == null) return;
 
-                foreach (var kvp in trace?.RestHeadersCollection)
+                foreach (var kvp in trace?.HeadersCollection)
                 {
                     Console.WriteLine($"Header: {kvp.Key} {string.Join(", ", kvp.Value)}");
                 }

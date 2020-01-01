@@ -1,18 +1,18 @@
 ﻿using System;
 
-namespace RestClientDotNet.Abstractions
+namespace RestClient.Net.Abstractions
 {
-    public abstract class RestResponseBase<TResponseBody> : RestResponseBase
+    public abstract class Response<TResponseBody> : Response
     {
-        protected RestResponseBase(
-        IRestHeadersCollection restHeadersCollection,
+        protected Response(
+        IHeadersCollection headersCollection,
         int statusCode,
         HttpRequestMethod httpRequestMethod,
         byte[] responseData,
         TResponseBody body,
         Uri requestUri
         ) : base(
-            restHeadersCollection,
+            headersCollection,
             statusCode,
             httpRequestMethod,
             responseData,
@@ -22,7 +22,7 @@ namespace RestClientDotNet.Abstractions
         }
 
 #pragma warning disable CA2225 // Operator overloads have named alternates
-        public static implicit operator TResponseBody(RestResponseBase<TResponseBody> readResult)
+        public static implicit operator TResponseBody(Response<TResponseBody> readResult)
 #pragma warning restore CA2225 // Operator overloads have named alternates
         {
 #pragma warning disable CA1062 // Validate arguments of public methods
@@ -33,7 +33,7 @@ namespace RestClientDotNet.Abstractions
         public TResponseBody Body { get; }
     }
 
-    public abstract class RestResponseBase
+    public abstract class Response
     {
         #region Fields
         private readonly byte[] _responseData;
@@ -41,16 +41,16 @@ namespace RestClientDotNet.Abstractions
 
         #region Public Properties
         public int StatusCode { get; }
-        public IRestHeadersCollection Headers { get; }
+        public IHeadersCollection Headers { get; }
         public HttpRequestMethod HttpRequestMethod { get; }
         public abstract bool IsSuccess { get; }
         public Uri RequestUri { get; }
         #endregion
 
         #region Constructor
-        protected RestResponseBase
+        protected Response
         (
-        IRestHeadersCollection restHeadersCollection,
+        IHeadersCollection headersCollection,
         int statusCode,
         HttpRequestMethod httpRequestMethod,
         byte[] responseData,
@@ -58,7 +58,7 @@ namespace RestClientDotNet.Abstractions
         )
         {
             StatusCode = statusCode;
-            Headers = restHeadersCollection;
+            Headers = headersCollection;
             HttpRequestMethod = httpRequestMethod;
             RequestUri = requestUri;
             _responseData = responseData;
