@@ -111,7 +111,7 @@ namespace RestClient.Net
                 requestBodyData = SerializationAdapter.Serialize(request.Body, request.Headers);
             }
 
-            HttpResponseMessage httpResponseMessage = null;
+            HttpResponseMessage httpResponseMessage;
             try
             {
                 httpResponseMessage = await SendHttpRequestFunc.Invoke(

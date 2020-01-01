@@ -1,4 +1,4 @@
-﻿using RestClient.Net;
+﻿using RestClient.Net.Abstractions.Extensions;
 using RestClientNetSamples;
 using System;
 using System.Linq;
@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using restClient = RestClient.Net.Client;
-using RestClient.Net.Abstractions.Extensions;
+using client = RestClient.Net.Client;
 
 #if __WASM__
 using Uno.UI.Wasm;
@@ -22,7 +21,7 @@ namespace RestClient.Net.Samples.Uno
     public sealed partial class MainPage : Page
     {
         #region Fields
-        private restClient _BitbucketClient;
+        private client _BitbucketClient;
         #endregion
 
         #region Constructror
@@ -40,7 +39,7 @@ namespace RestClient.Net.Samples.Uno
         {
             var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
 
-            _BitbucketClient = new restClient(new NewtonsoftSerializationAdapter(), new Uri(url));
+            _BitbucketClient = new client(new NewtonsoftSerializationAdapter(), new Uri(url));
 
             if (!string.IsNullOrEmpty(password))
             {

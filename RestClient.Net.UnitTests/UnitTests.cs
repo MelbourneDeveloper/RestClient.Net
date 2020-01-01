@@ -370,7 +370,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.Response);
+                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -395,7 +395,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.Response);
+                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -446,7 +446,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.Response);
+                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -487,7 +487,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.Response);
+                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -518,7 +518,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.Response);
+                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
