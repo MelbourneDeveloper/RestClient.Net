@@ -102,7 +102,7 @@ namespace RestClient.Net
 
             //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
             if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
-            if (BaseUri != null) httpClient.BaseAddress = BaseUri;
+            if (httpClient.BaseAddress != BaseUri && BaseUri != null) httpClient.BaseAddress = BaseUri;
 
             byte[] requestBodyData = null;
 
