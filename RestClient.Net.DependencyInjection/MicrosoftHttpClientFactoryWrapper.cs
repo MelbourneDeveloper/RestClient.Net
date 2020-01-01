@@ -1,5 +1,4 @@
-﻿using RestClientDotNet;
-using snh = System.Net.Http;
+﻿using snh = System.Net.Http;
 
 namespace RestClient.Net.DependencyInjection
 {
