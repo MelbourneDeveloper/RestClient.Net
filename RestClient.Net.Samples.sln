@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net.Samples.UWP"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.Abstractions", "RestClient.Net.Abstractions\RestClient.Net.Abstractions.csproj", "{7E74647F-462A-431C-9E66-83267A30D16E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net.Polly", "RestClient.Net.Polly\RestClient.Net.Polly.csproj", "{3CFCE28A-9879-4CC0-941C-CED73309FBFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.DependencyInjection", "RestClient.Net.DependencyInjection\RestClient.Net.DependencyInjection.csproj", "{3CFCE28A-9879-4CC0-941C-CED73309FBFF}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RestClientDotNet;
 
-namespace RestClient.Net.Polly
+namespace RestClient.Net.DependencyInjection
 {
     public static class Extensions
     {
