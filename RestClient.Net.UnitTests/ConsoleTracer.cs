@@ -36,9 +36,9 @@ namespace RestClient.Net.UnitTests
                     Console.WriteLine($"Body: {Encoding.UTF8.GetString(trace?.BodyData)}\r\n");
                 }
 
-                if (trace.RestHeadersCollection == null) return;
+                if (trace.HeadersCollection == null) return;
 
-                foreach (var kvp in trace?.RestHeadersCollection)
+                foreach (var kvp in trace?.HeadersCollection)
                 {
                     Console.WriteLine($"Header: {kvp.Key} {string.Join(", ", kvp.Value)}");
                 }

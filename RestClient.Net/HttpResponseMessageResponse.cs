@@ -14,14 +14,14 @@ namespace RestClient.Net
         #region Constructor
         public HttpResponseMessageResponse
         (
-            HttpResponseHeadersCollection restHeadersCollection,
+            HttpResponseHeadersCollection httpResponseHeadersCollection,
             int statusCode,
             HttpRequestMethod HttpRequestMethod,
             byte[] responseContentData,
             TResponseBody body,
             HttpResponseMessage httpResponseMessage
             ) : base(
-                restHeadersCollection,
+                httpResponseHeadersCollection,
                 statusCode,
                 HttpRequestMethod,
                 responseContentData,

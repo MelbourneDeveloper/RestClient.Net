@@ -5,14 +5,14 @@ namespace RestClient.Net.Abstractions
     public abstract class Response<TResponseBody> : Response
     {
         protected Response(
-        IHeadersCollection restHeadersCollection,
+        IHeadersCollection headersCollection,
         int statusCode,
         HttpRequestMethod httpRequestMethod,
         byte[] responseData,
         TResponseBody body,
         Uri requestUri
         ) : base(
-            restHeadersCollection,
+            headersCollection,
             statusCode,
             httpRequestMethod,
             responseData,
@@ -50,7 +50,7 @@ namespace RestClient.Net.Abstractions
         #region Constructor
         protected Response
         (
-        IHeadersCollection restHeadersCollection,
+        IHeadersCollection headersCollection,
         int statusCode,
         HttpRequestMethod httpRequestMethod,
         byte[] responseData,
@@ -58,7 +58,7 @@ namespace RestClient.Net.Abstractions
         )
         {
             StatusCode = statusCode;
-            Headers = restHeadersCollection;
+            Headers = headersCollection;
             HttpRequestMethod = httpRequestMethod;
             RequestUri = requestUri;
             _responseData = responseData;

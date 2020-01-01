@@ -952,7 +952,7 @@ namespace RestClient.Net.UnitTests
                     (rt.RestEvent == RestEvent.Response || new List<HttpRequestMethod> { HttpRequestMethod.Patch, HttpRequestMethod.Post, HttpRequestMethod.Patch }.Contains(rt.HttpRequestMethod))
                     ? rt.BodyData != null && rt.BodyData.Length > 0 : true &&
                     rt.HttpStatusCode == httpStatusCode &&
-                    checkHeadersFunc != null ? checkHeadersFunc(rt.RestHeadersCollection) : true
+                    checkHeadersFunc != null ? checkHeadersFunc(rt.HeadersCollection) : true
                 ), exception, It.IsAny<Func<RestTrace, Exception, string>>()));
         }
 

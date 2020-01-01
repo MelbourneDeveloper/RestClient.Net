@@ -9,7 +9,7 @@ namespace RestClient.Net.Abstractions
         public byte[] BodyData { get; }
         public RestEvent RestEvent { get; }
         public int? HttpStatusCode { get; }
-        public IHeadersCollection RestHeadersCollection { get; }
+        public IHeadersCollection HeadersCollection { get; }
 
         public RestTrace(
             HttpRequestMethod httpRequestMethod,
@@ -17,14 +17,14 @@ namespace RestClient.Net.Abstractions
             byte[] bodyData,
             RestEvent traceType,
             int? httpStatusCode,
-            IHeadersCollection restHeadersCollection)
+            IHeadersCollection headersCollection)
         {
             HttpRequestMethod = httpRequestMethod;
             RequestUri = requestUri;
             BodyData = bodyData;
             RestEvent = traceType;
             HttpStatusCode = httpStatusCode;
-            RestHeadersCollection = restHeadersCollection;
+            HeadersCollection = headersCollection;
         }
     }
 }
