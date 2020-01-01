@@ -10,7 +10,7 @@ namespace RestClient.Net
         #region Fields
         private bool disposed;
         private readonly ConcurrentDictionary<string, Lazy<HttpClient>> _httpClients;
-        private readonly Func<string, Lazy<HttpClient>> _getOrAddFunc;
+        private readonly Func<string, Lazy<HttpClient>> _createClientFunc;
         #endregion
 
         #region Constructor
@@ -18,13 +18,13 @@ namespace RestClient.Net
         {
         }
 
-        public DefaultHttpClientFactory(Func<string, Lazy<HttpClient>> func)
+        public DefaultHttpClientFactory(Func<string, Lazy<HttpClient>> createClientFunc)
         {
-            _getOrAddFunc = func;
+            _createClientFunc = createClientFunc;
             _httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();
 
-            if (_getOrAddFunc != null) return;
-            _getOrAddFunc = name =>
+            if (_createClientFunc != null) return;
+            _createClientFunc = name =>
             {
                 return new Lazy<HttpClient>(() => new HttpClient(), LazyThreadSafetyMode.ExecutionAndPublication);
             };
@@ -39,7 +39,7 @@ namespace RestClient.Net
                 throw new ArgumentNullException(nameof(name));
             }
 
-            return _httpClients.GetOrAdd(name, _getOrAddFunc).Value;
+            return _httpClients.GetOrAdd(name, _createClientFunc).Value;
         }
 
         public void Dispose()

@@ -8,7 +8,7 @@ namespace RestClient.Net
     {
         public Request<TRequestBody> Request { get; }
 
-        public SendException(string message, Request<TRequestBody> request, Exception ex) : base(message, ex)
+        public SendException(string message, Request<TRequestBody> request, Exception innerException) : base(message, innerException)
         {
             Request = request;
         }
