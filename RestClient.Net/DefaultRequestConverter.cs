@@ -14,12 +14,12 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        public virtual HttpRequestMessage GetHttpRequestMessage<TRequestBody>(Request<TRequestBody> restRequest, byte[] requestBodyData)
+        public virtual HttpRequestMessage GetHttpRequestMessage<TRequestBody>(Request<TRequestBody> request, byte[] requestBodyData)
         {
-            if (restRequest == null) throw new ArgumentNullException(nameof(restRequest));
+            if (request == null) throw new ArgumentNullException(nameof(request));
 
             HttpMethod httpMethod;
-            switch (restRequest.HttpRequestMethod)
+            switch (request.HttpRequestMethod)
             {
                 case HttpRequestMethod.Get:
                     httpMethod = HttpMethod.Get;
@@ -43,28 +43,28 @@ namespace RestClient.Net
             var httpRequestMessage = new HttpRequestMessage
             {
                 Method = httpMethod,
-                RequestUri = restRequest.Resource
+                RequestUri = request.Resource
             };
 
             ByteArrayContent httpContent = null;
-            if (UpdateHttpRequestMethods.Contains(restRequest.HttpRequestMethod))
+            if (UpdateHttpRequestMethods.Contains(request.HttpRequestMethod))
             {
                 httpContent = new ByteArrayContent(requestBodyData);
                 httpRequestMessage.Content = httpContent;
             }
 
-            foreach (var headerName in restRequest.Headers.Names)
+            foreach (var headerName in request.Headers.Names)
             {
                 if (string.Compare(headerName, "Content-Type", StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     //Note: not sure why this is necessary...
                     //The HttpClient class seems to differentiate between content headers and request message headers, but this distinction doesn't exist in the real world...
                     //TODO: Other Content headers
-                    httpContent?.Headers.Add("Content-Type", restRequest.Headers[headerName]);
+                    httpContent?.Headers.Add("Content-Type", request.Headers[headerName]);
                 }
                 else
                 {
-                    httpRequestMessage.Headers.Add(headerName, restRequest.Headers[headerName]);
+                    httpRequestMessage.Headers.Add(headerName, request.Headers[headerName]);
                 }
             }
 

@@ -25,14 +25,9 @@ namespace RestClientNetSamples
         public string ip { get; set; }
     }
 
-    public class RestResponse<T>
+    public class RestCountriesResponse<T>
     {
         public List<string> messages { get; set; }
         public List<T> result { get; set; }
-    }
-
-    public class groupktResult<T>
-    {
-        public RestResponse<T> RestResponse { get; set; }
     }
 }

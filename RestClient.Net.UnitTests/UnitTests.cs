@@ -369,8 +369,8 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.RestResponse.StatusCode);
-                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
+                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.Response);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -394,8 +394,8 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.RestResponse.StatusCode);
-                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
+                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.Response);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -445,8 +445,8 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.RestResponse.StatusCode);
-                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
+                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.Response);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -486,8 +486,8 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.RestResponse.StatusCode);
-                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
+                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.Response);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -517,8 +517,8 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.RestResponse.StatusCode);
-                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
+                var apiResult = hex.RestClient.DeserializeResponseBody<ApiResult>(hex.Response);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -527,16 +527,16 @@ namespace RestClient.Net.UnitTests
         }
         #endregion
 
-        #region Local Headers In RestRequest
+        #region Local Headers In Request
         [TestMethod]
-        public async Task TestHeadersLocalInRestRequest()
+        public async Task TestHeadersLocalInRequest()
         {
             var client = new Client(new NewtonsoftSerializationAdapter(), httpClientFactory: _testServerHttpClientFactory);
-            var restRequestHeaders = new RequestHeadersCollection();
-            restRequestHeaders.Add("Test", "Test");
+            var requestHeadersCollection = new RequestHeadersCollection();
+            requestHeadersCollection.Add("Test", "Test");
             Person responsePerson = await client.SendAsync<Person, object>
                 (
-                new Request<object>(new Uri("headers", UriKind.Relative), null, restRequestHeaders, HttpRequestMethod.Get, client, default)
+                new Request<object>(new Uri("headers", UriKind.Relative), null, requestHeadersCollection, HttpRequestMethod.Get, client, default)
                 ); ;
             Assert.IsNotNull(responsePerson);
         }
@@ -570,7 +570,7 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response);
                 Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
                 return;
             }
@@ -608,8 +608,8 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.RestResponse.StatusCode);
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
+                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -637,8 +637,8 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.RestResponse.StatusCode);
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.RestResponse);
+                Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
+                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -668,8 +668,8 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException ex)
             {
-                Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.RestResponse.StatusCode);
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(ex.RestResponse);
+                Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.Response.StatusCode);
+                var apiResult = restClient.DeserializeResponseBody<ApiResult>(ex.Response);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -1047,14 +1047,14 @@ namespace RestClient.Net.UnitTests
             return restClient;
         }
 
-        private static bool CheckRequestHeaders(IHeadersCollection restRequestHeadersCollection)
+        private static bool CheckRequestHeaders(IHeadersCollection requestHeadersCollection)
         {
-            return restRequestHeadersCollection.Contains("Test") && restRequestHeadersCollection["Test"].First() == "Test";
+            return requestHeadersCollection.Contains("Test") && requestHeadersCollection["Test"].First() == "Test";
         }
 
-        private static bool CheckResponseHeaders(IHeadersCollection restResponseHeadersCollection)
+        private static bool CheckResponseHeaders(IHeadersCollection responseHeadersCollection)
         {
-            return restResponseHeadersCollection.Contains("Test1") && restResponseHeadersCollection["Test1"].First() == "a";
+            return responseHeadersCollection.Contains("Test1") && responseHeadersCollection["Test1"].First() == "a";
         }
         #endregion
     }

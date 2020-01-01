@@ -4,12 +4,12 @@ namespace RestClient.Net.Abstractions
 {
     public class HttpStatusException : Exception
     {
-        public Response RestResponse { get; }
+        public Response Response { get; }
         public IClient RestClient { get; }
 
-        public HttpStatusException(string message, Response restResponse, IClient restClient) : base(message)
+        public HttpStatusException(string message, Response response, IClient restClient) : base(message)
         {
-            RestResponse = restResponse;
+            Response = response;
             RestClient = restClient;
         }
     }

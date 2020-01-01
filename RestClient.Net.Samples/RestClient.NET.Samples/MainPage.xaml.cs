@@ -144,7 +144,7 @@ namespace RestClient.Net.Sample
             var hex = ex as HttpStatusException;
             if (hex != null)
             {
-                errorModel = hex.RestClient.DeserializeResponseBody<ErrorModel>(hex.RestResponse);
+                errorModel = hex.RestClient.DeserializeResponseBody<ErrorModel>(hex.Response);
             }
 
             var message = $"An error occurred while attempting to use a REST service.\r\nError: {ex.Message}\r\nInner Error: {ex.InnerException?.Message}\r\nInner Inner Error: {ex.InnerException?.InnerException?.Message}";
@@ -152,7 +152,7 @@ namespace RestClient.Net.Sample
             if (errorModel != null)
             {
                 message += $"\r\n{errorModel.error.message}";
-                message += $"\r\nStatus Code: {hex.RestResponse.StatusCode}";
+                message += $"\r\nStatus Code: {hex.Response.StatusCode}";
             }
 
             await DisplayAlert("Error", message);

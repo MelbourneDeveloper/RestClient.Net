@@ -81,14 +81,14 @@ namespace RestClient.Net
             ILogger logger = null,
             IHttpClientFactory httpClientFactory = null,
             Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,
-            IRequestConverter restRequestConverter = null)
+            IRequestConverter requestConverter = null)
         {
             SerializationAdapter = serializationAdapter ?? throw new ArgumentNullException(nameof(serializationAdapter));
             Logger = logger;
             BaseUri = baseUri;
             Name = name ?? "RestClient";
             DefaultRequestHeaders = defaultRequestHeaders ?? new RequestHeadersCollection();
-            RequestConverter = restRequestConverter ?? new DefaultRequestConverter();
+            RequestConverter = requestConverter ?? new DefaultRequestConverter();
             HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();
             SendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
         }
@@ -96,7 +96,7 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        async Task<Response<TResponseBody>> IClient.SendAsync<TResponseBody, TRequestBody>(Request<TRequestBody> restRequest)
+        async Task<Response<TResponseBody>> IClient.SendAsync<TResponseBody, TRequestBody>(Request<TRequestBody> request)
         {
             var httpClient = HttpClientFactory.CreateClient(Name);
 
@@ -106,9 +106,9 @@ namespace RestClient.Net
 
             byte[] requestBodyData = null;
 
-            if (DefaultRequestConverter.UpdateHttpRequestMethods.Contains(restRequest.HttpRequestMethod))
+            if (DefaultRequestConverter.UpdateHttpRequestMethods.Contains(request.HttpRequestMethod))
             {
-                requestBodyData = SerializationAdapter.Serialize(restRequest.Body, restRequest.Headers);
+                requestBodyData = SerializationAdapter.Serialize(request.Body, request.Headers);
             }
 
             HttpResponseMessage httpResponseMessage = null;
@@ -116,8 +116,8 @@ namespace RestClient.Net
             {
                 httpResponseMessage = await SendHttpRequestFunc.Invoke(
                     httpClient,
-                    () => RequestConverter.GetHttpRequestMessage(restRequest, requestBodyData),
-                    restRequest.CancellationToken
+                    () => RequestConverter.GetHttpRequestMessage(request, requestBodyData),
+                    request.CancellationToken
                     );
             }
             catch (TaskCanceledException tce)
@@ -133,25 +133,25 @@ namespace RestClient.Net
             //TODO: Does this need to be handled like this?
             catch (Exception ex)
             {
-                var exception = new SendException<TRequestBody>("HttpClient Send Exception", restRequest, ex);
+                var exception = new SendException<TRequestBody>("HttpClient Send Exception", request, ex);
                 Log(LogLevel.Error, null, exception);
                 throw exception;
             }
 
             Log(LogLevel.Trace, new RestTrace
                 (
-                 restRequest.HttpRequestMethod,
+                 request.HttpRequestMethod,
                  httpResponseMessage.RequestMessage.RequestUri,
                  requestBodyData,
                  RestEvent.Request,
                  null,
-                 restRequest.Headers
+                 request.Headers
                 ), null);
 
-            return await ProcessResponseAsync<TResponseBody, TRequestBody>(restRequest, httpResponseMessage);
+            return await ProcessResponseAsync<TResponseBody, TRequestBody>(request, httpResponseMessage);
         }
 
-        private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody, TRequestBody>(Request<TRequestBody> restRequest, HttpResponseMessage httpResponseMessage)
+        private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody, TRequestBody>(Request<TRequestBody> request, HttpResponseMessage httpResponseMessage)
         {
             byte[] responseData = null;
 
@@ -188,7 +188,7 @@ namespace RestClient.Net
             (
                 httpResponseHeadersCollection,
                 (int)httpResponseMessage.StatusCode,
-                restRequest.HttpRequestMethod,
+                request.HttpRequestMethod,
                 responseData,
                 responseBody,
                 httpResponseMessage
@@ -196,7 +196,7 @@ namespace RestClient.Net
 
             Log(LogLevel.Trace, new RestTrace
             (
-             restRequest.HttpRequestMethod,
+             request.HttpRequestMethod,
              httpResponseMessage.RequestMessage.RequestUri,
              responseData,
              RestEvent.Response,
@@ -209,7 +209,7 @@ namespace RestClient.Net
                 return httpResponseMessageResponse;
             }
 
-            throw new HttpStatusException($"{httpResponseMessageResponse.StatusCode}.\r\nrestRequest.Resource: {restRequest.Resource}", httpResponseMessageResponse, this);
+            throw new HttpStatusException($"Non successful Http Status Code: {httpResponseMessageResponse.StatusCode}.\r\nRequest Uri: {httpResponseMessage.RequestMessage.RequestUri}", httpResponseMessageResponse, this);
         }
         #endregion
 
