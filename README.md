@@ -1,6 +1,6 @@
-# Cross Platform REST Client for all C# platforms #
+# REST Client Framework for all .NET Platforms #
 
-This most simple Task-based Async, strongly typed, cross-platform C# REST Client. 
+The most simple Task-based Async, strongly typed, cross-platform .NET REST Client. 
 
 ### In Browser (Wasm) Support with [Uno Platform](https://platform.uno/) - New! ###
 
