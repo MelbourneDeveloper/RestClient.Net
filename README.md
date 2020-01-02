@@ -11,7 +11,7 @@ The most simple task-based async, strongly typed, cross-platform .NET REST Clien
 * Integrates with [Polly](https://github.com/App-vNext/Polly) resilience and transient-fault-handling
 * Supports all serialization methods (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers))
 * Uses strong types with content body
-* Supports Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
+* Supports [WebAssembly](https://webassembly.org/), Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
 
 ### In Browser (Wasm) Support with [Uno Platform](https://platform.uno/) - New! ###
 
