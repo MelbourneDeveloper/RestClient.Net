@@ -42,7 +42,7 @@
                     </ListView>
 
                     <Label Text="Description" />
-                    <Entry Text="{Binding description}"  HeightRequest="200"  />
+                    <Entry Text="{Binding description, Mode=TwoWay}"  HeightRequest="200"  />
 
                     <Button Text="Save Repo"   x:Name="SaveButton"  />
 
