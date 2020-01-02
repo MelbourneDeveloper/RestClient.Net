@@ -2,7 +2,16 @@
 
 # REST Client Framework for all .NET Platforms #
 
-The most simple Task-based Async, strongly typed, cross-platform .NET REST Client. 
+The most simple task-based async, strongly typed, cross-platform .NET REST Client. 
+
+### Features ###
+
+* Designed for Dependency Injection and use with IoC Containers
+* Async friendly. All operations use async, await keywords.
+* Integrates with [Polly](https://github.com/App-vNext/Polly) resilience and transient-fault-handling
+* Supports all serialization methods (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers))
+* Uses strong types with content body
+* Supports Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
 
 ### In Browser (Wasm) Support with [Uno Platform](https://platform.uno/) - New! ###
 
@@ -29,16 +38,6 @@ RestClient.Net can now run inside the browser via WebAssembly. To see a sample:
 | [RestSharp](https://github.com/restsharp/RestSharp) | 7010.3713ms | 12391.7717ms | 13420.5781ms | 
 
 *Note: benchmarks are biased! Please submit a [pull request](https://github.com/MelbourneDeveloper/RestClient.Net/compare) to fix these [benchmarks](https://github.com/MelbourneDeveloper/RestClient.Net/blob/21eaff49ba8af1ddbaeff5f3d17b73144df97557/RestClient.Net.UnitTests/PerformanceTests.cs#L8) and make them objective.*
-
-### Features ###
-
-* Open Source. (MIT License)
-* Markup language agnostic. (Supports JSON, Binary, SOAP and other markup languages with dependency injection)
-* Use strong types with REST.
-* Supports Android, iOS, Windows 10, .NET Framework, .NET Core (.NET Standard 2.0) .
-* Incredibly simple (All source code less than 200 lines)
-* Async friendly (uses async, await keywords).
-* Only one .NET Standard library for all platforms
 
 ## Quick Start & Samples ##
 Samples for all platforms in this Git repo:
