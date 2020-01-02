@@ -62,4 +62,4 @@ await client.DeleteAsync("posts/1");
 
 ## [Contribution](https://github.com/MelbourneDeveloper/RestClient.Net/blob/master/CONTRIBUTING.md)
 
-
+Please log any issues or feedback in the issues section. For pull requests, please see the contribution guide.
