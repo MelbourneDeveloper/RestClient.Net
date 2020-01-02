@@ -21,6 +21,7 @@ A series of Blog posts will introduce the new functionality in the coming weeks.
 * Installation from NuGet is easy on any platform
 * Uses strong types with content body
 * Supports [WebAssembly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Web-Assembly-Support), Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
+* Supports GET, POST, PUT, PATCH, DELETE with ability to use less common HTTP methods
 
 ## [Quick Start & Samples](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Quick-Start-&-Samples)
 
