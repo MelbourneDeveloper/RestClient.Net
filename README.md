@@ -13,7 +13,7 @@ Version 3 is on it's way to the NuGet gallery. Documentation on this page relate
 * Designed for Dependency Injection and use with IoC Containers
 * Async friendly. All operations use async, await keywords.
 * Integrates with [Polly](https://github.com/App-vNext/Polly) resilience and transient-fault-handling
-* Supports all serialization methods (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers))
+* Automatic serialization with any method (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers))
 * Uses strong types with content body
 * Supports [WebAssembly](https://webassembly.org/), Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
 
