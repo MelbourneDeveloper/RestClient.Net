@@ -1005,9 +1005,8 @@ namespace RestClient.Net.UnitTests
             Parallel.For(0, maxCalls, (i) =>
             {
                 var client = clientFactory.CreateClient();
-                client.DefaultRequestHeaders.Add("Test", "Test");
                 clients.Add(client);
-                tasks.Add(client.GetAsync<Person>(new Uri("headers", UriKind.Relative)));
+                tasks.Add(client.GetAsync<Person>(new Uri("JsonPerson", UriKind.Relative)));
             });
 
             var results = await Task.WhenAll(tasks);
