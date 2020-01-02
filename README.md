@@ -20,7 +20,7 @@ A series of Blog posts will introduce the new functionality in the coming weeks.
 * Uses strong types with content body
 * Supports [WebAssembly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Web-Assembly-Support), Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
 
-[## Quick Start & Samples ##](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Quick-Start-&-Samples)
+## [Quick Start & Samples](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Quick-Start-&-Samples)
 
 NuGet: Install-Package RestClient.NET
 
