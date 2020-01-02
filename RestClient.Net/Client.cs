@@ -218,10 +218,10 @@ namespace RestClient.Net
                  request.Headers
                 ), null);
 
-            return await ProcessResponseAsync<TResponseBody, TRequestBody>(request, httpResponseMessage);
+            return await ProcessResponseAsync<TResponseBody, TRequestBody>(request, httpResponseMessage, httpClient);
         }
 
-        private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody, TRequestBody>(Request<TRequestBody> request, HttpResponseMessage httpResponseMessage)
+        private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody, TRequestBody>(Request<TRequestBody> request, HttpResponseMessage httpResponseMessage, HttpClient httpClient)
         {
             byte[] responseData = null;
 
@@ -261,7 +261,8 @@ namespace RestClient.Net
                 request.HttpRequestMethod,
                 responseData,
                 responseBody,
-                httpResponseMessage
+                httpResponseMessage,
+                httpClient
             );
 
             Log(LogLevel.Trace, new Trace
