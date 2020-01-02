@@ -39,7 +39,7 @@ Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "RestClient.Net.Samples.Uno.
 EndProject
 Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "RestClient.Net.Samples.Uno.UWP", "RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.UWP\RestClient.Net.Samples.Uno.UWP.csproj", "{7C9EC498-FC70-448D-A58A-9BB6F1DA7AAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net.XamarinForms.iOS", "RestClient.Net.Samples\RestClient.Net.XamarinForms.iOS\RestClient.Net.XamarinForms.iOS.csproj", "{C25F1E40-011C-404B-AA8D-370897CB12CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net.Samples.iOS", "RestClient.Net.Samples\RestClient.Net.Samples.iOS\RestClient.Net.Samples.iOS.csproj", "{C25F1E40-011C-404B-AA8D-370897CB12CC}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
