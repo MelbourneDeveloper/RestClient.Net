@@ -39,7 +39,7 @@ var response = await client.GetAsync<List<RestCountry>>();
 var person = new Person { FirstName = "Bob", Surname = "Smith" };
 var client = new Client(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
 person = await client.PostAsync<Person, Person>(person);
-```cs
+```
 
 ### [Delete](https://github.com/MelbourneDeveloper/RestClient.Net/blob/f7f4f88b90c6b0014530891d094d958193776a52/RestClient.Net.UnitTests/UnitTests.cs#L94)
 
