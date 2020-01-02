@@ -21,13 +21,10 @@ A series of Blog posts will introduce the new functionality in the coming weeks.
 * Supports [WebAssembly](https://webassembly.org/), Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
 
 ## Quick Start & Samples ##
-Samples for all platforms in this Git repo:
 
-https://github.com/MelbourneDeveloper/RestClient.Net.git
-
+Clone this repo and open the samples solution: RestClient.Net.Samples.sln 
+or
 NuGet: Install-Package RestClient.NET
-
-
 
 ### [Get](https://github.com/MelbourneDeveloper/RestClient.Net/blob/13c95c615400d39523c02e803b46a564ff4c91db/RestClient.Net.UnitTests/UnitTests.cs#L81)
 
@@ -36,53 +33,12 @@ var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://r
 var response = await client.GetAsync<List<RestCountry>>();
 ```
 
-### [Put](https://github.com/MelbourneDeveloper/RestClient.Net/blob/d39df96bc7534bb92981047f60861a812bcaafa3/RestClient.Net.Samples/RestClient.Net.Samples/MainPage.xaml.cs#L108)
+### [Post](https://github.com/MelbourneDeveloper/RestClient.Net/blob/80d19ebc599027e2c68acb06a4e1f853683c3517/RestClient.Net.Samples/RestClient.Net.CoreSample/Program.cs#L25)
 
-Post is basically the same
-
-```cs
-private void GetBitBucketClient(string password, bool isGet)
-{
-    var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
-    _BitbucketClient = new RestClient(new NewtonsoftSerializationAdapter(), new Uri(url));
-
-    if (!string.IsNullOrEmpty(password))
-    {
-        var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
-        _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
-    }
-}
-        
-private async Task OnSavedClicked()
-{
-    ToggleBusy(true);
-
-    try
-    {
-        var selectedRepo = ReposBox.SelectedItem as Repository;
-        if (selectedRepo == null)
-        {
-            return;
-        }
-
-        //Ensure the client is ready to go
-        GetBitBucketClient(GetPassword(), false);
-
-        //var repoSlug = selectedRepo.full_name.Split('/')[1];
-        var requestUri = $"https://api.bitbucket.org/2.0/repositories/{UsernameBox.Text}/{selectedRepo.full_name.Split('/')[1]}";
-
-        //Post the change
-        var retVal = await _BitbucketClient.PutAsync<Repository, Repository>(selectedRepo, requestUri);
-
-        await DisplayAlert("Saved", "Your repo was updated.");
-    }
-    catch (Exception ex)
-    {
-        await HandleException(ex);
-    }
-
-    ToggleBusy(false);
-}            
+```
+var person = new Person { FirstName = "Bob", Surname = "Smith" };
+var client = new Client(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
+person = await client.PostAsync<Person, Person>(person);
 ```
 
 ### [Patch](https://github.com/MelbourneDeveloper/RestClient.Net/blob/d39df96bc7534bb92981047f60861a812bcaafa3/RestClient.Net.Samples/RestClient.Net.Samples/MainPage.xaml.cs#L222)
