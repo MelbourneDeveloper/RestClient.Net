@@ -18,8 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)BinaryDataContractSerializationAdapter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataContractSerializationAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnoSampleHttpClientFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -29,7 +28,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\PRODUCT.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\UserPost.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NewtonsoftSerializationAdapter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)XmlSerializationAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">

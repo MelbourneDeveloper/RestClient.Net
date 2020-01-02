@@ -1,41 +1,36 @@
 ﻿using Newtonsoft.Json;
-using RestClientDotNet;
-using System;
+using RestClient.Net.Abstractions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RestClientDotNet
+namespace RestClient.Net
 {
     public class NewtonsoftSerializationAdapter : ISerializationAdapter
     {
-        #region Public Properties
-        public Encoding Encoding { get; set; } = Encoding.UTF8;
-        #endregion
-
         #region Implementation
-        public async Task<T> DeserializeAsync<T>(byte[] data)
+        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders)
         {
-            var markup = Encoding.GetString(data);
+            //This here is why I don't like JSON serialization. 😢
+            //Note: on some services the headers should be checked for encoding 
+            var markup = Encoding.UTF8.GetString(data);
 
             object markupAsObject = markup;
 
-            if (typeof(T) == typeof(string))
+            if (typeof(TResponseBody) == typeof(string))
             {
-                return (T)markupAsObject;
+                return (TResponseBody)markupAsObject;
             }
 
-            return await Task.Run(() => JsonConvert.DeserializeObject<T>(markup));
+            return JsonConvert.DeserializeObject<TResponseBody>(markup);
         }
 
-        public async Task<object> DeserializeAsync(byte[] data, Type errorType)
+        public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)
         {
-            return await Task.Run(() => JsonConvert.DeserializeObject(Encoding.GetString(data)));
-        }
+            var json = JsonConvert.SerializeObject(value);
 
-        public async Task<byte[]> SerializeAsync<T>(T value)
-        {
-            var json = await Task.Run(() => JsonConvert.SerializeObject(value));
-            var binary = await Task.Run(() => Encoding.GetBytes(json));
+            //This here is why I don't like JSON serialization. 😢
+            var binary = Encoding.UTF8.GetBytes(json);
+
             return binary;
         }
         #endregion

@@ -1,7 +1,4 @@
-﻿using System;
-using Windows.UI.Xaml;
-
-namespace RestClient.Net.Samples.Uno.Wasm
+﻿namespace RestClient.Net.Samples.Uno.Wasm
 {
     public class Program
     {

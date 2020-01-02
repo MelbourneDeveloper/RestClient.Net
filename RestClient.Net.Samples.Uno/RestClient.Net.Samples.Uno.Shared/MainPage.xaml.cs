@@ -1,14 +1,13 @@
-﻿using RestClientDotNet;
+﻿using RestClient.Net.Abstractions.Extensions;
+using RestClient.Net.Samples.Uno.Shared;
 using RestClientNetSamples;
 using System;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using restClient = RestClientDotNet.RestClient;
+using client = RestClient.Net.Client;
 
 #if __WASM__
 using Uno.UI.Wasm;
@@ -16,13 +15,14 @@ using Uno.UI.Wasm;
 
 namespace RestClient.Net.Samples.Uno
 {
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class MainPage : Page
     {
         #region Fields
-        private restClient _BitbucketClient;
+        private client _BitbucketClient;
         #endregion
 
         #region Constructror
@@ -39,18 +39,17 @@ namespace RestClient.Net.Samples.Uno
         private void GetBitBucketClient(string password, bool isGet)
         {
             var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
-#if __WASM__
-            var httpClient = new HttpClient(new WasmHttpHandler());
-#else
-            var httpClient = new HttpClient();
-#endif
 
-            _BitbucketClient = new restClient(new NewtonsoftSerializationAdapter(), new Uri(url), new TimeSpan(0, 3, 0), httpClient);
+            _BitbucketClient = new client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: new Uri(url),
+                httpClientFactory: new UnoSampleHttpClientFactory());
+
+            _BitbucketClient.SetJsonContentTypeHeader();
 
             if (!string.IsNullOrEmpty(password))
             {
-                var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(UsernameBox.Text + ":" + password));
-                _BitbucketClient.Headers.Add("Authorization", "Basic " + credentials);
+                _BitbucketClient.SetBasicAuthenticationHeader(UsernameBox.Text, password);
             }
         }
 
@@ -67,7 +66,7 @@ namespace RestClient.Net.Samples.Uno
                 GetBitBucketClient(GetPassword(), true);
 
                 //Download the repository data
-                var repos = (await _BitbucketClient.GetAsync<RepositoryList>());
+                RepositoryList repos = (await _BitbucketClient.GetAsync<RepositoryList>());
 
                 //Put it in the List Box
                 ReposBox.ItemsSource = repos.values;
@@ -106,7 +105,9 @@ namespace RestClient.Net.Samples.Uno
             }
             catch (Exception ex)
             {
-                await HandleException($"Save error. Please ensure you entered your credentials.");
+                await DisplayAlert("Error", ex.InnerException.Message);
+
+                //await HandleException($"Save error. Please ensure you entered your credentials.\r\n{ex.Message}");
             }
 
             ToggleBusy(false);

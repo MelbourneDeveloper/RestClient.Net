@@ -1,6 +1,8 @@
-# Cross Platform REST Client for all C# platforms #
+![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/master/Images/Rendered/Logo.jpg) <!-- .element height="500px" width="453px" -->
 
-This most simple Task-based Async, strongly typed, cross-platform C# REST Client. 
+# REST Client Framework for all .NET Platforms #
+
+The most simple Task-based Async, strongly typed, cross-platform .NET REST Client. 
 
 ### In Browser (Wasm) Support with [Uno Platform](https://platform.uno/) - New! ###
 

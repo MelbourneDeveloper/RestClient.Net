@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RestClientDotNet.Sample.MainPage"
+             x:Class="RestClient.Net.Sample.MainPage"
              Title="RESTClient.NET Sample" >
 
     <TabbedPage.Children>
@@ -42,7 +42,7 @@
                     </ListView>
 
                     <Label Text="Description" />
-                    <Entry Text="{Binding description}"  HeightRequest="200"  />
+                    <Entry Text="{Binding description, Mode=TwoWay}"  HeightRequest="200"  />
 
                     <Button Text="Save Repo"   x:Name="SaveButton"  />
 
@@ -72,9 +72,9 @@
                                 <StackLayout Orientation="Horizontal"    >
                                     <Label Text="{Binding name}" VerticalOptions="Center" />
                                     <Label Text=" - " VerticalOptions="Center" />
-                                    <Label Text="{Binding alpha2_code}" VerticalOptions="Center" />
+                                    <Label Text="{Binding alpha2Code}" VerticalOptions="Center" />
                                     <Label Text=" - " VerticalOptions="Center" />
-                                    <Label Text="{Binding alpha3_code}" VerticalOptions="Center" />
+                                    <Label Text="{Binding alpha3Code}" VerticalOptions="Center" />
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>

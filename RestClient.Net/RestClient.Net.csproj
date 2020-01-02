@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45;net47</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
-    <AssemblyVersion>2.1.0.0</AssemblyVersion>
-    <FileVersion>2.1.0.0</FileVersion>
-    <Version>2.1.0</Version>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
+    <Version>3.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Christian Findlay</Authors>
     <Description>Cross Platform REST Client for all C# platforms
@@ -29,8 +29,35 @@ Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
     <CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>    
     <NoWarn>CA2007</NoWarn>    
     <LangVersion>7.3</LangVersion>    
-    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>    
+    <RootNamespace>RestClient.Net</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8" />
+    <None Include="License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestClient.Net.Abstractions\RestClient.Net.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net45'">
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0">
+    </PackageReference>
+  </ItemGroup>
+
+  <Choose>
+    <When Condition=" '$(TargetFramework)'=='netstandard2.0' " />
+    <Otherwise>  
+      <ItemGroup>
+        <PackageReference Include="System.Net.Http" Version="4.3.4" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
 
   <Choose>
     <When Condition=" '$(Configuration)'=='Debug' ">
@@ -46,17 +73,5 @@ Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
       </PropertyGroup>
     </When>
   </Choose>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.2" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="License.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
 
 </Project>

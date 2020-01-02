@@ -30,12 +30,13 @@
     <Content Include="LinkerConfig.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="Uno.UI" Version="1.43.1" />
-    <PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0-dev.137" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Uno.UI" Version="2.0.528" />
+    <PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.10" />
     <DotNetCliToolReference Include="Uno.Wasm.Bootstrap.Cli" Version="1.0.0-dev.137" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\RestClient.Net.Abstractions\RestClient.Net.Abstractions.csproj" />
     <ProjectReference Include="..\..\RestClient.Net\RestClient.Net.csproj" />
   </ItemGroup>
   <ItemGroup>

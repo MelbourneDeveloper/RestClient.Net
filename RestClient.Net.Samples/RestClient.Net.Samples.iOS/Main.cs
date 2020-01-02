@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace RestClient.Net.Samples.iOS
+namespace RestClient.Net.XamarinForms.iOS
 {
     public class Application
     {
