@@ -1,4 +1,5 @@
 ﻿using RestClient.Net.Abstractions.Extensions;
+using RestClient.Net.Samples.Uno.Shared;
 using RestClientNetSamples;
 using System;
 using System.Linq;
@@ -39,7 +40,10 @@ namespace RestClient.Net.Samples.Uno
         {
             var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
 
-            _BitbucketClient = new client(new NewtonsoftSerializationAdapter(), new Uri(url));
+            _BitbucketClient = new client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: new Uri(url),
+                httpClientFactory: new UnoSampleHttpClientFactory());
 
             if (!string.IsNullOrEmpty(password))
             {
