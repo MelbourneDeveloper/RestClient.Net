@@ -1,6 +1,11 @@
-﻿using UIKit;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace RestClient.Net.Samples.iOS
+using Foundation;
+using UIKit;
+
+namespace RestClient.Net.XamarinForms.iOS
 {
     public class Application
     {

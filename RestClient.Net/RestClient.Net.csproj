@@ -46,8 +46,7 @@ Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net45'">
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions">
-      <Version>3.1.0</Version>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0">
     </PackageReference>
   </ItemGroup>
 
