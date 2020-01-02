@@ -14,7 +14,7 @@ A series of Blog posts will introduce the new functionality in the coming weeks.
 
 * Designed for Dependency Injection, Unit Testing and use with IoC Containers
 * Async friendly. All operations use async, await keywords.
-* Integrates with [Polly](https://github.com/App-vNext/Polly) resilience and transient-fault-handling
+* Integrates with [Polly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Integration-With-Polly) resilience and transient-fault-handling
 * Automatic serialization with any method (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers))
 * Installation from NuGet is easy on any platform
 * Uses strong types with content body
