@@ -45,6 +45,8 @@ namespace RestClient.Net.Samples.Uno
                 baseUri: new Uri(url),
                 httpClientFactory: new UnoSampleHttpClientFactory());
 
+            _BitbucketClient.SetJsonContentTypeHeader();
+
             if (!string.IsNullOrEmpty(password))
             {
                 _BitbucketClient.SetBasicAuthenticationHeader(UsernameBox.Text, password);
@@ -103,7 +105,9 @@ namespace RestClient.Net.Samples.Uno
             }
             catch (Exception ex)
             {
-                await HandleException($"Save error. Please ensure you entered your credentials.");
+                await DisplayAlert("Error", ex.InnerException.Message);
+
+                //await HandleException($"Save error. Please ensure you entered your credentials.\r\n{ex.Message}");
             }
 
             ToggleBusy(false);

@@ -1,6 +1,4 @@
-﻿using RestClient.Net.Abstractions;
-using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 
 #if __WASM__
 using Uno.UI.Wasm;
@@ -21,18 +19,9 @@ namespace RestClient.Net.Samples.Uno.Shared
 #endif
         }
 
-        public TimeSpan Timeout { get => httpClient.Timeout; set => httpClient.Timeout = value; }
-
-        public IHeadersCollection DefaultRequestHeaders => new RequestHeadersCollection();
-
         public HttpClient CreateClient(string name)
         {
             return httpClient;
-        }
-
-        public void Dispose()
-        {
-            httpClient.Dispose();
         }
     }
 }

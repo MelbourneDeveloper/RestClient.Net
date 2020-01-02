@@ -53,7 +53,7 @@ namespace RestClient.Net
                 httpRequestMessage.Content = httpContent;
             }
 
-            foreach (var headerName in request.Headers.Names)
+            foreach (var headerName in request.Headers?.Names)
             {
                 if (string.Compare(headerName, "Content-Type", StringComparison.OrdinalIgnoreCase) == 0)
                 {
