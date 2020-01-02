@@ -1,3 +1,5 @@
+![diagram](https://github.com/MelbourneDeveloper/Rstclient.Net/blob/master/Images/Rendered/Logo.jpg)
+
 # REST Client Framework for all .NET Platforms #
 
 The most simple Task-based Async, strongly typed, cross-platform .NET REST Client. 
