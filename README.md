@@ -27,11 +27,11 @@ NuGet: Install-Package RestClient.NET
 
 Blog: https://christianfindlay.wordpress.com/
 
-### [Get](https://github.com/MelbourneDeveloper/RestClient.Net/blob/d39df96bc7534bb92981047f60861a812bcaafa3/RestClient.Net.Samples/RestClient.Net.Samples/MainPage.xaml.cs#L126)
+### [Get](https://github.com/MelbourneDeveloper/RestClient.Net/blob/13c95c615400d39523c02e803b46a564ff4c91db/RestClient.Net.UnitTests/UnitTests.cs#L81)
 
 ```cs
-var countryCodeClient = new RestClientDotNet.RestClient(new NewtonsoftSerializationAdapter(), new Uri("http://services.groupkt.com/country/get/all"));
-var countryData = await countryCodeClient.GetAsync<groupktResult<CountriesResult>>();
+var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
+var response = await client.GetAsync<List<RestCountry>>();
 ```
 
 ### [Put](https://github.com/MelbourneDeveloper/RestClient.Net/blob/d39df96bc7534bb92981047f60861a812bcaafa3/RestClient.Net.Samples/RestClient.Net.Samples/MainPage.xaml.cs#L108)
