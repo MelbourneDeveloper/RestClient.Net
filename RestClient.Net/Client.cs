@@ -16,21 +16,65 @@ using System.Threading.Tasks;
 
 namespace RestClient.Net
 {
-
+    /// <summary>
+    /// Rest client implementation using Microsoft's HttpClient class. 
+    /// </summary>
     public sealed class Client : IClient
     {
+        #region Fields
+        private readonly Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> _sendHttpRequestFunc;
+        #endregion
+
         #region Public Properties
+        /// <summary>
+        /// Gets the current IHttpClientFactory instance that is used for getting or creating HttpClient instances when the SendAsync call is made
+        /// </summary>
         public IHttpClientFactory HttpClientFactory { get; }
+
+        /// <summary>
+        /// Compresses and decompresses http requests 
+        /// </summary>
         public IZip Zip { get; set; }
+
+        /// <summary>
+        /// Default headers to be sent with http requests
+        /// </summary>
         public IHeadersCollection DefaultRequestHeaders { get; }
+
+        /// <summary>
+        /// Default timeout for http requests
+        /// </summary>
         public TimeSpan Timeout { get; set; }
+
+        /// <summary>
+        /// Adapter for serialization/deserialization of http body data
+        /// </summary>
         public ISerializationAdapter SerializationAdapter { get; }
+
+        /// <summary>
+        /// Logging abstraction that will trace request/response data and log events
+        /// </summary>
         public ILogger Logger { get; }
+
+        /// <summary>
+        /// Specifies whether or not the client will throw an exception when non-successful status codes are returned in the http response. The default is true
+        /// </summary>
         public bool ThrowExceptionOnFailure { get; set; } = true;
+
+        /// <summary>
+        /// Base Uri for the client. Any resources specified on requests will be relative to this.
+        /// </summary>
         public Uri BaseUri { get; set; }
+
+        /// <summary>
+        /// Name of the client
+        /// </summary>
         public string Name { get; }
+
+        /// <summary>
+        /// Gets the current IRequestConverter instance responsible for converting rest requests to http requests
+        /// </summary>
         public IRequestConverter RequestConverter { get; }
-        public Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> SendHttpRequestFunc { get; }
         #endregion
 
         #region Func
@@ -42,6 +86,10 @@ namespace RestClient.Net
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Construct a client
+        /// </summary>
+        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies</param>
         public Client(
             ISerializationAdapter serializationAdapter)
         : this(
@@ -50,6 +98,11 @@ namespace RestClient.Net
         {
         }
 
+        /// <summary>
+        /// Construct a client
+        /// </summary>
+        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies</param>
+        /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only</param>
         public Client(
             ISerializationAdapter serializationAdapter,
             Uri baseUri)
@@ -60,6 +113,12 @@ namespace RestClient.Net
         {
         }
 
+        /// <summary>
+        /// Construct a client.
+        /// </summary>
+        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies</param>
+        /// <param name="logger"></param>
+        /// <param name="httpClientFactory"></param>
         public Client(
             ISerializationAdapter serializationAdapter,
             ILogger logger,
@@ -73,6 +132,17 @@ namespace RestClient.Net
         {
         }
 
+        /// <summary>
+        /// Construct a client.
+        /// </summary>
+        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies</param>
+        /// <param name="name">The of the client instance. This is also passed to the HttpClient factory to get or create HttpClient instances</param>
+        /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only</param>
+        /// <param name="defaultRequestHeaders">Default headers to be sent with http requests</param>
+        /// <param name="logger">Logging abstraction that will trace request/response data and log events</param>
+        /// <param name="httpClientFactory">The IHttpClientFactory instance that is used for getting or creating HttpClient instances when the SendAsync call is made</param>
+        /// <param name="sendHttpRequestFunc">The Func responsible for performing the SendAsync method on HttpClient. This can replaced in the constructor in order to implement retries and so on.</param>
+        /// <param name="requestConverter">IRequestConverter instance responsible for converting rest requests to http requests</param>
         public Client(
             ISerializationAdapter serializationAdapter,
             string name = null,
@@ -90,7 +160,7 @@ namespace RestClient.Net
             DefaultRequestHeaders = defaultRequestHeaders ?? new RequestHeadersCollection();
             RequestConverter = requestConverter ?? new DefaultRequestConverter();
             HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();
-            SendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
+            _sendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
         }
 
         #endregion
@@ -114,7 +184,7 @@ namespace RestClient.Net
             HttpResponseMessage httpResponseMessage;
             try
             {
-                httpResponseMessage = await SendHttpRequestFunc.Invoke(
+                httpResponseMessage = await _sendHttpRequestFunc.Invoke(
                     httpClient,
                     () => RequestConverter.GetHttpRequestMessage(request, requestBodyData),
                     request.CancellationToken

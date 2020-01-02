@@ -9,6 +9,10 @@ namespace RestClient.Net
     /// </summary>
     public interface IHttpClientFactory
     {
+        /// <summary>
+        /// Get or create a HttpClient
+        /// </summary>
+        /// <param name="name">The name of the HttpClient</param>
         HttpClient CreateClient(string name);
     }
 }
