@@ -22,8 +22,10 @@ A series of Blog posts will introduce the new functionality in the coming weeks.
 
 ## Quick Start & Samples ##
 
-Clone this repo and open the samples solution: RestClient.Net.Samples.sln 
+Clone this repo and open the samples solution. There are samples for WebAssembly (in browser, UWP, Android, iOS, .NET Core, and many examples of common tasks like Polly Integration in the Unit Tests). The solution is called RestClient.Net.Samples.sln.  
+
 or
+
 NuGet: Install-Package RestClient.NET
 
 ### [Get](https://github.com/MelbourneDeveloper/RestClient.Net/blob/13c95c615400d39523c02e803b46a564ff4c91db/RestClient.Net.UnitTests/UnitTests.cs#L81)
