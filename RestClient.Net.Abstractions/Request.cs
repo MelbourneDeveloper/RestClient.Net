@@ -11,6 +11,7 @@ namespace RestClient.Net.Abstractions
         public HttpRequestMethod HttpRequestMethod { get; set; }
         public TRequestBody Body { get; set; }
         public CancellationToken CancellationToken { get; set; }
+        public string CustomHttpRequestMethod { get; set; }
         #endregion
 
         public Request(Uri resource,
