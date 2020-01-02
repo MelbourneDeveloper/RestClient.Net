@@ -20,11 +20,7 @@ A series of Blog posts will introduce the new functionality in the coming weeks.
 * Uses strong types with content body
 * Supports [WebAssembly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Web-Assembly-Support), Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
 
-## Quick Start & Samples ##
-
-Clone this repo and open the samples solution. There are samples for WebAssembly (in browser, UWP, Android, iOS, .NET Core, and many examples of common tasks like Polly Integration in the Unit Tests). The solution is called RestClient.Net.Samples.sln.  
-
-or
+[## Quick Start & Samples ##](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Quick-Start-&-Samples)
 
 NuGet: Install-Package RestClient.NET
 
@@ -35,16 +31,23 @@ var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://r
 var response = await client.GetAsync<List<RestCountry>>();
 ```
 
-### [Post / Put / Patch](https://github.com/MelbourneDeveloper/RestClient.Net/blob/80d19ebc599027e2c68acb06a4e1f853683c3517/RestClient.Net.Samples/RestClient.Net.CoreSample/Program.cs#L25)
+### Post / Put / Patch
 
+[**Protocol Buffers**](https://github.com/MelbourneDeveloper/RestClient.Net/blob/80d19ebc599027e2c68acb06a4e1f853683c3517/RestClient.Net.Samples/RestClient.Net.CoreSample/Program.cs#L25) (Binary)
 ```cs
 var person = new Person { FirstName = "Bob", Surname = "Smith" };
 var client = new Client(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
 person = await client.PostAsync<Person, Person>(person);
 ```
 
-### [Delete](https://github.com/MelbourneDeveloper/RestClient.Net/blob/f7f4f88b90c6b0014530891d094d958193776a52/RestClient.Net.UnitTests/UnitTests.cs#L94)
+[**JSON**](https://github.com/MelbourneDeveloper/RestClient.Net/blob/236a454232455aa3dc0cea230e991329288c153d/RestClient.Net.Samples/RestClient.NET.Samples/MainPage.xaml.cs#L233)
+```cs
+var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+client.SetJsonContentTypeHeader();
+UserPost userPost = await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Title" }, "/posts");
+```
 
+### [Delete](https://github.com/MelbourneDeveloper/RestClient.Net/blob/f7f4f88b90c6b0014530891d094d958193776a52/RestClient.Net.UnitTests/UnitTests.cs#L94)
 ```cs
 var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
 await client.DeleteAsync("posts/1");
