@@ -215,6 +215,7 @@ namespace RestClient.Net.Sample
         private async void Delete_Clicked(object sender, EventArgs e)
         {
             var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            client.SetJsonContentTypeHeader();
             await client.DeleteAsync("/posts/1");
             await DisplayAlert("Post Deleted", $"The server pretended to delete the post 1");
         }
@@ -222,6 +223,7 @@ namespace RestClient.Net.Sample
         private async void Patch_Clicked(object sender, EventArgs e)
         {
             var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            client.SetJsonContentTypeHeader();
             UserPost userPost = await client.PatchAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts/1");
             await DisplayAlert("Post Patched", $"The server pretended to patch a post titled:\r\n{userPost.title}");
         }
@@ -229,6 +231,7 @@ namespace RestClient.Net.Sample
         private async void Post_Clicked(object sender, EventArgs e)
         {
             var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            client.SetJsonContentTypeHeader();
             UserPost userPost = await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, "/posts");
             await DisplayAlert("Post made", $"The server pretended to accept the post:\r\n{userPost.title}");
         }
@@ -238,7 +241,7 @@ namespace RestClient.Net.Sample
             try
             {
                 var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-
+                client.SetJsonContentTypeHeader();
                 var tokenSource = new CancellationTokenSource();
                 var token = tokenSource.Token;
 
@@ -263,6 +266,7 @@ namespace RestClient.Net.Sample
             try
             {
                 var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com")) { Timeout = new TimeSpan(0, 0, 0, 0, 1) };
+                client.SetJsonContentTypeHeader();
                 await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
             }
             catch (OperationCanceledException ex)
