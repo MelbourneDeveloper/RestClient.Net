@@ -14,6 +14,7 @@ Version 3 is on it's way to the NuGet gallery. Documentation on this page relate
 * Async friendly. All operations use async, await keywords.
 * Integrates with [Polly](https://github.com/App-vNext/Polly) resilience and transient-fault-handling
 * Automatic serialization with any method (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers))
+* Installation from NuGet is easy on any platform
 * Uses strong types with content body
 * Supports [WebAssembly](https://webassembly.org/), Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
 
