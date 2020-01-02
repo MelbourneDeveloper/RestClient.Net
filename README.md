@@ -6,11 +6,11 @@ The most simple task-based async, strongly typed, cross-platform .NET REST Clien
 
 ### Announcement ###
 
-Version 3 is on it's way to the NuGet gallery. Documentation on this page relates to version 3. Grab the latest from the develop branch to start using Version 3 before the official release. 
+Version 3 is on it's way to the NuGet gallery. Documentation on this page relates to version 3. Grab the latest from the develop branch to start using Version 3 before the official release. [Follow me on Twitter](https://twitter.com/cfdevelop) for updates.
 
 ### Features ###
 
-* Designed for Dependency Injection and use with IoC Containers
+* Designed for Dependency Injection, Unit Testing and use with IoC Containers
 * Async friendly. All operations use async, await keywords.
 * Integrates with [Polly](https://github.com/App-vNext/Polly) resilience and transient-fault-handling
 * Automatic serialization with any method (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers))
