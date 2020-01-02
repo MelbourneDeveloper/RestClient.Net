@@ -8,6 +8,8 @@ The most simple task-based async, strongly typed, cross-platform .NET REST Clien
 
 Version 3 is on it's way to the NuGet gallery. Documentation on this page relates to version 3. Grab the latest from the develop branch to start using Version 3 before the official release. [Follow me on Twitter](https://twitter.com/cfdevelop) for updates.
 
+A series of Blog posts will introduce the new functionality in the coming weeks. https://christianfindlay.com/
+
 ### Features ###
 
 * Designed for Dependency Injection, Unit Testing and use with IoC Containers
@@ -25,7 +27,7 @@ https://github.com/MelbourneDeveloper/RestClient.Net.git
 
 NuGet: Install-Package RestClient.NET
 
-Blog: https://christianfindlay.wordpress.com/
+
 
 ### [Get](https://github.com/MelbourneDeveloper/RestClient.Net/blob/13c95c615400d39523c02e803b46a564ff4c91db/RestClient.Net.UnitTests/UnitTests.cs#L81)
 
