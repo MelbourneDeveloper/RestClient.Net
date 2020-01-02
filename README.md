@@ -1,4 +1,4 @@
-![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/master/Images/Rendered/Logo.jpg)
+![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/master/Images/Rendered/Logo.jpg | width=500)
 
 # REST Client Framework for all .NET Platforms #
 
