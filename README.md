@@ -18,7 +18,7 @@ A series of Blog posts will introduce the new functionality in the coming weeks.
 * Automatic serialization with any method (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers))
 * Installation from NuGet is easy on any platform
 * Uses strong types with content body
-* Supports [WebAssembly](https://webassembly.org/), Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
+* Supports [WebAssembly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Web-Assembly-Support), Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
 
 ## Quick Start & Samples ##
 
