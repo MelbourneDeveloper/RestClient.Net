@@ -59,6 +59,8 @@ namespace RestClient.Net.Sample
             {
                 _BitbucketClient.SetBasicAuthenticationHeader(UsernameBox.Text, password);
             }
+
+            _BitbucketClient.SetJsonContentTypeHeader();
         }
 
         private async void OnGetReposClick()
