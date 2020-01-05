@@ -25,7 +25,7 @@ A series of Blog posts will introduce the new functionality in the coming weeks.
 * Supports [WebAssembly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Web-Assembly-Support), Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
 * Supports GET, POST, PUT, PATCH, DELETE with ability to use less common HTTP methods
 
-These features together make this the best C# REST client. Consuming REST APIs is simple and encourages best practice.
+These features together make this the best C# REST client and the best alternative to RestSharp. Consuming REST APIs is simple and encourages best practice.
 
 ## [Quick Start & Samples](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Quick-Start-&-Samples)
 
