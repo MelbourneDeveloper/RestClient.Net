@@ -2,7 +2,7 @@
 
 # REST Client Framework for all .NET Platforms #
 
-The most simple task-based async, strongly typed, cross-platform .NET REST Client. 
+The best .NET REST Client with task-based async, strong types and dependency injection on all platforms. 
 
 **[Documentation Here](https://github.com/MelbourneDeveloper/RestClient.Net/wiki)**
 
