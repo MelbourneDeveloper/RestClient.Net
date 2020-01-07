@@ -8,6 +8,7 @@ using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using StructureMap;
 
 namespace RestClient.Net.UnitTests
 {
@@ -70,6 +71,29 @@ namespace RestClient.Net.UnitTests
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var mockAspController = serviceProvider.GetService<MockAspController>();
             var reponse = await mockAspController.Client.GetAsync<List<RestCountry>>();
+        }
+
+        [TestMethod]
+        public void TestStructureMap()
+        {
+            var container = new Container(c =>
+            {
+                c.Scan(s =>
+                {
+                    s.TheCallingAssembly();
+                    s.WithDefaultConventions();
+                });
+
+                c.For<IClientFactory>().Use<ClientFactory>();
+                c.For<IHttpClientFactory>().Use<DefaultHttpClientFactory>();
+                c.For<ILogger>().Use<ConsoleLogger>();
+                c.For<ISerializationAdapter>().Use<NewtonsoftSerializationAdapter>();
+            });
+
+            var clientFactory = container.GetInstance<IClientFactory>();
+            var client = clientFactory.CreateClient("Test");
+            Assert.IsNotNull(client);
+            Assert.AreEqual("Test", client.Name);
         }
 
     }

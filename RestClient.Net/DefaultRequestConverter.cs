@@ -19,25 +19,34 @@ namespace RestClient.Net
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             HttpMethod httpMethod;
-            switch (request.HttpRequestMethod)
+            if (string.IsNullOrEmpty(request.CustomHttpRequestMethod))
             {
-                case HttpRequestMethod.Get:
-                    httpMethod = HttpMethod.Get;
-                    break;
-                case HttpRequestMethod.Post:
-                    httpMethod = HttpMethod.Post;
-                    break;
-                case HttpRequestMethod.Put:
-                    httpMethod = HttpMethod.Put;
-                    break;
-                case HttpRequestMethod.Delete:
-                    httpMethod = HttpMethod.Delete;
-                    break;
-                case HttpRequestMethod.Patch:
-                    httpMethod = new HttpMethod("PATCH");
-                    break;
-                default:
-                    throw new NotImplementedException();
+                switch (request.HttpRequestMethod)
+                {
+                    case HttpRequestMethod.Get:
+                        httpMethod = HttpMethod.Get;
+                        break;
+                    case HttpRequestMethod.Post:
+                        httpMethod = HttpMethod.Post;
+                        break;
+                    case HttpRequestMethod.Put:
+                        httpMethod = HttpMethod.Put;
+                        break;
+                    case HttpRequestMethod.Delete:
+                        httpMethod = HttpMethod.Delete;
+                        break;
+                    case HttpRequestMethod.Patch:
+                        httpMethod = new HttpMethod("PATCH");
+                        break;
+                    case HttpRequestMethod.Custom:
+                        throw new NotImplementedException("CustomHttpRequestMethod must be specified for Custom Http Requests");
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
+            else
+            {
+                httpMethod = new HttpMethod(request.CustomHttpRequestMethod);
             }
 
             var httpRequestMessage = new HttpRequestMessage

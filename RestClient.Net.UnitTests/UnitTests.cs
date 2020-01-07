@@ -78,6 +78,22 @@ namespace RestClient.Net.UnitTests
 
         #region External Api Tests
         [TestMethod]
+        public async Task TestHead()
+        {
+            var baseUri = new Uri("https://www.google.com");
+            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri);
+            var response = await client.SendAsync<string, object>(new Request<object>(
+                null,
+                null,
+                null,
+                HttpRequestMethod.Custom,
+                client,
+                default)
+            { CustomHttpRequestMethod = "HEAD" });
+            Assert.IsTrue(response.Headers.Contains("Cache-Control"));
+        }
+
+        [TestMethod]
         public async Task TestGetRestCountries()
         {
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");

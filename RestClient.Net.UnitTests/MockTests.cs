@@ -1,0 +1,65 @@
+﻿#if NET45
+using RestClient.Net.Abstractions.Logging;
+#else
+using Microsoft.Extensions.Logging;
+#endif
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using RestClient.Net.Abstractions;
+using RestClientApiSamples;
+using System;
+using System.Threading.Tasks;
+
+namespace RestClient.Net.UnitTests
+{
+    [TestClass]
+    public class MockTests
+    {
+        [TestMethod]
+        public async Task TestPersonService()
+        {
+            //Create a Person object to be sent as the Request
+            var requestPerson = new Person { FirstName = "TestGuy", PersonKey = "" };
+
+            //Create a Person object to be received from the Response
+            var responsePerson = new Person { FirstName = "TestGuy", PersonKey = "123" };
+
+            //Create mock objects
+            var loggerMock = new Mock<ILogger>();
+            var clientFactoryMock = new Mock<IClientFactory>();
+            var clientMock = new Mock<IClient>();
+            var responseMock = new Mock<Response<Person>>();
+
+            //Set the factory up to return the mock client
+            clientFactoryMock.Setup(f => f.CreateClient("Person")).Returns(clientMock.Object);
+
+            //Set the client up to return the response mock
+            clientMock.Setup(c => c.SendAsync<Person, Person>(It.IsAny<Request<Person>>())).Returns(Task.FromResult(responseMock.Object));
+            
+            //Set the response up to return responsePerson
+            responseMock.Setup(r => r.Body).Returns(responsePerson);
+
+            //Create the service and call SavePerson
+            var personService = new PersonService(clientFactoryMock.Object);
+            var returnPerson = await personService.SavePerson(requestPerson);
+
+            Assert.AreEqual("123", returnPerson.PersonKey);
+        }
+    }
+
+    public class PersonService
+    {
+        IClient _client;
+
+        public PersonService(IClientFactory clientFactory)
+        {
+            _client = clientFactory.CreateClient("Person");
+        }
+
+        public async Task<Person> SavePerson(Person person)
+        {
+            return await _client.PostAsync<Person, Person>(person);
+        }
+    }
+}

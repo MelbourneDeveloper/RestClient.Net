@@ -6,6 +6,7 @@
         Get,
         Put,
         Delete,
-        Patch
+        Patch,
+        Custom
     }
 }

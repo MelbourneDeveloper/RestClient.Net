@@ -8,23 +8,13 @@
     <Version>3.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Christian Findlay</Authors>
-    <Description>Cross Platform REST Client for all C# platforms
-
-Samples and Info: https://github.com/MelbourneDeveloper/RestClient.Net
-
-- Open Source. (MIT License)
-- Markup language agnostic. (Supports JSON, Binary, SOAP and other markup languages)
-- Use strong types with REST.
-- Supports Android, iOS, Windows 10, Windows 10 Phone, .NET Standard 2.0.
-- Incredibly simple (All source code less than 100 lines)
-- Async friendly (uses async, await keywords).
-- Only one .NET Standard library for all platforms</Description>
+    <Description>REST Client Framework for all .NET platforms www.rest-client.net</Description>
     <Copyright>© 2019 Christian Findlay</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/MelbourneDeveloper/RestClient.Net</PackageProjectUrl>
+    <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
-    <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Async, json, soap, xml, http, https , Android, iOS, Hardfolio, cryptocurrency</PackageTags>
-    <PackageReleaseNotes>Allow the HttpClient to be pass in in the constructor</PackageReleaseNotes>
+    <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
+    <PackageReleaseNotes>Please see the website www.rest-client.net</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>    
     <NoWarn>CA2007</NoWarn>    
