@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestClientApiSamples;
+using System.Collections.Generic;
 
 namespace ApiExamples.Controllers
 {
@@ -11,7 +12,7 @@ namespace ApiExamples.Controllers
         public Person Get(string personKey)
         {
             var person = new Person
-            {                 
+            {
                 FirstName = "Sam",
                 BillingAddress = new Address
                 {
@@ -23,6 +24,31 @@ namespace ApiExamples.Controllers
             };
 
             return person;
+        }
+
+        [HttpGet]
+        [Route("People")]
+        public List<Person> Get()
+        {
+            var people = new List<Person>();
+
+            for (var i = 0; i < 100; i++)
+            {
+                var person = new Person
+                {
+                    FirstName = $"Sam{i}",
+                    BillingAddress = new Address
+                    {
+                        StreeNumber = "100",
+                        Street = "Somewhere",
+                        Suburb = "Sometown"
+                    },
+                    Surname = "Smith"
+                };
+                people.Add(person);
+            }
+
+            return people;
         }
 
         [HttpPost]
