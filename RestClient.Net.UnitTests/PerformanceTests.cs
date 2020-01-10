@@ -5,6 +5,7 @@ using Flurl.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net.Samples.Model;
 using RestClient.Net.UnitTests.Model;
+using RestClientApiSamples;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace RestClient.Net.UnitTests
     public class PerformanceTests
     {
         private const int Repeats = 8;
-        private const string RestCountriesUrl = "https://restcountries.eu/rest/v2/";
+        private const string RestCountriesUrl = "https://localhost:44337/JsonPerson?personKey=10";
 
         [TestMethod]
         public async Task PerformanceTestFlurlGet()
@@ -23,14 +24,14 @@ namespace RestClient.Net.UnitTests
             var flurlClient = new FlurlClient(RestCountriesUrl);
 
             var startTime = DateTime.Now;
-            var countryData = await flurlClient.Request().GetJsonAsync<List<RestCountry>>();
+            var person = await flurlClient.Request().GetJsonAsync<Person>();
             Console.WriteLine($"Flurl.Http Get : Total Milliseconds:{ (DateTime.Now - startTime).TotalMilliseconds}");
 
             startTime = DateTime.Now;
             for (var i = 0; i < Repeats; i++)
             {
-                countryData = await flurlClient.Request().GetJsonAsync<List<RestCountry>>();
-                Assert.IsTrue(countryData.Count > 0);
+                person = await flurlClient.Request().GetJsonAsync<Person>();
+                Assert.IsTrue(person != null);
             }
             Console.WriteLine($"Flurl.Http Get x {Repeats} : Total Milliseconds:{ (DateTime.Now - startTime).TotalMilliseconds}");
         }
@@ -41,13 +42,13 @@ namespace RestClient.Net.UnitTests
             var countryCodeClient = new Client(new NewtonsoftSerializationAdapter(), new Uri(RestCountriesUrl));
 
             var startTime = DateTime.Now;
-            List<RestCountry> countryData = await countryCodeClient.GetAsync<List<RestCountry>>();
+            Person person = await countryCodeClient.GetAsync<Person>();
             Console.WriteLine($"RestClient Get : Total Milliseconds:{ (DateTime.Now - startTime).TotalMilliseconds}");
 
             for (var i = 0; i < Repeats; i++)
             {
-                countryData = await countryCodeClient.GetAsync<List<RestCountry>>();
-                Assert.IsTrue(countryData.Count > 0);
+                person = await countryCodeClient.GetAsync<Person>();
+                Assert.IsTrue(person != null);
             }
 
             Console.WriteLine($"RestClient Get x {Repeats}: Total Milliseconds:{ (DateTime.Now - startTime).TotalMilliseconds}");
