@@ -2,13 +2,15 @@
 
 # REST Client Framework for all .NET Platforms #
 
-The most simple task-based async, strongly typed, cross-platform .NET REST Client. 
+The best .NET REST Client with task-based async, strong types and dependency injection on all platforms. 
 
 **[Documentation Here](https://github.com/MelbourneDeveloper/RestClient.Net/wiki)**
 
 ### Announcement ###
 
-Version 3 is on it's way to the NuGet gallery. Documentation on this page relates to version 3. Grab the latest from the develop branch to start using Version 3 before the official release. [Follow me on Twitter](https://twitter.com/cfdevelop) for updates.
+**Version 3 has been released!**
+
+[Follow me on Twitter](https://twitter.com/cfdevelop) for updates.
 
 A series of Blog posts will introduce the new functionality in the coming weeks. https://christianfindlay.com/
 
@@ -22,6 +24,8 @@ A series of Blog posts will introduce the new functionality in the coming weeks.
 * Uses strong types with content body
 * Supports [WebAssembly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Web-Assembly-Support), Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
 * Supports GET, POST, PUT, PATCH, DELETE with ability to use less common HTTP methods
+
+These features together make this the best C# REST client and the best alternative to RestSharp. Consuming REST APIs is simple and encourages best practice.
 
 ## [Quick Start & Samples](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Quick-Start-&-Samples)
 
