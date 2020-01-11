@@ -8,15 +8,30 @@ using RestClient.Net.UnitTests.Model;
 using RestClientApiSamples;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RestClient.Net.UnitTests
 {
     [TestClass]
-    public class PerformanceTests
+    public class PerformanceTests : IDisposable
     {
         private const int Repeats = 1000;
         private const string RestCountriesUrl = "https://localhost:44337/JsonPerson/people";
+
+        FileStream stream;
+
+        public PerformanceTests()
+        {
+            stream = new FileStream("Results.csv", FileMode.Append);
+        }
+
+        private void WriteText(string text)
+        {
+            var bytes = Encoding.UTF8.GetBytes(text);
+            stream.Write(bytes, 0, bytes.Length);
+        }
 
         [TestMethod]
         [DataRow]
@@ -44,9 +59,11 @@ namespace RestClient.Net.UnitTests
             }
 
             var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
-            var total = (DateTime.Now - startTime).TotalMilliseconds;
+            var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
 
-            Console.WriteLine($"{construct},{timesOne},{timesRepeats},{total}");
+            var message = $"Flurl,{construct},{timesOne},{timesRepeats},{total}\r\n";
+            WriteText(message);
+            Console.WriteLine(message);
         }
 
         [TestMethod]
@@ -74,9 +91,16 @@ namespace RestClient.Net.UnitTests
             }
 
             var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
-            var total = (DateTime.Now - startTime).TotalMilliseconds;
+            var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
 
-            Console.WriteLine($"{construct},{timesOne},{timesRepeats},{total}");
+            var message = $"RestClient.Net,{construct},{timesOne},{timesRepeats},{total}\r\n";
+            WriteText(message);
+            Console.WriteLine(message);
+        }
+
+        public void Dispose()
+        {
+            stream.Dispose();
         }
     }
 }

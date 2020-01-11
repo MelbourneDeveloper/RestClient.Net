@@ -189,6 +189,11 @@ namespace RestClient.Net
                     () => RequestConverter.GetHttpRequestMessage(request, requestBodyData),
                     request.CancellationToken
                     );
+
+                //var httpRequestMessage = RequestConverter.GetHttpRequestMessage(request, requestBodyData);
+                //httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
+
+
             }
             catch (TaskCanceledException tce)
             {
