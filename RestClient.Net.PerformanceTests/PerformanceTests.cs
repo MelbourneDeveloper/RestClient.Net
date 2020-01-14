@@ -17,7 +17,7 @@ namespace RestClient.Net.PerformanceTests
     public class PerformanceTests : IDisposable
     {
         private const int Repeats = 500;
-        private const string RestCountriesUrl = "https://localhost:44337/JsonPerson/people";
+        private const string PeopleUrl = "https://localhost:44337/JsonPerson/people";
 
         FileStream stream;
 
@@ -43,8 +43,7 @@ namespace RestClient.Net.PerformanceTests
         {
             var startTime = DateTime.Now;
             var originalStartTime = DateTime.Now;
-            var flurlClient = new FlurlClient(RestCountriesUrl);
-            var construct = (DateTime.Now - startTime).TotalMilliseconds;
+            var flurlClient = new FlurlClient(PeopleUrl);
 
             startTime = DateTime.Now;
             var people = await flurlClient.Request().GetJsonAsync<List<Person>>();
@@ -61,7 +60,7 @@ namespace RestClient.Net.PerformanceTests
             var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
             var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
 
-            var message = $"Flurl,{construct},{timesOne},{timesRepeats},{total}\r\n";
+            var message = $"Flurl,{timesOne},{timesRepeats},{total}\r\n";
             WriteText(message);
             Console.WriteLine(message);
         }
@@ -77,8 +76,7 @@ namespace RestClient.Net.PerformanceTests
         {
             var startTime = DateTime.Now;
             var originalStartTime = DateTime.Now;
-            var countryCodeClient = new Client(new Uri(RestCountriesUrl));
-            var construct = (DateTime.Now - startTime).TotalMilliseconds;
+            var countryCodeClient = new Client(new Uri(PeopleUrl));
 
             startTime = DateTime.Now;
             List<Person> people = await countryCodeClient.GetAsync<List<Person>>();
@@ -94,7 +92,45 @@ namespace RestClient.Net.PerformanceTests
             var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
             var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
 
-            var message = $"RestClient.Net System.Text.Json,{construct},{timesOne},{timesRepeats},{total}\r\n";
+            var message = $"RestClient.Net,{timesOne},{timesRepeats},{total}\r\n";
+            WriteText(message);
+            Console.WriteLine(message);
+        }
+
+        [TestMethod]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        public async Task TestPostRestClient()
+        {
+            var startTime = DateTime.Now;
+            var originalStartTime = DateTime.Now;
+            var countryCodeClient = new Client(new Uri(PeopleUrl));
+
+            var peopleRequest = new List<Person>();
+            for (var i = 0; i < 10; i++)
+            {
+                peopleRequest.Add(new Person { FirstName = "Test" + i });
+            }
+
+            startTime = DateTime.Now;
+            List<Person> people = await countryCodeClient.PostAsync<List<Person>, List<Person>>(peopleRequest);
+            var timesOne = (DateTime.Now - startTime).TotalMilliseconds;
+
+            for (var i = 0; i < Repeats; i++)
+            {
+                people = await countryCodeClient.PostAsync<List<Person>, List<Person>>(peopleRequest);
+                Assert.IsTrue(people != null);
+                Assert.IsTrue(people.Count > 0);
+            }
+
+            var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
+            var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
+
+            var message = $"RestClient.Net,{timesOne},{timesRepeats},{total}\r\n";
             WriteText(message);
             Console.WriteLine(message);
         }
@@ -110,8 +146,7 @@ namespace RestClient.Net.PerformanceTests
         {
             var startTime = DateTime.Now;
             var originalStartTime = DateTime.Now;
-            var countryCodeClient = new RestSharp.RestClient(RestCountriesUrl);
-            var construct = (DateTime.Now - startTime).TotalMilliseconds;
+            var countryCodeClient = new RestSharp.RestClient(PeopleUrl);
 
             startTime = DateTime.Now;
             var people = await countryCodeClient.ExecuteGetTaskAsync<List<Person>>(new RestRequest { Method = Method.GET });
@@ -127,7 +162,7 @@ namespace RestClient.Net.PerformanceTests
             var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
             var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
 
-            var message = $"RestSharp,{construct},{timesOne},{timesRepeats},{total}\r\n";
+            var message = $"RestSharp,{timesOne},{timesRepeats},{total}\r\n";
             WriteText(message);
             Console.WriteLine(message);
         }
@@ -143,8 +178,7 @@ namespace RestClient.Net.PerformanceTests
         {
             var startTime = DateTime.Now;
             var originalStartTime = DateTime.Now;
-            var countryCodeClient = new DalSoft.RestClient.RestClient(RestCountriesUrl);
-            var construct = (DateTime.Now - startTime).TotalMilliseconds;
+            var countryCodeClient = new DalSoft.RestClient.RestClient(PeopleUrl);
 
             startTime = DateTime.Now;
             var people = await countryCodeClient.Get<List<Person>>();
@@ -160,7 +194,7 @@ namespace RestClient.Net.PerformanceTests
             var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
             var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
 
-            var message = $"RestSharp,{construct},{timesOne},{timesRepeats},{total}\r\n";
+            var message = $"RestSharp,{timesOne},{timesRepeats},{total}\r\n";
             WriteText(message);
             Console.WriteLine(message);
         }

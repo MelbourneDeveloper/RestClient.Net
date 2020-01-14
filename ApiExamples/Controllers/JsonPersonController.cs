@@ -52,6 +52,13 @@ namespace ApiExamples.Controllers
         }
 
         [HttpPost]
+        [Route("people")]
+        public List<Person> PostPeople([FromBody] List<Person> people)
+        {
+            return people;
+        }
+
+        [HttpPost]
         [Route("save")]
         public Person Post([FromBody] Person person)
         {
