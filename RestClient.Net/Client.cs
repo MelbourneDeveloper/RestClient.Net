@@ -185,12 +185,15 @@ namespace RestClient.Net
 
 #if !NETCOREAPP3_0
             SerializationAdapter = serializationAdapter ?? throw new ArgumentNullException(nameof(serializationAdapter));
-
 #else
             if (serializationAdapter == null)
             {
                 SerializationAdapter = new JsonSerializationAdapter();
                 this.SetJsonContentTypeHeader();
+            }
+            else
+            {
+                SerializationAdapter = serializationAdapter;
             }
 #endif
             Logger = logger;

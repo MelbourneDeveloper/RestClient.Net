@@ -102,9 +102,6 @@ namespace RestClient.Net.UnitTests
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
-
-            VerifyLog(baseUri, HttpRequestMethod.Get, TraceEvent.Request);
-            VerifyLog(baseUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
         }
 #endif
 
