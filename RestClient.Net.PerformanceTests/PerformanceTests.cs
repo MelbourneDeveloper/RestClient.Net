@@ -1,9 +1,10 @@
 ﻿
 #if (NETCOREAPP3_1)
 
+using ApiExamples.Model.JsonModel;
 using Flurl.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestClientApiSamples;
+//using RestClientApiSamples;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ using System.Threading.Tasks;
 
 namespace RestClient.Net.PerformanceTests
 {
+
+
     [TestClass]
     public class PerformanceTests : IDisposable
     {
@@ -113,7 +116,7 @@ namespace RestClient.Net.PerformanceTests
             var peopleRequest = new List<Person>();
             for (var i = 0; i < 10; i++)
             {
-                peopleRequest.Add(new Person { FirstName = "Test" + i });
+                peopleRequest.Add(new Person { firstName = "Test" + i });
             }
 
             startTime = DateTime.Now;
