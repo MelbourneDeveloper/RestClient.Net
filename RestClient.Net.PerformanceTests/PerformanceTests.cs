@@ -94,7 +94,7 @@ namespace RestClient.Net.PerformanceTests
             var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
             var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
 
-            var message = $"RestClient.Net,{construct},{timesOne},{timesRepeats},{total}\r\n";
+            var message = $"RestClient.Net Newtonsoft,{construct},{timesOne},{timesRepeats},{total}\r\n";
             WriteText(message);
             Console.WriteLine(message);
         }
@@ -127,7 +127,7 @@ namespace RestClient.Net.PerformanceTests
             var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
             var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
 
-            var message = $"RestClient.Net,{construct},{timesOne},{timesRepeats},{total}\r\n";
+            var message = $"RestClient.Net System.Text.Json,{construct},{timesOne},{timesRepeats},{total}\r\n";
             WriteText(message);
             Console.WriteLine(message);
         }
@@ -160,10 +160,44 @@ namespace RestClient.Net.PerformanceTests
             var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
             var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
 
-            var message = $"RestClient.Net,{construct},{timesOne},{timesRepeats},{total}\r\n";
+            var message = $"RestSharp,{construct},{timesOne},{timesRepeats},{total}\r\n";
             WriteText(message);
             Console.WriteLine(message);
         }
+
+        [TestMethod]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        public async Task PerformanceTestDALSoft()
+        {
+            var startTime = DateTime.Now;
+            var originalStartTime = DateTime.Now;
+            var countryCodeClient = new DalSoft.RestClient.RestClient(RestCountriesUrl);
+            var construct = (DateTime.Now - startTime).TotalMilliseconds;
+
+            startTime = DateTime.Now;
+            var people = await countryCodeClient.Get<List<Person>>();
+            var timesOne = (DateTime.Now - startTime).TotalMilliseconds;
+
+            for (var i = 0; i < Repeats; i++)
+            {
+                people = await countryCodeClient.Get<List<Person>>();
+                Assert.IsTrue(people != null);
+                Assert.IsTrue(people.Count > 0);
+            }
+
+            var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
+            var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
+
+            var message = $"RestSharp,{construct},{timesOne},{timesRepeats},{total}\r\n";
+            WriteText(message);
+            Console.WriteLine(message);
+        }
+
 
         public void Dispose()
         {
