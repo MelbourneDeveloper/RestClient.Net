@@ -44,7 +44,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
     <PackageReference Include="structuremap" Version="4.7.1" />
-    <Folder Include="SerializationAdapters\" />
     <ProjectReference Include="..\ApiExamples.Model\ApiExamples.Model.csproj" />
     <ProjectReference Include="..\RestClient.NET\RestClient.Net.csproj" />
   </ItemGroup>
