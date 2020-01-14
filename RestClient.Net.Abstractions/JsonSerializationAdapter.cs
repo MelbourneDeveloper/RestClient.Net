@@ -1,10 +1,6 @@
-﻿
-
-using RestClient.Net.Abstractions;
-using System.IO;
+﻿using RestClient.Net.Abstractions;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace RestClient.Net
 {
@@ -19,12 +15,7 @@ namespace RestClient.Net
 
             object markupAsObject = markup;
 
-            if (typeof(TResponseBody) == typeof(string))
-            {
-                return (TResponseBody)markupAsObject;
-            }
-
-            return JsonSerializer.Deserialize<TResponseBody>(markup);
+            return typeof(TResponseBody) == typeof(string) ? (TResponseBody)markupAsObject : JsonSerializer.Deserialize<TResponseBody>(markup);
         }
 
         public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)

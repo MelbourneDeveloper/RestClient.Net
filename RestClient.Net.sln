@@ -11,13 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web Services", "Web Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.CoreSample", "RestClient.Net.Samples\RestClient.Net.CoreSample\RestClient.Net.CoreSample.csproj", "{5605410C-255D-47FF-8468-193664B19862}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "ApiExamples.Model", "ApiExamples.Model\ApiExamples.Model.csproj", "{62A06A62-2BB1-4A36-B99F-C3BD14D73C9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiExamples.Model", "ApiExamples.Model\ApiExamples.Model.csproj", "{62A06A62-2BB1-4A36-B99F-C3BD14D73C9F}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "ApiExamples", "ApiExamples\ApiExamples.csproj", "{B079332B-0A4A-43F0-A454-5D1728CD4325}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiExamples", "ApiExamples\ApiExamples.csproj", "{B079332B-0A4A-43F0-A454-5D1728CD4325}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net.Abstractions", "RestClient.Net.Abstractions\RestClient.Net.Abstractions.csproj", "{E98768C7-7C95-4B5E-AF7B-3BB8C4C2C93E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.Abstractions", "RestClient.Net.Abstractions\RestClient.Net.Abstractions.csproj", "{E98768C7-7C95-4B5E-AF7B-3BB8C4C2C93E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestClient.Net.DependencyInjection", "RestClient.Net.DependencyInjection\RestClient.Net.DependencyInjection.csproj", "{2232269D-54FC-43A3-9BA0-7B432036065D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.DependencyInjection", "RestClient.Net.DependencyInjection\RestClient.Net.DependencyInjection.csproj", "{2232269D-54FC-43A3-9BA0-7B432036065D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
