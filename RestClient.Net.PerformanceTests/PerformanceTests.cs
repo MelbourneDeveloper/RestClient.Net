@@ -73,39 +73,6 @@ namespace RestClient.Net.PerformanceTests
         [DataRow]
         [DataRow]
         [DataRow]
-        public async Task PerformanceTestRestClientGet()
-        {
-            var startTime = DateTime.Now;
-            var originalStartTime = DateTime.Now;
-            var countryCodeClient = new Client(new NewtonsoftSerializationAdapter(), new Uri(RestCountriesUrl));
-            var construct = (DateTime.Now - startTime).TotalMilliseconds;
-
-            startTime = DateTime.Now;
-            List<Person> people = await countryCodeClient.GetAsync<List<Person>>();
-            var timesOne = (DateTime.Now - startTime).TotalMilliseconds;
-
-            for (var i = 0; i < Repeats; i++)
-            {
-                people = await countryCodeClient.GetAsync<List<Person>>();
-                Assert.IsTrue(people != null);
-                Assert.IsTrue(people.Count > 0);
-            }
-
-            var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
-            var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
-
-            var message = $"RestClient.Net Newtonsoft,{construct},{timesOne},{timesRepeats},{total}\r\n";
-            WriteText(message);
-            Console.WriteLine(message);
-        }
-
-        [TestMethod]
-        [DataRow]
-        [DataRow]
-        [DataRow]
-        [DataRow]
-        [DataRow]
-        [DataRow]
         public async Task PerformanceTestRestClientGetSystemTextJson()
         {
             var startTime = DateTime.Now;
