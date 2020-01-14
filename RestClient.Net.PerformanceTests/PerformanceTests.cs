@@ -39,7 +39,7 @@ namespace RestClient.Net.PerformanceTests
         [DataRow]
         [DataRow]
         [DataRow]
-        public async Task PerformanceTestFlurlGet()
+        public async Task TestGetFlurl()
         {
             var startTime = DateTime.Now;
             var originalStartTime = DateTime.Now;
@@ -73,7 +73,7 @@ namespace RestClient.Net.PerformanceTests
         [DataRow]
         [DataRow]
         [DataRow]
-        public async Task PerformanceTestRestClientGetSystemTextJson()
+        public async Task TestGetRestClient()
         {
             var startTime = DateTime.Now;
             var originalStartTime = DateTime.Now;
@@ -106,7 +106,7 @@ namespace RestClient.Net.PerformanceTests
         [DataRow]
         [DataRow]
         [DataRow]
-        public async Task PerformanceTestRestSharp()
+        public async Task TestGetRestSharp()
         {
             var startTime = DateTime.Now;
             var originalStartTime = DateTime.Now;
@@ -139,7 +139,7 @@ namespace RestClient.Net.PerformanceTests
         [DataRow]
         [DataRow]
         [DataRow]
-        public async Task PerformanceTestDALSoft()
+        public async Task TestGetDALSoft()
         {
             var startTime = DateTime.Now;
             var originalStartTime = DateTime.Now;
