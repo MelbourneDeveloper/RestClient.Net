@@ -93,6 +93,21 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(response.Headers.Contains("Cache-Control"));
         }
 
+#if NETCOREAPP3_1
+        [TestMethod]
+        public async Task TestGetRestCountriesSystemTextJson()
+        {
+            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
+            var client = new Client(baseUri);
+            List<RestCountry> countries = await client.GetAsync<List<RestCountry>>();
+            Assert.IsNotNull(countries);
+            Assert.IsTrue(countries.Count > 0);
+
+            VerifyLog(baseUri, HttpRequestMethod.Get, TraceEvent.Request);
+            VerifyLog(baseUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
+        }
+#endif
+
         [TestMethod]
         public async Task TestGetRestCountries()
         {
@@ -266,9 +281,9 @@ namespace RestClient.Net.UnitTests
             var geoPlugin = await client.GetAsync<GeoPlugin>();
             Assert.IsNotNull(geoPlugin);
         }
-        #endregion
+#endregion
 
-        #region Local Protobuf
+#region Local Protobuf
 
         //TODO: Danger. This method was pointing to the physical local port. Why was this method passing the tests?
         [TestMethod]
@@ -303,9 +318,9 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
             Assert.AreEqual(personKey, responsePerson.PersonKey);
         }
-        #endregion
+#endregion
 
-        #region Local Headers
+#region Local Headers
         [TestMethod]
         [DataRow(true)]
         [DataRow(false)]
@@ -541,9 +556,9 @@ namespace RestClient.Net.UnitTests
 
             Assert.Fail();
         }
-        #endregion
+#endregion
 
-        #region Local Headers In Request
+#region Local Headers In Request
         [TestMethod]
         public async Task TestHeadersLocalInRequest()
         {
@@ -556,9 +571,9 @@ namespace RestClient.Net.UnitTests
                 ); ;
             Assert.IsNotNull(responsePerson);
         }
-        #endregion
+#endregion
 
-        #region Local Errors
+#region Local Errors
         [TestMethod]
         public async Task TestErrorsLocalGet()
         {
@@ -593,9 +608,9 @@ namespace RestClient.Net.UnitTests
 
             Assert.Fail();
         }
-        #endregion
+#endregion
 
-        #region Local Authentication
+#region Local Authentication
         [TestMethod]
         public async Task TestBearerTokenAuthenticationLocal()
         {
@@ -691,11 +706,11 @@ namespace RestClient.Net.UnitTests
             }
             Assert.Fail();
         }
-        #endregion
+#endregion
 
-        #region All Extension Overloads
+#region All Extension Overloads
 
-        #region Get
+#region Get
         [TestMethod]
         public async Task TestLocalGetNoArgs()
         {
@@ -731,9 +746,9 @@ namespace RestClient.Net.UnitTests
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
-        #endregion
+#endregion
 
-        #region Delete
+#region Delete
         [TestMethod]
         public async Task TestLocalDeleteStringUri()
         {
@@ -759,9 +774,9 @@ namespace RestClient.Net.UnitTests
 
             //TODO: Verify the log
         }
-        #endregion
+#endregion
 
-        #region Post
+#region Post
         [TestMethod]
         public async Task TestLocalPostBody()
         {
@@ -797,9 +812,9 @@ namespace RestClient.Net.UnitTests
             Person responsePerson = await client.PostAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), null, new CancellationToken());
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
-        #endregion
+#endregion
 
-        #region Put
+#region Put
         [TestMethod]
         public async Task TestLocalPutBody()
         {
@@ -835,9 +850,9 @@ namespace RestClient.Net.UnitTests
             Person responsePerson = await client.PutAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), cancellationToken: new CancellationToken());
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
-        #endregion
+#endregion
 
-        #region Patch
+#region Patch
         [TestMethod]
         public async Task TestLocalPatchBody()
         {
@@ -882,11 +897,11 @@ namespace RestClient.Net.UnitTests
             Person responsePerson = await client.PatchAsync<Person, Person>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), cancellationToken: new CancellationToken());
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
-        #endregion
+#endregion
 
-        #endregion
+#endregion
 
-        #region Misc
+#region Misc
         //TODO: This test occasionally fails. It seems to mint only 98 clients. Why?
         [TestMethod]
         public async Task TestConcurrentCallsLocalSingleton()
@@ -927,11 +942,11 @@ namespace RestClient.Net.UnitTests
             var response = await client.GetAsync<List<RestCountry>>();
             Assert.IsTrue(response.Body.Count > 0);
         }
-        #endregion
+#endregion
 
-        #endregion
+#endregion
 
-        #region Helpers
+#region Helpers
         private static IHeadersCollection GetHeaders(bool useDefault, Client client)
         {
             IHeadersCollection headers = null;
@@ -1071,6 +1086,6 @@ namespace RestClient.Net.UnitTests
         {
             return responseHeadersCollection.Contains("Test1") && responseHeadersCollection["Test1"].First() == "a";
         }
-        #endregion
+#endregion
     }
 }
