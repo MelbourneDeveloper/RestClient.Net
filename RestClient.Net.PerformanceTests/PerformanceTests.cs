@@ -18,9 +18,9 @@ namespace RestClient.Net.PerformanceTests
     [TestClass]
     public class PerformanceTests : IDisposable
     {
+        #region Misc
         private const int Repeats = 500;
         private const string PeopleUrl = "https://localhost:44337/JsonPerson/people";
-
         FileStream stream;
 
         public PerformanceTests()
@@ -34,6 +34,13 @@ namespace RestClient.Net.PerformanceTests
             stream.Write(bytes, 0, bytes.Length);
         }
 
+        public void Dispose()
+        {
+            stream.Dispose();
+        }
+        #endregion
+
+        #region Flurl
         [TestMethod]
         [DataRow]
         [DataRow]
@@ -66,7 +73,9 @@ namespace RestClient.Net.PerformanceTests
             WriteText(message);
             Console.WriteLine(message);
         }
+        #endregion
 
+        #region RestClient.Net
         [TestMethod]
         [DataRow]
         [DataRow]
@@ -168,7 +177,9 @@ namespace RestClient.Net.PerformanceTests
             WriteText(message);
             Console.WriteLine(message);
         }
+        #endregion
 
+        #region RestSharp
         [TestMethod]
         [DataRow]
         [DataRow]
@@ -208,6 +219,47 @@ namespace RestClient.Net.PerformanceTests
         [DataRow]
         [DataRow]
         [DataRow]
+        public async Task TestPostRestSharp()
+        {
+            var startTime = DateTime.Now;
+            var originalStartTime = DateTime.Now;
+            var countryCodeClient = new RestSharp.RestClient(new Uri(PeopleUrl));
+
+            var peopleRequest = new List<Person>();
+            for (var i = 0; i < 10; i++)
+            {
+                peopleRequest.Add(new Person { FirstName = "Test" + i });
+            }
+
+            startTime = DateTime.Now;
+            var peopleRestRequest = new RestRequest { Method = Method.POST, Body = new RequestBody("application/json", "Person", peopleRequest) };
+            var people = await countryCodeClient.ExecutePostTaskAsync<List<Person>>(peopleRestRequest);
+            var timesOne = (DateTime.Now - startTime).TotalMilliseconds;
+
+            for (var i = 0; i < Repeats; i++)
+            {
+                people = await countryCodeClient.ExecutePostTaskAsync<List<Person>>(peopleRestRequest);
+                Assert.IsTrue(people != null);
+                Assert.IsTrue(people.Data.Count > 0);
+            }
+
+            var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
+            var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
+
+            var message = $"RestSharp,POST,{timesOne},{timesRepeats},{total}\r\n";
+            WriteText(message);
+            Console.WriteLine(message);
+        }
+        #endregion
+
+        #region DALSoft
+        [TestMethod]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
         public async Task TestGetDALSoft()
         {
             var startTime = DateTime.Now;
@@ -232,12 +284,7 @@ namespace RestClient.Net.PerformanceTests
             WriteText(message);
             Console.WriteLine(message);
         }
-
-
-        public void Dispose()
-        {
-            stream.Dispose();
-        }
+        #endregion
     }
 }
 
