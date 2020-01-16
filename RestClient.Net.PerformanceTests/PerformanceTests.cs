@@ -28,6 +28,7 @@ namespace RestClient.Net.PerformanceTests
         public PerformanceTests()
         {
             stream = new FileStream("Results.csv", FileMode.Append);
+            WriteText("Client,Method,First Call,All Calls,Total\r\n");
         }
 
         private void WriteText(string text)
@@ -151,7 +152,7 @@ namespace RestClient.Net.PerformanceTests
             var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
             var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
 
-            var message = $"RestClient.Net,GET,{timesOne},{timesRepeats},{total}\r\n";
+            var message = $"RestClient.Net Newtonsoft,GET,{timesOne},{timesRepeats},{total}\r\n";
             WriteText(message);
             Console.WriteLine(message);
         }
@@ -233,7 +234,7 @@ namespace RestClient.Net.PerformanceTests
         [DataRow]
         [DataRow]
         [DataRow]
-        public async Task TestPostRestClientNewtsonsoft()
+        public async Task TestPostRestClientNewtonsoft()
         {
             var startTime = DateTime.Now;
             var originalStartTime = DateTime.Now;
@@ -260,7 +261,7 @@ namespace RestClient.Net.PerformanceTests
             var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
             var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
 
-            var message = $"RestClient.Net,POST,{timesOne},{timesRepeats},{total}\r\n";
+            var message = $"RestClient.Net Newtonsoft,POST,{timesOne},{timesRepeats},{total}\r\n";
             WriteText(message);
             Console.WriteLine(message);
         }
