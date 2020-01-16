@@ -4,6 +4,7 @@
 using ApiExamples.Model.JsonModel;
 using Flurl.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,52 @@ namespace RestClient.Net.PerformanceTests
             var message = $"Flurl,GET,{timesOne},{timesRepeats},{total}\r\n";
             WriteText(message);
             Console.WriteLine(message);
+        }
+
+        [TestMethod]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        public async Task TestPostFlurl()
+        {
+            var startTime = DateTime.Now;
+            var originalStartTime = DateTime.Now;
+            var countryCodeClient = new FlurlClient(PeopleUrl);
+
+            var peopleRequest = new List<Person>();
+            for (var i = 0; i < 10; i++)
+            {
+                peopleRequest.Add(new Person { FirstName = "Test" + i });
+            }
+
+            startTime = DateTime.Now;
+            var people = await ReadPostResponseAsync(countryCodeClient, peopleRequest);
+            var timesOne = (DateTime.Now - startTime).TotalMilliseconds;
+
+            for (var i = 0; i < Repeats; i++)
+            {
+                people = await ReadPostResponseAsync(countryCodeClient, peopleRequest);
+                Assert.IsTrue(people != null);
+                Assert.IsTrue(people.Count > 0);
+            }
+
+            var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
+            var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
+
+            var message = $"RestSharp,POST,{timesOne},{timesRepeats},{total}\r\n";
+            WriteText(message);
+            Console.WriteLine(message);
+        }
+
+        private static async Task<List<Person>> ReadPostResponseAsync(FlurlClient countryCodeClient, List<Person> peopleRequest)
+        {
+            var response = await countryCodeClient.Request().PostJsonAsync(peopleRequest);
+            var json = await response.Content.ReadAsStringAsync();
+            var people = JsonConvert.DeserializeObject<List<Person>>(json);
+            return people;
         }
         #endregion
 
