@@ -15,23 +15,21 @@ using System.Threading.Tasks;
 
 namespace RestClient.Net.PerformanceTests
 {
-
-
     [TestClass]
     public class PerformanceTests : IDisposable
     {
         #region Misc
         private const int Repeats = 500;
         private const string PeopleUrl = "https://localhost:44337/JsonPerson/people";
-        FileStream stream;
+        private static FileStream stream;
 
-        public PerformanceTests()
+        static PerformanceTests()
         {
             stream = new FileStream("Results.csv", FileMode.Append);
             WriteText("Client,Method,First Call,All Calls,Total\r\n");
         }
 
-        private void WriteText(string text)
+        private static void WriteText(string text)
         {
             var bytes = Encoding.UTF8.GetBytes(text);
             stream.Write(bytes, 0, bytes.Length);
