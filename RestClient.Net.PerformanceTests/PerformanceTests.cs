@@ -19,7 +19,19 @@ namespace RestClient.Net.PerformanceTests
     public class PerformanceTests
     {
         #region Misc
-        private const int Repeats = 500;
+        [AssemblyInitialize]
+        public static void Initialize(TestContext testContext)
+        {
+            //Load all the assemblies in to the app domain so this loading doesn't skew results
+            var flurlClient = new FlurlClient(PeopleUrl);
+            var countryCodeClient = new Client(new NewtonsoftSerializationAdapter(), new Uri(PeopleUrl));
+            var restSharpClient = new RestSharp.RestClient(PeopleUrl);
+            var dalSoftClient = new DalSoft.RestClient.RestClient(PeopleUrl);
+            var personJson = JsonConvert.SerializeObject(new Person());
+            personJson = System.Text.Json.JsonSerializer.Serialize(new Person());
+        }
+
+        private const int Repeats = 250;
         private const string PeopleUrl = "https://localhost:44337/JsonPerson/people";
         private const string Path = "Results.csv";
         private static FileStream stream;
