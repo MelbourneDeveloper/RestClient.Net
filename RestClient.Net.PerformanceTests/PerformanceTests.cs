@@ -5,6 +5,7 @@ using ApiExamples.Model.JsonModel;
 using Flurl.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using RestClient.Net.Abstractions.Extensions;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -108,7 +109,7 @@ namespace RestClient.Net.PerformanceTests
             var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
             var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
 
-            var message = $"RestSharp,POST,{timesOne},{timesRepeats},{total}\r\n";
+            var message = $"Flurl,POST,{timesOne},{timesRepeats},{total}\r\n";
             WriteText(message);
             Console.WriteLine(message);
         }
@@ -199,6 +200,45 @@ namespace RestClient.Net.PerformanceTests
             var startTime = DateTime.Now;
             var originalStartTime = DateTime.Now;
             var countryCodeClient = new Client(new Uri(PeopleUrl));
+
+            var peopleRequest = new List<Person>();
+            for (var i = 0; i < 10; i++)
+            {
+                peopleRequest.Add(new Person { FirstName = "Test" + i });
+            }
+
+            startTime = DateTime.Now;
+            List<Person> people = await countryCodeClient.PostAsync<List<Person>, List<Person>>(peopleRequest);
+            var timesOne = (DateTime.Now - startTime).TotalMilliseconds;
+
+            for (var i = 0; i < Repeats; i++)
+            {
+                people = await countryCodeClient.PostAsync<List<Person>, List<Person>>(peopleRequest);
+                Assert.IsTrue(people != null);
+                Assert.IsTrue(people.Count > 0);
+            }
+
+            var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
+            var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
+
+            var message = $"RestClient.Net,POST,{timesOne},{timesRepeats},{total}\r\n";
+            WriteText(message);
+            Console.WriteLine(message);
+        }
+
+        [TestMethod]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        public async Task TestPostRestClientNewtsonsoft()
+        {
+            var startTime = DateTime.Now;
+            var originalStartTime = DateTime.Now;
+            var countryCodeClient = new Client(new NewtonsoftSerializationAdapter(), new Uri(PeopleUrl));
+            countryCodeClient.SetJsonContentTypeHeader();
 
             var peopleRequest = new List<Person>();
             for (var i = 0; i < 10; i++)
@@ -328,6 +368,44 @@ namespace RestClient.Net.PerformanceTests
             var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
 
             var message = $"DalSoft,GET,{timesOne},{timesRepeats},{total}\r\n";
+            WriteText(message);
+            Console.WriteLine(message);
+        }
+
+        [TestMethod]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        [DataRow]
+        public async Task TestPostDALSoft()
+        {
+            var startTime = DateTime.Now;
+            var originalStartTime = DateTime.Now;
+            var countryCodeClient = new DalSoft.RestClient.RestClient(PeopleUrl);
+
+            var peopleRequest = new List<Person>();
+            for (var i = 0; i < 10; i++)
+            {
+                peopleRequest.Add(new Person { FirstName = "Test" + i });
+            }
+
+            startTime = DateTime.Now;
+            var people = await countryCodeClient.Post<List<Person>, List<Person>>(peopleRequest);
+            var timesOne = (DateTime.Now - startTime).TotalMilliseconds;
+
+            for (var i = 0; i < Repeats; i++)
+            {
+                people = await countryCodeClient.Post<List<Person>, List<Person>>(peopleRequest);
+                Assert.IsTrue(people != null);
+                Assert.IsTrue(people.Count > 0);
+            }
+
+            var timesRepeats = (DateTime.Now - startTime).TotalMilliseconds;
+            var total = (DateTime.Now - originalStartTime).TotalMilliseconds;
+
+            var message = $"DalSoft,POST,{timesOne},{timesRepeats},{total}\r\n";
             WriteText(message);
             Console.WriteLine(message);
         }
