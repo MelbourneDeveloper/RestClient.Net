@@ -16,16 +16,18 @@ using System.Threading.Tasks;
 namespace RestClient.Net.PerformanceTests
 {
     [TestClass]
-    public class PerformanceTests : IDisposable
+    public class PerformanceTests
     {
         #region Misc
         private const int Repeats = 500;
         private const string PeopleUrl = "https://localhost:44337/JsonPerson/people";
+        private const string Path = "Results.csv";
         private static FileStream stream;
 
         static PerformanceTests()
         {
-            stream = new FileStream("Results.csv", FileMode.Append);
+            if (File.Exists(Path)) File.Delete(Path);
+            stream = new FileStream(Path, FileMode.Append);
             WriteText("Client,Method,First Call,All Calls,Total\r\n");
         }
 
@@ -35,9 +37,10 @@ namespace RestClient.Net.PerformanceTests
             stream.Write(bytes, 0, bytes.Length);
         }
 
-        public void Dispose()
+        [AssemblyCleanup()]
+        public static void AssemblyCleanup() 
         {
-            stream.Dispose();
+            stream.Close();
         }
         #endregion
 
