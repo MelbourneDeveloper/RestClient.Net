@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using RestClientApiSamples;
+﻿using ApiExamples.Model.JsonModel;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace ApiExamples.Controllers
