@@ -15,14 +15,14 @@ namespace RestClient.Net
 
             object markupAsObject = markup;
 
-            var returnValue = typeof(TResponseBody) == typeof(string) ? (TResponseBody)markupAsObject : JsonSerializer.Deserialize<TResponseBody>(markup, new JsonSerializerOptions { PropertyNameCaseInsensitive = false });
+            var returnValue = typeof(TResponseBody) == typeof(string) ? (TResponseBody)markupAsObject : JsonSerializer.Deserialize<TResponseBody>(markup, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             return returnValue;
         }
 
         public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)
         {
-            var json = JsonSerializer.Serialize(value, new JsonSerializerOptions { PropertyNameCaseInsensitive = false });
+            var json = JsonSerializer.Serialize(value, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             //This here is why I don't like JSON serialization. 😢
             var binary = Encoding.UTF8.GetBytes(json);
