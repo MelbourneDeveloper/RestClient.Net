@@ -6,6 +6,8 @@ namespace RestClient.Net.Abstractions
     {
         public static IClient CreateClient(this IClientFactory clientFactory)
         {
+            //Use 'RestClient' by default because if this is null, the dictionary fails,
+            //If this is random, then many clients will get created
             return CreateClient(clientFactory, "RestClient", null);
         }
 
