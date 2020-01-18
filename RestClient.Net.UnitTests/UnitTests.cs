@@ -96,13 +96,22 @@ namespace RestClient.Net.UnitTests
 
 #if NETCOREAPP3_1
         [TestMethod]
-        public async Task TestGetRestCountriesSystemTextJson()
+        public async Task TestGetDefaultSerializationRestCountries()
         {
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
             var client = new Client(baseUri);
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
+        }
+
+        [TestMethod]
+        public async Task TestGetDefaultSerializationRestCountriesAsJson()
+        {
+            var client = new Client(baseUri: new Uri("https://restcountries.eu/rest/v2/name/australia"));
+            var json = await client.GetAsync<string>();
+            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).FirstOrDefault();
+            Assert.AreEqual("Australia", country.name);
         }
 #endif
 
