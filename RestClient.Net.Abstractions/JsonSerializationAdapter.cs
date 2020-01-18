@@ -33,9 +33,7 @@ namespace RestClient.Net
         {
             var markup = Encoding.UTF8.GetString(data);
 
-            object markupAsObject = markup;
-
-            var returnValue = typeof(TResponseBody) == typeof(string) ? (TResponseBody)markupAsObject : JsonSerializer.Deserialize<TResponseBody>(markup, JsonSerializationOptions);
+            var returnValue = JsonSerializer.Deserialize<TResponseBody>(markup, JsonSerializationOptions);
 
             return returnValue;
         }
