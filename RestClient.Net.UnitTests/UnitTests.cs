@@ -966,6 +966,24 @@ namespace RestClient.Net.UnitTests
 
             Assert.IsFalse(ReferenceEquals(firstClient, secondClient));
         }
+
+        [TestMethod]
+        public async Task TestHttpClientFactoryDoesntUseSameHttpClient()
+        {
+            var defaultHttpClientFactory = new DefaultHttpClientFactory();
+
+            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
+
+            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: baseUri, httpClientFactory: defaultHttpClientFactory);
+            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            var firstClient = response.HttpClient;
+
+            client = new Client(new NewtonsoftSerializationAdapter(), baseUri: baseUri, httpClientFactory: defaultHttpClientFactory);
+            response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            var secondClient = response.HttpClient;
+
+            Assert.IsFalse(ReferenceEquals(firstClient, secondClient));
+        }
         #endregion
 
         #endregion
