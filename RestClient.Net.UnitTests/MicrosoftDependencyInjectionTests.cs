@@ -35,6 +35,8 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
+                const string clientName = "Test";
+
                 var serviceCollection = new ServiceCollection();
                 var baseUri = new Uri("http://www.test.com");
                 serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
@@ -42,11 +44,16 @@ namespace RestClient.Net.UnitTests
                 serviceCollection.AddSingleton(typeof(IClient), typeof(Client));
                 serviceCollection.AddDependencyInjectionMapping();
                 serviceCollection.AddTransient<TestHandler>();
-                serviceCollection.AddHttpClient("RestClient", (c) => { c.BaseAddress = baseUri; })
+
+                //Make sure the HttpClient is named the same as the Rest Client
+                serviceCollection.AddSingleton<IClient>(x => new Client(name: clientName, httpClientFactory: x.GetRequiredService<IHttpClientFactory>()));
+                serviceCollection.AddHttpClient(clientName, (c) => { c.BaseAddress = baseUri; })
                     .AddHttpMessageHandler<TestHandler>();
+
                 var serviceProvider = serviceCollection.BuildServiceProvider();
                 var client = serviceProvider.GetService<IClient>();
                 await client.GetAsync<object>();
+                serviceCollection.Configure<string>((s) => { });
             }
             catch (SendException<object> hse)
             {
