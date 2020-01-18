@@ -27,7 +27,11 @@ namespace RestClient.Net
 
         #region Constructor
         public ClientFactory(
+#if NETCOREAPP3_1
+            ISerializationAdapter serializationAdapter = null,
+#else
             ISerializationAdapter serializationAdapter,
+#endif
             IHttpClientFactory httpClientFactory = null,
             ILogger logger = null)
         {
