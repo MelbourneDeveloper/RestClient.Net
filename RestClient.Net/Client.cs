@@ -198,7 +198,7 @@ namespace RestClient.Net
 #endif
             Logger = logger;
             BaseUri = baseUri;
-            Name = name ?? "RestClient";
+            Name = name ?? Guid.NewGuid().ToString();
             RequestConverter = requestConverter ?? new DefaultRequestConverter();
             HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();
             _sendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;

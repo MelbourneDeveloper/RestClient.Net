@@ -984,6 +984,41 @@ namespace RestClient.Net.UnitTests
 
             Assert.IsFalse(ReferenceEquals(firstClient, secondClient));
         }
+
+        [TestMethod]
+        public async Task TestHttpClientFactoryReusesHttpClient()
+        {
+            var defaultHttpClientFactory = new DefaultHttpClientFactory();
+
+            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
+
+            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: baseUri, httpClientFactory: defaultHttpClientFactory);
+            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            var firstClient = response.HttpClient;
+
+            response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            var secondClient = response.HttpClient;
+
+            Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
+        }
+
+        [TestMethod]
+        public async Task TestHttpClientFactoryReusesHttpClientWhenSameName()
+        {
+            var defaultHttpClientFactory = new DefaultHttpClientFactory();
+
+            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
+
+            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: baseUri, httpClientFactory: defaultHttpClientFactory, name: "Test");
+            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            var firstClient = response.HttpClient;
+
+            client = new Client(new NewtonsoftSerializationAdapter(), baseUri: baseUri, httpClientFactory: defaultHttpClientFactory, name: "Test");
+            response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            var secondClient = response.HttpClient;
+
+            Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
+        }
         #endregion
 
         #endregion

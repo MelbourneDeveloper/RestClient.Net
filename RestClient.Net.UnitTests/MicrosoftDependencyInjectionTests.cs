@@ -58,6 +58,35 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task TestSendHandlerWithFactory()
+        {
+            try
+            {
+                const string clientName = "Test";
+                var serviceCollection = new ServiceCollection();
+                var baseUri = new Uri("http://www.test.com");
+                serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
+                serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleLogger));
+                serviceCollection.AddSingleton(typeof(IClientFactory), typeof(ClientFactory));
+                serviceCollection.AddDependencyInjectionMapping();
+                serviceCollection.AddTransient<TestHandler>();
+                serviceCollection.AddHttpClient(clientName, (c) => { c.BaseAddress = baseUri; })
+                    .AddHttpMessageHandler<TestHandler>();
+                var serviceProvider = serviceCollection.BuildServiceProvider();
+                var clientFactory = serviceProvider.GetService<IClientFactory>();
+                var client = clientFactory.CreateClient(clientName);
+                await client.GetAsync<object>();
+            }
+            catch (SendException<object> hse)
+            {
+                Assert.AreEqual("Ouch", hse.InnerException.Message);
+                return;
+            }
+
+            Assert.Fail();
+        }
+
+        [TestMethod]
         public async Task TestFactoryWithNames()
         {
             var serviceCollection = new ServiceCollection();
