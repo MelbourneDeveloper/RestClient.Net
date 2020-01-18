@@ -5,6 +5,10 @@ using RestClient.Net.Abstractions.Logging;
 using Microsoft.Extensions.Logging;
 #endif
 
+#if NETCOREAPP3_0
+using RestClient.Net.Abstractions.Extensions;
+#endif
+
 using RestClient.Net.Abstractions;
 using System;
 using System.Linq;
@@ -86,6 +90,22 @@ namespace RestClient.Net
         #endregion
 
         #region Constructors
+
+#if NETCOREAPP3_0
+        /// <summary>
+        /// Construct a client
+        /// </summary>
+        /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only</param>
+        public Client(
+            Uri baseUri)
+        : this(
+            null,
+            null,
+            baseUri)
+        {
+        }
+#endif
+
         /// <summary>
         /// Construct a client
         /// </summary>
@@ -135,7 +155,11 @@ namespace RestClient.Net
         /// <summary>
         /// Construct a client.
         /// </summary>
-        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies</param>
+        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies. Defaults to JSON and adds the default Content-Type header for JSON</param>
+        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies. 
+#if NETCOREAPP3_0
+        /// Defaults to JSON and adds the default Content-Type header for JSON</param>
+#endif
         /// <param name="name">The of the client instance. This is also passed to the HttpClient factory to get or create HttpClient instances</param>
         /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only</param>
         /// <param name="defaultRequestHeaders">Default headers to be sent with http requests</param>
@@ -144,7 +168,11 @@ namespace RestClient.Net
         /// <param name="sendHttpRequestFunc">The Func responsible for performing the SendAsync method on HttpClient. This can replaced in the constructor in order to implement retries and so on.</param>
         /// <param name="requestConverter">IRequestConverter instance responsible for converting rest requests to http requests</param>
         public Client(
-            ISerializationAdapter serializationAdapter,
+#if !NETCOREAPP3_0
+           ISerializationAdapter serializationAdapter,
+#else
+           ISerializationAdapter serializationAdapter = null,
+#endif
             string name = null,
             Uri baseUri = null,
             IHeadersCollection defaultRequestHeaders = null,
@@ -153,11 +181,24 @@ namespace RestClient.Net
             Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,
             IRequestConverter requestConverter = null)
         {
+            DefaultRequestHeaders = defaultRequestHeaders ?? new RequestHeadersCollection();
+
+#if !NETCOREAPP3_0
             SerializationAdapter = serializationAdapter ?? throw new ArgumentNullException(nameof(serializationAdapter));
+#else
+            if (serializationAdapter == null)
+            {
+                SerializationAdapter = new JsonSerializationAdapter();
+                this.SetJsonContentTypeHeader();
+            }
+            else
+            {
+                SerializationAdapter = serializationAdapter;
+            }
+#endif
             Logger = logger;
             BaseUri = baseUri;
             Name = name ?? "RestClient";
-            DefaultRequestHeaders = defaultRequestHeaders ?? new RequestHeadersCollection();
             RequestConverter = requestConverter ?? new DefaultRequestConverter();
             HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();
             _sendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
@@ -189,6 +230,11 @@ namespace RestClient.Net
                     () => RequestConverter.GetHttpRequestMessage(request, requestBodyData),
                     request.CancellationToken
                     );
+
+                //var httpRequestMessage = RequestConverter.GetHttpRequestMessage(request, requestBodyData);
+                //httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
+
+
             }
             catch (TaskCanceledException tce)
             {
