@@ -953,7 +953,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestFactoryDoesntUseSameHttpClient()
         {
-            IClientFactory clientFactory = new ClientFactory(null);
+            IClientFactory clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter());
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
 
             var client = (Client)clientFactory.CreateClient("1", baseUri);
