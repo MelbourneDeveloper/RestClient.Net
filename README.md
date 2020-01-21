@@ -8,7 +8,8 @@ The best .NET REST Client with task-based async, strong types and dependency inj
 
 ### Announcement ###
 
-**Version 3 has been released!**
+**Version 3.1 has been released!**
+It features a [default JSON Serializer](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-(ISerializationAdapter)#default-json-serialization-adapter)
 
 [Follow me on Twitter](https://twitter.com/cfdevelop) for updates.
 
@@ -33,10 +34,22 @@ See [documentation](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Qu
 
 NuGet: Install-Package RestClient.NET
 
+Please read [this article](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-(ISerializationAdapter)#newtonsoft) about Serialization and Deserialization.
+
 ### [Get](https://github.com/MelbourneDeveloper/RestClient.Net/blob/13c95c615400d39523c02e803b46a564ff4c91db/RestClient.Net.UnitTests/UnitTests.cs#L81)
 
+With [Newtonsoft serialization](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-(ISerializationAdapter)#newtonsoft)
 ```cs
 var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
+var response = await client.GetAsync<List<RestCountry>>();
+```
+
+With [default serialization on .NET Core](```cs
+var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
+var response = await client.GetAsync<List<RestCountry>>();
+```) (System.Text.Json)
+```cs
+var client = new Client(new Uri("https://restcountries.eu/rest/v2/"));
 var response = await client.GetAsync<List<RestCountry>>();
 ```
 
