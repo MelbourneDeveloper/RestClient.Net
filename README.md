@@ -45,7 +45,7 @@ var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://r
 var response = await client.GetAsync<List<RestCountry>>();
 ```
 
-With [default serialization on .NET Core](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-With-ISerializationAdapter)
+With [default serialization on .NET Core](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-With-ISerializationAdapter#default-json-serialization-adapter)
 ```cs
 var client = new Client(new Uri("https://restcountries.eu/rest/v2/"));
 var response = await client.GetAsync<List<RestCountry>>();
