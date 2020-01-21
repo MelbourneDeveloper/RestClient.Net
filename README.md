@@ -15,7 +15,7 @@ It features a [default JSON Serializer](https://github.com/MelbourneDeveloper/Re
 
 A series of Blog posts will introduce the new functionality in the coming weeks. https://christianfindlay.com/
 
-### Features ###
+### Why You Should Use It ###
 
 * Designed for Dependency Injection, Unit Testing and use with IoC Containers
 * Async friendly. All operations use async, await keywords.
@@ -25,6 +25,7 @@ A series of Blog posts will introduce the new functionality in the coming weeks.
 * Uses strong types with content body
 * Supports [WebAssembly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Web-Assembly-Support), Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
 * Supports GET, POST, PUT, PATCH, DELETE with ability to use less common HTTP methods
+* It's fast! [Initial tests](https://codereview.stackexchange.com/questions/235804/c-rest-client-benchmarking) show that it is faster than RestSharp and is one of the faster .NET Rest Clients available.
 
 These features together make this the best C# REST client and the best alternative to RestSharp. Consuming REST APIs is simple and encourages best practice.
 
