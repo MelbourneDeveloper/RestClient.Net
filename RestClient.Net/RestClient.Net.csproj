@@ -3,24 +3,26 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netcoreapp3.0;net45;net47</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
-    <Version>3.0.0</Version>
+    <AssemblyVersion>3.1.0.0</AssemblyVersion>
+    <FileVersion>3.1.0.0</FileVersion>
+    <Version>3.1.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Christian Findlay</Authors>
     <Description>REST Client Framework for all .NET platforms www.rest-client.net</Description>
-    <Copyright>© 2019 Christian Findlay</Copyright>
+    <Copyright>© 2020 Christian Findlay</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
     <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
-    <PackageReleaseNotes>Please see the website www.rest-client.net</PackageReleaseNotes>
+    <PackageReleaseNotes>Default SerializationAdapter to System.Json.Text</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>    
     <NoWarn>CA2007</NoWarn>    
     <LangVersion>7.3</LangVersion>    
     <PackageLicenseFile>License.txt</PackageLicenseFile>    
-    <RootNamespace>RestClient.Net</RootNamespace>
+    <RootNamespace>RestClient.Net</RootNamespace>    
+    <PackageIconUrl>Icon.png</PackageIconUrl>    
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
