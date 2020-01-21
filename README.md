@@ -38,17 +38,14 @@ Please read [this article](https://github.com/MelbourneDeveloper/RestClient.Net/
 
 ### [Get](https://github.com/MelbourneDeveloper/RestClient.Net/blob/13c95c615400d39523c02e803b46a564ff4c91db/RestClient.Net.UnitTests/UnitTests.cs#L81)
 
-With [Newtonsoft serialization](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-(ISerializationAdapter)#newtonsoft)
+With [Newtonsoft serialization](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-With-ISerializationAdapter#newtonsoft)
 
 ```cs
 var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
 var response = await client.GetAsync<List<RestCountry>>();
 ```
 
-With [default serialization on .NET Core](```cs
-var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
-var response = await client.GetAsync<List<RestCountry>>();
-```) (System.Text.Json)
+With [default serialization on .NET Core](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-With-ISerializationAdapter)
 ```cs
 var client = new Client(new Uri("https://restcountries.eu/rest/v2/"));
 var response = await client.GetAsync<List<RestCountry>>();
