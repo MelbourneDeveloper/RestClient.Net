@@ -1,26 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net45;net47</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <RootNamespace>RestClient.Net.UnitTests</RootNamespace>
   </PropertyGroup>
 
-  <Choose>
-    <When Condition=" '$(TargetFramework)'=='netcoreapp3.1' ">
-      <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
-        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.0" />
-        <ProjectReference Include="..\ApiExamples\ApiExamples.csproj" />
-        <ProjectReference Include="..\RestClient.Net.DependencyInjection\RestClient.Net.DependencyInjection.csproj" />
-      </ItemGroup>
-    </When>
-  </Choose>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.1'">
-    <Compile Remove="PollyTests.cs" />
-    <Compile Remove="MicrosoftDependencyInjectionTests.cs" />
-   </ItemGroup>
+      <ItemGroup>
+        <PackageReference Include="DalSoft.RestClient" Version="4.2.0" />
+        <PackageReference Include="RestSharp" Version="106.10.1" />
+        <ProjectReference Include="..\ApiExamples\ApiExamples.csproj" />
+
+      </ItemGroup>
+ 
+
 
   <ItemGroup>
     <Compile Include="..\RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Shared\NewtonsoftSerializationAdapter.cs" Link="SerializationAdapters\NewtonsoftSerializationAdapter.cs" />
@@ -32,17 +26,12 @@
     <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\BinaryDataContractSerializationAdapter.cs" Link="SerializationAdapters\BinaryDataContractSerializationAdapter.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\SerializationAdapters\ProtobufSerializationAdapter.cs" Link="SerializationAdapters\ProtobufSerializationAdapter.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\XmlSerializationAdapter.cs" Link="SerializationAdapters\XmlSerializationAdapter.cs" />
+    <PackageReference Include="Flurl.Http" Version="2.4.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
     <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
-    <PackageReference Include="coverlet.collector" Version="1.1.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
-    <PackageReference Include="structuremap" Version="4.7.1" />
     <ProjectReference Include="..\ApiExamples.Model\ApiExamples.Model.csproj" />
     <ProjectReference Include="..\RestClient.NET\RestClient.Net.csproj" />
   </ItemGroup>

@@ -9,6 +9,7 @@ namespace RestClient.Net
         #region Public Properties
         public HttpResponseMessage HttpResponseMessage { get; }
         public override bool IsSuccess => HttpResponseMessage.IsSuccessStatusCode;
+        public HttpClient HttpClient { get; }
         #endregion
 
         #region Constructor
@@ -19,7 +20,8 @@ namespace RestClient.Net
             HttpRequestMethod httpRequestMethod,
             byte[] responseContentData,
             TResponseBody body,
-            HttpResponseMessage httpResponseMessage
+            HttpResponseMessage httpResponseMessage,
+            HttpClient httpClient
             ) : base(
                 httpResponseHeadersCollection,
                 statusCode,
@@ -29,6 +31,7 @@ namespace RestClient.Net
                 httpResponseMessage != null ? httpResponseMessage.RequestMessage.RequestUri : throw new ArgumentNullException(nameof(httpResponseMessage)))
         {
             HttpResponseMessage = httpResponseMessage;
+            HttpClient = httpClient;
         }
         #endregion
     }
