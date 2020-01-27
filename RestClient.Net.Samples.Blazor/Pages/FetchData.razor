@@ -2,13 +2,12 @@
 
 @using BlazorApp1.Data
 @using RestClient.Net;
-@inject WeatherForecastService ForecastService
 
 <h1>Countries</h1>
 
 <p>This page shows data about countries.</p>
 
-@if (forecasts == null)
+@if (countries == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -18,19 +17,21 @@ else
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Flag</th>
                 <th>Capital</th>
                 <th>Borders</th>
                 <th>Population</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var country in countries)
             {
                 <tr>
-                    <td>@forecast.name</td>
-                    <td>@forecast.capital</td>
-                    <td>@string.Join(", ", forecast.borders)</td>
-                    <td>@forecast.population</td>
+                    <td>@country.name</td>
+                    <td><img src="@country.flag" width="320" height="200" /></td>
+                    <td>@country.capital</td>
+                    <td>@string.Join(", ", country.borders)</td>
+                    <td>@country.population</td>
                 </tr>
             }
         </tbody>
@@ -38,10 +39,10 @@ else
 }
 
 @code {
-    private List<RestCountry> forecasts;
+    private List<RestCountry> countries;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await new Client(new Uri("https://restcountries.eu/rest/v2/")).GetAsync<List<RestCountry>>();
+        countries = await new Client(new Uri("https://restcountries.eu/rest/v2/")).GetAsync<List<RestCountry>>();
     }
 }

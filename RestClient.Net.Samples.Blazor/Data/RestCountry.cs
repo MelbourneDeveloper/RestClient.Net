@@ -3,46 +3,6 @@ using System.Collections.Generic;
 
 namespace BlazorApp1.Data
 {
-    public class WeatherForecast
-    {
-        public DateTime Date { get; set; }
-
-        public int TemperatureC { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-
-        public string Summary { get; set; }
-    }
-
-    public class Currency
-    {
-        public string code { get; set; }
-        public string name { get; set; }
-        public string symbol { get; set; }
-    }
-
-    public class Language
-    {
-        public string iso639_1 { get; set; }
-        public string iso639_2 { get; set; }
-        public string name { get; set; }
-        public string nativeName { get; set; }
-    }
-
-    public class Translations
-    {
-        public string de { get; set; }
-        public string es { get; set; }
-        public string fr { get; set; }
-        public string ja { get; set; }
-        public string it { get; set; }
-        public string br { get; set; }
-        public string pt { get; set; }
-        public string nl { get; set; }
-        public string hr { get; set; }
-        public string fa { get; set; }
-    }
-
     public class RestCountry
     {
         public string name { get; set; }
