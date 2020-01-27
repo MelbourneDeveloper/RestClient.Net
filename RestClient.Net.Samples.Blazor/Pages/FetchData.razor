@@ -1,0 +1,47 @@
+﻿@page "/fetchdata"
+
+@using BlazorApp1.Data
+@using RestClient.Net;
+@inject WeatherForecastService ForecastService
+
+<h1>Countries</h1>
+
+<p>This page shows data about countries.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Capital</th>
+                <th>Borders</th>
+                <th>Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.name</td>
+                    <td>@forecast.capital</td>
+                    <td>@string.Join(", ", forecast.borders)</td>
+                    <td>@forecast.population</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<RestCountry> forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await new Client(new Uri("https://restcountries.eu/rest/v2/")).GetAsync<List<RestCountry>>();
+    }
+}
