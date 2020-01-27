@@ -1,16 +1,49 @@
-﻿@page "/counter"
+﻿@page "/Counter"
 
-<h1>Counter</h1>
+@using BlazorApp1.Data.Github
+@using RestClient.Net;
+@using RestClient.Net.Abstractions;
 
-<p>Current count: @currentCount</p>
+<h1>My Repos</h1>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<p>This page shows data about countries.</p>
+
+@if (repos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Language</th>
+                <th>Forks</th>
+                <th>Watchers</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var repo in repos)
+            {
+                <tr>
+                    <td>@repo.name</td>
+                    <td>@repo.language</td>
+                    <td>@repo.forks_count</td>
+                    <td>@repo.watchers_count</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code {
-    private int currentCount = 0;
+    private List<Repository> repos;
 
-    private void IncrementCount()
+    protected override async Task OnInitializedAsync()
     {
-        currentCount++;
+        var client = new Client(new Uri("https://api.github.com/users/melbournedeveloper/repos"));
+        client.DefaultRequestHeaders.Add("User-Agent", "RestClient.Net");
+        repos = await client.GetAsync<List<Repository>>();
     }
 }
