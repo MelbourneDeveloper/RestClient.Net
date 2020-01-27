@@ -985,6 +985,28 @@ namespace RestClient.Net.UnitTests
             Assert.IsFalse(ReferenceEquals(firstClient, secondClient));
         }
 
+        /// <summary>
+        /// This test is controversial. Should non-named clients always be Singleton? This is the way the factory is designed, but could trip some users up.
+        /// </summary>
+        [TestMethod]
+        public async Task TestClientFactoryReusesClient()
+        {
+            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
+
+            var defaultHttpClientFactory = new DefaultHttpClientFactory();
+
+            var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter(),
+                defaultHttpClientFactory);
+
+            var firstClient = clientFactory.CreateClient();
+            firstClient.BaseUri = baseUri;
+
+            var secondClient = clientFactory.CreateClient();
+            secondClient.BaseUri = baseUri;
+
+            Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
+        }
+
         [TestMethod]
         public async Task TestHttpClientFactoryReusesHttpClient()
         {
