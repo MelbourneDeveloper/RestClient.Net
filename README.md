@@ -8,7 +8,7 @@ The best .NET REST Client with task-based async, strong types and dependency inj
 
 ### Announcement ###
 
-**Version 3.1 has been released!**
+**Version 3.1.1 has been released!**
 It features a [default JSON Serializer](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-With-ISerializationAdapter#default-json-serialization-adapter)
 
 [Follow me on Twitter](https://twitter.com/cfdevelop) for updates.
