@@ -1,6 +1,6 @@
 ![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/master/Images/Rendered/Logo.jpg) 
 
-# REST Client Framework for all .NET Platforms #
+# .NET REST Client Framework for all platforms #
 
 The best .NET REST Client with task-based async, strong types and dependency injection on all platforms. Consume your ASP .NET Core Web APIs or consume RESTful APIs over the internet in C# or Visual Basic.
 
