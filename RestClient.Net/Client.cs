@@ -366,7 +366,7 @@ namespace RestClient.Net
             (
              request.HttpRequestMethod,
                 TraceEvent.Response,
-                httpResponseMessage.RequestMessage.RequestUri,
+                httpResponseMessage.RequestMessage?.RequestUri,
                 responseData,
                 (int)httpResponseMessage.StatusCode,
                 httpResponseHeadersCollection
