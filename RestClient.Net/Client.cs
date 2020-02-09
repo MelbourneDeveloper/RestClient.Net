@@ -217,7 +217,7 @@ namespace RestClient.Net
             {
                 httpClient = HttpClientFactory.CreateClient(Name);
 
-                Log(LogLevel.Information, new Trace { }, null);
+                Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"Got HttpClient. Type: {httpClient.GetType().FullName}"));
 
                 //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
                 if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
@@ -238,30 +238,49 @@ namespace RestClient.Net
             }
             catch (TaskCanceledException tce)
             {
-                Log(LogLevel.Error, null, tce);
+                Logger?.LogException(new Trace(
+                    request.HttpRequestMethod,
+                    TraceEvent.Error,
+                    request.Resource,
+                    message: $"Got HttpClient. Type: {httpClient.GetType().FullName}"),
+                    tce);
+
                 throw;
             }
             catch (OperationCanceledException oce)
             {
-                Log(LogLevel.Error, null, oce);
+                Logger?.LogException(new Trace(
+                    request.HttpRequestMethod,
+                    TraceEvent.Error,
+                    request.Resource,
+                    message: $"Got HttpClient. Type: {httpClient.GetType().FullName}"),
+                    oce);
+
                 throw;
             }
             //TODO: Does this need to be handled like this?
             catch (Exception ex)
             {
                 var exception = new SendException<TRequestBody>("HttpClient Send Exception", request, ex);
-                Log(LogLevel.Error, null, exception);
+
+                Logger?.LogException(new Trace(
+                request.HttpRequestMethod,
+                TraceEvent.Error,
+                request.Resource,
+                message: $"Got HttpClient. Type: {httpClient.GetType().FullName}"),
+                ex);
+
                 throw exception;
             }
 
             Log(LogLevel.Trace, new Trace
                 (
                  request.HttpRequestMethod,
-                 httpResponseMessage.RequestMessage.RequestUri,
-                 requestBodyData,
-                 TraceEvent.Request,
-                 null,
-                 request.Headers
+                TraceEvent.Request,
+                httpResponseMessage.RequestMessage.RequestUri,
+                requestBodyData,
+                null,
+                request.Headers
                 ), null);
 
             return await ProcessResponseAsync<TResponseBody, TRequestBody>(request, httpResponseMessage, httpClient);
@@ -314,11 +333,11 @@ namespace RestClient.Net
             Log(LogLevel.Trace, new Trace
             (
              request.HttpRequestMethod,
-             httpResponseMessage.RequestMessage.RequestUri,
-             responseData,
-             TraceEvent.Response,
-             (int)httpResponseMessage.StatusCode,
-             httpResponseHeadersCollection
+                TraceEvent.Response,
+                httpResponseMessage.RequestMessage.RequestUri,
+                responseData,
+                (int)httpResponseMessage.StatusCode,
+                httpResponseHeadersCollection
             ), null);
 
             if (httpResponseMessageResponse.IsSuccess || !ThrowExceptionOnFailure)
@@ -331,14 +350,14 @@ namespace RestClient.Net
         #endregion
 
         #region Private Methods
-        //private void Log(LogLevel loglevel, string message, Trace restTrace, Exception exception)
-        //{
-        //    Logger?.Log(loglevel,
-        //        restTrace != null ?
-        //        new EventId((int)restTrace.RestEvent, restTrace.RestEvent.ToString()) :
-        //        new EventId((int)TraceEvent.Error, TraceEvent.Error.ToString()),
-        //        restTrace, exception, null);
-        //}
+        private void Log(LogLevel loglevel, Trace restTrace, Exception exception)
+        {
+            Logger?.Log(loglevel,
+                restTrace != null ?
+                new EventId((int)restTrace.RestEvent, restTrace.RestEvent.ToString()) :
+                new EventId((int)TraceEvent.Error, TraceEvent.Error.ToString()),
+                restTrace, exception, null);
+        }
         #endregion
     }
 

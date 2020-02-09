@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 #endif
 
 #if NETCOREAPP3_0
-using RestClient.Net.Abstractions.Extensions;
+//using RestClient.Net.Abstractions.Extensions;
 #endif
 
 using RestClient.Net.Abstractions;
@@ -17,13 +17,33 @@ namespace RestClient.Net
 {
     public static class LoggingExtensions
     {
-        private static readonly Func<Trace, Exception, string> func = new Func<Trace, Exception, string>((trace, exception) => { return trace.Message; });
+        private static readonly Func<Trace, Exception, string> func = new Func<Trace, Exception, string>((trace, exception) =>
+        {
+            return exception != null ? exception.ToString() : trace.Message;
+        });
 
-        public static void LogInfo(this ILogger logger, Trace trace)
+        public static void LogInformation(this ILogger logger, Trace trace)
         {
             if (logger == null) return;
+            if (trace == null) throw new ArgumentNullException(nameof(trace));
 
-            logger.Log(LogLevel.Information, new EventId(1), trace, null, func);
+            logger.Log(LogLevel.Information, new EventId((int)trace.RestEvent), trace, null, func);
+        }
+
+        public static void LogTrace(this ILogger logger, Trace trace)
+        {
+            if (logger == null) return;
+            if (trace == null) throw new ArgumentNullException(nameof(trace));
+
+            logger.Log(LogLevel.Trace, new EventId((int)trace.RestEvent), trace, null, func);
+        }
+
+        public static void LogException(this ILogger logger, Trace trace, Exception exception)
+        {
+            if (logger == null) return;
+            if (trace == null) throw new ArgumentNullException(nameof(trace));
+
+            logger.Log(LogLevel.Error, new EventId((int)trace.RestEvent), trace, exception, func);
         }
     }
 

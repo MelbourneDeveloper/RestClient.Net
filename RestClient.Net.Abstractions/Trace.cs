@@ -14,9 +14,9 @@ namespace RestClient.Net.Abstractions
 
         public Trace(
             HttpRequestMethod httpRequestMethod,
-            Uri requestUri,
-            byte[] bodyData,
             TraceEvent traceType,
+            Uri requestUri = null,
+            byte[] bodyData = null,
             int? httpStatusCode = null,
             IHeadersCollection headersCollection = null,
             string message = null)
