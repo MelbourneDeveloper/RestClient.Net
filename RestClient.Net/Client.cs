@@ -251,7 +251,7 @@ namespace RestClient.Net
                     request.HttpRequestMethod,
                     TraceEvent.Error,
                     request.Resource,
-                    message: "Task cancelled"),
+                    message: $"Exception: {tce}"),
                     tce);
 
                 throw;
@@ -262,7 +262,7 @@ namespace RestClient.Net
                     request.HttpRequestMethod,
                     TraceEvent.Error,
                     request.Resource,
-                    message: $"Operation cancelled"),
+                    message: $"Exception: {oce}"),
                     oce);
 
                 throw;
@@ -276,7 +276,7 @@ namespace RestClient.Net
                 request.HttpRequestMethod,
                 TraceEvent.Error,
                 request.Resource,
-                message: $"Send failed"),
+                message: $"Exception: {ex}"),
                 ex);
 
                 throw exception;
