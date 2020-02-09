@@ -215,6 +215,8 @@ namespace RestClient.Net
 
             try
             {
+                Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"Begin send"));
+
                 httpClient = HttpClientFactory.CreateClient(Name);
 
                 Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"Got HttpClient. Type: {httpClient.GetType().FullName}"));
@@ -242,7 +244,7 @@ namespace RestClient.Net
                     request.HttpRequestMethod,
                     TraceEvent.Error,
                     request.Resource,
-                    message: $"Got HttpClient. Type: {httpClient.GetType().FullName}"),
+                    message: "Task cancelled"),
                     tce);
 
                 throw;
@@ -253,7 +255,7 @@ namespace RestClient.Net
                     request.HttpRequestMethod,
                     TraceEvent.Error,
                     request.Resource,
-                    message: $"Got HttpClient. Type: {httpClient.GetType().FullName}"),
+                    message: $"Operation cancelled"),
                     oce);
 
                 throw;
@@ -267,21 +269,22 @@ namespace RestClient.Net
                 request.HttpRequestMethod,
                 TraceEvent.Error,
                 request.Resource,
-                message: $"Got HttpClient. Type: {httpClient.GetType().FullName}"),
+                message: $"Send failed"),
                 ex);
 
                 throw exception;
             }
 
-            Log(LogLevel.Trace, new Trace
+            Logger?.LogInformation(new Trace
                 (
                  request.HttpRequestMethod,
                 TraceEvent.Request,
                 httpResponseMessage.RequestMessage.RequestUri,
                 requestBodyData,
                 null,
-                request.Headers
-                ), null);
+                request.Headers,
+                "Request was sent to server"
+                ));
 
             return await ProcessResponseAsync<TResponseBody, TRequestBody>(request, httpResponseMessage, httpClient);
         }
@@ -330,7 +333,7 @@ namespace RestClient.Net
                 httpClient
             );
 
-            Log(LogLevel.Trace, new Trace
+            Logger?.LogInformation(new Trace
             (
              request.HttpRequestMethod,
                 TraceEvent.Response,
@@ -338,7 +341,7 @@ namespace RestClient.Net
                 responseData,
                 (int)httpResponseMessage.StatusCode,
                 httpResponseHeadersCollection
-            ), null);
+            ));
 
             if (httpResponseMessageResponse.IsSuccess || !ThrowExceptionOnFailure)
             {
@@ -346,17 +349,6 @@ namespace RestClient.Net
             }
 
             throw new HttpStatusException($"Non successful Http Status Code: {httpResponseMessageResponse.StatusCode}.\r\nRequest Uri: {httpResponseMessage.RequestMessage.RequestUri}", httpResponseMessageResponse, this);
-        }
-        #endregion
-
-        #region Private Methods
-        private void Log(LogLevel loglevel, Trace restTrace, Exception exception)
-        {
-            Logger?.Log(loglevel,
-                restTrace != null ?
-                new EventId((int)restTrace.RestEvent, restTrace.RestEvent.ToString()) :
-                new EventId((int)TraceEvent.Error, TraceEvent.Error.ToString()),
-                restTrace, exception, null);
         }
         #endregion
     }

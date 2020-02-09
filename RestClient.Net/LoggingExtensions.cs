@@ -5,10 +5,6 @@ using RestClient.Net.Abstractions.Logging;
 using Microsoft.Extensions.Logging;
 #endif
 
-#if NETCOREAPP3_0
-//using RestClient.Net.Abstractions.Extensions;
-#endif
-
 using RestClient.Net.Abstractions;
 using System;
 
@@ -46,6 +42,4 @@ namespace RestClient.Net
             logger.Log(LogLevel.Error, new EventId((int)trace.RestEvent), trace, exception, func);
         }
     }
-
 }
-
