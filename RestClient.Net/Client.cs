@@ -306,13 +306,13 @@ namespace RestClient.Net
 
             Logger?.LogInformation(new Trace
                 (
-                 request.HttpRequestMethod,
-                TraceEvent.Request,
-                httpResponseMessage.RequestMessage.RequestUri,
-                requestBodyData,
-                null,
-                request.Headers,
-                "Request was sent to server"
+                    request.HttpRequestMethod,
+                    TraceEvent.Request,
+                    httpResponseMessage.RequestMessage?.RequestUri,
+                    requestBodyData,
+                    null,
+                    request.Headers,
+                    "Request was sent to server"
                 ));
 
             return await ProcessResponseAsync<TResponseBody, TRequestBody>(request, httpResponseMessage, httpClient);
