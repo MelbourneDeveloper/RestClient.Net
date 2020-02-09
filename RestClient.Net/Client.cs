@@ -219,17 +219,24 @@ namespace RestClient.Net
 
                 httpClient = HttpClientFactory.CreateClient(Name);
 
-                Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"Got HttpClient. Type: {httpClient.GetType().FullName}"));
+                Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"Got HttpClient null: {httpClient == null}"));
 
                 //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
                 if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
                 if (httpClient.BaseAddress != BaseUri && BaseUri != null) httpClient.BaseAddress = BaseUri;
+
+                Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"HttpClient configured. Request Null: {request == null} Adapter Null: {SerializationAdapter == null}"));
 
                 requestBodyData = null;
 
                 if (DefaultRequestConverter.UpdateHttpRequestMethods.Contains(request.HttpRequestMethod))
                 {
                     requestBodyData = SerializationAdapter.Serialize(request.Body, request.Headers);
+                    Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, requestBodyData, message: $"Request body serialized"));
+                }
+                else
+                {
+                    Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, requestBodyData, message: $"No request body to serialize"));
                 }
 
                 httpResponseMessage = await _sendHttpRequestFunc.Invoke(
