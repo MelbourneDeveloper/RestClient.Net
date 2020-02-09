@@ -26,7 +26,7 @@ namespace RestClient.Net
     public sealed class Client : IClient
     {
         #region Fields
-        private readonly Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> _sendHttpRequestFunc;
+        private readonly Func<HttpClient, Func<HttpRequestMessage>, ILogger, CancellationToken, Task<HttpResponseMessage>> _sendHttpRequestFunc;
         #endregion
 
         #region Public Properties
@@ -82,9 +82,12 @@ namespace RestClient.Net
         #endregion
 
         #region Func
-        private static readonly Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> DefaultSendHttpRequestMessageFunc = (httpClient, httpRequestMessageFunc, cancellationToken) =>
+        private static readonly Func<HttpClient, Func<HttpRequestMessage>, ILogger, CancellationToken, Task<HttpResponseMessage>> DefaultSendHttpRequestMessageFunc = (httpClient, httpRequestMessageFunc, logger, cancellationToken) =>
         {
             var httpRequestMessage = httpRequestMessageFunc.Invoke();
+
+            logger?.LogTrace(new Trace(HttpRequestMethod.Custom, TraceEvent.Information, message: $"Attempting to send with the HttoClient. HttpClient Null: {httpClient}"));
+
             return httpClient.SendAsync(httpRequestMessage, cancellationToken);
         };
         #endregion
@@ -178,7 +181,7 @@ namespace RestClient.Net
             IHeadersCollection defaultRequestHeaders = null,
             ILogger logger = null,
             IHttpClientFactory httpClientFactory = null,
-            Func<HttpClient, Func<HttpRequestMessage>, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,
+            Func<HttpClient, Func<HttpRequestMessage>, ILogger, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,
             IRequestConverter requestConverter = null)
         {
             DefaultRequestHeaders = defaultRequestHeaders ?? new RequestHeadersCollection();
@@ -242,6 +245,7 @@ namespace RestClient.Net
                 httpResponseMessage = await _sendHttpRequestFunc.Invoke(
                     httpClient,
                     () => RequestConverter.GetHttpRequestMessage(request, requestBodyData),
+                    Logger,
                     request.CancellationToken
                     );
             }
