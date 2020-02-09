@@ -199,7 +199,7 @@ namespace RestClient.Net
             Logger = logger;
             BaseUri = baseUri;
             Name = name ?? Guid.NewGuid().ToString();
-            RequestConverter = requestConverter ?? new DefaultRequestConverter();
+            RequestConverter = requestConverter ?? new DefaultRequestConverter(Logger);
             HttpClientFactory = httpClientFactory ?? new DefaultHttpClientFactory();
             _sendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
         }
