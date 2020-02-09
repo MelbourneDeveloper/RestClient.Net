@@ -209,22 +209,27 @@ namespace RestClient.Net
         #region Implementation
         async Task<Response<TResponseBody>> IClient.SendAsync<TResponseBody, TRequestBody>(Request<TRequestBody> request)
         {
-            var httpClient = HttpClientFactory.CreateClient(Name);
-
-            //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
-            if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
-            if (httpClient.BaseAddress != BaseUri && BaseUri != null) httpClient.BaseAddress = BaseUri;
-
-            byte[] requestBodyData = null;
-
-            if (DefaultRequestConverter.UpdateHttpRequestMethods.Contains(request.HttpRequestMethod))
-            {
-                requestBodyData = SerializationAdapter.Serialize(request.Body, request.Headers);
-            }
-
             HttpResponseMessage httpResponseMessage;
+            byte[] requestBodyData = null;
+            HttpClient httpClient = null;
+
             try
             {
+                httpClient = HttpClientFactory.CreateClient(Name);
+
+                Log(LogLevel.Information, new Trace { }, null);
+
+                //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
+                if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
+                if (httpClient.BaseAddress != BaseUri && BaseUri != null) httpClient.BaseAddress = BaseUri;
+
+                requestBodyData = null;
+
+                if (DefaultRequestConverter.UpdateHttpRequestMethods.Contains(request.HttpRequestMethod))
+                {
+                    requestBodyData = SerializationAdapter.Serialize(request.Body, request.Headers);
+                }
+
                 httpResponseMessage = await _sendHttpRequestFunc.Invoke(
                     httpClient,
                     () => RequestConverter.GetHttpRequestMessage(request, requestBodyData),
@@ -326,16 +331,17 @@ namespace RestClient.Net
         #endregion
 
         #region Private Methods
-        private void Log(LogLevel loglevel, Trace restTrace, Exception exception)
-        {
-            Logger?.Log(loglevel,
-                restTrace != null ?
-                new EventId((int)restTrace.RestEvent, restTrace.RestEvent.ToString()) :
-                new EventId((int)TraceEvent.Error, TraceEvent.Error.ToString()),
-                restTrace, exception, null);
-        }
+        //private void Log(LogLevel loglevel, string message, Trace restTrace, Exception exception)
+        //{
+        //    Logger?.Log(loglevel,
+        //        restTrace != null ?
+        //        new EventId((int)restTrace.RestEvent, restTrace.RestEvent.ToString()) :
+        //        new EventId((int)TraceEvent.Error, TraceEvent.Error.ToString()),
+        //        restTrace, exception, null);
+        //}
         #endregion
     }
+
 }
 
 #pragma warning restore CA2000
