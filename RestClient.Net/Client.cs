@@ -82,13 +82,31 @@ namespace RestClient.Net
         #endregion
 
         #region Func
-        private static readonly Func<HttpClient, Func<HttpRequestMessage>, ILogger, CancellationToken, Task<HttpResponseMessage>> DefaultSendHttpRequestMessageFunc = (httpClient, httpRequestMessageFunc, logger, cancellationToken) =>
+        private static readonly Func<HttpClient, Func<HttpRequestMessage>, ILogger, CancellationToken, Task<HttpResponseMessage>> DefaultSendHttpRequestMessageFunc = async (httpClient, httpRequestMessageFunc, logger, cancellationToken) =>
         {
-            var httpRequestMessage = httpRequestMessageFunc.Invoke();
+            try
+            {
+                var httpRequestMessage = httpRequestMessageFunc.Invoke();
 
-            logger?.LogTrace(new Trace(HttpRequestMethod.Custom, TraceEvent.Information, message: $"Attempting to send with the HttoClient. HttpClient Null: {httpClient}"));
+                logger?.LogTrace(new Trace(HttpRequestMethod.Custom, TraceEvent.Information, message: $"Attempting to send with the HttpClient. HttpClient Null: {httpClient == null}"));
 
-            return httpClient.SendAsync(httpRequestMessage, cancellationToken);
+                var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, cancellationToken);
+
+                logger?.LogTrace(new Trace(HttpRequestMethod.Custom, TraceEvent.Information, message: $"SendAsync on HttpClient returned without an exception"));
+
+                return httpResponseMessage;
+            }
+            catch (Exception ex)
+            {
+                logger?.LogException(new Trace(
+                 HttpRequestMethod.Custom,
+                TraceEvent.Error,
+                null,
+                message: $"Exception: {ex}"),
+                ex);
+
+                throw;
+            }
         };
         #endregion
 
