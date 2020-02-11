@@ -42,7 +42,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        var client = new Client(new Uri("https://api.github.com/users/melbournedeveloper/repos"));
+        var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: new Uri("https://api.github.com/users/melbournedeveloper/repos"));
         client.DefaultRequestHeaders.Add("User-Agent", "RestClient.Net");
         repos = await client.GetAsync<List<Repository>>();
     }
