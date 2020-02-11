@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Blazor.Hosting;
-using RestClient.Net.Samples.Blazor;
 using System.Threading.Tasks;
 
 namespace BlazorApp1
