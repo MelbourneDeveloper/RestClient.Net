@@ -1,12 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+  	<TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>BlazorApp1</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(TargetFramework)'!='netcoreapp3.1' ">
+    <RazorLangVersion>3.0</RazorLangVersion>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)'!='netcoreapp3.1' ">
+    <Compile Remove="Startup.cs" />
+    <Content Remove="Pages\_Host.cshtml" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.2.0-preview1.20073.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.2.0-preview1.20073.1" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.DevServer" Version="3.2.0-preview1.20073.1" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.2.0-preview1.20073.1" />
+  </ItemGroup>
+
   <ItemGroup>
-    <PackageReference Include="RestClient.Net" Version="3.1.1" />
+    <Compile Include="..\RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Shared\NewtonsoftSerializationAdapter.cs" Link="NewtonsoftSerializationAdapter.cs" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <ProjectReference Include="..\RestClient.Net\RestClient.Net.csproj" />
   </ItemGroup>
 
 </Project>

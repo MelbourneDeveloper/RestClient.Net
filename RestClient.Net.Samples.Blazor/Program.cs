@@ -1,18 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+#if (NETCOREAPP3_1)
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+#else
+using Microsoft.AspNetCore.Blazor.Hosting;
+using System.Threading.Tasks;
+#endif
 
 namespace BlazorApp1
 {
     public class Program
     {
+        //This is for server side rendering
+#if (NETCOREAPP3_1)
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -24,5 +23,15 @@ namespace BlazorApp1
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+#else
+        //Client side Blazor rendering
+        public static async Task Main(string[] args)
+        {
+            var builder = WebAssemblyHostBuilder.CreateDefault(args);
+            builder.RootComponents.Add<App>("app");
+
+            await builder.Build().RunAsync();
+        }
+#endif
     }
 }
