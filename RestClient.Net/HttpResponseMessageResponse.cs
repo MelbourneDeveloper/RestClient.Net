@@ -28,7 +28,7 @@ namespace RestClient.Net
                 httpRequestMethod,
                 responseContentData,
                 body,
-                httpResponseMessage != null ? httpResponseMessage.RequestMessage.RequestUri : throw new ArgumentNullException(nameof(httpResponseMessage)))
+                httpResponseMessage != null ? httpResponseMessage.RequestMessage?.RequestUri : throw new ArgumentNullException(nameof(httpResponseMessage)))
         {
             HttpResponseMessage = httpResponseMessage;
             HttpClient = httpClient;

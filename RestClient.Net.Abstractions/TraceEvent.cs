@@ -4,6 +4,7 @@
     {
         Request,
         Response,
-        Error
+        Error,
+        Information
     }
 }
