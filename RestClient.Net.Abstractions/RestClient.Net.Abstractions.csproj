@@ -5,7 +5,7 @@
     <DebugType>pdbonly</DebugType>
     <RootNamespace>RestClient.Net.Abstractions</RootNamespace>
     <CodeAnalysisRuleSet>../RestClient.Net/CodeRules.ruleset</CodeAnalysisRuleSet>
-    <Version>3.1.1</Version>
+    <Version>3.2.0</Version>
     <PackageLicenseFile>License.txt</PackageLicenseFile>        
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -19,7 +19,7 @@ This package contains abstractions for dependency injection with no implementati
     <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
     <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
-    <PackageReleaseNotes>Please see the website www.rest-client.net</PackageReleaseNotes>       
+    <PackageReleaseNotes>Get RestClient.Net working on Blazor Wasm</PackageReleaseNotes>       
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net45'">

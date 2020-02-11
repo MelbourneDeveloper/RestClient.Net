@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netcoreapp3.0;net45;net47</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
-    <AssemblyVersion>3.1.0.0</AssemblyVersion>
-    <FileVersion>3.1.0.0</FileVersion>
-    <Version>3.1.0</Version>
+    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <FileVersion>3.2.0.0</FileVersion>
+    <Version>3.2.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Christian Findlay</Authors>
     <Description>REST Client Framework for all .NET platforms www.rest-client.net</Description>
@@ -14,7 +14,7 @@
     <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
     <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
-    <PackageReleaseNotes>Default SerializationAdapter to System.Json.Text</PackageReleaseNotes>
+    <PackageReleaseNotes>Get RestClient.Net working on Blazor Wasm</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>    
     <NoWarn>CA2007</NoWarn>    
