@@ -99,7 +99,7 @@ namespace RestClient.Net
             catch (Exception ex)
             {
                 logger?.LogException(new Trace(
-                 HttpRequestMethod.Custom,
+                HttpRequestMethod.Custom,
                 TraceEvent.Error,
                 null,
                 message: $"Exception: {ex}"),
@@ -304,7 +304,7 @@ namespace RestClient.Net
                 throw exception;
             }
 
-            Logger?.LogInformation(new Trace
+            Logger?.LogTrace(new Trace
                 (
                     request.HttpRequestMethod,
                     TraceEvent.Request,
@@ -362,7 +362,7 @@ namespace RestClient.Net
                 httpClient
             );
 
-            Logger?.LogInformation(new Trace
+            Logger?.LogTrace(new Trace
             (
              request.HttpRequestMethod,
                 TraceEvent.Response,

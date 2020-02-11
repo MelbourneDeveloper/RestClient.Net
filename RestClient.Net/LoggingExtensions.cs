@@ -11,7 +11,7 @@ using System;
 
 namespace RestClient.Net
 {
-    public static class LoggingExtensions
+    internal static class LoggingExtensions
     {
         private static readonly Func<Trace, Exception, string> func = new Func<Trace, Exception, string>((trace, exception) =>
         {
@@ -23,7 +23,7 @@ namespace RestClient.Net
             if (logger == null) return;
             if (trace == null) throw new ArgumentNullException(nameof(trace));
 
-            logger.Log(LogLevel.Information, new EventId((int)trace.RestEvent), trace, null, func);
+            logger.Log(LogLevel.Information, new EventId((int)trace.RestEvent, trace.RestEvent.ToString()), trace, null, func);
         }
 
         public static void LogTrace(this ILogger logger, Trace trace)
@@ -31,7 +31,7 @@ namespace RestClient.Net
             if (logger == null) return;
             if (trace == null) throw new ArgumentNullException(nameof(trace));
 
-            logger.Log(LogLevel.Trace, new EventId((int)trace.RestEvent), trace, null, func);
+            logger.Log(LogLevel.Trace, new EventId((int)trace.RestEvent, trace.RestEvent.ToString()), trace, null, func);
         }
 
         public static void LogException(this ILogger logger, Trace trace, Exception exception)
@@ -39,7 +39,7 @@ namespace RestClient.Net
             if (logger == null) return;
             if (trace == null) throw new ArgumentNullException(nameof(trace));
 
-            logger.Log(LogLevel.Error, new EventId((int)trace.RestEvent), trace, exception, func);
+            logger.Log(LogLevel.Error, new EventId((int)trace.RestEvent, trace.RestEvent.ToString()), trace, exception, func);
         }
     }
 }
