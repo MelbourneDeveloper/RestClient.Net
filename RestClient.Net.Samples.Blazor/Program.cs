@@ -1,5 +1,10 @@
-using Microsoft.AspNetCore.Blazor.Hosting;
+#if (NETCOREAPP3_1)
+using Microsoft.AspNetCore.Hosting;
+#else
 using System.Threading.Tasks;
+#endif
+
+using Microsoft.Extensions.Hosting;
 
 namespace BlazorApp1
 {
@@ -18,8 +23,7 @@ namespace BlazorApp1
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-#endif
-
+#else
         //Client side Blazor rendering
         public static async Task Main(string[] args)
         {
@@ -28,5 +32,6 @@ namespace BlazorApp1
 
             await builder.Build().RunAsync();
         }
+#endif
     }
 }
