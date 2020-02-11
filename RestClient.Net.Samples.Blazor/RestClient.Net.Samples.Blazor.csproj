@@ -10,6 +10,12 @@
 
 
   <ItemGroup>
+    <Content Remove="Pages\_Host.cshtml" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
     <Compile Include="..\RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Shared\NewtonsoftSerializationAdapter.cs" Link="NewtonsoftSerializationAdapter.cs" />
   </ItemGroup>
 
