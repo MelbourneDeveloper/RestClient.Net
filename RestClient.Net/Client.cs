@@ -299,7 +299,7 @@ namespace RestClient.Net
                 TraceEvent.Error,
                 request.Resource,
                 message: $"Exception: {ex}"),
-                ex);
+                exception);
 
                 throw exception;
             }

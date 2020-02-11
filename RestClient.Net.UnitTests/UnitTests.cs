@@ -933,8 +933,8 @@ namespace RestClient.Net.UnitTests
             }
             catch (SendException<Person>)
             {
-                _logger.Verify(l => l.Log<Trace>(LogLevel.Error, It.IsAny<EventId>(), null,
-                    It.Is<SendException<Person>>(e => e.InnerException != null), null));
+                _logger.Verify(l => l.Log<Trace>(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<Trace>(),
+                    It.Is<SendException<Person>>(e => e.InnerException != null), It.IsAny<Func<Trace, Exception, string>>()));
                 return;
             }
             Assert.Fail();
