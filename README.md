@@ -9,6 +9,9 @@ The best .NET REST Client with task-based async, strong types and dependency inj
 ### Announcement ###
 
 **Version 3.2.0 has been released!**
+
+It now works on Blazor Wasm. Check out the [sample](https://github.com/MelbourneDeveloper/RestClient.Net/tree/master/RestClient.Net.Samples.Blazor)
+
 It features a [default JSON Serializer](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-With-ISerializationAdapter#default-json-serialization-adapter)
 
 [Follow me on Twitter](https://twitter.com/cfdevelop) for updates.
