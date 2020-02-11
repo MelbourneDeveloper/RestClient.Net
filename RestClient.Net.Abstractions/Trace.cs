@@ -10,14 +10,16 @@ namespace RestClient.Net.Abstractions
         public TraceEvent RestEvent { get; }
         public int? HttpStatusCode { get; }
         public IHeadersCollection HeadersCollection { get; }
+        public string Message { get; }
 
         public Trace(
             HttpRequestMethod httpRequestMethod,
-            Uri requestUri,
-            byte[] bodyData,
             TraceEvent traceType,
-            int? httpStatusCode,
-            IHeadersCollection headersCollection)
+            Uri requestUri = null,
+            byte[] bodyData = null,
+            int? httpStatusCode = null,
+            IHeadersCollection headersCollection = null,
+            string message = null)
         {
             HttpRequestMethod = httpRequestMethod;
             RequestUri = requestUri;
@@ -25,6 +27,7 @@ namespace RestClient.Net.Abstractions
             RestEvent = traceType;
             HttpStatusCode = httpStatusCode;
             HeadersCollection = headersCollection;
+            Message = message;
         }
     }
 }
