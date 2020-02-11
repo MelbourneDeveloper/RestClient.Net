@@ -1,10 +1,10 @@
 #if (NETCOREAPP3_1)
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 #else
+using Microsoft.AspNetCore.Blazor.Hosting;
 using System.Threading.Tasks;
 #endif
-
-using Microsoft.Extensions.Hosting;
 
 namespace BlazorApp1
 {
