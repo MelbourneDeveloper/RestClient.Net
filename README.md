@@ -61,6 +61,7 @@ var response = await client.GetAsync<List<RestCountry>>();
 ```cs
 var person = new Person { FirstName = "Bob", Surname = "Smith" };
 var client = new Client(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
+client.SetJsonContentTypeHeader();
 person = await client.PostAsync<Person, Person>(person);
 ```
 
