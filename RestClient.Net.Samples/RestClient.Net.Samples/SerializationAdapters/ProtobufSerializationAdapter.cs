@@ -14,7 +14,7 @@ namespace RestClient.Net
             return message.ToByteArray();
         }
 
-        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders)
+        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders = null, int? httpResponseCode = null)
         {
             var messageType = typeof(TResponseBody);
             var parserProperty = messageType.GetProperty("Parser");

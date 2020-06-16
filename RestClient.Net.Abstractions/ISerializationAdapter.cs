@@ -17,7 +17,8 @@
         /// <typeparam name="TResponseBody">The type to serialize to</typeparam>
         /// <param name="data">The Http Response's body data</param>
         /// <param name="responseHeaders">The headers on the Http Response from the server</param>
+        /// <param name="httpResponseCode">The Http Response Code from the server</param>
         /// <returns></returns>
-        TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders);
+        TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders = null, int? httpResponseCode = null);
     }
 }

@@ -29,7 +29,7 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders)
+        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders = null, int? httpResponseCode = null)
         {
             var markup = Encoding.UTF8.GetString(data);
 

@@ -8,7 +8,7 @@ namespace RestClient.Net
     public class NewtonsoftSerializationAdapter : ISerializationAdapter
     {
         #region Implementation
-        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders)
+        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders = null, int? httpResponseCode = null)
         {
             //This here is why I don't like JSON serialization. 😢
             //Note: on some services the headers should be checked for encoding 

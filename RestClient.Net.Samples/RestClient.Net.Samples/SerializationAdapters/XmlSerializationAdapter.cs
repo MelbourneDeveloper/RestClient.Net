@@ -1,7 +1,6 @@
 ﻿using RestClient.Net.Abstractions;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace RestClient.Net
@@ -10,7 +9,7 @@ namespace RestClient.Net
     {
         #region Public Methods
 
-        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders)
+        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders = null, int? httpResponseCode = null)
         {
             var serializer = new XmlSerializer(typeof(TResponseBody));
             using (var stream = new MemoryStream())
