@@ -17,12 +17,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xml2CSharp;
 using jsonperson = ApiExamples.Model.JsonModel.Person;
+using RichardSzalay.MockHttp;
 
 #if (NETCOREAPP3_1)
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ApiExamples;
-using RichardSzalay.MockHttp;
 using System.IO;
 #endif
 
@@ -120,7 +120,7 @@ namespace RestClient.Net.UnitTests
             var factory = new SingletonHttpClientFactory(httpClient);
 
             var client = new Client(
-                baseUri: new Uri("https://restcountries.eu/rest/v2/name/australia"), 
+                baseUri: new Uri("https://restcountries.eu/rest/v2/name/australia"),
                 httpClientFactory: factory);
             var json = await client.GetAsync<string>();
 
@@ -128,6 +128,24 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual("Australia", country.name);
         }
 #endif
+
+        [TestMethod]
+        public async Task TestBadRequestCanDeserializeErrorMessage()
+        {
+            var mockHttp = new MockHttpMessageHandler();
+
+            mockHttp.When("https://restcountries.eu/rest/v2/")
+                    .Respond(HttpStatusCode.BadRequest, "application/json", JsonConvert.SerializeObject(new { Message = "Test", ErrorCode = 100 }));
+
+            var httpClient = mockHttp.ToHttpClient();
+
+            var factory = new SingletonHttpClientFactory(httpClient);
+
+            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
+            var client = new Client(new NewtonsoftSerializationAdapter(), httpClientFactory: factory, baseUri: baseUri, logger: _logger.Object);
+
+            var countries = await client.GetAsync<List<RestCountry>>();
+        }
 
         [TestMethod]
         public async Task TestGetRestCountries()
