@@ -23,6 +23,10 @@
    </ItemGroup>
 
   <ItemGroup>
+    <None Remove="JSON\Australia.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Shared\NewtonsoftSerializationAdapter.cs" Link="SerializationAdapters\NewtonsoftSerializationAdapter.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\Atlassian.cs" Link="Model\Atlassian.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\Model\CUSTOMER.cs" Link="Model\CUSTOMER.cs" />
@@ -32,6 +36,9 @@
     <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\BinaryDataContractSerializationAdapter.cs" Link="SerializationAdapters\BinaryDataContractSerializationAdapter.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\SerializationAdapters\ProtobufSerializationAdapter.cs" Link="SerializationAdapters\ProtobufSerializationAdapter.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\XmlSerializationAdapter.cs" Link="SerializationAdapters\XmlSerializationAdapter.cs" />
+    <Content Include="JSON\Australia.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
@@ -42,6 +49,7 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
+    <PackageReference Include="RichardSzalay.MockHttp" Version="6.0.0" />
     <PackageReference Include="structuremap" Version="4.7.1" />
     <ProjectReference Include="..\ApiExamples.Model\ApiExamples.Model.csproj" />
     <ProjectReference Include="..\RestClient.NET\RestClient.Net.csproj" />

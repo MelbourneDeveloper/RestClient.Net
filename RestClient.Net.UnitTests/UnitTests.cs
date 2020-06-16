@@ -22,6 +22,8 @@ using jsonperson = ApiExamples.Model.JsonModel.Person;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ApiExamples;
+using RichardSzalay.MockHttp;
+using System.IO;
 #endif
 
 #if NET45
@@ -108,8 +110,20 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetDefaultSerializationRestCountriesAsJson()
         {
-            var client = new Client(baseUri: new Uri("https://restcountries.eu/rest/v2/name/australia"));
+            var mockHttp = new MockHttpMessageHandler();
+
+            mockHttp.When("https://restcountries.eu/rest/v2/name/australia")
+                    .Respond("application/json", File.ReadAllText("JSON/Australia.json"));
+
+            var httpClient = mockHttp.ToHttpClient();
+
+            var factory = new SingletonHttpClientFactory(httpClient);
+
+            var client = new Client(
+                baseUri: new Uri("https://restcountries.eu/rest/v2/name/australia"), 
+                httpClientFactory: factory);
             var json = await client.GetAsync<string>();
+
             var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).FirstOrDefault();
             Assert.AreEqual("Australia", country.name);
         }
