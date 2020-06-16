@@ -2,6 +2,8 @@
 
 # .NET REST Client Framework for all platforms #
 
+## [Follow Me on Twitter](https://twitter.com/intent/follow?screen_name=cfdevelop&tw_p=followbutton) ##
+
 The best .NET REST Client with task-based async, strong types and dependency injection on all platforms. Consume your ASP .NET Core Web APIs or consume RESTful APIs over the internet in C# or Visual Basic.
 
 **[Documentation Here](https://github.com/MelbourneDeveloper/RestClient.Net/wiki)**
