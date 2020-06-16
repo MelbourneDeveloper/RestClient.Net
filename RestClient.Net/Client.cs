@@ -344,7 +344,7 @@ namespace RestClient.Net
             TResponseBody responseBody;
             try
             {
-                responseBody = SerializationAdapter.Deserialize<TResponseBody>(responseData, httpResponseHeadersCollection);
+                responseBody = SerializationAdapter.Deserialize<TResponseBody>(responseData, (int)httpResponseMessage.StatusCode, httpResponseMessage.IsSuccessStatusCode, responseHeaders: httpResponseHeadersCollection);
             }
             catch (Exception ex)
             {

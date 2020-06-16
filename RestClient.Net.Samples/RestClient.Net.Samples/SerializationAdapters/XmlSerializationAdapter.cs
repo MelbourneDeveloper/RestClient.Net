@@ -9,7 +9,11 @@ namespace RestClient.Net
     {
         #region Public Methods
 
-        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders = null, int? httpResponseCode = null)
+        public TResponseBody Deserialize<TResponseBody>(
+            byte[] data,
+            int httpResponseCode,
+            bool isResponseSuccessful,
+            IHeadersCollection responseHeaders = null)
         {
             var serializer = new XmlSerializer(typeof(TResponseBody));
             using (var stream = new MemoryStream())

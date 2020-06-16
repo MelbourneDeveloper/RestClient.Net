@@ -25,7 +25,7 @@ namespace RestClient.Net.Abstractions.Extensions
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
             if (response == null) throw new ArgumentNullException(nameof(response));
-            return restClient.SerializationAdapter.Deserialize<TResponseBody>(response.GetResponseData(), response.Headers);
+            return restClient.SerializationAdapter.Deserialize<TResponseBody>(response.GetResponseData(), response.StatusCode, response.IsSuccess, responseHeaders: response.Headers);
         }
 
         public static void SetJsonContentTypeHeader(this IClient restClient)
