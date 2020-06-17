@@ -6,7 +6,6 @@ namespace RestClient.Net.Abstractions
     {
         #region Public Properties
         public virtual TResponseBody Body { get; set; }
-
         #endregion
 
         #region Constructors
