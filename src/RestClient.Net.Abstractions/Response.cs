@@ -51,11 +51,11 @@ namespace RestClient.Net.Abstractions
         #endregion
 
         #region Public Properties
-        public virtual int StatusCode { get; }
-        public virtual IHeadersCollection Headers { get; }
-        public virtual HttpRequestMethod HttpRequestMethod { get; }
+        public virtual int StatusCode { get; set; }
+        public virtual IHeadersCollection Headers { get; set; }
+        public virtual HttpRequestMethod HttpRequestMethod { get; set; }
         public abstract bool IsSuccess { get; }
-        public virtual Uri RequestUri { get; }
+        public virtual Uri RequestUri { get; set; }
         #endregion
 
         #region Constructor

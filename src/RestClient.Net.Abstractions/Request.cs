@@ -6,7 +6,7 @@ namespace RestClient.Net.Abstractions
     public class Request<TRequestBody>
     {
         #region Public Properties
-        public IHeadersCollection Headers { get; }
+        public IHeadersCollection Headers { get; set; }
         public Uri Resource { get; set; }
         public HttpRequestMethod HttpRequestMethod { get; set; }
         public TRequestBody Body { get; set; }
@@ -14,6 +14,24 @@ namespace RestClient.Net.Abstractions
         public string CustomHttpRequestMethod { get; set; }
         #endregion
 
+        #region Constructors
+        /// <summary>
+        /// Use this to construct mocked requests
+        /// </summary>
+        public Request()
+        {
+
+        }
+
+        /// <summary>
+        /// Construct a Request
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <param name="body"></param>
+        /// <param name="headers"></param>
+        /// <param name="httpRequestMethod"></param>
+        /// <param name="client"></param>
+        /// <param name="cancellationToken"></param>
         public Request(Uri resource,
             TRequestBody body,
             IHeadersCollection headers,
@@ -37,5 +55,6 @@ namespace RestClient.Net.Abstractions
                 Headers.Add(kvp);
             }
         }
+        #endregion
     }
 }

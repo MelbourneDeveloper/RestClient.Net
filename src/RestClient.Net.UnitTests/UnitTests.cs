@@ -24,6 +24,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ApiExamples;
 using System.IO;
+using Google.Protobuf.WellKnownTypes;
+using System.Net.Http.Headers;
+using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 #endif
 
 #if NET45
@@ -78,6 +81,45 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Tests
+
+        /// <summary>
+        /// This is just a stub to make sure it's easy to mock requests and responses
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task TestCanMockRequestAndResponse()
+        {
+            var clientMock = new Mock<IClient>();
+            var headersMock = new Mock<IHeadersCollection>();
+            var response = new HttpResponseMessageResponse<string>()
+            {
+                Body = "test",
+                Headers = headersMock.Object,
+                HttpClient = new HttpClient(),
+                HttpRequestMethod = HttpRequestMethod.Custom,
+                HttpResponseMessage = new HttpResponseMessage(),
+                RequestUri = new Uri("http://test.com"),
+                StatusCode = 10
+            };
+
+            clientMock.Setup(c => c.SendAsync<string, string>(It.IsAny<Request<string>>())).Returns
+                (
+                Task.FromResult<Response<string>>(response)
+                );
+
+            var returnedResponse = await clientMock.Object.SendAsync<string, string>(
+                new Request<string>
+                {
+                    Body = "Test",
+                    CancellationToken = new CancellationToken(),
+                    CustomHttpRequestMethod = "asd",
+                    Headers = new RequestHeadersCollection(),
+                    HttpRequestMethod = HttpRequestMethod.Custom,
+                    Resource = new Uri("http://www.test.com")
+                }
+                ); ;
+            Assert.IsTrue(ReferenceEquals(response, returnedResponse));
+        }
 
         #region External Api Tests
         [TestMethod]
@@ -1177,7 +1219,7 @@ namespace RestClient.Net.UnitTests
             return true;
         }
 
-        
+
         /// <summary>
         /// There were issues with DataRow so doing this instead. These sometimes fail but no idea why...
         /// </summary>

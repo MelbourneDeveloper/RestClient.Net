@@ -7,12 +7,19 @@ namespace RestClient.Net
     public class HttpResponseMessageResponse<TResponseBody> : Response<TResponseBody>
     {
         #region Public Properties
-        public HttpResponseMessage HttpResponseMessage { get; }
+        public HttpResponseMessage HttpResponseMessage { get; set; }
         public override bool IsSuccess => HttpResponseMessage.IsSuccessStatusCode;
-        public HttpClient HttpClient { get; }
+        public HttpClient HttpClient { get; set; }
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Constructor for mocking
+        /// </summary>
+        public HttpResponseMessageResponse()
+        {
+        }
+
         public HttpResponseMessageResponse
         (
             HttpResponseHeadersCollection httpResponseHeadersCollection,
