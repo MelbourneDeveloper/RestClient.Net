@@ -2,7 +2,7 @@
 
 # .NET REST Client Framework for all platforms #
 
-## [Follow Me on Twitter](https://twitter.com/intent/follow?screen_name=cfdevelop&tw_p=followbutton) ##
+## [Follow Me on Twitter for Updates](https://twitter.com/intent/follow?screen_name=cfdevelop&tw_p=followbutton) ##
 
 The best .NET REST Client with task-based async, strong types and dependency injection on all platforms. Consume your ASP .NET Core Web APIs or consume RESTful APIs over the internet in C# or Visual Basic.
 
@@ -10,15 +10,11 @@ The best .NET REST Client with task-based async, strong types and dependency inj
 
 ### Announcement ###
 
-**Version 3.2.0 has been released!**
+**Version 4.0.0 has been released!**
 
-It now works on Blazor Wasm. Check out the [sample](https://github.com/MelbourneDeveloper/RestClient.Net/tree/master/RestClient.Net.Samples.Blazor)
+Check out the [features and fixes](https://github.com/MelbourneDeveloper/RestClient.Net/projects/3)
 
-It features a [default JSON Serializer](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-With-ISerializationAdapter#default-json-serialization-adapter)
-
-[Follow me on Twitter](https://twitter.com/cfdevelop) for updates.
-
-A series of Blog posts will introduce the new functionality in the coming weeks. https://christianfindlay.com/
+Check out blog posts here https://christianfindlay.com/
 
 ### Why You Should Use It ###
 
