@@ -359,7 +359,7 @@ namespace RestClient.Net
                     return httpResponseMessageResponse;
                 }
 
-                throw new HttpStatusException($"Non successful Http Status Code: {httpResponseMessageResponse.StatusCode}.\r\nRequest Uri: {httpResponseMessage.RequestMessage.RequestUri}", httpResponseMessageResponse, this);
+                throw new HttpStatusException(Messages.GetErrorMessageNonSuccess(httpResponseMessageResponse.StatusCode, httpResponseMessageResponse.RequestUri), httpResponseMessageResponse, this);
             }
 
             try

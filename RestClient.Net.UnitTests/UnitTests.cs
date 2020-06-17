@@ -134,8 +134,10 @@ namespace RestClient.Net.UnitTests
         {
             var mockHttp = new MockHttpMessageHandler();
 
+            const HttpStatusCode statusCode = HttpStatusCode.BadRequest;
+
             mockHttp.When("https://restcountries.eu/rest/v2/")
-                    .Respond(HttpStatusCode.BadRequest, "application/json", JsonConvert.SerializeObject(new { Message = "Test", ErrorCode = 100 }));
+                    .Respond(statusCode, "application/json", JsonConvert.SerializeObject(new { Message = "Test", ErrorCode = 100 }));
 
             var httpClient = mockHttp.ToHttpClient();
 
@@ -144,7 +146,7 @@ namespace RestClient.Net.UnitTests
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
             var client = new Client(new NewtonsoftSerializationAdapter(), httpClientFactory: factory, baseUri: baseUri, logger: _logger.Object);
 
-            var countries = await client.GetAsync<List<RestCountry>>();
+            await AssertThrowsAsync<HttpStatusException>(client.GetAsync<List<RestCountry>>(), Messages.GetErrorMessageNonSuccess((int)statusCode, baseUri));
         }
 
         [TestMethod]
@@ -1082,6 +1084,26 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Helpers
+        public async static Task AssertThrowsAsync<T>(Task task, string expectedMessage) where T : Exception
+        {
+            try
+            {
+                await task;
+            }
+            catch (Exception ex)
+            {
+                if (ex is T)
+                {
+                    Assert.AreEqual(expectedMessage, ex.Message);
+                    return;
+                }
+
+                Assert.Fail($"Expection exception type: {typeof(T)} Actual type: {ex.GetType()}");
+            }
+
+            Assert.Fail($"No exception thrown");
+        }
+
         private static IHeadersCollection GetHeaders(bool useDefault, Client client)
         {
             IHeadersCollection headers = null;
