@@ -23,7 +23,6 @@ using RichardSzalay.MockHttp;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ApiExamples;
-using System.IO;
 using Google.Protobuf.WellKnownTypes;
 using System.Net.Http.Headers;
 using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
@@ -33,6 +32,7 @@ using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using RestClient.Net.Abstractions.Logging;
 #else
 using Microsoft.Extensions.Logging;
+using System.IO;
 #endif
 
 namespace RestClient.Net.UnitTests
@@ -138,7 +138,7 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(response.Headers.Contains("Cache-Control"));
         }
 
-#if NETCOREAPP3_1
+#if !NET45
         [TestMethod]
         public async Task TestGetDefaultSerializationRestCountries()
         {
