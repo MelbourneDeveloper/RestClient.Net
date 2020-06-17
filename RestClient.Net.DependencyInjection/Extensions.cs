@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Net.Http;
 
 namespace RestClient.Net.DependencyInjection
 {
@@ -7,8 +8,11 @@ namespace RestClient.Net.DependencyInjection
     {
         public static void AddDependencyInjectionMapping(this IServiceCollection serviceCollection)
         {
-            throw new NotImplementedException();
-            //serviceCollection.AddSingleton(typeof(CreateHttpClient), typeof(MicrosoftHttpClientFactoryWrapper));
+            serviceCollection.AddSingleton<CreateHttpClient>((sp) => 
+            {
+                var microsoftHttpClientFactoryWrapper = new MicrosoftHttpClientFactoryWrapper(sp.GetRequiredService<IHttpClientFactory>());
+                return microsoftHttpClientFactoryWrapper.CreateClient; 
+            } );
         }
     }
 }
