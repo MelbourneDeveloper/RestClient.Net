@@ -1,20 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.0;net45;net47</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45;net47</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
-    <FileVersion>3.2.0.0</FileVersion>
-    <Version>3.2.0</Version>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <FileVersion>4.0.0.0</FileVersion>
+    <Version>4.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Christian Findlay</Authors>
-    <Description>REST Client Framework for all .NET platforms www.rest-client.net</Description>
+    <Description>.NET REST Client Framework for all platforms
+
+www.rest-client.net</Description>
     <Copyright>© 2020 Christian Findlay</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
     <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
-    <PackageReleaseNotes>Get RestClient.Net working on Blazor Wasm</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/3</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <CodeAnalysisRuleSet>CodeRules.ruleset</CodeAnalysisRuleSet>    
     <NoWarn>CA2007</NoWarn>    
@@ -37,16 +39,15 @@
     <ProjectReference Include="..\RestClient.Net.Abstractions\RestClient.Net.Abstractions.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'net45'">
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0">
-    </PackageReference>
-  </ItemGroup>
-
   <Choose>
-    <When Condition=" '$(TargetFramework)'=='netstandard2.0' " />
-    <Otherwise>  
+    <When Condition="'$(TargetFramework)' == 'net45'">
       <ItemGroup>
         <PackageReference Include="System.Net.Http" Version="4.3.4" />
+      </ItemGroup>    
+    </When>
+    <Otherwise>  
+      <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0" />
       </ItemGroup>
     </Otherwise>
   </Choose>

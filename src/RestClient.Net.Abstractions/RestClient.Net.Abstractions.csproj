@@ -1,15 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.0;net45;net47;</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45;net47</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
     <RootNamespace>RestClient.Net.Abstractions</RootNamespace>
     <CodeAnalysisRuleSet>../RestClient.Net/CodeRules.ruleset</CodeAnalysisRuleSet>
-    <Version>3.2.0</Version>
+    <Version>4.0.0</Version>
     <PackageLicenseFile>License.txt</PackageLicenseFile>        
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>REST Client Framework for all .NET platforms www.rest-client.net
+    <Description>.NET REST Client Framework for all platforms
+
+www.rest-client.net
 
 This package contains abstractions for dependency injection with no implementations</Description>
     <Product>RestClient.Net Abstractions</Product>
@@ -19,18 +21,35 @@ This package contains abstractions for dependency injection with no implementati
     <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
     <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
-    <PackageReleaseNotes>Get RestClient.Net working on Blazor Wasm</PackageReleaseNotes>       
+    <PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/3</PackageReleaseNotes>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <RepositoryType>git</RepositoryType>       
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net45'">
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0" />
     <Compile Remove="Logging/ILogger.cs" />
     <Compile Remove="Logging/EventId.cs" />
     <Compile Remove="Logging/LogLevel.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
-    <Compile Remove="JsonSerializationAdapter.cs" />
-   </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+
+
+  <Choose>
+    <When Condition="'$(TargetFramework)' == 'net45'"> 
+      <ItemGroup>
+        <Compile Remove="JsonSerializationAdapter.cs" />
+      </ItemGroup>    
+    </When>
+    <Otherwise>  
+      <ItemGroup>
+        <PackageReference Include="System.Text.Json" Version="4.7.1" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
 
   <ItemGroup>
     <None Include="License.txt">
