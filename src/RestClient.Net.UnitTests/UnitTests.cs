@@ -50,6 +50,8 @@ namespace RestClient.Net.UnitTests
 #endif
         private static TestClientFactory _testServerHttpClientFactory;
         private static Mock<ILogger> _logger;
+        private MockHttpMessageHandler _mockHttpMessageHandler;
+        private HttpClient _mockHttpClient;
         #endregion
 
         #region Setup
@@ -59,6 +61,20 @@ namespace RestClient.Net.UnitTests
             var testServerHttpClientFactory = GetTestClientFactory();
             _testServerHttpClientFactory = testServerHttpClientFactory;
             _logger = new Mock<ILogger>();
+
+            //Set up the mox
+            _mockHttpMessageHandler = new MockHttpMessageHandler();
+
+            //Return all rest countries with a status code of 200
+            _mockHttpMessageHandler.When("https://restcountries.eu/rest/v2/")
+                    .Respond(
+                new List<KeyValuePair<string, string>>(),
+                null,
+                File.ReadAllText("JSON/RestCountries.json"));
+
+            //Create the mock client
+            _mockHttpClient = _mockHttpMessageHandler.ToHttpClient();
+
         }
         #endregion
 
@@ -222,20 +238,11 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetRestCountries()
         {
-            var mockHttp = new MockHttpMessageHandler();
-
-            mockHttp.When("https://restcountries.eu/rest/v2/")
-                    .Respond(
-                new List<KeyValuePair<string, string>>(),
-                null,
-                File.ReadAllText("JSON/RestCountries.json"));
-
-            var httpClient = mockHttp.ToHttpClient();
-
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
+
             var client = new Client(new NewtonsoftSerializationAdapter(),
                 baseUri: baseUri,
-                createHttpClient: (n)=> httpClient,
+                createHttpClient: (n) => _mockHttpClient,
                 logger: _logger.Object);
 
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>();
