@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net.Abstractions;
 using RestClient.Net.DependencyInjection;
 using RestClient.Net.UnitTests.Model;
+using StructureMap;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -72,7 +73,6 @@ namespace RestClient.Net.UnitTests
                 var baseUri = new Uri("http://www.test.com");
                 serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
                 serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleLogger));
-                serviceCollection.AddSingleton(typeof(CreateClient), typeof(ClientFactory));
                 serviceCollection.AddDependencyInjectionMapping();
                 serviceCollection.AddTransient<TestHandler>();
                 serviceCollection.AddHttpClient(clientName, (c) => { c.BaseAddress = baseUri; })
@@ -107,50 +107,30 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(250, response.Body.Count);
         }
 
+#pragma warning disable CA2000 
         [TestMethod]
         public void TestStructureMap()
         {
-            throw new NotImplementedException();
-            /*
-           var container = new Container(c =>
-           {
-               c.Scan(s =>
-               {
-                   s.TheCallingAssembly();
-                   s.WithDefaultConventions();
-               });
+            var container = new Container(c =>
+            {
+                c.Scan(s =>
+                {
+                    s.TheCallingAssembly();
+                    s.WithDefaultConventions();
+                });
 
-               c.For<CreateClient>().Use(() => new ClientFactory().CreateClient);
-               c.For<CreateHttpClient>().Use<DefaultHttpClientFactory>();
-               c.For<ILogger>().Use<ConsoleLogger>();
-               c.For<ISerializationAdapter>().Use<NewtonsoftSerializationAdapter>();
-           });
+                c.For<CreateClient>().Use<CreateClient>(con => new ClientFactory(con.GetInstance<ISerializationAdapter>(), con.GetInstance<CreateHttpClient>(), null).CreateClient);
+                c.For<CreateHttpClient>().Use<CreateHttpClient>(con => new DefaultHttpClientFactory().CreateClient);
+                c.For<ILogger>().Use<ConsoleLogger>();
+                c.For<ISerializationAdapter>().Use<NewtonsoftSerializationAdapter>();
+            });
 
-           var clientFactory = container.GetInstance<CreateClient>();
-           var client = clientFactory("Test");
-           Assert.IsNotNull(client);
-           Assert.AreEqual("Test", client.Name);
-         */
+            var clientFactory = container.GetInstance<CreateClient>();
+            var client = clientFactory("Test");
+            Assert.IsNotNull(client);
+            Assert.AreEqual("Test", client.Name);
         }
+#pragma warning restore CA2000
 
     }
-
-    //public static class CreateClientExtensions
-    //{
-    //    public static void NewMethod(this IServiceCollection serviceCollection)
-    //    {
-    //        serviceCollection.AddSingleton<CreateHttpClient>((sp) =>
-    //        {
-    //            var clientFactory = sp.GetRequiredService<IHttpClientFactory>();
-    //            return clientFactory.CreateClient;
-    //        });
-
-    //        serviceCollection.AddSingleton<CreateClient>((sp) =>
-    //        {
-    //            var clientFactory = new ClientFactory(sp.GetRequiredService<ISerializationAdapter>(), sp.GetRequiredService<CreateHttpClient>());
-    //            return clientFactory.CreateClient;
-    //        });
-    //    }
-    //}
-
 }

@@ -20,7 +20,6 @@ namespace RestClient.Net.DependencyInjection
                 var clientFactory = new ClientFactory(sp.GetRequiredService<ISerializationAdapter>(), sp.GetRequiredService<CreateHttpClient>());
                 return clientFactory.CreateClient;
             });
-
         }
     }
 }
