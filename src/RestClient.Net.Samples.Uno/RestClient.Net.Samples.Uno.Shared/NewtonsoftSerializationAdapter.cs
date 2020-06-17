@@ -26,7 +26,6 @@ namespace RestClient.Net
         {
             var json = JsonConvert.SerializeObject(value);
 
-            //This here is why I don't like JSON serialization. 😢
             var binary = Encoding.UTF8.GetBytes(json);
 
             return binary;
