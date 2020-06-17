@@ -5,8 +5,7 @@ namespace RestClient.Net.Abstractions
     public abstract class Response<TResponseBody> : Response
     {
         #region Public Properties
-        public virtual TResponseBody Body { get; }
-
+        public virtual TResponseBody Body { get; set; }
         #endregion
 
         #region Constructors

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RestClient.Net.Abstractions;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,11 +9,10 @@ namespace RestClient.Net
     public class NewtonsoftSerializationAdapter : ISerializationAdapter
     {
         #region Implementation
-        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders)
+        public TResponseBody Deserialize<TResponseBody>(Response response)
         {
-            //This here is why I don't like JSON serialization. 😢
             //Note: on some services the headers should be checked for encoding 
-            var markup = Encoding.UTF8.GetString(data);
+            var markup = Encoding.UTF8.GetString(response.GetResponseData());
 
             object markupAsObject = markup;
 

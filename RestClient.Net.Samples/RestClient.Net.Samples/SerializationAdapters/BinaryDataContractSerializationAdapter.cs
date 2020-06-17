@@ -14,10 +14,12 @@ namespace RestClient.Net
         #endregion
 
         #region Public Methods
-        public TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders)
+        public TResponseBody Deserialize<TResponseBody>(Response response)
         {
+            if (response == null) throw new ArgumentNullException(nameof(response));
+
             var serializer = new DataContractSerializer(typeof(TResponseBody), KnownDataContracts);
-            using (var stream = new MemoryStream(data))
+            using (var stream = new MemoryStream(response.GetResponseData()))
             using (var reader = XmlDictionaryReader.CreateBinaryReader(stream, XmlDictionaryReaderQuotas.Max))
             {
                 return (TResponseBody)serializer.ReadObject(reader);

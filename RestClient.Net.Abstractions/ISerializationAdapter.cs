@@ -15,9 +15,8 @@
         /// Takes binary data from the Http Response and converts it to an object of type T
         /// </summary>
         /// <typeparam name="TResponseBody">The type to serialize to</typeparam>
-        /// <param name="data">The Http Response's body data</param>
-        /// <param name="responseHeaders">The headers on the Http Response from the server</param>
+        /// <param name="response">The Response's information</param>
         /// <returns></returns>
-        TResponseBody Deserialize<TResponseBody>(byte[] data, IHeadersCollection responseHeaders);
+        TResponseBody Deserialize<TResponseBody>(Response response);
     }
 }
