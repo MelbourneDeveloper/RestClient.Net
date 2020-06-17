@@ -4,7 +4,7 @@ using System.Net.Http;
 
 namespace RestClient.Net.UnitTests
 {
-    public class TestClientFactory : IHttpClientFactory
+    public class TestClientFactory
     {
         HttpClient _testClient;
 

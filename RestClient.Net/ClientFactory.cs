@@ -12,16 +12,16 @@ using Microsoft.Extensions.Logging;
 
 namespace RestClient.Net
 {
-    public class ClientFactory : IClientFactory
+    public class ClientFactory
     {
         #region Fields
         private readonly Func<string, Lazy<IClient>> _createClientFunc;
         private readonly ConcurrentDictionary<string, Lazy<IClient>> _clients;
+        private readonly CreateHttpClient _createHttpClient;
         #endregion
 
         #region Public Properties
         public ISerializationAdapter SerializationAdapter { get; }
-        public IHttpClientFactory HttpClientFactory { get; }
         public ILogger Logger { get; }
         #endregion
 
@@ -32,11 +32,11 @@ namespace RestClient.Net
 #else
             ISerializationAdapter serializationAdapter,
 #endif
-            IHttpClientFactory httpClientFactory = null,
+            CreateHttpClient createHttpClient = null,
             ILogger logger = null)
         {
             SerializationAdapter = serializationAdapter;
-            HttpClientFactory = httpClientFactory;
+            _createHttpClient = createHttpClient;
             Logger = logger;
 
             _clients = new ConcurrentDictionary<string, Lazy<IClient>>();
@@ -68,7 +68,7 @@ namespace RestClient.Net
                 name,
                 null,
                 logger: Logger,
-                httpClientFactory: HttpClientFactory);
+                createHttpClient: _createHttpClient);
         }
         #endregion
     }

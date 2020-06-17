@@ -2,7 +2,7 @@
 
 namespace RestClient.Net.DependencyInjection
 {
-    public class MicrosoftHttpClientFactoryWrapper : IHttpClientFactory
+    public class MicrosoftHttpClientFactoryWrapper 
     {
         #region Public Properties
         snh.IHttpClientFactory HttpClientFactory { get; }

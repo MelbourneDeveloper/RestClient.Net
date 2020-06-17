@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
-using System.Threading;
 
 namespace RestClient.Net.UnitTests
 {
-    public class OverzealousHttpClientFactory : IHttpClientFactory
+    public class OverzealousHttpClientFactory 
     {
         #region Fields
         private bool disposed;

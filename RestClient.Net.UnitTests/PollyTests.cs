@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace RestClient.Net.UnitTests
@@ -34,7 +33,7 @@ namespace RestClient.Net.UnitTests
                 null,
                 new Uri(UnitTests.LocalBaseUriString),
                 logger: null,
-                httpClientFactory: UnitTests.GetTestClientFactory(),
+                createHttpClient: UnitTests.GetTestClientFactory().CreateClient,
                 sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, logger, cancellationToken) =>
                 {
                     return policy.ExecuteAsync(() =>
@@ -71,7 +70,7 @@ namespace RestClient.Net.UnitTests
         var serviceCollection = new ServiceCollection();
         var baseUri = new Uri("https://restcountries.eu/rest/v2/");
         serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
-        serviceCollection.AddSingleton(typeof(IClientFactory), typeof(ClientFactory));
+        serviceCollection.AddSingleton(typeof(CreateClient), typeof(ClientFactory));
         serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleLogger));
 
         //Add the Polly policy to the named HttpClient instance
@@ -83,10 +82,10 @@ namespace RestClient.Net.UnitTests
         serviceCollection.AddDependencyInjectionMapping();
 
         var serviceProvider = serviceCollection.BuildServiceProvider();
-        var clientFactory = serviceProvider.GetService<IClientFactory>();
+        var clientFactory = serviceProvider.GetService<CreateClient>();
 
         //Create a Rest Client that will get the HttpClient by the name of rc
-        var client = clientFactory.CreateClient("rc");
+        var client = clientFactory("rc");
 
         //Make the call
         var response = await client.GetAsync<List<RestCountry>>();
