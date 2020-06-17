@@ -8,7 +8,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RestClient.Net.Abstractions;
 using RestClientApiSamples;
-using System;
 using System.Threading.Tasks;
 
 namespace RestClient.Net.UnitTests
@@ -27,12 +26,12 @@ namespace RestClient.Net.UnitTests
 
             //Create mock objects
             var loggerMock = new Mock<ILogger>();
-            var clientFactoryMock = new Mock<IClientFactory>();
+            var clientFactoryMock = new Mock<CreateClient>();
             var clientMock = new Mock<IClient>();
             var responseMock = new Mock<Response<Person>>();
 
             //Set the factory up to return the mock client
-            clientFactoryMock.Setup(f => f.CreateClient("Person")).Returns(clientMock.Object);
+            clientFactoryMock.Setup(f => f.Invoke("Person")).Returns(clientMock.Object);
 
             //Set the client up to return the response mock
             clientMock.Setup(c => c.SendAsync<Person, Person>(It.IsAny<Request<Person>>())).Returns(Task.FromResult(responseMock.Object));
@@ -52,9 +51,9 @@ namespace RestClient.Net.UnitTests
     {
         IClient _client;
 
-        public PersonService(IClientFactory clientFactory)
+        public PersonService(CreateClient clientFactory)
         {
-            _client = clientFactory.CreateClient("Person");
+            _client = clientFactory("Person");
         }
 
         public async Task<Person> SavePerson(Person person)

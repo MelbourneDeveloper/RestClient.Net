@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RestClient.Net.Abstractions;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RestClient.Net
 {

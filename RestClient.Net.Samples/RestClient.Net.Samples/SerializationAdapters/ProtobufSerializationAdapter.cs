@@ -1,7 +1,6 @@
 ﻿using Google.Protobuf;
 using RestClient.Net.Abstractions;
 using System;
-using System.Threading.Tasks;
 
 namespace RestClient.Net
 {

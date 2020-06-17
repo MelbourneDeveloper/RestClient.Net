@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace RestClient.Net
 {
-    public class DefaultHttpClientFactory : IHttpClientFactory, IDisposable
+    public class DefaultHttpClientFactory : IDisposable
     {
         #region Fields
         private bool disposed;

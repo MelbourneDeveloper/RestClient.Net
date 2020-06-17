@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace RestClient.Net
 {
-    public class ClientFactory : IClientFactory
+    public class ClientFactory
     {
         #region Fields
         private readonly Func<string, Lazy<IClient>> _createClientFunc;
@@ -21,7 +21,7 @@ namespace RestClient.Net
 
         #region Public Properties
         public ISerializationAdapter SerializationAdapter { get; }
-        public IHttpClientFactory HttpClientFactory { get; }
+        public CreateHttpClient HttpClientFactory { get; }
         public ILogger Logger { get; }
         #endregion
 
@@ -32,7 +32,7 @@ namespace RestClient.Net
 #else
             ISerializationAdapter serializationAdapter,
 #endif
-            IHttpClientFactory httpClientFactory = null,
+            CreateHttpClient httpClientFactory = null,
             ILogger logger = null)
         {
             SerializationAdapter = serializationAdapter;
