@@ -42,9 +42,10 @@ namespace RestClient.Net.UnitTests
     public class UnitTests
     {
         #region Fields
+        private const string StandardContentTypeToString = "application/json; charset=utf-8";
+
 #if (NETCOREAPP3_1)
         public const string LocalBaseUriString = "http://localhost";
-        private const string StandardContentTypeToString = "application/json; charset=utf-8";
         private static TestServer _testServer;
 #else
         public const string LocalBaseUriString = "https://localhost:44337";
@@ -69,24 +70,24 @@ namespace RestClient.Net.UnitTests
             //Return all rest countries with a status code of 200
             _mockHttpMessageHandler.When("https://restcountries.eu/rest/v2/")
                     .Respond(
-                new List<KeyValuePair<string, string>>
+                new Dictionary<string, string>
                 {
-                    new KeyValuePair<string, string>("Date", "Wed, 17 Jun 2020 22:51:03 GMT"),
-                    new KeyValuePair<string, string>("Transfer-Encoding", "chunked"),
-                    new KeyValuePair<string, string>("Connection", "keep-alive"),
-                    new KeyValuePair<string, string>("Set-Cookie", "__cfduid=dde664b010195275c339e4b049626e6261592434263; expires=Fri, 17-Jul-20 22:51:03 GMT; path=/; domain=.restcountries.eu; HttpOnly; SameSite=Lax"),
-                    new KeyValuePair<string, string>("Access-Control-Allow-Origin", "*"),
-                    new KeyValuePair<string, string>("Access-Control-Allow-Methods", "GET"),
-                    new KeyValuePair<string, string>("Access-Control-Allow-Headers", "Accept, X-Requested-With"),
-                    new KeyValuePair<string, string>("Cache-Control", "public, max-age=86400"),
-                    new KeyValuePair<string, string>("CF-Cache-Status", "DYNAMIC"),
-                    new KeyValuePair<string, string>("cf-request-id", "0366139e2100001258170ec200000001"),
-                    new KeyValuePair<string, string>("Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\""),
-                    new KeyValuePair<string, string>("Server", "cloudflare"),
-                    new KeyValuePair<string, string>("CF-RAY", "5a50554368bf1258-HKG"),
+                    { "Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
+                    { "Transfer-Encoding", "chunked" },
+                    {"Connection", "keep-alive" },
+                    {"Set-Cookie", "__cfduid=dde664b010195275c339e4b049626e6261592434263; expires=Fri, 17-Jul-20 22:51:03 GMT; path=/; domain=.restcountries.eu; HttpOnly; SameSite=Lax" },
+                    {"Access-Control-Allow-Origin", "*" },
+                    {"Access-Control-Allow-Methods", "GET" },
+                    {"Access-Control-Allow-Headers", "Accept, X-Requested-With" },
+                    {"Cache-Control", "public, max-age=86400" },
+                    {"CF-Cache-Status", "DYNAMIC" },
+                    {"cf-request-id", "0366139e2100001258170ec200000001" },
+                    {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
+                    {"Server", "cloudflare" },
+                    {"CF-RAY", "5a50554368bf1258-HKG" },
                 },
                 "application/json",
-                File.ReadAllText("JSON/RestCountries.json")); 
+                File.ReadAllText("JSON/RestCountries.json"));
 
             //Create the mock client
             _mockHttpClient = _mockHttpMessageHandler.ToHttpClient();
