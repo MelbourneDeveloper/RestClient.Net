@@ -137,7 +137,7 @@ namespace RestClient.Net.UnitTests
             const HttpStatusCode statusCode = HttpStatusCode.BadRequest;
 
             mockHttp.When("https://restcountries.eu/rest/v2/")
-                    .Respond(statusCode, "application/json", JsonConvert.SerializeObject(new { Message = "Test", ErrorCode = 100 }));
+                    .Respond(statusCode, "application/json", JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
 
             var httpClient = mockHttp.ToHttpClient();
 
@@ -147,6 +147,34 @@ namespace RestClient.Net.UnitTests
             var client = new Client(new NewtonsoftSerializationAdapter(), httpClientFactory: factory, baseUri: baseUri, logger: _logger.Object);
 
             await AssertThrowsAsync<HttpStatusException>(client.GetAsync<List<RestCountry>>(), Messages.GetErrorMessageNonSuccess((int)statusCode, baseUri));
+        }
+
+        [TestMethod]
+        public async Task TestBadRequestCanDeserializeErrorMessage()
+        {
+            var adapter = new NewtonsoftSerializationAdapter();
+
+            var mockHttp = new MockHttpMessageHandler();
+
+            const HttpStatusCode statusCode = HttpStatusCode.BadRequest;
+
+            var expectedError = new Error { Message = "Test", ErrorCode = 100 };
+
+            mockHttp.When("https://restcountries.eu/rest/v2/")
+                    .Respond(statusCode, "application/json", JsonConvert.SerializeObject(expectedError));
+
+            var httpClient = mockHttp.ToHttpClient();
+
+            var factory = new SingletonHttpClientFactory(httpClient);
+
+            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
+            var client = new Client(adapter, httpClientFactory: factory, baseUri: baseUri, logger: _logger.Object) { ThrowExceptionOnFailure = false };
+
+            var response = await client.GetAsync<List<RestCountry>>();
+
+            var error = client.SerializationAdapter.Deserialize<Error>(response);
+
+            Assert.AreEqual(expectedError.Message, error.Message);
         }
 
         [TestMethod]
