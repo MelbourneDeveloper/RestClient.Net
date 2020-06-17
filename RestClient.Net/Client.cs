@@ -341,26 +341,35 @@ namespace RestClient.Net
 
             var httpResponseHeadersCollection = new HttpResponseHeadersCollection(httpResponseMessage.Headers);
 
-            TResponseBody responseBody;
-            try
-            {
-                responseBody = SerializationAdapter.Deserialize<TResponseBody>(responseData, (int)httpResponseMessage.StatusCode, httpResponseMessage.IsSuccessStatusCode, responseHeaders: httpResponseHeadersCollection);
-            }
-            catch (Exception ex)
-            {
-                throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
-            }
-
             var httpResponseMessageResponse = new HttpResponseMessageResponse<TResponseBody>
             (
                 httpResponseHeadersCollection,
                 (int)httpResponseMessage.StatusCode,
                 request.HttpRequestMethod,
                 responseData,
-                responseBody,
+                default,
                 httpResponseMessage,
                 httpClient
             );
+
+            if (!httpResponseMessageResponse.IsSuccess)
+            {
+                if (!ThrowExceptionOnFailure)
+                {
+                    return httpResponseMessageResponse;
+                }
+
+                throw new HttpStatusException($"Non successful Http Status Code: {httpResponseMessageResponse.StatusCode}.\r\nRequest Uri: {httpResponseMessage.RequestMessage.RequestUri}", httpResponseMessageResponse, this);
+            }
+
+            try
+            {
+                httpResponseMessageResponse.Body = SerializationAdapter.Deserialize<TResponseBody>(responseData, (int)httpResponseMessage.StatusCode, httpResponseMessage.IsSuccessStatusCode, responseHeaders: httpResponseHeadersCollection);
+            }
+            catch (Exception ex)
+            {
+                throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
+            }
 
             Logger?.LogTrace(new Trace
             (
@@ -371,13 +380,6 @@ namespace RestClient.Net
                 (int)httpResponseMessage.StatusCode,
                 httpResponseHeadersCollection
             ));
-
-            if (httpResponseMessageResponse.IsSuccess || !ThrowExceptionOnFailure)
-            {
-                return httpResponseMessageResponse;
-            }
-
-            throw new HttpStatusException($"Non successful Http Status Code: {httpResponseMessageResponse.StatusCode}.\r\nRequest Uri: {httpResponseMessage.RequestMessage.RequestUri}", httpResponseMessageResponse, this);
         }
         #endregion
     }
