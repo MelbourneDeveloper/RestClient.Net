@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net45;net47</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45;net47</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
     <RootNamespace>RestClient.Net.Abstractions</RootNamespace>
     <CodeAnalysisRuleSet>../RestClient.Net/CodeRules.ruleset</CodeAnalysisRuleSet>
@@ -30,17 +30,22 @@ This package contains abstractions for dependency injection with no implementati
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
-    <PackageReference Include="System.Text.Json" Version="4.7.1" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Text.Json" Version="4.7.1" />
-  </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
-    <Compile Remove="JsonSerializationAdapter.cs" />
-   </ItemGroup>
+  <Choose>
+    <When Condition="'$(TargetFramework)' == 'net45'"> 
+      <ItemGroup >
+        <Compile Remove="JsonSerializationAdapter.cs" />
+      </ItemGroup>    
+    </When>
+    <Otherwise>  
+      <ItemGroup>
+        <PackageReference Include="System.Text.Json" Version="4.7.1" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
 
   <ItemGroup>
     <None Include="License.txt">
