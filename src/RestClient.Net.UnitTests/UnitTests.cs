@@ -43,6 +43,12 @@ namespace RestClient.Net.UnitTests
     {
         #region Fields
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
+        private CreateHttpClient _createHttpClient = (n) =>
+        //Mock http client
+        _mockHttpClient
+        //For realsies
+        //new HttpClient()
+        ;
 
 #if (NETCOREAPP3_1)
         public const string LocalBaseUriString = "http://localhost";
@@ -52,8 +58,8 @@ namespace RestClient.Net.UnitTests
 #endif
         private static TestClientFactory _testServerHttpClientFactory;
         private static Mock<ILogger> _logger;
-        private MockHttpMessageHandler _mockHttpMessageHandler;
-        private HttpClient _mockHttpClient;
+        private static MockHttpMessageHandler _mockHttpMessageHandler;
+        private static HttpClient _mockHttpClient;
         #endregion
 
         #region Setup
@@ -72,8 +78,8 @@ namespace RestClient.Net.UnitTests
                     .Respond(
                 new Dictionary<string, string>
                 {
-                    { "Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
-                    { "Transfer-Encoding", "chunked" },
+                    {"Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
+                    {"Transfer-Encoding", "chunked" },
                     {"Connection", "keep-alive" },
                     {"Set-Cookie", "__cfduid=dde664b010195275c339e4b049626e6261592434263; expires=Fri, 17-Jul-20 22:51:03 GMT; path=/; domain=.restcountries.eu; HttpOnly; SameSite=Lax" },
                     {"Access-Control-Allow-Origin", "*" },
@@ -259,7 +265,7 @@ namespace RestClient.Net.UnitTests
 
             var client = new Client(new NewtonsoftSerializationAdapter(),
                 baseUri: baseUri,
-                createHttpClient: (n) => _mockHttpClient,
+                createHttpClient: _createHttpClient,
                 logger: _logger.Object);
 
             var response = await client.GetAsync<List<RestCountry>>();
