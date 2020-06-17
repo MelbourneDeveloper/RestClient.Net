@@ -11,30 +11,31 @@ using RestClient.Net.Abstractions.Extensions;
 
 using RestClient.Net.Abstractions;
 using System;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-
-#pragma warning disable CA2000
 
 namespace RestClient.Net
 {
     /// <summary>
     /// Rest client implementation using Microsoft's HttpClient class. 
     /// </summary>
-#pragma warning disable CA1001 // The factory must be responsible fro disposing of the Http Clients
-    public sealed class Client : IClient
-#pragma warning restore CA1001 
+    public sealed class Client : IClient, IDisposable
     {
         #region Fields
         private readonly Func<HttpClient, Func<HttpRequestMessage>, ILogger, CancellationToken, Task<HttpResponseMessage>> _sendHttpRequestFunc;
-        private readonly DefaultHttpClientFactory _defaultHttpClientFactory;
 
         /// <summary>
         /// Delegate used for getting or creating HttpClient instances when the SendAsync call is made
         /// </summary>
         private readonly CreateHttpClient _createHttpClient;
+
+        /// <summary>
+        /// The http clients created by the default factory delegate
+        /// </summary>
+        private readonly ConcurrentDictionary<string, Lazy<HttpClient>> _httpClients;
         #endregion
 
         #region Public Properties
@@ -228,10 +229,17 @@ namespace RestClient.Net
 
             if (createHttpClient == null)
             {
-                _defaultHttpClientFactory = new DefaultHttpClientFactory();
+                _httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();
+                _createHttpClient = (n) => _httpClients.GetOrAdd(n, naame =>
+                {
+                    return new Lazy<HttpClient>(() => new HttpClient(), LazyThreadSafetyMode.ExecutionAndPublication);
+                }).Value;
+            }
+            else
+            {
+                _createHttpClient = createHttpClient;
             }
 
-            _createHttpClient = createHttpClient ?? _defaultHttpClientFactory.CreateClient;
             _sendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
         }
 
@@ -393,9 +401,17 @@ namespace RestClient.Net
 
             return httpResponseMessageResponse;
         }
+
+        public void Dispose()
+        {
+            if (_httpClients != null)
+            {
+                foreach (var httpClient in _httpClients)
+                {
+                    httpClient.Value.Value.Dispose();
+                }
+            }
+        }
         #endregion
     }
-
 }
-
-#pragma warning restore CA2000

@@ -5,6 +5,7 @@ using System.Threading;
 
 namespace RestClient.Net
 {
+    [Obsolete("This class is not longer necessary because the Client class creates a delegate for handling HttpClient creation")]
     public class DefaultHttpClientFactory : IDisposable
     {
         #region Fields
