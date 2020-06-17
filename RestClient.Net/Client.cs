@@ -11,7 +11,6 @@ using RestClient.Net.Abstractions.Extensions;
 
 using RestClient.Net.Abstractions;
 using System;
-using System.Collections.Concurrent;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -33,9 +32,9 @@ namespace RestClient.Net
         private readonly CreateHttpClient _createHttpClient;
 
         /// <summary>
-        /// The http clients created by the default factory delegate
+        /// The http client created by the default factory delegate
         /// </summary>
-        private readonly ConcurrentDictionary<string, Lazy<HttpClient>> _httpClients;
+        private readonly HttpClient _httpClient;
         #endregion
 
         #region Public Properties
@@ -229,11 +228,8 @@ namespace RestClient.Net
 
             if (createHttpClient == null)
             {
-                _httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();
-                _createHttpClient = (n) => _httpClients.GetOrAdd(n, naame =>
-                {
-                    return new Lazy<HttpClient>(() => new HttpClient(), LazyThreadSafetyMode.ExecutionAndPublication);
-                }).Value;
+                _httpClient = new HttpClient { BaseAddress = baseUri };
+                _createHttpClient = (n) => _httpClient;
             }
             else
             {
@@ -404,13 +400,7 @@ namespace RestClient.Net
 
         public void Dispose()
         {
-            if (_httpClients != null)
-            {
-                foreach (var httpClient in _httpClients)
-                {
-                    httpClient.Value.Value.Dispose();
-                }
-            }
+            _httpClient?.Dispose();
         }
         #endregion
     }
