@@ -43,7 +43,7 @@ namespace RestClient.Net.Samples.Uno
             _BitbucketClient = new client(
                 new NewtonsoftSerializationAdapter(),
                 baseUri: new Uri(url),
-                httpClientFactory: new UnoSampleHttpClientFactory());
+                createHttpClient: new UnoSampleHttpClientFactory().CreateClient);
 
             _BitbucketClient.SetJsonContentTypeHeader();
 

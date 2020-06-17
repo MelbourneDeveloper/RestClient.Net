@@ -6,7 +6,7 @@ using Uno.UI.Wasm;
 
 namespace RestClient.Net.Samples.Uno.Shared
 {
-    public class UnoSampleHttpClientFactory : IHttpClientFactory
+    public class UnoSampleHttpClientFactory 
     {
         HttpClient httpClient;
 
