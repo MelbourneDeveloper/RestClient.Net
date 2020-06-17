@@ -99,7 +99,11 @@ namespace RestClient.Net.UnitTests
             var serviceCollection = new ServiceCollection();
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
             serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
-            serviceCollection.AddSingleton(typeof(CreateClient), typeof(ClientFactory));
+            serviceCollection.AddSingleton<CreateClient>((sp) =>
+              {
+                  var clientFactory = new ClientFactory(sp.GetRequiredService<ISerializationAdapter>());
+                  return clientFactory.CreateClient;
+              });
             serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleLogger));
             serviceCollection.AddSingleton<MockAspController>();
             serviceCollection.AddHttpClient("test", (c) => { c.BaseAddress = baseUri; });
