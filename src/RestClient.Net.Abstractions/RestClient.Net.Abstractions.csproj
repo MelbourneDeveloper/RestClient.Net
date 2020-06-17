@@ -5,11 +5,13 @@
     <DebugType>pdbonly</DebugType>
     <RootNamespace>RestClient.Net.Abstractions</RootNamespace>
     <CodeAnalysisRuleSet>../RestClient.Net/CodeRules.ruleset</CodeAnalysisRuleSet>
-    <Version>3.2.0</Version>
+    <Version>4.0.0</Version>
     <PackageLicenseFile>License.txt</PackageLicenseFile>        
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>REST Client Framework for all .NET platforms www.rest-client.net
+    <Description>.NET REST Client Framework for all platforms
+
+www.rest-client.net
 
 This package contains abstractions for dependency injection with no implementations</Description>
     <Product>RestClient.Net Abstractions</Product>
@@ -19,7 +21,9 @@ This package contains abstractions for dependency injection with no implementati
     <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
     <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
-    <PackageReleaseNotes>Get RestClient.Net working on Blazor Wasm</PackageReleaseNotes>       
+    <PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/3</PackageReleaseNotes>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <RepositoryType>git</RepositoryType>       
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net45'">
@@ -36,7 +40,7 @@ This package contains abstractions for dependency injection with no implementati
 
   <Choose>
     <When Condition="'$(TargetFramework)' == 'net45'"> 
-      <ItemGroup >
+      <ItemGroup>
         <Compile Remove="JsonSerializationAdapter.cs" />
       </ItemGroup>    
     </When>
