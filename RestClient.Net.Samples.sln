@@ -45,6 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.Samples.Blaz
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Shared\RestClient.Net.Samples.Uno.Shared.projitems*{04c305db-ec2f-4af7-a665-9aecfed70360}*SharedItemsImports = 5
 		RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Shared\RestClient.Net.Samples.Uno.Shared.projitems*{242ec010-6289-4b5a-a064-4f167044760b}*SharedItemsImports = 4
 		RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Shared\RestClient.Net.Samples.Uno.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
 	EndGlobalSection
