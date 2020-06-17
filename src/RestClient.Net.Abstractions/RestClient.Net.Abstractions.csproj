@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45;net47</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45;net47;netcoreapp3.0</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
     <RootNamespace>RestClient.Net.Abstractions</RootNamespace>
     <CodeAnalysisRuleSet>../RestClient.Net/CodeRules.ruleset</CodeAnalysisRuleSet>
@@ -44,6 +44,8 @@ This package contains abstractions for dependency injection with no implementati
       <ItemGroup>
         <Compile Remove="JsonSerializationAdapter.cs" />
       </ItemGroup>    
+    </When>
+    <When Condition="'$(TargetFramework)' == 'netcoreapp3.0'"> 
     </When>
     <Otherwise>  
       <ItemGroup>
