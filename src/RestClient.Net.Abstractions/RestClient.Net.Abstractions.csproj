@@ -47,7 +47,7 @@ This package contains abstractions for dependency injection with no implementati
     </When>
     <Otherwise>  
       <ItemGroup>
-        <PackageReference Include="System.Text.Json" Version="4.7.1" />
+        <PackageReference Include="System.Text.Json" Version="4.7.2" />
       </ItemGroup>
     </Otherwise>
   </Choose>
