@@ -70,7 +70,6 @@ namespace RestClient.Net.UnitTests
         var serviceCollection = new ServiceCollection();
         var baseUri = new Uri("https://restcountries.eu/rest/v2/");
         serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
-        serviceCollection.AddSingleton(typeof(CreateClient), typeof(ClientFactory));
         serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleLogger));
 
         //Add the Polly policy to the named HttpClient instance
