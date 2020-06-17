@@ -12,7 +12,7 @@ The best .NET REST Client with task-based async, strong types and dependency inj
 
 **Version 4.0.0 has been released!**
 
-Check out the [features and fixes](https://github.com/MelbourneDeveloper/RestClient.Net/projects/3)
+Check out the [features and fixes](https://github.com/MelbourneDeveloper/RestClient.Net/projects/3). There are some breaking changes. `IHttpClientFactory` and `IClientFactory` have been converted to delegates to save on boilerplate code.
 
 Check out blog posts here https://christianfindlay.com/
 
