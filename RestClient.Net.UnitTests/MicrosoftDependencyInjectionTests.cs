@@ -1,14 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RestClient.Net.Abstractions;
 using RestClient.Net.DependencyInjection;
 using RestClient.Net.UnitTests.Model;
-using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using StructureMap;
-using Microsoft.AspNetCore.Server.IIS.Core;
 
 namespace RestClient.Net.UnitTests
 {
@@ -99,21 +97,15 @@ namespace RestClient.Net.UnitTests
             var serviceCollection = new ServiceCollection();
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
             serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
-            serviceCollection.AddSingleton<CreateClient>((sp) =>
-              {
-                  var clientFactory = new ClientFactory(sp.GetRequiredService<ISerializationAdapter>());
-                  return clientFactory.CreateClient;
-              });
             serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleLogger));
             serviceCollection.AddSingleton<MockAspController>();
             serviceCollection.AddHttpClient("test", (c) => { c.BaseAddress = baseUri; });
             serviceCollection.AddDependencyInjectionMapping();
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var mockAspController = serviceProvider.GetService<MockAspController>();
-            var reponse = await mockAspController.Client.GetAsync<List<RestCountry>>();
+            var response = await mockAspController.Client.GetAsync<List<RestCountry>>();
+            Assert.AreEqual(250, response.Body.Count);
         }
-
-
 
         [TestMethod]
         public void TestStructureMap()
@@ -142,4 +134,23 @@ namespace RestClient.Net.UnitTests
         }
 
     }
+
+    //public static class CreateClientExtensions
+    //{
+    //    public static void NewMethod(this IServiceCollection serviceCollection)
+    //    {
+    //        serviceCollection.AddSingleton<CreateHttpClient>((sp) =>
+    //        {
+    //            var clientFactory = sp.GetRequiredService<IHttpClientFactory>();
+    //            return clientFactory.CreateClient;
+    //        });
+
+    //        serviceCollection.AddSingleton<CreateClient>((sp) =>
+    //        {
+    //            var clientFactory = new ClientFactory(sp.GetRequiredService<ISerializationAdapter>(), sp.GetRequiredService<CreateHttpClient>());
+    //            return clientFactory.CreateClient;
+    //        });
+    //    }
+    //}
+
 }
