@@ -1,0 +1,88 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net45;net47;netcoreapp3.0</TargetFrameworks>
+    <DebugType>pdbonly</DebugType>
+    <RootNamespace>RestClient.Net.Abstractions</RootNamespace>
+    <CodeAnalysisRuleSet>../RestClient.Net/CodeRules.ruleset</CodeAnalysisRuleSet>
+    <Version>4.0.0</Version>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>        
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>.NET REST Client Framework for all platforms
+
+www.rest-client.net
+
+This package contains abstractions for dependency injection with no implementations</Description>
+    <Product>RestClient.Net Abstractions</Product>
+    <Authors>Christian Findlay</Authors>
+    <Company>Christian Findlay</Company>
+    <Copyright>© 2020 Christian Findlay</Copyright>
+    <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
+    <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
+    <PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/3</PackageReleaseNotes>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>Icon.png</PackageIcon>       
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net45'">
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.5" />
+    <Compile Remove="Logging/ILogger.cs" />
+    <Compile Remove="Logging/EventId.cs" />
+    <Compile Remove="Logging/LogLevel.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+
+
+  <Choose>
+    <When Condition="'$(TargetFramework)' == 'net45'"> 
+      <ItemGroup>
+        <Compile Remove="JsonSerializationAdapter.cs" />
+      </ItemGroup>    
+    </When>
+    <When Condition="'$(TargetFramework)' == 'netcoreapp3.0'"> 
+    </When>
+    <Otherwise>  
+      <ItemGroup>
+        <PackageReference Include="System.Text.Json" Version="4.7.2" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+
+  <ItemGroup>
+    <None Include="..\Images\Rendered\Icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <None Include="../RestClient.Net/StrongNameKey.pfx" Link="StrongNameKey.pfx" />
+  </ItemGroup>
+
+  <Choose>
+    <When Condition=" '$(Configuration)'=='Debug' ">
+      <PropertyGroup>
+        <SignAssembly>false</SignAssembly>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(Configuration)'=='Release' ">
+      <PropertyGroup>
+        <SignAssembly>true</SignAssembly>
+        <DelaySign>false</DelaySign>
+        <AssemblyOriginatorKeyFile>../RestClient.Net/StrongNameKey.pfx</AssemblyOriginatorKeyFile>
+      </PropertyGroup>
+    </When>
+  </Choose>
+
+</Project>
