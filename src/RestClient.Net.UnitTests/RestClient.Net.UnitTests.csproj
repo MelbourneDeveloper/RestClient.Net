@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <None Remove="JSON\Australia.json" />
+    <None Remove="JSON\RestCountries.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +38,9 @@
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\SerializationAdapters\ProtobufSerializationAdapter.cs" Link="SerializationAdapters\ProtobufSerializationAdapter.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\XmlSerializationAdapter.cs" Link="SerializationAdapters\XmlSerializationAdapter.cs" />
     <Content Include="JSON\Australia.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JSON\RestCountries.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />

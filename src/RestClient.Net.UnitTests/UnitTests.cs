@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using Xml2CSharp;
 using jsonperson = ApiExamples.Model.JsonModel.Person;
 using RichardSzalay.MockHttp;
+using System.IO;
 
 #if (NETCOREAPP3_1)
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +33,6 @@ using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using RestClient.Net.Abstractions.Logging;
 #else
 using Microsoft.Extensions.Logging;
-using System.IO;
 #endif
 
 namespace RestClient.Net.UnitTests
@@ -222,8 +222,22 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetRestCountries()
         {
+            var mockHttp = new MockHttpMessageHandler();
+
+            mockHttp.When("https://restcountries.eu/rest/v2/")
+                    .Respond(
+                new List<KeyValuePair<string, string>>(),
+                null,
+                File.ReadAllText("JSON/RestCountries.json"));
+
+            var httpClient = mockHttp.ToHttpClient();
+
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
-            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: baseUri, logger: _logger.Object);
+            var client = new Client(new NewtonsoftSerializationAdapter(),
+                baseUri: baseUri,
+                createHttpClient: (n)=> httpClient,
+                logger: _logger.Object);
+
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
