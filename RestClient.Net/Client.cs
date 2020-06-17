@@ -30,13 +30,14 @@ namespace RestClient.Net
         #region Fields
         private readonly Func<HttpClient, Func<HttpRequestMessage>, ILogger, CancellationToken, Task<HttpResponseMessage>> _sendHttpRequestFunc;
         private readonly DefaultHttpClientFactory _defaultHttpClientFactory;
+
+        /// <summary>
+        /// Delegate used for getting or creating HttpClient instances when the SendAsync call is made
+        /// </summary>
+        private readonly CreateHttpClient _createHttpClient;
         #endregion
 
         #region Public Properties
-        /// <summary>
-        /// Gets the current IHttpClientFactory instance that is used for getting or creating HttpClient instances when the SendAsync call is made
-        /// </summary>
-        public CreateHttpClient HttpClientFactory { get; }
 
         /// <summary>
         /// Compresses and decompresses http requests 
@@ -162,17 +163,17 @@ namespace RestClient.Net
         /// </summary>
         /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies</param>
         /// <param name="logger"></param>
-        /// <param name="httpClientFactory"></param>
+        /// <param name="createHttpClient"></param>
         public Client(
             ISerializationAdapter serializationAdapter,
             ILogger logger,
-            CreateHttpClient httpClientFactory)
+            CreateHttpClient createHttpClient)
         : this(
             serializationAdapter,
             null,
             null,
             logger: logger,
-            httpClientFactory: httpClientFactory)
+            createHttpClient: createHttpClient)
         {
         }
 
@@ -188,7 +189,7 @@ namespace RestClient.Net
         /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only</param>
         /// <param name="defaultRequestHeaders">Default headers to be sent with http requests</param>
         /// <param name="logger">Logging abstraction that will trace request/response data and log events</param>
-        /// <param name="httpClientFactory">The IHttpClientFactory instance that is used for getting or creating HttpClient instances when the SendAsync call is made</param>
+        /// <param name="createHttpClient">The delegate that is used for getting or creating HttpClient instances when the SendAsync call is made</param>
         /// <param name="sendHttpRequestFunc">The Func responsible for performing the SendAsync method on HttpClient. This can replaced in the constructor in order to implement retries and so on.</param>
         /// <param name="requestConverter">IRequestConverter instance responsible for converting rest requests to http requests</param>
         public Client(
@@ -201,7 +202,7 @@ namespace RestClient.Net
             Uri baseUri = null,
             IHeadersCollection defaultRequestHeaders = null,
             ILogger logger = null,
-            CreateHttpClient httpClientFactory = null,
+            CreateHttpClient createHttpClient = null,
             Func<HttpClient, Func<HttpRequestMessage>, ILogger, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,
             IRequestConverter requestConverter = null)
         {
@@ -225,12 +226,12 @@ namespace RestClient.Net
             Name = name ?? Guid.NewGuid().ToString();
             RequestConverter = requestConverter ?? new DefaultRequestConverter(Logger);
 
-            if (httpClientFactory == null)
+            if (createHttpClient == null)
             {
                 _defaultHttpClientFactory = new DefaultHttpClientFactory();
             }
 
-            HttpClientFactory = httpClientFactory ?? _defaultHttpClientFactory.CreateClient;
+            _createHttpClient = createHttpClient ?? _defaultHttpClientFactory.CreateClient;
             _sendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
         }
 
@@ -247,7 +248,7 @@ namespace RestClient.Net
             {
                 Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"Begin send"));
 
-                httpClient = HttpClientFactory(Name);
+                httpClient = _createHttpClient(Name);
 
                 Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"Got HttpClient null: {httpClient == null}"));
 

@@ -45,7 +45,7 @@ namespace RestClient.Net.UnitTests
                 serviceCollection.AddTransient<TestHandler>();
 
                 //Make sure the HttpClient is named the same as the Rest Client
-                serviceCollection.AddSingleton<IClient>(x => new Client(name: clientName, httpClientFactory: x.GetRequiredService<CreateHttpClient>()));
+                serviceCollection.AddSingleton<IClient>(x => new Client(name: clientName, createHttpClient: x.GetRequiredService<CreateHttpClient>()));
                 serviceCollection.AddHttpClient(clientName, (c) => { c.BaseAddress = baseUri; })
                     .AddHttpMessageHandler<TestHandler>();
 

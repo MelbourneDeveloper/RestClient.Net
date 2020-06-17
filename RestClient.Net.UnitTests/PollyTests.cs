@@ -33,7 +33,7 @@ namespace RestClient.Net.UnitTests
                 null,
                 new Uri(UnitTests.LocalBaseUriString),
                 logger: null,
-                httpClientFactory: UnitTests.GetTestClientFactory().CreateClient,
+                createHttpClient: UnitTests.GetTestClientFactory().CreateClient,
                 sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, logger, cancellationToken) =>
                 {
                     return policy.ExecuteAsync(() =>
