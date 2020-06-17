@@ -1,4 +1,5 @@
 ﻿using RestClient.Net.Abstractions;
+using System;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
@@ -9,15 +10,14 @@ namespace RestClient.Net
     {
         #region Public Methods
 
-        public TResponseBody Deserialize<TResponseBody>(
-            byte[] data,
-            int httpResponseCode,
-            bool isResponseSuccessful,
-            IHeadersCollection responseHeaders = null)
+        public TResponseBody Deserialize<TResponseBody>(Response response)
         {
+            if (response == null) throw new ArgumentNullException(nameof(response));
+
             var serializer = new XmlSerializer(typeof(TResponseBody));
             using (var stream = new MemoryStream())
             {
+                var data = response.GetResponseData();
                 stream.Write(data, 0, data.Length);
                 stream.Seek(0, SeekOrigin.Begin);
                 return (TResponseBody)serializer.Deserialize(stream);

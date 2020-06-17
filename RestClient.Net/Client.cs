@@ -364,7 +364,7 @@ namespace RestClient.Net
 
             try
             {
-                httpResponseMessageResponse.Body = SerializationAdapter.Deserialize<TResponseBody>(responseData, (int)httpResponseMessage.StatusCode, httpResponseMessage.IsSuccessStatusCode, responseHeaders: httpResponseHeadersCollection);
+                httpResponseMessageResponse.Body = SerializationAdapter.Deserialize<TResponseBody>(httpResponseMessageResponse);
             }
             catch (Exception ex)
             {
@@ -380,6 +380,8 @@ namespace RestClient.Net
                 (int)httpResponseMessage.StatusCode,
                 httpResponseHeadersCollection
             ));
+
+            return httpResponseMessageResponse;
         }
         #endregion
     }

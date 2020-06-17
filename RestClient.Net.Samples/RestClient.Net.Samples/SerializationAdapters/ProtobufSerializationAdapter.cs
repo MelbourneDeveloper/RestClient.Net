@@ -14,17 +14,14 @@ namespace RestClient.Net
             return message.ToByteArray();
         }
 
-        public TResponseBody Deserialize<TResponseBody>(
-            byte[] data,
-            int httpResponseCode,
-            bool isResponseSuccessful,
-            IHeadersCollection responseHeaders = null)
+        public TResponseBody Deserialize<TResponseBody>(Response response)
         {
+            if (response == null) throw new ArgumentNullException(nameof(response));
             var messageType = typeof(TResponseBody);
             var parserProperty = messageType.GetProperty("Parser");
             var parser = parserProperty.GetValue(parserProperty);
             var parseFromMethod = parserProperty.PropertyType.GetMethod("ParseFrom", new Type[] { typeof(byte[]) });
-            var parsedObject = parseFromMethod.Invoke(parser,new object[] { data });
+            var parsedObject = parseFromMethod.Invoke(parser,new object[] { response.GetResponseData() });
             return (TResponseBody)parsedObject;
         }
     }

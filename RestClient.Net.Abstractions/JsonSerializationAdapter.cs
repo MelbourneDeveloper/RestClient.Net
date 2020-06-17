@@ -1,4 +1,5 @@
 ﻿using RestClient.Net.Abstractions;
+using System;
 using System.Text;
 using System.Text.Json;
 
@@ -29,13 +30,11 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        public TResponseBody Deserialize<TResponseBody>(
-            byte[] data,
-            int httpResponseCode,
-            bool isResponseSuccessful,
-            IHeadersCollection responseHeaders = null)
+        public TResponseBody Deserialize<TResponseBody>(Response response)
         {
-            var markup = Encoding.UTF8.GetString(data);
+            if (response == null) throw new ArgumentNullException(nameof(response));
+
+            var markup = Encoding.UTF8.GetString(response.GetResponseData());
 
             object markupAsObject = markup;
 
