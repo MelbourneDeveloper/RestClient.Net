@@ -23,7 +23,8 @@ This package contains abstractions for dependency injection with no implementati
     <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
     <PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/3</PackageReleaseNotes>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
-    <RepositoryType>git</RepositoryType>       
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>Icon.png</PackageIcon>       
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net45'">
@@ -52,6 +53,10 @@ This package contains abstractions for dependency injection with no implementati
   </Choose>
 
   <ItemGroup>
+    <None Include="..\Images\Rendered\Icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <None Include="License.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

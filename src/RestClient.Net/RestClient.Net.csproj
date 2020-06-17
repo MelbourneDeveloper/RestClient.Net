@@ -23,11 +23,16 @@ www.rest-client.net</Description>
     <LangVersion>7.3</LangVersion>    
     <PackageLicenseFile>License.txt</PackageLicenseFile>    
     <RootNamespace>RestClient.Net</RootNamespace>    
-    <PackageIconUrl>Icon.png</PackageIconUrl>    
-    <RepositoryType>git</RepositoryType>
+    <PackageIconUrl></PackageIconUrl>    
+    <RepositoryType>git</RepositoryType>    
+    <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\Images\Rendered\Icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8" />
     <None Include="License.txt">
       <Pack>True</Pack>
