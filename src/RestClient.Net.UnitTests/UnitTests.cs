@@ -281,7 +281,7 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter());
+                var client = new Client(new NewtonsoftSerializationAdapter(), null, _createHttpClient);
                 List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUriString);
                 var country = countries.FirstOrDefault();
             }
