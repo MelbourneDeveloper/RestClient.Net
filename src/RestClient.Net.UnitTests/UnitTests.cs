@@ -37,14 +37,15 @@ using Microsoft.Extensions.Logging;
 
 namespace RestClient.Net.UnitTests
 {
-
     [TestClass]
     public class UnitTests
     {
         #region Fields
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
-        private const string RestCountriesAllUrls = "https://restcountries.eu/rest/v2/";
-        Uri RestCountriesAllUri = new Uri(RestCountriesAllUrls);
+        private const string RestCountriesAllUriString = "https://restcountries.eu/rest/v2/";
+        private const string RestCountriesAustraliaUriString = "https://restcountries.eu/rest/v2/name/australia";
+        private Uri RestCountriesAllUri = new Uri(RestCountriesAllUriString);
+        private Uri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString);
 
         //Mock the httpclient
         private static CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
@@ -82,8 +83,11 @@ namespace RestClient.Net.UnitTests
             //Set up the mox
             _mockHttpMessageHandler = new MockHttpMessageHandler();
 
+            _mockHttpMessageHandler.When(RestCountriesAustraliaUriString)
+            .Respond("application/json", File.ReadAllText("JSON/Australia.json"));
+
             //Return all rest countries with a status code of 200
-            _mockHttpMessageHandler.When(RestCountriesAllUrls)
+            _mockHttpMessageHandler.When(RestCountriesAllUriString)
                     .Respond(
                 new Dictionary<string, string>
                 {
@@ -126,45 +130,6 @@ namespace RestClient.Net.UnitTests
 
         #region Tests
 
-        /// <summary>
-        /// This is just a stub to make sure it's easy to mock requests and responses
-        /// </summary>
-        /// <returns></returns>
-        [TestMethod]
-        public async Task TestCanMockRequestAndResponse()
-        {
-            var clientMock = new Mock<IClient>();
-            var headersMock = new Mock<IHeadersCollection>();
-            var response = new HttpResponseMessageResponse<string>()
-            {
-                Body = "test",
-                Headers = headersMock.Object,
-                HttpClient = new HttpClient(),
-                HttpRequestMethod = HttpRequestMethod.Custom,
-                HttpResponseMessage = new HttpResponseMessage(),
-                RequestUri = new Uri("http://test.com"),
-                StatusCode = 10
-            };
-
-            clientMock.Setup(c => c.SendAsync<string, string>(It.IsAny<Request<string>>())).Returns
-                (
-                Task.FromResult<Response<string>>(response)
-                );
-
-            var returnedResponse = await clientMock.Object.SendAsync<string, string>(
-                new Request<string>
-                {
-                    Body = "Test",
-                    CancellationToken = new CancellationToken(),
-                    CustomHttpRequestMethod = "asd",
-                    Headers = new RequestHeadersCollection(),
-                    HttpRequestMethod = HttpRequestMethod.Custom,
-                    Resource = new Uri("http://www.test.com")
-                }
-                ); ;
-            Assert.IsTrue(ReferenceEquals(response, returnedResponse));
-        }
-
         #region External Api Tests
         [TestMethod]
         public async Task TestHead()
@@ -195,18 +160,9 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetDefaultSerializationRestCountriesAsJson()
         {
-            var mockHttp = new MockHttpMessageHandler();
-
-            mockHttp.When("https://restcountries.eu/rest/v2/name/australia")
-                    .Respond("application/json", File.ReadAllText("JSON/Australia.json"));
-
-            var httpClient = mockHttp.ToHttpClient();
-
-            var factory = new SingletonHttpClientFactory(httpClient);
-
             var client = new Client(
-                baseUri: new Uri("https://restcountries.eu/rest/v2/name/australia"),
-                createHttpClient: factory.CreateClient);
+                baseUri: RestCountriesAustraliaUri,
+                createHttpClient: _createHttpClient);
             var json = await client.GetAsync<string>();
 
             var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).FirstOrDefault();
@@ -221,7 +177,7 @@ namespace RestClient.Net.UnitTests
 
             const HttpStatusCode statusCode = HttpStatusCode.BadRequest;
 
-            mockHttp.When(RestCountriesAllUrls)
+            mockHttp.When(RestCountriesAllUriString)
                     .Respond(statusCode, "application/json", JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
 
             var httpClient = mockHttp.ToHttpClient();
@@ -244,7 +200,7 @@ namespace RestClient.Net.UnitTests
 
             var expectedError = new Error { Message = "Test", ErrorCode = 100 };
 
-            mockHttp.When(RestCountriesAllUrls)
+            mockHttp.When(RestCountriesAllUriString)
                     .Respond(statusCode, "application/json", JsonConvert.SerializeObject(expectedError));
 
             var httpClient = mockHttp.ToHttpClient();
@@ -296,7 +252,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetRestCountriesAsJson()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/name/australia"));
+            var client = new Client(new NewtonsoftSerializationAdapter(), RestCountriesAustraliaUri);
             var json = await client.GetAsync<string>();
             var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).FirstOrDefault();
             Assert.AreEqual("Australia", country.name);
@@ -306,7 +262,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestGetRestCountriesNoBaseUri()
         {
             var client = new Client(new NewtonsoftSerializationAdapter());
-            List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(new Uri("https://restcountries.eu/rest/v2/name/australia"));
+            List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUri);
             var country = countries.FirstOrDefault();
             Assert.AreEqual("Australia", country.name);
         }
@@ -317,7 +273,7 @@ namespace RestClient.Net.UnitTests
             try
             {
                 var client = new Client(new NewtonsoftSerializationAdapter());
-                List<RestCountry> countries = await client.GetAsync<List<RestCountry>>("https://restcountries.eu/rest/v2/name/australia");
+                List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUriString);
                 var country = countries.FirstOrDefault();
             }
             catch (UriFormatException ufe)
@@ -1061,6 +1017,45 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Misc
+
+        /// <summary>
+        /// This is just a stub to make sure it's easy to mock requests and responses
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task TestCanMockRequestAndResponse()
+        {
+            var clientMock = new Mock<IClient>();
+            var headersMock = new Mock<IHeadersCollection>();
+            var response = new HttpResponseMessageResponse<string>()
+            {
+                Body = "test",
+                Headers = headersMock.Object,
+                HttpClient = new HttpClient(),
+                HttpRequestMethod = HttpRequestMethod.Custom,
+                HttpResponseMessage = new HttpResponseMessage(),
+                RequestUri = new Uri("http://test.com"),
+                StatusCode = 10
+            };
+
+            clientMock.Setup(c => c.SendAsync<string, string>(It.IsAny<Request<string>>())).Returns
+                (
+                Task.FromResult<Response<string>>(response)
+                );
+
+            var returnedResponse = await clientMock.Object.SendAsync<string, string>(
+                new Request<string>
+                {
+                    Body = "Test",
+                    CancellationToken = new CancellationToken(),
+                    CustomHttpRequestMethod = "asd",
+                    Headers = new RequestHeadersCollection(),
+                    HttpRequestMethod = HttpRequestMethod.Custom,
+                    Resource = new Uri("http://www.test.com")
+                }
+                ); ;
+            Assert.IsTrue(ReferenceEquals(response, returnedResponse));
+        }
 
         //TODO: Fix these tests
         /*
