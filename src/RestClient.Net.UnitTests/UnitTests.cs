@@ -49,23 +49,45 @@ namespace RestClient.Net.UnitTests
         private Uri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString);
         private Uri JsonPlaceholderBaseUri = new Uri(JsonPlaceholderBaseUriString);
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
+        private const string SetCookieHeaderName = "Set-Cookie";
 
         Dictionary<string, string> RestCountriesAllHeaders = new Dictionary<string, string>
-                {
-                    {"Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
-                    {TransferEncodingHeaderName, "chunked" },
-                    {"Connection", "keep-alive" },
-                    {"Set-Cookie", "__cfduid=dde664b010195275c339e4b049626e6261592434263; expires=Fri, 17-Jul-20 22:51:03 GMT; path=/; domain=.restcountries.eu; HttpOnly; SameSite=Lax" },
-                    {"Access-Control-Allow-Origin", "*" },
-                    {"Access-Control-Allow-Methods", "GET" },
-                    {"Access-Control-Allow-Headers", "Accept, X-Requested-With" },
-                    {"Cache-Control", "public, max-age=86400" },
-                    {"CF-Cache-Status", "DYNAMIC" },
-                    {"cf-request-id", "0366139e2100001258170ec200000001" },
-                    {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
-                    {"Server", "cloudflare" },
-                    {"CF-RAY", "5a50554368bf1258-HKG" },
-                };
+        {
+            {"Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
+            {TransferEncodingHeaderName, "chunked" },
+            {"Connection", "keep-alive" },
+            {"Set-Cookie", "__cfduid=dde664b010195275c339e4b049626e6261592434263; expires=Fri, 17-Jul-20 22:51:03 GMT; path=/; domain=.restcountries.eu; HttpOnly; SameSite=Lax" },
+            {"Access-Control-Allow-Origin", "*" },
+            {"Access-Control-Allow-Methods", "GET" },
+            {"Access-Control-Allow-Headers", "Accept, X-Requested-With" },
+            {"Cache-Control", "public, max-age=86400" },
+            {"CF-Cache-Status", "DYNAMIC" },
+            {"cf-request-id", "0366139e2100001258170ec200000001" },
+            {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
+            {"Server", "cloudflare" },
+            {"CF-RAY", "5a50554368bf1258-HKG" },
+        };
+
+        Dictionary<string, string> JsonPlaceholderDeleteHeaders = new Dictionary<string, string>
+        {
+            {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
+            {"Connection", "keep-alive" },
+            {SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471856; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
+            {"X-Powered-By", "Express" },
+            {"Vary", "Origin, Accept-Encoding" },
+            {"Access-Control-Allow-Credentials", "true" },
+            {"Cache-Control", "no-cache" },
+            {"Pragma", "no-cache" },
+            {"Expires", "1" },
+            {"X-Content-Type-Options", "nosniff" },
+            {"Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\"" },
+            {"Via", "1.1 vegur" },
+            {"CF-Cache-Status", "DYNAMIC" },
+            {"cf-request-id", "0368513dc10000ed3f0020a200000001" },
+            {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
+            {"Server", "cloudflare" },
+            {"CF-RAY", "5a53eb0f9d0bed3f-SJC" },
+         };
 
         //Mock the httpclient
         private static CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
@@ -105,6 +127,14 @@ namespace RestClient.Net.UnitTests
 
             _mockHttpMessageHandler.When(RestCountriesAustraliaUriString)
             .Respond("application/json", File.ReadAllText("JSON/Australia.json"));
+
+            _mockHttpMessageHandler.When(HttpMethod.Delete, "https://jsonplaceholder.typicode.com/posts/1").
+            //TODO: The curly braces make all the difference here. However, the lack of curly braces should be handled.
+            Respond(
+                JsonPlaceholderDeleteHeaders,
+                "application/json", 
+                "{}"
+                );
 
             //Return all rest countries with a status code of 200
             _mockHttpMessageHandler.When(RestCountriesAllUriString)
@@ -246,14 +276,21 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestDelete()
         {
-            var baseUri = JsonPlaceholderBaseUri;
-            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: baseUri, logger: _logger.Object);
-            await client.DeleteAsync("posts/1");
+            var url = JsonPlaceholderBaseUri + "/posts/1";
+
+            var client = new Client(new NewtonsoftSerializationAdapter(),
+                baseUri: JsonPlaceholderBaseUri,
+                logger: _logger.Object,
+                createHttpClient: _createHttpClient
+                );
+            var response = await client.DeleteAsync("posts/1");
 
             var requestUri = new Uri("https://jsonplaceholder.typicode.com/posts/1");
 
             VerifyLog(requestUri, HttpRequestMethod.Delete, TraceEvent.Request, null, null);
             VerifyLog(requestUri, HttpRequestMethod.Delete, TraceEvent.Response, (int)HttpStatusCode.OK, null);
+
+            Assert.AreEqual(JsonPlaceholderDeleteHeaders[SetCookieHeaderName], response.Headers[SetCookieHeaderName].First());
         }
 
         [TestMethod]
@@ -448,7 +485,6 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         [DataRow(true)]
         [DataRow(false)]
-
         public async Task TestHeadersLocalGet(bool useDefault)
         {
             var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);

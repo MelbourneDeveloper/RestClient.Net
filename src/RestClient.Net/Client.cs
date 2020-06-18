@@ -345,7 +345,7 @@ namespace RestClient.Net
                 }
             }
 
-            if (responseData == null)
+            if (responseData == null && httpResponseMessage.Content != null)
             {
                 responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
             }
