@@ -47,7 +47,7 @@ namespace RestClient.Net.UnitTests
         Uri RestCountriesAllUri = new Uri(RestCountriesAllUrls);
 
         //Mock the httpclient
-        private CreateHttpClient _createHttpClient = (n) => _mockHttpClient;
+        private CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
         //For realises - with factory
         //private CreateHttpClient _createHttpClient = (n) => new HttpClient();
         //For realsies - no factory
@@ -56,7 +56,6 @@ namespace RestClient.Net.UnitTests
         private static TestClientFactory _testServerHttpClientFactory;
         private static Mock<ILogger> _logger;
         private static MockHttpMessageHandler _mockHttpMessageHandler;
-        private static HttpClient _mockHttpClient;
 
 #if (NETCOREAPP3_1)
         public const string LocalBaseUriString = "http://localhost";
@@ -98,10 +97,6 @@ namespace RestClient.Net.UnitTests
                 },
                 "application/json",
                 File.ReadAllText("JSON/RestCountries.json"));
-
-            //Create the mock client
-            _mockHttpClient = _mockHttpMessageHandler.ToHttpClient();
-
         }
         #endregion
 
@@ -1098,7 +1093,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestFactoryCreationWithUri()
         {
-            var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter());
+            var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
             var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "test", RestCountriesAllUri);
             var response = await client.GetAsync<List<RestCountry>>();
             Assert.IsTrue(response.Body.Count > 0);
@@ -1107,7 +1102,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestFactoryDoesntUseSameHttpClient()
         {
-            var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter());
+            var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
 
             var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "1", RestCountriesAllUri);
             var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
