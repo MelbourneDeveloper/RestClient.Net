@@ -238,7 +238,6 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual(StandardContentTypeToString, httpResponseMessageResponse.HttpResponseMessage.Content.Headers.ContentType.ToString());
 
-
             Assert.AreEqual(RestCountriesAllHeaders[TransferEncodingHeaderName], response.Headers[TransferEncodingHeaderName].First());
         }
 
@@ -258,7 +257,11 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetRestCountriesAsJson()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), RestCountriesAustraliaUri);
+            var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                null,
+                RestCountriesAustraliaUri,
+                createHttpClient: _createHttpClient);
             var json = await client.GetAsync<string>();
             var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).FirstOrDefault();
             Assert.AreEqual("Australia", country.name);
@@ -267,7 +270,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetRestCountriesNoBaseUri()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter());
+            var client = new Client(new NewtonsoftSerializationAdapter(), null, _createHttpClient);
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUri);
             var country = countries.FirstOrDefault();
             Assert.AreEqual("Australia", country.name);
