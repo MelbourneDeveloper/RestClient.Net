@@ -1143,7 +1143,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestClientFactoryReusesClient()
         {
-            var defaultHttpClientFactory = new DefaultHttpClientFactory();
+            var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
             var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter(),
                 defaultHttpClientFactory.CreateClient);
@@ -1160,7 +1160,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHttpClientFactoryReusesHttpClient()
         {
-            var defaultHttpClientFactory = new DefaultHttpClientFactory();
+            var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
             var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
             var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
@@ -1175,7 +1175,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHttpClientFactoryReusesHttpClientWhenSameName()
         {
-            var defaultHttpClientFactory = new DefaultHttpClientFactory();
+            var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
             var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient, name: "Test");
             var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
