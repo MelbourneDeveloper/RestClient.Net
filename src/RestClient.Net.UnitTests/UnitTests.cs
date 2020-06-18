@@ -45,9 +45,11 @@ namespace RestClient.Net.UnitTests
         private const string RestCountriesAllUriString = "https://restcountries.eu/rest/v2/";
         private const string RestCountriesAustraliaUriString = "https://restcountries.eu/rest/v2/name/australia";
         private const string JsonPlaceholderBaseUriString = "https://jsonplaceholder.typicode.com";
+        private const string JsonPlaceholderFirstPostSlug = "/posts/1";
         private Uri RestCountriesAllUri = new Uri(RestCountriesAllUriString);
         private Uri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString);
         private Uri JsonPlaceholderBaseUri = new Uri(JsonPlaceholderBaseUriString);
+        private Uri JsonPlaceholderFirstPostUri = new Uri(JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug);
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
         private const string SetCookieHeaderName = "Set-Cookie";
 
@@ -128,7 +130,7 @@ namespace RestClient.Net.UnitTests
             _mockHttpMessageHandler.When(RestCountriesAustraliaUriString)
             .Respond("application/json", File.ReadAllText("JSON/Australia.json"));
 
-            _mockHttpMessageHandler.When(HttpMethod.Delete, "https://jsonplaceholder.typicode.com/posts/1").
+            _mockHttpMessageHandler.When(HttpMethod.Delete, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
             //TODO: The curly braces make all the difference here. However, the lack of curly braces should be handled.
             Respond(
                 JsonPlaceholderDeleteHeaders,
@@ -276,19 +278,15 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestDelete()
         {
-            var url = JsonPlaceholderBaseUri + "/posts/1";
-
             var client = new Client(new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
                 logger: _logger.Object,
                 createHttpClient: _createHttpClient
                 );
-            var response = await client.DeleteAsync("posts/1");
+            var response = await client.DeleteAsync(JsonPlaceholderFirstPostSlug);
 
-            var requestUri = new Uri("https://jsonplaceholder.typicode.com/posts/1");
-
-            VerifyLog(requestUri, HttpRequestMethod.Delete, TraceEvent.Request, null, null);
-            VerifyLog(requestUri, HttpRequestMethod.Delete, TraceEvent.Response, (int)HttpStatusCode.OK, null);
+            VerifyLog(JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Request, null, null);
+            VerifyLog(JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Response, (int)HttpStatusCode.OK, null);
 
             Assert.AreEqual(JsonPlaceholderDeleteHeaders[SetCookieHeaderName], response.Headers[SetCookieHeaderName].First());
         }
