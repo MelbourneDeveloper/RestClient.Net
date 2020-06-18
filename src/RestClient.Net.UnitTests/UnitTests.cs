@@ -46,6 +46,24 @@ namespace RestClient.Net.UnitTests
         private const string RestCountriesAustraliaUriString = "https://restcountries.eu/rest/v2/name/australia";
         private Uri RestCountriesAllUri = new Uri(RestCountriesAllUriString);
         private Uri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString);
+        private const string TransferEncodingHeaderName = "Transfer-Encoding";
+
+        Dictionary<string, string> RestCountriesAllHeaders = new Dictionary<string, string>
+                {
+                    {"Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
+                    {TransferEncodingHeaderName, "chunked" },
+                    {"Connection", "keep-alive" },
+                    {"Set-Cookie", "__cfduid=dde664b010195275c339e4b049626e6261592434263; expires=Fri, 17-Jul-20 22:51:03 GMT; path=/; domain=.restcountries.eu; HttpOnly; SameSite=Lax" },
+                    {"Access-Control-Allow-Origin", "*" },
+                    {"Access-Control-Allow-Methods", "GET" },
+                    {"Access-Control-Allow-Headers", "Accept, X-Requested-With" },
+                    {"Cache-Control", "public, max-age=86400" },
+                    {"CF-Cache-Status", "DYNAMIC" },
+                    {"cf-request-id", "0366139e2100001258170ec200000001" },
+                    {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
+                    {"Server", "cloudflare" },
+                    {"CF-RAY", "5a50554368bf1258-HKG" },
+                };
 
         //Mock the httpclient
         private static CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
@@ -89,22 +107,7 @@ namespace RestClient.Net.UnitTests
             //Return all rest countries with a status code of 200
             _mockHttpMessageHandler.When(RestCountriesAllUriString)
                     .Respond(
-                new Dictionary<string, string>
-                {
-                    {"Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
-                    {"Transfer-Encoding", "chunked" },
-                    {"Connection", "keep-alive" },
-                    {"Set-Cookie", "__cfduid=dde664b010195275c339e4b049626e6261592434263; expires=Fri, 17-Jul-20 22:51:03 GMT; path=/; domain=.restcountries.eu; HttpOnly; SameSite=Lax" },
-                    {"Access-Control-Allow-Origin", "*" },
-                    {"Access-Control-Allow-Methods", "GET" },
-                    {"Access-Control-Allow-Headers", "Accept, X-Requested-With" },
-                    {"Cache-Control", "public, max-age=86400" },
-                    {"CF-Cache-Status", "DYNAMIC" },
-                    {"cf-request-id", "0366139e2100001258170ec200000001" },
-                    {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
-                    {"Server", "cloudflare" },
-                    {"CF-RAY", "5a50554368bf1258-HKG" },
-                },
+                RestCountriesAllHeaders,
                 "application/json",
                 File.ReadAllText("JSON/RestCountries.json"));
         }
@@ -234,6 +237,9 @@ namespace RestClient.Net.UnitTests
             var httpResponseMessageResponse = response as HttpResponseMessageResponse<List<RestCountry>>;
 
             Assert.AreEqual(StandardContentTypeToString, httpResponseMessageResponse.HttpResponseMessage.Content.Headers.ContentType.ToString());
+
+
+            Assert.AreEqual(RestCountriesAllHeaders[TransferEncodingHeaderName], response.Headers[TransferEncodingHeaderName].First());
         }
 
         [TestMethod]
