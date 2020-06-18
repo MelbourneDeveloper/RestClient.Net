@@ -43,7 +43,8 @@ namespace RestClient.Net.UnitTests
     {
         #region Fields
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
-        private const string RestCountriesAllUrl = "https://restcountries.eu/rest/v2/";
+        private const string RestCountriesAllUrls = "https://restcountries.eu/rest/v2/";
+        Uri RestCountriesAllUri = new Uri(RestCountriesAllUrls);
 
         //Mock the httpclient
         private CreateHttpClient _createHttpClient = (n) => _mockHttpClient;
@@ -77,7 +78,7 @@ namespace RestClient.Net.UnitTests
             _mockHttpMessageHandler = new MockHttpMessageHandler();
 
             //Return all rest countries with a status code of 200
-            _mockHttpMessageHandler.When(RestCountriesAllUrl)
+            _mockHttpMessageHandler.When(RestCountriesAllUrls)
                     .Respond(
                 new Dictionary<string, string>
                 {
@@ -184,8 +185,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetDefaultSerializationRestCountries()
         {
-            var baseUri = new Uri(RestCountriesAllUrl);
-            var client = new Client(baseUri);
+            var client = new Client(RestCountriesAllUri);
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
@@ -220,17 +220,16 @@ namespace RestClient.Net.UnitTests
 
             const HttpStatusCode statusCode = HttpStatusCode.BadRequest;
 
-            mockHttp.When(RestCountriesAllUrl)
+            mockHttp.When(RestCountriesAllUrls)
                     .Respond(statusCode, "application/json", JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
 
             var httpClient = mockHttp.ToHttpClient();
 
             var factory = new SingletonHttpClientFactory(httpClient);
 
-            var baseUri = new Uri(RestCountriesAllUrl);
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: factory.CreateClient, baseUri: baseUri, logger: _logger.Object);
+            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: factory.CreateClient, baseUri: RestCountriesAllUri, logger: _logger.Object);
 
-            await AssertThrowsAsync<HttpStatusException>(client.GetAsync<List<RestCountry>>(), Messages.GetErrorMessageNonSuccess((int)statusCode, baseUri));
+            await AssertThrowsAsync<HttpStatusException>(client.GetAsync<List<RestCountry>>(), Messages.GetErrorMessageNonSuccess((int)statusCode, RestCountriesAllUri));
         }
 
         [TestMethod]
@@ -244,15 +243,14 @@ namespace RestClient.Net.UnitTests
 
             var expectedError = new Error { Message = "Test", ErrorCode = 100 };
 
-            mockHttp.When(RestCountriesAllUrl)
+            mockHttp.When(RestCountriesAllUrls)
                     .Respond(statusCode, "application/json", JsonConvert.SerializeObject(expectedError));
 
             var httpClient = mockHttp.ToHttpClient();
 
             var factory = new SingletonHttpClientFactory(httpClient);
 
-            var baseUri = new Uri(RestCountriesAllUrl);
-            var client = new Client(adapter, createHttpClient: factory.CreateClient, baseUri: baseUri, logger: _logger.Object) { ThrowExceptionOnFailure = false };
+            var client = new Client(adapter, createHttpClient: factory.CreateClient, baseUri: RestCountriesAllUri, logger: _logger.Object) { ThrowExceptionOnFailure = false };
 
             var response = await client.GetAsync<List<RestCountry>>();
 
@@ -264,10 +262,8 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetRestCountries()
         {
-            var baseUri = new Uri(RestCountriesAllUrl);
-
             var client = new Client(new NewtonsoftSerializationAdapter(),
-                baseUri: baseUri,
+                baseUri: RestCountriesAllUri,
                 createHttpClient: _createHttpClient,
                 logger: _logger.Object);
 
@@ -275,8 +271,8 @@ namespace RestClient.Net.UnitTests
             Assert.IsNotNull(response);
             Assert.IsTrue(response.Body.Count > 0);
 
-            VerifyLog(baseUri, HttpRequestMethod.Get, TraceEvent.Request);
-            VerifyLog(baseUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
+            VerifyLog(RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Request);
+            VerifyLog(RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
 
             var httpResponseMessageResponse = response as HttpResponseMessageResponse<List<RestCountry>>;
 
@@ -1103,8 +1099,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestFactoryCreationWithUri()
         {
             var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter());
-            var baseUri = new Uri(RestCountriesAllUrl);
-            var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "test", baseUri);
+            var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "test", RestCountriesAllUri);
             var response = await client.GetAsync<List<RestCountry>>();
             Assert.IsTrue(response.Body.Count > 0);
         }
@@ -1113,13 +1108,12 @@ namespace RestClient.Net.UnitTests
         public async Task TestFactoryDoesntUseSameHttpClient()
         {
             var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter());
-            var baseUri = new Uri(RestCountriesAllUrl);
 
-            var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "1", baseUri);
+            var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "1", RestCountriesAllUri);
             var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
             var firstClient = response.HttpClient;
 
-            client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "2", baseUri);
+            client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "2", RestCountriesAllUri);
             response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
             var secondClient = response.HttpClient;
 
@@ -1131,13 +1125,11 @@ namespace RestClient.Net.UnitTests
         {
             var defaultHttpClientFactory = new DefaultHttpClientFactory();
 
-            var baseUri = new Uri(RestCountriesAllUrl);
-
-            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: baseUri, createHttpClient: defaultHttpClientFactory.CreateClient);
+            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
             var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
             var firstClient = response.HttpClient;
 
-            client = new Client(new NewtonsoftSerializationAdapter(), baseUri: baseUri, createHttpClient: defaultHttpClientFactory.CreateClient);
+            client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
             response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
             var secondClient = response.HttpClient;
 
@@ -1150,18 +1142,16 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestClientFactoryReusesClient()
         {
-            var baseUri = new Uri(RestCountriesAllUrl);
-
             var defaultHttpClientFactory = new DefaultHttpClientFactory();
 
             var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter(),
                 defaultHttpClientFactory.CreateClient);
 
             var firstClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient);
-            firstClient.BaseUri = baseUri;
+            firstClient.BaseUri = RestCountriesAllUri;
 
             var secondClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient);
-            secondClient.BaseUri = baseUri;
+            secondClient.BaseUri = RestCountriesAllUri;
 
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
         }
@@ -1171,9 +1161,7 @@ namespace RestClient.Net.UnitTests
         {
             var defaultHttpClientFactory = new DefaultHttpClientFactory();
 
-            var baseUri = new Uri(RestCountriesAllUrl);
-
-            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: baseUri, createHttpClient: defaultHttpClientFactory.CreateClient);
+            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
             var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
             var firstClient = response.HttpClient;
 
@@ -1188,13 +1176,11 @@ namespace RestClient.Net.UnitTests
         {
             var defaultHttpClientFactory = new DefaultHttpClientFactory();
 
-            var baseUri = new Uri(RestCountriesAllUrl);
-
-            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: baseUri, createHttpClient: defaultHttpClientFactory.CreateClient, name: "Test");
+            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient, name: "Test");
             var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
             var firstClient = response.HttpClient;
 
-            client = new Client(new NewtonsoftSerializationAdapter(), baseUri: baseUri, createHttpClient: defaultHttpClientFactory.CreateClient, name: "Test");
+            client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient, name: "Test");
             response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
             var secondClient = response.HttpClient;
 
