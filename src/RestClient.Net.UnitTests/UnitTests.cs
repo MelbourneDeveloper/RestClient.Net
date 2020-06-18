@@ -44,8 +44,10 @@ namespace RestClient.Net.UnitTests
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
         private const string RestCountriesAllUriString = "https://restcountries.eu/rest/v2/";
         private const string RestCountriesAustraliaUriString = "https://restcountries.eu/rest/v2/name/australia";
+        private const string JsonPlaceholderBaseUriString = "https://jsonplaceholder.typicode.com";
         private Uri RestCountriesAllUri = new Uri(RestCountriesAllUriString);
         private Uri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString);
+        private Uri JsonPlaceholderBaseUri = new Uri(JsonPlaceholderBaseUriString);
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
 
         Dictionary<string, string> RestCountriesAllHeaders = new Dictionary<string, string>
@@ -244,7 +246,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestDelete()
         {
-            var baseUri = new Uri("https://jsonplaceholder.typicode.com");
+            var baseUri = JsonPlaceholderBaseUri;
             var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: baseUri, logger: _logger.Object);
             await client.DeleteAsync("posts/1");
 
@@ -300,7 +302,7 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+                var client = new Client(new NewtonsoftSerializationAdapter(), JsonPlaceholderBaseUri);
 
                 var tokenSource = new CancellationTokenSource();
                 var token = tokenSource.Token;
@@ -329,7 +331,7 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com")) { Timeout = new TimeSpan(0, 0, 0, 0, 1) };
+                var client = new Client(new NewtonsoftSerializationAdapter(), JsonPlaceholderBaseUri) { Timeout = new TimeSpan(0, 0, 0, 0, 1) };
                 await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
             }
             catch (TaskCanceledException ex)
@@ -353,11 +355,9 @@ namespace RestClient.Net.UnitTests
         [DataRow(HttpRequestMethod.Put)]
         public async Task TestUpdate(HttpRequestMethod httpRequestMethod)
         {
-            var baseUri = new Uri("https://jsonplaceholder.typicode.com");
-
             var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: new Uri("https://jsonplaceholder.typicode.com"),
+                baseUri: JsonPlaceholderBaseUri,
                 logger: _logger.Object);
             client.SetJsonContentTypeHeader();
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
@@ -392,7 +392,7 @@ namespace RestClient.Net.UnitTests
             var logger = new ConsoleLogger();
             var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: new Uri("https://jsonplaceholder.typicode.com"),
+                baseUri: JsonPlaceholderBaseUri,
                 logger: logger);
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
             await client.PostAsync<UserPost, UserPost>(requestUserPost, "/posts");
