@@ -47,7 +47,7 @@ namespace RestClient.Net.UnitTests
         Uri RestCountriesAllUri = new Uri(RestCountriesAllUrls);
 
         //Mock the httpclient
-        private CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
+        private static CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
         //For realises - with factory
         //private CreateHttpClient _createHttpClient = (n) => new HttpClient();
         //For realsies - no factory
@@ -63,6 +63,12 @@ namespace RestClient.Net.UnitTests
 #else
         public const string LocalBaseUriString = "https://localhost:44337";
 #endif
+
+        private Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
+        {
+            var client = _createHttpClient(n);
+            return new Lazy<HttpClient>(() => client);
+        };
         #endregion
 
         #region Setup
@@ -1118,7 +1124,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHttpClientFactoryDoesntUseSameHttpClient()
         {
-            var defaultHttpClientFactory = new DefaultHttpClientFactory();
+            var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
             var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
             var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
