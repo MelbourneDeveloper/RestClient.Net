@@ -54,6 +54,17 @@ namespace RestClient.Net.UnitTests
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
         private const string SetCookieHeaderName = "Set-Cookie";
         private const string CacheControlHeaderName = "Cache-Control";
+        private const string XRatelimitLimitHeaderName = "X-Ratelimit-Limit";
+        private const string JsonMediaType = "application/json";
+
+        private static UserPost _userRequestBody = new UserPost { title = "foo", userId = 10, body = "testbody" };
+
+        private static string _userRequestBodyJson = "{\r\n" +
+                $"  \"userId\": {_userRequestBody.userId},\r\n" +
+                "  \"id\": 0,\r\n" +
+                "  \"title\": \"foo\",\r\n" +
+                "  \"body\": \"testbody\"\r\n" +
+                "}";
 
         Dictionary<string, string> RestCountriesAllHeaders = new Dictionary<string, string>
         {
@@ -100,7 +111,7 @@ namespace RestClient.Net.UnitTests
             {"Connection", "keep-alive" },
             {SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471851; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
             {"X-Powered-By", "Express" },
-            {"X-Ratelimit-Limit", "10000" },
+            {XRatelimitLimitHeaderName, "10000" },
             {"X-Ratelimit-Remaining", "9990" },
             {"X-Ratelimit-Reset", "1592699847" },
             {"Vary", "Origin, Accept-Encoding" },
@@ -156,31 +167,64 @@ namespace RestClient.Net.UnitTests
             _mockHttpMessageHandler = new MockHttpMessageHandler();
 
             _mockHttpMessageHandler.When(RestCountriesAustraliaUriString)
-            .Respond("application/json", File.ReadAllText("JSON/Australia.json"));
+            .Respond(JsonMediaType, File.ReadAllText("JSON/Australia.json"));
 
             _mockHttpMessageHandler.When(HttpMethod.Delete, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
             //TODO: The curly braces make all the difference here. However, the lack of curly braces should be handled.
             Respond(
                 JsonPlaceholderDeleteHeaders,
-                "application/json",
+                JsonMediaType,
                 "{}"
                 );
 
-            _mockHttpMessageHandler.When(HttpMethod.Post, JsonPlaceholderBaseUriString + JsonPlaceholderPostsSlug).
-            Respond(
+            _mockHttpMessageHandler.
+                When(HttpMethod.Post, JsonPlaceholderBaseUriString + JsonPlaceholderPostsSlug).
+                With(request => request.Content.Headers.ContentType == null).
+                Respond(
                 HttpStatusCode.Created,
-                JsonPlaceholderDeleteHeaders,
-                "application/json",
+                JsonPlaceholderPostHeaders,
+                null,
+                //This is the JSON that gets returned when the content type is empty
                 "{\r\n" +
                 "  \"id\": 101\r\n" +
                 "}"
-                ); 
+                );
+
+#if (NETCOREAPP3_1)
+            _mockHttpMessageHandler.When(HttpMethod.Patch, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
+            Respond(
+                HttpStatusCode.OK,
+                JsonPlaceholderPostHeaders,
+                JsonMediaType,
+                _userRequestBodyJson
+                );
+#endif
+
+            _mockHttpMessageHandler.
+                When(HttpMethod.Post, JsonPlaceholderBaseUriString + JsonPlaceholderPostsSlug).
+                With(request => request.Content.Headers.ContentType.MediaType == JsonMediaType).
+                Respond(
+                HttpStatusCode.OK,
+                JsonPlaceholderPostHeaders,
+                JsonMediaType,
+                _userRequestBodyJson
+                );
+
+            _mockHttpMessageHandler.
+            When(HttpMethod.Put, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
+            With(request => request.Content.Headers.ContentType.MediaType == JsonMediaType).
+            Respond(
+            HttpStatusCode.OK,
+            JsonPlaceholderPostHeaders,
+            JsonMediaType,
+            _userRequestBodyJson
+            );
 
             //Return all rest countries with a status code of 200
             _mockHttpMessageHandler.When(RestCountriesAllUriString)
                     .Respond(
                 RestCountriesAllHeaders,
-                "application/json",
+                JsonMediaType,
                 File.ReadAllText("JSON/RestCountries.json"));
         }
         #endregion
@@ -253,7 +297,7 @@ namespace RestClient.Net.UnitTests
             const HttpStatusCode statusCode = HttpStatusCode.BadRequest;
 
             mockHttp.When(RestCountriesAllUriString)
-                    .Respond(statusCode, "application/json", JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
+                    .Respond(statusCode, JsonMediaType, JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
 
             var httpClient = mockHttp.ToHttpClient();
 
@@ -276,7 +320,7 @@ namespace RestClient.Net.UnitTests
             var expectedError = new Error { Message = "Test", ErrorCode = 100 };
 
             mockHttp.When(RestCountriesAllUriString)
-                    .Respond(statusCode, "application/json", JsonConvert.SerializeObject(expectedError));
+                    .Respond(statusCode, JsonMediaType, JsonConvert.SerializeObject(expectedError));
 
             var httpClient = mockHttp.ToHttpClient();
 
@@ -423,7 +467,10 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+#if (NETCOREAPP3_1)
+        //TODO: seems like this can't be mocked on .NET Framework?
         [DataRow(HttpRequestMethod.Patch)]
+#endif
         [DataRow(HttpRequestMethod.Post)]
         [DataRow(HttpRequestMethod.Put)]
         public async Task TestUpdate(HttpRequestMethod httpRequestMethod)
@@ -431,9 +478,9 @@ namespace RestClient.Net.UnitTests
             var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
+                createHttpClient: _createHttpClient,
                 logger: _logger.Object);
             client.SetJsonContentTypeHeader();
-            var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
             UserPost responseUserPost = null;
 
             var expectedStatusCode = HttpStatusCode.OK;
@@ -441,19 +488,19 @@ namespace RestClient.Net.UnitTests
             switch (httpRequestMethod)
             {
                 case HttpRequestMethod.Patch:
-                    responseUserPost = await client.PatchAsync<UserPost, UserPost>(requestUserPost, new Uri("/posts/1", UriKind.Relative));
+                    responseUserPost = await client.PatchAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative));
                     break;
                 case HttpRequestMethod.Post:
-                    responseUserPost = await client.PostAsync<UserPost, UserPost>(requestUserPost, "/posts");
+                    responseUserPost = await client.PostAsync<UserPost, UserPost>(_userRequestBody, "/posts");
                     expectedStatusCode = HttpStatusCode.Created;
                     break;
                 case HttpRequestMethod.Put:
-                    responseUserPost = await client.PutAsync<UserPost, UserPost>(requestUserPost, new Uri("/posts/1", UriKind.Relative));
+                    responseUserPost = await client.PutAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative));
                     break;
             }
 
-            Assert.AreEqual(requestUserPost.userId, responseUserPost.userId);
-            Assert.AreEqual(requestUserPost.title, responseUserPost.title);
+            Assert.AreEqual(_userRequestBody.userId, responseUserPost.userId);
+            Assert.AreEqual(_userRequestBody.title, responseUserPost.title);
 
             VerifyLog(It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Request, null, null);
             VerifyLog(It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Response, (int)expectedStatusCode, null);
@@ -468,8 +515,8 @@ namespace RestClient.Net.UnitTests
                 baseUri: JsonPlaceholderBaseUri,
                 createHttpClient: _createHttpClient,
                 logger: logger);
-            var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
-            var response = await client.PostAsync<PostUserResponse, UserPost>(requestUserPost, "/posts");
+            var response = await client.PostAsync<PostUserResponse, UserPost>(_userRequestBody, JsonPlaceholderPostsSlug);
+            Assert.AreEqual(JsonPlaceholderPostHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
             Assert.AreEqual(JsonPlaceholderPostHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
             //JSON placeholder seems to return 101 no matter what Id is passed in...
             Assert.AreEqual(101, response.Body.Id);
