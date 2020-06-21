@@ -42,6 +42,7 @@ namespace RestClient.Net.UnitTests
     {
         #region Fields
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
+        private const string GoogleUrlString = "https://www.google.com";
         private const string RestCountriesAllUriString = "https://restcountries.eu/rest/v2/";
         private const string RestCountriesAustraliaUriString = "https://restcountries.eu/rest/v2/name/australia";
         private const string JsonPlaceholderBaseUriString = "https://jsonplaceholder.typicode.com";
@@ -129,6 +130,22 @@ namespace RestClient.Net.UnitTests
             {"Server", "cloudflare" },
             {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
          };
+
+
+        Dictionary<string, string> GoogleHeadHeaders = new Dictionary<string, string>
+        {
+            {"P3P", "CP=\"This is not a P3P policy! See g.co/p3phelp for more info.\"" },
+            {"Date", "Sun, 21 Jun 2020 02:38:45 GMT" },
+            {SetCookieHeaderName, "1P_JAR=2020-06-21-02; expires=Tue, 21-Jul-2020 02:38:45 GMT; path=/; domain=.google.com; Secure" },
+            //TODO: there should be two lines of cookie here but mock http doesn't seem to allow for this...
+            {"Server", "gws" },
+            {"X-XSS-Protection", "0" },
+            {"X-Frame-Options", "SAMEORIGIN" },
+            {"Transfer-Encoding", "SAMEORIGIN" },
+            {"Expires", "Sun, 21 Jun 2020 02:38:45 GMT" },
+            {CacheControlHeaderName, "private" },
+         };
+
 
         //Mock the httpclient
         private static CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
@@ -220,6 +237,17 @@ namespace RestClient.Net.UnitTests
             _userRequestBodyJson
             );
 
+            _mockHttpMessageHandler.
+            When(HttpMethod.Head, GoogleUrlString).
+            Respond(
+            HttpStatusCode.OK,
+            GoogleHeadHeaders,
+            null,
+            ""
+            //TODO: Allow for null
+            //default(string)
+            );
+
             //Return all rest countries with a status code of 200
             _mockHttpMessageHandler.When(RestCountriesAllUriString)
                     .Respond(
@@ -253,8 +281,12 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHead()
         {
-            var baseUri = new Uri("https://www.google.com");
-            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri);
+            var baseUri = new Uri(GoogleUrlString);
+            var client = new Client(
+                serializationAdapter: new NewtonsoftSerializationAdapter(),
+                baseUri: baseUri,
+                createHttpClient: _createHttpClient
+                );
             var response = await client.SendAsync<string, object>(new Request<object>(
                 null,
                 null,
@@ -263,7 +295,7 @@ namespace RestClient.Net.UnitTests
                 client,
                 default)
             { CustomHttpRequestMethod = "HEAD" });
-            Assert.IsTrue(response.Headers.Contains("Cache-Control"));
+            Assert.AreEqual(GoogleHeadHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
         }
 
 #if !NET45
