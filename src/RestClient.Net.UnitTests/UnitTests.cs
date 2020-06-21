@@ -46,23 +46,25 @@ namespace RestClient.Net.UnitTests
         private const string RestCountriesAustraliaUriString = "https://restcountries.eu/rest/v2/name/australia";
         private const string JsonPlaceholderBaseUriString = "https://jsonplaceholder.typicode.com";
         private const string JsonPlaceholderFirstPostSlug = "/posts/1";
+        private const string JsonPlaceholderPostsSlug = "/posts";
         private Uri RestCountriesAllUri = new Uri(RestCountriesAllUriString);
         private Uri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString);
         private Uri JsonPlaceholderBaseUri = new Uri(JsonPlaceholderBaseUriString);
         private Uri JsonPlaceholderFirstPostUri = new Uri(JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug);
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
         private const string SetCookieHeaderName = "Set-Cookie";
+        private const string CacheControlHeaderName = "Cache-Control";
 
         Dictionary<string, string> RestCountriesAllHeaders = new Dictionary<string, string>
         {
             {"Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
             {TransferEncodingHeaderName, "chunked" },
             {"Connection", "keep-alive" },
-            {"Set-Cookie", "__cfduid=dde664b010195275c339e4b049626e6261592434263; expires=Fri, 17-Jul-20 22:51:03 GMT; path=/; domain=.restcountries.eu; HttpOnly; SameSite=Lax" },
+            {"Set-Cookie", "__cfduid=dde664b010195275c339e4b049626e6261592434261; expires=Fri, 17-Jul-20 22:51:03 GMT; path=/; domain=.restcountries.eu; HttpOnly; SameSite=Lax" },
             {"Access-Control-Allow-Origin", "*" },
             {"Access-Control-Allow-Methods", "GET" },
             {"Access-Control-Allow-Headers", "Accept, X-Requested-With" },
-            {"Cache-Control", "public, max-age=86400" },
+            {CacheControlHeaderName, "public, max-age=86400" },
             {"CF-Cache-Status", "DYNAMIC" },
             {"cf-request-id", "0366139e2100001258170ec200000001" },
             {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
@@ -74,11 +76,11 @@ namespace RestClient.Net.UnitTests
         {
             {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
             {"Connection", "keep-alive" },
-            {SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471856; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
+            {SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471851; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
             {"X-Powered-By", "Express" },
             {"Vary", "Origin, Accept-Encoding" },
             {"Access-Control-Allow-Credentials", "true" },
-            {"Cache-Control", "no-cache" },
+            {CacheControlHeaderName, "no-cache" },
             {"Pragma", "no-cache" },
             {"Expires", "1" },
             {"X-Content-Type-Options", "nosniff" },
@@ -86,6 +88,29 @@ namespace RestClient.Net.UnitTests
             {"Via", "1.1 vegur" },
             {"CF-Cache-Status", "DYNAMIC" },
             {"cf-request-id", "0368513dc10000ed3f0020a200000001" },
+            {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
+            {"Server", "cloudflare" },
+            {"CF-RAY", "5a53eb0f9d0bed3f-SJC" },
+         };
+
+
+        Dictionary<string, string> JsonPlaceholderPostHeaders = new Dictionary<string, string>
+        {
+            {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
+            {"Connection", "keep-alive" },
+            {SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471851; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
+            {"X-Powered-By", "Express" },
+            {"Vary", "Origin, Accept-Encoding" },
+            {"Access-Control-Allow-Credentials", "true" },
+            {CacheControlHeaderName, "no-cache" },
+            {"Pragma", "no-cache" },
+            {"Expires", "1" },
+            {"Location","http://jsonplaceholder.typicode.com/posts/101" },
+            {"X-Content-Type-Options", "nosniff" },
+            {"Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\"" },
+            {"Via", "1.1 vegur" },
+            {"CF-Cache-Status", "DYNAMIC" },
+            {"cf-request-id", "0368513dc10000ed3f0020a200000002" },
             {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
             {"Server", "cloudflare" },
             {"CF-RAY", "5a53eb0f9d0bed3f-SJC" },
@@ -134,8 +159,15 @@ namespace RestClient.Net.UnitTests
             //TODO: The curly braces make all the difference here. However, the lack of curly braces should be handled.
             Respond(
                 JsonPlaceholderDeleteHeaders,
-                "application/json", 
+                "application/json",
                 "{}"
+                );
+
+            _mockHttpMessageHandler.When(HttpMethod.Post, JsonPlaceholderBaseUriString + JsonPlaceholderPostsSlug).
+            Respond(
+                JsonPlaceholderDeleteHeaders,
+                "application/json",
+                "{\"userId\":10,\"id\":0,\"title\":\"foo\",\"body\":\"testbody\"}"
                 );
 
             //Return all rest countries with a status code of 200
@@ -428,9 +460,11 @@ namespace RestClient.Net.UnitTests
             var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
+                createHttpClient: _createHttpClient,
                 logger: logger);
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
-            await client.PostAsync<UserPost, UserPost>(requestUserPost, "/posts");
+            var response = await client.PostAsync<UserPost, UserPost>(requestUserPost, "/posts");
+            Assert.AreEqual(JsonPlaceholderPostHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
         }
 
         [TestMethod]
