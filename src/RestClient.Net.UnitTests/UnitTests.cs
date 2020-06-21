@@ -84,13 +84,13 @@ namespace RestClient.Net.UnitTests
             {"Pragma", "no-cache" },
             {"Expires", "1" },
             {"X-Content-Type-Options", "nosniff" },
-            {"Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\"" },
+            {"Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC1\"" },
             {"Via", "1.1 vegur" },
             {"CF-Cache-Status", "DYNAMIC" },
             {"cf-request-id", "0368513dc10000ed3f0020a200000001" },
             {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
             {"Server", "cloudflare" },
-            {"CF-RAY", "5a53eb0f9d0bed3f-SJC" },
+            {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
          };
 
 
@@ -100,6 +100,9 @@ namespace RestClient.Net.UnitTests
             {"Connection", "keep-alive" },
             {SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471851; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
             {"X-Powered-By", "Express" },
+            {"X-Ratelimit-Limit", "10000" },
+            {"X-Ratelimit-Remaining", "9990" },
+            {"X-Ratelimit-Reset", "1592699847" },
             {"Vary", "Origin, Accept-Encoding" },
             {"Access-Control-Allow-Credentials", "true" },
             {CacheControlHeaderName, "no-cache" },
@@ -107,13 +110,13 @@ namespace RestClient.Net.UnitTests
             {"Expires", "1" },
             {"Location","http://jsonplaceholder.typicode.com/posts/101" },
             {"X-Content-Type-Options", "nosniff" },
-            {"Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\"" },
+            {"Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC1\"" },
             {"Via", "1.1 vegur" },
             {"CF-Cache-Status", "DYNAMIC" },
             {"cf-request-id", "0368513dc10000ed3f0020a200000002" },
             {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
             {"Server", "cloudflare" },
-            {"CF-RAY", "5a53eb0f9d0bed3f-SJC" },
+            {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
          };
 
         //Mock the httpclient
@@ -165,10 +168,13 @@ namespace RestClient.Net.UnitTests
 
             _mockHttpMessageHandler.When(HttpMethod.Post, JsonPlaceholderBaseUriString + JsonPlaceholderPostsSlug).
             Respond(
+                HttpStatusCode.Created,
                 JsonPlaceholderDeleteHeaders,
                 "application/json",
-                "{\"userId\":10,\"id\":0,\"title\":\"foo\",\"body\":\"testbody\"}"
-                );
+                "{\r\n" +
+                "  \"id\": 101\r\n" +
+                "}"
+                ); 
 
             //Return all rest countries with a status code of 200
             _mockHttpMessageHandler.When(RestCountriesAllUriString)
@@ -463,8 +469,11 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: _createHttpClient,
                 logger: logger);
             var requestUserPost = new UserPost { title = "foo", userId = 10, body = "testbody" };
-            var response = await client.PostAsync<UserPost, UserPost>(requestUserPost, "/posts");
+            var response = await client.PostAsync<PostUserResponse, UserPost>(requestUserPost, "/posts");
             Assert.AreEqual(JsonPlaceholderPostHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
+            //JSON placeholder seems to return 101 no matter what Id is passed in...
+            Assert.AreEqual(101, response.Body.Id);
+            Assert.AreEqual(201, response.StatusCode);
         }
 
         [TestMethod]
