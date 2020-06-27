@@ -27,7 +27,7 @@ www.rest-client.net</Description>
     <RepositoryType>git</RepositoryType>    
     <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
-
+ 
   <ItemGroup>
     <None Include="..\Images\Rendered\Icon.png">
       <Pack>True</Pack>
