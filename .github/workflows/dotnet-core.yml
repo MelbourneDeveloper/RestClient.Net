@@ -18,6 +18,8 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore src/RestClient.Net/RestClient.Net.csproj
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build src/RestClient.Net/RestClient.Net.csproj --configuration Release --no-restore
+    - name: Test
+      run: dotnet test src/RestClient.Net/RestClient.Net.csproj --no-restore --verbosity normal --framework:netcoreapp3.1
