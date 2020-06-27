@@ -67,22 +67,6 @@ This package contains abstractions for dependency injection with no implementati
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <None Include="../RestClient.Net/StrongNameKey.pfx" Link="StrongNameKey.pfx" />
   </ItemGroup>
-
-  <Choose>
-    <When Condition=" '$(Configuration)'=='Debug' ">
-      <PropertyGroup>
-        <SignAssembly>false</SignAssembly>
-      </PropertyGroup>
-    </When>
-    <When Condition=" '$(Configuration)'=='Release' ">
-      <PropertyGroup>
-        <SignAssembly>true</SignAssembly>
-        <DelaySign>false</DelaySign>
-        <AssemblyOriginatorKeyFile>../RestClient.Net/StrongNameKey.pfx</AssemblyOriginatorKeyFile>
-      </PropertyGroup>
-    </When>
-  </Choose>
 
 </Project>

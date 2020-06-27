@@ -60,19 +60,4 @@ www.rest-client.net</Description>
     </Otherwise>
   </Choose>
 
-  <Choose>
-    <When Condition=" '$(Configuration)'=='Debug' ">
-      <PropertyGroup>
-        <SignAssembly>false</SignAssembly>
-      </PropertyGroup>
-    </When>
-    <When Condition=" '$(Configuration)'=='Release' ">
-      <PropertyGroup>
-        <SignAssembly>true</SignAssembly>
-        <DelaySign>false</DelaySign>
-        <AssemblyOriginatorKeyFile>StrongNameKey.pfx</AssemblyOriginatorKeyFile>
-      </PropertyGroup>
-    </When>
-  </Choose>
-
 </Project>
