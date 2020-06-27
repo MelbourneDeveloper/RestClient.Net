@@ -302,7 +302,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetDefaultSerializationRestCountries()
         {
-            var client = new Client(RestCountriesAllUri);
+            var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: _createHttpClient);
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
@@ -328,6 +328,7 @@ namespace RestClient.Net.UnitTests
 
             const HttpStatusCode statusCode = HttpStatusCode.BadRequest;
 
+            //In this case, return an error object
             mockHttp.When(RestCountriesAllUriString)
                     .Respond(statusCode, JsonMediaType, JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
 
