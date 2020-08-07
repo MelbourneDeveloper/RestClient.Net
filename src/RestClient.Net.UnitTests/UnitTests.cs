@@ -48,26 +48,25 @@ namespace RestClient.Net.UnitTests
         private const string JsonPlaceholderBaseUriString = "https://jsonplaceholder.typicode.com";
         private const string JsonPlaceholderFirstPostSlug = "/posts/1";
         private const string JsonPlaceholderPostsSlug = "/posts";
-        private Uri RestCountriesAllUri = new Uri(RestCountriesAllUriString);
-        private Uri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString);
-        private Uri JsonPlaceholderBaseUri = new Uri(JsonPlaceholderBaseUriString);
-        private Uri JsonPlaceholderFirstPostUri = new Uri(JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug);
+        private readonly Uri RestCountriesAllUri = new Uri(RestCountriesAllUriString);
+        private readonly Uri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString);
+        private readonly Uri JsonPlaceholderBaseUri = new Uri(JsonPlaceholderBaseUriString);
+        private readonly Uri JsonPlaceholderFirstPostUri = new Uri(JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug);
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
         private const string SetCookieHeaderName = "Set-Cookie";
         private const string CacheControlHeaderName = "Cache-Control";
         private const string XRatelimitLimitHeaderName = "X-Ratelimit-Limit";
         private const string JsonMediaType = "application/json";
 
-        private static UserPost _userRequestBody = new UserPost { title = "foo", userId = 10, body = "testbody" };
+        private static readonly UserPost _userRequestBody = new UserPost { title = "foo", userId = 10, body = "testbody" };
 
-        private static string _userRequestBodyJson = "{\r\n" +
+        private static readonly string _userRequestBodyJson = "{\r\n" +
                 $"  \"userId\": {_userRequestBody.userId},\r\n" +
                 "  \"id\": 0,\r\n" +
                 "  \"title\": \"foo\",\r\n" +
                 "  \"body\": \"testbody\"\r\n" +
                 "}";
-
-        Dictionary<string, string> RestCountriesAllHeaders = new Dictionary<string, string>
+        readonly Dictionary<string, string> RestCountriesAllHeaders = new Dictionary<string, string>
         {
             {"Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
             {TransferEncodingHeaderName, "chunked" },
@@ -83,8 +82,7 @@ namespace RestClient.Net.UnitTests
             {"Server", "cloudflare" },
             {"CF-RAY", "5a50554368bf1258-HKG" },
         };
-
-        Dictionary<string, string> JsonPlaceholderDeleteHeaders = new Dictionary<string, string>
+        readonly Dictionary<string, string> JsonPlaceholderDeleteHeaders = new Dictionary<string, string>
         {
             {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
             {"Connection", "keep-alive" },
@@ -104,9 +102,7 @@ namespace RestClient.Net.UnitTests
             {"Server", "cloudflare" },
             {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
          };
-
-
-        Dictionary<string, string> JsonPlaceholderPostHeaders = new Dictionary<string, string>
+        readonly Dictionary<string, string> JsonPlaceholderPostHeaders = new Dictionary<string, string>
         {
             {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
             {"Connection", "keep-alive" },
@@ -130,9 +126,7 @@ namespace RestClient.Net.UnitTests
             {"Server", "cloudflare" },
             {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
          };
-
-
-        Dictionary<string, string> GoogleHeadHeaders = new Dictionary<string, string>
+        readonly Dictionary<string, string> GoogleHeadHeaders = new Dictionary<string, string>
         {
             {"P3P", "CP=\"This is not a P3P policy! See g.co/p3phelp for more info.\"" },
             {"Date", "Sun, 21 Jun 2020 02:38:45 GMT" },
@@ -148,7 +142,7 @@ namespace RestClient.Net.UnitTests
 
 
         //Mock the httpclient
-        private static CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
+        private static readonly CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
         //For realises - with factory
         //private CreateHttpClient _createHttpClient = (n) => new HttpClient();
         //For realsies - no factory
@@ -165,7 +159,7 @@ namespace RestClient.Net.UnitTests
         public const string LocalBaseUriString = "https://localhost:44337";
 #endif
 
-        private Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
+        private readonly Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
         {
             var client = _createHttpClient(n);
             return new Lazy<HttpClient>(() => client);
@@ -1250,7 +1244,7 @@ namespace RestClient.Net.UnitTests
             }
             catch (SendException<Person>)
             {
-                _logger.Verify(l => l.Log<Trace>(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<Trace>(),
+                _logger.Verify(l => l.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<Trace>(),
                     It.Is<SendException<Person>>(e => e.InnerException != null), It.IsAny<Func<Trace, Exception, string>>()));
                 return;
             }
@@ -1407,9 +1401,9 @@ namespace RestClient.Net.UnitTests
                     rt.RequestUri == uri &&
                     rt.HttpRequestMethod == httpRequestMethod &&
                     (rt.RestEvent == TraceEvent.Response || new List<HttpRequestMethod> { HttpRequestMethod.Patch, HttpRequestMethod.Post, HttpRequestMethod.Patch }.Contains(rt.HttpRequestMethod))
-                    ? rt.BodyData != null && rt.BodyData.Length > 0 : true &&
-                    rt.HttpStatusCode == httpStatusCode &&
-                    checkHeadersFunc != null ? checkHeadersFunc(rt.HeadersCollection) : true
+                    ? rt.BodyData != null && rt.BodyData.Length > 0 : false ||
+                    rt.HttpStatusCode != httpStatusCode ||
+                    checkHeadersFunc == null || checkHeadersFunc(rt.HeadersCollection)
                 ), exception, It.IsAny<Func<Trace, Exception, string>>()));
         }
 

@@ -6,7 +6,7 @@ namespace RestClient.Net.UnitTests
 {
     public class TestClientFactory
     {
-        HttpClient _testClient;
+        readonly HttpClient _testClient;
 
         public TestClientFactory(HttpClient testClient)
         {

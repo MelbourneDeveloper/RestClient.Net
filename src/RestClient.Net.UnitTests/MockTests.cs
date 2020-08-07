@@ -49,7 +49,7 @@ namespace RestClient.Net.UnitTests
 
     public class PersonService
     {
-        IClient _client;
+        readonly IClient _client;
 
         public PersonService(CreateClient clientFactory)
         {
