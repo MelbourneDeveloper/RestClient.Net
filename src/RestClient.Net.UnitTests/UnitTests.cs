@@ -305,8 +305,8 @@ namespace RestClient.Net.UnitTests
 
             var parameters = new object();
 
-            await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
-            await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
+            _ = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
+            _ = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
         }
 
         [TestMethod]

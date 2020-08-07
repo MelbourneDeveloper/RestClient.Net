@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 
 namespace RestClient.Net.Abstractions
@@ -40,19 +41,38 @@ namespace RestClient.Net.Abstractions
             CancellationToken cancellationToken)
         {
             Body = body;
-            Headers = headers;
             Resource = resource;
             HttpRequestMethod = httpRequestMethod;
             CancellationToken = cancellationToken;
 
+            //Default to the headers passed in the constructor
+            Headers = headers;
+
+            //Create the collection if it's null
             if (Headers == null) Headers = new RequestHeadersCollection();
 
+            //Return if there are no default headers
             var defaultRequestHeaders = client?.DefaultRequestHeaders;
             if (defaultRequestHeaders == null) return;
+            var defaultRequestHeadersList = defaultRequestHeaders.ToList();
+            if (defaultRequestHeadersList.Count == 0) return;
 
-            foreach (var kvp in defaultRequestHeaders)
+            //Create a new list so we don't modify the list headers passed in
+            Headers = new RequestHeadersCollection();
+
+            //Add headers that were passed in
+            foreach (var kvp in defaultRequestHeadersList)
             {
                 Headers.Add(kvp);
+            }
+
+            //Add the default headers
+            if (headers != null)
+            {
+                foreach (var kvp in headers)
+                {
+                    Headers.Add(kvp);
+                }
             }
         }
         #endregion
