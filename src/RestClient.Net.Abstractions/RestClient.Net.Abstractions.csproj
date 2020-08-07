@@ -4,7 +4,6 @@
     <TargetFrameworks>netstandard2.0;net45;net47;netcoreapp3.0</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
     <RootNamespace>RestClient.Net.Abstractions</RootNamespace>
-    <CodeAnalysisRuleSet>../RestClient.Net/CodeRules.ruleset</CodeAnalysisRuleSet>
     <Version>4.0.0</Version>
     <PackageLicenseFile>License.txt</PackageLicenseFile>        
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
