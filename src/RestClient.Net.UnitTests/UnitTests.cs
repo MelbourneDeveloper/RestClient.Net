@@ -313,22 +313,25 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestCallHeadersMergeWithDefaultHeaders()
         {
-            var headers = new RequestHeadersCollection
-            {
-                new KeyValuePair<string, IEnumerable<string>>("test", new List<string> { "test", "test2" })
-            };
-
+            //Arrange
             GetHttpClientMoq(out var handlerMock, out var httpClient, new List<RestCountry>());
-
             HttpClient createHttpClient(string name) => httpClient;
-
-            var mock = handlerMock;
-
             var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: createHttpClient);
 
-            var parameters = new object();
+            //Act
+            var result = await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
+            {
+                new KeyValuePair<string, IEnumerable<string>>("test", new List<string> { "test", "test2" })
+            });
 
-            var result = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
+            //Assert
+            handlerMock.Protected()
+                .Verify(
+                "SendAsync",
+                Times.Exactly(1),
+                ItExpr.Is<HttpRequestMessage>(h => CheckRequestMessage(h, RestCountriesAllUri)),
+                ItExpr.IsAny<CancellationToken>()
+                );
         }
 
         [TestMethod]
@@ -1394,6 +1397,8 @@ namespace RestClient.Net.UnitTests
 
         #region Helpers
 #if !NET45
+        //TODO: Point a test at these on .NET 4.5
+
         private static void GetHttpClientMoq<TResponse>(out Mock<HttpMessageHandler> handlerMock, out HttpClient httpClient, TResponse response)
         {
             handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
@@ -1411,6 +1416,13 @@ namespace RestClient.Net.UnitTests
             .Verifiable();
 
             httpClient = new HttpClient(handlerMock.Object);
+        }
+
+        private static bool CheckRequestMessage(HttpRequestMessage httpRequestMessage, Uri requestUri)
+        {
+            return
+                httpRequestMessage.Method == HttpMethod.Post &&
+                httpRequestMessage.RequestUri == requestUri;
         }
 #endif
 
