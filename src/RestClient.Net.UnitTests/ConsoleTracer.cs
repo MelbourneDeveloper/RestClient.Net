@@ -31,7 +31,7 @@ namespace RestClient.Net.UnitTests
             {
                 Console.WriteLine($"{trace?.RestEvent} {trace?.RequestUri}\r\nStatus Code: {trace?.HttpStatusCode}");
 
-                if(trace.BodyData!=null)
+                if (trace.BodyData != null)
                 {
                     Console.WriteLine($"Body: {Encoding.UTF8.GetString(trace?.BodyData)}\r\n");
                 }

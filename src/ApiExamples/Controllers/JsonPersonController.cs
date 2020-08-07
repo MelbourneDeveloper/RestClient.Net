@@ -53,7 +53,7 @@ namespace ApiExamples.Controllers
 
         [HttpPost]
         [Route("people")]
-        public List<Model.JsonModel.Person> PostPeople([FromBody] List<Model.JsonModel.Person> people)
+        public List<Person> PostPeople([FromBody] List<Person> people)
         {
             return people;
         }
