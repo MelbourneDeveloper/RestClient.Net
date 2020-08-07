@@ -30,6 +30,7 @@ using ApiExamples;
 using RestClient.Net.Abstractions.Logging;
 #else
 using Microsoft.Extensions.Logging;
+using Moq.Protected;
 #endif
 
 namespace RestClient.Net.UnitTests
@@ -307,6 +308,27 @@ namespace RestClient.Net.UnitTests
 
             _ = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
             _ = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
+        }
+
+        [TestMethod]
+        public async Task TestCallHeadersMergeWithDefaultHeaders()
+        {
+            var headers = new RequestHeadersCollection
+            {
+                new KeyValuePair<string, IEnumerable<string>>("test", new List<string> { "test", "test2" })
+            };
+
+            GetHttpClientMoq(out var handlerMock, out var httpClient, new List<RestCountry>());
+
+            HttpClient createHttpClient(string name) => httpClient;
+
+            var mock = handlerMock;
+
+            var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: createHttpClient);
+
+            var parameters = new object();
+
+            var result = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
         }
 
         [TestMethod]
@@ -1371,6 +1393,27 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Helpers
+#if !NET45
+        private static void GetHttpClientMoq<TResponse>(out Mock<HttpMessageHandler> handlerMock, out HttpClient httpClient, TResponse response)
+        {
+            handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+            handlerMock
+            .Protected()
+            .Setup<Task<HttpResponseMessage>>(
+            "SendAsync",
+            ItExpr.IsAny<HttpRequestMessage>(),
+            ItExpr.IsAny<CancellationToken>())
+            .ReturnsAsync(new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(JsonConvert.SerializeObject(response)),
+            })
+            .Verifiable();
+
+            httpClient = new HttpClient(handlerMock.Object);
+        }
+#endif
+
         public static async Task AssertThrowsAsync<T>(Task task, string expectedMessage) where T : Exception
         {
             try
