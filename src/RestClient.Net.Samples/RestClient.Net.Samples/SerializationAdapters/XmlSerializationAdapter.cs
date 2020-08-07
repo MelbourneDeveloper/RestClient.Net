@@ -19,7 +19,7 @@ namespace RestClient.Net
             {
                 var data = response.GetResponseData();
                 stream.Write(data, 0, data.Length);
-                stream.Seek(0, SeekOrigin.Begin);
+                _ = stream.Seek(0, SeekOrigin.Begin);
                 return (TResponseBody)serializer.Deserialize(stream);
             }
         }
@@ -33,7 +33,7 @@ namespace RestClient.Net
             {
                 serializer.Serialize(writer, value);
                 var streamReader = new StreamReader(memoryStream);
-                memoryStream.Seek(0, SeekOrigin.Begin);
+                _ = memoryStream.Seek(0, SeekOrigin.Begin);
                 var markup = streamReader.ReadToEnd();
 
                 //TODO: This is unnecessary. The writer/reader should be doing this in binary and not as a string
