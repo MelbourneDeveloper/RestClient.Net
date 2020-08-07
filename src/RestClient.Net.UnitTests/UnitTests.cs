@@ -299,6 +299,21 @@ namespace RestClient.Net.UnitTests
         }
 
 #if !NET45
+
+
+        [TestMethod]
+        public async Task TestResendHeaders()
+        {
+            var headers = new RequestHeadersCollection();
+
+            var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: _createHttpClient);
+
+            var parameters = new object();
+
+            await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
+            await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
+        }
+
         [TestMethod]
         public async Task TestGetDefaultSerializationRestCountries()
         {
