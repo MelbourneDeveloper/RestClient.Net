@@ -20,13 +20,10 @@ using jsonperson = ApiExamples.Model.JsonModel.Person;
 using RichardSzalay.MockHttp;
 using System.IO;
 
-#if (NETCOREAPP3_1)
+#if NETCOREAPP3_1
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ApiExamples;
-using Google.Protobuf.WellKnownTypes;
-using System.Net.Http.Headers;
-using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 #endif
 
 #if NET45
@@ -66,7 +63,8 @@ namespace RestClient.Net.UnitTests
                 "  \"title\": \"foo\",\r\n" +
                 "  \"body\": \"testbody\"\r\n" +
                 "}";
-        readonly Dictionary<string, string> RestCountriesAllHeaders = new Dictionary<string, string>
+
+        private readonly Dictionary<string, string> RestCountriesAllHeaders = new Dictionary<string, string>
         {
             {"Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
             {TransferEncodingHeaderName, "chunked" },
@@ -82,7 +80,8 @@ namespace RestClient.Net.UnitTests
             {"Server", "cloudflare" },
             {"CF-RAY", "5a50554368bf1258-HKG" },
         };
-        readonly Dictionary<string, string> JsonPlaceholderDeleteHeaders = new Dictionary<string, string>
+
+        private readonly Dictionary<string, string> JsonPlaceholderDeleteHeaders = new Dictionary<string, string>
         {
             {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
             {"Connection", "keep-alive" },
@@ -102,7 +101,8 @@ namespace RestClient.Net.UnitTests
             {"Server", "cloudflare" },
             {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
          };
-        readonly Dictionary<string, string> JsonPlaceholderPostHeaders = new Dictionary<string, string>
+
+        private readonly Dictionary<string, string> JsonPlaceholderPostHeaders = new Dictionary<string, string>
         {
             {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
             {"Connection", "keep-alive" },
@@ -126,7 +126,8 @@ namespace RestClient.Net.UnitTests
             {"Server", "cloudflare" },
             {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
          };
-        readonly Dictionary<string, string> GoogleHeadHeaders = new Dictionary<string, string>
+
+        private readonly Dictionary<string, string> GoogleHeadHeaders = new Dictionary<string, string>
         {
             {"P3P", "CP=\"This is not a P3P policy! See g.co/p3phelp for more info.\"" },
             {"Date", "Sun, 21 Jun 2020 02:38:45 GMT" },
@@ -152,7 +153,7 @@ namespace RestClient.Net.UnitTests
         private static Mock<ILogger> _logger;
         private static MockHttpMessageHandler _mockHttpMessageHandler;
 
-#if (NETCOREAPP3_1)
+#if NETCOREAPP3_1
         public const string LocalBaseUriString = "http://localhost";
         private static TestServer _testServer;
 #else
@@ -201,7 +202,7 @@ namespace RestClient.Net.UnitTests
                 "}"
                 );
 
-#if (NETCOREAPP3_1)
+#if NETCOREAPP3_1
             _mockHttpMessageHandler.When(HttpMethod.Patch, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
             Respond(
                 HttpStatusCode.OK,
@@ -254,7 +255,7 @@ namespace RestClient.Net.UnitTests
         #region Public Static Methods
         public static TestClientFactory GetTestClientFactory()
         {
-#if (NETCOREAPP3_1)
+#if NETCOREAPP3_1
             if (_testServer == null)
             {
                 var hostBuilder = new WebHostBuilder();
@@ -323,7 +324,7 @@ namespace RestClient.Net.UnitTests
             const HttpStatusCode statusCode = HttpStatusCode.BadRequest;
 
             //In this case, return an error object
-            mockHttp.When(RestCountriesAllUriString)
+            _ = mockHttp.When(RestCountriesAllUriString)
                     .Respond(statusCode, JsonMediaType, JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
 
             var httpClient = mockHttp.ToHttpClient();
@@ -346,7 +347,7 @@ namespace RestClient.Net.UnitTests
 
             var expectedError = new Error { Message = "Test", ErrorCode = 100 };
 
-            mockHttp.When(RestCountriesAllUriString)
+            _ = mockHttp.When(RestCountriesAllUriString)
                     .Respond(statusCode, JsonMediaType, JsonConvert.SerializeObject(expectedError));
 
             var httpClient = mockHttp.ToHttpClient();
@@ -455,7 +456,7 @@ namespace RestClient.Net.UnitTests
 
                 tokenSource.Cancel();
 
-                await task;
+                _ = await task;
             }
             catch (OperationCanceledException ex)
             {
@@ -476,7 +477,7 @@ namespace RestClient.Net.UnitTests
             try
             {
                 var client = new Client(new NewtonsoftSerializationAdapter(), JsonPlaceholderBaseUri) { Timeout = new TimeSpan(0, 0, 0, 0, 1) };
-                await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
+                _ = await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
             }
             catch (TaskCanceledException ex)
             {
@@ -494,7 +495,7 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
-#if (NETCOREAPP3_1)
+#if NETCOREAPP3_1
         //TODO: seems like this can't be mocked on .NET Framework?
         [DataRow(HttpRequestMethod.Patch)]
 #endif
@@ -508,10 +509,9 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: _createHttpClient,
                 logger: _logger.Object);
             client.SetJsonContentTypeHeader();
-            UserPost responseUserPost = null;
-
             var expectedStatusCode = HttpStatusCode.OK;
 
+            UserPost responseUserPost;
             switch (httpRequestMethod)
             {
                 case HttpRequestMethod.Patch:
@@ -524,6 +524,11 @@ namespace RestClient.Net.UnitTests
                 case HttpRequestMethod.Put:
                     responseUserPost = await client.PutAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative));
                     break;
+                case HttpRequestMethod.Get:
+                case HttpRequestMethod.Delete:
+                case HttpRequestMethod.Custom:
+                default:
+                    throw new NotImplementedException();
             }
 
             Assert.AreEqual(_userRequestBody.userId, responseUserPost.userId);
@@ -809,7 +814,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             var headers = GetHeaders(useDefault, client);
-            await client.DeleteAsync(new Uri("headers/1", UriKind.Relative), headers);
+            _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative), headers);
         }
 
         [TestMethod]
@@ -818,7 +823,7 @@ namespace RestClient.Net.UnitTests
             try
             {
                 var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-                await client.DeleteAsync(new Uri("headers/1", UriKind.Relative));
+                _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative));
                 Assert.Fail();
             }
             catch (HttpStatusException hex)
@@ -838,8 +843,10 @@ namespace RestClient.Net.UnitTests
         public async Task TestHeadersLocalInRequest()
         {
             var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-            var requestHeadersCollection = new RequestHeadersCollection();
-            requestHeadersCollection.Add("Test", "Test");
+            var requestHeadersCollection = new RequestHeadersCollection
+            {
+                { "Test", "Test" }
+            };
             Person responsePerson = await client.SendAsync<Person, object>
                 (
                 new Request<object>(new Uri("headers", UriKind.Relative), null, requestHeadersCollection, HttpRequestMethod.Get, client, default)
@@ -852,8 +859,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestErrorsLocalGet()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-            client.ThrowExceptionOnFailure = false;
+            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient)
+            {
+                ThrowExceptionOnFailure = false
+            };
             var response = await client.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             var apiResult = client.DeserializeResponseBody<ApiResult>(response);
@@ -1198,7 +1207,7 @@ namespace RestClient.Net.UnitTests
                 StatusCode = 10
             };
 
-            clientMock.Setup(c => c.SendAsync<string, string>(It.IsAny<Request<string>>())).Returns
+            _ = clientMock.Setup(c => c.SendAsync<string, string>(It.IsAny<Request<string>>())).Returns
                 (
                 Task.FromResult<Response<string>>(response)
                 );
@@ -1347,7 +1356,7 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Helpers
-        public async static Task AssertThrowsAsync<T>(Task task, string expectedMessage) where T : Exception
+        public static async Task AssertThrowsAsync<T>(Task task, string expectedMessage) where T : Exception
         {
             try
             {
@@ -1407,7 +1416,9 @@ namespace RestClient.Net.UnitTests
                 ), exception, It.IsAny<Func<Trace, Exception, string>>()));
         }
 
+#pragma warning disable IDE0060 // Remove unused parameter
         private bool DebugTraceExpression(Trace restTrace)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             return true;
         }
@@ -1474,7 +1485,7 @@ namespace RestClient.Net.UnitTests
 
         private static HttpClient MintClient()
         {
-#if (NETCOREAPP3_1)
+#if NETCOREAPP3_1
             return _testServer.CreateClient();
 #else
             return new HttpClient { BaseAddress = new Uri(LocalBaseUriString) };
