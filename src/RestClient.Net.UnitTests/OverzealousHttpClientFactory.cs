@@ -6,7 +6,7 @@ namespace RestClient.Net.UnitTests
     public class OverzealousHttpClientFactory 
     {
         #region Fields
-        private bool disposed;
+        private readonly bool disposed;
         private readonly Func<string, HttpClient> _getOrAddFunc;
         #endregion
 
