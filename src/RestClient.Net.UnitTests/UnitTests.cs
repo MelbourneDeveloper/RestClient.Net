@@ -319,17 +319,24 @@ namespace RestClient.Net.UnitTests
             var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: createHttpClient);
 
             //Act
+            var testKvp = new KeyValuePair<string, IEnumerable<string>>("test", new List<string> { "test", "test2" });
+
             var result = await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
             {
-                new KeyValuePair<string, IEnumerable<string>>("test", new List<string> { "test", "test2" })
+                testKvp
             });
+
+            var asdasd = new List<KeyValuePair<string, IEnumerable<string>>>
+            {
+                testKvp
+            };
 
             //Assert
             handlerMock.Protected()
                 .Verify(
                 "SendAsync",
                 Times.Exactly(1),
-                ItExpr.Is<HttpRequestMessage>(h => CheckRequestMessage(h, RestCountriesAllUri)),
+                ItExpr.Is<HttpRequestMessage>(h => CheckRequestMessage(h, RestCountriesAllUri, asdasd)),
                 ItExpr.IsAny<CancellationToken>()
                 );
         }
@@ -1418,8 +1425,32 @@ namespace RestClient.Net.UnitTests
             httpClient = new HttpClient(handlerMock.Object);
         }
 
-        private static bool CheckRequestMessage(HttpRequestMessage httpRequestMessage, Uri requestUri)
+        private static bool CheckRequestMessage(HttpRequestMessage httpRequestMessage, Uri requestUri, List<KeyValuePair<string, IEnumerable<string>>> expectedHeaders)
         {
+            if (expectedHeaders != null)
+            {
+                foreach (var expectedHeader in expectedHeaders)
+                {
+                    KeyValuePair<string, IEnumerable<string>>? foundKeyValuePair = httpRequestMessage.Headers.FirstOrDefault(k => k.Key == expectedHeader.Key);
+                    if (foundKeyValuePair == null)
+                    {
+                        return false;
+                    }
+
+                    var foundHeaderStrings = foundKeyValuePair.Value.Value.ToList();
+
+                    var i = 0;
+                    foreach (var expectedHeaderString in expectedHeader.Value)
+                    {
+                        if (foundHeaderStrings[i] != expectedHeaderString)
+                        {
+                            return false;
+                        }
+                        i++;
+                    }
+                }
+            }
+
             return
                 httpRequestMessage.Method == HttpMethod.Post &&
                 httpRequestMessage.RequestUri == requestUri;
