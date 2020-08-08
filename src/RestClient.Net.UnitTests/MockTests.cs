@@ -31,13 +31,13 @@ namespace RestClient.Net.UnitTests
             var responseMock = new Mock<Response<Person>>();
 
             //Set the factory up to return the mock client
-            _ = clientFactoryMock.Setup(f => f.Invoke("Person")).Returns(clientMock.Object);
+            clientFactoryMock.Setup(f => f.Invoke("Person")).Returns(clientMock.Object);
 
             //Set the client up to return the response mock
-            _ = clientMock.Setup(c => c.SendAsync<Person, Person>(It.IsAny<Request<Person>>())).Returns(Task.FromResult(responseMock.Object));
+            clientMock.Setup(c => c.SendAsync<Person, Person>(It.IsAny<Request<Person>>())).Returns(Task.FromResult(responseMock.Object));
 
             //Set the response up to return responsePerson
-            _ = responseMock.Setup(r => r.Body).Returns(responsePerson);
+            responseMock.Setup(r => r.Body).Returns(responsePerson);
 
             //Create the service and call SavePerson
             var personService = new PersonService(clientFactoryMock.Object);

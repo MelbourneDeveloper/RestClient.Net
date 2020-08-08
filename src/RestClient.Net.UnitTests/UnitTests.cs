@@ -305,10 +305,13 @@ namespace RestClient.Net.UnitTests
 
             var parameters = new object();
 
-            _ = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
-            _ = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
+            await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
+            await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
         }
 
+        /// <summary>
+        /// This method tests to make sure that all headers end up in the correct location on the request, and making a call twice doesn't confuse the client
+        /// </summary>
         [TestMethod]
         public async Task TestCallHeadersMergeWithDefaultHeaders()
         {
@@ -327,6 +330,7 @@ namespace RestClient.Net.UnitTests
                 testKvp
             });
 
+            //Make sure we can call it twice
             await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
             {
                 testKvp
@@ -378,7 +382,7 @@ namespace RestClient.Net.UnitTests
             const HttpStatusCode statusCode = HttpStatusCode.BadRequest;
 
             //In this case, return an error object
-            _ = mockHttp.When(RestCountriesAllUriString)
+            mockHttp.When(RestCountriesAllUriString)
                     .Respond(statusCode, MiscExtensions.JsonMediaType, JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
 
             var httpClient = mockHttp.ToHttpClient();
@@ -401,7 +405,7 @@ namespace RestClient.Net.UnitTests
 
             var expectedError = new Error { Message = "Test", ErrorCode = 100 };
 
-            _ = mockHttp.When(RestCountriesAllUriString)
+            mockHttp.When(RestCountriesAllUriString)
                     .Respond(statusCode, MiscExtensions.JsonMediaType, JsonConvert.SerializeObject(expectedError));
 
             var httpClient = mockHttp.ToHttpClient();
@@ -510,7 +514,7 @@ namespace RestClient.Net.UnitTests
 
                 tokenSource.Cancel();
 
-                _ = await task;
+                await task;
             }
             catch (OperationCanceledException ex)
             {
@@ -531,7 +535,7 @@ namespace RestClient.Net.UnitTests
             try
             {
                 var client = new Client(new NewtonsoftSerializationAdapter(), JsonPlaceholderBaseUri) { Timeout = new TimeSpan(0, 0, 0, 0, 1) };
-                _ = await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
+                await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
             }
             catch (TaskCanceledException ex)
             {
@@ -868,7 +872,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             var headers = GetHeaders(useDefault, client);
-            _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative), headers);
+            await client.DeleteAsync(new Uri("headers/1", UriKind.Relative), headers);
         }
 
         [TestMethod]
@@ -877,7 +881,7 @@ namespace RestClient.Net.UnitTests
             try
             {
                 var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-                _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative));
+                await client.DeleteAsync(new Uri("headers/1", UriKind.Relative));
                 Assert.Fail();
             }
             catch (HttpStatusException hex)
@@ -1261,7 +1265,7 @@ namespace RestClient.Net.UnitTests
                 StatusCode = 10
             };
 
-            _ = clientMock.Setup(c => c.SendAsync<string, string>(It.IsAny<Request<string>>())).Returns
+            clientMock.Setup(c => c.SendAsync<string, string>(It.IsAny<Request<string>>())).Returns
                 (
                 Task.FromResult<Response<string>>(response)
                 );

@@ -10,7 +10,6 @@ using RestClientApiSamples;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace RestClient.Net.UnitTests
@@ -63,17 +62,16 @@ namespace RestClient.Net.UnitTests
             //Configure a Polly policy
             var policy = HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+                .OrResult(msg => msg.StatusCode == HttpStatusCode.NotFound)
                 .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 
             //Create a Microsoft IoC Container
             var serviceCollection = new ServiceCollection();
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
-            _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
-            _ = serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleLogger));
-
+            serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
+            .AddSingleton(typeof(ILogger), typeof(ConsoleLogger))
             //Add the Polly policy to the named HttpClient instance
-            _ = serviceCollection.AddHttpClient("rc", (c) => { c.BaseAddress = baseUri; }).
+            .AddHttpClient("rc", (c) => { c.BaseAddress = baseUri; }).
                 SetHandlerLifetime(TimeSpan.FromMinutes(5)).
                 AddPolicyHandler(policy);
 
