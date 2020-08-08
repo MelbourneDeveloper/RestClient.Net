@@ -26,7 +26,7 @@ www.rest-client.net</Description>
     <RepositoryType>git</RepositoryType>    
     <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
-
+ 
   <ItemGroup>
     <None Include="..\Images\Rendered\Icon.png">
       <Pack>True</Pack>
@@ -57,21 +57,6 @@ www.rest-client.net</Description>
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.5" />
       </ItemGroup>
     </Otherwise>
-  </Choose>
-
-  <Choose>
-    <When Condition=" '$(Configuration)'=='Debug' ">
-      <PropertyGroup>
-        <SignAssembly>false</SignAssembly>
-      </PropertyGroup>
-    </When>
-    <When Condition=" '$(Configuration)'=='Release' ">
-      <PropertyGroup>
-        <SignAssembly>true</SignAssembly>
-        <DelaySign>false</DelaySign>
-        <AssemblyOriginatorKeyFile>StrongNameKey.pfx</AssemblyOriginatorKeyFile>
-      </PropertyGroup>
-    </When>
   </Choose>
 
 </Project>
