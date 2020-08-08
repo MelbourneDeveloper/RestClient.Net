@@ -54,7 +54,6 @@ namespace RestClient.Net.UnitTests
         private const string SetCookieHeaderName = "Set-Cookie";
         private const string CacheControlHeaderName = "Cache-Control";
         private const string XRatelimitLimitHeaderName = "X-Ratelimit-Limit";
-        private const string JsonMediaType = "application/json";
 
         private static readonly UserPost _userRequestBody = new UserPost { title = "foo", userId = 10, body = "testbody" };
 
@@ -180,13 +179,13 @@ namespace RestClient.Net.UnitTests
             _mockHttpMessageHandler = new MockHttpMessageHandler();
 
             _mockHttpMessageHandler.When(RestCountriesAustraliaUriString)
-            .Respond(JsonMediaType, File.ReadAllText("JSON/Australia.json"));
+            .Respond(MiscExtensions.JsonMediaType, File.ReadAllText("JSON/Australia.json"));
 
             _mockHttpMessageHandler.When(HttpMethod.Delete, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
             //TODO: The curly braces make all the difference here. However, the lack of curly braces should be handled.
             Respond(
                 JsonPlaceholderDeleteHeaders,
-                JsonMediaType,
+                MiscExtensions.JsonMediaType,
                 "{}"
                 );
 
@@ -208,28 +207,28 @@ namespace RestClient.Net.UnitTests
             Respond(
                 HttpStatusCode.OK,
                 JsonPlaceholderPostHeaders,
-                JsonMediaType,
+                MiscExtensions.JsonMediaType,
                 _userRequestBodyJson
                 );
 #endif
 
             _mockHttpMessageHandler.
                 When(HttpMethod.Post, JsonPlaceholderBaseUriString + JsonPlaceholderPostsSlug).
-                With(request => request.Content.Headers.ContentType.MediaType == JsonMediaType).
+                With(request => request.Content.Headers.ContentType.MediaType == MiscExtensions.JsonMediaType).
                 Respond(
                 HttpStatusCode.OK,
                 JsonPlaceholderPostHeaders,
-                JsonMediaType,
+                MiscExtensions.JsonMediaType,
                 _userRequestBodyJson
                 );
 
             _mockHttpMessageHandler.
             When(HttpMethod.Put, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
-            With(request => request.Content.Headers.ContentType.MediaType == JsonMediaType).
+            With(request => request.Content.Headers.ContentType.MediaType == MiscExtensions.JsonMediaType).
             Respond(
             HttpStatusCode.OK,
             JsonPlaceholderPostHeaders,
-            JsonMediaType,
+            MiscExtensions.JsonMediaType,
             _userRequestBodyJson
             );
 
@@ -248,7 +247,7 @@ namespace RestClient.Net.UnitTests
             _mockHttpMessageHandler.When(RestCountriesAllUriString)
                     .Respond(
                 RestCountriesAllHeaders,
-                JsonMediaType,
+                MiscExtensions.JsonMediaType,
                 File.ReadAllText("JSON/RestCountries.json"));
         }
         #endregion
@@ -380,7 +379,7 @@ namespace RestClient.Net.UnitTests
 
             //In this case, return an error object
             _ = mockHttp.When(RestCountriesAllUriString)
-                    .Respond(statusCode, JsonMediaType, JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
+                    .Respond(statusCode, MiscExtensions.JsonMediaType, JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
 
             var httpClient = mockHttp.ToHttpClient();
 
@@ -403,7 +402,7 @@ namespace RestClient.Net.UnitTests
             var expectedError = new Error { Message = "Test", ErrorCode = 100 };
 
             _ = mockHttp.When(RestCountriesAllUriString)
-                    .Respond(statusCode, JsonMediaType, JsonConvert.SerializeObject(expectedError));
+                    .Respond(statusCode, MiscExtensions.JsonMediaType, JsonConvert.SerializeObject(expectedError));
 
             var httpClient = mockHttp.ToHttpClient();
 
@@ -1437,9 +1436,9 @@ namespace RestClient.Net.UnitTests
         {
             if (hasDefaultJsonContentHeader)
             {
-                KeyValuePair<string, IEnumerable<string>>? contentTypeHeader = httpRequestMessage.Content.Headers.FirstOrDefault(k => k.Key == "Content-Type");
+                KeyValuePair<string, IEnumerable<string>>? contentTypeHeader = httpRequestMessage.Content.Headers.FirstOrDefault(k => k.Key == MiscExtensions.ContentTypeHeaderName);
                 if (contentTypeHeader == null) return false;
-                if (contentTypeHeader.Value.Value.FirstOrDefault() != "application/json") return false;
+                if (contentTypeHeader.Value.Value.FirstOrDefault() != MiscExtensions.JsonMediaType) return false;
             }
 
             if (expectedHeaders != null)
