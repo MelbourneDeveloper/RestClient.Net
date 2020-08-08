@@ -145,7 +145,7 @@ namespace RestClient.Net.UnitTests
         //Mock the httpclient
         private static readonly CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
         //For realises - with factory
-        //private CreateHttpClient _createHttpClient = (n) => new HttpClient();
+        //private static readonly CreateHttpClient _createHttpClient = (n) => new HttpClient();
         //For realsies - no factory
         //private CreateHttpClient _createHttpClient = null;
 
@@ -296,6 +296,10 @@ namespace RestClient.Net.UnitTests
 #if !NET45
 
 
+        /// <summary>
+        /// TODO: fix this for the real scenario. It fails when actually contacting the server
+        /// </summary>
+        /// <returns></returns>
         [TestMethod]
         public async Task TestResendHeaders()
         {
@@ -443,6 +447,9 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(RestCountriesAllHeaders[TransferEncodingHeaderName], response.Headers[TransferEncodingHeaderName].First());
         }
 
+        /// <summary>
+        /// TODO: fix this for the real scenario. It fails when actually contacting the server
+        /// </summary>
         [TestMethod]
         public async Task TestDelete()
         {
@@ -456,6 +463,7 @@ namespace RestClient.Net.UnitTests
             VerifyLog(JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Request, null, null);
             VerifyLog(JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Response, (int)HttpStatusCode.OK, null);
 
+            //This doesn't work when actually contacting the server...
             Assert.AreEqual(JsonPlaceholderDeleteHeaders[SetCookieHeaderName], response.Headers[SetCookieHeaderName].First());
         }
 
