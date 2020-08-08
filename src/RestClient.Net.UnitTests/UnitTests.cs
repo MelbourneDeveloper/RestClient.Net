@@ -344,7 +344,7 @@ namespace RestClient.Net.UnitTests
                 .Verify(
                 "SendAsync",
                 Times.Exactly(2),
-                ItExpr.Is<HttpRequestMessage>(h => CheckRequestMessage(h, RestCountriesAllUri, expectedHeaders)),
+                ItExpr.Is<HttpRequestMessage>(h => CheckRequestMessage(h, RestCountriesAllUri, expectedHeaders, true)),
                 ItExpr.IsAny<CancellationToken>()
                 );
         }
@@ -1433,8 +1433,15 @@ namespace RestClient.Net.UnitTests
             httpClient = new HttpClient(handlerMock.Object);
         }
 
-        private static bool CheckRequestMessage(HttpRequestMessage httpRequestMessage, Uri requestUri, List<KeyValuePair<string, IEnumerable<string>>> expectedHeaders)
+        private static bool CheckRequestMessage(HttpRequestMessage httpRequestMessage, Uri requestUri, List<KeyValuePair<string, IEnumerable<string>>> expectedHeaders, bool hasDefaultJsonContentHeader)
         {
+            if (hasDefaultJsonContentHeader)
+            {
+                KeyValuePair<string, IEnumerable<string>>? contentTypeHeader = httpRequestMessage.Content.Headers.FirstOrDefault(k => k.Key == "Content-Type");
+                if (contentTypeHeader == null) return false;
+                if (contentTypeHeader.Value.Value.FirstOrDefault() != "application/json") return false;
+            }
+
             if (expectedHeaders != null)
             {
                 foreach (var expectedHeader in expectedHeaders)
