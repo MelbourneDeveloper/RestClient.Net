@@ -36,23 +36,23 @@ namespace RestClient.Net.UnitTests
             {
                 const string clientName = "Test";
 
-                var serviceCollection = new ServiceCollection();
                 var baseUri = new Uri("http://www.test.com");
-                _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter));
-                _ = serviceCollection.AddSingleton(typeof(ILogger), typeof(ConsoleLogger));
-                _ = serviceCollection.AddSingleton(typeof(IClient), typeof(Client));
-                serviceCollection.AddDependencyInjectionMapping();
-                _ = serviceCollection.AddTransient<TestHandler>();
+                var serviceCollection = new ServiceCollection()
+                    .AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
+                    .AddSingleton(typeof(ILogger), typeof(ConsoleLogger))
+                    .AddSingleton(typeof(IClient), typeof(Client))
+                    .AddDependencyInjectionMapping()
+                    .AddTransient<TestHandler>()
+                    //Make sure the HttpClient is named the same as the Rest Client
+                    .AddSingleton<IClient>(x => new Client(name: clientName, createHttpClient: x.GetRequiredService<CreateHttpClient>()));
 
-                //Make sure the HttpClient is named the same as the Rest Client
-                _ = serviceCollection.AddSingleton<IClient>(x => new Client(name: clientName, createHttpClient: x.GetRequiredService<CreateHttpClient>()));
-                _ = serviceCollection.AddHttpClient(clientName, (c) => { c.BaseAddress = baseUri; })
-                    .AddHttpMessageHandler<TestHandler>();
+                serviceCollection.AddHttpClient(clientName, (c) => { c.BaseAddress = baseUri; })
+                .AddHttpMessageHandler<TestHandler>();
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
                 var client = serviceProvider.GetService<IClient>();
-                _ = await client.GetAsync<object>();
-                _ = serviceCollection.Configure<string>((s) => { });
+                await client.GetAsync<object>();
+                serviceCollection.Configure<string>((s) => { });
             }
             catch (SendException<object> hse)
             {
