@@ -1,0 +1,43 @@
+﻿[*.cs]
+
+# Default severity for all analyzer diagnostics
+dotnet_analyzer_diagnostic.severity = error
+
+# IDE0011: Add braces
+csharp_prefer_braces = when_multiline:silent
+
+# IDE0008: Use explicit type
+csharp_style_var_elsewhere = true:silent
+
+# IDE0008: Use explicit type
+csharp_style_var_for_built_in_types = true:silent
+
+# IDE0008: Use explicit type
+csharp_style_var_when_type_is_apparent = true:silent
+
+# IDE0058: Expression value is never used
+csharp_style_unused_value_expression_statement_preference = discard_variable:suggestion
+
+# CA1303: Do not pass literals as localized parameters
+dotnet_diagnostic.CA1303.severity = warning
+
+
+
+
+# CA1032: Implement standard exception constructors
+dotnet_diagnostic.CA1032.severity = warning
+
+# CA1063: Implement IDisposable Correctly
+dotnet_diagnostic.CA1063.severity = warning
+
+# CA2007: Consider calling ConfigureAwait on the awaited task
+dotnet_diagnostic.CA2007.severity = suggestion
+
+# CA1816: Dispose methods should call SuppressFinalize
+dotnet_diagnostic.CA1816.severity = warning
+
+
+dotnet_diagnostic.IDE0061.severity = none
+
+
+dotnet_diagnostic.IDE0058.severity = suggestion

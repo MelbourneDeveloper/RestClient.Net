@@ -31,14 +31,18 @@ namespace RestClient.Net.Abstractions.Extensions
         public static void SetJsonContentTypeHeader(this IClient restClient)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            if (!restClient.DefaultRequestHeaders.Contains("Content-Type"))
+            if (!restClient.DefaultRequestHeaders.Contains(ContentTypeHeaderName))
             {
-                restClient.DefaultRequestHeaders.Add("Content-Type", "application/json");
+                restClient.DefaultRequestHeaders.Add(ContentTypeHeaderName, JsonMediaType);
             }
             else
             {
                 throw new ValidationException(Messages.ErrorMessageHeaderAlreadyExists);
             }
         }
+
+        public const string ContentTypeHeaderName = "Content-Type";
+        public const string JsonMediaType = "application/json";
+
     }
 }

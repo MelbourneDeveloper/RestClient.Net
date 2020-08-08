@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 #endif
 
 using RestClient.Net.Abstractions;
+using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -92,12 +93,12 @@ namespace RestClient.Net
                 {
                     foreach (var headerName in request.Headers.Names)
                     {
-                        if (string.Compare(headerName, "Content-Type", StringComparison.OrdinalIgnoreCase) == 0)
+                        if (string.Compare(headerName, MiscExtensions.ContentTypeHeaderName, StringComparison.OrdinalIgnoreCase) == 0)
                         {
                             //Note: not sure why this is necessary...
                             //The HttpClient class seems to differentiate between content headers and request message headers, but this distinction doesn't exist in the real world...
                             //TODO: Other Content headers
-                            httpContent?.Headers.Add("Content-Type", request.Headers[headerName]);
+                            httpContent?.Headers.Add(MiscExtensions.ContentTypeHeaderName, request.Headers[headerName]);
                         }
                         else
                         {

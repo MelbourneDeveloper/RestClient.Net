@@ -20,19 +20,17 @@ using jsonperson = ApiExamples.Model.JsonModel.Person;
 using RichardSzalay.MockHttp;
 using System.IO;
 
-#if (NETCOREAPP3_1)
+#if NETCOREAPP3_1
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ApiExamples;
-using Google.Protobuf.WellKnownTypes;
-using System.Net.Http.Headers;
-using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 #endif
 
 #if NET45
 using RestClient.Net.Abstractions.Logging;
 #else
 using Microsoft.Extensions.Logging;
+using Moq.Protected;
 #endif
 
 namespace RestClient.Net.UnitTests
@@ -48,26 +46,25 @@ namespace RestClient.Net.UnitTests
         private const string JsonPlaceholderBaseUriString = "https://jsonplaceholder.typicode.com";
         private const string JsonPlaceholderFirstPostSlug = "/posts/1";
         private const string JsonPlaceholderPostsSlug = "/posts";
-        private Uri RestCountriesAllUri = new Uri(RestCountriesAllUriString);
-        private Uri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString);
-        private Uri JsonPlaceholderBaseUri = new Uri(JsonPlaceholderBaseUriString);
-        private Uri JsonPlaceholderFirstPostUri = new Uri(JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug);
+        private readonly Uri RestCountriesAllUri = new Uri(RestCountriesAllUriString);
+        private readonly Uri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString);
+        private readonly Uri JsonPlaceholderBaseUri = new Uri(JsonPlaceholderBaseUriString);
+        private readonly Uri JsonPlaceholderFirstPostUri = new Uri(JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug);
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
         private const string SetCookieHeaderName = "Set-Cookie";
         private const string CacheControlHeaderName = "Cache-Control";
         private const string XRatelimitLimitHeaderName = "X-Ratelimit-Limit";
-        private const string JsonMediaType = "application/json";
 
-        private static UserPost _userRequestBody = new UserPost { title = "foo", userId = 10, body = "testbody" };
+        private static readonly UserPost _userRequestBody = new UserPost { title = "foo", userId = 10, body = "testbody" };
 
-        private static string _userRequestBodyJson = "{\r\n" +
+        private static readonly string _userRequestBodyJson = "{\r\n" +
                 $"  \"userId\": {_userRequestBody.userId},\r\n" +
                 "  \"id\": 0,\r\n" +
                 "  \"title\": \"foo\",\r\n" +
                 "  \"body\": \"testbody\"\r\n" +
                 "}";
 
-        Dictionary<string, string> RestCountriesAllHeaders = new Dictionary<string, string>
+        private readonly Dictionary<string, string> RestCountriesAllHeaders = new Dictionary<string, string>
         {
             {"Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
             {TransferEncodingHeaderName, "chunked" },
@@ -84,7 +81,7 @@ namespace RestClient.Net.UnitTests
             {"CF-RAY", "5a50554368bf1258-HKG" },
         };
 
-        Dictionary<string, string> JsonPlaceholderDeleteHeaders = new Dictionary<string, string>
+        private readonly Dictionary<string, string> JsonPlaceholderDeleteHeaders = new Dictionary<string, string>
         {
             {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
             {"Connection", "keep-alive" },
@@ -105,8 +102,7 @@ namespace RestClient.Net.UnitTests
             {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
          };
 
-
-        Dictionary<string, string> JsonPlaceholderPostHeaders = new Dictionary<string, string>
+        private readonly Dictionary<string, string> JsonPlaceholderPostHeaders = new Dictionary<string, string>
         {
             {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
             {"Connection", "keep-alive" },
@@ -131,8 +127,7 @@ namespace RestClient.Net.UnitTests
             {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
          };
 
-
-        Dictionary<string, string> GoogleHeadHeaders = new Dictionary<string, string>
+        private readonly Dictionary<string, string> GoogleHeadHeaders = new Dictionary<string, string>
         {
             {"P3P", "CP=\"This is not a P3P policy! See g.co/p3phelp for more info.\"" },
             {"Date", "Sun, 21 Jun 2020 02:38:45 GMT" },
@@ -148,9 +143,9 @@ namespace RestClient.Net.UnitTests
 
 
         //Mock the httpclient
-        private static CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
+        private static readonly CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
         //For realises - with factory
-        //private CreateHttpClient _createHttpClient = (n) => new HttpClient();
+        //private static readonly CreateHttpClient _createHttpClient = (n) => new HttpClient();
         //For realsies - no factory
         //private CreateHttpClient _createHttpClient = null;
 
@@ -158,14 +153,14 @@ namespace RestClient.Net.UnitTests
         private static Mock<ILogger> _logger;
         private static MockHttpMessageHandler _mockHttpMessageHandler;
 
-#if (NETCOREAPP3_1)
+#if NETCOREAPP3_1
         public const string LocalBaseUriString = "http://localhost";
         private static TestServer _testServer;
 #else
         public const string LocalBaseUriString = "https://localhost:44337";
 #endif
 
-        private Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
+        private readonly Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
         {
             var client = _createHttpClient(n);
             return new Lazy<HttpClient>(() => client);
@@ -184,13 +179,13 @@ namespace RestClient.Net.UnitTests
             _mockHttpMessageHandler = new MockHttpMessageHandler();
 
             _mockHttpMessageHandler.When(RestCountriesAustraliaUriString)
-            .Respond(JsonMediaType, File.ReadAllText("JSON/Australia.json"));
+            .Respond(MiscExtensions.JsonMediaType, File.ReadAllText("JSON/Australia.json"));
 
             _mockHttpMessageHandler.When(HttpMethod.Delete, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
             //TODO: The curly braces make all the difference here. However, the lack of curly braces should be handled.
             Respond(
                 JsonPlaceholderDeleteHeaders,
-                JsonMediaType,
+                MiscExtensions.JsonMediaType,
                 "{}"
                 );
 
@@ -207,33 +202,33 @@ namespace RestClient.Net.UnitTests
                 "}"
                 );
 
-#if (NETCOREAPP3_1)
+#if NETCOREAPP3_1
             _mockHttpMessageHandler.When(HttpMethod.Patch, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
             Respond(
                 HttpStatusCode.OK,
                 JsonPlaceholderPostHeaders,
-                JsonMediaType,
+                MiscExtensions.JsonMediaType,
                 _userRequestBodyJson
                 );
 #endif
 
             _mockHttpMessageHandler.
                 When(HttpMethod.Post, JsonPlaceholderBaseUriString + JsonPlaceholderPostsSlug).
-                With(request => request.Content.Headers.ContentType.MediaType == JsonMediaType).
+                With(request => request.Content.Headers.ContentType.MediaType == MiscExtensions.JsonMediaType).
                 Respond(
                 HttpStatusCode.OK,
                 JsonPlaceholderPostHeaders,
-                JsonMediaType,
+                MiscExtensions.JsonMediaType,
                 _userRequestBodyJson
                 );
 
             _mockHttpMessageHandler.
             When(HttpMethod.Put, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
-            With(request => request.Content.Headers.ContentType.MediaType == JsonMediaType).
+            With(request => request.Content.Headers.ContentType.MediaType == MiscExtensions.JsonMediaType).
             Respond(
             HttpStatusCode.OK,
             JsonPlaceholderPostHeaders,
-            JsonMediaType,
+            MiscExtensions.JsonMediaType,
             _userRequestBodyJson
             );
 
@@ -252,7 +247,7 @@ namespace RestClient.Net.UnitTests
             _mockHttpMessageHandler.When(RestCountriesAllUriString)
                     .Respond(
                 RestCountriesAllHeaders,
-                JsonMediaType,
+                MiscExtensions.JsonMediaType,
                 File.ReadAllText("JSON/RestCountries.json"));
         }
         #endregion
@@ -260,7 +255,7 @@ namespace RestClient.Net.UnitTests
         #region Public Static Methods
         public static TestClientFactory GetTestClientFactory()
         {
-#if (NETCOREAPP3_1)
+#if NETCOREAPP3_1
             if (_testServer == null)
             {
                 var hostBuilder = new WebHostBuilder();
@@ -299,6 +294,68 @@ namespace RestClient.Net.UnitTests
         }
 
 #if !NET45
+
+
+        /// <summary>
+        /// TODO: fix this for the real scenario. It fails when actually contacting the server
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public async Task TestResendHeaders()
+        {
+            var headers = new RequestHeadersCollection();
+
+            var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: _createHttpClient);
+
+            var parameters = new object();
+
+            await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
+            await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
+        }
+
+        /// <summary>
+        /// This method tests to make sure that all headers end up in the correct location on the request, and making a call twice doesn't confuse the client
+        /// </summary>
+        [TestMethod]
+        public async Task TestCallHeadersMergeWithDefaultHeaders()
+        {
+            //Arrange
+            GetHttpClientMoq(out var handlerMock, out var httpClient, new List<RestCountry>());
+            HttpClient createHttpClient(string name) => httpClient;
+            var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: createHttpClient);
+
+            var testKvp = new KeyValuePair<string, IEnumerable<string>>("test", new List<string> { "test", "test2" });
+            var testDefaultKvp = new KeyValuePair<string, IEnumerable<string>>("default", new List<string> { "test", "test2" });
+            client.DefaultRequestHeaders.Add(testDefaultKvp);
+
+            //Act
+            await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
+            {
+                testKvp
+            });
+
+            //Make sure we can call it twice
+            await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
+            {
+                testKvp
+            });
+
+            var expectedHeaders = new List<KeyValuePair<string, IEnumerable<string>>>
+            {
+                testKvp,
+                testDefaultKvp
+            };
+
+            //Assert
+            handlerMock.Protected()
+                .Verify(
+                "SendAsync",
+                Times.Exactly(2),
+                ItExpr.Is<HttpRequestMessage>(h => CheckRequestMessage(h, RestCountriesAllUri, expectedHeaders, true)),
+                ItExpr.IsAny<CancellationToken>()
+                );
+        }
+
         [TestMethod]
         public async Task TestGetDefaultSerializationRestCountries()
         {
@@ -330,7 +387,7 @@ namespace RestClient.Net.UnitTests
 
             //In this case, return an error object
             mockHttp.When(RestCountriesAllUriString)
-                    .Respond(statusCode, JsonMediaType, JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
+                    .Respond(statusCode, MiscExtensions.JsonMediaType, JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
 
             var httpClient = mockHttp.ToHttpClient();
 
@@ -353,7 +410,7 @@ namespace RestClient.Net.UnitTests
             var expectedError = new Error { Message = "Test", ErrorCode = 100 };
 
             mockHttp.When(RestCountriesAllUriString)
-                    .Respond(statusCode, JsonMediaType, JsonConvert.SerializeObject(expectedError));
+                    .Respond(statusCode, MiscExtensions.JsonMediaType, JsonConvert.SerializeObject(expectedError));
 
             var httpClient = mockHttp.ToHttpClient();
 
@@ -390,6 +447,9 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(RestCountriesAllHeaders[TransferEncodingHeaderName], response.Headers[TransferEncodingHeaderName].First());
         }
 
+        /// <summary>
+        /// TODO: fix this for the real scenario. It fails when actually contacting the server
+        /// </summary>
         [TestMethod]
         public async Task TestDelete()
         {
@@ -403,6 +463,7 @@ namespace RestClient.Net.UnitTests
             VerifyLog(JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Request, null, null);
             VerifyLog(JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Response, (int)HttpStatusCode.OK, null);
 
+            //This doesn't work when actually contacting the server...
             Assert.AreEqual(JsonPlaceholderDeleteHeaders[SetCookieHeaderName], response.Headers[SetCookieHeaderName].First());
         }
 
@@ -500,7 +561,7 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
-#if (NETCOREAPP3_1)
+#if NETCOREAPP3_1
         //TODO: seems like this can't be mocked on .NET Framework?
         [DataRow(HttpRequestMethod.Patch)]
 #endif
@@ -514,10 +575,9 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: _createHttpClient,
                 logger: _logger.Object);
             client.SetJsonContentTypeHeader();
-            UserPost responseUserPost = null;
-
             var expectedStatusCode = HttpStatusCode.OK;
 
+            UserPost responseUserPost;
             switch (httpRequestMethod)
             {
                 case HttpRequestMethod.Patch:
@@ -530,6 +590,11 @@ namespace RestClient.Net.UnitTests
                 case HttpRequestMethod.Put:
                     responseUserPost = await client.PutAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative));
                     break;
+                case HttpRequestMethod.Get:
+                case HttpRequestMethod.Delete:
+                case HttpRequestMethod.Custom:
+                default:
+                    throw new NotImplementedException();
             }
 
             Assert.AreEqual(_userRequestBody.userId, responseUserPost.userId);
@@ -844,8 +909,10 @@ namespace RestClient.Net.UnitTests
         public async Task TestHeadersLocalInRequest()
         {
             var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-            var requestHeadersCollection = new RequestHeadersCollection();
-            requestHeadersCollection.Add("Test", "Test");
+            var requestHeadersCollection = new RequestHeadersCollection
+            {
+                { "Test", "Test" }
+            };
             Person responsePerson = await client.SendAsync<Person, object>
                 (
                 new Request<object>(new Uri("headers", UriKind.Relative), null, requestHeadersCollection, HttpRequestMethod.Get, client, default)
@@ -858,8 +925,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestErrorsLocalGet()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-            client.ThrowExceptionOnFailure = false;
+            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient)
+            {
+                ThrowExceptionOnFailure = false
+            };
             var response = await client.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             var apiResult = client.DeserializeResponseBody<ApiResult>(response);
@@ -1250,7 +1319,7 @@ namespace RestClient.Net.UnitTests
             }
             catch (SendException<Person>)
             {
-                _logger.Verify(l => l.Log<Trace>(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<Trace>(),
+                _logger.Verify(l => l.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<Trace>(),
                     It.Is<SendException<Person>>(e => e.InnerException != null), It.IsAny<Func<Trace, Exception, string>>()));
                 return;
             }
@@ -1353,7 +1422,68 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Helpers
-        public async static Task AssertThrowsAsync<T>(Task task, string expectedMessage) where T : Exception
+#if !NET45
+        //TODO: Point a test at these on .NET 4.5
+
+        private static void GetHttpClientMoq<TResponse>(out Mock<HttpMessageHandler> handlerMock, out HttpClient httpClient, TResponse response)
+        {
+            handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+            handlerMock
+            .Protected()
+            .Setup<Task<HttpResponseMessage>>(
+            "SendAsync",
+            ItExpr.IsAny<HttpRequestMessage>(),
+            ItExpr.IsAny<CancellationToken>())
+            .ReturnsAsync(new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(JsonConvert.SerializeObject(response)),
+            })
+            .Verifiable();
+
+            httpClient = new HttpClient(handlerMock.Object);
+        }
+
+        private static bool CheckRequestMessage(HttpRequestMessage httpRequestMessage, Uri requestUri, List<KeyValuePair<string, IEnumerable<string>>> expectedHeaders, bool hasDefaultJsonContentHeader)
+        {
+            if (hasDefaultJsonContentHeader)
+            {
+                KeyValuePair<string, IEnumerable<string>>? contentTypeHeader = httpRequestMessage.Content.Headers.FirstOrDefault(k => k.Key == MiscExtensions.ContentTypeHeaderName);
+                if (contentTypeHeader == null) return false;
+                if (contentTypeHeader.Value.Value.FirstOrDefault() != MiscExtensions.JsonMediaType) return false;
+            }
+
+            if (expectedHeaders != null)
+            {
+                foreach (var expectedHeader in expectedHeaders)
+                {
+                    KeyValuePair<string, IEnumerable<string>>? foundKeyValuePair = httpRequestMessage.Headers.FirstOrDefault(k => k.Key == expectedHeader.Key);
+                    if (foundKeyValuePair == null)
+                    {
+                        return false;
+                    }
+
+                    var foundHeaderStrings = foundKeyValuePair.Value.Value.ToList();
+
+                    var i = 0;
+                    foreach (var expectedHeaderString in expectedHeader.Value)
+                    {
+                        if (foundHeaderStrings[i] != expectedHeaderString)
+                        {
+                            return false;
+                        }
+                        i++;
+                    }
+                }
+            }
+
+            return
+                httpRequestMessage.Method == HttpMethod.Post &&
+                httpRequestMessage.RequestUri == requestUri;
+        }
+#endif
+
+        public static async Task AssertThrowsAsync<T>(Task task, string expectedMessage) where T : Exception
         {
             try
             {
@@ -1407,13 +1537,15 @@ namespace RestClient.Net.UnitTests
                     rt.RequestUri == uri &&
                     rt.HttpRequestMethod == httpRequestMethod &&
                     (rt.RestEvent == TraceEvent.Response || new List<HttpRequestMethod> { HttpRequestMethod.Patch, HttpRequestMethod.Post, HttpRequestMethod.Patch }.Contains(rt.HttpRequestMethod))
-                    ? rt.BodyData != null && rt.BodyData.Length > 0 : true &&
-                    rt.HttpStatusCode == httpStatusCode &&
-                    checkHeadersFunc != null ? checkHeadersFunc(rt.HeadersCollection) : true
+                    ? rt.BodyData != null && rt.BodyData.Length > 0 : false ||
+                    rt.HttpStatusCode != httpStatusCode ||
+                    checkHeadersFunc == null || checkHeadersFunc(rt.HeadersCollection)
                 ), exception, It.IsAny<Func<Trace, Exception, string>>()));
         }
 
+#pragma warning disable IDE0060 // Remove unused parameter
         private bool DebugTraceExpression(Trace restTrace)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             return true;
         }
@@ -1480,7 +1612,7 @@ namespace RestClient.Net.UnitTests
 
         private static HttpClient MintClient()
         {
-#if (NETCOREAPP3_1)
+#if NETCOREAPP3_1
             return _testServer.CreateClient();
 #else
             return new HttpClient { BaseAddress = new Uri(LocalBaseUriString) };
