@@ -323,7 +323,12 @@ namespace RestClient.Net.UnitTests
             client.DefaultRequestHeaders.Add(testDefaultKvp);
 
             //Act
-            var result = await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
+            await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
+            {
+                testKvp
+            });
+
+            await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
             {
                 testKvp
             });
@@ -338,7 +343,7 @@ namespace RestClient.Net.UnitTests
             handlerMock.Protected()
                 .Verify(
                 "SendAsync",
-                Times.Exactly(1),
+                Times.Exactly(2),
                 ItExpr.Is<HttpRequestMessage>(h => CheckRequestMessage(h, RestCountriesAllUri, expectedHeaders)),
                 ItExpr.IsAny<CancellationToken>()
                 );

@@ -38,3 +38,6 @@ dotnet_diagnostic.CA1816.severity = warning
 
 
 dotnet_diagnostic.IDE0061.severity = none
+
+
+dotnet_diagnostic.IDE0058.severity = suggestion
