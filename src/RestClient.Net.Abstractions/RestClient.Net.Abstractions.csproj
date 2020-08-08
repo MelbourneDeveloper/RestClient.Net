@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net45;net47;netcoreapp3.0</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
     <RootNamespace>RestClient.Net.Abstractions</RootNamespace>
-    <Version>4.0.0</Version>
+    <Version>4.1.0</Version>
     <PackageLicenseFile>License.txt</PackageLicenseFile>        
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -20,10 +20,11 @@ This package contains abstractions for dependency injection with no implementati
     <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
     <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
-    <PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/3</PackageReleaseNotes>
-    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/4</PackageReleaseNotes>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
     <RepositoryType>git</RepositoryType>
-    <PackageIcon>Icon.png</PackageIcon>       
+    <PackageIcon>Icon.png</PackageIcon>
+    <FileVersion>4.1.0.0</FileVersion>       
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net45'">
