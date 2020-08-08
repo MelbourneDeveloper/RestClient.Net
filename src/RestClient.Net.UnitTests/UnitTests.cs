@@ -318,17 +318,20 @@ namespace RestClient.Net.UnitTests
             HttpClient createHttpClient(string name) => httpClient;
             var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: createHttpClient);
 
-            //Act
             var testKvp = new KeyValuePair<string, IEnumerable<string>>("test", new List<string> { "test", "test2" });
+            var testDefaultKvp = new KeyValuePair<string, IEnumerable<string>>("default", new List<string> { "test", "test2" });
+            client.DefaultRequestHeaders.Add(testDefaultKvp);
 
+            //Act
             var result = await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
             {
                 testKvp
             });
 
-            var asdasd = new List<KeyValuePair<string, IEnumerable<string>>>
+            var expectedHeaders = new List<KeyValuePair<string, IEnumerable<string>>>
             {
-                testKvp
+                testKvp,
+                testDefaultKvp
             };
 
             //Assert
@@ -336,7 +339,7 @@ namespace RestClient.Net.UnitTests
                 .Verify(
                 "SendAsync",
                 Times.Exactly(1),
-                ItExpr.Is<HttpRequestMessage>(h => CheckRequestMessage(h, RestCountriesAllUri, asdasd)),
+                ItExpr.Is<HttpRequestMessage>(h => CheckRequestMessage(h, RestCountriesAllUri, expectedHeaders)),
                 ItExpr.IsAny<CancellationToken>()
                 );
         }
