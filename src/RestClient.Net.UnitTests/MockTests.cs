@@ -35,7 +35,7 @@ namespace RestClient.Net.UnitTests
 
             //Set the client up to return the response mock
             clientMock.Setup(c => c.SendAsync<Person, Person>(It.IsAny<Request<Person>>())).Returns(Task.FromResult(responseMock.Object));
-            
+
             //Set the response up to return responsePerson
             responseMock.Setup(r => r.Body).Returns(responsePerson);
 

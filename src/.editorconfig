@@ -35,3 +35,9 @@ dotnet_diagnostic.CA2007.severity = suggestion
 
 # CA1816: Dispose methods should call SuppressFinalize
 dotnet_diagnostic.CA1816.severity = warning
+
+
+dotnet_diagnostic.IDE0061.severity = none
+
+
+dotnet_diagnostic.IDE0058.severity = suggestion
