@@ -14,7 +14,7 @@ using System.Net.Http;
 
 namespace RestClient.Net
 {
-    public class DefaultRequestConverter : IRequestConverter
+    public class DefaultRequestConverter 
     {
         #region Fields
         private readonly ILogger _logger;

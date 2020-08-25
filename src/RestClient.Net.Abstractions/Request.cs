@@ -4,25 +4,15 @@ using System.Threading;
 
 namespace RestClient.Net.Abstractions
 {
-    public class Request<TRequestBody>
+    public class Request
     {
         #region Public Properties
         public IHeadersCollection Headers { get; set; }
         public Uri Resource { get; set; }
         public HttpRequestMethod HttpRequestMethod { get; set; }
-        public TRequestBody Body { get; set; }
         public CancellationToken CancellationToken { get; set; }
         public string CustomHttpRequestMethod { get; set; }
         #endregion
-
-        #region Constructors
-        /// <summary>
-        /// Use this to construct mocked requests
-        /// </summary>
-        public Request()
-        {
-
-        }
 
         /// <summary>
         /// Construct a Request
@@ -33,14 +23,12 @@ namespace RestClient.Net.Abstractions
         /// <param name="httpRequestMethod"></param>
         /// <param name="client"></param>
         /// <param name="cancellationToken"></param>
-        public Request(Uri resource,
-            TRequestBody body,
+        protected Request(Uri resource,
             IHeadersCollection headers,
             HttpRequestMethod httpRequestMethod,
             IClient client,
             CancellationToken cancellationToken)
         {
-            Body = body;
             Resource = resource;
             HttpRequestMethod = httpRequestMethod;
             CancellationToken = cancellationToken;
@@ -75,6 +63,30 @@ namespace RestClient.Net.Abstractions
                 }
             }
         }
+    }
+
+    public class Request<TRequestBody> : Request
+    {
+        #region Public Properties
+        public TRequestBody Body { get; set; }
         #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Use this to construct mocked requests
+        /// </summary>
+        public Request()
+        {
+
+        }
+
+        protected Request(Uri resource,
+        IHeadersCollection headers,
+        HttpRequestMethod httpRequestMethod,
+        IClient client,
+        CancellationToken cancellationToken) : base(resource, headers, httpRequestMethod, client, cancellationToken)
+        {
+
+        }
     }
 }
