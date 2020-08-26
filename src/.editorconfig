@@ -42,3 +42,8 @@ dotnet_diagnostic.CA2229.severity = warning
 
 # CA2237: Mark ISerializable types with serializable
 dotnet_diagnostic.CA2237.severity = none
+
+
+
+# IDE0022: Use block body for methods
+csharp_style_expression_bodied_methods = true:error

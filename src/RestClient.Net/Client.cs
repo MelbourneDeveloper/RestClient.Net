@@ -44,7 +44,7 @@ namespace RestClient.Net
         /// The http client created by the default factory delegate
         /// TODO: We really shouldn't hang on to this....
         /// </summary>
-        private readonly HttpClient _httpClient;
+        private readonly HttpClient? _httpClient;
 
         /// <summary>
         /// Gets the current IRequestConverter instance responsible for converting rest requests to http requests
@@ -57,7 +57,7 @@ namespace RestClient.Net
         /// <summary>
         /// Compresses and decompresses http requests 
         /// </summary>
-        public IZip Zip { get; set; }
+        public IZip? Zip { get; set; }
 
         /// <summary>
         /// Default headers to be sent with http requests
@@ -162,7 +162,7 @@ namespace RestClient.Net
         /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only</param>
         public Client(
             ISerializationAdapter serializationAdapter,
-            Uri baseUri)
+            Uri? baseUri)
         : this(
             serializationAdapter,
             null,
@@ -293,7 +293,7 @@ namespace RestClient.Net
                 httpResponseMessage = await _sendHttpRequestFunc(
                     httpClient,
                     _getHttpRequestMessage,
-                    request,
+                    request
                     );
             }
             catch (TaskCanceledException tce)
@@ -370,6 +370,8 @@ namespace RestClient.Net
 
             var httpResponseHeadersCollection = new HttpResponseHeadersCollection(httpResponseMessage.Headers);
 
+            //🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮
+#nullable disable
             var httpResponseMessageResponse = new HttpResponseMessageResponse<TResponseBody>
             (
                 httpResponseHeadersCollection,
@@ -380,6 +382,7 @@ namespace RestClient.Net
                 httpResponseMessage,
                 httpClient
             );
+#nullable enable
 
             if (!httpResponseMessageResponse.IsSuccess)
             {

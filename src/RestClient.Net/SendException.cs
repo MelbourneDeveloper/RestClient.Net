@@ -13,11 +13,4 @@ namespace RestClient.Net
             Request = request;
         }
     }
-
-    public class SendException<TRequestBody> : SendException
-    {
-        public SendException(string message, Request<TRequestBody> request, Exception innerException) : base(message, request, innerException)
-        {
-        }
-    }
 }

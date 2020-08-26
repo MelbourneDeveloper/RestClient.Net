@@ -15,7 +15,7 @@ namespace RestClient.Net
     {
         private static readonly Func<Trace, Exception, string> func = new Func<Trace, Exception, string>((trace, exception) =>
         {
-            return exception != null ? exception.ToString() : trace.Message;
+            return exception != null ? exception.ToString() : trace.Message ?? string.Empty;
         });
 
         public static void LogInformation(this ILogger logger, Trace trace)

@@ -22,7 +22,7 @@ namespace RestClient.Net.Abstractions
         HttpRequestMethod httpRequestMethod,
         byte[] responseData,
         TResponseBody body,
-        Uri requestUri
+        Uri? requestUri
         ) : base(
             headersCollection,
             statusCode,
@@ -55,7 +55,7 @@ namespace RestClient.Net.Abstractions
         public virtual IHeadersCollection Headers { get; set; }
         public virtual HttpRequestMethod HttpRequestMethod { get; set; }
         public abstract bool IsSuccess { get; }
-        public virtual Uri RequestUri { get; set; }
+        public virtual Uri? RequestUri { get; set; }
         #endregion
 
         #region Constructor
@@ -72,7 +72,7 @@ namespace RestClient.Net.Abstractions
         int statusCode,
         HttpRequestMethod httpRequestMethod,
         byte[] responseData,
-        Uri requestUri
+        Uri? requestUri
         )
         {
             StatusCode = statusCode;

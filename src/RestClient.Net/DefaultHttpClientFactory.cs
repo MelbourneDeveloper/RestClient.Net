@@ -14,10 +14,6 @@ namespace RestClient.Net
         #endregion
 
         #region Constructor
-        public DefaultHttpClientFactory() : this(null)
-        {
-        }
-
         public DefaultHttpClientFactory(Func<string, Lazy<HttpClient>> createClientFunc)
         {
             _createClientFunc = createClientFunc;
