@@ -1,6 +1,5 @@
 ﻿using ApiExamples.Model.JsonModel;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 
 namespace ApiExamples.Controllers
@@ -10,11 +9,12 @@ namespace ApiExamples.Controllers
     public class JsonPersonController : ControllerBase
     {
         [HttpGet]
+#pragma warning disable IDE0060 // Remove unused parameter
         public Person Get(string personKey)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             var person = new Person
             {
-                PersonKey = new Guid(personKey),
                 FirstName = "Sam",
                 BillingAddress = new Address
                 {
