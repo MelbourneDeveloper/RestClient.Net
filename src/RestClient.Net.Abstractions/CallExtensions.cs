@@ -14,10 +14,7 @@ namespace RestClient.Net
         }
 
         #region Get
-        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client)
-        {
-            return GetAsync<TResponseBody>(client, default(Uri));
-        }
+        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client) => GetAsync<TResponseBody>(client, default(Uri));
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, string? resource)
         {
@@ -52,10 +49,7 @@ namespace RestClient.Net
         #endregion
 
         #region Delete
-        public static Task<Response> DeleteAsync(this IClient client, string resource)
-        {
-            return DeleteAsync(client, resource != null ? new Uri(resource, UriKind.Relative) : null);
-        }
+        public static Task<Response> DeleteAsync(this IClient client, string resource) => DeleteAsync(client, resource != null ? new Uri(resource, UriKind.Relative) : null);
 
         public static async Task<Response> DeleteAsync(this IClient client, Uri? resource = null, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
         {
@@ -76,15 +70,9 @@ namespace RestClient.Net
         #endregion
 
         #region Put
-        public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody)
-        {
-            return PutAsync<TResponseBody, TRequestBody>(client, requestBody, default);
-        }
+        public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody) => PutAsync<TResponseBody, TRequestBody>(client, requestBody, default);
 
-        public static async Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, string? resource)
-        {
-            return await PutAsync<TResponseBody, TRequestBody>(client, requestBody, resource != null ? new Uri(resource, UriKind.Relative) : null);
-        }
+        public static async Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, string? resource) => await PutAsync<TResponseBody, TRequestBody>(client, requestBody, resource != null ? new Uri(resource, UriKind.Relative) : null);
 
         public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody = default, Uri? resource = null, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
         {
@@ -104,15 +92,9 @@ namespace RestClient.Net
         #endregion
 
         #region Post
-        public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody)
-        {
-            return PostAsync<TResponseBody, TRequestBody>(client, requestBody, default);
-        }
+        public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody) => PostAsync<TResponseBody, TRequestBody>(client, requestBody, default);
 
-        public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, string? resource)
-        {
-            return PostAsync<TResponseBody, TRequestBody>(client, requestBody, resource != null ? new Uri(resource, UriKind.Relative) : default);
-        }
+        public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, string? resource) => PostAsync<TResponseBody, TRequestBody>(client, requestBody, resource != null ? new Uri(resource, UriKind.Relative) : default);
 
         public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, Uri? resource, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
         {
@@ -132,15 +114,9 @@ namespace RestClient.Net
         #endregion
 
         #region Patch
-        public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody)
-        {
-            return PatchAsync<TResponseBody, TRequestBody>(client, requestBody, default);
-        }
+        public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody) => PatchAsync<TResponseBody, TRequestBody>(client, requestBody, default);
 
-        public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, string? resource)
-        {
-            return PatchAsync<TResponseBody, TRequestBody>(client, requestBody, resource != null ? new Uri(resource, UriKind.Relative) : default);
-        }
+        public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, string? resource) => PatchAsync<TResponseBody, TRequestBody>(client, requestBody, resource != null ? new Uri(resource, UriKind.Relative) : default);
 
         public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, Uri? resource, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
         {

@@ -33,16 +33,16 @@ namespace RestClient.Net.UnitTests
                 new Uri(UnitTests.LocalBaseUriString),
                 logger: null,
                 createHttpClient: UnitTests.GetTestClientFactory().CreateClient,
-                sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, logger, cancellationToken) =>
+                sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, request) =>
                 {
                     return policy.ExecuteAsync(() =>
                     {
-                        var httpRequestMessage = httpRequestMessageFunc.Invoke();
+                        var httpRequestMessage = httpRequestMessageFunc(request);
 
                         //On the third try change the Url to a the correct one
                         if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);
                         tries++;
-                        return httpClient.SendAsync(httpRequestMessage, cancellationToken);
+                        return httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
                     });
                 });
 

@@ -416,10 +416,7 @@ namespace RestClient.Net
             return httpResponseMessageResponse;
         }
 
-        public void Dispose()
-        {
-            _httpClient?.Dispose();
-        }
+        public void Dispose() => _httpClient?.Dispose();
         #endregion
 
         #region Private Methods
