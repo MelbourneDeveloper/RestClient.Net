@@ -12,9 +12,9 @@ namespace RestClient.Net.Abstractions
         /// <summary>
         /// Only used for mocking or other inheritance
         /// </summary>
-        protected Response() : base()
-        {
-        }
+        //protected Response() : base()
+        //{
+        //}
 
         protected Response(
         IHeadersCollection headersCollection,
@@ -62,9 +62,9 @@ namespace RestClient.Net.Abstractions
         /// <summary>
         /// Only used for mocking or other inheritance
         /// </summary>
-        protected Response()
-        {
-        }
+        //protected Response()
+        //{
+        //}
 
         protected Response
         (
