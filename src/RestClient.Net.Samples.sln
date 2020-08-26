@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{A9F2B5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestClient.Net.Samples.Blazor", "RestClient.Net.Samples.Blazor\RestClient.Net.Samples.Blazor.csproj", "{F524EB4D-B29E-49FF-8DDD-78634A726D60}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F01BAC39-C2AF-43D4-98AC-40C45E02307B}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Shared\RestClient.Net.Samples.Uno.Shared.projitems*{04c305db-ec2f-4af7-a665-9aecfed70360}*SharedItemsImports = 5
