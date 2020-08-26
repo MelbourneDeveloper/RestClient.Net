@@ -31,10 +31,6 @@ www.rest-client.net</Description>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="ClientFactory.cs" />
-  </ItemGroup>
  
   <ItemGroup>
     <None Include="..\Images\Rendered\Icon.png">

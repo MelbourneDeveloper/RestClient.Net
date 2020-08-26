@@ -282,7 +282,7 @@ namespace RestClient.Net.UnitTests
                 baseUri: baseUri,
                 createHttpClient: _createHttpClient
                 );
-            var response = await client.SendAsync<string, object>(new Request<object>(
+            var response = await client.SendAsync<string, object>(new Request(
                 null,
                 null,
                 null,
@@ -915,7 +915,7 @@ namespace RestClient.Net.UnitTests
             };
             Person responsePerson = await client.SendAsync<Person, object>
                 (
-                new Request<object>(new Uri("headers", UriKind.Relative), null, requestHeadersCollection, HttpRequestMethod.Get, client, default)
+                new Request(new Uri("headers", UriKind.Relative), null, requestHeadersCollection, HttpRequestMethod.Get, client, default)
                 ); ;
             Assert.IsNotNull(responsePerson);
         }
@@ -1260,7 +1260,9 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestCanMockRequestAndResponse()
         {
+#pragma warning disable IDE0022 // Use expression body for methods
             throw new NotImplementedException();
+#pragma warning restore IDE0022 // Use expression body for methods
 
             /*
 
@@ -1323,10 +1325,10 @@ namespace RestClient.Net.UnitTests
                 var requestPerson = new Person();
                 Person responsePerson = await client.PostAsync<Person, Person>(requestPerson);
             }
-            catch (SendException<Person>)
+            catch (SendException)
             {
                 _logger.Verify(l => l.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<Trace>(),
-                    It.Is<SendException<Person>>(e => e.InnerException != null), It.IsAny<Func<Trace, Exception, string>>()));
+                    It.Is<SendException>(e => e.InnerException != null), It.IsAny<Func<Trace, Exception, string>>()));
                 return;
             }
             Assert.Fail();
@@ -1530,31 +1532,25 @@ namespace RestClient.Net.UnitTests
             TraceEvent traceType,
             int? httpStatusCode = null,
             Exception exception = null,
-            Func<IHeadersCollection, bool> checkHeadersFunc = null)
-        {
-            _logger.Verify(t => t.Log(
-                exception == null ? LogLevel.Trace : LogLevel.Error,
-                It.Is<EventId>(
-                    e => e.Id == (int)traceType && e.Name == traceType.ToString()),
-                It.Is<Trace>(
-                rt =>
-                    DebugTraceExpression(rt) &&
-                    rt.RestEvent == traceType &&
-                    rt.RequestUri == uri &&
-                    rt.HttpRequestMethod == httpRequestMethod &&
-                    (rt.RestEvent == TraceEvent.Response || new List<HttpRequestMethod> { HttpRequestMethod.Patch, HttpRequestMethod.Post, HttpRequestMethod.Patch }.Contains(rt.HttpRequestMethod))
-                    ? rt.BodyData != null && rt.BodyData.Length > 0 : false ||
-                    rt.HttpStatusCode != httpStatusCode ||
-                    checkHeadersFunc == null || checkHeadersFunc(rt.HeadersCollection)
-                ), exception, It.IsAny<Func<Trace, Exception, string>>()));
-        }
+            Func<IHeadersCollection, bool> checkHeadersFunc = null) => _logger.Verify(t => t.Log(
+                                                                         exception == null ? LogLevel.Trace : LogLevel.Error,
+                                                                         It.Is<EventId>(
+                                                                             e => e.Id == (int)traceType && e.Name == traceType.ToString()),
+                                                                         It.Is<Trace>(
+                                                                         rt =>
+                                                                             DebugTraceExpression(rt) &&
+                                                                             rt.RestEvent == traceType &&
+                                                                             rt.RequestUri == uri &&
+                                                                             rt.HttpRequestMethod == httpRequestMethod &&
+                                                                             (rt.RestEvent == TraceEvent.Response || new List<HttpRequestMethod> { HttpRequestMethod.Patch, HttpRequestMethod.Post, HttpRequestMethod.Patch }.Contains(rt.HttpRequestMethod))
+                                                                             ? rt.BodyData != null && rt.BodyData.Length > 0 : false ||
+                                                                             rt.HttpStatusCode != httpStatusCode ||
+                                                                             checkHeadersFunc == null || checkHeadersFunc(rt.HeadersCollection)
+                                                                         ), exception, It.IsAny<Func<Trace, Exception, string>>()));
 
 #pragma warning disable IDE0060 // Remove unused parameter
-        private bool DebugTraceExpression(Trace restTrace)
+        private bool DebugTraceExpression(Trace restTrace) => true;
 #pragma warning restore IDE0060 // Remove unused parameter
-        {
-            return true;
-        }
 
 
         /// <summary>
@@ -1618,11 +1614,13 @@ namespace RestClient.Net.UnitTests
 
         private static HttpClient MintClient()
         {
+#pragma warning disable IDE0022 // Use expression body for methods
 #if NETCOREAPP3_1
             return _testServer.CreateClient();
 #else
             return new HttpClient { BaseAddress = new Uri(LocalBaseUriString) };
 #endif
+#pragma warning restore IDE0022 // Use expression body for methods
         }
 
         private IClient GetJsonClient(Uri baseUri = null)
@@ -1646,15 +1644,9 @@ namespace RestClient.Net.UnitTests
             return restClient;
         }
 
-        private static bool CheckRequestHeaders(IHeadersCollection requestHeadersCollection)
-        {
-            return requestHeadersCollection.Contains("Test") && requestHeadersCollection["Test"].First() == "Test";
-        }
+        private static bool CheckRequestHeaders(IHeadersCollection requestHeadersCollection) => requestHeadersCollection.Contains("Test") && requestHeadersCollection["Test"].First() == "Test";
 
-        private static bool CheckResponseHeaders(IHeadersCollection responseHeadersCollection)
-        {
-            return responseHeadersCollection.Contains("Test1") && responseHeadersCollection["Test1"].First() == "a";
-        }
+        private static bool CheckResponseHeaders(IHeadersCollection responseHeadersCollection) => responseHeadersCollection.Contains("Test1") && responseHeadersCollection["Test1"].First() == "a";
         #endregion
     }
 }

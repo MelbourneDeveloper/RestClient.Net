@@ -34,7 +34,7 @@ namespace RestClient.Net.UnitTests
             clientFactoryMock.Setup(f => f.Invoke("Person")).Returns(clientMock.Object);
 
             //Set the client up to return the response mock
-            clientMock.Setup(c => c.SendAsync<Person, Person>(It.IsAny<Request<Person>>())).Returns(Task.FromResult(responseMock.Object));
+            clientMock.Setup(c => c.SendAsync<Person, Person>(It.IsAny<Request>())).Returns(Task.FromResult(responseMock.Object));
 
             //Set the response up to return responsePerson
             responseMock.Setup(r => r.Body).Returns(responsePerson);
@@ -56,9 +56,6 @@ namespace RestClient.Net.UnitTests
             _client = clientFactory("Person");
         }
 
-        public async Task<Person> SavePerson(Person person)
-        {
-            return await _client.PostAsync<Person, Person>(person);
-        }
+        public async Task<Person> SavePerson(Person person) => await _client.PostAsync<Person, Person>(person);
     }
 }

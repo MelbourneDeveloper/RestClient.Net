@@ -36,6 +36,7 @@ This package contains abstractions for dependency injection with no implementati
   <ItemGroup Condition="'$(TargetFramework)' != 'net45'">
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.5" />
     <Compile Remove="Logging/ILogger.cs" />
+    <Compile Remove="Logging/ILoggerFactory.cs" />    
     <Compile Remove="Logging/EventId.cs" />
     <Compile Remove="Logging/LogLevel.cs" />
   </ItemGroup>

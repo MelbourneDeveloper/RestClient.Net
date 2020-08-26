@@ -54,7 +54,7 @@ namespace RestClient.Net.UnitTests
                 await client.GetAsync<object>();
                 serviceCollection.Configure<string>((s) => { });
             }
-            catch (SendException<object> hse)
+            catch (SendException hse)
             {
                 Assert.AreEqual("Ouch", hse.InnerException.Message);
                 return;
@@ -83,7 +83,7 @@ namespace RestClient.Net.UnitTests
                 var client = clientFactory(clientName);
                 await client.GetAsync<object>();
             }
-            catch (SendException<object> hse)
+            catch (SendException hse)
             {
                 Assert.AreEqual("Ouch", hse.InnerException.Message);
                 return;

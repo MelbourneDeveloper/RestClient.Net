@@ -14,16 +14,19 @@ namespace RestClient.Net
         #endregion
 
         #region Constructor
-        public DefaultHttpClientFactory(Func<string, Lazy<HttpClient>> createClientFunc)
+        public DefaultHttpClientFactory() : this(null)
         {
-            _createClientFunc = createClientFunc;
+        }
+
+        public DefaultHttpClientFactory(Func<string, Lazy<HttpClient>>? createClientFunc)
+        {
             _httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();
 
             if (_createClientFunc != null) return;
-            _createClientFunc = name =>
+            _createClientFunc = createClientFunc ?? new Func<string, Lazy<HttpClient>>(name =>
             {
                 return new Lazy<HttpClient>(() => new HttpClient(), LazyThreadSafetyMode.ExecutionAndPublication);
-            };
+            });
         }
         #endregion
 

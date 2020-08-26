@@ -18,11 +18,11 @@ namespace RestClient.Net
         private readonly Func<string, Lazy<IClient>> _createClientFunc;
         private readonly ConcurrentDictionary<string, Lazy<IClient>> _clients;
         private readonly CreateHttpClient _createHttpClient;
+        private readonly ILoggerFactory? _loggerFactory;
         #endregion
 
         #region Public Properties
         public ISerializationAdapter SerializationAdapter { get; }
-        public ILogger Logger { get; }
         #endregion
 
         #region Constructor
@@ -32,12 +32,12 @@ namespace RestClient.Net
 #else
             ISerializationAdapter serializationAdapter,
 #endif
-            CreateHttpClient createHttpClient = null,
-            ILogger logger = null)
+            CreateHttpClient createHttpClient,
+            ILoggerFactory? loggerFactory = null)
         {
             SerializationAdapter = serializationAdapter;
             _createHttpClient = createHttpClient;
-            Logger = logger;
+            _loggerFactory = loggerFactory;
 
             _clients = new ConcurrentDictionary<string, Lazy<IClient>>();
 
@@ -61,17 +61,16 @@ namespace RestClient.Net
         #endregion
 
         #region Private Methods
-        private IClient MintClient(string name)
-        {
+        private IClient MintClient(string name) =>
 #pragma warning disable CA2000 // Dispose objects before losing scope
-            return new Client(
+            new Client(
                 SerializationAdapter,
                 name,
                 null,
-                logger: Logger,
+                logger: _loggerFactory?.CreateLogger<Client>(),
                 createHttpClient: _createHttpClient);
 #pragma warning restore CA2000 // Dispose objects before losing scope
-        }
+
         #endregion
     }
 }
