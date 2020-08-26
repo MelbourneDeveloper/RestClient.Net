@@ -419,36 +419,18 @@ namespace RestClient.Net
             {
                 Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: "Converting Request to HttpRequestMethod..."));
 
-                HttpMethod httpMethod;
-                if (string.IsNullOrEmpty(request.CustomHttpRequestMethod))
-                {
-                    switch (request.HttpRequestMethod)
+                var httpMethod = string.IsNullOrEmpty(request.CustomHttpRequestMethod)
+                    ? (request.HttpRequestMethod switch
                     {
-                        case HttpRequestMethod.Get:
-                            httpMethod = HttpMethod.Get;
-                            break;
-                        case HttpRequestMethod.Post:
-                            httpMethod = HttpMethod.Post;
-                            break;
-                        case HttpRequestMethod.Put:
-                            httpMethod = HttpMethod.Put;
-                            break;
-                        case HttpRequestMethod.Delete:
-                            httpMethod = HttpMethod.Delete;
-                            break;
-                        case HttpRequestMethod.Patch:
-                            httpMethod = new HttpMethod("PATCH");
-                            break;
-                        case HttpRequestMethod.Custom:
-                            throw new NotImplementedException("CustomHttpRequestMethod must be specified for Custom Http Requests");
-                        default:
-                            throw new NotImplementedException();
-                    }
-                }
-                else
-                {
-                    httpMethod = new HttpMethod(request.CustomHttpRequestMethod);
-                }
+                        HttpRequestMethod.Get => HttpMethod.Get,
+                        HttpRequestMethod.Post => HttpMethod.Post,
+                        HttpRequestMethod.Put => HttpMethod.Put,
+                        HttpRequestMethod.Delete => HttpMethod.Delete,
+                        HttpRequestMethod.Patch => new HttpMethod("PATCH"),
+                        HttpRequestMethod.Custom => throw new NotImplementedException("CustomHttpRequestMethod must be specified for Custom Http Requests"),
+                        _ => throw new NotImplementedException(),
+                    })
+                    : new HttpMethod(request.CustomHttpRequestMethod);
 
                 var httpRequestMessage = new HttpRequestMessage
                 {
