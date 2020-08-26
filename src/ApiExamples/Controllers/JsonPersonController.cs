@@ -1,5 +1,6 @@
 ﻿using ApiExamples.Model.JsonModel;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace ApiExamples.Controllers
@@ -13,6 +14,7 @@ namespace ApiExamples.Controllers
         {
             var person = new Person
             {
+                PersonKey = new Guid(personKey),
                 FirstName = "Sam",
                 BillingAddress = new Address
                 {
@@ -53,36 +55,23 @@ namespace ApiExamples.Controllers
 
         [HttpPost]
         [Route("people")]
-        public List<Person> PostPeople([FromBody] List<Person> people)
-        {
-            return people;
-        }
+        public List<Person> PostPeople([FromBody] List<Person> people) => people;
 
         [HttpPost]
         [Route("save")]
-        public Person Post([FromBody] Person person)
-        {
-            return person;
-        }
+        public Person Post([FromBody] Person person) => person;
 
         [HttpPut]
         [Route("save")]
-        public Person Put([FromBody] Person person)
-        {
-            return person;
-        }
+        public Person Put([FromBody] Person person) => person;
 
         [HttpPatch]
         [Route("save")]
-        public Person Patch([FromBody] Person person)
-        {
-            return person;
-        }
+        public Person Patch([FromBody] Person person) => person;
 
         [HttpDelete]
-        public IActionResult Delete(string personKey)
-        {
-            return Ok();
-        }
+#pragma warning disable IDE0060 // Remove unused parameter
+        public IActionResult Delete(string personKey) => Ok();
+#pragma warning restore IDE0060 // Remove unused parameter
     }
 }

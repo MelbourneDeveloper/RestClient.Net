@@ -38,30 +38,21 @@ namespace ApiExamples.Controllers
             return Unauthorized(json);
         }
 
-        private bool ValidateBasic()
-        {
-            return Request.Headers["Authorization"] == "Basic Qm9iOkFOaWNlUGFzc3dvcmQ=";
-        }
+        private bool ValidateBasic() => Request.Headers["Authorization"] == "Basic Qm9iOkFOaWNlUGFzc3dvcmQ=";
 
-        private bool ValidateBearer()
-        {
-            return Request.Headers["Authorization"] == "Bearer 123";
-        }
+        private bool ValidateBearer() => Request.Headers["Authorization"] == "Bearer 123";
 
-        private static Person CreatePerson()
+        private static Person CreatePerson() => new Person
         {
-            return new Person
+            FirstName = "Sam",
+            BillingAddress = new Address
             {
-                FirstName = "Sam",
-                BillingAddress = new Address
-                {
-                    StreeNumber = "100",
-                    Street = "Somewhere",
-                    Suburb = "Sometown"
-                },
-                Surname = "Smith"
-            };
-        }
+                StreeNumber = "100",
+                Street = "Somewhere",
+                Suburb = "Sometown"
+            },
+            Surname = "Smith"
+        };
 
         [HttpPost]
         [Route("authenticate")]

@@ -10,10 +10,7 @@ namespace RestClient.Net.UnitTests
     public class TestHandler : DelegatingHandler
     {
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
-            CancellationToken cancellationToken)
-        {
-            throw new HttpStatusException("Ouch", null, null);
-        }
+            CancellationToken cancellationToken) => throw new HttpStatusException("Ouch", null, null);
     }
 }
 #endif

@@ -17,14 +17,8 @@ namespace RestClient.Net.UnitTests
 
         public IHeadersCollection DefaultRequestHeaders { get; } = new RequestHeadersCollection();
 
-        public HttpClient CreateClient(string name)
-        {
-            return _testClient;
-        }
+        public HttpClient CreateClient(string name) => _testClient;
 
-        public void Dispose()
-        {
-            _testClient.Dispose();
-        }
+        public void Dispose() => _testClient.Dispose();
     }
 }

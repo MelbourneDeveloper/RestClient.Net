@@ -84,10 +84,7 @@ namespace RestClient.Net.Abstractions
         #endregion
 
         #region Public Methods
-        public virtual byte[] GetResponseData()
-        {
-            return _responseData;
-        }
+        public virtual byte[] GetResponseData() => _responseData;
         #endregion
     }
 }

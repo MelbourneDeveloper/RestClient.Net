@@ -27,12 +27,7 @@ namespace RestClient.Net
         #region Implementation
 #pragma warning disable IDE0060
 #pragma warning disable CA1801
-        public HttpClient CreateClient(string name)
-#pragma warning restore IDE0060
-#pragma warning restore CA1801
-        {
-            return HttpClient;
-        }
+        public HttpClient CreateClient(string name) => HttpClient;
 
         public void Dispose()
         {

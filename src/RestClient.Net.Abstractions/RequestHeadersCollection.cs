@@ -15,30 +15,15 @@ namespace RestClient.Net.Abstractions
         #endregion
 
         #region Public Methods
-        public void Add(KeyValuePair<string, IEnumerable<string>> keyValuePair)
-        {
-            _dictionary.Add(keyValuePair.Key, keyValuePair.Value);
-        }
+        public void Add(KeyValuePair<string, IEnumerable<string>> keyValuePair) => _dictionary.Add(keyValuePair.Key, keyValuePair.Value);
 
-        public void Clear()
-        {
-            _dictionary.Clear();
-        }
+        public void Clear() => _dictionary.Clear();
 
-        public bool Contains(string name)
-        {
-            return _dictionary.ContainsKey(name);
-        }
+        public bool Contains(string name) => _dictionary.ContainsKey(name);
 
-        public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator()
-        {
-            return _dictionary.GetEnumerator();
-        }
+        public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator() => _dictionary.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _dictionary.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => _dictionary.GetEnumerator();
         #endregion
     }
 }

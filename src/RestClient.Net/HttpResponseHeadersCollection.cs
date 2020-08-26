@@ -22,30 +22,15 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        public void Clear()
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Clear() => throw new System.NotImplementedException();
 
-        public bool Contains(string name)
-        {
-            return HttpResponseHeaders.Contains(name);
-        }
+        public bool Contains(string name) => HttpResponseHeaders.Contains(name);
 
-        public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator()
-        {
-            return HttpResponseHeaders.GetEnumerator();
-        }
+        public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator() => HttpResponseHeaders.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return HttpResponseHeaders.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => HttpResponseHeaders.GetEnumerator();
 
-        public void Add(KeyValuePair<string, IEnumerable<string>> keyValuePair)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Add(KeyValuePair<string, IEnumerable<string>> keyValuePair) => throw new System.NotImplementedException();
         #endregion
     }
 }

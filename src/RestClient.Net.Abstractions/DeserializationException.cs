@@ -17,9 +17,6 @@ namespace RestClient.Net.Abstractions
             Client = client;
         }
 
-        public byte[] GetResponseData()
-        {
-            return _responseData;
-        }
+        public byte[] GetResponseData() => _responseData;
     }
 }
