@@ -15,6 +15,13 @@ namespace RestClient.Net.Abstractions
         #endregion
 
         /// <summary>
+        /// Use this to construct mocked requests
+        /// </summary>
+        protected Request()
+        {
+        }
+
+        /// <summary>
         /// Construct a Request
         /// </summary>
         /// <param name="resource"></param>
@@ -23,7 +30,8 @@ namespace RestClient.Net.Abstractions
         /// <param name="httpRequestMethod"></param>
         /// <param name="client"></param>
         /// <param name="cancellationToken"></param>
-        protected Request(Uri resource,
+        public Request(
+            Uri resource,
             IHeadersCollection headers,
             HttpRequestMethod httpRequestMethod,
             IClient client,
@@ -77,16 +85,18 @@ namespace RestClient.Net.Abstractions
         /// </summary>
         public Request()
         {
-
         }
 
-        protected Request(Uri resource,
+        public Request(
+        Uri resource,
+        TRequestBody body,
         IHeadersCollection headers,
         HttpRequestMethod httpRequestMethod,
         IClient client,
         CancellationToken cancellationToken) : base(resource, headers, httpRequestMethod, client, cancellationToken)
         {
-
+            Body = body;
         }
+        #endregion
     }
 }
