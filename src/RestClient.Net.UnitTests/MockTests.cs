@@ -28,22 +28,26 @@ namespace RestClient.Net.UnitTests
             var loggerMock = new Mock<ILogger>();
             var clientFactoryMock = new Mock<CreateClient>();
             var clientMock = new Mock<IClient>();
-            var responseMock = new Mock<Response<Person>>();
+            var responseMock = new Mock<HttpResponseMessageResponse<Person>>(new object[] { responsePerson });
+            var serializationAdapterMock = new Mock<ISerializationAdapter>();
 
             //Set the factory up to return the mock client
             clientFactoryMock.Setup(f => f.Invoke("Person")).Returns(clientMock.Object);
 
             //Set the client up to return the response mock
-            clientMock.Setup(c => c.SendAsync<Person>(It.IsAny<Request>())).Returns(Task.FromResult(responseMock.Object));
+            clientMock.Setup(c => c.SendAsync<Person>(It.IsAny<Request>())).Returns(Task.FromResult<Response<Person>>(responseMock.Object));
 
-            //Set the response up to return responsePerson
+            clientMock.Setup(c => c.SerializationAdapter).Returns(serializationAdapterMock.Object);
+
+            serializationAdapterMock.Setup(c => c.Deserialize<Person>(It.IsAny<Response>())).Returns(responsePerson);
+
             responseMock.Setup(r => r.Body).Returns(responsePerson);
 
             //Create the service and call SavePerson
             var personService = new PersonService(clientFactoryMock.Object);
-            var returnPerson = await personService.SavePerson(requestPerson);
+            var returnPersonResponse = await personService.SavePerson(requestPerson);
 
-            Assert.AreEqual("123", returnPerson.PersonKey);
+            Assert.AreEqual("123", returnPersonResponse.Body.PersonKey);
         }
     }
 
@@ -56,6 +60,6 @@ namespace RestClient.Net.UnitTests
             _client = clientFactory("Person");
         }
 
-        public async Task<Person> SavePerson(Person person) => await _client.PostAsync<Person, Person>(person);
+        public async Task<Response<Person>> SavePerson(Person person) => await _client.PostAsync<Person, Person>(person);
     }
 }
