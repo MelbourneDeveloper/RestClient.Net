@@ -47,12 +47,12 @@ namespace RestClient.Net.Abstractions
     public abstract class Response
     {
         #region Fields
-        private readonly byte[] _responseData;
+        private readonly byte[]? _responseData;
         #endregion
 
         #region Public Properties
         public virtual int StatusCode { get; set; }
-        public virtual IHeadersCollection Headers { get; set; }
+        public virtual IHeadersCollection? Headers { get; set; }
         public virtual HttpRequestMethod HttpRequestMethod { get; set; }
         public abstract bool IsSuccess { get; }
         public virtual Uri? RequestUri { get; set; }
@@ -84,7 +84,7 @@ namespace RestClient.Net.Abstractions
         #endregion
 
         #region Public Methods
-        public virtual byte[] GetResponseData() => _responseData;
+        public virtual byte[]? GetResponseData() => _responseData;
         #endregion
     }
 }

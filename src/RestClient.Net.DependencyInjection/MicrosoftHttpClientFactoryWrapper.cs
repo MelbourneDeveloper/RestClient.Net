@@ -2,7 +2,7 @@
 
 namespace RestClient.Net.DependencyInjection
 {
-    public class MicrosoftHttpClientFactoryWrapper 
+    public class MicrosoftHttpClientFactoryWrapper
     {
         #region Public Properties
         private snh.IHttpClientFactory HttpClientFactory { get; }
@@ -16,10 +16,7 @@ namespace RestClient.Net.DependencyInjection
         #endregion
 
         #region Implementation
-        public snh.HttpClient CreateClient(string name)
-        {
-            return HttpClientFactory.CreateClient(name);
-        }
+        public snh.HttpClient CreateClient(string name) => HttpClientFactory.CreateClient(name);
         #endregion
     }
 }
