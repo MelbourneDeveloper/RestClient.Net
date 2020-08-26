@@ -1260,6 +1260,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestCanMockRequestAndResponse()
         {
+            throw new NotImplementedException();
+
+            /*
+
             var clientMock = new Mock<IClient>();
             var headersMock = new Mock<IHeadersCollection>();
             var response = new HttpResponseMessageResponse<string>()
@@ -1290,6 +1294,8 @@ namespace RestClient.Net.UnitTests
                 }
                 ); ;
             Assert.IsTrue(ReferenceEquals(response, returnedResponse));
+
+            */
         }
 
         //TODO: Fix these tests

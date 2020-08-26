@@ -38,10 +38,11 @@ namespace RestClient.Net
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, Uri? resource = null, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
         {
-            return SendAsync<TResponseBody, object>(client,
-                new Request<object>(
+            if (client == null) throw new ArgumentNullException(nameof(client));
+
+            return client.SendAsync<TResponseBody>(
+                new Request(
                     resource,
-                    default,
                     requestHeaders,
                     HttpRequestMethod.Get,
                     client,
@@ -55,12 +56,14 @@ namespace RestClient.Net
             return DeleteAsync(client, resource != null ? new Uri(resource, UriKind.Relative) : null);
         }
 
-        public static async Task<Response> DeleteAsync(this IClient client, Uri? resource = null, IHeadersCollection requestHeaders = null, CancellationToken cancellationToken = default)
+        public static async Task<Response> DeleteAsync(this IClient client, Uri? resource = null, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
         {
-            var response = (Response)await SendAsync<object, object>(client,
-            new Request<object>(
+            //TODO: do we need this? Client is not nullable
+            if (client == null) throw new ArgumentNullException(nameof(client));
+
+            var response = (Response)await client.SendAsync<object>(
+            new Request(
                 resource,
-                default,
                 requestHeaders,
                 HttpRequestMethod.Delete,
                 client,

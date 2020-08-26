@@ -16,7 +16,7 @@ namespace RestClient.Net.Abstractions
             return CreateClient(clientFactory, "RestClient", null);
         }
 
-        public static IClient CreateClient(this CreateClient clientFactory, string name, Uri baseUri)
+        public static IClient CreateClient(this CreateClient clientFactory, string name, Uri? baseUri)
         {
             if (clientFactory == null) throw new ArgumentNullException(nameof(clientFactory));
             var client = clientFactory(name);

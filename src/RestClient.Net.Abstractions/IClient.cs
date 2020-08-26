@@ -20,7 +20,7 @@ namespace RestClient.Net.Abstractions
         /// <typeparam name="TRequestBody">The type of the request body if specified</typeparam>
         /// <param name="request">The request that will be translated to a http request</param>
         /// <returns></returns>
-        Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(Request<TRequestBody> request);
+        Task<Response<TResponseBody>> SendAsync<TResponseBody>(Request request);
 
         /// <summary>
         /// Default headers to be sent with http requests
@@ -35,7 +35,7 @@ namespace RestClient.Net.Abstractions
         /// <summary>
         /// Base Uri for the client. Any resources specified on requests will be relative to this.
         /// </summary>
-        Uri BaseUri { get; set; }
+        Uri? BaseUri { get; set; }
 
         /// <summary>
         /// Name of the client
