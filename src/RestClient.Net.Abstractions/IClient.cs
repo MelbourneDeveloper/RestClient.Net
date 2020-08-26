@@ -17,7 +17,6 @@ namespace RestClient.Net.Abstractions
         /// Sends a strongly typed request to the server and waits for a strongly typed response
         /// </summary>
         /// <typeparam name="TResponseBody">The expected type of the response body</typeparam>
-        /// <typeparam name="TRequestBody">The type of the request body if specified</typeparam>
         /// <param name="request">The request that will be translated to a http request</param>
         /// <returns></returns>
         Task<Response<TResponseBody>> SendAsync<TResponseBody>(Request request);
