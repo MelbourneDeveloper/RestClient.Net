@@ -59,7 +59,7 @@ namespace RestClient.Net
         {
             var response = (Response)await SendAsync<object, object>(client,
             new Request<object>(
-                  resource,
+                resource,
                 default,
                 requestHeaders,
                 HttpRequestMethod.Delete,

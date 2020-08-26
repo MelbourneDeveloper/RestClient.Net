@@ -3,7 +3,6 @@
 using RestClient.Net.Abstractions.Logging;
 #else
 using Microsoft.Extensions.Logging;
-using RestClient.Net.Abstractions.Extensions;
 #endif
 
 using RestClient.Net.Abstractions;
@@ -12,6 +11,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using RestClient.Net.Abstractions.Extensions;
+using System.Collections.Generic;
 
 namespace RestClient.Net
 {
@@ -21,6 +22,13 @@ namespace RestClient.Net
     public sealed class Client : IClient, IDisposable
     {
         #region Fields
+        private static readonly List<HttpRequestMethod> _updateHttpRequestMethods = new List<HttpRequestMethod>
+        {
+            HttpRequestMethod.Put,
+            HttpRequestMethod.Post,
+            HttpRequestMethod.Patch
+        };
+
         private readonly Func<HttpClient, Func<HttpRequestMessage>, ILogger, CancellationToken, Task<HttpResponseMessage>> _sendHttpRequestFunc;
 
         /// <summary>
@@ -30,8 +38,14 @@ namespace RestClient.Net
 
         /// <summary>
         /// The http client created by the default factory delegate
+        /// TODO: We really shouldn't hang on to this....
         /// </summary>
         private readonly HttpClient _httpClient;
+
+        /// <summary>
+        /// Gets the current IRequestConverter instance responsible for converting rest requests to http requests
+        /// </summary>
+        private readonly GetHttpRequestMessage _getHttpRequestMessage;
         #endregion
 
         #region Public Properties
@@ -75,11 +89,6 @@ namespace RestClient.Net
         /// Name of the client
         /// </summary>
         public string Name { get; }
-
-        /// <summary>
-        /// Gets the current IRequestConverter instance responsible for converting rest requests to http requests
-        /// </summary>
-        public IRequestConverter RequestConverter { get; }
         #endregion
 
         #region Func
@@ -188,7 +197,7 @@ namespace RestClient.Net
         /// <param name="logger">Logging abstraction that will trace request/response data and log events</param>
         /// <param name="createHttpClient">The delegate that is used for getting or creating HttpClient instances when the SendAsync call is made</param>
         /// <param name="sendHttpRequestFunc">The Func responsible for performing the SendAsync method on HttpClient. This can replaced in the constructor in order to implement retries and so on.</param>
-        /// <param name="requestConverter">IRequestConverter instance responsible for converting rest requests to http requests</param>
+        /// <param name="getHttpRequestMessage">Delegate responsible for converting rest requests to http requests</param>
         public Client(
 #if NET45
            ISerializationAdapter serializationAdapter,
@@ -201,7 +210,7 @@ namespace RestClient.Net
             ILogger logger = null,
             CreateHttpClient createHttpClient = null,
             Func<HttpClient, Func<HttpRequestMessage>, ILogger, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,
-            IRequestConverter requestConverter = null)
+            GetHttpRequestMessage getHttpRequestMessage = null)
         {
             DefaultRequestHeaders = defaultRequestHeaders ?? new RequestHeadersCollection();
 
@@ -221,7 +230,7 @@ namespace RestClient.Net
             Logger = logger;
             BaseUri = baseUri;
             Name = name ?? Guid.NewGuid().ToString();
-            RequestConverter = requestConverter ?? new DefaultRequestConverter(Logger);
+            _getHttpRequestMessage = getHttpRequestMessage ?? GetHttpRequestMessage;
 
             if (createHttpClient == null)
             {
@@ -261,7 +270,7 @@ namespace RestClient.Net
 
                 requestBodyData = null;
 
-                if (DefaultRequestConverter.UpdateHttpRequestMethods.Contains(request.HttpRequestMethod))
+                if (_updateHttpRequestMethods.Contains(request.HttpRequestMethod))
                 {
                     requestBodyData = SerializationAdapter.Serialize(request.Body, request.Headers);
                     Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, requestBodyData, message: $"Request body serialized"));
@@ -273,7 +282,7 @@ namespace RestClient.Net
 
                 httpResponseMessage = await _sendHttpRequestFunc.Invoke(
                     httpClient,
-                    () => RequestConverter.GetHttpRequestMessage(request, requestBodyData),
+                    () => _getHttpRequestMessage(request, requestBodyData),
                     Logger,
                     request.CancellationToken
                     );
@@ -399,6 +408,102 @@ namespace RestClient.Net
         {
             _httpClient?.Dispose();
         }
+        #endregion
+
+        #region Private Methods
+        private HttpRequestMessage GetHttpRequestMessage(Request request, byte[] requestBodyData)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
+            try
+            {
+                Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: "Converting Request to HttpRequestMethod..."));
+
+                HttpMethod httpMethod;
+                if (string.IsNullOrEmpty(request.CustomHttpRequestMethod))
+                {
+                    switch (request.HttpRequestMethod)
+                    {
+                        case HttpRequestMethod.Get:
+                            httpMethod = HttpMethod.Get;
+                            break;
+                        case HttpRequestMethod.Post:
+                            httpMethod = HttpMethod.Post;
+                            break;
+                        case HttpRequestMethod.Put:
+                            httpMethod = HttpMethod.Put;
+                            break;
+                        case HttpRequestMethod.Delete:
+                            httpMethod = HttpMethod.Delete;
+                            break;
+                        case HttpRequestMethod.Patch:
+                            httpMethod = new HttpMethod("PATCH");
+                            break;
+                        case HttpRequestMethod.Custom:
+                            throw new NotImplementedException("CustomHttpRequestMethod must be specified for Custom Http Requests");
+                        default:
+                            throw new NotImplementedException();
+                    }
+                }
+                else
+                {
+                    httpMethod = new HttpMethod(request.CustomHttpRequestMethod);
+                }
+
+                var httpRequestMessage = new HttpRequestMessage
+                {
+                    Method = httpMethod,
+                    RequestUri = request.Resource
+                };
+
+                ByteArrayContent httpContent = null;
+                if (requestBodyData != null && requestBodyData.Length > 0)
+                {
+                    httpContent = new ByteArrayContent(requestBodyData);
+                    httpRequestMessage.Content = httpContent;
+                    Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: $"Request content was set. Length: {requestBodyData.Length}"));
+                }
+                else
+                {
+                    Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: $"No request content setup on HttpRequestMessage"));
+                }
+
+                if (request.Headers != null)
+                {
+                    foreach (var headerName in request.Headers.Names)
+                    {
+                        if (string.Compare(headerName, MiscExtensions.ContentTypeHeaderName, StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            //Note: not sure why this is necessary...
+                            //The HttpClient class seems to differentiate between content headers and request message headers, but this distinction doesn't exist in the real world...
+                            //TODO: Other Content headers
+                            httpContent?.Headers.Add(MiscExtensions.ContentTypeHeaderName, request.Headers[headerName]);
+                        }
+                        else
+                        {
+                            httpRequestMessage.Headers.Add(headerName, request.Headers[headerName]);
+                        }
+
+                        Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: $"Header: {headerName} processed"));
+                    }
+                }
+
+                Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: $"Successfully converted"));
+                return httpRequestMessage;
+            }
+            catch (Exception ex)
+            {
+                Logger?.LogException(new Trace(
+                request.HttpRequestMethod,
+                TraceEvent.Error,
+                request.Resource,
+                message: $"Exception: {ex}"),
+                ex);
+
+                throw;
+            }
+        }
+
         #endregion
     }
 }
