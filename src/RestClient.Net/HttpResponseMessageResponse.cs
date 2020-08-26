@@ -16,11 +16,11 @@ namespace RestClient.Net
 
         #region Constructor
         /// <summary>
-        /// Constructor for mocking
+        /// Constructor for mocking. Don't use this for anything other than unit tests.
         /// </summary>
-        //public HttpResponseMessageResponse()
-        //{
-        //}
+        public HttpResponseMessageResponse(TResponseBody body) : this(null, 0, HttpRequestMethod.Get, null, body, new HttpResponseMessage(), null)
+        {
+        }
 
         public HttpResponseMessageResponse
         (

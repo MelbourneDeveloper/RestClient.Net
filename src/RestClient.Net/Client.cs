@@ -18,7 +18,7 @@ namespace RestClient.Net
     //TODO: Tests to make sure that null logger is OK
 
 
-    public delegate Task<HttpResponseMessage> SendHttpRequestMessage(HttpClient httpClient, GetHttpRequestMessage httpRequestMessageFunc, Request request);
+    public delegate Task<HttpResponseMessage> SendHttpRequestMessage(HttpClient httpClient, GetHttpRequestMessage httpRequestMessageFunc, IRequest request);
 
     /// <summary>
     /// Rest client implementation using Microsoft's HttpClient class. 
@@ -47,7 +47,7 @@ namespace RestClient.Net
         private readonly HttpClient? _httpClient;
 
         /// <summary>
-        /// Gets the current IRequestConverter instance responsible for converting rest requests to http requests
+        /// Gets the delegate responsible for converting rest requests to http requests
         /// </summary>
         private readonly GetHttpRequestMessage _getHttpRequestMessage;
         #endregion
@@ -96,7 +96,7 @@ namespace RestClient.Net
         #endregion
 
         #region Func
-        private async Task<HttpResponseMessage> DefaultSendHttpRequestMessageFunc(HttpClient httpClient, GetHttpRequestMessage httpRequestMessageFunc, Request request)
+        private async Task<HttpResponseMessage> DefaultSendHttpRequestMessageFunc(HttpClient httpClient, GetHttpRequestMessage httpRequestMessageFunc, IRequest request)
         {
             try
             {
@@ -255,7 +255,7 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        async Task<Response<TResponseBody>> IClient.SendAsync<TResponseBody>(Request request)
+        async Task<Response<TResponseBody>> IClient.SendAsync<TResponseBody>(IRequest request)
         {
             //Why do we need to check for null? Nullable is turned on....
             if (request == null) throw new ArgumentNullException(nameof(request));
@@ -347,7 +347,7 @@ namespace RestClient.Net
             return await ProcessResponseAsync<TResponseBody>(request, httpResponseMessage, httpClient);
         }
 
-        private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody>(Request request, HttpResponseMessage httpResponseMessage, HttpClient httpClient)
+        private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody>(IRequest request, HttpResponseMessage httpResponseMessage, HttpClient httpClient)
         {
             byte[]? responseData = null;
 
@@ -420,7 +420,7 @@ namespace RestClient.Net
         #endregion
 
         #region Private Methods
-        private HttpRequestMessage GetHttpRequestMessage(Request request)
+        private HttpRequestMessage GetHttpRequestMessage(IRequest request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 

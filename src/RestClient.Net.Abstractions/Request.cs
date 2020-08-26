@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace RestClient.Net.Abstractions
 {
-    public class Request
+    public class Request : IRequest
     {
         #region Public Properties
 #pragma warning disable CA1819 // Properties should not return arrays
@@ -16,13 +16,6 @@ namespace RestClient.Net.Abstractions
         public CancellationToken CancellationToken { get; set; }
         public string? CustomHttpRequestMethod { get; set; }
         #endregion
-
-        /// <summary>
-        /// Use this to construct mocked requests
-        /// </summary>
-        //protected Request()
-        //{
-        //}
 
         /// <summary>
         /// Construct a Request
@@ -77,33 +70,4 @@ namespace RestClient.Net.Abstractions
             }
         }
     }
-
-    /*
-    public class Request<TRequestBody> : Request
-    {
-        #region Public Properties
-        public TRequestBody Body { get; set; }
-        #endregion
-
-        #region Constructors
-        /// <summary>
-        /// Use this to construct mocked requests
-        /// </summary>
-        //public Request()
-        //{
-        //}
-
-        public Request(
-        Uri? resource,
-        TRequestBody body,
-        IHeadersCollection? headers,
-        HttpRequestMethod httpRequestMethod,
-        IClient client,
-        CancellationToken cancellationToken) : base(resource, headers, httpRequestMethod, client, cancellationToken)
-        {
-            Body = body;
-        }
-        #endregion
-    }
-    */
 }

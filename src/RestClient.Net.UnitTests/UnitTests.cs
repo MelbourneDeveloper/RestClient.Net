@@ -1260,17 +1260,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestCanMockRequestAndResponse()
         {
-#pragma warning disable IDE0022 // Use expression body for methods
-            throw new NotImplementedException();
-#pragma warning restore IDE0022 // Use expression body for methods
-
-            /*
-
             var clientMock = new Mock<IClient>();
             var headersMock = new Mock<IHeadersCollection>();
-            var response = new HttpResponseMessageResponse<string>()
+            var response = new HttpResponseMessageResponse<string>("test")
             {
-                Body = "test",
                 Headers = headersMock.Object,
                 HttpClient = new HttpClient(),
                 HttpRequestMethod = HttpRequestMethod.Custom,
@@ -1279,25 +1272,15 @@ namespace RestClient.Net.UnitTests
                 StatusCode = 10
             };
 
-            clientMock.Setup(c => c.SendAsync<string, string>(It.IsAny<Request<string>>())).Returns
+            clientMock.Setup(c => c.SendAsync<string>(It.IsAny<Request>())).Returns
                 (
                 Task.FromResult<Response<string>>(response)
                 );
 
             var returnedResponse = await clientMock.Object.SendAsync<string, string>(
-                new Request<string>
-                {
-                    Body = "Test",
-                    CancellationToken = new CancellationToken(),
-                    CustomHttpRequestMethod = "asd",
-                    Headers = new RequestHeadersCollection(),
-                    HttpRequestMethod = HttpRequestMethod.Custom,
-                    Resource = new Uri("http://www.test.com")
-                }
-                ); ;
-            Assert.IsTrue(ReferenceEquals(response, returnedResponse));
+                new Mock<IRequest>().Object);
 
-            */
+            Assert.IsTrue(ReferenceEquals(response, returnedResponse));
         }
 
         //TODO: Fix these tests

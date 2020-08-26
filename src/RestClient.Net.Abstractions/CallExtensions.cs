@@ -7,7 +7,7 @@ namespace RestClient.Net
 {
     public static class CallExtensions
     {
-        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(this IClient client, Request request)
+        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(this IClient client, IRequest request)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
             return client.SendAsync<TResponseBody>(request);

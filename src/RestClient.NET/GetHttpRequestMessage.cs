@@ -3,5 +3,5 @@ using System.Net.Http;
 
 namespace RestClient.Net
 {
-    public delegate HttpRequestMessage GetHttpRequestMessage(Request request);
+    public delegate HttpRequestMessage GetHttpRequestMessage(IRequest request);
 }
