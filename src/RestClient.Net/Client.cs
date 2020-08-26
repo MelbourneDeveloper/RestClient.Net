@@ -3,7 +3,6 @@
 using RestClient.Net.Abstractions.Logging;
 #else
 using Microsoft.Extensions.Logging;
-using RestClient.Net.Abstractions.Extensions;
 #endif
 
 using RestClient.Net.Abstractions;
@@ -12,6 +11,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using RestClient.Net.Abstractions.Extensions;
+using System.Collections.Generic;
 
 namespace RestClient.Net
 {
@@ -21,6 +22,13 @@ namespace RestClient.Net
     public sealed class Client : IClient, IDisposable
     {
         #region Fields
+        private static readonly List<HttpRequestMethod> _updateHttpRequestMethods = new List<HttpRequestMethod>
+        {
+            HttpRequestMethod.Put,
+            HttpRequestMethod.Post,
+            HttpRequestMethod.Patch
+        };
+
         private readonly Func<HttpClient, Func<HttpRequestMessage>, ILogger, CancellationToken, Task<HttpResponseMessage>> _sendHttpRequestFunc;
 
         /// <summary>
@@ -261,7 +269,7 @@ namespace RestClient.Net
 
                 requestBodyData = null;
 
-                if (DefaultRequestConverter.UpdateHttpRequestMethods.Contains(request.HttpRequestMethod))
+                if (_updateHttpRequestMethods.Contains(request.HttpRequestMethod))
                 {
                     requestBodyData = SerializationAdapter.Serialize(request.Body, request.Headers);
                     Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, requestBodyData, message: $"Request body serialized"));
