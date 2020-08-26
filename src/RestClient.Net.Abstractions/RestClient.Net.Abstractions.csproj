@@ -24,7 +24,8 @@ This package contains abstractions for dependency injection with no implementati
     <AssemblyVersion>4.1.0.0</AssemblyVersion>
     <RepositoryType>git</RepositoryType>
     <PackageIcon>Icon.png</PackageIcon>
-    <FileVersion>4.1.0.0</FileVersion>       
+    <FileVersion>4.1.0.0</FileVersion>  
+    <LangVersion>8</LangVersion>             
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net45'">
