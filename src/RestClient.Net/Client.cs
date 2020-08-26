@@ -19,7 +19,7 @@ namespace RestClient.Net
     /// <summary>
     /// Rest client implementation using Microsoft's HttpClient class. 
     /// </summary>
-    public sealed class Client : IClient, IDisposable
+    public sealed class Client : IDisposable
     {
         #region Fields
         private static readonly List<HttpRequestMethod> _updateHttpRequestMethods = new List<HttpRequestMethod>
@@ -248,11 +248,11 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        async Task<Response<TResponseBody>> IClient.SendAsync<TResponseBody, TRequestBody>(Request<TRequestBody> request)
+        private async Task<Response<TResponseBody>> SendAsync<TResponseBody>(Request request)
         {
             HttpResponseMessage httpResponseMessage;
-            byte[] requestBodyData = null;
-            HttpClient httpClient = null;
+            byte[] requestBodyData;
+            HttpClient httpClient;
 
             try
             {
@@ -262,13 +262,13 @@ namespace RestClient.Net
 
                 Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"Got HttpClient null: {httpClient == null}"));
 
+                if (httpClient == null) throw new InvalidOperationException("CreateHttpClient returned null");
+
                 //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
                 if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
                 if (httpClient.BaseAddress != BaseUri && BaseUri != null) httpClient.BaseAddress = BaseUri;
 
                 Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"HttpClient configured. Request Null: {request == null} Adapter Null: {SerializationAdapter == null}"));
-
-                requestBodyData = null;
 
                 if (_updateHttpRequestMethods.Contains(request.HttpRequestMethod))
                 {
@@ -312,7 +312,7 @@ namespace RestClient.Net
             //TODO: Does this need to be handled like this?
             catch (Exception ex)
             {
-                var exception = new SendException<TRequestBody>("HttpClient Send Exception", request, ex);
+                var exception = new SendException("HttpClient Send Exception", request, ex);
 
                 Logger?.LogException(new Trace(
                 request.HttpRequestMethod,

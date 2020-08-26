@@ -43,7 +43,7 @@ namespace RestClient.Net
             return returnValue;
         }
 
-        public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)
+        public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection? requestHeaders)
         {
             var json = JsonSerializer.Serialize(value, JsonSerializationOptions);
 

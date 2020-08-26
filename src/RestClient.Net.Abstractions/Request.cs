@@ -7,6 +7,9 @@ namespace RestClient.Net.Abstractions
     public class Request
     {
         #region Public Properties
+#pragma warning disable CA1819 // Properties should not return arrays
+        public byte[]? BodyData { get; }
+#pragma warning restore CA1819 // Properties should not return arrays
         public IHeadersCollection? Headers { get; set; }
         public Uri? Resource { get; set; }
         public HttpRequestMethod HttpRequestMethod { get; set; }
@@ -32,11 +35,13 @@ namespace RestClient.Net.Abstractions
         /// <param name="cancellationToken"></param>
         public Request(
             Uri? resource,
+            byte[]? bodyData,
             IHeadersCollection? headers,
             HttpRequestMethod httpRequestMethod,
             IClient client,
             CancellationToken cancellationToken)
         {
+            BodyData = bodyData;
             Resource = resource;
             HttpRequestMethod = httpRequestMethod;
             CancellationToken = cancellationToken;
@@ -73,6 +78,7 @@ namespace RestClient.Net.Abstractions
         }
     }
 
+    /*
     public class Request<TRequestBody> : Request
     {
         #region Public Properties
@@ -99,4 +105,5 @@ namespace RestClient.Net.Abstractions
         }
         #endregion
     }
+    */
 }

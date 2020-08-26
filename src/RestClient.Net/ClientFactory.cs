@@ -63,12 +63,14 @@ namespace RestClient.Net
         #region Private Methods
         private IClient MintClient(string name)
         {
+#pragma warning disable CA2000 // Dispose objects before losing scope
             return new Client(
                 SerializationAdapter,
                 name,
                 null,
                 logger: Logger,
                 createHttpClient: _createHttpClient);
+#pragma warning restore CA2000 // Dispose objects before losing scope
         }
         #endregion
     }

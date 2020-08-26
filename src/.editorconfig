@@ -36,3 +36,9 @@ dotnet_diagnostic.CA1816.severity = warning
 dotnet_diagnostic.IDE0061.severity = none
 
 dotnet_diagnostic.IDE0058.severity = suggestion
+
+# CA2229: Implement serialization constructors
+dotnet_diagnostic.CA2229.severity = warning
+
+# CA2237: Mark ISerializable types with serializable
+dotnet_diagnostic.CA2237.severity = none

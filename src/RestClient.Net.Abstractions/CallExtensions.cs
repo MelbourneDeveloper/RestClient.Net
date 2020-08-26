@@ -7,10 +7,10 @@ namespace RestClient.Net
 {
     public static class CallExtensions
     {
-        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(this IClient client, Request<TRequestBody> request)
+        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(this IClient client, Request request)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
-            return client.SendAsync<TResponseBody, TRequestBody>(request);
+            return client.SendAsync<TResponseBody>(request);
         }
 
         #region Get
@@ -43,6 +43,7 @@ namespace RestClient.Net
             return client.SendAsync<TResponseBody>(
                 new Request(
                     resource,
+                    null,
                     requestHeaders,
                     HttpRequestMethod.Get,
                     client,
@@ -64,6 +65,7 @@ namespace RestClient.Net
             var response = (Response)await client.SendAsync<object>(
             new Request(
                 resource,
+                null,
                 requestHeaders,
                 HttpRequestMethod.Delete,
                 client,
@@ -86,10 +88,14 @@ namespace RestClient.Net
 
         public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody = default, Uri? resource = null, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
         {
+            if (client == null) throw new ArgumentNullException(nameof(client));
+
+            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders);
+
             return SendAsync<TResponseBody, TRequestBody>(client,
-                new Request<TRequestBody>(
+                new Request(
                     resource,
-                    requestBody,
+                    requestBodyData,
                     headers: requestHeaders,
                     HttpRequestMethod.Put,
                     client,
@@ -110,10 +116,14 @@ namespace RestClient.Net
 
         public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, Uri? resource, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
         {
+            if (client == null) throw new ArgumentNullException(nameof(client));
+
+            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders);
+
             return SendAsync<TResponseBody, TRequestBody>(client,
-                new Request<TRequestBody>(
+                new Request(
                     resource,
-                    requestBody,
+                    requestBodyData,
                     requestHeaders,
                     HttpRequestMethod.Post,
                     client,
@@ -134,10 +144,14 @@ namespace RestClient.Net
 
         public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, Uri? resource, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
         {
+            if (client == null) throw new ArgumentNullException(nameof(client));
+
+            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders);
+
             return SendAsync<TResponseBody, TRequestBody>(client,
-                new Request<TRequestBody>(
+                new Request(
                     resource,
-                    requestBody,
+                    requestBodyData,
                     requestHeaders,
                     HttpRequestMethod.Patch,
                     client,

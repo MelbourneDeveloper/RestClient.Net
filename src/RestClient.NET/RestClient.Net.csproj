@@ -27,6 +27,14 @@ www.rest-client.net</Description>
     <RepositoryType>git</RepositoryType>    
     <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ClientFactory.cs" />
+  </ItemGroup>
  
   <ItemGroup>
     <None Include="..\Images\Rendered\Icon.png">
