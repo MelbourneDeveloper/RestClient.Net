@@ -1272,13 +1272,12 @@ namespace RestClient.Net.UnitTests
                 StatusCode = 10
             };
 
-            clientMock.Setup(c => c.SendAsync<string>(It.IsAny<Request>())).Returns
+            clientMock.Setup(c => c.SendAsync<string>(It.IsAny<IRequest>())).Returns
                 (
                 Task.FromResult<Response<string>>(response)
                 );
 
-            var returnedResponse = await clientMock.Object.SendAsync<string, string>(
-                new Mock<IRequest>().Object);
+            var returnedResponse = await clientMock.Object.SendAsync<string>(new Mock<IRequest>().Object);
 
             Assert.IsTrue(ReferenceEquals(response, returnedResponse));
         }
