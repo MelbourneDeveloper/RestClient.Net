@@ -38,8 +38,14 @@ namespace RestClient.Net
 
         /// <summary>
         /// The http client created by the default factory delegate
+        /// TODO: We really shouldn't hang on to this....
         /// </summary>
         private readonly HttpClient _httpClient;
+
+        /// <summary>
+        /// Gets the current IRequestConverter instance responsible for converting rest requests to http requests
+        /// </summary>
+        private readonly GetHttpRequestMessage _getHttpRequestMessage;
         #endregion
 
         #region Public Properties
@@ -83,11 +89,6 @@ namespace RestClient.Net
         /// Name of the client
         /// </summary>
         public string Name { get; }
-
-        /// <summary>
-        /// Gets the current IRequestConverter instance responsible for converting rest requests to http requests
-        /// </summary>
-        public GetHttpRequestMessage RequestConverter { get; }
         #endregion
 
         #region Func
@@ -196,7 +197,7 @@ namespace RestClient.Net
         /// <param name="logger">Logging abstraction that will trace request/response data and log events</param>
         /// <param name="createHttpClient">The delegate that is used for getting or creating HttpClient instances when the SendAsync call is made</param>
         /// <param name="sendHttpRequestFunc">The Func responsible for performing the SendAsync method on HttpClient. This can replaced in the constructor in order to implement retries and so on.</param>
-        /// <param name="requestConverter">IRequestConverter instance responsible for converting rest requests to http requests</param>
+        /// <param name="getHttpRequestMessage">Delegate responsible for converting rest requests to http requests</param>
         public Client(
 #if NET45
            ISerializationAdapter serializationAdapter,
@@ -209,7 +210,7 @@ namespace RestClient.Net
             ILogger logger = null,
             CreateHttpClient createHttpClient = null,
             Func<HttpClient, Func<HttpRequestMessage>, ILogger, CancellationToken, Task<HttpResponseMessage>> sendHttpRequestFunc = null,
-            GetHttpRequestMessage requestConverter = null)
+            GetHttpRequestMessage getHttpRequestMessage = null)
         {
             DefaultRequestHeaders = defaultRequestHeaders ?? new RequestHeadersCollection();
 
@@ -229,7 +230,7 @@ namespace RestClient.Net
             Logger = logger;
             BaseUri = baseUri;
             Name = name ?? Guid.NewGuid().ToString();
-            RequestConverter = requestConverter ?? GetHttpRequestMessage;
+            _getHttpRequestMessage = getHttpRequestMessage ?? GetHttpRequestMessage;
 
             if (createHttpClient == null)
             {
@@ -281,7 +282,7 @@ namespace RestClient.Net
 
                 httpResponseMessage = await _sendHttpRequestFunc.Invoke(
                     httpClient,
-                    () => RequestConverter(request, requestBodyData),
+                    () => _getHttpRequestMessage(request, requestBodyData),
                     Logger,
                     request.CancellationToken
                     );
