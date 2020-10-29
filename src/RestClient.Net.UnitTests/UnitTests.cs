@@ -542,7 +542,11 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), JsonPlaceholderBaseUri) { Timeout = new TimeSpan(0, 0, 0, 0, 1) };
+                var client = new Client(
+                    new NewtonsoftSerializationAdapter(),
+                    baseUri: JsonPlaceholderBaseUri,
+                    timeout: new TimeSpan(0, 0, 0, 0, 1));
+
                 await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
             }
             catch (TaskCanceledException ex)
@@ -1368,11 +1372,9 @@ namespace RestClient.Net.UnitTests
             var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter(),
                 defaultHttpClientFactory.CreateClient);
 
-            var firstClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient);
-            firstClient.BaseUri = RestCountriesAllUri;
+            var firstClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "RestClient", RestCountriesAllUri);
 
-            var secondClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient);
-            secondClient.BaseUri = RestCountriesAllUri;
+            var secondClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "RestClient", RestCountriesAllUri);
 
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
         }

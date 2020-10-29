@@ -29,12 +29,12 @@ namespace RestClient.Net.Abstractions
         /// <summary>
         /// Default timeout for http requests
         /// </summary>
-        TimeSpan Timeout { get; set; }
+        TimeSpan Timeout { get; }
 
         /// <summary>
         /// Base Uri for the client. Any resources specified on requests will be relative to this.
         /// </summary>
-        Uri? BaseUri { get; set; }
+        Uri? BaseUri { get; }
 
         /// <summary>
         /// Name of the client

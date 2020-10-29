@@ -57,7 +57,7 @@ namespace RestClient.Net
         /// <summary>
         /// Compresses and decompresses http requests 
         /// </summary>
-        public IZip? Zip { get; set; }
+        public IZip? Zip { get; }
 
         /// <summary>
         /// Default headers to be sent with http requests
@@ -67,7 +67,7 @@ namespace RestClient.Net
         /// <summary>
         /// Default timeout for http requests
         /// </summary>
-        public TimeSpan Timeout { get; set; }
+        public TimeSpan Timeout { get; }
 
         /// <summary>
         /// Adapter for serialization/deserialization of http body data
@@ -87,7 +87,7 @@ namespace RestClient.Net
         /// <summary>
         /// Base Uri for the client. Any resources specified on requests will be relative to this.
         /// </summary>
-        public Uri? BaseUri { get; set; }
+        public Uri? BaseUri { get; }
 
         /// <summary>
         /// Name of the client
@@ -216,7 +216,10 @@ namespace RestClient.Net
             ILogger? logger = null,
             CreateHttpClient? createHttpClient = null,
             SendHttpRequestMessage? sendHttpRequestFunc = null,
-            GetHttpRequestMessage? getHttpRequestMessage = null)
+            GetHttpRequestMessage? getHttpRequestMessage = null,
+            TimeSpan timeout = default,
+            IZip? zip = null,
+            bool throwExceptionOnFailure = true)
         {
             DefaultRequestHeaders = defaultRequestHeaders ?? new RequestHeadersCollection();
 
@@ -250,6 +253,10 @@ namespace RestClient.Net
             }
 
             _sendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
+
+            Timeout = timeout;
+            Zip = zip;
+            ThrowExceptionOnFailure = throwExceptionOnFailure;
         }
 
         #endregion
@@ -386,12 +393,9 @@ namespace RestClient.Net
 
             if (!httpResponseMessageResponse.IsSuccess)
             {
-                if (!ThrowExceptionOnFailure)
-                {
-                    return httpResponseMessageResponse;
-                }
-
-                throw new HttpStatusException(Messages.GetErrorMessageNonSuccess(httpResponseMessageResponse.StatusCode, httpResponseMessageResponse.RequestUri), httpResponseMessageResponse, this);
+                return !ThrowExceptionOnFailure
+                    ? httpResponseMessageResponse
+                    : throw new HttpStatusException(Messages.GetErrorMessageNonSuccess(httpResponseMessageResponse.StatusCode, httpResponseMessageResponse.RequestUri), httpResponseMessageResponse, this);
             }
 
             try

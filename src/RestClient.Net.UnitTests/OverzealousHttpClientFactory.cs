@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace RestClient.Net.UnitTests
 {
-    public class OverzealousHttpClientFactory 
+    public class OverzealousHttpClientFactory
     {
         #region Fields
         private readonly bool disposed;

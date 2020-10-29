@@ -14,11 +14,10 @@ namespace RestClient.Net.Abstractions
             //If this is random, then many clients will get created
             CreateClient(clientFactory, "RestClient", null);
 
-        public static IClient CreateClient(this CreateClient clientFactory, string name, Uri? baseUri)
+        public static IClient CreateClient(this CreateClient clientFactory, string name, Uri? baseUri = null)
         {
             if (clientFactory == null) throw new ArgumentNullException(nameof(clientFactory));
-            var client = clientFactory(name);
-            client.BaseUri = baseUri;
+            var client = clientFactory(name, baseUri);
             return client;
         }
     }

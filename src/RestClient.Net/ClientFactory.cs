@@ -15,7 +15,7 @@ namespace RestClient.Net
     public class ClientFactory
     {
         #region Fields
-        private readonly Func<string, Lazy<IClient>> _createClientFunc;
+        private readonly Func<string, Uri?, Lazy<IClient>> _createClientFunc;
         private readonly ConcurrentDictionary<string, Lazy<IClient>> _clients;
         private readonly CreateHttpClient _createHttpClient;
         private readonly ILoggerFactory? _loggerFactory;
@@ -41,32 +41,24 @@ namespace RestClient.Net
 
             _clients = new ConcurrentDictionary<string, Lazy<IClient>>();
 
-            _createClientFunc = name =>
+            _createClientFunc = (name, baseUri) =>
             {
-                return new Lazy<IClient>(() => MintClient(name), LazyThreadSafetyMode.ExecutionAndPublication);
+                return new Lazy<IClient>(() => MintClient(name, baseUri), LazyThreadSafetyMode.ExecutionAndPublication);
             };
         }
         #endregion
 
         #region Implementation
-        public IClient CreateClient(string name)
-        {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            return _clients.GetOrAdd(name, _createClientFunc).Value;
-        }
+        public IClient CreateClient(string name, Uri? baseUri = null) => name == null ? throw new ArgumentNullException(nameof(name)) : _clients.GetOrAdd(name, _createClientFunc(name, baseUri)).Value;
         #endregion
 
         #region Private Methods
-        private IClient MintClient(string name) =>
+        private IClient MintClient(string name, Uri? baseUri = null) =>
 #pragma warning disable CA2000 // Dispose objects before losing scope
             new Client(
                 SerializationAdapter,
                 name,
-                null,
+                baseUri,
                 logger: _loggerFactory?.CreateLogger<Client>(),
                 createHttpClient: _createHttpClient);
 #pragma warning restore CA2000 // Dispose objects before losing scope
