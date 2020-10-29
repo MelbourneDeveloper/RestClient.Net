@@ -24,8 +24,9 @@ namespace RestClient.Net.Abstractions.Extensions
         public static TResponseBody DeserializeResponseBody<TResponseBody>(this IClient restClient, Response response)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            if (response == null) throw new ArgumentNullException(nameof(response));
-            return restClient.SerializationAdapter.Deserialize<TResponseBody>(response);
+            return response == null
+                ? throw new ArgumentNullException(nameof(response))
+                : restClient.SerializationAdapter.Deserialize<TResponseBody>(response);
         }
 
         public static void SetJsonContentTypeHeader(this IClient restClient)

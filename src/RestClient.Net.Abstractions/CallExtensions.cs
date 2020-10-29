@@ -7,11 +7,7 @@ namespace RestClient.Net
 {
     public static class CallExtensions
     {
-        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(this IClient client, IRequest request)
-        {
-            if (client == null) throw new ArgumentNullException(nameof(client));
-            return client.SendAsync<TResponseBody>(request);
-        }
+        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(this IClient client, IRequest request) => client == null ? throw new ArgumentNullException(nameof(client)) : client.SendAsync<TResponseBody>(request);
 
         #region Get
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client) => GetAsync<TResponseBody>(client, default(Uri));
@@ -33,11 +29,9 @@ namespace RestClient.Net
             }
         }
 
-        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, Uri? resource = null, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
-        {
-            if (client == null) throw new ArgumentNullException(nameof(client));
-
-            return client.SendAsync<TResponseBody>(
+        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, Uri? resource = null, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default) => client == null
+                ? throw new ArgumentNullException(nameof(client))
+                : client.SendAsync<TResponseBody>(
                 new Request(
                     resource,
                     null,
@@ -45,7 +39,6 @@ namespace RestClient.Net
                     HttpRequestMethod.Get,
                     client,
                     cancellationToken));
-        }
         #endregion
 
         #region Delete

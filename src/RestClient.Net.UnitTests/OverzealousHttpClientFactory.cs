@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace RestClient.Net.UnitTests
 {
-    public class OverzealousHttpClientFactory
+    public class OverzealousHttpClientFactory 
     {
         #region Fields
         private readonly bool disposed;
@@ -28,15 +28,7 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Implementation
-        public HttpClient CreateClient(string name)
-        {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            return _getOrAddFunc.Invoke(name);
-        }
+        public HttpClient CreateClient(string name) => name == null ? throw new ArgumentNullException(nameof(name)) : _getOrAddFunc.Invoke(name);
         #endregion
     }
 }

@@ -14,12 +14,7 @@ namespace RestClient.Net
 
             object markupAsObject = markup;
 
-            if (typeof(TResponseBody) == typeof(string))
-            {
-                return (TResponseBody)markupAsObject;
-            }
-
-            return JsonConvert.DeserializeObject<TResponseBody>(markup);
+            return typeof(TResponseBody) == typeof(string) ? (TResponseBody)markupAsObject : JsonConvert.DeserializeObject<TResponseBody>(markup);
         }
 
         public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)

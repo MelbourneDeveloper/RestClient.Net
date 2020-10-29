@@ -8,9 +8,8 @@ namespace RestClient.Net
     {
         public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)
         {
-            var message = (IMessage)value as IMessage;           
-            if (message == null) throw new Exception("The object is not a Google Protobuf Message");
-            return message.ToByteArray();
+            var message = (IMessage)value as IMessage;
+            return message == null ? throw new Exception("The object is not a Google Protobuf Message") : message.ToByteArray();
         }
 
         public TResponseBody Deserialize<TResponseBody>(Response response)

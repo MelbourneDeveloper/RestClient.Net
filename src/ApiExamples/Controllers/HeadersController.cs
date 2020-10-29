@@ -40,37 +40,19 @@ namespace ApiExamples.Controllers
         }
 
         [HttpPost]
-        public async Task<Person> PostAsync([FromBody] Person person)
-        {
-            if (Request.Headers.ContainsKey("Test") && Request.Headers["Test"] == "Test")
-            {
-                return person;
-            }
-
-            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
-        }
+        public async Task<Person> PostAsync([FromBody] Person person) => Request.Headers.ContainsKey("Test") && Request.Headers["Test"] == "Test"
+                ? person
+                : throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
 
         [HttpPut]
-        public async Task<Person> PutAsync([FromBody] Person person)
-        {
-            if (Request.Headers.ContainsKey("Test") && Request.Headers["Test"] == "Test")
-            {
-                return person;
-            }
-
-            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
-        }
+        public async Task<Person> PutAsync([FromBody] Person person) => Request.Headers.ContainsKey("Test") && Request.Headers["Test"] == "Test"
+                ? person
+                : throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
 
         [HttpPatch]
-        public async Task<Person> PatchAsync([FromBody] Person person)
-        {
-            if (Request.Headers.ContainsKey("Test") && Request.Headers["Test"] == "Test")
-            {
-                return person;
-            }
-
-            throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
-        }
+        public async Task<Person> PatchAsync([FromBody] Person person) => Request.Headers.ContainsKey("Test") && Request.Headers["Test"] == "Test"
+                ? person
+                : throw new StatusException(ApiMessages.HeadersControllerExceptionMessage, HttpStatusCode.BadRequest);
 
         [HttpDelete]
         [Route("{id}")]

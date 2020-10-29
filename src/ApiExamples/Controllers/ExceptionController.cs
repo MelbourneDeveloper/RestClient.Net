@@ -25,12 +25,9 @@ namespace ApiExamples.Controllers
                     return BadRequest(json);
                 }
 
-                if (statusException.HttpStatusCode == HttpStatusCode.Unauthorized)
-                {
-                    return Unauthorized(json);
-                }
-
-                return Problem(json, null, (int)statusException.HttpStatusCode);
+                return statusException.HttpStatusCode == HttpStatusCode.Unauthorized
+                    ? Unauthorized(json)
+                    : Problem(json, null, (int)statusException.HttpStatusCode);
             }
             else
             {
