@@ -19,13 +19,10 @@ namespace ApiExamples.Controllers
             if (context.Error is StatusException statusException)
             {
                 //Returning BadRequest/Unauthorized is different to Problem. Problem returns its own model
-                
-                if(statusException.HttpStatusCode == HttpStatusCode.BadRequest)
-                {
-                    return BadRequest(json);
-                }
 
-                return statusException.HttpStatusCode == HttpStatusCode.Unauthorized
+                return statusException.HttpStatusCode == HttpStatusCode.BadRequest
+                    ? BadRequest(json)
+                    : statusException.HttpStatusCode == HttpStatusCode.Unauthorized
                     ? Unauthorized(json)
                     : Problem(json, null, (int)statusException.HttpStatusCode);
             }
