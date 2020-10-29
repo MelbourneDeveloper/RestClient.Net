@@ -288,14 +288,11 @@ namespace RestClient.Net
 
                 if (request == null) throw new ArgumentNullException(nameof(request));
 
-                if (_updateHttpRequestMethods.Contains(request.HttpRequestMethod))
-                {
-                    Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, request.BodyData, message: $"Request body serialized"));
-                }
-                else
-                {
-                    Logger?.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, request.BodyData, message: $"No request body to serialize"));
-                }
+                Logger?.LogTrace(_updateHttpRequestMethods.Contains(request.HttpRequestMethod)
+                    ? new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, request.BodyData,
+                        message: $"Request body serialized")
+                    : new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, request.BodyData,
+                        message: "No request body to serialize"));
 
                 httpResponseMessage = await _sendHttpRequestFunc(
                     httpClient,
@@ -370,10 +367,7 @@ namespace RestClient.Net
                 }
             }
 
-            if (responseData == null)
-            {
-                responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync();
-            }
+            responseData ??= await httpResponseMessage.Content.ReadAsByteArrayAsync();
 
             var httpResponseHeadersCollection = new HttpResponseHeadersCollection(httpResponseMessage.Headers);
 

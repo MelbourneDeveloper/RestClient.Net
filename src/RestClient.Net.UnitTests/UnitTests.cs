@@ -975,7 +975,7 @@ namespace RestClient.Net.UnitTests
                 new Uri("secure/authenticate", UriKind.Relative)
                 );
 
-            client.SetBearerTokenuthenticationHeader(response.Body.BearerToken);
+            client.SetBearerTokenAuthenticationHeader(response.Body.BearerToken);
 
             Person person = await client.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative));
             Assert.AreEqual("Bear", person.FirstName);
@@ -1017,7 +1017,7 @@ namespace RestClient.Net.UnitTests
             try
             {
                 restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-                restClient.SetBearerTokenuthenticationHeader("321");
+                restClient.SetBearerTokenAuthenticationHeader("321");
                 Person person = await restClient.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative));
             }
             catch (HttpStatusException hex)

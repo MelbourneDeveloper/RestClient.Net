@@ -61,12 +61,11 @@ namespace RestClient.Net.Abstractions
             }
 
             //Add the default headers
-            if (headers != null)
+            if (headers == null) return;
+
+            foreach (var kvp in headers)
             {
-                foreach (var kvp in headers)
-                {
-                    Headers.Add(kvp);
-                }
+                Headers.Add(kvp);
             }
         }
     }

@@ -15,7 +15,7 @@ namespace RestClient.Net.Abstractions.Extensions
             restClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
         }
 
-        public static void SetBearerTokenuthenticationHeader(this IClient restClient, string bearerToken)
+        public static void SetBearerTokenAuthenticationHeader(this IClient restClient, string bearerToken)
         {
             if (restClient == null) throw new ArgumentNullException(nameof(restClient));
             restClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + bearerToken);

@@ -19,11 +19,9 @@ namespace RestClient.Net
             if (response == null) throw new ArgumentNullException(nameof(response));
 
             var serializer = new DataContractSerializer(typeof(TResponseBody), KnownDataContracts);
-            using (var stream = new MemoryStream(response.GetResponseData()))
-            using (var reader = XmlDictionaryReader.CreateBinaryReader(stream, XmlDictionaryReaderQuotas.Max))
-            {
-                return (TResponseBody)serializer.ReadObject(reader);
-            }
+            using var stream = new MemoryStream(response.GetResponseData());
+            using var reader = XmlDictionaryReader.CreateBinaryReader(stream, XmlDictionaryReaderQuotas.Max);
+            return (TResponseBody)serializer.ReadObject(reader);
         }
 
         public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)

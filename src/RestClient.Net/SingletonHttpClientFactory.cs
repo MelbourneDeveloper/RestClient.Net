@@ -19,7 +19,6 @@ namespace RestClient.Net
         #region Constructor
         public SingletonHttpClientFactory(HttpClient httpClient)
         {
-            if (httpClient == null) httpClient = new HttpClient();
             HttpClient = httpClient;
         }
         #endregion
