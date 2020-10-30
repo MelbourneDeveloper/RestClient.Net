@@ -9,6 +9,8 @@ using RestClient.Net.Abstractions;
 using System;
 using System.Text;
 
+#pragma warning disable IDE0060 
+
 namespace RestClient.Net.UnitTests
 {
     public class ConsoleLogger : ILogger
@@ -45,3 +47,5 @@ namespace RestClient.Net.UnitTests
 
     }
 }
+
+#pragma warning restore IDE0060 
