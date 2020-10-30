@@ -39,6 +39,7 @@ This package contains abstractions for dependency injection with no implementati
     <Compile Remove="Logging/ILoggerFactory.cs" />    
     <Compile Remove="Logging/EventId.cs" />
     <Compile Remove="Logging/LogLevel.cs" />
+    <Compile Remove="Logging/NullLoggerFactory.cs" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
