@@ -371,6 +371,17 @@ namespace RestClient.Net
 
             var httpResponseHeadersCollection = new HttpResponseHeadersCollection(httpResponseMessage.Headers);
 
+            TResponseBody responseBody = default;
+
+            try
+            {
+                responseBody = SerializationAdapter.Deserialize<TResponseBody>(responseData, httpResponseHeadersCollection);
+            }
+            catch (Exception ex)
+            {
+                throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
+            }
+
             //🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮
 #nullable disable
             var httpResponseMessageResponse = new HttpResponseMessageResponse<TResponseBody>
@@ -379,7 +390,7 @@ namespace RestClient.Net
                 (int)httpResponseMessage.StatusCode,
                 request.HttpRequestMethod,
                 responseData,
-                default,
+                responseBody,
                 httpResponseMessage,
                 httpClient
             );
@@ -389,16 +400,11 @@ namespace RestClient.Net
             {
                 return !ThrowExceptionOnFailure
                     ? httpResponseMessageResponse
-                    : throw new HttpStatusException(Messages.GetErrorMessageNonSuccess(httpResponseMessageResponse.StatusCode, httpResponseMessageResponse.RequestUri), httpResponseMessageResponse, this);
-            }
-
-            try
-            {
-                httpResponseMessageResponse.Body = SerializationAdapter.Deserialize<TResponseBody>(httpResponseMessageResponse);
-            }
-            catch (Exception ex)
-            {
-                throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
+                    : throw new HttpStatusException(
+                        Messages.GetErrorMessageNonSuccess(httpResponseMessageResponse.StatusCode,
+                        httpResponseMessageResponse.RequestUri),
+                        httpResponseMessageResponse,
+                        this);
             }
 
             Logger?.LogTrace(new Trace

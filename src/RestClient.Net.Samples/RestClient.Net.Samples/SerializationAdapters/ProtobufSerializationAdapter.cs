@@ -8,18 +8,18 @@ namespace RestClient.Net
     {
         public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)
         {
-            var message = (IMessage)value as IMessage;
+            var message = (IMessage)value;
             return message == null ? throw new Exception("The object is not a Google Protobuf Message") : message.ToByteArray();
         }
 
-        public TResponseBody Deserialize<TResponseBody>(Response response)
+        public TResponseBody Deserialize<TResponseBody>(byte[] responseData, IHeadersCollection? responseHeaders)
         {
-            if (response == null) throw new ArgumentNullException(nameof(response));
+            if (responseData == null) throw new ArgumentNullException(nameof(responseData));
             var messageType = typeof(TResponseBody);
             var parserProperty = messageType.GetProperty("Parser");
             var parser = parserProperty.GetValue(parserProperty);
             var parseFromMethod = parserProperty.PropertyType.GetMethod("ParseFrom", new Type[] { typeof(byte[]) });
-            var parsedObject = parseFromMethod.Invoke(parser,new object[] { response.GetResponseData() });
+            var parsedObject = parseFromMethod.Invoke(parser, new object[] { responseData });
             return (TResponseBody)parsedObject;
         }
     }

@@ -4,17 +4,16 @@ namespace RestClient.Net.Abstractions
 {
     public interface IResponse
     {
-        IHeadersCollection Headers { get; set; }
-        HttpRequestMethod HttpRequestMethod { get; set; }
+        IHeadersCollection Headers { get; }
+        HttpRequestMethod HttpRequestMethod { get; }
         bool IsSuccess { get; }
-        Uri? RequestUri { get; set; }
-        int StatusCode { get; set; }
-
+        Uri? RequestUri { get; }
+        int StatusCode { get; }
         byte[] GetResponseData();
     }
 
     public interface IResponse<TResponseBody> : IResponse
     {
-        TResponseBody Body { get; set; }
+        TResponseBody Body { get; }
     }
 }

@@ -5,17 +5,10 @@ namespace RestClient.Net.Abstractions
     public abstract class Response<TResponseBody> : Response
     {
         #region Public Properties
-        public virtual TResponseBody Body { get; set; }
+        public virtual TResponseBody Body { get; }
         #endregion
 
         #region Constructors
-        /// <summary>
-        /// Only used for mocking or other inheritance
-        /// </summary>
-        //protected Response() : base()
-        //{
-        //}
-
         protected Response(
         IHeadersCollection headersCollection,
         int statusCode,
@@ -44,28 +37,21 @@ namespace RestClient.Net.Abstractions
         #endregion
     }
 
-    public abstract class Response
+    public abstract class Response : IResponse
     {
         #region Fields
-        private readonly byte[]? _responseData;
+        private readonly byte[] _responseData;
         #endregion
 
         #region Public Properties
-        public virtual int StatusCode { get; set; }
-        public virtual IHeadersCollection? Headers { get; set; }
-        public virtual HttpRequestMethod HttpRequestMethod { get; set; }
+        public virtual int StatusCode { get; }
+        public virtual IHeadersCollection Headers { get; }
+        public virtual HttpRequestMethod HttpRequestMethod { get; }
         public abstract bool IsSuccess { get; }
-        public virtual Uri? RequestUri { get; set; }
+        public virtual Uri? RequestUri { get; }
         #endregion
 
         #region Constructor
-        /// <summary>
-        /// Only used for mocking or other inheritance
-        /// </summary>
-        //protected Response()
-        //{
-        //}
-
         protected Response
         (
         IHeadersCollection headersCollection,
@@ -84,7 +70,7 @@ namespace RestClient.Net.Abstractions
         #endregion
 
         #region Public Methods
-        public virtual byte[]? GetResponseData() => _responseData;
+        public virtual byte[] GetResponseData() => _responseData;
         #endregion
     }
 }

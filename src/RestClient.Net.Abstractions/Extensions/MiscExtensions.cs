@@ -21,11 +21,11 @@ namespace RestClient.Net.Abstractions.Extensions
             restClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + bearerToken);
         }
 
-        public static TResponseBody DeserializeResponseBody<TResponseBody>(this IClient restClient, Response response) => restClient == null
+        public static TResponseBody DeserializeResponseBody<TResponseBody>(this IClient restClient, byte[] response, IHeadersCollection headersCollection) => restClient == null
                 ? throw new ArgumentNullException(nameof(restClient))
                 : response == null
                 ? throw new ArgumentNullException(nameof(response))
-                : restClient.SerializationAdapter.Deserialize<TResponseBody>(response);
+                : restClient.SerializationAdapter.Deserialize<TResponseBody>(response, headersCollection);
 
         public static void SetJsonContentTypeHeader(this IClient restClient)
         {

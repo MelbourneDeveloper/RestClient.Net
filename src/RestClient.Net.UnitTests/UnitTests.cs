@@ -422,7 +422,7 @@ namespace RestClient.Net.UnitTests
 
             var response = await client.GetAsync<List<RestCountry>>();
 
-            var error = client.SerializationAdapter.Deserialize<Error>(response);
+            var error = client.SerializationAdapter.Deserialize<Error>(response.GetResponseData(), response.Headers);
 
             Assert.AreEqual(expectedError.Message, error.Message);
         }
@@ -753,7 +753,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response);
+                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -778,7 +778,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response);
+                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -829,7 +829,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response);
+                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -870,7 +870,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response);
+                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -901,7 +901,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response);
+                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -937,7 +937,7 @@ namespace RestClient.Net.UnitTests
             };
             var response = await client.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
-            var apiResult = client.DeserializeResponseBody<ApiResult>(response);
+            var apiResult = client.DeserializeResponseBody<ApiResult>(response.GetResponseData(), response.Headers);
             Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
 
             //Check that the response values are getting set correctly
@@ -957,7 +957,7 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response);
+                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
                 return;
             }
@@ -996,7 +996,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response);
+                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -1025,7 +1025,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response);
+                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -1056,7 +1056,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException ex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.Response.StatusCode);
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(ex.Response);
+                var apiResult = restClient.DeserializeResponseBody<ApiResult>(ex.Response.GetResponseData(), ex.Response.Headers);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -1268,15 +1268,15 @@ namespace RestClient.Net.UnitTests
         {
             var clientMock = new Mock<IClient>();
             var headersMock = new Mock<IHeadersCollection>();
-            var response = new HttpResponseMessageResponse<string>("test")
-            {
-                Headers = headersMock.Object,
-                HttpClient = new HttpClient(),
-                HttpRequestMethod = HttpRequestMethod.Custom,
-                HttpResponseMessage = new HttpResponseMessage(),
-                RequestUri = new Uri("http://test.com"),
-                StatusCode = 10
-            };
+            var response = new HttpResponseMessageResponse<string>(
+                headersMock.Object,
+                10,
+                HttpRequestMethod.Custom,
+                //Shouldn't this be filled in?
+                null,
+                "test",
+                new HttpResponseMessage(),
+                new HttpClient());
 
             clientMock.Setup(c => c.SendAsync<string>(It.IsAny<IRequest>())).Returns
                 (

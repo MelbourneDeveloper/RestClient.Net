@@ -10,14 +10,13 @@ namespace RestClient.Net
     {
         #region Public Methods
 
-        public TResponseBody Deserialize<TResponseBody>(Response response)
+        public TResponseBody Deserialize<TResponseBody>(byte[] responseData, IHeadersCollection? responseHeaders)
         {
-            if (response == null) throw new ArgumentNullException(nameof(response));
+            if (responseData == null) throw new ArgumentNullException(nameof(responseData));
 
             var serializer = new XmlSerializer(typeof(TResponseBody));
             using var stream = new MemoryStream();
-            var data = response.GetResponseData();
-            stream.Write(data, 0, data.Length);
+            stream.Write(responseData, 0, responseData.Length);
             _ = stream.Seek(0, SeekOrigin.Begin);
             return (TResponseBody)serializer.Deserialize(stream);
         }

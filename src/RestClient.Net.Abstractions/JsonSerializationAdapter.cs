@@ -30,11 +30,11 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        public TResponseBody Deserialize<TResponseBody>(Response response)
+        public TResponseBody Deserialize<TResponseBody>(byte[] responseData, IHeadersCollection? responseHeaders)
         {
-            if (response == null) throw new ArgumentNullException(nameof(response));
+            if (responseData == null) throw new ArgumentNullException(nameof(responseData));
 
-            var markup = Encoding.UTF8.GetString(response.GetResponseData());
+            var markup = Encoding.UTF8.GetString(responseData);
 
             object markupAsObject = markup;
 

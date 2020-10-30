@@ -7,10 +7,10 @@ namespace RestClient.Net
     public class NewtonsoftSerializationAdapter : ISerializationAdapter
     {
         #region Implementation
-        public TResponseBody Deserialize<TResponseBody>(Response response)
+        public TResponseBody Deserialize<TResponseBody>(byte[] responseData, IHeadersCollection? responseHeaders)
         {
             //Note: on some services the headers should be checked for encoding 
-            var markup = Encoding.UTF8.GetString(response.GetResponseData());
+            var markup = Encoding.UTF8.GetString(responseData);
 
             object markupAsObject = markup;
 
