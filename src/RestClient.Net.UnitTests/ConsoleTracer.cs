@@ -13,7 +13,7 @@ using System.Text;
 
 namespace RestClient.Net.UnitTests
 {
-    public class ConsoleLogger : ILogger
+    public class ConsoleLogger : ILogger<Client>
     {
         public IDisposable BeginScope<TState>(TState state) => throw new NotImplementedException();
 

@@ -2,6 +2,6 @@
 {
     public interface ILoggerFactory
     {
-        ILogger CreateLogger<T>();
+        ILogger<T> CreateLogger<T>();
     }
 }

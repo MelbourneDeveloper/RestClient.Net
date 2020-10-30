@@ -150,7 +150,7 @@ namespace RestClient.Net.UnitTests
         //private CreateHttpClient _createHttpClient = null;
 
         private static TestClientFactory _testServerHttpClientFactory;
-        private static Mock<ILogger> _logger;
+        private static Mock<ILogger<Client>> _logger;
         private static MockHttpMessageHandler _mockHttpMessageHandler;
 
 #if NETCOREAPP3_1
@@ -173,7 +173,7 @@ namespace RestClient.Net.UnitTests
         {
             var testServerHttpClientFactory = GetTestClientFactory();
             _testServerHttpClientFactory = testServerHttpClientFactory;
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<ILogger<Client>>();
 
             //Set up the mox
             _mockHttpMessageHandler = new MockHttpMessageHandler();

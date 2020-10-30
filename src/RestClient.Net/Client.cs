@@ -179,7 +179,7 @@ namespace RestClient.Net
         /// <param name="createHttpClient"></param>
         public Client(
             ISerializationAdapter serializationAdapter,
-            ILogger logger,
+            ILogger<Client> logger,
             CreateHttpClient createHttpClient)
         : this(
             serializationAdapter,
@@ -214,7 +214,7 @@ namespace RestClient.Net
             string? name = null,
             Uri? baseUri = null,
             IHeadersCollection? defaultRequestHeaders = null,
-            ILogger? logger = null,
+            ILogger<Client>? logger = null,
             CreateHttpClient? createHttpClient = null,
             SendHttpRequestMessage? sendHttpRequestFunc = null,
             GetHttpRequestMessage? getHttpRequestMessage = null,
@@ -237,7 +237,10 @@ namespace RestClient.Net
                 SerializationAdapter = serializationAdapter;
             }
 #endif
-            Logger = logger ?? NullLogger.Instance;
+#pragma warning disable IDE0004 
+            Logger = logger ?? (ILogger)NullLogger.Instance;
+#pragma warning restore IDE0004 
+
             BaseUri = baseUri;
             Name = name ?? Guid.NewGuid().ToString();
 
