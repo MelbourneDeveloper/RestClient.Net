@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net.Abstractions;
 using RestClient.Net.DependencyInjection;
@@ -16,6 +17,18 @@ namespace RestClient.Net.UnitTests
     [TestClass]
     public class MicrosoftDependencyInjectionTests
     {
+        [TestMethod]
+        public void TestIoContainerInjectsLogger()
+        {
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddLogging();
+            serviceCollection.AddSingleton<IClient, Client>();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            var client = (Client)serviceProvider.GetRequiredService<IClient>();
+            Assert.IsNotNull(client);
+            Assert.IsFalse(ReferenceEquals(client.Logger, NullLogger.Instance));
+        }
+
         [TestMethod]
         public void TestDIMapping()
         {
