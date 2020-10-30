@@ -8,10 +8,10 @@ namespace RestClient.Net.Abstractions
 #pragma warning disable CA1819 // Properties should not return arrays
         byte[]? BodyData { get; }
 #pragma warning restore CA1819 // Properties should not return arrays
-        CancellationToken CancellationToken { get; set; }
-        string? CustomHttpRequestMethod { get; set; }
-        IHeadersCollection? Headers { get; set; }
-        HttpRequestMethod HttpRequestMethod { get; set; }
-        Uri? Resource { get; set; }
+        CancellationToken CancellationToken { get; }
+        string? CustomHttpRequestMethod { get; }
+        IHeadersCollection? Headers { get; }
+        HttpRequestMethod HttpRequestMethod { get; }
+        Uri? Resource { get; }
     }
 }

@@ -10,11 +10,11 @@ namespace RestClient.Net.Abstractions
 #pragma warning disable CA1819 // Properties should not return arrays
         public byte[]? BodyData { get; }
 #pragma warning restore CA1819 // Properties should not return arrays
-        public IHeadersCollection? Headers { get; set; }
-        public Uri? Resource { get; set; }
-        public HttpRequestMethod HttpRequestMethod { get; set; }
-        public CancellationToken CancellationToken { get; set; }
-        public string? CustomHttpRequestMethod { get; set; }
+        public IHeadersCollection? Headers { get; }
+        public Uri? Resource { get; }
+        public HttpRequestMethod HttpRequestMethod { get; }
+        public CancellationToken CancellationToken { get; }
+        public string? CustomHttpRequestMethod { get; }
         #endregion
 
         /// <summary>
@@ -32,12 +32,14 @@ namespace RestClient.Net.Abstractions
             IHeadersCollection? headers,
             HttpRequestMethod httpRequestMethod,
             IClient client,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken,
+            string? customHttpRequestMethod = null)
         {
             BodyData = bodyData;
             Resource = resource;
             HttpRequestMethod = httpRequestMethod;
             CancellationToken = cancellationToken;
+            CustomHttpRequestMethod = customHttpRequestMethod;
 
             //Default to the headers passed in the constructor
             Headers = headers;

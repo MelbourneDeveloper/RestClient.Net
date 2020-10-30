@@ -282,14 +282,16 @@ namespace RestClient.Net.UnitTests
                 baseUri: baseUri,
                 createHttpClient: _createHttpClient
                 );
+
             var response = await client.SendAsync<string, object>(new Request(
                 null,
                 null,
                 null,
                 HttpRequestMethod.Custom,
                 client,
-                default)
-            { CustomHttpRequestMethod = "HEAD" });
+                default,
+                "HEAD"));
+
             Assert.AreEqual(GoogleHeadHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
         }
 
