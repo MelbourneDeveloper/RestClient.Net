@@ -1417,17 +1417,16 @@ namespace RestClient.Net.UnitTests
 
 #if !NET45
         /// <summary>
-        /// This method tests to make sure that all headers end up in the correct location on the request, and making a call twice doesn't confuse the client
+        /// Deals with this issue: https://stackoverflow.com/questions/64617310/httpclient-modifies-baseaddress-in-some-cases/64617792?noredirect=1#comment114255884_64617792
         /// </summary>
         [TestMethod]
         public async Task TestConcatenateUrisWithNoSlash()
         {
+            //Arrange
             const string expectedUriString = "http://www.test.com/test/test";
             var expectedUri = new Uri(expectedUriString);
 
-            //Arrange
             var mockHttpMessageHandler = new MockHttpMessageHandler();
-
             mockHttpMessageHandler.When(expectedUriString)
             .Respond(MiscExtensions.JsonMediaType, "Hi");
 
