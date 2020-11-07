@@ -1,4 +1,4 @@
-﻿
+
 using ApiExamples.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -160,13 +160,11 @@ namespace RestClient.Net.UnitTests
         public const string LocalBaseUriString = "https://localhost:44337";
 #endif
 
-#if !NET45
         private readonly Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
         {
             var client = _createHttpClient(n);
             return new Lazy<HttpClient>(() => client);
         };
-#endif
         #endregion
 
         #region Setup
@@ -1324,7 +1322,6 @@ namespace RestClient.Net.UnitTests
             Assert.Fail();
         }
 
-#if !NET45
         [TestMethod]
         public async Task TestFactoryCreationWithUri()
         {
@@ -1413,7 +1410,6 @@ namespace RestClient.Net.UnitTests
 
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
         }
-#endif
 
         #endregion
 
