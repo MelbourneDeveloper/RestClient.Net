@@ -41,10 +41,7 @@ namespace RestClient.Net
 
             _clients = new ConcurrentDictionary<string, Lazy<IClient>>();
 
-            _createClientFunc = (name, baseUri) =>
-            {
-                return new Lazy<IClient>(() => MintClient(name, baseUri), LazyThreadSafetyMode.ExecutionAndPublication);
-            };
+            _createClientFunc = (name, baseUri) => new Lazy<IClient>(() => MintClient(name, baseUri), LazyThreadSafetyMode.ExecutionAndPublication);
         }
         #endregion
 

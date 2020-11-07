@@ -9,9 +9,7 @@ namespace RestClient.Net.Abstractions.Logging
     {
         public static NullLoggerFactory Instance { get; } = new NullLoggerFactory();
 
-        public ILogger CreateLogger<T>() => new NullLogger();
-
-        public ILogger CreateLogger(string name) => new NullLogger();
+        public ILogger CreateLogger(string categoryName) => new NullLogger();
     }
 
     public class DummyDisposable : IDisposable
