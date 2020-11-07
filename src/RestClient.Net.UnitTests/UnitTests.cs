@@ -1422,26 +1422,27 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestConcatenateUrisWithNoSlash()
         {
+            const string expectedUriString = "http://www.test.com/test/test";
+            var expectedUri = new Uri(expectedUriString);
+
+            //Arrange
+            var mockHttpMessageHandler = new MockHttpMessageHandler();
+
+            mockHttpMessageHandler.When(expectedUriString)
+            .Respond(MiscExtensions.JsonMediaType, "Hi");
+
+            var httpClient = mockHttpMessageHandler.ToHttpClient();
+
             var baseUri = new Uri("http://www.test.com/test", UriKind.Absolute);
             var resource = new Uri("test", UriKind.Relative);
 
-            //Arrange
-            GetHttpClientMoq(out var handlerMock, out var httpClient, new List<RestCountry>());
-            HttpClient createHttpClient(string name) => httpClient;
-            var client = new Client(baseUri: baseUri, createHttpClient: createHttpClient);
+            var client = new Client(baseUri: baseUri, createHttpClient: (n) => httpClient);
 
             //Act
             var response = await client.GetAsync<string>(resource);
 
             //Assert
-            handlerMock.Protected()
-                .Verify(
-                "SendAsync",
-                Times.Exactly(1),
-                ItExpr.Is<HttpRequestMessage>(h => true),
-                ItExpr.IsAny<CancellationToken>()
-                );
-
+            Assert.AreEqual<Uri>(expectedUri, response.RequestUri);
         }
 #endif
 
