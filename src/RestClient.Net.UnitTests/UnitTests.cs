@@ -1416,6 +1416,14 @@ namespace RestClient.Net.UnitTests
         #region Uri Construction
 
 #if !NET45
+
+        //Test TODOs: 
+        // - Uri doesn't add a forward slash when only base ur is supplied. E.g. if the base uri is http://www.test.com with no resource, the request uri should be http://www.test.com with no forward slash at the end
+        // - Base uri should absolute. Rejust non-absolute Uris
+        // - Resource must be relative if base is supplied
+        // - If base is not supplied resource must allow absolute
+        // - Same tests with string resources
+
         /// <summary>
         /// Deals with this issue: https://stackoverflow.com/questions/64617310/httpclient-modifies-baseaddress-in-some-cases/64617792?noredirect=1#comment114255884_64617792
         /// </summary>
