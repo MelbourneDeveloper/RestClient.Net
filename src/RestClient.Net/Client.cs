@@ -1,4 +1,4 @@
-﻿
+
 #if NET45
 using RestClient.Net.Abstractions.Logging;
 #else
@@ -245,14 +245,22 @@ namespace RestClient.Net
             Logger = logger ?? (ILogger)NullLogger.Instance;
 #pragma warning restore IDE0004
 
+#pragma warning disable CA1307
+            if (baseUri != null && !baseUri.ToString().EndsWith("/"))
+#pragma warning restore CA1307
+            {
+                baseUri = new Uri($"{baseUri}/");
+            }
+
             BaseUri = baseUri;
+
             Name = name ?? Guid.NewGuid().ToString();
 
-            _getHttpRequestMessage = getHttpRequestMessage ?? GetHttpRequestMessage;
+            _getHttpRequestMessage = getHttpRequestMessage ?? DefaultGetHttpRequestMessage;
 
             if (createHttpClient == null)
             {
-                _httpClient = new HttpClient { BaseAddress = baseUri };
+                _httpClient = new HttpClient();
                 _createHttpClient = (n) => _httpClient;
             }
             else
@@ -290,7 +298,6 @@ namespace RestClient.Net
 
                 //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
                 if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
-                if (httpClient.BaseAddress != BaseUri && BaseUri != null) httpClient.BaseAddress = BaseUri;
 
                 Logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"HttpClient configured. Request Null: {request == null} Adapter Null: {SerializationAdapter == null}"));
 
@@ -426,7 +433,7 @@ namespace RestClient.Net
         #endregion
 
         #region Private Methods
-        private HttpRequestMessage GetHttpRequestMessage(IRequest request)
+        private HttpRequestMessage DefaultGetHttpRequestMessage(IRequest request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
@@ -450,7 +457,7 @@ namespace RestClient.Net
                 var httpRequestMessage = new HttpRequestMessage
                 {
                     Method = httpMethod,
-                    RequestUri = request.Resource
+                    RequestUri = BaseUri != null && request.Resource != null ? new Uri(BaseUri, request.Resource) : BaseUri ?? request.Resource
                 };
 
                 ByteArrayContent? httpContent = null;
