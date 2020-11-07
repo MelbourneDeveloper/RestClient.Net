@@ -160,11 +160,13 @@ namespace RestClient.Net.UnitTests
         public const string LocalBaseUriString = "https://localhost:44337";
 #endif
 
+#if !NET45
         private readonly Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
         {
             var client = _createHttpClient(n);
             return new Lazy<HttpClient>(() => client);
         };
+#endif
         #endregion
 
         #region Setup
@@ -1322,10 +1324,11 @@ namespace RestClient.Net.UnitTests
             Assert.Fail();
         }
 
+#if !NET45
         [TestMethod]
         public async Task TestFactoryCreationWithUri()
         {
-            var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
+            var clientFactory = new ClientFactory(_createHttpClient, new NewtonsoftSerializationAdapter());
             var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "test", RestCountriesAllUri);
             var response = await client.GetAsync<List<RestCountry>>();
             Assert.IsTrue(response.Body.Count > 0);
@@ -1334,7 +1337,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestFactoryDoesntUseSameHttpClient()
         {
-            var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
+            var clientFactory = new ClientFactory(_createHttpClient, new NewtonsoftSerializationAdapter());
 
             var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "1", RestCountriesAllUri);
             var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
@@ -1371,8 +1374,7 @@ namespace RestClient.Net.UnitTests
         {
             var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
-            var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter(),
-                defaultHttpClientFactory.CreateClient);
+            var clientFactory = new ClientFactory(defaultHttpClientFactory.CreateClient, new NewtonsoftSerializationAdapter());
 
             var firstClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "RestClient", RestCountriesAllUri);
 
@@ -1411,6 +1413,42 @@ namespace RestClient.Net.UnitTests
 
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
         }
+#endif
+
+        #endregion
+
+        #region Uri Construction
+
+#if !NET45
+        /// <summary>
+        /// This method tests to make sure that all headers end up in the correct location on the request, and making a call twice doesn't confuse the client
+        /// </summary>
+        [TestMethod]
+        public async Task TestConcatenateUrisWithNoSlash()
+        {
+            var baseUri = new Uri("http://www.test.com/test", UriKind.Absolute);
+            var resource = new Uri("test", UriKind.Relative);
+
+            //Arrange
+            GetHttpClientMoq(out var handlerMock, out var httpClient, new List<RestCountry>());
+            HttpClient createHttpClient(string name) => httpClient;
+            var client = new Client(baseUri: baseUri, createHttpClient: createHttpClient);
+
+            //Act
+            var response = await client.GetAsync<string>(resource);
+
+            //Assert
+            handlerMock.Protected()
+                .Verify(
+                "SendAsync",
+                Times.Exactly(1),
+                ItExpr.Is<HttpRequestMessage>(h => true),
+                ItExpr.IsAny<CancellationToken>()
+                );
+
+        }
+#endif
+
         #endregion
 
         #endregion

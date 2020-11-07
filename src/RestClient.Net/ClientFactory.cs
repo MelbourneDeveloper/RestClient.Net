@@ -1,14 +1,11 @@
-﻿using RestClient.Net.Abstractions;
+﻿#if !NET45
+
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-
-#if NET45
-using RestClient.Net.Abstractions.Logging;
-#else
-using Microsoft.Extensions.Logging;
-#endif
-
 
 namespace RestClient.Net
 {
@@ -18,7 +15,7 @@ namespace RestClient.Net
         private readonly Func<string, Uri?, Lazy<IClient>> _createClientFunc;
         private readonly ConcurrentDictionary<string, Lazy<IClient>> _clients;
         private readonly CreateHttpClient _createHttpClient;
-        private readonly ILoggerFactory? _loggerFactory;
+        private readonly ILoggerFactory _loggerFactory;
         #endregion
 
         #region Public Properties
@@ -27,17 +24,13 @@ namespace RestClient.Net
 
         #region Constructor
         public ClientFactory(
-#if NETCOREAPP3_1
-            ISerializationAdapter serializationAdapter = null,
-#else
-            ISerializationAdapter serializationAdapter,
-#endif
             CreateHttpClient createHttpClient,
+            ISerializationAdapter? serializationAdapter = null,
             ILoggerFactory? loggerFactory = null)
         {
-            SerializationAdapter = serializationAdapter;
+            SerializationAdapter = serializationAdapter ?? new JsonSerializationAdapter();
             _createHttpClient = createHttpClient;
-            _loggerFactory = loggerFactory;
+            _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
 
             _clients = new ConcurrentDictionary<string, Lazy<IClient>>();
 
@@ -59,7 +52,8 @@ namespace RestClient.Net
                 logger: _loggerFactory?.CreateLogger<Client>(),
                 createHttpClient: _createHttpClient);
 #pragma warning restore CA2000 // Dispose objects before losing scope
-
         #endregion
     }
 }
+
+#endif

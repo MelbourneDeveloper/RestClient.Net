@@ -22,10 +22,7 @@ namespace RestClient.Net
         {
             _httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();
 
-            _createClientFunc = createClientFunc ?? new Func<string, Lazy<HttpClient>>(name =>
-            {
-                return new Lazy<HttpClient>(() => new HttpClient(), LazyThreadSafetyMode.ExecutionAndPublication);
-            });
+            _createClientFunc = createClientFunc ?? new Func<string, Lazy<HttpClient>>(name => new Lazy<HttpClient>(() => new HttpClient(), LazyThreadSafetyMode.ExecutionAndPublication));
         }
         #endregion
 

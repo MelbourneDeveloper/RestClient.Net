@@ -17,7 +17,7 @@ namespace RestClient.Net.DependencyInjection
 
             serviceCollection.AddSingleton<CreateClient>((sp) =>
             {
-                var clientFactory = new ClientFactory(sp.GetRequiredService<ISerializationAdapter>(), sp.GetRequiredService<CreateHttpClient>());
+                var clientFactory = new ClientFactory(sp.GetRequiredService<CreateHttpClient>(), sp.GetRequiredService<ISerializationAdapter>());
                 return clientFactory.CreateClient;
             });
 

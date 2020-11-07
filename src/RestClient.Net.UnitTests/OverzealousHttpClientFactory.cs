@@ -20,10 +20,7 @@ namespace RestClient.Net.UnitTests
             _getOrAddFunc = func;
 
             if (_getOrAddFunc != null) return;
-            _getOrAddFunc = name =>
-            {
-                return new HttpClient();
-            };
+            _getOrAddFunc = name => new HttpClient();
         }
         #endregion
 

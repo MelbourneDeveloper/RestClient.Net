@@ -33,9 +33,7 @@ namespace RestClient.Net.UnitTests
                 new Uri(UnitTests.LocalBaseUriString),
                 logger: null,
                 createHttpClient: UnitTests.GetTestClientFactory().CreateClient,
-                sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, request) =>
-                {
-                    return policy.ExecuteAsync(() =>
+                sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, request) => policy.ExecuteAsync(() =>
                     {
                         var httpRequestMessage = httpRequestMessageFunc(request);
 
@@ -43,8 +41,7 @@ namespace RestClient.Net.UnitTests
                         if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);
                         tries++;
                         return httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
-                    });
-                });
+                    }));
 
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
 
@@ -71,7 +68,7 @@ namespace RestClient.Net.UnitTests
             serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
             .AddSingleton(typeof(ILogger), typeof(ConsoleLogger))
             //Add the Polly policy to the named HttpClient instance
-            .AddHttpClient("rc", (c) => { c.BaseAddress = baseUri; }).
+            .AddHttpClient("rc", (c) => c.BaseAddress = baseUri).
                 SetHandlerLifetime(TimeSpan.FromMinutes(5)).
                 AddPolicyHandler(policy);
 
