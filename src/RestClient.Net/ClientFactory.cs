@@ -1,7 +1,9 @@
 ﻿#if !NET45
-
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+#else
+using RestClient.Net.Abstractions.Logging;
+#endif
 using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Concurrent;
@@ -25,10 +27,18 @@ namespace RestClient.Net
         #region Constructor
         public ClientFactory(
             CreateHttpClient createHttpClient,
+#if !NET45
             ISerializationAdapter? serializationAdapter = null,
+#else
+            ISerializationAdapter serializationAdapter,
+#endif
             ILoggerFactory? loggerFactory = null)
         {
+#if !NET45
             SerializationAdapter = serializationAdapter ?? new JsonSerializationAdapter();
+#else
+            SerializationAdapter = serializationAdapter;
+#endif
             _createHttpClient = createHttpClient;
             _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
 
@@ -49,11 +59,13 @@ namespace RestClient.Net
                 SerializationAdapter,
                 name,
                 baseUri,
+#if !NET45
                 logger: _loggerFactory?.CreateLogger<Client>(),
+#else
+                logger: _loggerFactory?.CreateLogger(typeof(Client).Name),
+#endif
                 createHttpClient: _createHttpClient);
 #pragma warning restore CA2000 // Dispose objects before losing scope
         #endregion
     }
 }
-
-#endif

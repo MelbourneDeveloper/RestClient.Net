@@ -214,7 +214,11 @@ namespace RestClient.Net
             string? name = null,
             Uri? baseUri = null,
             IHeadersCollection? defaultRequestHeaders = null,
+#if NET45
+            ILogger? logger = null,
+#else
             ILogger<Client>? logger = null,
+#endif
             CreateHttpClient? createHttpClient = null,
             SendHttpRequestMessage? sendHttpRequestFunc = null,
             GetHttpRequestMessage? getHttpRequestMessage = null,
@@ -237,9 +241,9 @@ namespace RestClient.Net
                 SerializationAdapter = serializationAdapter;
             }
 #endif
-#pragma warning disable IDE0004 
+#pragma warning disable IDE0004
             Logger = logger ?? (ILogger)NullLogger.Instance;
-#pragma warning restore IDE0004 
+#pragma warning restore IDE0004
 
             BaseUri = baseUri;
             Name = name ?? Guid.NewGuid().ToString();
