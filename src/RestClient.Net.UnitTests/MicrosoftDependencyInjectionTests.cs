@@ -18,18 +18,6 @@ namespace RestClient.Net.UnitTests
     public class MicrosoftDependencyInjectionTests
     {
         [TestMethod]
-        public void TestIoContainerInjectsLogger()
-        {
-            var serviceCollection = new ServiceCollection();
-            serviceCollection.AddLogging();
-            serviceCollection.AddSingleton<IClient, Client>();
-            var serviceProvider = serviceCollection.BuildServiceProvider();
-            var client = (Client)serviceProvider.GetRequiredService<IClient>();
-            Assert.IsNotNull(client);
-            Assert.IsFalse(ReferenceEquals(client.Logger, NullLogger.Instance));
-        }
-
-        [TestMethod]
         public void TestDIMapping()
         {
             var serviceCollection = new ServiceCollection();

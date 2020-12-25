@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;net45;net47;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45;net5.0</TargetFrameworks>
     <DebugType>pdbonly</DebugType>
     <RootNamespace>RestClient.Net.Abstractions</RootNamespace>
     <Version>4.1.0</Version>
