@@ -261,7 +261,7 @@ namespace RestClient.Net
             if (createHttpClient == null)
             {
                 _httpClient = new HttpClient();
-                _createHttpClient = (n) => _httpClient;
+                _createHttpClient = n => _httpClient;
             }
             else
             {
@@ -442,7 +442,7 @@ namespace RestClient.Net
                 Logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: "Converting Request to HttpRequestMethod..."));
 
                 var httpMethod = string.IsNullOrEmpty(request.CustomHttpRequestMethod)
-                    ? (request.HttpRequestMethod switch
+                    ? request.HttpRequestMethod switch
                     {
                         HttpRequestMethod.Get => HttpMethod.Get,
                         HttpRequestMethod.Post => HttpMethod.Post,
@@ -450,8 +450,8 @@ namespace RestClient.Net
                         HttpRequestMethod.Delete => HttpMethod.Delete,
                         HttpRequestMethod.Patch => new HttpMethod("PATCH"),
                         HttpRequestMethod.Custom => throw new NotImplementedException("CustomHttpRequestMethod must be specified for Custom Http Requests"),
-                        _ => throw new NotImplementedException(),
-                    })
+                        _ => throw new NotImplementedException()
+                    }
                     : new HttpMethod(request.CustomHttpRequestMethod);
 
                 var httpRequestMessage = new HttpRequestMessage

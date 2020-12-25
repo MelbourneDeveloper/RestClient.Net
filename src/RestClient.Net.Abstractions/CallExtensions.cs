@@ -56,7 +56,8 @@ namespace RestClient.Net
                 requestHeaders,
                 HttpRequestMethod.Delete,
                 client,
-                cancellationToken));
+                cancellationToken))
+                .ConfigureAwait(false);
 
             return response;
         }
@@ -65,7 +66,7 @@ namespace RestClient.Net
         #region Put
         public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody) => PutAsync<TResponseBody, TRequestBody>(client, requestBody, default);
 
-        public static async Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, string? resource) => await PutAsync<TResponseBody, TRequestBody>(client, requestBody, resource != null ? new Uri(resource, UriKind.Relative) : null);
+        public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, string? resource) => PutAsync<TResponseBody, TRequestBody>(client, requestBody, resource != null ? new Uri(resource, UriKind.Relative) : null);
 
         public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody = default, Uri? resource = null, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
         {

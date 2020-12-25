@@ -62,7 +62,7 @@ namespace RestClient.Net
 #if !NET45
                 logger: _loggerFactory?.CreateLogger<Client>(),
 #else
-                logger: _loggerFactory?.CreateLogger(typeof(Client).Name),
+                logger: _loggerFactory?.CreateLogger(nameof(Client)),
 #endif
                 createHttpClient: _createHttpClient);
 #pragma warning restore CA2000 // Dispose objects before losing scope

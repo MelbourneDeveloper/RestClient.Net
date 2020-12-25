@@ -27,9 +27,6 @@ dotnet_diagnostic.CA1032.severity = warning
 # CA1063: Implement IDisposable Correctly
 dotnet_diagnostic.CA1063.severity = warning
 
-# CA2007: Consider calling ConfigureAwait on the awaited task
-dotnet_diagnostic.CA2007.severity = suggestion
-
 # CA1816: Dispose methods should call SuppressFinalize
 dotnet_diagnostic.CA1816.severity = warning
 
