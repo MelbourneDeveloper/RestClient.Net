@@ -20,7 +20,7 @@ www.rest-client.net</Description>
     <PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/4</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <NoWarn>CA2007</NoWarn>    
-    <LangVersion>8</LangVersion>    
+    <LangVersion>9</LangVersion>    
     <PackageLicenseFile>License.txt</PackageLicenseFile>    
     <RootNamespace>RestClient.Net</RootNamespace>    
     <PackageIconUrl></PackageIconUrl>    

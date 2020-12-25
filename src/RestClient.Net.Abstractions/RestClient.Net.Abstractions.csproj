@@ -26,7 +26,7 @@ This package contains abstractions for dependency injection with no implementati
     <RepositoryType>git</RepositoryType>
     <PackageIcon>Icon.png</PackageIcon>
     <FileVersion>4.1.0.0</FileVersion>  
-    <LangVersion>8</LangVersion>             
+    <LangVersion>9</LangVersion>             
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
