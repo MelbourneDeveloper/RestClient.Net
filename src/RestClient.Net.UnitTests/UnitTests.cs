@@ -157,7 +157,7 @@ namespace RestClient.Net.UnitTests
         public const string LocalBaseUriString = "http://localhost";
         private static TestServer _testServer;
 #else
-        public const string LocalBaseUriString = "https://localhost:44337";
+        public const string LocalBaseUriString = "https://localhost:5001";
 #endif
 
         private readonly Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
