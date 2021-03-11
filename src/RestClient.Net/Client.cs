@@ -125,68 +125,6 @@ namespace RestClient.Net
         #endregion
 
         #region Constructors
-
-#if !NET45
-        /// <summary>
-        /// Construct a client
-        /// </summary>
-        /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only</param>
-        public Client(
-            Uri baseUri)
-        : this(
-            null,
-            null,
-            baseUri)
-        {
-        }
-#endif
-
-        /// <summary>
-        /// Construct a client
-        /// </summary>
-        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies</param>
-        public Client(
-            ISerializationAdapter serializationAdapter)
-        : this(
-            serializationAdapter,
-            default)
-        {
-        }
-
-        /// <summary>
-        /// Construct a client
-        /// </summary>
-        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies</param>
-        /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only</param>
-        public Client(
-            ISerializationAdapter serializationAdapter,
-            Uri? baseUri)
-        : this(
-            serializationAdapter,
-            null,
-            baseUri)
-        {
-        }
-
-        /// <summary>
-        /// Construct a client.
-        /// </summary>
-        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies</param>
-        /// <param name="logger"></param>
-        /// <param name="createHttpClient"></param>
-        public Client(
-            ISerializationAdapter serializationAdapter,
-            ILogger<Client> logger,
-            CreateHttpClient createHttpClient)
-        : this(
-            serializationAdapter,
-            null,
-            null,
-            logger: logger,
-            createHttpClient: createHttpClient)
-        {
-        }
-
         /// <summary>
         /// Construct a client.
         /// </summary>

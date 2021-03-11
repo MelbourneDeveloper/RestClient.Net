@@ -490,7 +490,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetRestCountriesNoBaseUri()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), null, _createHttpClient);
+            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUri);
             var country = countries.FirstOrDefault();
             Assert.AreEqual("Australia", country.name);
@@ -501,7 +501,7 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), null, _createHttpClient);
+                var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
                 List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUriString);
                 var country = countries.FirstOrDefault();
             }
@@ -520,7 +520,7 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), JsonPlaceholderBaseUri);
+                var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: JsonPlaceholderBaseUri);
 
                 var tokenSource = new CancellationTokenSource();
                 var token = tokenSource.Token;
@@ -635,7 +635,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetWithXmlSerialization()
         {
-            var client = new Client(new XmlSerializationAdapter(), new Uri("http://www.geoplugin.net/xml.gp"));
+            var client = new Client(new XmlSerializationAdapter(), baseUri: new Uri("http://www.geoplugin.net/xml.gp"));
             var geoPlugin = await client.GetAsync<GeoPlugin>();
             Assert.IsNotNull(geoPlugin);
         }
@@ -1333,7 +1333,7 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), _logger.Object, null);
+                var client = new Client(new NewtonsoftSerializationAdapter(), logger: _logger.Object);
                 var requestPerson = new Person();
                 Person responsePerson = await client.PostAsync<Person, Person>(requestPerson);
             }
@@ -1583,7 +1583,7 @@ namespace RestClient.Net.UnitTests
             HttpRequestMethod httpRequestMethod,
             TraceEvent traceType,
             int? httpStatusCode = null,
-            Exception exception = null,
+            Exception? exception = null,
             Func<IHeadersCollection, bool> checkHeadersFunc = null) => _logger.Verify(t => t.Log(
                                                                          exception == null ? LogLevel.Trace : LogLevel.Error,
                                                                          It.Is<EventId>(
