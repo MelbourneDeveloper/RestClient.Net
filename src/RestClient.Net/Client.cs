@@ -98,15 +98,15 @@ namespace RestClient.Net
         {
             try
             {
+                if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+
                 var httpRequestMessage = httpRequestMessageFunc(request);
 
-                _logger.LogTrace(new Trace(HttpRequestMethod.Custom, TraceEvent.Information, message: $"Attempting to send with the HttpClient. HttpClient Null: {httpClient == null}"));
-
-                if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+                _logger.LogTrace("Attempting to send with the HttpClient");
 
                 var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken).ConfigureAwait(false);
 
-                _logger.LogInformation(new Trace(HttpRequestMethod.Custom, TraceEvent.Information, message: $"SendAsync on HttpClient returned without an exception"));
+                _logger.LogInformation("SendAsync on HttpClient returned without an exception");
 
                 return httpResponseMessage;
             }
