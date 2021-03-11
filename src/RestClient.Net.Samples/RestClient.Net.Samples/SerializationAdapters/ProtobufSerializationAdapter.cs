@@ -13,9 +13,10 @@ namespace RestClient.Net
             if (responseData == null) throw new ArgumentNullException(nameof(responseData));
             var messageType = typeof(TResponseBody);
             var parserProperty = messageType.GetProperty("Parser");
+            if (parserProperty == null) throw new DeserializationException("Could not get Parser", responseData);
             var parser = parserProperty.GetValue(parserProperty);
             var parseFromMethod = parserProperty.PropertyType.GetMethod("ParseFrom", new Type[] { typeof(byte[]) });
-            var parsedObject = parseFromMethod.Invoke(parser, new object[] { response.GetResponseData() });
+            var parsedObject = parseFromMethod.Invoke(parser, new object[] { responseData });
             return (TResponseBody)parsedObject;
         }
     }

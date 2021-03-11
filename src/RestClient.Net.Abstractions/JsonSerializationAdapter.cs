@@ -31,11 +31,7 @@ namespace RestClient.Net
         {
             if (responseData == null) throw new ArgumentNullException(nameof(responseData));
 
-            var bytes = response.GetResponseData();
-
-            if (bytes == null) throw new InvalidOperationException("Response does not contain data");
-
-            var markup = Encoding.UTF8.GetString(bytes);
+            var markup = Encoding.UTF8.GetString(responseData);
 
             object markupAsObject = markup;
 

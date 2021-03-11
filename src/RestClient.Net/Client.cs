@@ -383,6 +383,17 @@ namespace RestClient.Net
 
             var httpResponseHeadersCollection = new HttpResponseHeadersCollection(httpResponseMessage.Headers);
 
+            TResponseBody responseBody = default;
+
+            try
+            {
+                responseBody = SerializationAdapter.Deserialize<TResponseBody>(responseData, httpResponseHeadersCollection);
+            }
+            catch (Exception ex)
+            {
+                throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
+            }
+
             var httpResponseMessageResponse = new HttpResponseMessageResponse<TResponseBody>
             (
                 httpResponseHeadersCollection,

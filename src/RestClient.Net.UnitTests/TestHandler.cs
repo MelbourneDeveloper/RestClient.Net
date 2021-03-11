@@ -1,5 +1,6 @@
 ﻿#if NETCOREAPP3_1
 
+using Moq;
 using RestClient.Net.Abstractions;
 using System.Net.Http;
 using System.Threading;
@@ -12,7 +13,7 @@ namespace RestClient.Net.UnitTests
     public class TestHandler : DelegatingHandler
     {
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
-            CancellationToken cancellationToken) => throw new HttpStatusException("Ouch", null, null);
+            CancellationToken cancellationToken) => throw new HttpStatusException("Ouch", new Mock<IResponse>().Object, new Mock<IClient>().Object);
     }
 }
 #endif

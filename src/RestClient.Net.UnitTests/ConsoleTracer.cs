@@ -9,7 +9,8 @@ using RestClient.Net.Abstractions;
 using System;
 using System.Text;
 
-#pragma warning disable IDE0060 
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
 
 namespace RestClient.Net.UnitTests
 {
@@ -21,6 +22,8 @@ namespace RestClient.Net.UnitTests
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
+            if (state == null) throw new ArgumentNullException(nameof(state));
+
             var trace = (Trace)(object)state;
 
             if (trace != null)
@@ -47,5 +50,3 @@ namespace RestClient.Net.UnitTests
 
     }
 }
-
-#pragma warning restore IDE0060 

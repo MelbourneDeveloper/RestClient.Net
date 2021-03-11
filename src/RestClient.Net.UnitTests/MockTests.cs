@@ -39,7 +39,7 @@ namespace RestClient.Net.UnitTests
 
             _ = clientMock.Setup(c => c.SerializationAdapter).Returns(serializationAdapterMock.Object);
 
-            _ = serializationAdapterMock.Setup(c => c.Deserialize<Person>(It.IsAny<Response>())).Returns(responsePerson);
+            _ = serializationAdapterMock.Setup(c => c.Deserialize<Person>(It.IsAny<byte[]>(), It.IsAny<IHeadersCollection>())).Returns(responsePerson);
 
             _ = responseMock.Setup(r => r.Body).Returns(responsePerson);
 

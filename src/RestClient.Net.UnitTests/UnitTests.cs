@@ -20,6 +20,9 @@ using jsonperson = ApiExamples.Model.JsonModel.Person;
 using RichardSzalay.MockHttp;
 using System.IO;
 
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8604 // Possible null reference argument.
+
 #if NETCOREAPP3_1
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -957,6 +960,12 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
+                if (restClient == null)
+                {
+                    Assert.Fail();
+                    return;
+                }
+
                 var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
                 return;
@@ -995,6 +1004,12 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
+                if (restClient == null)
+                {
+                    Assert.Fail();
+                    return;
+                }
+
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
                 var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
@@ -1024,6 +1039,12 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
+                if (restClient == null)
+                {
+                    Assert.Fail();
+                    return;
+                }
+
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
                 var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
@@ -1045,7 +1066,8 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationPostLocalWithError()
         {
-            Client restClient = null;
+            var restClient = new Client(new NewtonsoftSerializationAdapter());
+
             try
             {
                 restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
@@ -1273,7 +1295,7 @@ namespace RestClient.Net.UnitTests
                 10,
                 HttpRequestMethod.Custom,
                 //Shouldn't this be filled in?
-                null,
+                new byte[0],
                 "test",
                 new HttpResponseMessage(),
                 new HttpClient());
