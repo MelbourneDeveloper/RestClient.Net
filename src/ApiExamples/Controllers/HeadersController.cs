@@ -6,6 +6,8 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+
 namespace ApiExamples.Controllers
 {
     [ApiController]
