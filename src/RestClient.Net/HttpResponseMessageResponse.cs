@@ -17,7 +17,13 @@ namespace RestClient.Net
         /// <summary>
         /// Constructor for mocking. Don't use this for anything other than unit tests.
         /// </summary>
-        public HttpResponseMessageResponse(TResponseBody body) : this(null, 0, HttpRequestMethod.Get, null, body, new HttpResponseMessage(), null)
+        public HttpResponseMessageResponse(TResponseBody body) : this(NullHeadersCollection.Instance, 0, HttpRequestMethod.Get,
+#if NET45
+            new byte[0]
+#else
+            Array.Empty<byte>()
+#endif
+            , body, NullObjects.NullHttpResponseMessage, NullObjects.NullHttpClient)
         {
         }
 

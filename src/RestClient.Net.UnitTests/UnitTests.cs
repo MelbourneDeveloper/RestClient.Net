@@ -154,7 +154,7 @@ namespace RestClient.Net.UnitTests
 
         private static TestClientFactory _testServerHttpClientFactory;
         private static Mock<ILogger<Client>> _logger;
-        private static MockHttpMessageHandler _mockHttpMessageHandler;
+        private static readonly MockHttpMessageHandler _mockHttpMessageHandler;
 
 #if NETCOREAPP3_1
         public const string LocalBaseUriString = "http://localhost";
@@ -171,6 +171,10 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Setup
+        static UnitTests() =>
+            //Set up the mox
+            _mockHttpMessageHandler = new MockHttpMessageHandler();
+
         [TestInitialize]
         public void Initialize()
         {
@@ -178,8 +182,6 @@ namespace RestClient.Net.UnitTests
             _testServerHttpClientFactory = testServerHttpClientFactory;
             _logger = new Mock<ILogger<Client>>();
 
-            //Set up the mox
-            _mockHttpMessageHandler = new MockHttpMessageHandler();
 
             _mockHttpMessageHandler.When(RestCountriesAustraliaUriString)
             .Respond(MiscExtensions.JsonMediaType, File.ReadAllText("JSON/Australia.json"));
@@ -447,7 +449,7 @@ namespace RestClient.Net.UnitTests
 
             var httpResponseMessageResponse = response as HttpResponseMessageResponse<List<RestCountry>>;
 
-            Assert.AreEqual(StandardContentTypeToString, httpResponseMessageResponse.HttpResponseMessage.Content.Headers.ContentType.ToString());
+            Assert.AreEqual(StandardContentTypeToString, httpResponseMessageResponse?.HttpResponseMessage?.Content?.Headers?.ContentType?.ToString());
 
             Assert.AreEqual(RestCountriesAllHeaders[TransferEncodingHeaderName], response.Headers[TransferEncodingHeaderName].First());
         }
