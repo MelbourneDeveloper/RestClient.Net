@@ -55,10 +55,7 @@ namespace RestClient.Net.UnitTests
     {
         private readonly IClient _client;
 
-        public PersonService(CreateClient clientFactory)
-        {
-            _client = clientFactory("Person");
-        }
+        public PersonService(CreateClient clientFactory) => _client = clientFactory("Person");
 
         public async Task<Response<Person>> SavePerson(Person person) => await _client.PostAsync<Person, Person>(person);
     }

@@ -15,10 +15,7 @@ namespace RestClient.Net
         #endregion
 
         #region Constructor
-        public HttpResponseHeadersCollection(HttpResponseHeaders httpResponseHeaders)
-        {
-            HttpResponseHeaders = httpResponseHeaders;
-        }
+        public HttpResponseHeadersCollection(HttpResponseHeaders httpResponseHeaders) => HttpResponseHeaders = httpResponseHeaders;
         #endregion
 
         #region Implementation

@@ -1,4 +1,5 @@
 ﻿using System;
+#pragma warning disable CA2225 // Operator overloads have named alternates
 
 namespace RestClient.Net.Abstractions
 {
@@ -28,19 +29,12 @@ namespace RestClient.Net.Abstractions
             statusCode,
             httpRequestMethod,
             responseData,
-            requestUri)
-        {
-            Body = body;
-        }
+            requestUri) => Body = body;
 
-#pragma warning disable CA2225 // Operator overloads have named alternates
         public static implicit operator TResponseBody(Response<TResponseBody> readResult)
-#pragma warning restore CA2225 // Operator overloads have named alternates
-        {
-#pragma warning disable CA1062 // Validate arguments of public methods
-            return readResult.Body;
-#pragma warning restore CA1062 // Validate arguments of public methods
-        }
+#pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
+            => readResult != null ? readResult.Body : throw new ArgumentNullException(nameof(readResult));
+#pragma warning restore CA1065 // Do not raise exceptions in unexpected locations
         #endregion
     }
 
