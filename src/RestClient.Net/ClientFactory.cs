@@ -1,14 +1,13 @@
-﻿using RestClient.Net.Abstractions;
+﻿#if !NET45
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+#else
+using RestClient.Net.Abstractions.Logging;
+#endif
+using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-
-#if NET45
-using RestClient.Net.Abstractions.Logging;
-#else
-using Microsoft.Extensions.Logging;
-#endif
-
 
 namespace RestClient.Net
 {
@@ -18,7 +17,7 @@ namespace RestClient.Net
         private readonly Func<string, Uri?, Lazy<IClient>> _createClientFunc;
         private readonly ConcurrentDictionary<string, Lazy<IClient>> _clients;
         private readonly CreateHttpClient _createHttpClient;
-        private readonly ILoggerFactory? _loggerFactory;
+        private readonly ILoggerFactory _loggerFactory;
         #endregion
 
         #region Public Properties
@@ -27,24 +26,25 @@ namespace RestClient.Net
 
         #region Constructor
         public ClientFactory(
-#if NETCOREAPP3_1
-            ISerializationAdapter serializationAdapter = null,
+            CreateHttpClient createHttpClient,
+#if !NET45
+            ISerializationAdapter? serializationAdapter = null,
 #else
             ISerializationAdapter serializationAdapter,
 #endif
-            CreateHttpClient createHttpClient,
             ILoggerFactory? loggerFactory = null)
         {
+#if !NET45
+            SerializationAdapter = serializationAdapter ?? new JsonSerializationAdapter();
+#else
             SerializationAdapter = serializationAdapter;
+#endif
             _createHttpClient = createHttpClient;
-            _loggerFactory = loggerFactory;
+            _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
 
             _clients = new ConcurrentDictionary<string, Lazy<IClient>>();
 
-            _createClientFunc = (name, baseUri) =>
-            {
-                return new Lazy<IClient>(() => MintClient(name, baseUri), LazyThreadSafetyMode.ExecutionAndPublication);
-            };
+            _createClientFunc = (name, baseUri) => new Lazy<IClient>(() => MintClient(name, baseUri), LazyThreadSafetyMode.ExecutionAndPublication);
         }
         #endregion
 
@@ -59,10 +59,13 @@ namespace RestClient.Net
                 SerializationAdapter,
                 name,
                 baseUri,
+#if !NET45
                 logger: _loggerFactory?.CreateLogger<Client>(),
+#else
+                logger: _loggerFactory?.CreateLogger(nameof(Client)),
+#endif
                 createHttpClient: _createHttpClient);
 #pragma warning restore CA2000 // Dispose objects before losing scope
-
         #endregion
     }
 }

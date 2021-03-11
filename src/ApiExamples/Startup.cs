@@ -7,10 +7,7 @@ namespace ApiExamples
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
@@ -18,20 +15,19 @@ namespace ApiExamples
         public void ConfigureServices(IServiceCollection services) => services.AddControllers();
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+#pragma warning disable IDE0060 // Remove unused parameter
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
-            app.UseExceptionHandler("/exception");
+            _ = app.UseExceptionHandler("/exception");
 
-            app.UseHttpsRedirection();
+            _ = app.UseHttpsRedirection();
 
-            app.UseRouting();
+            _ = app.UseRouting();
 
-            app.UseAuthorization();
+            _ = app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            _ = app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }

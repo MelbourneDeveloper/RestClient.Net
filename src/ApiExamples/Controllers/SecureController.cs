@@ -73,7 +73,7 @@ namespace ApiExamples.Controllers
         {
             if (ValidateBearer())
             {
-                return Ok(new Person { FirstName="Bear" });
+                return Ok(new Person { FirstName = "Bear" });
             }
 
             var json = JsonConvert.SerializeObject(new ApiResult { Errors = { ApiMessages.SecureControllerNotAuthorizedMessage } });

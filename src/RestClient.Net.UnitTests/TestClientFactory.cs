@@ -8,10 +8,7 @@ namespace RestClient.Net.UnitTests
     {
         private readonly HttpClient _testClient;
 
-        public TestClientFactory(HttpClient testClient)
-        {
-            _testClient = testClient;
-        }
+        public TestClientFactory(HttpClient testClient) => _testClient = testClient;
 
         public TimeSpan Timeout { get => _testClient.Timeout; set => _testClient.Timeout = value; }
 

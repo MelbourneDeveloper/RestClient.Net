@@ -1,7 +1,7 @@
-﻿namespace RestClient.Net.Abstractions.Logging
+namespace RestClient.Net.Abstractions.Logging
 {
     public interface ILoggerFactory
     {
-        ILogger CreateLogger<T>();
+        ILogger CreateLogger(string categoryName);
     }
 }

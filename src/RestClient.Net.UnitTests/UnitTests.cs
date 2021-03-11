@@ -1,4 +1,4 @@
-﻿
+
 using ApiExamples.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -42,7 +42,7 @@ namespace RestClient.Net.UnitTests
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
         private const string GoogleUrlString = "https://www.google.com";
         private const string RestCountriesAllUriString = "https://restcountries.eu/rest/v2/";
-        private const string RestCountriesAustraliaUriString = "https://restcountries.eu/rest/v2/name/australia";
+        private const string RestCountriesAustraliaUriString = "https://restcountries.eu/rest/v2/name/australia/";
         private const string JsonPlaceholderBaseUriString = "https://jsonplaceholder.typicode.com";
         private const string JsonPlaceholderFirstPostSlug = "/posts/1";
         private const string JsonPlaceholderPostsSlug = "/posts";
@@ -150,7 +150,7 @@ namespace RestClient.Net.UnitTests
         //private CreateHttpClient _createHttpClient = null;
 
         private static TestClientFactory _testServerHttpClientFactory;
-        private static Mock<ILogger> _logger;
+        private static Mock<ILogger<Client>> _logger;
         private static MockHttpMessageHandler _mockHttpMessageHandler;
 
 #if NETCOREAPP3_1
@@ -173,7 +173,7 @@ namespace RestClient.Net.UnitTests
         {
             var testServerHttpClientFactory = GetTestClientFactory();
             _testServerHttpClientFactory = testServerHttpClientFactory;
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<ILogger<Client>>();
 
             //Set up the mox
             _mockHttpMessageHandler = new MockHttpMessageHandler();
@@ -311,8 +311,8 @@ namespace RestClient.Net.UnitTests
 
             var parameters = new object();
 
-            await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
-            await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
+            _ = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
+            _ = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
         }
 
         /// <summary>
@@ -331,13 +331,13 @@ namespace RestClient.Net.UnitTests
             client.DefaultRequestHeaders.Add(testDefaultKvp);
 
             //Act
-            await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
+            _ = await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
             {
                 testKvp
             });
 
             //Make sure we can call it twice
-            await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
+            _ = await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
             {
                 testKvp
             });
@@ -388,7 +388,7 @@ namespace RestClient.Net.UnitTests
             const HttpStatusCode statusCode = HttpStatusCode.BadRequest;
 
             //In this case, return an error object
-            mockHttp.When(RestCountriesAllUriString)
+            _ = mockHttp.When(RestCountriesAllUriString)
                     .Respond(statusCode, MiscExtensions.JsonMediaType, JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
 
             var httpClient = mockHttp.ToHttpClient();
@@ -411,7 +411,7 @@ namespace RestClient.Net.UnitTests
 
             var expectedError = new Error { Message = "Test", ErrorCode = 100 };
 
-            mockHttp.When(RestCountriesAllUriString)
+            _ = mockHttp.When(RestCountriesAllUriString)
                     .Respond(statusCode, MiscExtensions.JsonMediaType, JsonConvert.SerializeObject(expectedError));
 
             var httpClient = mockHttp.ToHttpClient();
@@ -524,9 +524,9 @@ namespace RestClient.Net.UnitTests
 
                 tokenSource.Cancel();
 
-                await task;
+                _ = await task;
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
                 //Success
                 return;
@@ -549,9 +549,9 @@ namespace RestClient.Net.UnitTests
                     baseUri: JsonPlaceholderBaseUri,
                     timeout: new TimeSpan(0, 0, 0, 0, 1));
 
-                await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
+                _ = await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
             }
-            catch (TaskCanceledException ex)
+            catch (TaskCanceledException)
             {
                 //Success
                 return;
@@ -886,7 +886,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             var headers = GetHeaders(useDefault, client);
-            await client.DeleteAsync(new Uri("headers/1", UriKind.Relative), headers);
+            _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative), headers);
         }
 
         [TestMethod]
@@ -895,7 +895,7 @@ namespace RestClient.Net.UnitTests
             try
             {
                 var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-                await client.DeleteAsync(new Uri("headers/1", UriKind.Relative));
+                _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative));
                 Assert.Fail();
             }
             catch (HttpStatusException hex)
@@ -1278,7 +1278,7 @@ namespace RestClient.Net.UnitTests
                 new HttpResponseMessage(),
                 new HttpClient());
 
-            clientMock.Setup(c => c.SendAsync<string>(It.IsAny<IRequest>())).Returns
+            _ = clientMock.Setup(c => c.SendAsync<string>(It.IsAny<IRequest>())).Returns
                 (
                 Task.FromResult<Response<string>>(response)
                 );
@@ -1325,7 +1325,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestFactoryCreationWithUri()
         {
-            var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
+            var clientFactory = new ClientFactory(_createHttpClient, new NewtonsoftSerializationAdapter());
             var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "test", RestCountriesAllUri);
             var response = await client.GetAsync<List<RestCountry>>();
             Assert.IsTrue(response.Body.Count > 0);
@@ -1334,7 +1334,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestFactoryDoesntUseSameHttpClient()
         {
-            var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
+            var clientFactory = new ClientFactory(_createHttpClient, new NewtonsoftSerializationAdapter());
 
             var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "1", RestCountriesAllUri);
             var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
@@ -1367,12 +1367,11 @@ namespace RestClient.Net.UnitTests
         /// This test is controversial. Should non-named clients always be Singleton? This is the way the factory is designed, but could trip some users up.
         /// </summary>
         [TestMethod]
-        public async Task TestClientFactoryReusesClient()
+        public void TestClientFactoryReusesClient()
         {
             var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
-            var clientFactory = new ClientFactory(new NewtonsoftSerializationAdapter(),
-                defaultHttpClientFactory.CreateClient);
+            var clientFactory = new ClientFactory(defaultHttpClientFactory.CreateClient, new NewtonsoftSerializationAdapter());
 
             var firstClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "RestClient", RestCountriesAllUri);
 
@@ -1411,6 +1410,49 @@ namespace RestClient.Net.UnitTests
 
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
         }
+
+        #endregion
+
+        #region Uri Construction
+
+#if !NET45
+
+        //Test TODOs: 
+        // - Uri doesn't add a forward slash when only base ur is supplied. E.g. if the base uri is http://www.test.com with no resource, the request uri should be http://www.test.com with no forward slash at the end
+        // - Base uri should absolute. Rejust non-absolute Uris
+        // - Resource must be relative if base is supplied
+        // - If base is not supplied resource must allow absolute
+        // - Same tests with string resources
+
+        /// <summary>
+        /// Deals with this issue: https://stackoverflow.com/questions/64617310/httpclient-modifies-baseaddress-in-some-cases/64617792?noredirect=1#comment114255884_64617792
+        /// </summary>
+        [TestMethod]
+        public async Task TestConcatenateUrisWithNoSlash()
+        {
+            //Arrange
+            const string expectedUriString = "http://www.test.com/test/test";
+            var expectedUri = new Uri(expectedUriString);
+
+            var mockHttpMessageHandler = new MockHttpMessageHandler();
+            _ = mockHttpMessageHandler.When(expectedUriString)
+            .Respond(MiscExtensions.JsonMediaType, "Hi");
+
+            var httpClient = mockHttpMessageHandler.ToHttpClient();
+
+            var baseUri = new Uri("http://www.test.com/test", UriKind.Absolute);
+            var resource = new Uri("test", UriKind.Relative);
+
+            var client = new Client(baseUri: baseUri, createHttpClient: (n) => httpClient);
+
+            //Act
+            var response = await client.GetAsync<string>(resource);
+
+            //Assert
+            Assert.AreEqual<Uri>(expectedUri, response.RequestUri);
+        }
+#endif
+
         #endregion
 
         #endregion

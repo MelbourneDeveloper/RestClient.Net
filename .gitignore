@@ -16,3 +16,7 @@ project.fragment.lock.json
 project.lock.json
 *.CodeAnalysisLog.xml
 *.lastcodeanalysissucceeded
+
+src/.idea/*
+
+*.user

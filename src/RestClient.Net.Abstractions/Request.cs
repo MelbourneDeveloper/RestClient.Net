@@ -42,10 +42,8 @@ namespace RestClient.Net.Abstractions
             CustomHttpRequestMethod = customHttpRequestMethod;
 
             //Default to the headers passed in the constructor
-            Headers = headers;
-
             //Create the collection if it's null
-            if (Headers == null) Headers = new RequestHeadersCollection();
+            Headers = headers ?? new RequestHeadersCollection();
 
             //Return if there are no default headers
             var defaultRequestHeaders = client?.DefaultRequestHeaders;

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace RestClient.Net.UnitTests.Model
 {
     public class Currency
