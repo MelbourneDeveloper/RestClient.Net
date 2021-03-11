@@ -18,8 +18,6 @@ namespace RestClient.Net
 {
     //TODO: Tests to make sure that null logger is OK
 
-
-
     /// <summary>
     /// Rest client implementation using Microsoft's HttpClient class. 
     /// </summary>
@@ -240,13 +238,13 @@ namespace RestClient.Net
                 SerializationAdapter = serializationAdapter;
             }
 #endif
-#pragma warning disable IDE0004
-            _logger = logger ?? (ILogger)NullLogger.Instance;
-#pragma warning restore IDE0004
+            _logger =
+#if !NET45
+                (ILogger?)
+#endif
+                logger ?? NullLogger.Instance;
 
-#pragma warning disable CA1307
             if (baseUri != null && !baseUri.ToString().EndsWith("/", StringComparison.OrdinalIgnoreCase))
-#pragma warning restore CA1307
             {
                 baseUri = new Uri($"{baseUri}/");
             }
@@ -385,8 +383,6 @@ namespace RestClient.Net
 
             var httpResponseHeadersCollection = new HttpResponseHeadersCollection(httpResponseMessage.Headers);
 
-            //🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮
-#nullable disable
             var httpResponseMessageResponse = new HttpResponseMessageResponse<TResponseBody>
             (
                 httpResponseHeadersCollection,
@@ -397,7 +393,6 @@ namespace RestClient.Net
                 httpResponseMessage,
                 httpClient
             );
-#nullable enable
 
             if (!httpResponseMessageResponse.IsSuccess)
             {
