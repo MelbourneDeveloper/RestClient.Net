@@ -223,7 +223,7 @@ namespace RestClient.Net
             IZip? zip = null,
             bool throwExceptionOnFailure = true)
         {
-            DefaultRequestHeaders = defaultRequestHeaders ?? new RequestHeadersCollection();
+            DefaultRequestHeaders = defaultRequestHeaders ?? NullHeadersCollection.Instance;
 
 #if NET45
             SerializationAdapter = serializationAdapter ?? throw new ArgumentNullException(nameof(serializationAdapter));

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace RestClient.Net.Abstractions.Extensions
@@ -14,6 +15,8 @@ namespace RestClient.Net.Abstractions.Extensions
             var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(userName + ":" + password));
             return requestHeaders.Append("Authorization", "Basic " + credentials);
         }
+
+        public static IHeadersCollection SetBearerTokenAuthenticationHeader(string bearerToken) => SetBearerTokenAuthenticationHeader(new RequestHeadersCollection(new Dictionary<string, IEnumerable<string>>()), bearerToken);
 
         public static IHeadersCollection SetBearerTokenAuthenticationHeader(this IHeadersCollection requestHeaders, string bearerToken)
         {
