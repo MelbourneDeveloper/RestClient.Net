@@ -6,6 +6,8 @@ namespace RestClient.Net.Abstractions
 {
     public class Request : IRequest
     {
+        IClient client;
+
         #region Public Properties
 #pragma warning disable CA1819 // Properties should not return arrays
         public byte[]? BodyData { get; }
@@ -68,5 +70,9 @@ namespace RestClient.Net.Abstractions
                 Headers.Add(kvp);
             }
         }
+
+        public override string ToString() => $"\r\nClient BaseUri: {client.BaseUri}\r\nResource: {Resource}\r\nHeaders: {Headers}";
+
+
     }
 }

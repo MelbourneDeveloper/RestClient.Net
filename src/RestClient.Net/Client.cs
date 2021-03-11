@@ -102,7 +102,7 @@ namespace RestClient.Net
 
                 var httpRequestMessage = httpRequestMessageFunc(request);
 
-                _logger.LogTrace("Attempting to send with the HttpClient");
+                _logger.LogTrace("Attempting to send with the HttpClient. {request}", request);
 
                 var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken).ConfigureAwait(false);
 
@@ -112,12 +112,7 @@ namespace RestClient.Net
             }
             catch (Exception ex)
             {
-                _logger.LogException(new Trace(
-                HttpRequestMethod.Custom,
-                TraceEvent.Error,
-                null,
-                message: $"Exception: {ex}"),
-                ex);
+                _logger.LogError(ex, "Error on SendAsync. {request}", request);
 
                 throw;
             }
@@ -223,7 +218,7 @@ namespace RestClient.Net
 
             try
             {
-                _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"Begin send"));
+                _logger.LogTrace("Begin send {request}", request);
 
                 httpClient = _createHttpClient(Name);
 
