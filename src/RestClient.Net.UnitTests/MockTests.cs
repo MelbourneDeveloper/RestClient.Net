@@ -32,16 +32,16 @@ namespace RestClient.Net.UnitTests
             var serializationAdapterMock = new Mock<ISerializationAdapter>();
 
             //Set the factory up to return the mock client
-            clientFactoryMock.Setup(f => f.Invoke("Person", null)).Returns(clientMock.Object);
+            _ = clientFactoryMock.Setup(f => f.Invoke("Person", null)).Returns(clientMock.Object);
 
             //Set the client up to return the response mock
-            clientMock.Setup(c => c.SendAsync<Person>(It.IsAny<Request>())).Returns(Task.FromResult<Response<Person>>(responseMock.Object));
+            _ = clientMock.Setup(c => c.SendAsync<Person>(It.IsAny<Request>())).Returns(Task.FromResult<Response<Person>>(responseMock.Object));
 
-            clientMock.Setup(c => c.SerializationAdapter).Returns(serializationAdapterMock.Object);
+            _ = clientMock.Setup(c => c.SerializationAdapter).Returns(serializationAdapterMock.Object);
 
-            serializationAdapterMock.Setup(c => c.Deserialize<Person>(It.IsAny<Response>())).Returns(responsePerson);
+            _ = serializationAdapterMock.Setup(c => c.Deserialize<Person>(It.IsAny<Response>())).Returns(responsePerson);
 
-            responseMock.Setup(r => r.Body).Returns(responsePerson);
+            _ = responseMock.Setup(r => r.Body).Returns(responsePerson);
 
             //Create the service and call SavePerson
             var personService = new PersonService(clientFactoryMock.Object);

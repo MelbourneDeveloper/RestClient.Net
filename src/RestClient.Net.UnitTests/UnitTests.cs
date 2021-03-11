@@ -526,7 +526,7 @@ namespace RestClient.Net.UnitTests
 
                 _ = await task;
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
                 //Success
                 return;
@@ -551,7 +551,7 @@ namespace RestClient.Net.UnitTests
 
                 _ = await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
             }
-            catch (TaskCanceledException ex)
+            catch (TaskCanceledException)
             {
                 //Success
                 return;
