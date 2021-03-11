@@ -8,17 +8,18 @@ namespace RestClient.Net.Abstractions.Extensions
         /// <summary>
         /// Sets the Authorization header for Basic Authentication with the specified credentials
         /// </summary>
-        public static void SetBasicAuthenticationHeader(this IClient restClient, string userName, string password)
+        public static IHeadersCollection SetBasicAuthenticationHeader(this IHeadersCollection requestHeaders, string userName, string password)
         {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
+            if (requestHeaders == null) throw new ArgumentNullException(nameof(requestHeaders));
             var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes(userName + ":" + password));
-            restClient.DefaultRequestHeaders.Add("Authorization", "Basic " + credentials);
+            return requestHeaders.Append("Authorization", "Basic " + credentials);
         }
 
-        public static void SetBearerTokenAuthenticationHeader(this IClient restClient, string bearerToken)
+        public static IHeadersCollection SetBearerTokenAuthenticationHeader(this IHeadersCollection requestHeaders, string bearerToken)
         {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            restClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + bearerToken);
+            return requestHeaders == null
+                ? throw new ArgumentNullException(nameof(requestHeaders))
+                : requestHeaders.Append("Authorization", "Bearer " + bearerToken);
         }
 
         public static TResponseBody DeserializeResponseBody<TResponseBody>(this IClient restClient, byte[] response, IHeadersCollection headersCollection) => restClient == null
@@ -27,18 +28,13 @@ namespace RestClient.Net.Abstractions.Extensions
                 ? throw new ArgumentNullException(nameof(response))
                 : restClient.SerializationAdapter.Deserialize<TResponseBody>(response, headersCollection);
 
-        public static void SetJsonContentTypeHeader(this IClient restClient)
-        {
-            if (restClient == null) throw new ArgumentNullException(nameof(restClient));
-            if (!restClient.DefaultRequestHeaders.Contains(ContentTypeHeaderName))
-            {
-                restClient.DefaultRequestHeaders.Add(ContentTypeHeaderName, JsonMediaType);
-            }
-            else
-            {
-                throw new ValidationException(Messages.ErrorMessageHeaderAlreadyExists);
-            }
-        }
+        public static IHeadersCollection SetJsonContentTypeHeader(this IHeadersCollection requestHeaders)
+            => requestHeaders == null
+                ? throw new ArgumentNullException(nameof(requestHeaders))
+                : !requestHeaders.Contains(ContentTypeHeaderName)
+                ? requestHeaders.Append(ContentTypeHeaderName, JsonMediaType)
+                : throw new ValidationException(Messages.ErrorMessageHeaderAlreadyExists);
+
 
         public const string ContentTypeHeaderName = "Content-Type";
         public const string JsonMediaType = "application/json";

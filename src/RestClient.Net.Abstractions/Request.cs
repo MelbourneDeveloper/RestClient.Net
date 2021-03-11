@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 
 namespace RestClient.Net.Abstractions
@@ -42,31 +41,13 @@ namespace RestClient.Net.Abstractions
             CustomHttpRequestMethod = customHttpRequestMethod;
 
             //Default to the headers passed in the constructor
-            //Create the collection if it's null
-            Headers = headers ?? new RequestHeadersCollection();
+            Headers = headers ?? NullHeadersCollection.Instance;
 
             //Return if there are no default headers
             var defaultRequestHeaders = client?.DefaultRequestHeaders;
             if (defaultRequestHeaders == null) return;
-            var defaultRequestHeadersList = defaultRequestHeaders.ToList();
-            if (defaultRequestHeadersList.Count == 0) return;
 
-            //Create a new list so we don't modify the list headers passed in
-            Headers = new RequestHeadersCollection();
-
-            //Add headers that were passed in
-            foreach (var kvp in defaultRequestHeadersList)
-            {
-                Headers.Add(kvp);
-            }
-
-            //Add the default headers
-            if (headers == null) return;
-
-            foreach (var kvp in headers)
-            {
-                Headers.Add(kvp);
-            }
+            Headers = Headers.Append(defaultRequestHeaders);
         }
     }
 }

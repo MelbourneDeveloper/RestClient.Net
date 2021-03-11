@@ -6,8 +6,10 @@ namespace RestClient.Net.Abstractions
     public sealed class RequestHeadersCollection : IHeadersCollection
     {
         #region Fields
-        private readonly Dictionary<string, IEnumerable<string>> _dictionary = new Dictionary<string, IEnumerable<string>>();
+        private readonly IDictionary<string, IEnumerable<string>> _dictionary;
         #endregion
+
+        public RequestHeadersCollection(IDictionary<string, IEnumerable<string>> dictionary) => _dictionary = dictionary;
 
         #region Public Properties
         IEnumerable<string> IHeadersCollection.this[string name] => _dictionary[name];
@@ -15,10 +17,6 @@ namespace RestClient.Net.Abstractions
         #endregion
 
         #region Public Methods
-        public void Add(KeyValuePair<string, IEnumerable<string>> keyValuePair) => _dictionary.Add(keyValuePair.Key, keyValuePair.Value);
-
-        public void Clear() => _dictionary.Clear();
-
         public bool Contains(string name) => _dictionary.ContainsKey(name);
 
         public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator() => _dictionary.GetEnumerator();
