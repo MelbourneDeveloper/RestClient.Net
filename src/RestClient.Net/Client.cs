@@ -245,7 +245,7 @@ namespace RestClient.Net
 #pragma warning restore IDE0004
 
 #pragma warning disable CA1307
-            if (baseUri != null && !baseUri.ToString().EndsWith("/"))
+            if (baseUri != null && !baseUri.ToString().EndsWith("/", StringComparison.OrdinalIgnoreCase))
 #pragma warning restore CA1307
             {
                 baseUri = new Uri($"{baseUri}/");

@@ -15,7 +15,7 @@ namespace RestClient.Net
             var parserProperty = messageType.GetProperty("Parser");
             var parser = parserProperty.GetValue(parserProperty);
             var parseFromMethod = parserProperty.PropertyType.GetMethod("ParseFrom", new Type[] { typeof(byte[]) });
-            var parsedObject = parseFromMethod.Invoke(parser,new object[] { response.GetResponseData() });
+            var parsedObject = parseFromMethod.Invoke(parser, new object[] { response.GetResponseData() });
             return (TResponseBody)parsedObject;
         }
     }
