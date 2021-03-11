@@ -106,7 +106,7 @@ namespace RestClient.Net
 
                 if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
-                var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
+                var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken).ConfigureAwait(false);
 
                 _logger.LogInformation(new Trace(HttpRequestMethod.Custom, TraceEvent.Information, message: $"SendAsync on HttpClient returned without an exception"));
 
@@ -245,7 +245,7 @@ namespace RestClient.Net
 #pragma warning restore IDE0004
 
 #pragma warning disable CA1307
-            if (baseUri != null && !baseUri.ToString().EndsWith("/"))
+            if (baseUri != null && !baseUri.ToString().EndsWith("/", StringComparison.OrdinalIgnoreCase))
 #pragma warning restore CA1307
             {
                 baseUri = new Uri($"{baseUri}/");
@@ -312,7 +312,7 @@ namespace RestClient.Net
                     httpClient,
                     _getHttpRequestMessage,
                     request
-                    );
+                    ).ConfigureAwait(false);
             }
             catch (TaskCanceledException tce)
             {
@@ -362,7 +362,7 @@ namespace RestClient.Net
                     "Request was sent to server"
                 ));
 
-            return await ProcessResponseAsync<TResponseBody>(request, httpResponseMessage, httpClient);
+            return await ProcessResponseAsync<TResponseBody>(request, httpResponseMessage, httpClient).ConfigureAwait(false);
         }
 
         private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody>(IRequest request, HttpResponseMessage httpResponseMessage, HttpClient httpClient)
@@ -376,12 +376,12 @@ namespace RestClient.Net
                     !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.OrdinalIgnoreCase));
                 if (gzipHeader != null)
                 {
-                    var bytes = await httpResponseMessage.Content.ReadAsByteArrayAsync();
+                    var bytes = await httpResponseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
                     responseData = Zip.Unzip(bytes);
                 }
             }
 
-            responseData ??= await httpResponseMessage.Content.ReadAsByteArrayAsync();
+            responseData ??= await httpResponseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
             var httpResponseHeadersCollection = new HttpResponseHeadersCollection(httpResponseMessage.Headers);
 

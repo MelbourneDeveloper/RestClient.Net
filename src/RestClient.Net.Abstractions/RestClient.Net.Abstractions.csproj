@@ -1,80 +1,82 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;net45;net5.0</TargetFrameworks>
-    <DebugType>pdbonly</DebugType>
-    <RootNamespace>RestClient.Net.Abstractions</RootNamespace>
-    <Version>4.1.0</Version>
-    <PackageLicenseFile>License.txt</PackageLicenseFile>        
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>.NET REST Client Framework for all platforms
+	<PropertyGroup>
+		<Nullable>enable</Nullable>
+		<TargetFrameworks>netstandard2.0;net45;net5.0</TargetFrameworks>
+		<DebugType>pdbonly</DebugType>
+		<RootNamespace>RestClient.Net.Abstractions</RootNamespace>
+		<Version>4.1.0</Version>
+		<PackageLicenseFile>License.txt</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Description>
+			.NET REST Client Framework for all platforms
 
-www.rest-client.net
+			www.rest-client.net
 
-This package contains abstractions for dependency injection with no implementations</Description>
-    <Product>RestClient.Net Abstractions</Product>
-    <Authors>Christian Findlay</Authors>
-    <Company>Christian Findlay</Company>
-    <Copyright>© 2020 Christian Findlay</Copyright>
-    <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
-    <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
-    <PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/4</PackageReleaseNotes>
-    <AssemblyVersion>4.1.0.0</AssemblyVersion>
-    <RepositoryType>git</RepositoryType>
-    <PackageIcon>Icon.png</PackageIcon>
-    <FileVersion>4.1.0.0</FileVersion>  
-    <LangVersion>9</LangVersion>             
-  </PropertyGroup>
+			This package contains abstractions for dependency injection with no implementations
+		</Description>
+		<Product>RestClient.Net Abstractions</Product>
+		<Authors>Christian Findlay</Authors>
+		<Company>Christian Findlay</Company>
+		<Copyright>© 2020 Christian Findlay</Copyright>
+		<PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
+		<PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
+		<PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/4</PackageReleaseNotes>
+		<AssemblyVersion>4.1.0.0</AssemblyVersion>
+		<RepositoryType>git</RepositoryType>
+		<PackageIcon>Icon.png</PackageIcon>
+		<FileVersion>4.1.0.0</FileVersion>
+		<LangVersion>9</LangVersion>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'net45'">
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.5" />
-    <Compile Remove="Logging/ILogger.cs" />
-    <Compile Remove="Logging/ILoggerFactory.cs" />    
-    <Compile Remove="Logging/EventId.cs" />
-    <Compile Remove="Logging/LogLevel.cs" />
-    <Compile Remove="Logging/NullLoggerFactory.cs" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' != 'net45'">
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.5" />
+		<Compile Remove="Logging/ILogger.cs" />
+		<Compile Remove="Logging/ILoggerFactory.cs" />
+		<Compile Remove="Logging/EventId.cs" />
+		<Compile Remove="Logging/LogLevel.cs" />
+		<Compile Remove="Logging/NullLoggerFactory.cs" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net47'">
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+	</ItemGroup>
 
 
-  <Choose>
-    <When Condition="'$(TargetFramework)' == 'net45'"> 
-      <ItemGroup>
-        <Compile Remove="JsonSerializationAdapter.cs" />
-      </ItemGroup>    
-    </When>
-    <When Condition="'$(TargetFramework)' == 'netcoreapp3.0'"> 
-    </When>
-    <Otherwise>  
-      <ItemGroup>
-        <PackageReference Include="System.Text.Json" Version="4.7.2" />
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
+	<Choose>
+		<When Condition="'$(TargetFramework)' == 'net45'">
+			<ItemGroup>
+				<Compile Remove="JsonSerializationAdapter.cs" />
+			</ItemGroup>
+		</When>
+		<When Condition="'$(TargetFramework)' == 'netcoreapp3.0'">
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<PackageReference Include="System.Text.Json" Version="4.7.2" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
 
-  <ItemGroup>
-    <None Include="..\Images\Rendered\Icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="License.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\Images\Rendered\Icon.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="License.txt">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
 </Project>

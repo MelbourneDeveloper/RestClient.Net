@@ -7,9 +7,6 @@ namespace ApiExamples
     {
         public HttpStatusCode HttpStatusCode { get; }
 
-        public StatusException(string message, HttpStatusCode httpStatusCode) : base(message)
-        {
-            HttpStatusCode = httpStatusCode;
-        }
+        public StatusException(string message, HttpStatusCode httpStatusCode) : base(message) => HttpStatusCode = httpStatusCode;
     }
 }

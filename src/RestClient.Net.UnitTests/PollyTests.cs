@@ -65,7 +65,7 @@ namespace RestClient.Net.UnitTests
             //Create a Microsoft IoC Container
             var serviceCollection = new ServiceCollection();
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
-            serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
+            _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
             .AddSingleton(typeof(ILogger), typeof(ConsoleLogger))
             //Add the Polly policy to the named HttpClient instance
             .AddHttpClient("rc", (c) => c.BaseAddress = baseUri).
@@ -73,7 +73,7 @@ namespace RestClient.Net.UnitTests
                 AddPolicyHandler(policy);
 
             //Provides mapping for Microsoft's IHttpClientFactory (This is what makes the magic happen)
-            serviceCollection.AddDependencyInjectionMapping();
+            _ = serviceCollection.AddDependencyInjectionMapping();
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var clientFactory = serviceProvider.GetService<CreateClient>();

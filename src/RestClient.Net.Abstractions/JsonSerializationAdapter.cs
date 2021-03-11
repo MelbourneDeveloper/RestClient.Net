@@ -19,14 +19,11 @@ namespace RestClient.Net
         /// Constructs a Serialization Adapter that uses System.Text.Json. Note that performance can be improved by changing the serialization option PropertyNameCaseInsensitive to false 
         /// </summary>
         /// <param name="jsonSerializationOptions">Allows the default behaviour of System.Text.Json to be changed. Note that properties are insensitive by default to keep compatibility with Newtonsoft</param>
-        public JsonSerializationAdapter(JsonSerializerOptions? jsonSerializationOptions = null)
-        {
-            JsonSerializationOptions = jsonSerializationOptions ??
+        public JsonSerializationAdapter(JsonSerializerOptions? jsonSerializationOptions = null) => JsonSerializationOptions = jsonSerializationOptions ??
                 new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 };
-        }
         #endregion
 
         #region Implementation

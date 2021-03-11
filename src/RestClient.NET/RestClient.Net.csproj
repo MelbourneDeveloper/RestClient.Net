@@ -1,67 +1,69 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;net45;net5.0</TargetFrameworks>
-    <DebugType>pdbonly</DebugType>
-    <AssemblyVersion>4.1.0.0</AssemblyVersion>
-    <FileVersion>4.1.0.0</FileVersion>
-    <Version>4.1.0</Version>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Christian Findlay</Authors>
-    <Description>.NET REST Client Framework for all platforms
+	<PropertyGroup>
+		<Nullable>enable</Nullable>
+		<TargetFrameworks>netstandard2.0;net45;net5.0</TargetFrameworks>
+		<DebugType>pdbonly</DebugType>
+		<AssemblyVersion>4.1.0.0</AssemblyVersion>
+		<FileVersion>4.1.0.0</FileVersion>
+		<Version>4.1.0</Version>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Christian Findlay</Authors>
+		<Description>
+			.NET REST Client Framework for all platforms
 
-www.rest-client.net</Description>
-    <Copyright>© 2020 Christian Findlay</Copyright>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
-    <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
-    <PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/4</PackageReleaseNotes>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <NoWarn>CA2007</NoWarn>    
-    <LangVersion>9</LangVersion>    
-    <PackageLicenseFile>License.txt</PackageLicenseFile>    
-    <RootNamespace>RestClient.Net</RootNamespace>    
-    <PackageIconUrl></PackageIconUrl>    
-    <RepositoryType>git</RepositoryType>    
-    <PackageIcon>Icon.png</PackageIcon>
-  </PropertyGroup>
+			www.rest-client.net
+		</Description>
+		<Copyright>© 2020 Christian Findlay</Copyright>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
+		<PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
+		<PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/4</PackageReleaseNotes>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<NoWarn>CA2007</NoWarn>
+		<LangVersion>9</LangVersion>
+		<PackageLicenseFile>License.txt</PackageLicenseFile>
+		<RootNamespace>RestClient.Net</RootNamespace>
+		<PackageIconUrl></PackageIconUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageIcon>Icon.png</PackageIcon>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
- 
-  <ItemGroup>
-    <None Include="..\Images\Rendered\Icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <None Include="License.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\RestClient.Net.Abstractions\RestClient.Net.Abstractions.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\Images\Rendered\Icon.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<None Include="License.txt">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
 
-  <Choose>
-    <When Condition="'$(TargetFramework)' == 'net45'">
-      <ItemGroup>
-        <PackageReference Include="System.Net.Http" Version="4.3.4" />
-      </ItemGroup>    
-    </When>
-    <Otherwise>  
-      <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.5" />
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
+	<ItemGroup>
+		<ProjectReference Include="..\RestClient.Net.Abstractions\RestClient.Net.Abstractions.csproj" />
+	</ItemGroup>
+
+	<Choose>
+		<When Condition="'$(TargetFramework)' == 'net45'">
+			<ItemGroup>
+				<PackageReference Include="System.Net.Http" Version="4.3.4" />
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.5" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
 
 </Project>

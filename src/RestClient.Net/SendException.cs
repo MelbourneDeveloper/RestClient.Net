@@ -8,9 +8,6 @@ namespace RestClient.Net
     {
         public IRequest Request { get; }
 
-        public SendException(string message, IRequest request, Exception innerException) : base(message, innerException)
-        {
-            Request = request;
-        }
+        public SendException(string message, IRequest request, Exception innerException) : base(message, innerException) => Request = request;
     }
 }

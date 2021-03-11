@@ -1,11 +1,4 @@
-﻿#if (NETCOREAPP3_1)
-#endif
-
-#if NET45
-using RestClient.Net.Abstractions.Logging;
-#else
-#endif
-
+﻿
 namespace RestClient.Net.UnitTests
 {
     public class Error
