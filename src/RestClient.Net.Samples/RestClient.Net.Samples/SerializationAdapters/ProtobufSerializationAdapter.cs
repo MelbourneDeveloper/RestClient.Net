@@ -6,11 +6,7 @@ namespace RestClient.Net
 {
     public class ProtobufSerializationAdapter : ISerializationAdapter
     {
-        public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)
-        {
-            var message = (IMessage)value as IMessage;
-            return message == null ? throw new Exception("The object is not a Google Protobuf Message") : message.ToByteArray();
-        }
+        public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders) => !((IMessage)value is IMessage message) ? throw new Exception("The object is not a Google Protobuf Message") : message.ToByteArray();
 
         public TResponseBody Deserialize<TResponseBody>(Response response)
         {
