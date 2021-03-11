@@ -40,6 +40,8 @@ dotnet_diagnostic.CA1031.severity = None
 
 #########################################
 
+dotnet_diagnostic.CS0168.severity = error
+
 # CA1000: Do not declare static members on generic types
 dotnet_diagnostic.CA1000.severity = error
 

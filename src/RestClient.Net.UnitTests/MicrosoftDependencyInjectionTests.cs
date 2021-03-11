@@ -22,8 +22,8 @@ namespace RestClient.Net.UnitTests
         {
             var serviceCollection = new ServiceCollection();
             var baseUri = new Uri("http://www.test.com");
-            serviceCollection.AddHttpClient("test", (c) => c.BaseAddress = baseUri);
-            serviceCollection.AddDependencyInjectionMapping();
+            _ = serviceCollection.AddHttpClient("test", (c) => c.BaseAddress = baseUri);
+            _ = serviceCollection.AddDependencyInjectionMapping();
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var httpClientFactory = serviceProvider.GetService<CreateHttpClient>();
             var httpClient = httpClientFactory("test");
@@ -47,13 +47,13 @@ namespace RestClient.Net.UnitTests
                     //Make sure the HttpClient is named the same as the Rest Client
                     .AddSingleton<IClient>(x => new Client(name: clientName, createHttpClient: x.GetRequiredService<CreateHttpClient>()));
 
-                serviceCollection.AddHttpClient(clientName, (c) => c.BaseAddress = baseUri)
+                _ = serviceCollection.AddHttpClient(clientName, (c) => c.BaseAddress = baseUri)
                 .AddHttpMessageHandler<TestHandler>();
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
                 var client = serviceProvider.GetService<IClient>();
-                await client.GetAsync<object>();
-                serviceCollection.Configure<string>((s) => { });
+                _ = await client.GetAsync<object>();
+                _ = serviceCollection.Configure<string>((s) => { });
             }
             catch (SendException hse)
             {
@@ -72,7 +72,7 @@ namespace RestClient.Net.UnitTests
                 const string clientName = "Test";
                 var serviceCollection = new ServiceCollection();
                 var baseUri = new Uri("http://www.test.com");
-                serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
+                _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
                     .AddSingleton(typeof(ILogger), typeof(ConsoleLogger))
                     .AddDependencyInjectionMapping()
                     .AddTransient<TestHandler>()
@@ -82,7 +82,7 @@ namespace RestClient.Net.UnitTests
                 var serviceProvider = serviceCollection.BuildServiceProvider();
                 var clientFactory = serviceProvider.GetService<CreateClient>();
                 var client = clientFactory(clientName);
-                await client.GetAsync<object>();
+                _ = await client.GetAsync<object>();
             }
             catch (SendException hse)
             {
@@ -103,7 +103,7 @@ namespace RestClient.Net.UnitTests
                 .AddSingleton<MockAspController>()
                 .AddDependencyInjectionMapping();
 
-            serviceCollection.AddHttpClient("test", (c) => c.BaseAddress = baseUri);
+            _ = serviceCollection.AddHttpClient("test", (c) => c.BaseAddress = baseUri);
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var mockAspController = serviceProvider.GetService<MockAspController>();
@@ -123,10 +123,10 @@ namespace RestClient.Net.UnitTests
                     _ = s.WithDefaultConventions();
                 });
 
-                c.For<CreateClient>().Use<CreateClient>(con => new ClientFactory(con.GetInstance<CreateHttpClient>(), con.GetInstance<ISerializationAdapter>(), null).CreateClient);
-                c.For<CreateHttpClient>().Use<CreateHttpClient>(con => new DefaultHttpClientFactory().CreateClient);
-                c.For<ILogger>().Use<ConsoleLogger>();
-                c.For<ISerializationAdapter>().Use<NewtonsoftSerializationAdapter>();
+                _ = c.For<CreateClient>().Use<CreateClient>(con => new ClientFactory(con.GetInstance<CreateHttpClient>(), con.GetInstance<ISerializationAdapter>(), null).CreateClient);
+                _ = c.For<CreateHttpClient>().Use<CreateHttpClient>(con => new DefaultHttpClientFactory().CreateClient);
+                _ = c.For<ILogger>().Use<ConsoleLogger>();
+                _ = c.For<ISerializationAdapter>().Use<NewtonsoftSerializationAdapter>();
             });
 
             var clientFactory = container.GetInstance<CreateClient>();

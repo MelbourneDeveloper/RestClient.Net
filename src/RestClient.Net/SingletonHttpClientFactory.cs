@@ -6,7 +6,7 @@ namespace RestClient.Net
     /// <summary>
     /// Factory for using a single HttpClient. This can be used in the simplest scenarios. 
     /// </summary>
-    public class SingletonHttpClientFactory : IDisposable
+    public sealed class SingletonHttpClientFactory : IDisposable
     {
         #region Fields
         private bool disposed;
