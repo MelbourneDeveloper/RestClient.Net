@@ -21,9 +21,11 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-#pragma warning disable IDE0060
-#pragma warning disable CA1801
+#pragma warning disable CA1801 // Review unused parameters
+#pragma warning disable IDE0060 // Remove unused parameter
         public HttpClient CreateClient(string name) => HttpClient;
+#pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning restore CA1801 // Review unused parameters
 
         public void Dispose()
         {

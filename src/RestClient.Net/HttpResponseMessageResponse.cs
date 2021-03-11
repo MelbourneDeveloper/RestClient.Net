@@ -1,5 +1,4 @@
-﻿#nullable disable
-
+﻿
 using RestClient.Net.Abstractions;
 using System;
 using System.Net.Http;
@@ -42,6 +41,7 @@ namespace RestClient.Net
             HttpResponseMessage = httpResponseMessage;
             HttpClient = httpClient;
         }
+
         #endregion
     }
 }

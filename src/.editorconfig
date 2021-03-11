@@ -30,6 +30,12 @@ csharp_style_expression_bodied_constructors = true:error
 # CS1998: Async method lacks 'await' operators and will run synchronously
 dotnet_diagnostic.CS1998.severity = error
 
+
+dotnet_diagnostic.CS8604.severity = error
+dotnet_diagnostic.CS8625.severity = error
+
+
+
 ######################## Disable #################
 
 # Modify 'Start' to catch a more specific allowed exception type, or rethrow the exception

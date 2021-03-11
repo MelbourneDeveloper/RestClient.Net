@@ -54,7 +54,6 @@ namespace RestClient.Net
 
         #region Private Methods
         private IClient MintClient(string name, Uri? baseUri = null) =>
-#pragma warning disable CA2000 // Dispose objects before losing scope
             new Client(
                 SerializationAdapter,
                 name,
@@ -65,7 +64,6 @@ namespace RestClient.Net
                 logger: _loggerFactory?.CreateLogger(nameof(Client)),
 #endif
                 createHttpClient: _createHttpClient);
-#pragma warning restore CA2000 // Dispose objects before losing scope
         #endregion
     }
 }
