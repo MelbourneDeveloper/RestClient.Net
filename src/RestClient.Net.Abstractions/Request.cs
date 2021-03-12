@@ -71,7 +71,7 @@ namespace RestClient.Net.Abstractions
             }
         }
 
-        public override string ToString() => $"\r\nClient BaseUri: {client.BaseUri}\r\nResource: {Resource}\r\nHeaders: {Headers}";
+        public override string ToString() => $"\r\nClient BaseUri: {client.BaseUri}\r\nResource: {Resource}\r\nHeaders: {Headers} Method: {HttpRequestMethod}";
 
 
     }

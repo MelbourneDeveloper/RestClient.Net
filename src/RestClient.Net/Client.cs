@@ -222,22 +222,22 @@ namespace RestClient.Net
 
                 httpClient = _createHttpClient(Name);
 
-                _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"Got HttpClient null: {httpClient == null}"));
+                _logger.LogTrace("Got HttpClient null: {httpClientNull}", httpClient == null);
 
                 if (httpClient == null) throw new InvalidOperationException("CreateHttpClient returned null");
 
                 //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
                 if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
 
-                _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"HttpClient configured. Request Null: {request == null} Adapter Null: {SerializationAdapter == null}"));
+                //TODO: DefaultRequestHeaders are not necessarily in sync here...
+
+                _logger.LogTrace("HttpClient configured. Request: {request} Adapter: {serializationAdapter}", request, SerializationAdapter);
 
                 if (request == null) throw new ArgumentNullException(nameof(request));
 
-                _logger.LogTrace(_updateHttpRequestMethods.Contains(request.HttpRequestMethod)
-                    ? new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, request.BodyData,
-                        message: $"Request body serialized")
-                    : new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, request.BodyData,
-                        message: "No request body to serialize"));
+                var isUpdate = _updateHttpRequestMethods.Contains(request.HttpRequestMethod);
+
+                _logger.LogTrace(isUpdate ? "Request body serialized {bodyData}" : "No request body to serialize", request.BodyData);
 
                 httpResponseMessage = await _sendHttpRequestFunc(
                     httpClient,
@@ -366,6 +366,8 @@ namespace RestClient.Net
         #endregion
 
         #region Private Methods
+        private static bool IsUpdate(HttpRequestMethod httpRequestMethod) => _updateHttpRequestMethods.Contains(httpRequestMethod);
+
         private HttpRequestMessage DefaultGetHttpRequestMessage(IRequest request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
