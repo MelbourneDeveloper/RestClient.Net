@@ -20,6 +20,7 @@ using jsonperson = ApiExamples.Model.JsonModel.Person;
 using RichardSzalay.MockHttp;
 using System.IO;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -145,16 +146,16 @@ namespace RestClient.Net.UnitTests
          };
 
 
-        //Mock the httpclient
-        private static readonly CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
         //For realises - with factory
         //private static readonly CreateHttpClient _createHttpClient = (n) => new HttpClient();
         //For realsies - no factory
         //private CreateHttpClient _createHttpClient = null;
 
+        //Mock the httpclient
+        private static readonly MockHttpMessageHandler _mockHttpMessageHandler = new MockHttpMessageHandler();
+        private static readonly CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
         private static TestClientFactory _testServerHttpClientFactory;
         private static Mock<ILogger<Client>> _logger;
-        private static readonly MockHttpMessageHandler _mockHttpMessageHandler = new MockHttpMessageHandler();
 
 #if NETCOREAPP3_1
         public const string LocalBaseUriString = "http://localhost";
