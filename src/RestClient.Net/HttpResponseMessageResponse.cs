@@ -49,5 +49,8 @@ namespace RestClient.Net
         }
 
         #endregion
+
+        public override string ToString() => $"Status: {StatusCode} HttpRequestMethod: {HttpRequestMethod} Body: {Body} Request Uri: {HttpResponseMessage?.RequestMessage?.RequestUri}";
+
     }
 }

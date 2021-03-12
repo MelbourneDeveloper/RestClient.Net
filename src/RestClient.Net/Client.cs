@@ -218,7 +218,7 @@ namespace RestClient.Net
 
             try
             {
-                _logger.LogTrace("Begin send {request}", request);
+                _logger.LogTrace("Begin send {request} Event: {event}", request, TraceEvent.Request);
 
                 httpClient = _createHttpClient(Name);
 
@@ -245,53 +245,15 @@ namespace RestClient.Net
                     request
                     ).ConfigureAwait(false);
             }
-            catch (TaskCanceledException tce)
+            catch (Exception tce)
             {
-                _logger.LogException(new Trace(
-                    request.HttpRequestMethod,
-                    TraceEvent.Error,
-                    request.Resource,
-                    message: $"Exception: {tce}"),
-                    tce);
-
+                _logger.LogError(tce, "Send Exception. {request} Event: {event}", request, TraceEvent.Error);
                 throw;
             }
-            catch (OperationCanceledException oce)
-            {
-                _logger.LogException(new Trace(
-                    request.HttpRequestMethod,
-                    TraceEvent.Error,
-                    request.Resource,
-                    message: $"Exception: {oce}"),
-                    oce);
 
-                throw;
-            }
-            //TODO: Does this need to be handled like this?
-            catch (Exception ex)
-            {
-                var exception = new SendException("HttpClient Send Exception", request, ex);
+            _logger.LogInformation("Request was sent to server and response was received");
 
-                _logger.LogException(new Trace(
-                request.HttpRequestMethod,
-                TraceEvent.Error,
-                request.Resource,
-                message: $"Exception: {ex}"),
-                exception);
-
-                throw exception;
-            }
-
-            _logger.LogTrace(new Trace
-                (
-                    request.HttpRequestMethod,
-                    TraceEvent.Request,
-                    httpResponseMessage.RequestMessage?.RequestUri,
-                    request.BodyData,
-                    null,
-                    request.Headers,
-                    "Request was sent to server"
-                ));
+            _logger.LogTrace("Successful request/response {request}", request);
 
             return await ProcessResponseAsync<TResponseBody>(request, httpResponseMessage, httpClient).ConfigureAwait(false);
         }
@@ -349,15 +311,7 @@ namespace RestClient.Net
                         this);
             }
 
-            _logger.LogTrace(new Trace
-            (
-             request.HttpRequestMethod,
-                TraceEvent.Response,
-                httpResponseMessage.RequestMessage?.RequestUri,
-                responseData,
-                (int)httpResponseMessage.StatusCode,
-                httpResponseHeadersCollection
-            ));
+            _logger.LogTrace("Response processed: {response} Event: {event}", httpResponseMessageResponse, TraceEvent.Response);
 
             return httpResponseMessageResponse;
         }
