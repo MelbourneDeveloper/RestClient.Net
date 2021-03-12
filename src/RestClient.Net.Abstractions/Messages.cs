@@ -10,6 +10,7 @@ namespace RestClient.Net.Abstractions
         public const string ErrorMessageHeaderAlreadyExists = "The Content-Type header has already been set";
 
         public static string InfoAttemptingToSend = "Attempting to send with the HttpClient. {request}";
+        public static string TraceResponseProcessed = "Response processed: {response} Event: {event}";
 
         public static string GetErrorMessageNonSuccess(int responseCode, Uri? requestUri) => $"Non successful Http Status Code: {responseCode}.\r\nRequest Uri: {requestUri}";
 

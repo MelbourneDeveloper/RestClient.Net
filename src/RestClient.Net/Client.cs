@@ -305,7 +305,7 @@ namespace RestClient.Net
                         this);
             }
 
-            _logger.LogTrace("Response processed: {response} Event: {event}", httpResponseMessageResponse, TraceEvent.Response);
+            _logger.LogTrace(Messages.TraceResponseProcessed, httpResponseMessageResponse, TraceEvent.Response);
 
             return httpResponseMessageResponse;
         }

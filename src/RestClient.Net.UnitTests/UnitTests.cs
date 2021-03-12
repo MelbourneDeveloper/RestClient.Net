@@ -452,10 +452,14 @@ namespace RestClient.Net.UnitTests
             _logger.VerifyLog((state, t) => state.CheckValue(Messages.InfoSendReturnedNoException, "{OriginalFormat}"), LogLevel.Information, 1);
 
             _logger.VerifyLog((state, t) =>
-            state.CheckValue<IRequest>("request", (a) => a.Resource == null) &&
+            state.CheckValue<IRequest>("request", (a) => a.Resource == null && a.HttpRequestMethod == HttpRequestMethod.Get) &&
             state.CheckValue(Messages.InfoAttemptingToSend, "{OriginalFormat}")
             , LogLevel.Trace, 1);
 
+            _logger.VerifyLog((state, t) =>
+            state.CheckValue(Messages.TraceResponseProcessed, "{OriginalFormat}") &&
+            state.CheckValue<Response>("response", (a) => a.RequestUri == RestCountriesAllUri && a.StatusCode == 200)
+            , LogLevel.Trace, 1);
             //VerifyLog(_logger, RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
 #endif
 
