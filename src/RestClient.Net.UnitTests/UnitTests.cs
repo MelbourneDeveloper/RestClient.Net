@@ -451,7 +451,7 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(response.Body.Count > 0);
 
 #if !NET45
-            VerifyLog(_logger, (state, t) => CheckValue(state, Messages.InfoSendReturnedNoException, "{OriginalFormat}"), LogLevel.Information, 1);
+            _logger.VerifyLog((state, t) => state.CheckValue(Messages.InfoSendReturnedNoException, "{OriginalFormat}"), LogLevel.Information, 1);
             //VerifyLog(_logger, RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
 #endif
 
@@ -1572,69 +1572,7 @@ namespace RestClient.Net.UnitTests
             return headers;
         }
 
-#if !NET45
 
-        private static void VerifyLog<TException>(
-                   Mock<ILogger<Client>> loggerMock,
-                   Expression<Func<object, Type, bool>> match,
-                   LogLevel logLevel,
-                   int times) where TException : Exception
-        {
-            loggerMock.Verify
-            (
-                l => l.Log
-                (
-                    //Check the severity level
-                    logLevel,
-                    //This may or may not be relevant to your scenario
-                    It.IsAny<EventId>(),
-                    //This is the magical Moq code that exposes internal log processing from the extension methods
-                    It.Is<It.IsAnyType>(match),
-                    //Confirm the exception type
-                    It.IsAny<TException>(),
-                    //Accept any valid Func here. The Func is specified by the extension methods
-                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()
-                ),
-                //Make sure the message was logged the correct number of times
-                Times.Exactly(times)
-            );
-        }
-
-        private static void VerifyLog(
-           Mock<ILogger<Client>> loggerMock,
-           Expression<Func<object, Type, bool>> match,
-           LogLevel logLevel,
-           int times)
-        {
-            loggerMock.Verify
-            (
-                l => l.Log
-                (
-                    //Check the severity level
-                    logLevel,
-                    //This may or may not be relevant to your scenario
-                    It.IsAny<EventId>(),
-                    //This is the magical Moq code that exposes internal log processing from the extension methods
-                    It.Is<It.IsAnyType>(match),
-                    //Confirm the exception type
-                    null,
-                    //Accept any valid Func here. The Func is specified by the extension methods
-                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()
-                ),
-                //Make sure the message was logged the correct number of times
-                Times.Exactly(times)
-            );
-        }
-
-        private static bool CheckValue(object state, object expectedValue, string key)
-        {
-            var keyValuePairList = (IReadOnlyList<KeyValuePair<string, object>>)state;
-
-            var actualValue = keyValuePairList.First(kvp => string.Compare(kvp.Key, key, StringComparison.Ordinal) == 0).Value;
-
-            return expectedValue.Equals(actualValue);
-        }
-#endif
 
         private static HttpClient MintClient()
         {
@@ -1669,4 +1607,5 @@ namespace RestClient.Net.UnitTests
         }
         #endregion
     }
+
 }
