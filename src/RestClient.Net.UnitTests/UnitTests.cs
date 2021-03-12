@@ -29,6 +29,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ApiExamples;
+using System.Linq.Expressions;
 #endif
 
 #if NET45
@@ -42,7 +43,14 @@ namespace RestClient.Net.UnitTests
     public class UnitTests
     {
         #region Fields
-        private static readonly ILoggerFactory consoleLoggerFactory = LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
+
+        private static readonly ILoggerFactory consoleLoggerFactory =
+#if NET45
+            consoleLoggerFactory = NullLoggerFactory.Instance;
+#else
+            LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
+#endif
+
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
         private const string GoogleUrlString = "https://www.google.com";
         private const string RestCountriesAllUriString = "https://restcountries.eu/rest/v2/";
@@ -441,8 +449,8 @@ namespace RestClient.Net.UnitTests
             Assert.IsNotNull(response);
             Assert.IsTrue(response.Body.Count > 0);
 
-            VerifyLog(RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Request);
-            VerifyLog(RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
+            VerifyLog(_logger, RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Request);
+            VerifyLog(_logger, RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
 
             var httpResponseMessageResponse = response as HttpResponseMessageResponse<List<RestCountry>>;
 
@@ -464,8 +472,8 @@ namespace RestClient.Net.UnitTests
                 );
             var response = await client.DeleteAsync(JsonPlaceholderFirstPostSlug);
 
-            VerifyLog(JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Request, null, null);
-            VerifyLog(JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Response, (int)HttpStatusCode.OK, null);
+            VerifyLog(_logger, JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Request, null, null);
+            VerifyLog(_logger, JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Response, (int)HttpStatusCode.OK, null);
 
             //This doesn't work when actually contacting the server...
             Assert.AreEqual(JsonPlaceholderDeleteHeaders[SetCookieHeaderName], response.Headers[SetCookieHeaderName].First());
@@ -608,8 +616,8 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(_userRequestBody.userId, responseUserPost.userId);
             Assert.AreEqual(_userRequestBody.title, responseUserPost.title);
 
-            VerifyLog(It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Request, null, null);
-            VerifyLog(It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Response, (int)expectedStatusCode, null);
+            VerifyLog(_logger, It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Request, null, null);
+            VerifyLog(_logger, It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Response, (int)expectedStatusCode, null);
         }
 
         [TestMethod]
@@ -719,8 +727,8 @@ namespace RestClient.Net.UnitTests
             var headers = GetHeaders(useDefault, client);
             var response = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative), requestHeaders: headers);
 
-            VerifyLog(It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Request, null, null, CheckRequestHeaders);
-            VerifyLog(It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK, null, CheckResponseHeaders);
+            VerifyLog(_logger, It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Request, null, null, CheckRequestHeaders);
+            VerifyLog(_logger, It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK, null, CheckResponseHeaders);
         }
 
         [TestMethod]

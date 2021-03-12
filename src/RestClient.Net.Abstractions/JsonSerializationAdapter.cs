@@ -37,7 +37,7 @@ namespace RestClient.Net
 
             var returnValue = typeof(TResponseBody) == typeof(string) ? (TResponseBody)markupAsObject : JsonSerializer.Deserialize<TResponseBody>(markup, JsonSerializationOptions);
 
-            return returnValue;
+            return returnValue ?? throw new InvalidOperationException("Deserialization returned null");
         }
 
         public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection? requestHeaders)
