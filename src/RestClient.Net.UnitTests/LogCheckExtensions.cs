@@ -65,16 +65,16 @@ namespace RestClient.Net.UnitTests
         }
 
         public static bool CheckValue<T>(this object state, T expectedValue, string key)
-        => CheckValue(state, expectedValue, key, (a, b) =>
-        (a == null && b == null) || (a != null && a.Equals(b)));
+        => CheckValue2<T>(state, key, (a)
+               => (a == null && expectedValue == null) || (a != null && a.Equals(expectedValue)));
 
-        public static bool CheckValue<T>(this object state, T expectedValue, string key, Func<T, T, bool> compare)
+        public static bool CheckValue2<T>(this object state, string key, Func<T, bool> compare)
         {
             var keyValuePairList = (IReadOnlyList<KeyValuePair<string, object>>)state;
 
             var actualValue = (T)keyValuePairList.First(kvp => string.Compare(kvp.Key, key, StringComparison.Ordinal) == 0).Value;
 
-            return compare(actualValue, expectedValue);
+            return compare(actualValue);
         }
     }
 }

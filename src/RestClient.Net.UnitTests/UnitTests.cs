@@ -25,14 +25,12 @@ using Microsoft.Extensions.Logging;
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8604 // Possible null reference argument.
 #pragma warning disable CS0219 // Variable is assigned but its value is never used
-#pragma warning disable IDE0051 // Remove unused private members
 #pragma warning disable IDE0059 // Unnecessary assignment of a value
 
 #if NETCOREAPP3_1
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using ApiExamples;
-using System.Linq.Expressions;
 #endif
 
 #if NET45
@@ -451,7 +449,10 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(response.Body.Count > 0);
 
 #if !NET45
-            _logger.VerifyLog((state, t) => state.CheckValue(Messages.InfoSendReturnedNoException, "{OriginalFormat}"), LogLevel.Information, 1);
+            _logger.VerifyLog((state, t) =>
+            state.CheckValue(Messages.InfoSendReturnedNoException, "{OriginalFormat}")// &&
+            //state.CheckValue<IRequest>(, "request")
+            , LogLevel.Information, 1);
             //VerifyLog(_logger, RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
 #endif
 
