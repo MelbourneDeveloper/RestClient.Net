@@ -20,10 +20,13 @@ using jsonperson = ApiExamples.Model.JsonModel.Person;
 using RichardSzalay.MockHttp;
 using System.IO;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
+//TODO: Remove these
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS0219 // Variable is assigned but its value is never used
+#pragma warning disable IDE0051 // Remove unused private members
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
 
 #if NETCOREAPP3_1
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +36,7 @@ using System.Linq.Expressions;
 #endif
 
 #if NET45
+using Microsoft.Extensions.Logging.Abstractions;
 #else
 using Moq.Protected;
 #endif
@@ -162,12 +166,12 @@ namespace RestClient.Net.UnitTests
         //Mock the httpclient
         private static readonly MockHttpMessageHandler _mockHttpMessageHandler = new MockHttpMessageHandler();
         private static readonly CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
-        private static TestClientFactory _testServerHttpClientFactory;
+        private static readonly TestClientFactory _testServerHttpClientFactory;
         private static Mock<ILogger<Client>> _logger = new Mock<ILogger<Client>>();
 
 #if NETCOREAPP3_1
         public const string LocalBaseUriString = "http://localhost";
-        private static TestServer _testServer;
+        private static readonly TestServer _testServer;
 #else
         public const string LocalBaseUriString = "https://localhost:44337";
 #endif
@@ -183,8 +187,6 @@ namespace RestClient.Net.UnitTests
         [TestInitialize]
         public void Initialize()
         {
-            var testServerHttpClientFactory = GetTestClientFactory();
-            _testServerHttpClientFactory = testServerHttpClientFactory;
             _logger = new Mock<ILogger<Client>>();
 
 
@@ -263,7 +265,7 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Public Static Methods
-        public static TestClientFactory GetTestClientFactory()
+        static UnitTests()
         {
 #if NETCOREAPP3_1
             if (_testServer == null)
@@ -275,8 +277,7 @@ namespace RestClient.Net.UnitTests
 #endif
 
             var testClient = MintClient();
-            var testServerHttpClientFactory = new TestClientFactory(testClient);
-            return testServerHttpClientFactory;
+            _testServerHttpClientFactory = new TestClientFactory(testClient);
         }
         #endregion
 
