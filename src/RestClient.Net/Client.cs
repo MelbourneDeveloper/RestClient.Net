@@ -102,7 +102,7 @@ namespace RestClient.Net
 
                 var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken).ConfigureAwait(false);
 
-                _logger.LogInformation("SendAsync on HttpClient returned without an exception");
+                _logger.LogInformation(Messages.InfoSendReturnedNoException);
 
                 return httpResponseMessage;
             }

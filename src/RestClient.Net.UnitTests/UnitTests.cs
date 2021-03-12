@@ -450,8 +450,10 @@ namespace RestClient.Net.UnitTests
             Assert.IsNotNull(response);
             Assert.IsTrue(response.Body.Count > 0);
 
-            //VerifyLog(_logger, (a, b) => true, LogLevel.Information, 1);
+#if !NET45
+            VerifyLog(_logger, (state, t) => CheckValue(state, Messages.InfoSendReturnedNoException, "{OriginalFormat}"), LogLevel.Information, 1);
             //VerifyLog(_logger, RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
+#endif
 
             var httpResponseMessageResponse = response as HttpResponseMessageResponse<List<RestCountry>>;
 
