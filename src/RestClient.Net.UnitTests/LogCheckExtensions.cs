@@ -65,14 +65,19 @@ namespace RestClient.Net.UnitTests
         }
 
         public static bool CheckValue<T>(this object state, T expectedValue, string key)
-        => CheckValue2<T>(state, key, (a)
+        => CheckValue<T>(state, key, (a)
                => (a == null && expectedValue == null) || (a != null && a.Equals(expectedValue)));
 
-        public static bool CheckValue2<T>(this object state, string key, Func<T, bool> compare)
+        public static bool CheckValue<T>(this object state, string key, Func<T, bool> compare)
         {
             var keyValuePairList = (IReadOnlyList<KeyValuePair<string, object>>)state;
 
-            var actualValue = (T)keyValuePairList.First(kvp => string.Compare(kvp.Key, key, StringComparison.Ordinal) == 0).Value;
+            var keyValuePair = keyValuePairList.FirstOrDefault(kvp => string.Compare(kvp.Key, key, StringComparison.Ordinal) == 0);
+
+            //Check to make sure we were able to get the key from the dictionary or return false
+            if (keyValuePair.Key == null) return false;
+
+            var actualValue = (T)keyValuePair.Value;
 
             return compare(actualValue);
         }

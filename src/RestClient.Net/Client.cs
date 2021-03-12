@@ -98,7 +98,7 @@ namespace RestClient.Net
 
                 var httpRequestMessage = httpRequestMessageFunc(request);
 
-                _logger.LogTrace("Attempting to send with the HttpClient. {request}", request);
+                _logger.LogTrace(Messages.InfoAttemptingToSend, request);
 
                 var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken).ConfigureAwait(false);
 

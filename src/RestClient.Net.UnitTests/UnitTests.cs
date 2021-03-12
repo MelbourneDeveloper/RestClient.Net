@@ -449,10 +449,13 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(response.Body.Count > 0);
 
 #if !NET45
+            _logger.VerifyLog((state, t) => state.CheckValue(Messages.InfoSendReturnedNoException, "{OriginalFormat}"), LogLevel.Information, 1);
+
             _logger.VerifyLog((state, t) =>
-            state.CheckValue(Messages.InfoSendReturnedNoException, "{OriginalFormat}")// &&
-            //state.CheckValue<IRequest>(, "request")
-            , LogLevel.Information, 1);
+            state.CheckValue<IRequest>("request", (a) => a.Resource == null) &&
+            state.CheckValue(Messages.InfoAttemptingToSend, "{OriginalFormat}")
+            , LogLevel.Trace, 1);
+
             //VerifyLog(_logger, RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
 #endif
 
