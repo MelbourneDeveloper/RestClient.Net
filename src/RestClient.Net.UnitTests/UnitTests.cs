@@ -22,7 +22,6 @@ using System.IO;
 using Microsoft.Extensions.Logging;
 
 //TODO: Remove these
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8604 // Possible null reference argument.
 #pragma warning disable CS0219 // Variable is assigned but its value is never used
 #pragma warning disable IDE0059 // Unnecessary assignment of a value
@@ -460,7 +459,6 @@ namespace RestClient.Net.UnitTests
             state.CheckValue(Messages.TraceResponseProcessed, "{OriginalFormat}") &&
             state.CheckValue<Response>("response", (a) => a.RequestUri == RestCountriesAllUri && a.StatusCode == 200)
             , LogLevel.Trace, 1);
-            //VerifyLog(_logger, RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
 #endif
 
             var httpResponseMessageResponse = response as HttpResponseMessageResponse<List<RestCountry>>;
@@ -969,10 +967,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestErrorsLocalGetThrowException()
         {
-            Client restClient = null;
+            var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+
             try
             {
-                restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
                 var response = await restClient.GetAsync<Person>("error");
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             }
@@ -1013,10 +1011,9 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationLocalWithError()
         {
-            Client restClient = null;
+            var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             try
             {
-                restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
                 restClient.SetBasicAuthenticationHeader("Bob", "WrongPassword");
                 Person person = await restClient.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative));
             }
@@ -1048,10 +1045,9 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBearerTokenAuthenticationLocalWithError()
         {
-            Client restClient = null;
+            var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             try
             {
-                restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
                 restClient.SetBearerTokenAuthenticationHeader("321");
                 Person person = await restClient.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative));
             }
@@ -1567,7 +1563,7 @@ namespace RestClient.Net.UnitTests
 
         private static IHeadersCollection GetHeaders(bool useDefault, Client client)
         {
-            IHeadersCollection headers = null;
+            IHeadersCollection headers = NullHeadersCollection.Instance;
             if (useDefault)
             {
                 client.DefaultRequestHeaders.Add("Test", "Test");
@@ -1593,7 +1589,7 @@ namespace RestClient.Net.UnitTests
 #pragma warning restore IDE0022 // Use expression body for methods
         }
 
-        private IClient GetJsonClient(Uri baseUri = null)
+        private IClient GetJsonClient(Uri? baseUri = null)
         {
             IClient restClient;
 
