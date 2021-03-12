@@ -61,7 +61,7 @@ namespace RestClient.Net.UnitTests
         private readonly Uri RestCountriesAllUri = new Uri(RestCountriesAllUriString);
         private readonly Uri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString);
         private readonly Uri JsonPlaceholderBaseUri = new Uri(JsonPlaceholderBaseUriString);
-        private readonly Uri JsonPlaceholderFirstPostUri = new Uri(JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug);
+        //private readonly Uri JsonPlaceholderFirstPostUri = new Uri(JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug);
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
         private const string SetCookieHeaderName = "Set-Cookie";
         private const string CacheControlHeaderName = "Cache-Control";
@@ -163,7 +163,7 @@ namespace RestClient.Net.UnitTests
         private static readonly MockHttpMessageHandler _mockHttpMessageHandler = new MockHttpMessageHandler();
         private static readonly CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
         private static TestClientFactory _testServerHttpClientFactory;
-        private static Mock<ILogger<Client>> _logger;
+        private static Mock<ILogger<Client>> _logger = new Mock<ILogger<Client>>();
 
 #if NETCOREAPP3_1
         public const string LocalBaseUriString = "http://localhost";
@@ -449,8 +449,8 @@ namespace RestClient.Net.UnitTests
             Assert.IsNotNull(response);
             Assert.IsTrue(response.Body.Count > 0);
 
-            VerifyLog(_logger, RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Request);
-            VerifyLog(_logger, RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
+            //VerifyLog(_logger, (a, b) => true, LogLevel.Information, 1);
+            //VerifyLog(_logger, RestCountriesAllUri, HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK);
 
             var httpResponseMessageResponse = response as HttpResponseMessageResponse<List<RestCountry>>;
 
@@ -472,8 +472,8 @@ namespace RestClient.Net.UnitTests
                 );
             var response = await client.DeleteAsync(JsonPlaceholderFirstPostSlug);
 
-            VerifyLog(_logger, JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Request, null, null);
-            VerifyLog(_logger, JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Response, (int)HttpStatusCode.OK, null);
+            //VerifyLog(_logger, JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Request, null, null);
+            //VerifyLog(_logger, JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Response, (int)HttpStatusCode.OK, null);
 
             //This doesn't work when actually contacting the server...
             Assert.AreEqual(JsonPlaceholderDeleteHeaders[SetCookieHeaderName], response.Headers[SetCookieHeaderName].First());
@@ -616,8 +616,8 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(_userRequestBody.userId, responseUserPost.userId);
             Assert.AreEqual(_userRequestBody.title, responseUserPost.title);
 
-            VerifyLog(_logger, It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Request, null, null);
-            VerifyLog(_logger, It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Response, (int)expectedStatusCode, null);
+            //VerifyLog(_logger, It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Request, null, null);
+            //VerifyLog(_logger, It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Response, (int)expectedStatusCode, null);
         }
 
         [TestMethod]
@@ -727,8 +727,8 @@ namespace RestClient.Net.UnitTests
             var headers = GetHeaders(useDefault, client);
             var response = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative), requestHeaders: headers);
 
-            VerifyLog(_logger, It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Request, null, null, CheckRequestHeaders);
-            VerifyLog(_logger, It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK, null, CheckResponseHeaders);
+            //VerifyLog(_logger, It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Request, null, null, CheckRequestHeaders);
+            //VerifyLog(_logger, It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK, null, CheckResponseHeaders);
         }
 
         [TestMethod]
@@ -1317,22 +1317,7 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(response, returnedResponse));
         }
 
-        //TODO: Fix these tests
         /*
-        //TODO: This test occasionally fails. It seems to mint only 98 clients. Why?
-        [TestMethod]
-        public async Task TestConcurrentCallsLocalSingleton()
-        {
-            await DoTestConcurrentCalls(true);
-        }
-
-        [TestMethod]
-        public async Task TestConcurrentCallsLocal()
-        {
-            await DoTestConcurrentCalls(false);
-        }
-        */
-
         [TestMethod]
         public async Task TestErrorLogging()
         {
@@ -1350,6 +1335,7 @@ namespace RestClient.Net.UnitTests
             }
             Assert.Fail();
         }
+        */
 
         [TestMethod]
         public async Task TestFactoryCreationWithUri()
@@ -1583,91 +1569,69 @@ namespace RestClient.Net.UnitTests
             return headers;
         }
 
-        private void VerifyLog(
-            Uri uri,
-            HttpRequestMethod httpRequestMethod,
-            TraceEvent traceType,
-            int? httpStatusCode = null,
-            Exception? exception = null,
-            Func<IHeadersCollection, bool> checkHeadersFunc = null) => _logger.Verify(t => t.Log(
-                                                                         exception == null ? LogLevel.Trace : LogLevel.Error,
-                                                                         It.Is<EventId>(
-                                                                             e => e.Id == (int)traceType && e.Name == traceType.ToString()),
-                                                                         It.Is<Trace>(
-                                                                         rt =>
-                                                                             DebugTraceExpression(rt) &&
-                                                                             rt.RestEvent == traceType &&
-                                                                             rt.RequestUri == uri &&
-                                                                             rt.HttpRequestMethod == httpRequestMethod &&
-                                                                             (rt.RestEvent == TraceEvent.Response || new List<HttpRequestMethod> { HttpRequestMethod.Patch, HttpRequestMethod.Post, HttpRequestMethod.Patch }.Contains(rt.HttpRequestMethod))
-                                                                             ? rt.BodyData != null && rt.BodyData.Length > 0 : false ||
-                                                                             rt.HttpStatusCode != httpStatusCode ||
-                                                                             checkHeadersFunc == null || checkHeadersFunc(rt.HeadersCollection)
-                                                                         ), exception, It.IsAny<Func<Trace, Exception, string>>()));
+#if !NET45
 
-#pragma warning disable IDE0060 // Remove unused parameter
-        private bool DebugTraceExpression(Trace restTrace) => true;
-#pragma warning restore IDE0060 // Remove unused parameter
-
-
-        /// <summary>
-        /// There were issues with DataRow so doing this instead. These sometimes fail but no idea why...
-        /// </summary>
-        /// 
-
-        /*
-        private async Task DoTestConcurrentCalls(bool useDefaultFactory)
+        private static void VerifyLog<TException>(
+                   Mock<ILogger<Client>> loggerMock,
+                   Expression<Func<object, Type, bool>> match,
+                   LogLevel logLevel,
+                   int times) where TException : Exception
         {
-            var createdClients = 0;
-
-            IHttpClientFactory httpClientFactory;
-            if (useDefaultFactory)
-                httpClientFactory = new DefaultHttpClientFactory
+            loggerMock.Verify
+            (
+                l => l.Log
                 (
-                    (name) =>
-                    {
-                        return new Lazy<HttpClient>(() =>
-                        {
-                            createdClients++;
-                            return MintClient();
-                        }, LazyThreadSafetyMode.ExecutionAndPublication);
-                    }
-                );
-            else
-            {
-                httpClientFactory = new OverzealousHttpClientFactory
-                    (
-                        (name) =>
-                        {
-                            createdClients++;
-                            return MintClient();
-                        }
-                    );
-            }
-
-            var clientFactory = new ClientFactory(
-                new NewtonsoftSerializationAdapter(),
-                httpClientFactory,
-                null);
-            var clients = new List<IClient>();
-
-            var tasks = new List<Task<Response<jsonperson>>>();
-            const int maxCalls = 100;
-
-            Parallel.For(0, maxCalls, (i) =>
-            {
-                var client = clientFactory.CreateClient();
-                clients.Add(client);
-                tasks.Add(client.GetAsync<jsonperson>(new Uri("JsonPerson", UriKind.Relative)));
-            });
-
-            var results = await Task.WhenAll(tasks);
-
-            //Ensure only one http client is created
-            var expectedCreated = useDefaultFactory ? 1 : maxCalls;
-            Assert.AreEqual(expectedCreated, createdClients);
+                    //Check the severity level
+                    logLevel,
+                    //This may or may not be relevant to your scenario
+                    It.IsAny<EventId>(),
+                    //This is the magical Moq code that exposes internal log processing from the extension methods
+                    It.Is<It.IsAnyType>(match),
+                    //Confirm the exception type
+                    It.IsAny<TException>(),
+                    //Accept any valid Func here. The Func is specified by the extension methods
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()
+                ),
+                //Make sure the message was logged the correct number of times
+                Times.Exactly(times)
+            );
         }
-        */
+
+        private static void VerifyLog(
+           Mock<ILogger<Client>> loggerMock,
+           Expression<Func<object, Type, bool>> match,
+           LogLevel logLevel,
+           int times)
+        {
+            loggerMock.Verify
+            (
+                l => l.Log
+                (
+                    //Check the severity level
+                    logLevel,
+                    //This may or may not be relevant to your scenario
+                    It.IsAny<EventId>(),
+                    //This is the magical Moq code that exposes internal log processing from the extension methods
+                    It.Is<It.IsAnyType>(match),
+                    //Confirm the exception type
+                    null,
+                    //Accept any valid Func here. The Func is specified by the extension methods
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()
+                ),
+                //Make sure the message was logged the correct number of times
+                Times.Exactly(times)
+            );
+        }
+
+        private static bool CheckValue(object state, object expectedValue, string key)
+        {
+            var keyValuePairList = (IReadOnlyList<KeyValuePair<string, object>>)state;
+
+            var actualValue = keyValuePairList.First(kvp => string.Compare(kvp.Key, key, StringComparison.Ordinal) == 0).Value;
+
+            return expectedValue.Equals(actualValue);
+        }
+#endif
 
         private static HttpClient MintClient()
         {
@@ -1700,10 +1664,6 @@ namespace RestClient.Net.UnitTests
 
             return restClient;
         }
-
-        private static bool CheckRequestHeaders(IHeadersCollection requestHeadersCollection) => requestHeadersCollection.Contains("Test") && requestHeadersCollection["Test"].First() == "Test";
-
-        private static bool CheckResponseHeaders(IHeadersCollection responseHeadersCollection) => responseHeadersCollection.Contains("Test1") && responseHeadersCollection["Test1"].First() == "a";
         #endregion
     }
 }
