@@ -1,9 +1,5 @@
-﻿#if NET45
-using RestClient.Net.Abstractions.Logging;
-#else
+﻿
 using Microsoft.Extensions.Logging;
-#endif
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RestClient.Net.Abstractions;

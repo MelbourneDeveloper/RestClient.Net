@@ -29,20 +29,12 @@
 		<PackageIcon>Icon.png</PackageIcon>
 		<FileVersion>4.1.0.0</FileVersion>
 		<LangVersion>9</LangVersion>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	</PropertyGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' != 'net45'">
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.5" />
-	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net47'">
 		<PackageReference Include="System.Net.Http" Version="4.3.4" />
 	</ItemGroup>
-
 
 	<Choose>
 		<When Condition="'$(TargetFramework)' == 'net45'">
@@ -56,6 +48,7 @@
 				<EmbeddedResource Remove="Logging\**" />
 				<None Remove="Logging\**" />
 				<PackageReference Include="System.Text.Json" Version="4.7.2" />
+				<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.5" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>

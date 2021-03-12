@@ -19,6 +19,7 @@ using Xml2CSharp;
 using jsonperson = ApiExamples.Model.JsonModel.Person;
 using RichardSzalay.MockHttp;
 using System.IO;
+using Microsoft.Extensions.Logging;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -30,9 +31,7 @@ using ApiExamples;
 #endif
 
 #if NET45
-using RestClient.Net.Abstractions.Logging;
 #else
-using Microsoft.Extensions.Logging;
 using Moq.Protected;
 #endif
 
@@ -42,6 +41,7 @@ namespace RestClient.Net.UnitTests
     public class UnitTests
     {
         #region Fields
+        private static readonly ILoggerFactory consoleLoggerFactory = LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
         private const string GoogleUrlString = "https://www.google.com";
         private const string RestCountriesAllUriString = "https://restcountries.eu/rest/v2/";
@@ -154,7 +154,7 @@ namespace RestClient.Net.UnitTests
 
         private static TestClientFactory _testServerHttpClientFactory;
         private static Mock<ILogger<Client>> _logger;
-        private static readonly MockHttpMessageHandler _mockHttpMessageHandler;
+        private static readonly MockHttpMessageHandler _mockHttpMessageHandler = new MockHttpMessageHandler();
 
 #if NETCOREAPP3_1
         public const string LocalBaseUriString = "http://localhost";
@@ -171,10 +171,6 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Setup
-        static UnitTests() =>
-            //Set up the mox
-            _mockHttpMessageHandler = new MockHttpMessageHandler();
-
         [TestInitialize]
         public void Initialize()
         {
@@ -618,12 +614,12 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestConsoleLogging()
         {
-            var logger = new ConsoleLogger();
+            //var logger = new ConsoleLogger();
             var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
                 createHttpClient: _createHttpClient,
-                logger: logger);
+                logger: consoleLoggerFactory.CreateLogger<Client>());
             var response = await client.PostAsync<PostUserResponse, UserPost>(_userRequestBody, JsonPlaceholderPostsSlug);
             Assert.AreEqual(JsonPlaceholderPostHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
             Assert.AreEqual(JsonPlaceholderPostHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
