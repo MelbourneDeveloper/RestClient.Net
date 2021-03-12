@@ -1,18 +1,14 @@
 
-#if NET45
-using RestClient.Net.Abstractions.Logging;
-#else
-using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.Extensions.Logging;
-#endif
 
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using RestClient.Net.Abstractions;
+using RestClient.Net.Abstractions.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using RestClient.Net.Abstractions.Extensions;
-using System.Collections.Generic;
 
 namespace RestClient.Net
 {
@@ -235,9 +231,7 @@ namespace RestClient.Net
 
                 if (request == null) throw new ArgumentNullException(nameof(request));
 
-                var isUpdate = _updateHttpRequestMethods.Contains(request.HttpRequestMethod);
-
-                _logger.LogTrace(isUpdate ? "Request body serialized {bodyData}" : "No request body to serialize", request.BodyData);
+                _logger.LogTrace(IsUpdate(request.HttpRequestMethod) ? "Request body serialized {bodyData}" : "No request body to serialize", new object[] { request.BodyData ?? new byte[0] });
 
                 httpResponseMessage = await _sendHttpRequestFunc(
                     httpClient,
@@ -328,7 +322,7 @@ namespace RestClient.Net
 
             try
             {
-                _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: "Converting Request to HttpRequestMethod..."));
+                _logger.LogTrace("Converting Request to HttpRequestMethod... Event: {event} Request: {request}", TraceEvent.Information, request);
 
                 var httpMethod = string.IsNullOrEmpty(request.CustomHttpRequestMethod)
                     ? request.HttpRequestMethod switch
@@ -354,11 +348,11 @@ namespace RestClient.Net
                 {
                     httpContent = new ByteArrayContent(request.BodyData);
                     httpRequestMessage.Content = httpContent;
-                    _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: $"Request content was set. Length: {request.BodyData.Length}"));
+                    _logger.LogTrace("Request content was set. Length: {requestBodyLength}", request.BodyData.Length);
                 }
                 else
                 {
-                    _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: $"No request content setup on HttpRequestMessage"));
+                    _logger.LogTrace("No request content set up on HttpRequestMessage");
                 }
 
                 if (request.Headers != null)
@@ -376,22 +370,18 @@ namespace RestClient.Net
                         {
                             httpRequestMessage.Headers.Add(headerName, request.Headers[headerName]);
                         }
-
-                        _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: $"Header: {headerName} processed"));
                     }
+
+                    _logger.LogTrace("Headers added to request");
                 }
 
-                _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: $"Successfully converted"));
+                _logger.LogTrace("Successfully converted IRequest to HttpRequestMessage");
+
                 return httpRequestMessage;
             }
             catch (Exception ex)
             {
-                _logger.LogException(new Trace(
-                request.HttpRequestMethod,
-                TraceEvent.Error,
-                request.Resource,
-                message: $"Exception: {ex}"),
-                ex);
+                _logger.LogError(ex, "Exception on DefaultGetHttpRequestMessage Event: {event}", TraceEvent.Request);
 
                 throw;
             }

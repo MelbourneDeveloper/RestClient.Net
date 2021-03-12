@@ -6,7 +6,7 @@ namespace RestClient.Net.Abstractions
 {
     public class Request : IRequest
     {
-        IClient client;
+        private readonly IClient client;
 
         #region Public Properties
 #pragma warning disable CA1819 // Properties should not return arrays
@@ -42,6 +42,7 @@ namespace RestClient.Net.Abstractions
             HttpRequestMethod = httpRequestMethod;
             CancellationToken = cancellationToken;
             CustomHttpRequestMethod = customHttpRequestMethod;
+            this.client = client;
 
             //Default to the headers passed in the constructor
             //Create the collection if it's null
