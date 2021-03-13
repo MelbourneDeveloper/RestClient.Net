@@ -1,10 +1,10 @@
-name: .NET Core
+name: Build Projects
 
 on:
   push:
-    branches: [ main ]
+    branches: [ 5/develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ 5/develop ]
 
 jobs:
   build:
@@ -17,9 +17,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
+
     - name: Install dependencies
-      run: dotnet restore src/RestClient.NET/RestClient.Net.csproj
+      run: dotnet restore src/RestClient.Net.sln
+
     - name: Build
-      run: dotnet build src/RestClient.NET/RestClient.Net.csproj --configuration Release --no-restore --framework:netcoreapp3.0
-    - name: Test
-      run: dotnet test src/RestClient.NET/RestClient.Net.csproj --no-restore --verbosity normal --framework:netcoreapp3.1
+      run: dotnet build src/RestClient.Net.sln --configuration Release --no-restore --framework:netcoreapp3.0
+
