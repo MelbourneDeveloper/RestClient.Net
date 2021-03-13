@@ -1,9 +1,5 @@
-﻿#if NET45
-using RestClient.Net.Abstractions.Logging;
-#else
+﻿
 using Microsoft.Extensions.Logging;
-#endif
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RestClient.Net.Abstractions;
@@ -47,7 +43,7 @@ namespace RestClient.Net.UnitTests
             var personService = new PersonService(clientFactoryMock.Object);
             var returnPersonResponse = await personService.SavePerson(requestPerson);
 
-            Assert.AreEqual("123", returnPersonResponse.Body.PersonKey);
+            Assert.AreEqual("123", returnPersonResponse?.Body?.PersonKey);
         }
     }
 

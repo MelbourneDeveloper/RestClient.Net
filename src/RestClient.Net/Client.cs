@@ -1,18 +1,14 @@
 
-#if NET45
-using RestClient.Net.Abstractions.Logging;
-#else
-using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.Extensions.Logging;
-#endif
 
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using RestClient.Net.Abstractions;
+using RestClient.Net.Abstractions.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using RestClient.Net.Abstractions.Extensions;
-using System.Collections.Generic;
 
 namespace RestClient.Net
 {
@@ -98,26 +94,21 @@ namespace RestClient.Net
         {
             try
             {
+                if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+
                 var httpRequestMessage = httpRequestMessageFunc(request);
 
-                _logger.LogTrace(new Trace(HttpRequestMethod.Custom, TraceEvent.Information, message: $"Attempting to send with the HttpClient. HttpClient Null: {httpClient == null}"));
-
-                if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+                _logger.LogTrace(Messages.InfoAttemptingToSend, request);
 
                 var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken).ConfigureAwait(false);
 
-                _logger.LogInformation(new Trace(HttpRequestMethod.Custom, TraceEvent.Information, message: $"SendAsync on HttpClient returned without an exception"));
+                _logger.LogInformation(Messages.InfoSendReturnedNoException);
 
                 return httpResponseMessage;
             }
             catch (Exception ex)
             {
-                _logger.LogException(new Trace(
-                HttpRequestMethod.Custom,
-                TraceEvent.Error,
-                null,
-                message: $"Exception: {ex}"),
-                ex);
+                _logger.LogError(ex, "Error on SendAsync. {request}", request);
 
                 throw;
             }
@@ -125,68 +116,6 @@ namespace RestClient.Net
         #endregion
 
         #region Constructors
-
-#if !NET45
-        /// <summary>
-        /// Construct a client
-        /// </summary>
-        /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only</param>
-        public Client(
-            Uri baseUri)
-        : this(
-            null,
-            null,
-            baseUri)
-        {
-        }
-#endif
-
-        /// <summary>
-        /// Construct a client
-        /// </summary>
-        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies</param>
-        public Client(
-            ISerializationAdapter serializationAdapter)
-        : this(
-            serializationAdapter,
-            default)
-        {
-        }
-
-        /// <summary>
-        /// Construct a client
-        /// </summary>
-        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies</param>
-        /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only</param>
-        public Client(
-            ISerializationAdapter serializationAdapter,
-            Uri? baseUri)
-        : this(
-            serializationAdapter,
-            null,
-            baseUri)
-        {
-        }
-
-        /// <summary>
-        /// Construct a client.
-        /// </summary>
-        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies</param>
-        /// <param name="logger"></param>
-        /// <param name="createHttpClient"></param>
-        public Client(
-            ISerializationAdapter serializationAdapter,
-            ILogger<Client> logger,
-            CreateHttpClient createHttpClient)
-        : this(
-            serializationAdapter,
-            null,
-            null,
-            logger: logger,
-            createHttpClient: createHttpClient)
-        {
-        }
-
         /// <summary>
         /// Construct a client.
         /// </summary>
@@ -285,26 +214,24 @@ namespace RestClient.Net
 
             try
             {
-                _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"Begin send"));
+                _logger.LogTrace("Begin send {request} Event: {event}", request, TraceEvent.Request);
 
                 httpClient = _createHttpClient(Name);
 
-                _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"Got HttpClient null: {httpClient == null}"));
+                _logger.LogTrace("Got HttpClient null: {httpClientNull}", httpClient == null);
 
                 if (httpClient == null) throw new InvalidOperationException("CreateHttpClient returned null");
 
                 //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
                 if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
 
-                _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, message: $"HttpClient configured. Request Null: {request == null} Adapter Null: {SerializationAdapter == null}"));
+                //TODO: DefaultRequestHeaders are not necessarily in sync here...
+
+                _logger.LogTrace("HttpClient configured. Request: {request} Adapter: {serializationAdapter}", request, SerializationAdapter);
 
                 if (request == null) throw new ArgumentNullException(nameof(request));
 
-                _logger.LogTrace(_updateHttpRequestMethods.Contains(request.HttpRequestMethod)
-                    ? new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, request.BodyData,
-                        message: $"Request body serialized")
-                    : new Trace(request.HttpRequestMethod, TraceEvent.Information, request.Resource, request.BodyData,
-                        message: "No request body to serialize"));
+                _logger.LogTrace(IsUpdate(request.HttpRequestMethod) ? "Request body serialized {bodyData}" : "No request body to serialize", new object[] { request.BodyData ?? new byte[0] });
 
                 httpResponseMessage = await _sendHttpRequestFunc(
                     httpClient,
@@ -314,51 +241,22 @@ namespace RestClient.Net
             }
             catch (TaskCanceledException tce)
             {
-                _logger.LogException(new Trace(
-                    request.HttpRequestMethod,
-                    TraceEvent.Error,
-                    request.Resource,
-                    message: $"Exception: {tce}"),
-                    tce);
-
+                _logger.LogError(tce, "TaskCanceledException {request}", request);
                 throw;
             }
             catch (OperationCanceledException oce)
             {
-                _logger.LogException(new Trace(
-                    request.HttpRequestMethod,
-                    TraceEvent.Error,
-                    request.Resource,
-                    message: $"Exception: {oce}"),
-                    oce);
-
+                _logger.LogError(oce, "OperationCanceledException {request}", request);
                 throw;
             }
-            //TODO: Does this need to be handled like this?
             catch (Exception ex)
             {
                 var exception = new SendException("HttpClient Send Exception", request, ex);
-
-                _logger.LogException(new Trace(
-                request.HttpRequestMethod,
-                TraceEvent.Error,
-                request.Resource,
-                message: $"Exception: {ex}"),
-                exception);
-
+                _logger.LogError(ex, "SendException", request);
                 throw exception;
             }
 
-            _logger.LogTrace(new Trace
-                (
-                    request.HttpRequestMethod,
-                    TraceEvent.Request,
-                    httpResponseMessage.RequestMessage?.RequestUri,
-                    request.BodyData,
-                    null,
-                    request.Headers,
-                    "Request was sent to server"
-                ));
+            _logger.LogTrace("Successful request/response {request}", request);
 
             return await ProcessResponseAsync<TResponseBody>(request, httpResponseMessage, httpClient).ConfigureAwait(false);
         }
@@ -385,13 +283,17 @@ namespace RestClient.Net
 
             TResponseBody responseBody = default;
 
-            try
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                responseBody = SerializationAdapter.Deserialize<TResponseBody>(responseData, httpResponseHeadersCollection);
-            }
-            catch (Exception ex)
-            {
-                throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
+
+                try
+                {
+                    responseBody = SerializationAdapter.Deserialize<TResponseBody>(responseData, httpResponseHeadersCollection);
+                }
+                catch (Exception ex)
+                {
+                    throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
+                }
             }
 
             var httpResponseMessageResponse = new HttpResponseMessageResponse<TResponseBody>
@@ -416,15 +318,7 @@ namespace RestClient.Net
                         this);
             }
 
-            _logger.LogTrace(new Trace
-            (
-             request.HttpRequestMethod,
-                TraceEvent.Response,
-                httpResponseMessage.RequestMessage?.RequestUri,
-                responseData,
-                (int)httpResponseMessage.StatusCode,
-                httpResponseHeadersCollection
-            ));
+            _logger.LogTrace(Messages.TraceResponseProcessed, httpResponseMessageResponse, TraceEvent.Response);
 
             return httpResponseMessageResponse;
         }
@@ -433,13 +327,15 @@ namespace RestClient.Net
         #endregion
 
         #region Private Methods
+        private static bool IsUpdate(HttpRequestMethod httpRequestMethod) => _updateHttpRequestMethods.Contains(httpRequestMethod);
+
         private HttpRequestMessage DefaultGetHttpRequestMessage(IRequest request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             try
             {
-                _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: "Converting Request to HttpRequestMethod..."));
+                _logger.LogTrace("Converting Request to HttpRequestMethod... Event: {event} Request: {request}", TraceEvent.Information, request);
 
                 var httpMethod = string.IsNullOrEmpty(request.CustomHttpRequestMethod)
                     ? request.HttpRequestMethod switch
@@ -465,11 +361,11 @@ namespace RestClient.Net
                 {
                     httpContent = new ByteArrayContent(request.BodyData);
                     httpRequestMessage.Content = httpContent;
-                    _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: $"Request content was set. Length: {request.BodyData.Length}"));
+                    _logger.LogTrace("Request content was set. Length: {requestBodyLength}", request.BodyData.Length);
                 }
                 else
                 {
-                    _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: $"No request content setup on HttpRequestMessage"));
+                    _logger.LogTrace("No request content set up on HttpRequestMessage");
                 }
 
                 if (request.Headers != null)
@@ -487,22 +383,18 @@ namespace RestClient.Net
                         {
                             httpRequestMessage.Headers.Add(headerName, request.Headers[headerName]);
                         }
-
-                        _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: $"Header: {headerName} processed"));
                     }
+
+                    _logger.LogTrace("Headers added to request");
                 }
 
-                _logger.LogTrace(new Trace(request.HttpRequestMethod, TraceEvent.Information, message: $"Successfully converted"));
+                _logger.LogTrace("Successfully converted IRequest to HttpRequestMessage");
+
                 return httpRequestMessage;
             }
             catch (Exception ex)
             {
-                _logger.LogException(new Trace(
-                request.HttpRequestMethod,
-                TraceEvent.Error,
-                request.Resource,
-                message: $"Exception: {ex}"),
-                ex);
+                _logger.LogError(ex, "Exception on DefaultGetHttpRequestMessage Event: {event}", TraceEvent.Request);
 
                 throw;
             }

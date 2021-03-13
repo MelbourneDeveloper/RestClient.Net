@@ -11,10 +11,6 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Constructor
-        //public OverzealousHttpClientFactory() : this(null)
-        //{
-        //}
-
         public OverzealousHttpClientFactory(Func<string, HttpClient> func)
         {
             _getOrAddFunc = func;

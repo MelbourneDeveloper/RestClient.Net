@@ -33,7 +33,7 @@ namespace RestClient.Net
             int statusCode,
             HttpRequestMethod httpRequestMethod,
             byte[] responseContentData,
-            TResponseBody body,
+            TResponseBody? body,
             HttpResponseMessage httpResponseMessage,
             HttpClient httpClient
             ) : base(
@@ -49,5 +49,8 @@ namespace RestClient.Net
         }
 
         #endregion
+
+        public override string ToString() => $"Status: {StatusCode} HttpRequestMethod: {HttpRequestMethod} Body: {Body} Request Uri: {HttpResponseMessage?.RequestMessage?.RequestUri}";
+
     }
 }

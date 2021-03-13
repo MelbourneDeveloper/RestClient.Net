@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RestClient.Net.Abstractions
 {
@@ -23,5 +24,8 @@ namespace RestClient.Net.Abstractions
 
         IEnumerator IEnumerable.GetEnumerator() => _dictionary.GetEnumerator();
         #endregion
+
+        public override string ToString() => string.Join("\r\n", _dictionary.Select(kvp => $"{kvp.Key}: {kvp.Value.Select(v => string.Join(", ", v))}\r\n"));
+
     }
 }
