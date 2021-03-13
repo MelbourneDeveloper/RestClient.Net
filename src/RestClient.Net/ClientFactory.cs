@@ -1,9 +1,6 @@
-﻿#if !NET45
+﻿
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-#else
-using RestClient.Net.Abstractions.Logging;
-#endif
 using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Concurrent;

@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿
+
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Polly;
 using Polly.Extensions.Http;
@@ -66,7 +67,7 @@ namespace RestClient.Net.UnitTests
             var serviceCollection = new ServiceCollection();
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
             _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
-            .AddSingleton(typeof(ILogger), typeof(ConsoleLogger))
+            .AddLogging()
             //Add the Polly policy to the named HttpClient instance
             .AddHttpClient("rc", (c) => c.BaseAddress = baseUri).
                 SetHandlerLifetime(TimeSpan.FromMinutes(5)).

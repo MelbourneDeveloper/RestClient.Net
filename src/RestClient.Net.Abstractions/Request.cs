@@ -6,6 +6,8 @@ namespace RestClient.Net.Abstractions
 {
     public class Request : IRequest
     {
+        private readonly IClient client;
+
         #region Public Properties
 #pragma warning disable CA1819 // Properties should not return arrays
         public byte[]? BodyData { get; }
@@ -40,6 +42,7 @@ namespace RestClient.Net.Abstractions
             HttpRequestMethod = httpRequestMethod;
             CancellationToken = cancellationToken;
             CustomHttpRequestMethod = customHttpRequestMethod;
+            this.client = client;
 
             //Default to the headers passed in the constructor
             //Create the collection if it's null
@@ -68,5 +71,9 @@ namespace RestClient.Net.Abstractions
                 Headers.Add(kvp);
             }
         }
+
+        public override string ToString() => $"\r\nClient BaseUri: {client.BaseUri}\r\nResource: {Resource}\r\nHeaders: {Headers} Method: {HttpRequestMethod}";
+
+
     }
 }

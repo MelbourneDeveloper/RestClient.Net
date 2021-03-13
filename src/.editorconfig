@@ -30,22 +30,35 @@ csharp_style_expression_bodied_constructors = true:error
 # CS1998: Async method lacks 'await' operators and will run synchronously
 dotnet_diagnostic.CS1998.severity = error
 
-
+# Nullable reference types
 dotnet_diagnostic.CS8604.severity = error
 dotnet_diagnostic.CS8625.severity = error
 dotnet_diagnostic.CS8600.severity = error
 dotnet_diagnostic.CS8602.severity = error
-
+dotnet_diagnostic.CS8601.severity = error
+dotnet_diagnostic.CS8618.severity = error
 
 ######################## Disable #################
 
 # Modify 'Start' to catch a more specific allowed exception type, or rethrow the exception
 dotnet_diagnostic.CA1031.severity = None
 
-# CA2237: Mark ISerializable types with serializable
-# dotnet_diagnostic.CA2237.severity = error
+# CA1825: Avoid zero-length array allocations
+# Not compatible with .NET 45
+dotnet_diagnostic.CA1825.severity = none
+
+######################## Warnings #################
+
+# CS1591: Missing XML comment for publicly visible type or member
+dotnet_diagnostic.CS1591.severity = warning
+
+# CA1032: Implement standard exception constructors
+dotnet_diagnostic.CA1032.severity = warning
 
 #########################################
+
+dotnet_diagnostic.CS0219.severity = error
+
 
 dotnet_diagnostic.CS0168.severity = error
 
@@ -318,9 +331,6 @@ dotnet_diagnostic.CA1823.severity = error
 
 # CA1824: Mark assemblies with NeutralResourcesLanguageAttribute
 dotnet_diagnostic.CA1824.severity = error
-
-# CA1825: Avoid zero-length array allocations
-dotnet_diagnostic.CA1825.severity = error
 
 # CA1826: Do not use Enumerable methods on indexable collections
 dotnet_diagnostic.CA1826.severity = error
@@ -777,11 +787,3 @@ dotnet_diagnostic.CA1816.severity = error
 
 # CA1063: Implement IDisposable Correctly
 dotnet_diagnostic.CA1063.severity = error
-
-######################## Warnings #################
-
-# CS1591: Missing XML comment for publicly visible type or member
-dotnet_diagnostic.CS1591.severity = warning
-
-# CA1032: Implement standard exception constructors
-dotnet_diagnostic.CA1032.severity = warning
