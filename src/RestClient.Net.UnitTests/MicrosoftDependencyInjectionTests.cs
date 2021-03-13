@@ -1,4 +1,3 @@
-/*
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -40,7 +39,7 @@ namespace RestClient.Net.UnitTests
                 var baseUri = new Uri("http://www.test.com");
                 var serviceCollection = new ServiceCollection()
                     .AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
-                    .AddSingleton(typeof(ILogger), typeof(ConsoleLogger))
+                    .AddLogging()
                     .AddSingleton(typeof(IClient), typeof(Client))
                     .AddDependencyInjectionMapping()
                     .AddTransient<TestHandler>()
@@ -73,7 +72,7 @@ namespace RestClient.Net.UnitTests
                 var serviceCollection = new ServiceCollection();
                 var baseUri = new Uri("http://www.test.com");
                 _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
-                    .AddSingleton(typeof(ILogger), typeof(ConsoleLogger))
+                    .AddLogging()
                     .AddDependencyInjectionMapping()
                     .AddTransient<TestHandler>()
                     .AddHttpClient(clientName, (c) => c.BaseAddress = baseUri)
@@ -99,7 +98,7 @@ namespace RestClient.Net.UnitTests
             var baseUri = new Uri("https://restcountries.eu/rest/v2/");
             var serviceCollection = new ServiceCollection()
                 .AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
-                .AddSingleton(typeof(ILogger), typeof(ConsoleLogger))
+                .AddLogging()
                 .AddSingleton<MockAspController>()
                 .AddDependencyInjectionMapping();
 
@@ -108,10 +107,11 @@ namespace RestClient.Net.UnitTests
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var mockAspController = serviceProvider.GetService<MockAspController>();
             var response = await mockAspController.Client.GetAsync<List<RestCountry>>();
-            Assert.AreEqual(250, response.Body.Count);
+            Assert.AreEqual(250, response.Body?.Count);
         }
 
 #pragma warning disable CA2000 
+        /*
         [TestMethod]
         public void TestStructureMap()
         {
@@ -134,8 +134,8 @@ namespace RestClient.Net.UnitTests
             Assert.IsNotNull(client);
             Assert.AreEqual("Test", client.Name);
         }
+        */
 #pragma warning restore CA2000
 
     }
 }
-*/
