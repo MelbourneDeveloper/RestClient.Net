@@ -262,6 +262,13 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Public Static Methods
+        public static TestClientFactory GetTestClientFactory()
+        {
+            var testClient = MintClient();
+            return new TestClientFactory(testClient);
+        }
+
+
         static UnitTests()
         {
 #if NETCOREAPP3_1
@@ -273,8 +280,7 @@ namespace RestClient.Net.UnitTests
             }
 #endif
 
-            var testClient = MintClient();
-            _testServerHttpClientFactory = new TestClientFactory(testClient);
+            _testServerHttpClientFactory = GetTestClientFactory();
         }
         #endregion
 
