@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+#pragma warning disable CA1002
+
 namespace ApiExamples.Model
 {
     public class ApiResult

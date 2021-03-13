@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml.Serialization;
 
 #pragma warning disable CA5369 // Use XmlReader For Deserialize
+#pragma warning disable CA3075 // Use XmlReader For Deserialize
 
 namespace RestClient.Net
 {

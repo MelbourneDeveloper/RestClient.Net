@@ -5,6 +5,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
 
+#pragma warning disable CA1002 // Do not expose generic lists
+
 namespace RestClient.Net
 {
     public class BinaryDataContractSerializationAdapter : ISerializationAdapter

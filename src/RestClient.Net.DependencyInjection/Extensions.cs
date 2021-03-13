@@ -4,7 +4,7 @@ using System.Net.Http;
 
 namespace RestClient.Net.DependencyInjection
 {
-    public static class Extensions
+    public static class Extensionss
     {
 
         public static IServiceCollection AddDependencyInjectionMapping(this IServiceCollection serviceCollection)
