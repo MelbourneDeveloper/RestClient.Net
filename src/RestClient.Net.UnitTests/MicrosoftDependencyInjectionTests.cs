@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net.Abstractions;
 using RestClient.Net.DependencyInjection;
@@ -110,8 +109,6 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(250, response.Body?.Count);
         }
 
-#pragma warning disable CA2000 
-        /*
         [TestMethod]
         public void TestStructureMap()
         {
@@ -125,7 +122,6 @@ namespace RestClient.Net.UnitTests
 
                 _ = c.For<CreateClient>().Use<CreateClient>(con => new ClientFactory(con.GetInstance<CreateHttpClient>(), con.GetInstance<ISerializationAdapter>(), null).CreateClient);
                 _ = c.For<CreateHttpClient>().Use<CreateHttpClient>(con => new DefaultHttpClientFactory().CreateClient);
-                _ = c.For<ILogger>().Use<ConsoleLogger>();
                 _ = c.For<ISerializationAdapter>().Use<NewtonsoftSerializationAdapter>();
             });
 
@@ -134,8 +130,5 @@ namespace RestClient.Net.UnitTests
             Assert.IsNotNull(client);
             Assert.AreEqual("Test", client.Name);
         }
-        */
-#pragma warning restore CA2000
-
     }
 }
