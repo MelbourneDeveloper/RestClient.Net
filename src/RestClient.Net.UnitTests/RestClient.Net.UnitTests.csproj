@@ -22,11 +22,7 @@
   <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.1'">
     <Compile Remove="PollyTests.cs" />
     <Compile Remove="MicrosoftDependencyInjectionTests.cs" />
-   </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="JSON\Australia.json" />
-    <None Remove="JSON\RestCountries.json" />
+	<Compile Remove="LogCheckExtensions.cs" />
   </ItemGroup>
 
   <ItemGroup>

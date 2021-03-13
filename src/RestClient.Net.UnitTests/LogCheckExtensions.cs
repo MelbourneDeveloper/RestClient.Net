@@ -1,6 +1,4 @@
-﻿#if !NET45
-
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -65,5 +63,3 @@ namespace RestClient.Net.UnitTests
         }
     }
 }
-
-#endif
