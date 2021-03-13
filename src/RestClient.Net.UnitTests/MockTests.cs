@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RestClient.Net.Abstractions;
 using RestClientApiSamples;
+using System;
 using System.Threading.Tasks;
 
 namespace RestClient.Net.UnitTests
@@ -41,7 +42,7 @@ namespace RestClient.Net.UnitTests
 
             //Create the service and call SavePerson
             var personService = new PersonService(clientFactoryMock.Object);
-            var returnPersonResponse = await personService.SavePerson(requestPerson);
+            var returnPersonResponse = await personService.SavePerson(requestPerson).ConfigureAwait(false);
 
             Assert.AreEqual("123", returnPersonResponse?.Body?.PersonKey);
         }
@@ -51,8 +52,8 @@ namespace RestClient.Net.UnitTests
     {
         private readonly IClient _client;
 
-        public PersonService(CreateClient clientFactory) => _client = clientFactory("Person");
+        public PersonService(CreateClient clientFactory) => _client = clientFactory != null ? clientFactory("Person") : throw new ArgumentNullException(nameof(clientFactory));
 
-        public async Task<Response<Person>> SavePerson(Person person) => await _client.PostAsync<Person, Person>(person);
+        public async Task<Response<Person>> SavePerson(Person person) => await _client.PostAsync<Person, Person>(person).ConfigureAwait(false);
     }
 }

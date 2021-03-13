@@ -2,6 +2,8 @@
 using System;
 using System.Net.Http;
 
+#pragma warning disable CA1801 // Review unused parameters
+
 namespace RestClient.Net.UnitTests
 {
     public class TestClientFactory

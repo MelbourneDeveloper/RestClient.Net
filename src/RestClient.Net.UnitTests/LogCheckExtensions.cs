@@ -18,6 +18,8 @@ namespace RestClient.Net.UnitTests
                    LogLevel logLevel,
                    int times) where TException : Exception
         {
+            if (loggerMock == null) throw new ArgumentNullException(nameof(loggerMock));
+
             loggerMock.Verify
             (
                 l => l.Log
@@ -61,6 +63,8 @@ namespace RestClient.Net.UnitTests
         /// </summary>
         public static bool CheckValue<T>(this object state, string key, Func<T, bool> compare)
         {
+            if (compare == null) throw new ArgumentNullException(nameof(compare));
+
             var keyValuePairList = (IReadOnlyList<KeyValuePair<string, object>>)state;
 
             var keyValuePair = keyValuePairList.FirstOrDefault(kvp => string.Compare(kvp.Key, key, StringComparison.Ordinal) == 0);
