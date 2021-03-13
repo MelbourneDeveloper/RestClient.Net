@@ -6,6 +6,8 @@ using System.Runtime.Serialization;
 #pragma warning disable CA1724 
 #pragma warning disable CA1716
 #pragma warning disable CA1707
+#pragma warning disable CA1056
+#pragma warning disable CA1002
 
 namespace Atlassian
 {
