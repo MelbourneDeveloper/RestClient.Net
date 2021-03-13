@@ -456,15 +456,15 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(response?.Body?.Count > 0);
 
 #if !NET45
-            _logger.VerifyLog((state, t) => state.CheckValue(Messages.InfoSendReturnedNoException, "{OriginalFormat}"), LogLevel.Information, 1);
+            _logger.VerifyLog((state, t) => state.CheckValue("{OriginalFormat}", Messages.InfoSendReturnedNoException), LogLevel.Information, 1);
 
             _logger.VerifyLog((state, t) =>
             state.CheckValue<IRequest>("request", (a) => a.Resource == null && a.HttpRequestMethod == HttpRequestMethod.Get) &&
-            state.CheckValue(Messages.InfoAttemptingToSend, "{OriginalFormat}")
+            state.CheckValue("{OriginalFormat}", Messages.InfoAttemptingToSend)
             , LogLevel.Trace, 1);
 
             _logger.VerifyLog((state, t) =>
-            state.CheckValue(Messages.TraceResponseProcessed, "{OriginalFormat}") &&
+            state.CheckValue("{OriginalFormat}", Messages.TraceResponseProcessed) &&
             state.CheckValue<Response>("response", (a) => a.RequestUri == RestCountriesAllUri && a.StatusCode == 200)
             , LogLevel.Trace, 1);
 #endif
@@ -574,12 +574,18 @@ namespace RestClient.Net.UnitTests
                 var client = new Client(
                     new NewtonsoftSerializationAdapter(),
                     baseUri: JsonPlaceholderBaseUri,
-                    timeout: new TimeSpan(0, 0, 0, 0, 1));
+                    timeout: new TimeSpan(0, 0, 0, 0, 1),
+                    logger: _logger.Object);
 
                 _ = await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
             }
             catch (TaskCanceledException)
             {
+#if !NET45
+                _logger.VerifyLog<Client, TaskCanceledException>((state, t)
+                    => state.CheckValue("{OriginalFormat}", Messages.ErrorOnSend), LogLevel.Error, 1);
+#endif
+
                 //Success
                 return;
             }
