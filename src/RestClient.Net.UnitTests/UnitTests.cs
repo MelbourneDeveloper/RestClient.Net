@@ -429,7 +429,7 @@ namespace RestClient.Net.UnitTests
 
             var factory = new SingletonHttpClientFactory(httpClient);
 
-            var client = new Client(adapter, createHttpClient: factory.CreateClient, baseUri: RestCountriesAllUri, logger: _logger.Object) { ThrowExceptionOnFailure = false };
+            var client = new Client(adapter, createHttpClient: factory.CreateClient, baseUri: RestCountriesAllUri, logger: _logger.Object, throwExceptionOnFailure: false);
 
             var response = await client.GetAsync<List<RestCountry>>();
 
@@ -977,10 +977,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestErrorsLocalGet()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient)
-            {
-                ThrowExceptionOnFailure = false
-            };
+            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient, throwExceptionOnFailure: false);
             var response = await client.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             var apiResult = client.DeserializeResponseBody<ApiResult>(response.GetResponseData(), response.Headers);

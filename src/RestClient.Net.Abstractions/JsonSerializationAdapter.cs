@@ -10,6 +10,8 @@ namespace RestClient.Net
     /// </summary>
     public class JsonSerializationAdapter : ISerializationAdapter
     {
+        public static JsonSerializationAdapter Instance { get; } = new JsonSerializationAdapter();
+
         #region Public Properties
         public JsonSerializerOptions JsonSerializationOptions { get; }
         #endregion
