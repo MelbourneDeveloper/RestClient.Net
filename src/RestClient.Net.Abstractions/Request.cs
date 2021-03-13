@@ -6,7 +6,9 @@ namespace RestClient.Net.Abstractions
 {
     public class Request : IRequest
     {
+        #region Fields
         private readonly IClient client;
+        #endregion
 
         #region Public Properties
 #pragma warning disable CA1819 // Properties should not return arrays

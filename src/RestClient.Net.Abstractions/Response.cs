@@ -6,7 +6,7 @@ namespace RestClient.Net.Abstractions
     public abstract class Response : IResponse
     {
         #region Fields
-        private readonly byte[] _responseData;
+        private readonly byte[] responseData;
         #endregion
 
         #region Public Properties
@@ -31,12 +31,12 @@ namespace RestClient.Net.Abstractions
             Headers = headersCollection;
             HttpRequestMethod = httpRequestMethod;
             RequestUri = requestUri;
-            _responseData = responseData;
+            this.responseData = responseData;
         }
         #endregion
 
         #region Public Methods
-        public virtual byte[] GetResponseData() => _responseData;
+        public virtual byte[] GetResponseData() => responseData;
         #endregion
     }
 }

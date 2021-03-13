@@ -2,7 +2,7 @@
 {
     public class NullLoggerFactory : ILoggerFactory
     {
-        public static NullLoggerFactory Instance { get; } = new NullLoggerFactory();
+        public static NullLoggerFactory Instance { get; } = new();
 
         public ILogger CreateLogger(string name) => NullLogger.Instance;
     }

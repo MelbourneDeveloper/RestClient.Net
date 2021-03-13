@@ -4,7 +4,7 @@ namespace RestClient.Net.Abstractions
 {
     public class DeserializationException : Exception
     {
-        private readonly byte[] _responseData;
+        private readonly byte[] responseData;
         public IClient Client { get; }
 
         public DeserializationException(
@@ -13,10 +13,10 @@ namespace RestClient.Net.Abstractions
             IClient client,
             Exception innerException) : base(message, innerException)
         {
-            _responseData = responseData;
+            this.responseData = responseData;
             Client = client;
         }
 
-        public byte[] GetResponseData() => _responseData;
+        public byte[] GetResponseData() => responseData;
     }
 }

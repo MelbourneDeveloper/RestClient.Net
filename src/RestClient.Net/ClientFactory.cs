@@ -11,10 +11,10 @@ namespace RestClient.Net
     public class ClientFactory
     {
         #region Fields
-        private readonly Func<string, Uri?, Lazy<IClient>> _createClientFunc;
-        private readonly ConcurrentDictionary<string, Lazy<IClient>> _clients;
-        private readonly CreateHttpClient _createHttpClient;
-        private readonly ILoggerFactory _loggerFactory;
+        private readonly Func<string, Uri?, Lazy<IClient>> createClientFunc;
+        private readonly ConcurrentDictionary<string, Lazy<IClient>> clients;
+        private readonly CreateHttpClient createHttpClient;
+        private readonly ILoggerFactory loggerFactory;
         #endregion
 
         #region Public Properties
@@ -36,17 +36,17 @@ namespace RestClient.Net
 #else
             SerializationAdapter = serializationAdapter;
 #endif
-            _createHttpClient = createHttpClient;
-            _loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
+            this.createHttpClient = createHttpClient;
+            this.loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
 
-            _clients = new ConcurrentDictionary<string, Lazy<IClient>>();
+            clients = new ConcurrentDictionary<string, Lazy<IClient>>();
 
-            _createClientFunc = (name, baseUri) => new Lazy<IClient>(() => MintClient(name, baseUri), LazyThreadSafetyMode.ExecutionAndPublication);
+            createClientFunc = (name, baseUri) => new Lazy<IClient>(() => MintClient(name, baseUri), LazyThreadSafetyMode.ExecutionAndPublication);
         }
         #endregion
 
         #region Implementation
-        public IClient CreateClient(string name, Uri? baseUri = null) => name == null ? throw new ArgumentNullException(nameof(name)) : _clients.GetOrAdd(name, _createClientFunc(name, baseUri)).Value;
+        public IClient CreateClient(string name, Uri? baseUri = null) => name == null ? throw new ArgumentNullException(nameof(name)) : clients.GetOrAdd(name, createClientFunc(name, baseUri)).Value;
         #endregion
 
         #region Private Methods
@@ -55,8 +55,8 @@ namespace RestClient.Net
                 SerializationAdapter,
                 name,
                 baseUri,
-                logger: _loggerFactory?.CreateLogger<Client>(),
-                createHttpClient: _createHttpClient);
+                logger: loggerFactory?.CreateLogger<Client>(),
+                createHttpClient: createHttpClient);
         #endregion
     }
 }

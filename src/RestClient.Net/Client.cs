@@ -25,30 +25,30 @@ namespace RestClient.Net
         /// </summary>
         private readonly ILogger _logger;
 
-        private static readonly List<HttpRequestMethod> _updateHttpRequestMethods = new List<HttpRequestMethod>
+        private static readonly List<HttpRequestMethod> _updateHttpRequestMethods = new()
         {
             HttpRequestMethod.Put,
             HttpRequestMethod.Post,
             HttpRequestMethod.Patch
         };
 
-        private readonly SendHttpRequestMessage _sendHttpRequestFunc;
+        private readonly SendHttpRequestMessage sendHttpRequestFunc;
 
         /// <summary>
         /// Delegate used for getting or creating HttpClient instances when the SendAsync call is made
         /// </summary>
-        private readonly CreateHttpClient _createHttpClient;
+        private readonly CreateHttpClient createHttpClient;
 
         /// <summary>
         /// The http client created by the default factory delegate
         /// TODO: We really shouldn't hang on to this....
         /// </summary>
-        private readonly HttpClient? _httpClient;
+        private readonly HttpClient? httpClient;
 
         /// <summary>
         /// Gets the delegate responsible for converting rest requests to http requests
         /// </summary>
-        private readonly GetHttpRequestMessage _getHttpRequestMessage;
+        private readonly GetHttpRequestMessage getHttpRequestMessage;
         #endregion
 
         #region Public Properties
@@ -175,19 +175,19 @@ namespace RestClient.Net
 
             Name = name ?? Guid.NewGuid().ToString();
 
-            _getHttpRequestMessage = getHttpRequestMessage ?? DefaultGetHttpRequestMessage;
+            this.getHttpRequestMessage = getHttpRequestMessage ?? DefaultGetHttpRequestMessage;
 
             if (createHttpClient == null)
             {
-                _httpClient = new HttpClient();
-                _createHttpClient = n => _httpClient;
+                httpClient = new HttpClient();
+                this.createHttpClient = n => httpClient;
             }
             else
             {
-                _createHttpClient = createHttpClient;
+                this.createHttpClient = createHttpClient;
             }
 
-            _sendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
+            this.sendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
 
             Timeout = timeout;
             Zip = zip;
@@ -209,7 +209,7 @@ namespace RestClient.Net
             {
                 _logger.LogTrace(Messages.TraceBeginSend, request, TraceEvent.Request);
 
-                httpClient = _createHttpClient(Name);
+                httpClient = createHttpClient(Name);
 
                 _logger.LogTrace("Got HttpClient null: {httpClientNull}", httpClient == null);
 
@@ -226,9 +226,9 @@ namespace RestClient.Net
 
                 _logger.LogTrace(IsUpdate(request.HttpRequestMethod) ? "Request body serialized {bodyData}" : "No request body to serialize", new object[] { request.BodyData ?? new byte[0] });
 
-                httpResponseMessage = await _sendHttpRequestFunc(
+                httpResponseMessage = await sendHttpRequestFunc(
                     httpClient,
-                    _getHttpRequestMessage,
+                    getHttpRequestMessage,
                     request
                     ).ConfigureAwait(false);
             }
@@ -316,7 +316,7 @@ namespace RestClient.Net
             return httpResponseMessageResponse;
         }
 
-        public void Dispose() => _httpClient?.Dispose();
+        public void Dispose() => httpClient?.Dispose();
         #endregion
 
         #region Private Methods

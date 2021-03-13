@@ -8,7 +8,7 @@ namespace RestClient.Net
 {
     public class NullKvpEnumerator<T, T2> : IEnumerator<KeyValuePair<T, T2>>
     {
-        public KeyValuePair<T, T2> Current => new KeyValuePair<T, T2>();
+        public KeyValuePair<T, T2> Current => new();
 
         object IEnumerator.Current => new KeyValuePair<T, T2>();
 
