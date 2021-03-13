@@ -758,8 +758,17 @@ namespace RestClient.Net.UnitTests
             var headers = GetHeaders(useDefault, client);
             var response = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative), requestHeaders: headers);
 
-            //VerifyLog(_logger, It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Request, null, null, CheckRequestHeaders);
-            //VerifyLog(_logger, It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK, null, CheckResponseHeaders);
+#if !NET45
+            _logger.VerifyLog((state, t) =>
+            state.CheckValue<IRequest>("request", (a) => CheckRequestHeaders(a.Headers)) &&
+            state.CheckValue("{OriginalFormat}", Messages.InfoAttemptingToSend)
+            , LogLevel.Trace, 1);
+
+            _logger.VerifyLog((state, t) =>
+            state.CheckValue<Response>("response", (a) => CheckResponseHeaders(a.Headers)) &&
+            state.CheckValue("{OriginalFormat}", Messages.TraceResponseProcessed)
+            , LogLevel.Trace, 1);
+#endif
         }
 
         [TestMethod]
@@ -1632,7 +1641,11 @@ namespace RestClient.Net.UnitTests
 
             return restClient;
         }
+
+        private static bool CheckRequestHeaders(IHeadersCollection requestHeadersCollection) =>
+            requestHeadersCollection.Contains("Test") && requestHeadersCollection["Test"].First() == "Test";
+
+        private static bool CheckResponseHeaders(IHeadersCollection responseHeadersCollection) => responseHeadersCollection.Contains("Test1") && responseHeadersCollection["Test1"].First() == "a";
         #endregion
     }
-
 }
