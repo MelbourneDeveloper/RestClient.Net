@@ -435,7 +435,7 @@ namespace RestClient.Net.UnitTests
 
             using var factory = new SingletonHttpClientFactory(httpClient);
 
-            using var client = new Client(adapter, createHttpClient: factory.CreateClient, baseUri: RestCountriesAllUri, logger: _logger.Object) { ThrowExceptionOnFailure = false };
+            using var client = new Client(adapter, createHttpClient: factory.CreateClient, baseUri: RestCountriesAllUri, logger: _logger.Object, throwExceptionOnFailure: false);
 
             var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
