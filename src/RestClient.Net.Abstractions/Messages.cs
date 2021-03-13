@@ -11,6 +11,8 @@ namespace RestClient.Net.Abstractions
 
         public static string InfoAttemptingToSend = "Attempting to send with the HttpClient. {request}";
         public static string TraceResponseProcessed = "Response processed: {response} Event: {event}";
+        public const string ErrorOnSend = "Error on SendAsync. {request}";
+        public const string ErrorTaskCancelled = "TaskCanceledException {request}";
 
         public static string GetErrorMessageNonSuccess(int responseCode, Uri? requestUri) => $"Non successful Http Status Code: {responseCode}.\r\nRequest Uri: {requestUri}";
 

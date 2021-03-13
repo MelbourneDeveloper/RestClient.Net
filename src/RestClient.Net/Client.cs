@@ -108,7 +108,7 @@ namespace RestClient.Net
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error on SendAsync. {request}", request);
+                _logger.LogError(ex, Messages.ErrorOnSend, request);
 
                 throw;
             }
@@ -140,11 +140,7 @@ namespace RestClient.Net
             string? name = null,
             Uri? baseUri = null,
             IHeadersCollection? defaultRequestHeaders = null,
-#if NET45
-            ILogger? logger = null,
-#else
             ILogger<Client>? logger = null,
-#endif
             CreateHttpClient? createHttpClient = null,
             SendHttpRequestMessage? sendHttpRequestFunc = null,
             GetHttpRequestMessage? getHttpRequestMessage = null,
@@ -167,11 +163,8 @@ namespace RestClient.Net
                 SerializationAdapter = serializationAdapter;
             }
 #endif
-            _logger =
-#if !NET45
-                (ILogger?)
-#endif
-                logger ?? NullLogger.Instance;
+
+            _logger = (ILogger?)logger ?? NullLogger.Instance;
 
             if (baseUri != null && !baseUri.ToString().EndsWith("/", StringComparison.OrdinalIgnoreCase))
             {
@@ -241,7 +234,7 @@ namespace RestClient.Net
             }
             catch (TaskCanceledException tce)
             {
-                _logger.LogError(tce, "TaskCanceledException {request}", request);
+                _logger.LogError(tce, Messages.ErrorTaskCancelled, request);
                 throw;
             }
             catch (OperationCanceledException oce)

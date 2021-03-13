@@ -55,11 +55,7 @@ namespace RestClient.Net
                 SerializationAdapter,
                 name,
                 baseUri,
-#if !NET45
                 logger: _loggerFactory?.CreateLogger<Client>(),
-#else
-                logger: _loggerFactory?.CreateLogger(nameof(Client)),
-#endif
                 createHttpClient: _createHttpClient);
         #endregion
     }
