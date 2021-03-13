@@ -337,7 +337,9 @@ namespace RestClient.Net.UnitTests
         public async Task TestCallHeadersMergeWithDefaultHeaders()
         {
             //Arrange
+#pragma warning disable CA2000 // Dispose objects before losing scope
             GetHttpClientMoq(out var handlerMock, out var httpClient, new List<RestCountry>());
+#pragma warning restore CA2000 // Dispose objects before losing scope
             HttpClient createHttpClient(string name) => httpClient;
             using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: createHttpClient);
 
@@ -371,8 +373,6 @@ namespace RestClient.Net.UnitTests
                 ItExpr.Is<HttpRequestMessage>(h => CheckRequestMessage(h, RestCountriesAllUri, expectedHeaders, true)),
                 ItExpr.IsAny<CancellationToken>()
                 );
-
-            httpClient.Dispose();
         }
 
         [TestMethod]
