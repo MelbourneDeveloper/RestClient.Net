@@ -630,6 +630,9 @@ namespace RestClient.Net.UnitTests
                 //TODO: Shouldn't expectedStatusCode = HttpStatusCode.Created
                 HttpRequestMethod.Post => await client.PostAsync<UserPost, UserPost>(_userRequestBody, "/posts"),
                 HttpRequestMethod.Put => await client.PutAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative)),
+                HttpRequestMethod.Get => throw new NotImplementedException(),
+                HttpRequestMethod.Delete => throw new NotImplementedException(),
+                HttpRequestMethod.Custom => throw new NotImplementedException(),
                 _ => throw new NotImplementedException(),
             };
             Assert.AreEqual(_userRequestBody.userId, responseUserPost.Body?.userId);
@@ -1354,8 +1357,11 @@ namespace RestClient.Net.UnitTests
             }
             catch (SendException)
             {
-                //_logger.Verify(l => l.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<Trace>(),
-                //    It.Is<SendException>(e => e.InnerException != null), It.IsAny<Func<Trace, Exception, string>>()));
+#if !NET45
+                _logger.VerifyLog<Client, SendException>((state, t)
+                    => state.CheckValue("{OriginalFormat}", Messages.ErrorSendException), LogLevel.Error, 1);
+#endif
+
                 return;
             }
             Assert.Fail();

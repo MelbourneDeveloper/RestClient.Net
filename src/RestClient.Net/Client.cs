@@ -244,8 +244,8 @@ namespace RestClient.Net
             }
             catch (Exception ex)
             {
-                var exception = new SendException("HttpClient Send Exception", request, ex);
-                _logger.LogError(ex, "SendException", request);
+                var exception = new SendException(Messages.ErrorSendException, request, ex);
+                _logger.LogError(exception, Messages.ErrorSendException, request);
                 throw exception;
             }
 
