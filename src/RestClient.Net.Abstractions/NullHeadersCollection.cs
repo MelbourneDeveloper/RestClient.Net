@@ -1,12 +1,11 @@
-﻿using RestClient.Net.Abstractions;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
 #pragma warning disable CA1063 // Implement IDisposable Correctly
 #pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
 
-namespace RestClient.Net
+namespace RestClient.Net.Abstractions
 {
     public class NullHeadersCollection : IHeadersCollection, IDisposable
     {
