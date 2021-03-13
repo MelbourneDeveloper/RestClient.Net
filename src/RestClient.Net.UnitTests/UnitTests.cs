@@ -23,8 +23,6 @@ using Microsoft.Extensions.Logging;
 
 //TODO: Remove these
 #pragma warning disable CS8604 // Possible null reference argument.
-#pragma warning disable CS0219 // Variable is assigned but its value is never used
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
 
 #if NETCOREAPP3_1
 using Microsoft.AspNetCore.Hosting;
@@ -623,7 +621,6 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: _createHttpClient,
                 logger: _logger.Object);
             client.SetJsonContentTypeHeader();
-            var expectedStatusCode = HttpStatusCode.OK;
             var responseUserPost = httpRequestMethod switch
             {
                 HttpRequestMethod.Patch => await client.PatchAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative)),
@@ -639,10 +636,12 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(_userRequestBody.title, responseUserPost.Body?.title);
 
 #if !NET45
+            var expectedStatusCode = HttpStatusCode.OK;
+
             _logger.VerifyLog((state, t) =>
-            state.CheckValue("{OriginalFormat}", Messages.TraceBeginSend) &&
-            state.CheckValue<IRequest>("request", (r) => r.HttpRequestMethod == httpRequestMethod)
-            , LogLevel.Trace, 1);
+             state.CheckValue("{OriginalFormat}", Messages.TraceBeginSend) &&
+             state.CheckValue<IRequest>("request", (r) => r.HttpRequestMethod == httpRequestMethod)
+             , LogLevel.Trace, 1);
 
             _logger.VerifyLog((state, t) =>
             state.CheckValue("{OriginalFormat}", Messages.TraceResponseProcessed) &&
@@ -1642,10 +1641,12 @@ namespace RestClient.Net.UnitTests
             return restClient;
         }
 
+#if !NET45
         private static bool CheckRequestHeaders(IHeadersCollection requestHeadersCollection) =>
             requestHeadersCollection.Contains("Test") && requestHeadersCollection["Test"].First() == "Test";
 
         private static bool CheckResponseHeaders(IHeadersCollection responseHeadersCollection) => responseHeadersCollection.Contains("Test1") && responseHeadersCollection["Test1"].First() == "a";
+#endif
         #endregion
     }
 }
