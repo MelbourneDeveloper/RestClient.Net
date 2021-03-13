@@ -4,6 +4,8 @@ using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 
+#pragma warning disable CA5369 // Use XmlReader For Deserialize
+
 namespace RestClient.Net
 {
     public class XmlSerializationAdapter : ISerializationAdapter
@@ -28,7 +30,7 @@ namespace RestClient.Net
             using var memoryStream = new MemoryStream();
             using var writer = new StreamWriter(memoryStream);
             serializer.Serialize(writer, value);
-            var streamReader = new StreamReader(memoryStream);
+            using var streamReader = new StreamReader(memoryStream);
             _ = memoryStream.Seek(0, SeekOrigin.Begin);
             var markup = streamReader.ReadToEnd();
 

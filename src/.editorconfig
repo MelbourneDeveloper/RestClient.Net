@@ -31,12 +31,15 @@ csharp_style_expression_bodied_constructors = true:error
 dotnet_diagnostic.CS1998.severity = error
 
 # Nullable reference types
-dotnet_diagnostic.CS8604.severity = error
-dotnet_diagnostic.CS8625.severity = error
 dotnet_diagnostic.CS8600.severity = error
-dotnet_diagnostic.CS8602.severity = error
 dotnet_diagnostic.CS8601.severity = error
+dotnet_diagnostic.CS8602.severity = error
+dotnet_diagnostic.CS8603.severity = error
+dotnet_diagnostic.CS8604.severity = error
 dotnet_diagnostic.CS8618.severity = error
+dotnet_diagnostic.CS8625.severity = error
+dotnet_diagnostic.CS8632.severity = error
+dotnet_diagnostic.CS8767.severity = error
 
 ######################## Disable #################
 
@@ -47,13 +50,13 @@ dotnet_diagnostic.CA1031.severity = None
 # Not compatible with .NET 45
 dotnet_diagnostic.CA1825.severity = none
 
+# CA1032: Implement standard exception constructors
+dotnet_diagnostic.CA1032.severity = None
+
 ######################## Warnings #################
 
 # CS1591: Missing XML comment for publicly visible type or member
 dotnet_diagnostic.CS1591.severity = warning
-
-# CA1032: Implement standard exception constructors
-dotnet_diagnostic.CA1032.severity = warning
 
 #########################################
 
