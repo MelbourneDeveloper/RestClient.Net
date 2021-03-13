@@ -12,8 +12,8 @@ namespace RestClient.Net.UnitTests
     public static class LogCheckExtensions
     {
 
-        public static void VerifyLog<TException>(
-                   Mock<ILogger<Client>> loggerMock,
+        public static void VerifyLog<T, TException>(
+                   Mock<ILogger<T>> loggerMock,
                    Expression<Func<object, Type, bool>> match,
                    LogLevel logLevel,
                    int times) where TException : Exception
@@ -38,8 +38,8 @@ namespace RestClient.Net.UnitTests
             );
         }
 
-        public static void VerifyLog(
-           this Mock<ILogger<Client>> loggerMock,
+        public static void VerifyLog<T>(
+           this Mock<ILogger<T>> loggerMock,
            Expression<Func<object, Type, bool>> match,
            LogLevel logLevel,
            int times)

@@ -280,7 +280,9 @@ namespace RestClient.Net.UnitTests
             }
 #endif
 
+#pragma warning disable IDE0021 // Use expression body for constructors
             _testServerHttpClientFactory = GetTestClientFactory();
+#pragma warning restore IDE0021 // Use expression body for constructors
         }
         #endregion
 
