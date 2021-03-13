@@ -9,6 +9,9 @@ namespace RestClient.Net.UnitTests
 {
     public static class LogCheckExtensions
     {
+        /// <summary>
+        /// Verify that the log was called and get access to check the log arguments 
+        /// </summary>
         public static void VerifyLog<T, TException>(
                    this Mock<ILogger<T>> loggerMock,
                    Expression<Func<object, Type, bool>> match,
@@ -22,6 +25,7 @@ namespace RestClient.Net.UnitTests
                     //Check the severity level
                     logLevel,
                     //This may or may not be relevant to your scenario
+                    //If you need to check this, add a parameter for it
                     It.IsAny<EventId>(),
                     //This is the magical Moq code that exposes internal log processing from the extension methods
                     It.Is<It.IsAnyType>(match),
@@ -35,6 +39,9 @@ namespace RestClient.Net.UnitTests
             );
         }
 
+        /// <summary>
+        /// Verify that the log was called and get access to check the log arguments 
+        /// </summary>
         public static void VerifyLog<T>(
            this Mock<ILogger<T>> loggerMock,
            Expression<Func<object, Type, bool>> match,
@@ -42,10 +49,16 @@ namespace RestClient.Net.UnitTests
            int times)
         => VerifyLog<T, Exception>(loggerMock, match, logLevel, times);
 
+        /// <summary>
+        /// Check whether or not the log arguments match the expected result
+        /// </summary>
         public static bool CheckValue<T>(this object state, string key, T expectedValue)
         => CheckValue<T>(state, key, (actualValue)
                => (actualValue == null && expectedValue == null) || (actualValue != null && actualValue.Equals(expectedValue)));
 
+        /// <summary>
+        /// Check whether or not the log arguments match the expected result
+        /// </summary>
         public static bool CheckValue<T>(this object state, string key, Func<T, bool> compare)
         {
             var keyValuePairList = (IReadOnlyList<KeyValuePair<string, object>>)state;
