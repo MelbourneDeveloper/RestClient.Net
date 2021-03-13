@@ -3,8 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <IsPackable>false</IsPackable>
-    <RootNamespace>RestClient.Net.UnitTests</RootNamespace>
-    <LangVersion>8</LangVersion>    
+    <RootNamespace>RestClient.Net.UnitTests</RootNamespace>  
   </PropertyGroup>
 
 

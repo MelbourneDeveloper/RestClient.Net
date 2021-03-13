@@ -55,7 +55,7 @@ namespace RestClient.Net.UnitTests
             }
             catch (SendException hse)
             {
-                Assert.AreEqual("Ouch", hse?.InnerException?.Message);
+                Assert.AreEqual("Ouch", hse.InnerException?.Message);
                 return;
             }
 
@@ -84,7 +84,7 @@ namespace RestClient.Net.UnitTests
             }
             catch (SendException hse)
             {
-                Assert.AreEqual("Ouch", hse?.InnerException?.Message);
+                Assert.AreEqual("Ouch", hse.InnerException?.Message);
                 return;
             }
 
