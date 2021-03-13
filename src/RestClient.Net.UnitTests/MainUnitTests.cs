@@ -34,6 +34,7 @@ using Moq.Protected;
 #endif
 
 #pragma warning disable CA1810 // Initialize reference type static fields inline
+#pragma warning disable CA1506 // Initialize reference type static fields inline
 
 namespace RestClient.Net.UnitTests
 {
