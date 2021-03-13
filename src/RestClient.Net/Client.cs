@@ -207,7 +207,7 @@ namespace RestClient.Net
 
             try
             {
-                _logger.LogTrace("Begin send {request} Event: {event}", request, TraceEvent.Request);
+                _logger.LogTrace(Messages.TraceBeginSend, request, TraceEvent.Request);
 
                 httpClient = _createHttpClient(Name);
 

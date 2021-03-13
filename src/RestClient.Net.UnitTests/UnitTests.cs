@@ -489,8 +489,17 @@ namespace RestClient.Net.UnitTests
                 );
             var response = await client.DeleteAsync(JsonPlaceholderFirstPostSlug);
 
-            //VerifyLog(_logger, JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Request, null, null);
-            //VerifyLog(_logger, JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Response, (int)HttpStatusCode.OK, null);
+#if !NET45
+            _logger.VerifyLog((state, t) =>
+            state.CheckValue("{OriginalFormat}", Messages.TraceBeginSend) &&
+            state.CheckValue<IRequest>("request", (r) => r.HttpRequestMethod == HttpRequestMethod.Delete)
+            , LogLevel.Trace, 1);
+
+            _logger.VerifyLog((state, t) =>
+            state.CheckValue("{OriginalFormat}", Messages.TraceResponseProcessed) &&
+            state.CheckValue<Response>("response", (r) => r.StatusCode == (int)HttpStatusCode.OK)
+            , LogLevel.Trace, 1);
+#endif
 
             //This doesn't work when actually contacting the server...
             Assert.AreEqual(JsonPlaceholderDeleteHeaders[SetCookieHeaderName], response.Headers[SetCookieHeaderName].First());
@@ -1338,7 +1347,6 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(response, returnedResponse));
         }
 
-        /*
         [TestMethod]
         public async Task TestErrorLogging()
         {
@@ -1350,13 +1358,12 @@ namespace RestClient.Net.UnitTests
             }
             catch (SendException)
             {
-                _logger.Verify(l => l.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<Trace>(),
-                    It.Is<SendException>(e => e.InnerException != null), It.IsAny<Func<Trace, Exception, string>>()));
+                //_logger.Verify(l => l.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<Trace>(),
+                //    It.Is<SendException>(e => e.InnerException != null), It.IsAny<Func<Trace, Exception, string>>()));
                 return;
             }
             Assert.Fail();
         }
-        */
 
         [TestMethod]
         public async Task TestFactoryCreationWithUri()
