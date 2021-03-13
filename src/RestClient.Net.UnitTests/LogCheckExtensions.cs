@@ -16,7 +16,8 @@ namespace RestClient.Net.UnitTests
                    Mock<ILogger<T>> loggerMock,
                    Expression<Func<object, Type, bool>> match,
                    LogLevel logLevel,
-                   int times) where TException : Exception
+                   int times,
+                   bool checkException = false) where TException : Exception
         {
             loggerMock.Verify
             (
@@ -29,7 +30,7 @@ namespace RestClient.Net.UnitTests
                     //This is the magical Moq code that exposes internal log processing from the extension methods
                     It.Is<It.IsAnyType>(match),
                     //Confirm the exception type
-                    It.IsAny<TException>(),
+                    checkException ? It.IsAny<TException>() : null,
                     //Accept any valid Func here. The Func is specified by the extension methods
                     (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()
                 ),
@@ -43,30 +44,11 @@ namespace RestClient.Net.UnitTests
            Expression<Func<object, Type, bool>> match,
            LogLevel logLevel,
            int times)
-        {
-            loggerMock.Verify
-            (
-                l => l.Log
-                (
-                    //Check the severity level
-                    logLevel,
-                    //This may or may not be relevant to your scenario
-                    It.IsAny<EventId>(),
-                    //This is the magical Moq code that exposes internal log processing from the extension methods
-                    It.Is<It.IsAnyType>(match),
-                    //Confirm the exception type
-                    null,
-                    //Accept any valid Func here. The Func is specified by the extension methods
-                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()
-                ),
-                //Make sure the message was logged the correct number of times
-                Times.Exactly(times)
-            );
-        }
+        => VerifyLog<T, Exception>(loggerMock, match, logLevel, times);
 
         public static bool CheckValue<T>(this object state, T expectedValue, string key)
-        => CheckValue<T>(state, key, (a)
-               => (a == null && expectedValue == null) || (a != null && a.Equals(expectedValue)));
+        => CheckValue<T>(state, key, (actualValue)
+               => (actualValue == null && expectedValue == null) || (actualValue != null && actualValue.Equals(expectedValue)));
 
         public static bool CheckValue<T>(this object state, string key, Func<T, bool> compare)
         {
