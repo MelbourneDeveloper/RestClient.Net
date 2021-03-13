@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 #pragma warning disable IDE1006 // Naming Styles
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning disable CA1724 
+#pragma warning disable CA1716
+#pragma warning disable CA1707
 
 namespace Atlassian
 {
