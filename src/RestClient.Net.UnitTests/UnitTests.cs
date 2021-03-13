@@ -624,32 +624,28 @@ namespace RestClient.Net.UnitTests
                 logger: _logger.Object);
             client.SetJsonContentTypeHeader();
             var expectedStatusCode = HttpStatusCode.OK;
-
-            UserPost responseUserPost;
-            switch (httpRequestMethod)
+            var responseUserPost = httpRequestMethod switch
             {
-                case HttpRequestMethod.Patch:
-                    responseUserPost = await client.PatchAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative));
-                    break;
-                case HttpRequestMethod.Post:
-                    responseUserPost = await client.PostAsync<UserPost, UserPost>(_userRequestBody, "/posts");
-                    expectedStatusCode = HttpStatusCode.Created;
-                    break;
-                case HttpRequestMethod.Put:
-                    responseUserPost = await client.PutAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative));
-                    break;
-                case HttpRequestMethod.Get:
-                case HttpRequestMethod.Delete:
-                case HttpRequestMethod.Custom:
-                default:
-                    throw new NotImplementedException();
-            }
+                HttpRequestMethod.Patch => await client.PatchAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative)),
+                //TODO: Shouldn't expectedStatusCode = HttpStatusCode.Created
+                HttpRequestMethod.Post => await client.PostAsync<UserPost, UserPost>(_userRequestBody, "/posts"),
+                HttpRequestMethod.Put => await client.PutAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative)),
+                _ => throw new NotImplementedException(),
+            };
+            Assert.AreEqual(_userRequestBody.userId, responseUserPost.Body?.userId);
+            Assert.AreEqual(_userRequestBody.title, responseUserPost.Body?.title);
 
-            Assert.AreEqual(_userRequestBody.userId, responseUserPost.userId);
-            Assert.AreEqual(_userRequestBody.title, responseUserPost.title);
+#if !NET45
+            _logger.VerifyLog((state, t) =>
+            state.CheckValue("{OriginalFormat}", Messages.TraceBeginSend) &&
+            state.CheckValue<IRequest>("request", (r) => r.HttpRequestMethod == httpRequestMethod)
+            , LogLevel.Trace, 1);
 
-            //VerifyLog(_logger, It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Request, null, null);
-            //VerifyLog(_logger, It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Response, (int)expectedStatusCode, null);
+            _logger.VerifyLog((state, t) =>
+            state.CheckValue("{OriginalFormat}", Messages.TraceResponseProcessed) &&
+            state.CheckValue("response", (Func<Response, bool>)((r) => r.StatusCode == (int)expectedStatusCode))
+            , LogLevel.Trace, 1);
+#endif
         }
 
         [TestMethod]
