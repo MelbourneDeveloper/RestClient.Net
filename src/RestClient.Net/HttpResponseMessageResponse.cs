@@ -33,7 +33,7 @@ namespace RestClient.Net
             int statusCode,
             HttpRequestMethod httpRequestMethod,
             byte[] responseContentData,
-            TResponseBody body,
+            TResponseBody? body,
             HttpResponseMessage httpResponseMessage,
             HttpClient httpClient
             ) : base(

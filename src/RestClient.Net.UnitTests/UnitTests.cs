@@ -445,7 +445,7 @@ namespace RestClient.Net.UnitTests
 
             var response = await client.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(response);
-            Assert.IsTrue(response.Body.Count > 0);
+            Assert.IsTrue(response?.Body?.Count > 0);
 
 #if !NET45
             _logger.VerifyLog((state, t) => state.CheckValue(Messages.InfoSendReturnedNoException, "{OriginalFormat}"), LogLevel.Information, 1);
@@ -465,7 +465,7 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual(StandardContentTypeToString, httpResponseMessageResponse?.HttpResponseMessage?.Content?.Headers?.ContentType?.ToString());
 
-            Assert.AreEqual(RestCountriesAllHeaders[TransferEncodingHeaderName], response.Headers[TransferEncodingHeaderName].First());
+            Assert.AreEqual(RestCountriesAllHeaders[TransferEncodingHeaderName], response?.Headers[TransferEncodingHeaderName].First());
         }
 
         /// <summary>
@@ -642,7 +642,7 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(JsonPlaceholderPostHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
             Assert.AreEqual(JsonPlaceholderPostHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
             //JSON placeholder seems to return 101 no matter what Id is passed in...
-            Assert.AreEqual(101, response.Body.Id);
+            Assert.AreEqual(101, response.Body?.Id);
             Assert.AreEqual(201, response.StatusCode);
         }
 
@@ -670,7 +670,7 @@ namespace RestClient.Net.UnitTests
 
             var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             var responsePerson = await client.PostAsync<Person, Person>(requestPerson, new Uri($"{LocalBaseUriString}/person"));
-            Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.Body.BillingAddress.Street);
+            Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.Body?.BillingAddress.Street);
         }
 
         [TestMethod]
@@ -1002,7 +1002,7 @@ namespace RestClient.Net.UnitTests
                 new Uri("secure/authenticate", UriKind.Relative)
                 );
 
-            client.SetBearerTokenAuthenticationHeader(response.Body.BearerToken);
+            client.SetBearerTokenAuthenticationHeader(response.Body?.BearerToken);
 
             Person person = await client.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative));
             Assert.AreEqual("Bear", person.FirstName);
@@ -1350,7 +1350,7 @@ namespace RestClient.Net.UnitTests
             var clientFactory = new ClientFactory(_createHttpClient, new NewtonsoftSerializationAdapter());
             var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "test", RestCountriesAllUri);
             var response = await client.GetAsync<List<RestCountry>>();
-            Assert.IsTrue(response.Body.Count > 0);
+            Assert.IsTrue(response.Body?.Count > 0);
         }
 
         [TestMethod]

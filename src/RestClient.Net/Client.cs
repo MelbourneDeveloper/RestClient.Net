@@ -274,13 +274,17 @@ namespace RestClient.Net
 
             TResponseBody responseBody = default;
 
-            try
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                responseBody = SerializationAdapter.Deserialize<TResponseBody>(responseData, httpResponseHeadersCollection);
-            }
-            catch (Exception ex)
-            {
-                throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
+
+                try
+                {
+                    responseBody = SerializationAdapter.Deserialize<TResponseBody>(responseData, httpResponseHeadersCollection);
+                }
+                catch (Exception ex)
+                {
+                    throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
+                }
             }
 
             var httpResponseMessageResponse = new HttpResponseMessageResponse<TResponseBody>
