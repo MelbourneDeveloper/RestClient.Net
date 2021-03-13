@@ -21,9 +21,6 @@ using RichardSzalay.MockHttp;
 using System.IO;
 using Microsoft.Extensions.Logging;
 
-//TODO: Remove these
-#pragma warning disable CS8604 // Possible null reference argument.
-
 #if NETCOREAPP3_1
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -759,12 +756,12 @@ namespace RestClient.Net.UnitTests
 
 #if !NET45
             _logger.VerifyLog((state, t) =>
-            state.CheckValue<IRequest>("request", (a) => CheckRequestHeaders(a.Headers)) &&
+            state.CheckValue<IRequest>("request", (request) => request.Headers != null && CheckRequestHeaders(request.Headers)) &&
             state.CheckValue("{OriginalFormat}", Messages.InfoAttemptingToSend)
             , LogLevel.Trace, 1);
 
             _logger.VerifyLog((state, t) =>
-            state.CheckValue<Response>("response", (a) => CheckResponseHeaders(a.Headers)) &&
+            state.CheckValue<Response>("response", (response) => response.Headers != null && CheckResponseHeaders(response.Headers)) &&
             state.CheckValue("{OriginalFormat}", Messages.TraceResponseProcessed)
             , LogLevel.Trace, 1);
 #endif
@@ -1032,7 +1029,11 @@ namespace RestClient.Net.UnitTests
                 new Uri("secure/authenticate", UriKind.Relative)
                 );
 
-            client.SetBearerTokenAuthenticationHeader(response.Body?.BearerToken);
+            var bearerToken = response.Body?.BearerToken;
+
+            if (bearerToken == null) throw new InvalidOperationException("No bearer token");
+
+            client.SetBearerTokenAuthenticationHeader(bearerToken);
 
             Person person = await client.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative));
             Assert.AreEqual("Bear", person.FirstName);
@@ -1501,8 +1502,11 @@ namespace RestClient.Net.UnitTests
             //Act
             var response = await client.GetAsync<string>(resource);
 
+            var requestUri = response?.RequestUri;
+            if (requestUri == null) throw new InvalidOperationException("No uri");
+
             //Assert
-            Assert.AreEqual<Uri>(expectedUri, response.RequestUri);
+            Assert.AreEqual(expectedUri, requestUri);
         }
 #endif
 
