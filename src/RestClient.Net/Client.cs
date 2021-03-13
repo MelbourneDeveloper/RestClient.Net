@@ -239,13 +239,22 @@ namespace RestClient.Net
                     request
                     ).ConfigureAwait(false);
             }
-            catch (Exception tce)
+            catch (TaskCanceledException tce)
             {
-                _logger.LogError(tce, "Send Exception. {request} Event: {event}", request, TraceEvent.Error);
+                _logger.LogError(tce, "TaskCanceledException {request}", request);
                 throw;
             }
-
-            _logger.LogInformation("Request was sent to server and response was received");
+            catch (OperationCanceledException oce)
+            {
+                _logger.LogError(oce, "OperationCanceledException {request}", request);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                var exception = new SendException("HttpClient Send Exception", request, ex);
+                _logger.LogError(ex, "SendException", request);
+                throw exception;
+            }
 
             _logger.LogTrace("Successful request/response {request}", request);
 
