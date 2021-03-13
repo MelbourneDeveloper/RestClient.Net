@@ -76,7 +76,7 @@ namespace RestClient.Net
         /// <summary>
         /// Specifies whether or not the client will throw an exception when non-successful status codes are returned in the http response. The default is true
         /// </summary>
-        public bool ThrowExceptionOnFailure { get; set; } = true;
+        public bool ThrowExceptionOnFailure { get; } = true;
 
         /// <summary>
         /// Base Uri for the client. Any resources specified on requests will be relative to this.
@@ -131,6 +131,7 @@ namespace RestClient.Net
         /// <param name="createHttpClient">The delegate that is used for getting or creating HttpClient instances when the SendAsync call is made</param>
         /// <param name="sendHttpRequestFunc">The Func responsible for performing the SendAsync method on HttpClient. This can replaced in the constructor in order to implement retries and so on.</param>
         /// <param name="getHttpRequestMessage">Delegate responsible for converting rest requests to http requests</param>
+        /// <param name="throwExceptionOnFailure">Whether or not to throw an exception on non-successful http calls</param>
         public Client(
 #if NET45
            ISerializationAdapter serializationAdapter,
@@ -155,7 +156,8 @@ namespace RestClient.Net
 #else
             if (serializationAdapter == null)
             {
-                SerializationAdapter = new JsonSerializationAdapter();
+                //Use a shared instance for serialization. There should be no reason that this is not thread safe. Unless it's not.
+                SerializationAdapter = JsonSerializationAdapter.Instance;
                 this.SetJsonContentTypeHeader();
             }
             else
