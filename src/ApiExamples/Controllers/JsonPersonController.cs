@@ -83,6 +83,8 @@ namespace ApiExamples.Controllers
         public Person Patch([FromBody] Person person) => person;
 
         [HttpDelete]
+#pragma warning disable IDE0060 // Remove unused parameter
         public IActionResult Delete(string personKey) => Ok();
+#pragma warning restore IDE0060 // Remove unused parameter
     }
 }
