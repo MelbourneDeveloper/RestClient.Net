@@ -63,7 +63,7 @@ namespace RestClient.Net
 
             var response = (Response)await client.SendAsync<object>(
             new Request(
-                resource,
+                client.BaseUri.Combine(resource),
                 null,
                 requestHeaders ?? NullHeadersCollection.Instance,
                 HttpRequestMethod.Delete,
@@ -89,7 +89,7 @@ namespace RestClient.Net
 
             return SendAsync<TResponseBody, TRequestBody>(client,
                 new Request(
-                    resource,
+                    client.BaseUri.Combine(resource),
                     requestBodyData,
                     requestHeaders,
                     HttpRequestMethod.Put,
@@ -112,7 +112,7 @@ namespace RestClient.Net
 
             return SendAsync<TResponseBody, TRequestBody>(client,
                 new Request(
-                    resource,
+                    client.BaseUri.Combine(resource),
                     requestBodyData,
                     requestHeaders,
                     HttpRequestMethod.Post,
@@ -135,7 +135,7 @@ namespace RestClient.Net
 
             return SendAsync<TResponseBody, TRequestBody>(client,
                 new Request(
-                    resource,
+                    client.BaseUri.Combine(resource),
                     requestBodyData,
                     requestHeaders,
                     HttpRequestMethod.Patch,
