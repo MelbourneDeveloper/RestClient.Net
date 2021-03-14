@@ -7,7 +7,6 @@ using RestClient.Net.Samples.Model;
 using RestClient.Net.UnitTests.Model;
 using RestClientApiSamples;
 using RestClient.Net.Abstractions;
-using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -320,7 +319,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestResendHeaders()
         {
-            var headers = new RequestHeadersCollection();
+            var headers = new HeadersCollection(new Dictionary<string, IEnumerable<string>>());
 
             using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: _createHttpClient);
 
@@ -348,23 +347,19 @@ namespace RestClient.Net.UnitTests
             GetHttpClientMoq(out var handlerMock, out var httpClient, value);
 #pragma warning restore CA2000 // Dispose objects before losing scope
             HttpClient createHttpClient(string name) => httpClient;
-            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: createHttpClient);
 
             var testKvp = new KeyValuePair<string, IEnumerable<string>>("test", new List<string> { "test", "test2" });
             var testDefaultKvp = new KeyValuePair<string, IEnumerable<string>>("default", new List<string> { "test", "test2" });
-            client.DefaultRequestHeaders.Add(testDefaultKvp);
+
+
+            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: createHttpClient, defaultRequestHeaders: testDefaultKvp.CreateHeadersCollection());
+
 
             //Act
-            _ = await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
-            {
-                testKvp
-            }).ConfigureAwait(false);
+            _ = await client.PostAsync<List<RestCountry>, object>(new object(), null, testKvp.CreateHeadersCollection()).ConfigureAwait(false);
 
             //Make sure we can call it twice
-            _ = await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
-            {
-                testKvp
-            }).ConfigureAwait(false);
+            _ = await client.PostAsync<List<RestCountry>, object>(new object(), null, testKvp.CreateHeadersCollection()).ConfigureAwait(false);
 
             var expectedHeaders = new List<KeyValuePair<string, IEnumerable<string>>>
             {
@@ -629,8 +624,8 @@ namespace RestClient.Net.UnitTests
                 new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
                 createHttpClient: _createHttpClient,
-                logger: _logger.Object);
-            client.SetJsonContentTypeHeader();
+                logger: _logger.Object,
+                defaultRequestHeaders: MiscExtensions.SetJsonContentTypeHeader(null));
             var responseUserPost = httpRequestMethod switch
             {
                 HttpRequestMethod.Patch => await client.PatchAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative)).ConfigureAwait(false),
@@ -974,10 +969,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestHeadersLocalInRequest()
         {
             using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-            var requestHeadersCollection = new RequestHeadersCollection
-            {
-                { "Test", "Test" }
-            };
+            var requestHeadersCollection = "Test".CreateHeadersCollection("Test");
             Person responsePerson = await client.SendAsync<Person, object>
                 (
                 new Request(new Uri("headers", UriKind.Relative), null, requestHeadersCollection, HttpRequestMethod.Get, client, default)
@@ -1598,7 +1590,7 @@ namespace RestClient.Net.UnitTests
             }
             else
             {
-                headers = new RequestHeadersCollection { new KeyValuePair<string, IEnumerable<string>>("Test", new List<string> { "Test" }) };
+                headers = new HeadersCollection { new KeyValuePair<string, IEnumerable<string>>("Test", new List<string> { "Test" }) };
             }
 
             return headers;

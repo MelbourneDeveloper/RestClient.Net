@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestClient.Net.Abstractions.Extensions;
+using System;
 using System.Threading;
 
 namespace RestClient.Net.Abstractions

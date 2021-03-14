@@ -39,6 +39,7 @@
 	<Choose>
 		<When Condition="'$(TargetFramework)' == 'net45'">
 			<ItemGroup>
+				<PackageReference Include="System.Linq" Version="4.3.0" />
 				<Compile Remove="JsonSerializationAdapter.cs" />
 			</ItemGroup>
 		</When>

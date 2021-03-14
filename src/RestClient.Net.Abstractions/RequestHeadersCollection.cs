@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace RestClient.Net.Abstractions
 {
-    public sealed class RequestHeadersCollection : IHeadersCollection
+    public sealed class HeadersCollection : IHeadersCollection
     {
         #region Fields
         private readonly IDictionary<string, IEnumerable<string>> dictionary;
         #endregion
 
-        public RequestHeadersCollection(IDictionary<string, IEnumerable<string>> dictionary) => this.dictionary = dictionary;
+        public HeadersCollection(IDictionary<string, IEnumerable<string>> dictionary) => this.dictionary = dictionary;
 
         #region Public Properties
         IEnumerable<string> IHeadersCollection.this[string name] => dictionary[name];
