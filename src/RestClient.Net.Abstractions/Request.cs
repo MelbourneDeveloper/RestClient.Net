@@ -1,15 +1,10 @@
-﻿using RestClient.Net.Abstractions.Extensions;
-using System;
+﻿using System;
 using System.Threading;
 
 namespace RestClient.Net.Abstractions
 {
     public class Request : IRequest
     {
-        #region Fields
-        private readonly IClient client;
-        #endregion
-
         #region Public Properties
 #pragma warning disable CA1819 // Properties should not return arrays
         public byte[]? BodyData { get; }
@@ -28,15 +23,14 @@ namespace RestClient.Net.Abstractions
         /// <param name="bodyData"></param>
         /// <param name="headers"></param>
         /// <param name="httpRequestMethod"></param>
-        /// <param name="client"></param>
         /// <param name="cancellationToken"></param>
         /// <param name="customHttpRequestMethod"></param>
+        /// 
         public Request(
             Uri? resource,
             byte[]? bodyData,
-            IHeadersCollection? headers,
+            IHeadersCollection headers,
             HttpRequestMethod httpRequestMethod,
-            IClient client,
             CancellationToken cancellationToken,
             string? customHttpRequestMethod = null)
         {
@@ -45,12 +39,11 @@ namespace RestClient.Net.Abstractions
             HttpRequestMethod = httpRequestMethod;
             CancellationToken = cancellationToken;
             CustomHttpRequestMethod = customHttpRequestMethod;
-            this.client = client;
 
-            Headers = client.AppendDefaultRequestHeaders(headers ?? NullHeadersCollection.Instance);
+            Headers = headers;
         }
 
-        public override string ToString() => $"\r\nClient BaseUri: {client.BaseUri}\r\nResource: {Resource}\r\nHeaders: {Headers} Method: {HttpRequestMethod}";
+        public override string ToString() => $"\r\nResource: {Resource}\r\nHeaders: {Headers} Method: {HttpRequestMethod}";
 
 
     }

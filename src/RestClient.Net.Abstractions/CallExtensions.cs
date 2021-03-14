@@ -37,7 +37,6 @@ namespace RestClient.Net
                     null,
                     requestHeaders,
                     HttpRequestMethod.Get,
-                    client,
                     cancellationToken));
         #endregion
 
@@ -55,7 +54,6 @@ namespace RestClient.Net
                 null,
                 requestHeaders,
                 HttpRequestMethod.Delete,
-                client,
                 cancellationToken))
                 .ConfigureAwait(false);
 
@@ -80,7 +78,6 @@ namespace RestClient.Net
                     requestBodyData,
                     requestHeaders,
                     HttpRequestMethod.Put,
-                    client,
                     cancellationToken));
         }
         #endregion
@@ -102,7 +99,6 @@ namespace RestClient.Net
                     requestBodyData,
                     requestHeaders,
                     HttpRequestMethod.Post,
-                    client,
                     cancellationToken));
         }
         #endregion
@@ -124,7 +120,6 @@ namespace RestClient.Net
                     requestBodyData,
                     requestHeaders,
                     HttpRequestMethod.Patch,
-                    client,
                     cancellationToken));
         }
         #endregion

@@ -77,80 +77,80 @@ namespace RestClient.Net.UnitTests
 
         private readonly Dictionary<string, string> RestCountriesAllHeaders = new()
         {
-            {"Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
-            {TransferEncodingHeaderName, "chunked" },
-            {"Connection", "keep-alive" },
-            {"Set-Cookie", "__cfduid=dde664b010195275c339e4b049626e6261592434261; expires=Fri, 17-Jul-20 22:51:03 GMT; path=/; domain=.restcountries.eu; HttpOnly; SameSite=Lax" },
-            {"Access-Control-Allow-Origin", "*" },
-            {"Access-Control-Allow-Methods", "GET" },
-            {"Access-Control-Allow-Headers", "Accept, X-Requested-With" },
-            {CacheControlHeaderName, "public, max-age=86400" },
-            {"CF-Cache-Status", "DYNAMIC" },
-            {"cf-request-id", "0366139e2100001258170ec200000001" },
-            {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
-            {"Server", "cloudflare" },
-            {"CF-RAY", "5a50554368bf1258-HKG" },
+            { "Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
+            { TransferEncodingHeaderName, "chunked" },
+            { "Connection", "keep-alive" },
+            { "Set-Cookie", "__cfduid=dde664b010195275c339e4b049626e6261592434261; expires=Fri, 17-Jul-20 22:51:03 GMT; path=/; domain=.restcountries.eu; HttpOnly; SameSite=Lax" },
+            { "Access-Control-Allow-Origin", "*" },
+            { "Access-Control-Allow-Methods", "GET" },
+            { "Access-Control-Allow-Headers", "Accept, X-Requested-With" },
+            { CacheControlHeaderName, "public, max-age=86400" },
+            { "CF-Cache-Status", "DYNAMIC" },
+            { "cf-request-id", "0366139e2100001258170ec200000001" },
+            { "Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
+            { "Server", "cloudflare" },
+            { "CF-RAY", "5a50554368bf1258-HKG" },
         };
 
         private readonly Dictionary<string, string> JsonPlaceholderDeleteHeaders = new()
         {
-            {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
-            {"Connection", "keep-alive" },
-            {SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471851; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
-            {"X-Powered-By", "Express" },
-            {"Vary", "Origin, Accept-Encoding" },
-            {"Access-Control-Allow-Credentials", "true" },
-            {CacheControlHeaderName, "no-cache" },
-            {"Pragma", "no-cache" },
-            {"Expires", "1" },
-            {"X-Content-Type-Options", "nosniff" },
-            {"Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC1\"" },
-            {"Via", "1.1 vegur" },
-            {"CF-Cache-Status", "DYNAMIC" },
-            {"cf-request-id", "0368513dc10000ed3f0020a200000001" },
-            {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
-            {"Server", "cloudflare" },
-            {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
-         };
+            { "Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
+            { "Connection", "keep-alive" },
+            { SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471851; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
+            { "X-Powered-By", "Express" },
+            { "Vary", "Origin, Accept-Encoding" },
+            { "Access-Control-Allow-Credentials", "true" },
+            { CacheControlHeaderName, "no-cache" },
+            { "Pragma", "no-cache" },
+            { "Expires", "1" },
+            { "X-Content-Type-Options", "nosniff" },
+            { "Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC1\"" },
+            { "Via", "1.1 vegur" },
+            { "CF-Cache-Status", "DYNAMIC" },
+            { "cf-request-id", "0368513dc10000ed3f0020a200000001" },
+            { "Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
+            { "Server", "cloudflare" },
+            { "CF-RAY", "5a52eb0f9d0bed3f-SJC" },
+        };
 
         private readonly Dictionary<string, string> JsonPlaceholderPostHeaders = new()
         {
-            {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
-            {"Connection", "keep-alive" },
-            {SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471851; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
-            {"X-Powered-By", "Express" },
-            {XRatelimitLimitHeaderName, "10000" },
-            {"X-Ratelimit-Remaining", "9990" },
-            {"X-Ratelimit-Reset", "1592699847" },
-            {"Vary", "Origin, Accept-Encoding" },
-            {"Access-Control-Allow-Credentials", "true" },
-            {CacheControlHeaderName, "no-cache" },
-            {"Pragma", "no-cache" },
-            {"Expires", "1" },
-            {"Location","http://jsonplaceholder.typicode.com/posts/101" },
-            {"X-Content-Type-Options", "nosniff" },
-            {"Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC1\"" },
-            {"Via", "1.1 vegur" },
-            {"CF-Cache-Status", "DYNAMIC" },
-            {"cf-request-id", "0368513dc10000ed3f0020a200000002" },
-            {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
-            {"Server", "cloudflare" },
-            {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
-         };
+            { "Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
+            { "Connection", "keep-alive" },
+            { SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471851; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
+            { "X-Powered-By", "Express" },
+            { XRatelimitLimitHeaderName, "10000" },
+            { "X-Ratelimit-Remaining", "9990" },
+            { "X-Ratelimit-Reset", "1592699847" },
+            { "Vary", "Origin, Accept-Encoding" },
+            { "Access-Control-Allow-Credentials", "true" },
+            { CacheControlHeaderName, "no-cache" },
+            { "Pragma", "no-cache" },
+            { "Expires", "1" },
+            { "Location", "http://jsonplaceholder.typicode.com/posts/101" },
+            { "X-Content-Type-Options", "nosniff" },
+            { "Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC1\"" },
+            { "Via", "1.1 vegur" },
+            { "CF-Cache-Status", "DYNAMIC" },
+            { "cf-request-id", "0368513dc10000ed3f0020a200000002" },
+            { "Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
+            { "Server", "cloudflare" },
+            { "CF-RAY", "5a52eb0f9d0bed3f-SJC" },
+        };
 
         private readonly Dictionary<string, string> GoogleHeadHeaders = new()
         {
-            {"P3P", "CP=\"This is not a P3P policy! See g.co/p3phelp for more info.\"" },
-            {"Date", "Sun, 21 Jun 2020 02:38:45 GMT" },
-            {SetCookieHeaderName, "1P_JAR=2020-06-21-02; expires=Tue, 21-Jul-2020 02:38:45 GMT; path=/; domain=.google.com; Secure" },
+            { "P3P", "CP=\"This is not a P3P policy! See g.co/p3phelp for more info.\"" },
+            { "Date", "Sun, 21 Jun 2020 02:38:45 GMT" },
+            { SetCookieHeaderName, "1P_JAR=2020-06-21-02; expires=Tue, 21-Jul-2020 02:38:45 GMT; path=/; domain=.google.com; Secure" },
             //TODO: there should be two lines of cookie here but mock http doesn't seem to allow for this...
-            {"Server", "gws" },
-            {"X-XSS-Protection", "0" },
-            {"X-Frame-Options", "SAMEORIGIN" },
-            {"Transfer-Encoding", "SAMEORIGIN" },
-            {"Expires", "Sun, 21 Jun 2020 02:38:45 GMT" },
-            {CacheControlHeaderName, "private" },
-         };
+            { "Server", "gws" },
+            { "X-XSS-Protection", "0" },
+            { "X-Frame-Options", "SAMEORIGIN" },
+            { "Transfer-Encoding", "SAMEORIGIN" },
+            { "Expires", "Sun, 21 Jun 2020 02:38:45 GMT" },
+            { CacheControlHeaderName, "private" },
+        };
 
 
         //For realises - with factory
@@ -302,7 +302,6 @@ namespace RestClient.Net.UnitTests
                 null,
                 null,
                 HttpRequestMethod.Custom,
-                client,
                 default,
                 "HEAD")).ConfigureAwait(false);
 
@@ -1043,7 +1042,7 @@ namespace RestClient.Net.UnitTests
             var requestHeadersCollection = "Test".CreateHeadersCollection("Test");
             Person responsePerson = await client.SendAsync<Person, object>
                 (
-                new Request(new Uri("headers", UriKind.Relative), null, requestHeadersCollection, HttpRequestMethod.Get, client, default)
+                new Request(new Uri("headers", UriKind.Relative), null, requestHeadersCollection, HttpRequestMethod.Get, default)
                 ).ConfigureAwait(false); ;
             Assert.IsNotNull(responsePerson);
         }
