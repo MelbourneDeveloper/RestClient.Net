@@ -517,6 +517,7 @@ namespace RestClient.Net.UnitTests
                 null,
                 RestCountriesAustraliaUri,
                 createHttpClient: _createHttpClient);
+
             var json = await client.GetAsync<string>().ConfigureAwait(false);
             var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).FirstOrDefault();
             Assert.AreEqual("Australia", country.name);
@@ -913,8 +914,11 @@ namespace RestClient.Net.UnitTests
         [DataRow(false)]
         public async Task TestHeadersLocalPatch(bool useDefault)
         {
-            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-            client.SetJsonContentTypeHeader();
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader());
+
             var headers = GetHeaders(useDefault, client);
             var responsePerson = await client.PatchAsync<Person, Person>(
                 new Person { FirstName = "Bob" },
@@ -1039,8 +1043,11 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBearerTokenAuthenticationLocal()
         {
-            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-            client.SetJsonContentTypeHeader();
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader());
+
             var response = await client.PostAsync<AuthenticationResult, AuthenticationRequest>(
                 new AuthenticationRequest { ClientId = "a", ClientSecret = "b" },
                 new Uri("secure/authenticate", UriKind.Relative)
@@ -1050,7 +1057,12 @@ namespace RestClient.Net.UnitTests
 
             if (bearerToken == null) throw new InvalidOperationException("No bearer token");
 
-            client.SetBearerTokenAuthenticationHeader(bearerToken);
+            using var client2 = new Client(
+                new NewtonsoftSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: HeadersExtensions
+                .SetJsonContentTypeHeader()
+                .SetBearerTokenAuthenticationHeader(bearerToken));
 
             Person person = await client.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative)).ConfigureAwait(false);
             Assert.AreEqual("Bear", person.FirstName);
@@ -1059,11 +1071,13 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationLocalWithError()
         {
-            using var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var restClient = new Client(
+                new NewtonsoftSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: HeadersExtensions.SetBasicAuthenticationHeader("Bob", "WrongPassword"));
 
             try
             {
-                restClient.SetBasicAuthenticationHeader("Bob", "WrongPassword");
                 Person person = await restClient.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative)).ConfigureAwait(false);
             }
             catch (HttpStatusException hex)
@@ -1079,8 +1093,11 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationLocal()
         {
-            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-            client.SetBasicAuthenticationHeader("Bob", "ANicePassword");
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: HeadersExtensions.SetBasicAuthenticationHeader("Bob", "ANicePassword"));
+
             Person person = await client.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative)).ConfigureAwait(false);
             Assert.AreEqual("Sam", person.FirstName);
         }
@@ -1107,7 +1124,9 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationPostLocal()
         {
-            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient);
             client.SetBasicAuthenticationHeader("Bob", "ANicePassword");
             client.SetJsonContentTypeHeader();
             Person person = await client.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new Uri("secure/basic", UriKind.Relative)).ConfigureAwait(false);
@@ -1117,7 +1136,9 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationPostLocalWithError()
         {
-            using var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var restClient = new Client(
+                new NewtonsoftSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient);
 
             try
             {

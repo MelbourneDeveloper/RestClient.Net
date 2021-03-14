@@ -97,6 +97,11 @@ namespace RestClient.Net.Abstractions.Extensions
         public static IHeadersCollection SetBasicAuthenticationHeader(this IHeadersCollection? requestHeaders, string userName, string password)
             => CreateOrSetHeaderValue(requestHeaders, Authorization, "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(userName + ":" + password)));
 
+        /// <summary>
+        /// Sets the Authorization header for Basic Authentication with the specified credentials
+        /// </summary>
+        public static IHeadersCollection SetBasicAuthenticationHeader(string userName, string password) => SetBasicAuthenticationHeader(null, userName, password);
+
         public static IHeadersCollection SetBearerTokenAuthenticationHeader(this IHeadersCollection? requestHeaders, string bearerToken)
             => CreateOrSetHeaderValue(requestHeaders, Authorization, "Bearer " + bearerToken);
 
