@@ -21,11 +21,6 @@ using RichardSzalay.MockHttp;
 using System.IO;
 using Microsoft.Extensions.Logging;
 
-//TODO: Remove these
-#pragma warning disable CS8604 // Possible null reference argument.
-#pragma warning disable CS0219 // Variable is assigned but its value is never used
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
-
 #if NETCOREAPP3_1
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -38,10 +33,14 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Moq.Protected;
 #endif
 
+#pragma warning disable CA1810 // Initialize reference type static fields inline
+#pragma warning disable CA1506 // Initialize reference type static fields inline
+
 namespace RestClient.Net.UnitTests
 {
     [TestClass]
-    public class UnitTests
+    public class MainUnitTests
+
     {
         #region Fields
 
@@ -269,7 +268,7 @@ namespace RestClient.Net.UnitTests
         }
 
 
-        static UnitTests()
+        static MainUnitTests()
         {
 #if NETCOREAPP3_1
             if (_testServer == null)
@@ -280,7 +279,9 @@ namespace RestClient.Net.UnitTests
             }
 #endif
 
+#pragma warning disable IDE0021 // Use expression body for constructors
             _testServerHttpClientFactory = GetTestClientFactory();
+#pragma warning restore IDE0021 // Use expression body for constructors
         }
         #endregion
 
@@ -291,7 +292,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestHead()
         {
             var baseUri = new Uri(GoogleUrlString);
-            var client = new Client(
+            using var client = new Client(
                 serializationAdapter: new NewtonsoftSerializationAdapter(),
                 baseUri: baseUri,
                 createHttpClient: _createHttpClient
@@ -304,7 +305,7 @@ namespace RestClient.Net.UnitTests
                 HttpRequestMethod.Custom,
                 client,
                 default,
-                "HEAD"));
+                "HEAD")).ConfigureAwait(false);
 
             Assert.AreEqual(GoogleHeadHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
         }
@@ -321,12 +322,12 @@ namespace RestClient.Net.UnitTests
         {
             var headers = new RequestHeadersCollection();
 
-            var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: _createHttpClient);
+            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: _createHttpClient);
 
             var parameters = new object();
 
-            _ = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
-            _ = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers);
+            _ = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers).ConfigureAwait(false);
+            _ = await client.PostAsync<List<RestCountry>, object>(parameters, null, headers).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -336,9 +337,18 @@ namespace RestClient.Net.UnitTests
         public async Task TestCallHeadersMergeWithDefaultHeaders()
         {
             //Arrange
-            GetHttpClientMoq(out var handlerMock, out var httpClient, new List<RestCountry>());
+
+            using var value = new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(JsonConvert.SerializeObject(new List<RestCountry>())),
+            };
+
+#pragma warning disable CA2000 // Dispose objects before losing scope
+            GetHttpClientMoq(out var handlerMock, out var httpClient, value);
+#pragma warning restore CA2000 // Dispose objects before losing scope
             HttpClient createHttpClient(string name) => httpClient;
-            var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: createHttpClient);
+            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: createHttpClient);
 
             var testKvp = new KeyValuePair<string, IEnumerable<string>>("test", new List<string> { "test", "test2" });
             var testDefaultKvp = new KeyValuePair<string, IEnumerable<string>>("default", new List<string> { "test", "test2" });
@@ -348,13 +358,13 @@ namespace RestClient.Net.UnitTests
             _ = await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
             {
                 testKvp
-            });
+            }).ConfigureAwait(false);
 
             //Make sure we can call it twice
             _ = await client.PostAsync<List<RestCountry>, object>(new object(), null, new RequestHeadersCollection
             {
                 testKvp
-            });
+            }).ConfigureAwait(false);
 
             var expectedHeaders = new List<KeyValuePair<string, IEnumerable<string>>>
             {
@@ -375,8 +385,8 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetDefaultSerializationRestCountries()
         {
-            var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: _createHttpClient);
-            List<RestCountry> countries = await client.GetAsync<List<RestCountry>>();
+            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: _createHttpClient);
+            List<RestCountry> countries = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
         }
@@ -384,10 +394,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetDefaultSerializationRestCountriesAsJson()
         {
-            var client = new Client(
+            using var client = new Client(
                 baseUri: RestCountriesAustraliaUri,
                 createHttpClient: _createHttpClient);
-            var json = await client.GetAsync<string>();
+            var json = await client.GetAsync<string>().ConfigureAwait(false);
 
             var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).FirstOrDefault();
             Assert.AreEqual("Australia", country.name);
@@ -397,7 +407,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBadRequestThrowsHttpStatusCodeException()
         {
-            var mockHttp = new MockHttpMessageHandler();
+            using var mockHttp = new MockHttpMessageHandler();
 
             const HttpStatusCode statusCode = HttpStatusCode.BadRequest;
 
@@ -407,11 +417,11 @@ namespace RestClient.Net.UnitTests
 
             var httpClient = mockHttp.ToHttpClient();
 
-            var factory = new SingletonHttpClientFactory(httpClient);
+            using var factory = new SingletonHttpClientFactory(httpClient);
 
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: factory.CreateClient, baseUri: RestCountriesAllUri, logger: _logger.Object);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: factory.CreateClient, baseUri: RestCountriesAllUri, logger: _logger.Object);
 
-            await AssertThrowsAsync<HttpStatusException>(client.GetAsync<List<RestCountry>>(), Messages.GetErrorMessageNonSuccess((int)statusCode, RestCountriesAllUri));
+            await AssertThrowsAsync<HttpStatusException>(client.GetAsync<List<RestCountry>>(), Messages.GetErrorMessageNonSuccess((int)statusCode, RestCountriesAllUri)).ConfigureAwait(false);
         }
 
         [TestMethod]
@@ -419,7 +429,7 @@ namespace RestClient.Net.UnitTests
         {
             var adapter = new NewtonsoftSerializationAdapter();
 
-            var mockHttp = new MockHttpMessageHandler();
+            using var mockHttp = new MockHttpMessageHandler();
 
             const HttpStatusCode statusCode = HttpStatusCode.BadRequest;
 
@@ -430,11 +440,11 @@ namespace RestClient.Net.UnitTests
 
             var httpClient = mockHttp.ToHttpClient();
 
-            var factory = new SingletonHttpClientFactory(httpClient);
+            using var factory = new SingletonHttpClientFactory(httpClient);
 
-            var client = new Client(adapter, createHttpClient: factory.CreateClient, baseUri: RestCountriesAllUri, logger: _logger.Object) { ThrowExceptionOnFailure = false };
+            using var client = new Client(adapter, createHttpClient: factory.CreateClient, baseUri: RestCountriesAllUri, logger: _logger.Object, throwExceptionOnFailure: false);
 
-            var response = await client.GetAsync<List<RestCountry>>();
+            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
             var error = client.SerializationAdapter.Deserialize<Error>(response.GetResponseData(), response.Headers);
 
@@ -444,25 +454,25 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetRestCountries()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(),
+            using var client = new Client(new NewtonsoftSerializationAdapter(),
                 baseUri: RestCountriesAllUri,
                 createHttpClient: _createHttpClient,
                 logger: _logger.Object);
 
-            var response = await client.GetAsync<List<RestCountry>>();
+            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
             Assert.IsNotNull(response);
             Assert.IsTrue(response?.Body?.Count > 0);
 
 #if !NET45
-            _logger.VerifyLog((state, t) => state.CheckValue(Messages.InfoSendReturnedNoException, "{OriginalFormat}"), LogLevel.Information, 1);
+            _logger.VerifyLog((state, t) => state.CheckValue("{OriginalFormat}", Messages.InfoSendReturnedNoException), LogLevel.Information, 1);
 
             _logger.VerifyLog((state, t) =>
             state.CheckValue<IRequest>("request", (a) => a.Resource == null && a.HttpRequestMethod == HttpRequestMethod.Get) &&
-            state.CheckValue(Messages.InfoAttemptingToSend, "{OriginalFormat}")
+            state.CheckValue("{OriginalFormat}", Messages.InfoAttemptingToSend)
             , LogLevel.Trace, 1);
 
             _logger.VerifyLog((state, t) =>
-            state.CheckValue(Messages.TraceResponseProcessed, "{OriginalFormat}") &&
+            state.CheckValue("{OriginalFormat}", Messages.TraceResponseProcessed) &&
             state.CheckValue<Response>("response", (a) => a.RequestUri == RestCountriesAllUri && a.StatusCode == 200)
             , LogLevel.Trace, 1);
 #endif
@@ -480,15 +490,24 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestDelete()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(),
+            using var client = new Client(new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
                 logger: _logger.Object,
                 createHttpClient: _createHttpClient
                 );
-            var response = await client.DeleteAsync(JsonPlaceholderFirstPostSlug);
+            var response = await client.DeleteAsync(JsonPlaceholderFirstPostSlug).ConfigureAwait(false);
 
-            //VerifyLog(_logger, JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Request, null, null);
-            //VerifyLog(_logger, JsonPlaceholderFirstPostUri, HttpRequestMethod.Delete, TraceEvent.Response, (int)HttpStatusCode.OK, null);
+#if !NET45
+            _logger.VerifyLog((state, t) =>
+            state.CheckValue("{OriginalFormat}", Messages.TraceBeginSend) &&
+            state.CheckValue<IRequest>("request", (r) => r.HttpRequestMethod == HttpRequestMethod.Delete)
+            , LogLevel.Trace, 1);
+
+            _logger.VerifyLog((state, t) =>
+            state.CheckValue("{OriginalFormat}", Messages.TraceResponseProcessed) &&
+            state.CheckValue<Response>("response", (r) => r.StatusCode == (int)HttpStatusCode.OK)
+            , LogLevel.Trace, 1);
+#endif
 
             //This doesn't work when actually contacting the server...
             Assert.AreEqual(JsonPlaceholderDeleteHeaders[SetCookieHeaderName], response.Headers[SetCookieHeaderName].First());
@@ -497,12 +516,12 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetRestCountriesAsJson()
         {
-            var client = new Client(
+            using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 null,
                 RestCountriesAustraliaUri,
                 createHttpClient: _createHttpClient);
-            var json = await client.GetAsync<string>();
+            var json = await client.GetAsync<string>().ConfigureAwait(false);
             var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).FirstOrDefault();
             Assert.AreEqual("Australia", country.name);
         }
@@ -510,8 +529,8 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetRestCountriesNoBaseUri()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
-            List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUri);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
+            List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUri).ConfigureAwait(false);
             var country = countries.FirstOrDefault();
             Assert.AreEqual("Australia", country.name);
         }
@@ -521,8 +540,8 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
-                List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUriString);
+                using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
+                List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUriString).ConfigureAwait(false);
                 var country = countries.FirstOrDefault();
             }
             catch (UriFormatException ufe)
@@ -540,16 +559,16 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: JsonPlaceholderBaseUri);
+                using var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: JsonPlaceholderBaseUri);
 
-                var tokenSource = new CancellationTokenSource();
+                using var tokenSource = new CancellationTokenSource();
                 var token = tokenSource.Token;
 
                 var task = client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative), cancellationToken: token);
 
                 tokenSource.Cancel();
 
-                _ = await task;
+                _ = await task.ConfigureAwait(false);
             }
             catch (OperationCanceledException)
             {
@@ -569,15 +588,21 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(
+                using var client = new Client(
                     new NewtonsoftSerializationAdapter(),
                     baseUri: JsonPlaceholderBaseUri,
-                    timeout: new TimeSpan(0, 0, 0, 0, 1));
+                    timeout: new TimeSpan(0, 0, 0, 0, 1),
+                    logger: _logger.Object);
 
-                _ = await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
+                _ = await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative)).ConfigureAwait(false);
             }
             catch (TaskCanceledException)
             {
+#if !NET45
+                _logger.VerifyLog<Client, TaskCanceledException>((state, t)
+                    => state.CheckValue("{OriginalFormat}", Messages.ErrorOnSend), LogLevel.Error, 1);
+#endif
+
                 //Success
                 return;
             }
@@ -600,51 +625,51 @@ namespace RestClient.Net.UnitTests
         [DataRow(HttpRequestMethod.Put)]
         public async Task TestUpdate(HttpRequestMethod httpRequestMethod)
         {
-            var client = new Client(
+            using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
                 createHttpClient: _createHttpClient,
                 logger: _logger.Object);
             client.SetJsonContentTypeHeader();
+            var responseUserPost = httpRequestMethod switch
+            {
+                HttpRequestMethod.Patch => await client.PatchAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative)).ConfigureAwait(false),
+                //TODO: Shouldn't expectedStatusCode = HttpStatusCode.Created
+                HttpRequestMethod.Post => await client.PostAsync<UserPost, UserPost>(_userRequestBody, "/posts").ConfigureAwait(false),
+                HttpRequestMethod.Put => await client.PutAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative)).ConfigureAwait(false),
+                HttpRequestMethod.Get => throw new NotImplementedException(),
+                HttpRequestMethod.Delete => throw new NotImplementedException(),
+                HttpRequestMethod.Custom => throw new NotImplementedException(),
+                _ => throw new NotImplementedException(),
+            };
+            Assert.AreEqual(_userRequestBody.userId, responseUserPost.Body?.userId);
+            Assert.AreEqual(_userRequestBody.title, responseUserPost.Body?.title);
+
+#if !NET45
             var expectedStatusCode = HttpStatusCode.OK;
 
-            UserPost responseUserPost;
-            switch (httpRequestMethod)
-            {
-                case HttpRequestMethod.Patch:
-                    responseUserPost = await client.PatchAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative));
-                    break;
-                case HttpRequestMethod.Post:
-                    responseUserPost = await client.PostAsync<UserPost, UserPost>(_userRequestBody, "/posts");
-                    expectedStatusCode = HttpStatusCode.Created;
-                    break;
-                case HttpRequestMethod.Put:
-                    responseUserPost = await client.PutAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative));
-                    break;
-                case HttpRequestMethod.Get:
-                case HttpRequestMethod.Delete:
-                case HttpRequestMethod.Custom:
-                default:
-                    throw new NotImplementedException();
-            }
+            _logger.VerifyLog((state, t) =>
+             state.CheckValue("{OriginalFormat}", Messages.TraceBeginSend) &&
+             state.CheckValue<IRequest>("request", (r) => r.HttpRequestMethod == httpRequestMethod)
+             , LogLevel.Trace, 1);
 
-            Assert.AreEqual(_userRequestBody.userId, responseUserPost.userId);
-            Assert.AreEqual(_userRequestBody.title, responseUserPost.title);
-
-            //VerifyLog(_logger, It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Request, null, null);
-            //VerifyLog(_logger, It.IsAny<Uri>(), httpRequestMethod, TraceEvent.Response, (int)expectedStatusCode, null);
+            _logger.VerifyLog((state, t) =>
+            state.CheckValue("{OriginalFormat}", Messages.TraceResponseProcessed) &&
+            state.CheckValue("response", (Func<Response, bool>)((r) => r.StatusCode == (int)expectedStatusCode))
+            , LogLevel.Trace, 1);
+#endif
         }
 
         [TestMethod]
         public async Task TestConsoleLogging()
         {
             //var logger = new ConsoleLogger();
-            var client = new Client(
+            using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
                 createHttpClient: _createHttpClient,
                 logger: consoleLoggerFactory.CreateLogger<Client>());
-            var response = await client.PostAsync<PostUserResponse, UserPost>(_userRequestBody, JsonPlaceholderPostsSlug);
+            var response = await client.PostAsync<PostUserResponse, UserPost>(_userRequestBody, JsonPlaceholderPostsSlug).ConfigureAwait(false);
             Assert.AreEqual(JsonPlaceholderPostHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
             Assert.AreEqual(JsonPlaceholderPostHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
             //JSON placeholder seems to return 101 no matter what Id is passed in...
@@ -655,8 +680,8 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetWithXmlSerialization()
         {
-            var client = new Client(new XmlSerializationAdapter(), baseUri: new Uri("http://www.geoplugin.net/xml.gp"));
-            var geoPlugin = await client.GetAsync<GeoPlugin>();
+            using var client = new Client(new XmlSerializationAdapter(), baseUri: new Uri("http://www.geoplugin.net/xml.gp"));
+            var geoPlugin = await client.GetAsync<GeoPlugin>().ConfigureAwait(false);
             Assert.IsNotNull(geoPlugin);
         }
         #endregion
@@ -674,8 +699,8 @@ namespace RestClient.Net.UnitTests
                 BillingAddress = new Address { Street = "Test St" }
             };
 
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-            var responsePerson = await client.PostAsync<Person, Person>(requestPerson, new Uri($"{LocalBaseUriString}/person"));
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            var responsePerson = await client.PostAsync<Person, Person>(requestPerson, new Uri($"{LocalBaseUriString}/person")).ConfigureAwait(false);
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.Body?.BillingAddress.Street);
         }
 
@@ -689,10 +714,10 @@ namespace RestClient.Net.UnitTests
                 BillingAddress = new Address { Street = "Test St" }
             };
 
-            var client = new Client(new ProtobufSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(new ProtobufSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             const string personKey = "123";
             client.DefaultRequestHeaders.Add("PersonKey", personKey);
-            Person responsePerson = await client.PutAsync<Person, Person>(requestPerson, new Uri($"{LocalBaseUriString}/person"));
+            Person responsePerson = await client.PutAsync<Person, Person>(requestPerson, new Uri($"{LocalBaseUriString}/person")).ConfigureAwait(false);
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
             Assert.AreEqual(personKey, responsePerson.PersonKey);
         }
@@ -704,18 +729,18 @@ namespace RestClient.Net.UnitTests
         [DataRow(false)]
         public async Task TestHeadersLocalGet(bool useDefault)
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             var headers = GetHeaders(useDefault, client);
-            Person responsePerson = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative), headers);
+            Person responsePerson = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative), headers).ConfigureAwait(false);
             Assert.IsNotNull(responsePerson);
         }
 
         [TestMethod]
         public async Task TestHeadersResponseLocalGet()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             client.DefaultRequestHeaders.Add("Test", "Test");
-            var response = await client.GetAsync<Person>("headers");
+            var response = await client.GetAsync<Person>("headers").ConfigureAwait(false);
 
             Assert.IsTrue(response.Headers.Contains("Test1"));
             Assert.IsTrue(response.Headers.Contains("Test2"));
@@ -738,12 +763,21 @@ namespace RestClient.Net.UnitTests
         [DataRow(false)]
         public async Task TestHeadersTraceLocalGet(bool useDefault)
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), null, null, logger: _logger.Object, createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), null, null, logger: _logger.Object, createHttpClient: _testServerHttpClientFactory.CreateClient);
             var headers = GetHeaders(useDefault, client);
-            var response = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative), requestHeaders: headers);
+            var response = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative), requestHeaders: headers).ConfigureAwait(false);
 
-            //VerifyLog(_logger, It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Request, null, null, CheckRequestHeaders);
-            //VerifyLog(_logger, It.IsAny<Uri>(), HttpRequestMethod.Get, TraceEvent.Response, (int)HttpStatusCode.OK, null, CheckResponseHeaders);
+#if !NET45
+            _logger.VerifyLog((state, t) =>
+            state.CheckValue<IRequest>("request", (request) => request.Headers != null && CheckRequestHeaders(request.Headers)) &&
+            state.CheckValue("{OriginalFormat}", Messages.InfoAttemptingToSend)
+            , LogLevel.Trace, 1);
+
+            _logger.VerifyLog((state, t) =>
+            state.CheckValue<Response>("response", (response) => response.Headers != null && CheckResponseHeaders(response.Headers)) &&
+            state.CheckValue("{OriginalFormat}", Messages.TraceResponseProcessed)
+            , LogLevel.Trace, 1);
+#endif
         }
 
         [TestMethod]
@@ -751,14 +785,14 @@ namespace RestClient.Net.UnitTests
         [DataRow(false)]
         public async Task TestHeadersLocalPost(bool useDefault)
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             client.SetJsonContentTypeHeader();
             var headers = GetHeaders(useDefault, client);
             var responsePerson = await client.PostAsync<Person, Person>(
                 new Person { FirstName = "Bob" },
                 new Uri("headers", UriKind.Relative),
                 requestHeaders: headers
-                );
+                ).ConfigureAwait(false);
             Assert.IsNotNull(responsePerson);
         }
 
@@ -767,12 +801,12 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+                using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
 
                 //The server expects the value of "Test"
                 client.DefaultRequestHeaders.Add("Test", "Tests");
 
-                var responsePerson = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative));
+                var responsePerson = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
                 Assert.Fail();
             }
             catch (HttpStatusException hex)
@@ -791,13 +825,13 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+                using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
 
                 //The server expects the value of "Test"
                 client.SetJsonContentTypeHeader();
                 client.DefaultRequestHeaders.Add("Test", "Tests");
 
-                var responsePerson = await client.PostAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative));
+                var responsePerson = await client.PostAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
                 Assert.Fail();
             }
             catch (HttpStatusException hex)
@@ -816,24 +850,24 @@ namespace RestClient.Net.UnitTests
         [DataRow(false)]
         public async Task TestHeadersLocalPut(bool useDefault)
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             client.SetJsonContentTypeHeader();
             var headers = GetHeaders(useDefault, client);
             var responsePerson = await client.PutAsync<Person, Person>(
                 new Person { FirstName = "Bob" },
                 new Uri("headers", UriKind.Relative),
                 requestHeaders: headers
-                );
+                ).ConfigureAwait(false);
             Assert.IsNotNull(responsePerson);
         }
 
         [TestMethod]
         public async Task TestHeadersLocalPutStringOverload()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             client.SetJsonContentTypeHeader();
             client.DefaultRequestHeaders.Add("Test", "Test");
-            var responsePerson = await client.PutAsync<Person, Person>(new Person { FirstName = "Bob" }, "headers");
+            var responsePerson = await client.PutAsync<Person, Person>(new Person { FirstName = "Bob" }, "headers").ConfigureAwait(false);
             Assert.IsNotNull(responsePerson);
         }
 
@@ -842,13 +876,13 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+                using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
 
                 //The server expects the value of "Test"
                 client.SetJsonContentTypeHeader();
                 client.DefaultRequestHeaders.Add("Test", "Tests");
 
-                var responsePerson = await client.PutAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative));
+                var responsePerson = await client.PutAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
                 Assert.Fail();
             }
             catch (HttpStatusException hex)
@@ -867,14 +901,14 @@ namespace RestClient.Net.UnitTests
         [DataRow(false)]
         public async Task TestHeadersLocalPatch(bool useDefault)
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             client.SetJsonContentTypeHeader();
             var headers = GetHeaders(useDefault, client);
             var responsePerson = await client.PatchAsync<Person, Person>(
                 new Person { FirstName = "Bob" },
                 new Uri("headers", UriKind.Relative),
                 requestHeaders: headers
-                );
+                ).ConfigureAwait(false);
             Assert.IsNotNull(responsePerson);
         }
 
@@ -883,13 +917,13 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+                using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
 
                 //The server expects the value of "Test"
                 client.SetJsonContentTypeHeader();
                 client.DefaultRequestHeaders.Add("Test", "Tests");
 
-                var responsePerson = await client.PatchAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative));
+                var responsePerson = await client.PatchAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
                 Assert.Fail();
             }
             catch (HttpStatusException hex)
@@ -909,9 +943,9 @@ namespace RestClient.Net.UnitTests
 
         public async Task TestHeadersLocalDelete(bool useDefault)
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             var headers = GetHeaders(useDefault, client);
-            _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative), headers);
+            _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative), headers).ConfigureAwait(false);
         }
 
         [TestMethod]
@@ -919,8 +953,8 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-                _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative));
+                using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+                _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative)).ConfigureAwait(false);
                 Assert.Fail();
             }
             catch (HttpStatusException hex)
@@ -939,7 +973,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHeadersLocalInRequest()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             var requestHeadersCollection = new RequestHeadersCollection
             {
                 { "Test", "Test" }
@@ -947,7 +981,7 @@ namespace RestClient.Net.UnitTests
             Person responsePerson = await client.SendAsync<Person, object>
                 (
                 new Request(new Uri("headers", UriKind.Relative), null, requestHeadersCollection, HttpRequestMethod.Get, client, default)
-                ); ;
+                ).ConfigureAwait(false); ;
             Assert.IsNotNull(responsePerson);
         }
         #endregion
@@ -956,11 +990,13 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestErrorsLocalGet()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient)
-            {
-                ThrowExceptionOnFailure = false
-            };
-            var response = await client.GetAsync<Person>("error");
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                throwExceptionOnFailure: false
+                );
+
+            var response = await client.GetAsync<Person>("error").ConfigureAwait(false);
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             var apiResult = client.DeserializeResponseBody<ApiResult>(response.GetResponseData(), response.Headers);
             Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
@@ -973,21 +1009,15 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestErrorsLocalGetThrowException()
         {
-            var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
 
             try
             {
-                var response = await restClient.GetAsync<Person>("error");
+                var response = await restClient.GetAsync<Person>("error").ConfigureAwait(false);
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             }
             catch (HttpStatusException hex)
             {
-                if (restClient == null)
-                {
-                    Assert.Fail();
-                    return;
-                }
-
                 var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
                 return;
@@ -1001,36 +1031,35 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBearerTokenAuthenticationLocal()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient, defaultRequestHeaders: MiscExtensions.SetBearerTokenAuthenticationHeader(response.Body.BearerToken));
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             client.SetJsonContentTypeHeader();
             var response = await client.PostAsync<AuthenticationResult, AuthenticationRequest>(
                 new AuthenticationRequest { ClientId = "a", ClientSecret = "b" },
                 new Uri("secure/authenticate", UriKind.Relative)
-                );
+                ).ConfigureAwait(false);
 
-            client.SetBearerTokenAuthenticationHeader(response.Body?.BearerToken);
+            var bearerToken = response.Body?.BearerToken;
 
-            Person person = await client.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative));
+            if (bearerToken == null) throw new InvalidOperationException("No bearer token");
+
+            client.SetBearerTokenAuthenticationHeader(bearerToken);
+
+            Person person = await client.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative)).ConfigureAwait(false);
             Assert.AreEqual("Bear", person.FirstName);
         }
 
         [TestMethod]
         public async Task TestBasicAuthenticationLocalWithError()
         {
-            var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+
             try
             {
                 restClient.SetBasicAuthenticationHeader("Bob", "WrongPassword");
-                Person person = await restClient.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative));
+                Person person = await restClient.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative)).ConfigureAwait(false);
             }
             catch (HttpStatusException hex)
             {
-                if (restClient == null)
-                {
-                    Assert.Fail();
-                    return;
-                }
-
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
                 var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
@@ -1042,29 +1071,23 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationLocal()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             client.SetBasicAuthenticationHeader("Bob", "ANicePassword");
-            Person person = await client.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative));
+            Person person = await client.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative)).ConfigureAwait(false);
             Assert.AreEqual("Sam", person.FirstName);
         }
 
         [TestMethod]
         public async Task TestBearerTokenAuthenticationLocalWithError()
         {
-            var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             try
             {
                 restClient.SetBearerTokenAuthenticationHeader("321");
-                Person person = await restClient.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative));
+                Person person = await restClient.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative)).ConfigureAwait(false);
             }
             catch (HttpStatusException hex)
             {
-                if (restClient == null)
-                {
-                    Assert.Fail();
-                    return;
-                }
-
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
                 var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
@@ -1076,24 +1099,23 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationPostLocal()
         {
-            var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             client.SetBasicAuthenticationHeader("Bob", "ANicePassword");
             client.SetJsonContentTypeHeader();
-            Person person = await client.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new Uri("secure/basic", UriKind.Relative));
+            Person person = await client.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new Uri("secure/basic", UriKind.Relative)).ConfigureAwait(false);
             Assert.AreEqual("Sam", person.FirstName);
         }
 
         [TestMethod]
         public async Task TestBasicAuthenticationPostLocalWithError()
         {
-            var restClient = new Client(new NewtonsoftSerializationAdapter());
+            using var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
 
             try
             {
-                restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
                 restClient.SetBasicAuthenticationHeader("Bob", "WrongPassword");
                 restClient.SetJsonContentTypeHeader();
-                Person person = await restClient.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new Uri("secure/basic", UriKind.Relative));
+                Person person = await restClient.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new Uri("secure/basic", UriKind.Relative)).ConfigureAwait(false);
             }
             catch (HttpStatusException ex)
             {
@@ -1113,7 +1135,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalGetNoArgs()
         {
             var client = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
-            jsonperson responsePerson = await client.GetAsync<jsonperson>();
+            jsonperson responsePerson = await client.GetAsync<jsonperson>().ConfigureAwait(false);
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
@@ -1122,7 +1144,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalGetStringUri()
         {
             var client = GetJsonClient();
-            jsonperson responsePerson = await client.GetAsync<jsonperson>("JsonPerson");
+            jsonperson responsePerson = await client.GetAsync<jsonperson>("JsonPerson").ConfigureAwait(false);
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
@@ -1131,7 +1153,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalGetUri()
         {
             var client = GetJsonClient();
-            jsonperson responsePerson = await client.GetAsync<jsonperson>(new Uri("JsonPerson", UriKind.Relative));
+            jsonperson responsePerson = await client.GetAsync<jsonperson>(new Uri("JsonPerson", UriKind.Relative)).ConfigureAwait(false);
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
@@ -1140,7 +1162,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalGetUriCancellationToken()
         {
             var client = GetJsonClient();
-            jsonperson responsePerson = await client.GetAsync<jsonperson>(new Uri("JsonPerson", UriKind.Relative), cancellationToken: new CancellationToken());
+            jsonperson responsePerson = await client.GetAsync<jsonperson>(new Uri("JsonPerson", UriKind.Relative), cancellationToken: new CancellationToken()).ConfigureAwait(false);
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
@@ -1151,7 +1173,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalDeleteStringUri()
         {
             var client = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
-            var response = await client.DeleteAsync("?personKey=abc");
+            var response = await client.DeleteAsync("?personKey=abc").ConfigureAwait(false);
             Assert.AreEqual(200, response.StatusCode);
         }
 
@@ -1159,7 +1181,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalDeleteUri()
         {
             var client = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
-            var response = await client.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative));
+            var response = await client.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative)).ConfigureAwait(false);
             Assert.AreEqual(200, response.StatusCode);
         }
 
@@ -1167,7 +1189,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalDeleteUriCancellationToken()
         {
             var client = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson"));
-            var response = await client.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative), cancellationToken: new CancellationToken());
+            var response = await client.DeleteAsync(new Uri("?personKey=abc", UriKind.Relative), cancellationToken: new CancellationToken()).ConfigureAwait(false);
             Assert.AreEqual(200, response.StatusCode);
 
             //TODO: Verify the log
@@ -1180,7 +1202,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient(new Uri($"{LocalBaseUriString}/JsonPerson/save"));
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson);
+            jsonperson responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson).ConfigureAwait(false);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 
@@ -1189,7 +1211,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson, "jsonperson/save");
+            jsonperson responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson, "jsonperson/save").ConfigureAwait(false);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 
@@ -1198,7 +1220,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative));
+            jsonperson responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative)).ConfigureAwait(false);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 
@@ -1207,7 +1229,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), null, new CancellationToken());
+            jsonperson responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), null, new CancellationToken()).ConfigureAwait(false);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
         #endregion
@@ -1218,7 +1240,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient(new Uri($"{LocalBaseUriString}/jsonperson/save"));
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestBody: requestPerson);
+            jsonperson responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestBody: requestPerson).ConfigureAwait(false);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 
@@ -1227,7 +1249,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestPerson, "jsonperson/save");
+            jsonperson responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestPerson, "jsonperson/save").ConfigureAwait(false);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 
@@ -1236,7 +1258,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative));
+            jsonperson responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative)).ConfigureAwait(false);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 
@@ -1245,7 +1267,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), cancellationToken: new CancellationToken());
+            jsonperson responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), cancellationToken: new CancellationToken()).ConfigureAwait(false);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
         #endregion
@@ -1256,7 +1278,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient(new Uri($"{LocalBaseUriString}/jsonperson/save"));
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson);
+            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson).ConfigureAwait(false);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 
@@ -1265,7 +1287,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, "jsonperson/save");
+            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, "jsonperson/save").ConfigureAwait(false);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 
@@ -1274,7 +1296,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative));
+            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative)).ConfigureAwait(false);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 
@@ -1283,7 +1305,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), cancellationToken: new CancellationToken());
+            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), cancellationToken: new CancellationToken()).ConfigureAwait(false);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 
@@ -1292,7 +1314,7 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), cancellationToken: new CancellationToken());
+            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, new Uri("jsonperson/save", UriKind.Relative), cancellationToken: new CancellationToken()).ConfigureAwait(false);
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
         #endregion
@@ -1310,6 +1332,8 @@ namespace RestClient.Net.UnitTests
         {
             var clientMock = new Mock<IClient>();
             var headersMock = new Mock<IHeadersCollection>();
+            using var httpResponseMessage = new HttpResponseMessage();
+            using var httpClient = new HttpClient();
             var response = new HttpResponseMessageResponse<string>(
                 headersMock.Object,
                 10,
@@ -1317,45 +1341,46 @@ namespace RestClient.Net.UnitTests
                 //Shouldn't this be filled in?
                 new byte[0],
                 "test",
-                new HttpResponseMessage(),
-                new HttpClient());
+                httpResponseMessage,
+                httpClient);
 
             _ = clientMock.Setup(c => c.SendAsync<string>(It.IsAny<IRequest>())).Returns
                 (
                 Task.FromResult<Response<string>>(response)
                 );
 
-            var returnedResponse = await clientMock.Object.SendAsync<string>(new Mock<IRequest>().Object);
+            var returnedResponse = await clientMock.Object.SendAsync<string>(new Mock<IRequest>().Object).ConfigureAwait(false);
 
             Assert.IsTrue(ReferenceEquals(response, returnedResponse));
         }
 
-        /*
         [TestMethod]
         public async Task TestErrorLogging()
         {
             try
             {
-                var client = new Client(new NewtonsoftSerializationAdapter(), logger: _logger.Object);
+                using var client = new Client(new NewtonsoftSerializationAdapter(), logger: _logger.Object);
                 var requestPerson = new Person();
-                Person responsePerson = await client.PostAsync<Person, Person>(requestPerson);
+                Person responsePerson = await client.PostAsync<Person, Person>(requestPerson).ConfigureAwait(false);
             }
             catch (SendException)
             {
-                _logger.Verify(l => l.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<Trace>(),
-                    It.Is<SendException>(e => e.InnerException != null), It.IsAny<Func<Trace, Exception, string>>()));
+#if !NET45
+                _logger.VerifyLog<Client, SendException>((state, t)
+                    => state.CheckValue("{OriginalFormat}", Messages.ErrorSendException), LogLevel.Error, 1);
+#endif
+
                 return;
             }
             Assert.Fail();
         }
-        */
 
         [TestMethod]
         public async Task TestFactoryCreationWithUri()
         {
             var clientFactory = new ClientFactory(_createHttpClient, new NewtonsoftSerializationAdapter());
             var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "test", RestCountriesAllUri);
-            var response = await client.GetAsync<List<RestCountry>>();
+            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
             Assert.IsTrue(response.Body?.Count > 0);
         }
 
@@ -1365,11 +1390,11 @@ namespace RestClient.Net.UnitTests
             var clientFactory = new ClientFactory(_createHttpClient, new NewtonsoftSerializationAdapter());
 
             var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "1", RestCountriesAllUri);
-            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
             var firstClient = response.HttpClient;
 
             client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "2", RestCountriesAllUri);
-            response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
             var secondClient = response.HttpClient;
 
             Assert.IsFalse(ReferenceEquals(firstClient, secondClient));
@@ -1378,14 +1403,14 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHttpClientFactoryDoesntUseSameHttpClient()
         {
-            var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
-            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
-            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            using var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
+            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
             var firstClient = response.HttpClient;
 
-            client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
-            response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            using var client2 = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
+            response = (HttpResponseMessageResponse<List<RestCountry>>)await client2.GetAsync<List<RestCountry>>().ConfigureAwait(false);
             var secondClient = response.HttpClient;
 
             Assert.IsFalse(ReferenceEquals(firstClient, secondClient));
@@ -1397,7 +1422,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestClientFactoryReusesClient()
         {
-            var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
             var clientFactory = new ClientFactory(defaultHttpClientFactory.CreateClient, new NewtonsoftSerializationAdapter());
 
@@ -1411,13 +1436,13 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHttpClientFactoryReusesHttpClient()
         {
-            var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
-            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
-            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            using var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
+            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
             var firstClient = response.HttpClient;
 
-            response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
             var secondClient = response.HttpClient;
 
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
@@ -1426,14 +1451,14 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHttpClientFactoryReusesHttpClientWhenSameName()
         {
-            var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
-            var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient, name: "Test");
-            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            using var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient, name: "Test");
+            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
             var firstClient = response.HttpClient;
 
-            client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient, name: "Test");
-            response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>();
+            using var client2 = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient, name: "Test");
+            response = (HttpResponseMessageResponse<List<RestCountry>>)await client2.GetAsync<List<RestCountry>>().ConfigureAwait(false);
             var secondClient = response.HttpClient;
 
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
@@ -1462,7 +1487,7 @@ namespace RestClient.Net.UnitTests
             const string expectedUriString = "http://www.test.com/test/test";
             var expectedUri = new Uri(expectedUriString);
 
-            var mockHttpMessageHandler = new MockHttpMessageHandler();
+            using var mockHttpMessageHandler = new MockHttpMessageHandler();
             _ = mockHttpMessageHandler.When(expectedUriString)
             .Respond(MiscExtensions.JsonMediaType, "Hi");
 
@@ -1471,13 +1496,16 @@ namespace RestClient.Net.UnitTests
             var baseUri = new Uri("http://www.test.com/test", UriKind.Absolute);
             var resource = new Uri("test", UriKind.Relative);
 
-            var client = new Client(baseUri: baseUri, createHttpClient: (n) => httpClient);
+            using var client = new Client(baseUri: baseUri, createHttpClient: (n) => httpClient);
 
             //Act
-            var response = await client.GetAsync<string>(resource);
+            var response = await client.GetAsync<string>(resource).ConfigureAwait(false);
+
+            var requestUri = response?.RequestUri;
+            if (requestUri == null) throw new InvalidOperationException("No uri");
 
             //Assert
-            Assert.AreEqual<Uri>(expectedUri, response.RequestUri);
+            Assert.AreEqual(expectedUri, requestUri);
         }
 #endif
 
@@ -1489,20 +1517,17 @@ namespace RestClient.Net.UnitTests
 #if !NET45
         //TODO: Point a test at these on .NET 4.5
 
-        private static void GetHttpClientMoq<TResponse>(out Mock<HttpMessageHandler> handlerMock, out HttpClient httpClient, TResponse response)
+        private static void GetHttpClientMoq(out Mock<HttpMessageHandler> handlerMock, out HttpClient httpClient, HttpResponseMessage value)
         {
             handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+
             handlerMock
             .Protected()
             .Setup<Task<HttpResponseMessage>>(
             "SendAsync",
             ItExpr.IsAny<HttpRequestMessage>(),
             ItExpr.IsAny<CancellationToken>())
-            .ReturnsAsync(new HttpResponseMessage()
-            {
-                StatusCode = HttpStatusCode.OK,
-                Content = new StringContent(JsonConvert.SerializeObject(response)),
-            })
+            .ReturnsAsync(value)
             .Verifiable();
 
             httpClient = new HttpClient(handlerMock.Object);
@@ -1513,7 +1538,6 @@ namespace RestClient.Net.UnitTests
             if (hasDefaultJsonContentHeader)
             {
                 KeyValuePair<string, IEnumerable<string>>? contentTypeHeader = httpRequestMessage.Content.Headers.FirstOrDefault(k => k.Key == MiscExtensions.ContentTypeHeaderName);
-                if (contentTypeHeader == null) return false;
                 if (contentTypeHeader.Value.Value.FirstOrDefault() != MiscExtensions.JsonMediaType) return false;
             }
 
@@ -1522,10 +1546,6 @@ namespace RestClient.Net.UnitTests
                 foreach (var expectedHeader in expectedHeaders)
                 {
                     KeyValuePair<string, IEnumerable<string>>? foundKeyValuePair = httpRequestMessage.Headers.FirstOrDefault(k => k.Key == expectedHeader.Key);
-                    if (foundKeyValuePair == null)
-                    {
-                        return false;
-                    }
 
                     var foundHeaderStrings = foundKeyValuePair.Value.Value.ToList();
 
@@ -1549,9 +1569,11 @@ namespace RestClient.Net.UnitTests
 
         public static async Task AssertThrowsAsync<T>(Task task, string expectedMessage) where T : Exception
         {
+            if (task == null) throw new ArgumentNullException(nameof(task));
+
             try
             {
-                await task;
+                await task.ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -1595,7 +1617,7 @@ namespace RestClient.Net.UnitTests
 #pragma warning restore IDE0022 // Use expression body for methods
         }
 
-        private IClient GetJsonClient(Uri? baseUri = null)
+        private static IClient GetJsonClient(Uri? baseUri = null)
         {
             IClient restClient;
 
@@ -1615,7 +1637,13 @@ namespace RestClient.Net.UnitTests
 
             return restClient;
         }
+
+#if !NET45
+        private static bool CheckRequestHeaders(IHeadersCollection requestHeadersCollection) =>
+            requestHeadersCollection.Contains("Test") && requestHeadersCollection["Test"].First() == "Test";
+
+        private static bool CheckResponseHeaders(IHeadersCollection responseHeadersCollection) => responseHeadersCollection.Contains("Test1") && responseHeadersCollection["Test1"].First() == "a";
+#endif
         #endregion
     }
-
 }

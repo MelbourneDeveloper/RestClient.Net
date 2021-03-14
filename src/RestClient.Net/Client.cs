@@ -25,30 +25,30 @@ namespace RestClient.Net
         /// </summary>
         private readonly ILogger _logger;
 
-        private static readonly List<HttpRequestMethod> _updateHttpRequestMethods = new List<HttpRequestMethod>
+        private static readonly List<HttpRequestMethod> _updateHttpRequestMethods = new()
         {
             HttpRequestMethod.Put,
             HttpRequestMethod.Post,
             HttpRequestMethod.Patch
         };
 
-        private readonly SendHttpRequestMessage _sendHttpRequestFunc;
+        private readonly SendHttpRequestMessage sendHttpRequestFunc;
 
         /// <summary>
         /// Delegate used for getting or creating HttpClient instances when the SendAsync call is made
         /// </summary>
-        private readonly CreateHttpClient _createHttpClient;
+        private readonly CreateHttpClient createHttpClient;
 
         /// <summary>
         /// The http client created by the default factory delegate
         /// TODO: We really shouldn't hang on to this....
         /// </summary>
-        private readonly HttpClient? _httpClient;
+        private readonly HttpClient? httpClient;
 
         /// <summary>
         /// Gets the delegate responsible for converting rest requests to http requests
         /// </summary>
-        private readonly GetHttpRequestMessage _getHttpRequestMessage;
+        private readonly GetHttpRequestMessage getHttpRequestMessage;
         #endregion
 
         #region Public Properties
@@ -76,7 +76,7 @@ namespace RestClient.Net
         /// <summary>
         /// Specifies whether or not the client will throw an exception when non-successful status codes are returned in the http response. The default is true
         /// </summary>
-        public bool ThrowExceptionOnFailure { get; set; } = true;
+        public bool ThrowExceptionOnFailure { get; } = true;
 
         /// <summary>
         /// Base Uri for the client. Any resources specified on requests will be relative to this.
@@ -108,7 +108,7 @@ namespace RestClient.Net
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error on SendAsync. {request}", request);
+                _logger.LogError(ex, Messages.ErrorOnSend, request);
 
                 throw;
             }
@@ -131,6 +131,7 @@ namespace RestClient.Net
         /// <param name="createHttpClient">The delegate that is used for getting or creating HttpClient instances when the SendAsync call is made</param>
         /// <param name="sendHttpRequestFunc">The Func responsible for performing the SendAsync method on HttpClient. This can replaced in the constructor in order to implement retries and so on.</param>
         /// <param name="getHttpRequestMessage">Delegate responsible for converting rest requests to http requests</param>
+        /// <param name="throwExceptionOnFailure">Whether or not to throw an exception on non-successful http calls</param>
         public Client(
 #if NET45
            ISerializationAdapter serializationAdapter,
@@ -140,11 +141,7 @@ namespace RestClient.Net
             string? name = null,
             Uri? baseUri = null,
             IHeadersCollection? defaultRequestHeaders = null,
-#if NET45
-            ILogger? logger = null,
-#else
             ILogger<Client>? logger = null,
-#endif
             CreateHttpClient? createHttpClient = null,
             SendHttpRequestMessage? sendHttpRequestFunc = null,
             GetHttpRequestMessage? getHttpRequestMessage = null,
@@ -159,7 +156,8 @@ namespace RestClient.Net
 #else
             if (serializationAdapter == null)
             {
-                SerializationAdapter = new JsonSerializationAdapter();
+                //Use a shared instance for serialization. There should be no reason that this is not thread safe. Unless it's not.
+                SerializationAdapter = JsonSerializationAdapter.Instance;
                 this.SetJsonContentTypeHeader();
             }
             else
@@ -167,11 +165,8 @@ namespace RestClient.Net
                 SerializationAdapter = serializationAdapter;
             }
 #endif
-            _logger =
-#if !NET45
-                (ILogger?)
-#endif
-                logger ?? NullLogger.Instance;
+
+            _logger = (ILogger?)logger ?? NullLogger.Instance;
 
             if (baseUri != null && !baseUri.ToString().EndsWith("/", StringComparison.OrdinalIgnoreCase))
             {
@@ -182,19 +177,19 @@ namespace RestClient.Net
 
             Name = name ?? Guid.NewGuid().ToString();
 
-            _getHttpRequestMessage = getHttpRequestMessage ?? DefaultGetHttpRequestMessage;
+            this.getHttpRequestMessage = getHttpRequestMessage ?? DefaultGetHttpRequestMessage;
 
             if (createHttpClient == null)
             {
-                _httpClient = new HttpClient();
-                _createHttpClient = n => _httpClient;
+                httpClient = new HttpClient();
+                this.createHttpClient = n => httpClient;
             }
             else
             {
-                _createHttpClient = createHttpClient;
+                this.createHttpClient = createHttpClient;
             }
 
-            _sendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
+            this.sendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
 
             Timeout = timeout;
             Zip = zip;
@@ -214,9 +209,9 @@ namespace RestClient.Net
 
             try
             {
-                _logger.LogTrace("Begin send {request} Event: {event}", request, TraceEvent.Request);
+                _logger.LogTrace(Messages.TraceBeginSend, request, TraceEvent.Request);
 
-                httpClient = _createHttpClient(Name);
+                httpClient = createHttpClient(Name);
 
                 _logger.LogTrace("Got HttpClient null: {httpClientNull}", httpClient == null);
 
@@ -233,15 +228,15 @@ namespace RestClient.Net
 
                 _logger.LogTrace(IsUpdate(request.HttpRequestMethod) ? "Request body serialized {bodyData}" : "No request body to serialize", new object[] { request.BodyData ?? new byte[0] });
 
-                httpResponseMessage = await _sendHttpRequestFunc(
+                httpResponseMessage = await sendHttpRequestFunc(
                     httpClient,
-                    _getHttpRequestMessage,
+                    getHttpRequestMessage,
                     request
                     ).ConfigureAwait(false);
             }
             catch (TaskCanceledException tce)
             {
-                _logger.LogError(tce, "TaskCanceledException {request}", request);
+                _logger.LogError(tce, Messages.ErrorTaskCancelled, request);
                 throw;
             }
             catch (OperationCanceledException oce)
@@ -251,8 +246,8 @@ namespace RestClient.Net
             }
             catch (Exception ex)
             {
-                var exception = new SendException("HttpClient Send Exception", request, ex);
-                _logger.LogError(ex, "SendException", request);
+                var exception = new SendException(Messages.ErrorSendException, request, ex);
+                _logger.LogError(exception, Messages.ErrorSendException, request);
                 throw exception;
             }
 
@@ -323,7 +318,7 @@ namespace RestClient.Net
             return httpResponseMessageResponse;
         }
 
-        public void Dispose() => _httpClient?.Dispose();
+        public void Dispose() => httpClient?.Dispose();
         #endregion
 
         #region Private Methods

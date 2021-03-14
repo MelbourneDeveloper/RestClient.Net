@@ -5,7 +5,7 @@ namespace Microsoft.Extensions.Logging.Abstractions
 {
     public class NullLogger : ILogger
     {
-        public static NullLogger Instance { get; } = new NullLogger();
+        public static NullLogger Instance { get; } = new();
 
         public IDisposable BeginScope(string messageFormat, params object[] args) => new DummyDisposable();
 

@@ -1,4 +1,5 @@
 ﻿using RestClient.Net.Abstractions;
+using System;
 
 namespace RestClient.Net.UnitTests
 {
@@ -6,6 +7,6 @@ namespace RestClient.Net.UnitTests
     {
         public IClient Client { get; }
 
-        public MockAspController(CreateClient clientFactory) => Client = clientFactory("test");
+        public MockAspController(CreateClient clientFactory) => Client = clientFactory != null ? clientFactory("test") : throw new ArgumentNullException(nameof(clientFactory));
     }
 }

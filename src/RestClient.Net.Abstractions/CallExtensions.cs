@@ -72,7 +72,7 @@ namespace RestClient.Net
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
-            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders);
+            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders ?? NullHeadersCollection.Instance);
 
             return SendAsync<TResponseBody, TRequestBody>(client,
                 new Request(
@@ -94,7 +94,7 @@ namespace RestClient.Net
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
-            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders);
+            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders ?? NullHeadersCollection.Instance);
 
             return SendAsync<TResponseBody, TRequestBody>(client,
                 new Request(
@@ -116,7 +116,7 @@ namespace RestClient.Net
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
-            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders);
+            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders ?? NullHeadersCollection.Instance);
 
             return SendAsync<TResponseBody, TRequestBody>(client,
                 new Request(

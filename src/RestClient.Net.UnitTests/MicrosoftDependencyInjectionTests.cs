@@ -50,12 +50,12 @@ namespace RestClient.Net.UnitTests
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
                 var client = serviceProvider.GetService<IClient>();
-                _ = await client.GetAsync<object>();
+                _ = await client.GetAsync<object>().ConfigureAwait(false);
                 _ = serviceCollection.Configure<string>((s) => { });
             }
             catch (SendException hse)
             {
-                Assert.AreEqual("Ouch", hse?.InnerException?.Message);
+                Assert.AreEqual("Ouch", hse.InnerException?.Message);
                 return;
             }
 
@@ -80,11 +80,11 @@ namespace RestClient.Net.UnitTests
                 var serviceProvider = serviceCollection.BuildServiceProvider();
                 var clientFactory = serviceProvider.GetService<CreateClient>();
                 var client = clientFactory(clientName);
-                _ = await client.GetAsync<object>();
+                _ = await client.GetAsync<object>().ConfigureAwait(false);
             }
             catch (SendException hse)
             {
-                Assert.AreEqual("Ouch", hse?.InnerException?.Message);
+                Assert.AreEqual("Ouch", hse.InnerException?.Message);
                 return;
             }
 
@@ -105,14 +105,14 @@ namespace RestClient.Net.UnitTests
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var mockAspController = serviceProvider.GetService<MockAspController>();
-            var response = await mockAspController.Client.GetAsync<List<RestCountry>>();
+            var response = await mockAspController.Client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
             Assert.AreEqual(250, response.Body?.Count);
         }
 
         [TestMethod]
         public void TestStructureMap()
         {
-            var container = new Container(c =>
+            using var container = new Container(c =>
             {
                 c.Scan(s =>
                 {

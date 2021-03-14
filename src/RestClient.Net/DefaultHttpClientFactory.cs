@@ -9,8 +9,8 @@ namespace RestClient.Net
     {
         #region Fields
         private bool disposed;
-        private readonly ConcurrentDictionary<string, Lazy<HttpClient>> _httpClients;
-        private readonly Func<string, Lazy<HttpClient>> _createClientFunc;
+        private readonly ConcurrentDictionary<string, Lazy<HttpClient>> httpClients;
+        private readonly Func<string, Lazy<HttpClient>> createClientFunc;
         #endregion
 
         #region Constructor
@@ -20,23 +20,23 @@ namespace RestClient.Net
 
         public DefaultHttpClientFactory(Func<string, Lazy<HttpClient>>? createClientFunc)
         {
-            _httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();
+            httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();
 
-            _createClientFunc = createClientFunc ?? new Func<string, Lazy<HttpClient>>(name => new Lazy<HttpClient>(() => new HttpClient(), LazyThreadSafetyMode.ExecutionAndPublication));
+            this.createClientFunc = createClientFunc ?? new Func<string, Lazy<HttpClient>>(name => new Lazy<HttpClient>(() => new HttpClient(), LazyThreadSafetyMode.ExecutionAndPublication));
         }
         #endregion
 
         #region Implementation
-        public HttpClient CreateClient(string name) => name == null ? throw new ArgumentNullException(nameof(name)) : _httpClients.GetOrAdd(name, _createClientFunc).Value;
+        public HttpClient CreateClient(string name) => name == null ? throw new ArgumentNullException(nameof(name)) : httpClients.GetOrAdd(name, createClientFunc).Value;
 
         public void Dispose()
         {
             if (disposed) return;
             disposed = true;
 
-            foreach (var name in _httpClients.Keys)
+            foreach (var name in httpClients.Keys)
             {
-                _httpClients[name].Value.Dispose();
+                httpClients[name].Value.Dispose();
             }
         }
         #endregion

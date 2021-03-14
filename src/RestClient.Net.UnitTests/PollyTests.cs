@@ -28,12 +28,12 @@ namespace RestClient.Net.UnitTests
               .OrResult(response => response.StatusCode == HttpStatusCode.NotFound)
               .RetryAsync(3);
 
-            var client = new Client(
+            using var client = new Client(
                 new ProtobufSerializationAdapter(),
                 null,
-                new Uri(UnitTests.LocalBaseUriString),
+                new Uri(MainUnitTests.LocalBaseUriString),
                 logger: null,
-                createHttpClient: UnitTests.GetTestClientFactory().CreateClient,
+                createHttpClient: MainUnitTests.GetTestClientFactory().CreateClient,
                 sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, request) => policy.ExecuteAsync(() =>
                     {
                         var httpRequestMessage = httpRequestMessageFunc(request);
@@ -47,7 +47,7 @@ namespace RestClient.Net.UnitTests
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
 
             //Note the Uri here is deliberately incorrect. It will cause a 404 Not found response. This is to make sure that polly is working
-            person = await client.PostAsync<Person, Person>(person, new Uri("person2", UriKind.Relative));
+            person = await client.PostAsync<Person, Person>(person, new Uri("person2", UriKind.Relative)).ConfigureAwait(false);
             Assert.AreEqual("Bob", person.FirstName);
             Assert.AreEqual(3, tries);
 
@@ -83,7 +83,7 @@ namespace RestClient.Net.UnitTests
             var client = clientFactory("rc");
 
             //Make the call
-            var response = await client.GetAsync<List<RestCountry>>();
+            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
             //TODO: Implement this completely to ensure that the policy is being applied
         }

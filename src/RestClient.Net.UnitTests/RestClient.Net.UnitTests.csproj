@@ -4,8 +4,6 @@
     <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <RootNamespace>RestClient.Net.UnitTests</RootNamespace>
-    <LangVersion>8</LangVersion>  
-    <Nullable>enable</Nullable>  
   </PropertyGroup>
 
   <Choose>
@@ -22,11 +20,7 @@
   <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.1'">
     <Compile Remove="PollyTests.cs" />
     <Compile Remove="MicrosoftDependencyInjectionTests.cs" />
-   </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="JSON\Australia.json" />
-    <None Remove="JSON\RestCountries.json" />
+	<Compile Remove="LogCheckExtensions.cs" />
   </ItemGroup>
 
   <ItemGroup>
