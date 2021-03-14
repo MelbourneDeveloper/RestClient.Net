@@ -21,9 +21,14 @@ namespace RestClient.Net
     {
         #region Fields
         /// <summary>
+        /// Compresses and decompresses http requests 
+        /// </summary>
+        internal readonly IZip? zip;
+
+        /// <summary>
         /// Logging abstraction that will trace request/response data and log events
         /// </summary>
-        private readonly ILogger _logger;
+        internal ILogger logger;
 
         private static readonly List<HttpRequestMethod> _updateHttpRequestMethods = new()
         {
@@ -32,31 +37,26 @@ namespace RestClient.Net
             HttpRequestMethod.Patch
         };
 
-        private readonly SendHttpRequestMessage sendHttpRequestFunc;
+        internal readonly SendHttpRequestMessage sendHttpRequestFunc;
 
         /// <summary>
         /// Delegate used for getting or creating HttpClient instances when the SendAsync call is made
         /// </summary>
-        private readonly CreateHttpClient createHttpClient;
+        internal readonly CreateHttpClient createHttpClient;
 
         /// <summary>
         /// The http client created by the default factory delegate
         /// TODO: We really shouldn't hang on to this....
         /// </summary>
-        private readonly HttpClient? httpClient;
+        internal readonly HttpClient? httpClient;
 
         /// <summary>
         /// Gets the delegate responsible for converting rest requests to http requests
         /// </summary>
-        private readonly GetHttpRequestMessage getHttpRequestMessage;
+        internal readonly GetHttpRequestMessage getHttpRequestMessage;
         #endregion
 
         #region Public Properties
-
-        /// <summary>
-        /// Compresses and decompresses http requests 
-        /// </summary>
-        public IZip? Zip { get; }
 
         /// <summary>
         /// Default headers to be sent with http requests
@@ -98,17 +98,17 @@ namespace RestClient.Net
 
                 var httpRequestMessage = httpRequestMessageFunc(request);
 
-                _logger.LogTrace(Messages.InfoAttemptingToSend, request);
+                logger.LogTrace(Messages.InfoAttemptingToSend, request);
 
                 var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken).ConfigureAwait(false);
 
-                _logger.LogInformation(Messages.InfoSendReturnedNoException);
+                logger.LogInformation(Messages.InfoSendReturnedNoException);
 
                 return httpResponseMessage;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, Messages.ErrorOnSend, request);
+                logger.LogError(ex, Messages.ErrorOnSend, request);
 
                 throw;
             }
@@ -166,7 +166,7 @@ namespace RestClient.Net
             }
 #endif
 
-            _logger = (ILogger?)logger ?? NullLogger.Instance;
+            this.logger = (ILogger?)logger ?? NullLogger.Instance;
 
             if (baseUri != null && !baseUri.ToString().EndsWith("/", StringComparison.OrdinalIgnoreCase))
             {
@@ -192,7 +192,7 @@ namespace RestClient.Net
             this.sendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
 
             Timeout = timeout;
-            Zip = zip;
+            this.zip = zip;
             ThrowExceptionOnFailure = throwExceptionOnFailure;
         }
 
@@ -209,11 +209,11 @@ namespace RestClient.Net
 
             try
             {
-                _logger.LogTrace(Messages.TraceBeginSend, request, TraceEvent.Request);
+                logger.LogTrace(Messages.TraceBeginSend, request, TraceEvent.Request);
 
                 httpClient = createHttpClient(Name);
 
-                _logger.LogTrace("Got HttpClient null: {httpClientNull}", httpClient == null);
+                logger.LogTrace("Got HttpClient null: {httpClientNull}", httpClient == null);
 
                 if (httpClient == null) throw new InvalidOperationException("CreateHttpClient returned null");
 
@@ -222,11 +222,11 @@ namespace RestClient.Net
 
                 //TODO: DefaultRequestHeaders are not necessarily in sync here...
 
-                _logger.LogTrace("HttpClient configured. Request: {request} Adapter: {serializationAdapter}", request, SerializationAdapter);
+                logger.LogTrace("HttpClient configured. Request: {request} Adapter: {serializationAdapter}", request, SerializationAdapter);
 
                 if (request == null) throw new ArgumentNullException(nameof(request));
 
-                _logger.LogTrace(IsUpdate(request.HttpRequestMethod) ? "Request body serialized {bodyData}" : "No request body to serialize", new object[] { request.BodyData ?? new byte[0] });
+                logger.LogTrace(IsUpdate(request.HttpRequestMethod) ? "Request body serialized {bodyData}" : "No request body to serialize", new object[] { request.BodyData ?? new byte[0] });
 
                 httpResponseMessage = await sendHttpRequestFunc(
                     httpClient,
@@ -236,22 +236,22 @@ namespace RestClient.Net
             }
             catch (TaskCanceledException tce)
             {
-                _logger.LogError(tce, Messages.ErrorTaskCancelled, request);
+                logger.LogError(tce, Messages.ErrorTaskCancelled, request);
                 throw;
             }
             catch (OperationCanceledException oce)
             {
-                _logger.LogError(oce, "OperationCanceledException {request}", request);
+                logger.LogError(oce, "OperationCanceledException {request}", request);
                 throw;
             }
             catch (Exception ex)
             {
                 var exception = new SendException(Messages.ErrorSendException, request, ex);
-                _logger.LogError(exception, Messages.ErrorSendException, request);
+                logger.LogError(exception, Messages.ErrorSendException, request);
                 throw exception;
             }
 
-            _logger.LogTrace("Successful request/response {request}", request);
+            logger.LogTrace("Successful request/response {request}", request);
 
             return await ProcessResponseAsync<TResponseBody>(request, httpResponseMessage, httpClient).ConfigureAwait(false);
         }
@@ -260,7 +260,7 @@ namespace RestClient.Net
         {
             byte[]? responseData = null;
 
-            if (Zip != null)
+            if (zip != null)
             {
                 //This is for cases where an unzipping utility needs to be used to unzip the content. This is actually a bug in UWP
                 var gzipHeader = httpResponseMessage.Content.Headers.ContentEncoding.FirstOrDefault(h =>
@@ -268,7 +268,7 @@ namespace RestClient.Net
                 if (gzipHeader != null)
                 {
                     var bytes = await httpResponseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
-                    responseData = Zip.Unzip(bytes);
+                    responseData = zip.Unzip(bytes);
                 }
             }
 
@@ -313,7 +313,7 @@ namespace RestClient.Net
                         this);
             }
 
-            _logger.LogTrace(Messages.TraceResponseProcessed, httpResponseMessageResponse, TraceEvent.Response);
+            logger.LogTrace(Messages.TraceResponseProcessed, httpResponseMessageResponse, TraceEvent.Response);
 
             return httpResponseMessageResponse;
         }
@@ -330,7 +330,7 @@ namespace RestClient.Net
 
             try
             {
-                _logger.LogTrace("Converting Request to HttpRequestMethod... Event: {event} Request: {request}", TraceEvent.Information, request);
+                logger.LogTrace("Converting Request to HttpRequestMethod... Event: {event} Request: {request}", TraceEvent.Information, request);
 
                 var httpMethod = string.IsNullOrEmpty(request.CustomHttpRequestMethod)
                     ? request.HttpRequestMethod switch
@@ -356,11 +356,11 @@ namespace RestClient.Net
                 {
                     httpContent = new ByteArrayContent(request.BodyData);
                     httpRequestMessage.Content = httpContent;
-                    _logger.LogTrace("Request content was set. Length: {requestBodyLength}", request.BodyData.Length);
+                    logger.LogTrace("Request content was set. Length: {requestBodyLength}", request.BodyData.Length);
                 }
                 else
                 {
-                    _logger.LogTrace("No request content set up on HttpRequestMessage");
+                    logger.LogTrace("No request content set up on HttpRequestMessage");
                 }
 
                 if (request.Headers != null)
@@ -380,16 +380,16 @@ namespace RestClient.Net
                         }
                     }
 
-                    _logger.LogTrace("Headers added to request");
+                    logger.LogTrace("Headers added to request");
                 }
 
-                _logger.LogTrace("Successfully converted IRequest to HttpRequestMessage");
+                logger.LogTrace("Successfully converted IRequest to HttpRequestMessage");
 
                 return httpRequestMessage;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Exception on DefaultGetHttpRequestMessage Event: {event}", TraceEvent.Request);
+                logger.LogError(ex, "Exception on DefaultGetHttpRequestMessage Event: {event}", TraceEvent.Request);
 
                 throw;
             }

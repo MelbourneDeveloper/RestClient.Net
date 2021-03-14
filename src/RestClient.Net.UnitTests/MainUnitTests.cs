@@ -43,7 +43,7 @@ namespace RestClient.Net.UnitTests
 
     {
         #region Fields
-
+        private static readonly IHeadersCollection headersCollections = HeadersExtensions.SetJsonContentTypeHeader();
         private static readonly ILoggerFactory consoleLoggerFactory =
 #if NET45
             consoleLoggerFactory = NullLoggerFactory.Instance;
@@ -724,15 +724,27 @@ namespace RestClient.Net.UnitTests
         }
         #endregion
 
+
         #region Local Headers
         [TestMethod]
         [DataRow(true)]
         [DataRow(false)]
         public async Task TestHeadersLocalGet(bool useDefault)
         {
-            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-            var headers = GetHeaders(useDefault, client);
-            Person responsePerson = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative), headers).ConfigureAwait(false);
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: useDefault ?
+                headersCollections.CreateOrSetHeaderValue("Test", "Test")
+                : headersCollections
+                );
+
+            Person responsePerson = await client.GetAsync<Person>(new Uri(
+                "headers",
+                UriKind.Relative),
+                "Test".CreateHeadersCollection("Test")
+                ).ConfigureAwait(false);
+
             Assert.IsNotNull(responsePerson);
         }
 
@@ -767,9 +779,25 @@ namespace RestClient.Net.UnitTests
         [DataRow(false)]
         public async Task TestHeadersTraceLocalGet(bool useDefault)
         {
-            using var client = new Client(new NewtonsoftSerializationAdapter(), null, null, logger: _logger.Object, createHttpClient: _testServerHttpClientFactory.CreateClient);
-            var headers = GetHeaders(useDefault, client);
-            var response = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative), requestHeaders: headers).ConfigureAwait(false);
+            var headersCollections = HeadersExtensions.SetJsonContentTypeHeader();
+
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                null,
+                null,
+                logger: _logger.Object,
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: useDefault ?
+                headersCollections.CreateOrSetHeaderValue("Test", "Test")
+                : headersCollections
+
+                );
+
+            var response = await client.GetAsync<Person>(new Uri(
+                "headers",
+                UriKind.Relative),
+                requestHeaders: "Test"
+                .CreateHeadersCollection("Test")).ConfigureAwait(false);
 
 #if !NET45
             _logger.VerifyLog((state, t) =>
@@ -789,17 +817,22 @@ namespace RestClient.Net.UnitTests
         [DataRow(false)]
         public async Task TestHeadersLocalPost(bool useDefault)
         {
+            var headersCollections = HeadersExtensions.SetJsonContentTypeHeader();
+
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
-                defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader()
+                defaultRequestHeaders: useDefault ?
+                headersCollections.CreateOrSetHeaderValue("Test", "Test")
+                : headersCollections
                 );
-            var headers = GetHeaders(useDefault, client);
+
             var responsePerson = await client.PostAsync<Person, Person>(
                 new Person { FirstName = "Bob" },
                 new Uri("headers", UriKind.Relative),
-                requestHeaders: headers
+                requestHeaders: "Test".CreateHeadersCollection("Test")
                 ).ConfigureAwait(false);
+
             Assert.IsNotNull(responsePerson);
         }
 
@@ -861,14 +894,17 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
-                defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader());
+                defaultRequestHeaders: useDefault ?
+                headersCollections.CreateOrSetHeaderValue("Test", "Test")
+                : headersCollections
+                );
 
-            var headers = GetHeaders(useDefault, client);
             var responsePerson = await client.PutAsync<Person, Person>(
                 new Person { FirstName = "Bob" },
                 new Uri("headers", UriKind.Relative),
-                requestHeaders: headers
+                requestHeaders: "Test".CreateHeadersCollection("Test")
                 ).ConfigureAwait(false);
+
             Assert.IsNotNull(responsePerson);
         }
 
@@ -917,13 +953,14 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
-                defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader());
+                defaultRequestHeaders: useDefault ?
+                headersCollections.CreateOrSetHeaderValue("Test", "Test")
+                : headersCollections);
 
-            var headers = GetHeaders(useDefault, client);
             var responsePerson = await client.PatchAsync<Person, Person>(
                 new Person { FirstName = "Bob" },
                 new Uri("headers", UriKind.Relative),
-                requestHeaders: headers
+                requestHeaders: "Test".CreateHeadersCollection("Test")
                 ).ConfigureAwait(false);
             Assert.IsNotNull(responsePerson);
         }
@@ -958,9 +995,14 @@ namespace RestClient.Net.UnitTests
 
         public async Task TestHeadersLocalDelete(bool useDefault)
         {
-            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-            var headers = GetHeaders(useDefault, client);
-            _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative), headers).ConfigureAwait(false);
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: useDefault ?
+                headersCollections.CreateOrSetHeaderValue("Test", "Test")
+                : headersCollections);
+
+            _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative), "Test".CreateHeadersCollection("Test")).ConfigureAwait(false);
         }
 
         [TestMethod]
@@ -1109,6 +1151,7 @@ namespace RestClient.Net.UnitTests
                 new NewtonsoftSerializationAdapter(),
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.SetBearerTokenAuthenticationHeader("321"));
+
             try
             {
                 Person person = await restClient.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative)).ConfigureAwait(false);
@@ -1622,23 +1665,6 @@ namespace RestClient.Net.UnitTests
 
             Assert.Fail($"No exception thrown");
         }
-
-        private static IHeadersCollection GetHeaders(bool useDefault, Client client)
-        {
-            IHeadersCollection headers = NullHeadersCollection.Instance;
-            if (useDefault)
-            {
-                client.DefaultRequestHeaders.Add("Test", "Test");
-            }
-            else
-            {
-                headers = new HeadersCollection { new KeyValuePair<string, IEnumerable<string>>("Test", new List<string> { "Test" }) };
-            }
-
-            return headers;
-        }
-
-
 
         private static HttpClient MintClient()
         {
