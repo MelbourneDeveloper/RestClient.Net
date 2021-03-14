@@ -1105,10 +1105,12 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBearerTokenAuthenticationLocalWithError()
         {
-            using var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var restClient = new Client(
+                new NewtonsoftSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: HeadersExtensions.SetBearerTokenAuthenticationHeader("321"));
             try
             {
-                restClient.SetBearerTokenAuthenticationHeader("321");
                 Person person = await restClient.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative)).ConfigureAwait(false);
             }
             catch (HttpStatusException hex)
@@ -1126,9 +1128,11 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                createHttpClient: _testServerHttpClientFactory.CreateClient);
-            client.SetBasicAuthenticationHeader("Bob", "ANicePassword");
-            client.SetJsonContentTypeHeader();
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: HeadersExtensions
+                .SetJsonContentTypeHeader()
+                .SetBasicAuthenticationHeader("Bob", "ANicePassword"));
+
             Person person = await client.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new Uri("secure/basic", UriKind.Relative)).ConfigureAwait(false);
             Assert.AreEqual("Sam", person.FirstName);
         }

@@ -7,6 +7,7 @@ namespace RestClient.Net.Abstractions.Extensions
 {
     public static class HeadersExtensions
     {
+
         #region Internal Fields
 
         internal const string Authorization = "Authorization";
@@ -102,6 +103,9 @@ namespace RestClient.Net.Abstractions.Extensions
         /// </summary>
         public static IHeadersCollection SetBasicAuthenticationHeader(string userName, string password) => SetBasicAuthenticationHeader(null, userName, password);
 
+        public static IHeadersCollection SetBearerTokenAuthenticationHeader(string bearerToken)
+        => SetBearerTokenAuthenticationHeader(null, bearerToken);
+
         public static IHeadersCollection SetBearerTokenAuthenticationHeader(this IHeadersCollection? requestHeaders, string bearerToken)
             => CreateOrSetHeaderValue(requestHeaders, Authorization, "Bearer " + bearerToken);
 
@@ -110,6 +114,7 @@ namespace RestClient.Net.Abstractions.Extensions
 
         public static IHeadersCollection SetJsonContentTypeHeader(this IHeadersCollection? requestHeaders)
         => CreateOrSetHeaderValue(requestHeaders, ContentTypeHeaderName, ContentTypeHeaderName);
+
         #endregion Public Methods
 
     }
