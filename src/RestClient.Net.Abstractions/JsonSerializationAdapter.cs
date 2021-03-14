@@ -3,7 +3,7 @@ using System;
 using System.Text;
 using System.Text.Json;
 
-namespace RestClient.Net
+namespace RestClient.Net.Abstractions
 {
     /// <summary>
     /// A Serialization Adapter that uses System.Text.Json. This is the default Json SerializationAdapter. Note that its behaviour may be slightly different to Newtonsoft and this is only available on .NET Core currently.
