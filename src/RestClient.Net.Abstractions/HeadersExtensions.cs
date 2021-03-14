@@ -113,7 +113,7 @@ namespace RestClient.Net.Abstractions.Extensions
         => SetJsonContentTypeHeader(null);
 
         public static IHeadersCollection SetJsonContentTypeHeader(this IHeadersCollection? requestHeaders)
-        => CreateOrSetHeaderValue(requestHeaders, ContentTypeHeaderName, ContentTypeHeaderName);
+        => CreateOrSetHeaderValue(requestHeaders, ContentTypeHeaderName, JsonMediaType);
 
         #endregion Public Methods
 
