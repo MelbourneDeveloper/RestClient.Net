@@ -337,8 +337,15 @@ namespace RestClient.Net.UnitTests
         public async Task TestCallHeadersMergeWithDefaultHeaders()
         {
             //Arrange
+
+            using var value = new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(JsonConvert.SerializeObject(new List<RestCountry>())),
+            };
+
 #pragma warning disable CA2000 // Dispose objects before losing scope
-            GetHttpClientMoq(out var handlerMock, out var httpClient, new List<RestCountry>());
+            GetHttpClientMoq(out var handlerMock, out var httpClient, value);
 #pragma warning restore CA2000 // Dispose objects before losing scope
             HttpClient createHttpClient(string name) => httpClient;
             using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: createHttpClient);
@@ -1510,14 +1517,9 @@ namespace RestClient.Net.UnitTests
 #if !NET45
         //TODO: Point a test at these on .NET 4.5
 
-        private static void GetHttpClientMoq<TResponse>(out Mock<HttpMessageHandler> handlerMock, out HttpClient httpClient, TResponse response)
+        private static void GetHttpClientMoq(out Mock<HttpMessageHandler> handlerMock, out HttpClient httpClient, HttpResponseMessage value)
         {
             handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
-            using var value = new HttpResponseMessage()
-            {
-                StatusCode = HttpStatusCode.OK,
-                Content = new StringContent(JsonConvert.SerializeObject(response)),
-            };
 
             handlerMock
             .Protected()
