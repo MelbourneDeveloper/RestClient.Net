@@ -60,8 +60,9 @@ dotnet_diagnostic.CS1591.severity = warning
 
 #########################################
 
-dotnet_diagnostic.CS0219.severity = error
+dotnet_diagnostic.CS1573.severity = error
 
+dotnet_diagnostic.CS0219.severity = error
 
 dotnet_diagnostic.CS0168.severity = error
 

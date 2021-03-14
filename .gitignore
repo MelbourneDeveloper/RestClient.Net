@@ -20,3 +20,7 @@ project.lock.json
 src/.idea/*
 
 *.user
+
+src/RestClient.Net.Abstractions/RestClient.Net.Abstractions.xml
+
+src/RestClient.Net/RestClient.Net.xml

@@ -25,11 +25,12 @@ namespace RestClient.Net.Abstractions
         /// Construct a Request
         /// </summary>
         /// <param name="resource"></param>
-        /// <param name="body"></param>
+        /// <param name="bodyData"></param>
         /// <param name="headers"></param>
         /// <param name="httpRequestMethod"></param>
         /// <param name="client"></param>
         /// <param name="cancellationToken"></param>
+        /// <param name="customHttpRequestMethod"></param>
         public Request(
             Uri? resource,
             byte[]? bodyData,

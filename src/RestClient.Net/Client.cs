@@ -22,27 +22,7 @@ namespace RestClient.Net
     /// </summary>
     public sealed class Client : IClient, IDisposable
     {
-        #region Fields
-        private bool disposed;
-
-        /// <summary>
-        /// Compresses and decompresses http requests 
-        /// </summary>
-        internal readonly IZip? zip;
-
-        /// <summary>
-        /// Logging abstraction that will trace request/response data and log events
-        /// </summary>
-        internal ILogger logger;
-
-        private static readonly List<HttpRequestMethod> _updateHttpRequestMethods = new()
-        {
-            HttpRequestMethod.Put,
-            HttpRequestMethod.Post,
-            HttpRequestMethod.Patch
-        };
-
-        internal readonly SendHttpRequestMessage sendHttpRequestFunc;
+        #region Internal Fields
 
         /// <summary>
         /// Delegate used for getting or creating HttpClient instances when the SendAsync call is made
@@ -53,50 +33,41 @@ namespace RestClient.Net
         /// Gets the delegate responsible for converting rest requests to http requests
         /// </summary>
         internal readonly GetHttpRequestMessage getHttpRequestMessage;
-        #endregion
 
-        #region Public Properties
+        internal readonly SendHttpRequestMessage sendHttpRequestFunc;
+        /// <summary>
+        /// Compresses and decompresses http requests 
+        /// </summary>
+        internal readonly IZip? zip;
 
         /// <summary>
-        /// Default headers to be sent with http requests
+        /// Logging abstraction that will trace request/response data and log events
         /// </summary>
-        public IHeadersCollection DefaultRequestHeaders { get; }
+        internal readonly ILogger logger;
+
+        #endregion Internal Fields
+
+        #region Private Fields
+
+        private static readonly List<HttpRequestMethod> _updateHttpRequestMethods = new()
+        {
+            HttpRequestMethod.Put,
+            HttpRequestMethod.Post,
+            HttpRequestMethod.Patch
+        };
 
         /// <summary>
-        /// Default timeout for http requests
+        /// This is an interesting approach to storing minted HttpClients. If the Client is not disposed, this dictionary may pile up and cause memory leaks
+        /// TODO: Find a way to store the HttpClient in this class without copying it to cloned clients via createHttpClient
         /// </summary>
-        public TimeSpan Timeout { get; }
+        private static readonly Dictionary<Client, HttpClient> HttpClientsByClient = new Dictionary<Client, HttpClient>();
 
-        /// <summary>
-        /// Adapter for serialization/deserialization of http body data
-        /// </summary>
-        public ISerializationAdapter SerializationAdapter { get; }
+        private bool disposed;
 
-        /// <summary>
-        /// Specifies whether or not the client will throw an exception when non-successful status codes are returned in the http response. The default is true
-        /// </summary>
-        public bool ThrowExceptionOnFailure { get; } = true;
+        #endregion Private Fields
 
-        /// <summary>
-        /// Base Uri for the client. Any resources specified on requests will be relative to this.
-        /// </summary>
-        public Uri? BaseUri { get; }
-
-        /// <summary>
-        /// Name of the client
-        /// </summary>
-        public string Name { get; }
-        #endregion
-
-        #region Constructors
-        /// <summary>
-        /// Construct a client.
-        /// </summary>
-        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies. Defaults to JSON and adds the default Content-Type header for JSON</param>
-        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies. 
-#if !NET45
-        /// Defaults to JSON and adds the default Content-Type header for JSON</param>
-#endif
+        #region Public Constructors
+        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies. Defaults to JSON and adds the default Content-Type header for JSON on platforms later than .NET Framework 4.5</param>
         /// <param name="name">The of the client instance. This is also passed to the HttpClient factory to get or create HttpClient instances</param>
         /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only</param>
         /// <param name="defaultRequestHeaders">Default headers to be sent with http requests</param>
@@ -104,6 +75,8 @@ namespace RestClient.Net
         /// <param name="createHttpClient">The delegate that is used for getting or creating HttpClient instances when the SendAsync call is made</param>
         /// <param name="sendHttpRequestFunc">The Func responsible for performing the SendAsync method on HttpClient. This can replaced in the constructor in order to implement retries and so on.</param>
         /// <param name="getHttpRequestMessage">Delegate responsible for converting rest requests to http requests</param>
+        /// <param name="timeout">Amount of time a request should wait before timing out</param>
+        /// <param name="zip">Provides a mechanism for unzipping gzip responses on platforms where HttpClient does not do this automatically (Looking at you UWP)</param>
         /// <param name="throwExceptionOnFailure">Whether or not to throw an exception on non-successful http calls</param>
         public Client(
 #if NET45
@@ -173,9 +146,57 @@ namespace RestClient.Net
             ThrowExceptionOnFailure = throwExceptionOnFailure;
         }
 
-        #endregion
+        #endregion Public Constructors
 
-        #region Implementation
+        #region Public Properties
+
+        /// <summary>
+        /// Base Uri for the client. Any resources specified on requests will be relative to this.
+        /// </summary>
+        public Uri? BaseUri { get; }
+
+        /// <summary>
+        /// Default headers to be sent with http requests
+        /// </summary>
+        public IHeadersCollection DefaultRequestHeaders { get; }
+
+        /// <summary>
+        /// Name of the client
+        /// </summary>
+        public string Name { get; }
+
+        /// <summary>
+        /// Adapter for serialization/deserialization of http body data
+        /// </summary>
+        public ISerializationAdapter SerializationAdapter { get; }
+
+        /// <summary>
+        /// Specifies whether or not the client will throw an exception when non-successful status codes are returned in the http response. The default is true
+        /// </summary>
+        public bool ThrowExceptionOnFailure { get; } = true;
+
+        /// <summary>
+        /// Default timeout for http requests
+        /// </summary>
+        public TimeSpan Timeout { get; }
+
+        #endregion Public Properties
+
+        #region Public Methods
+
+        public void Dispose()
+        {
+            if (disposed) return;
+
+            disposed = true;
+
+            if (HttpClientsByClient.ContainsKey(this))
+            {
+                HttpClientsByClient[this].Dispose();
+                _ = HttpClientsByClient.Remove(this);
+            }
+        }
+
         async Task<Response<TResponseBody>> IClient.SendAsync<TResponseBody>(IRequest request)
         {
             //Why do we need to check for null? Nullable is turned on....
@@ -238,6 +259,12 @@ namespace RestClient.Net
             return await ProcessResponseAsync<TResponseBody>(request, httpResponseMessage, httpClient).ConfigureAwait(false);
         }
 
+        #endregion Public Methods
+
+        #region Private Methods
+
+        private static bool IsUpdate(HttpRequestMethod httpRequestMethod) => _updateHttpRequestMethods.Contains(httpRequestMethod);
+
         private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody>(IRequest request, HttpResponseMessage httpResponseMessage, HttpClient httpClient)
         {
             byte[]? responseData = null;
@@ -299,28 +326,6 @@ namespace RestClient.Net
             return httpResponseMessageResponse;
         }
 
-        public void Dispose()
-        {
-            if (disposed) return;
-
-            disposed = true;
-
-            if (HttpClientsByClient.ContainsKey(this))
-            {
-                HttpClientsByClient[this].Dispose();
-                _ = HttpClientsByClient.Remove(this);
-            }
-        }
-        #endregion
-
-        #region Private Methods
-        private static bool IsUpdate(HttpRequestMethod httpRequestMethod) => _updateHttpRequestMethods.Contains(httpRequestMethod);
-
-        /// <summary>
-        /// This is an interesting approach to storing minted HttpClients. If the Client is not disposed, this dictionary may pile up and cause memory leaks
-        /// TODO: Find a way to store the HttpClient in this class without copying it to cloned clients via createHttpClient
-        /// </summary>
-        private static readonly Dictionary<Client, HttpClient> HttpClientsByClient = new Dictionary<Client, HttpClient>();
-        #endregion
+        #endregion Private Methods
     }
 }

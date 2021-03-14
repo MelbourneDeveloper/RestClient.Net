@@ -25,9 +25,11 @@
 		<PackageIconUrl></PackageIconUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageIcon>Icon.png</PackageIcon>
+		<DocumentationFile>RestClient.Net.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Remove="RestClient.Net.xml" />
 		<None Include="..\Images\Rendered\Icon.png">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
