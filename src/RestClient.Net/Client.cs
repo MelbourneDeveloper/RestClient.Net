@@ -20,6 +20,8 @@ namespace RestClient.Net
     public sealed class Client : IClient, IDisposable
     {
         #region Fields
+        private bool disposed;
+
         /// <summary>
         /// Compresses and decompresses http requests 
         /// </summary>
@@ -43,12 +45,6 @@ namespace RestClient.Net
         /// Delegate used for getting or creating HttpClient instances when the SendAsync call is made
         /// </summary>
         internal readonly CreateHttpClient createHttpClient;
-
-        /// <summary>
-        /// The http client created by the default factory delegate
-        /// TODO: We really shouldn't hang on to this....
-        /// </summary>
-        internal readonly HttpClient? httpClient;
 
         /// <summary>
         /// Gets the delegate responsible for converting rest requests to http requests
@@ -155,8 +151,12 @@ namespace RestClient.Net
 
             if (createHttpClient == null)
             {
-                httpClient = new HttpClient();
-                this.createHttpClient = n => httpClient;
+                if (!HttpClientsByClient.ContainsKey(this))
+                {
+                    HttpClientsByClient.Add(this, new HttpClient());
+                }
+
+                this.createHttpClient = n => HttpClientsByClient[this];
             }
             else
             {
@@ -294,11 +294,28 @@ namespace RestClient.Net
             return httpResponseMessageResponse;
         }
 
-        public void Dispose() => httpClient?.Dispose();
+        public void Dispose()
+        {
+            if (disposed) return;
+
+            disposed = true;
+
+            if (HttpClientsByClient.ContainsKey(this))
+            {
+                HttpClientsByClient[this].Dispose();
+                _ = HttpClientsByClient.Remove(this);
+            }
+        }
         #endregion
 
         #region Private Methods
         private static bool IsUpdate(HttpRequestMethod httpRequestMethod) => _updateHttpRequestMethods.Contains(httpRequestMethod);
+
+        /// <summary>
+        /// This is an interesting approach to storing minted HttpClients. If the Client is not disposed, this dictionary may pile up and cause memory leaks
+        /// TODO: Find a way to store the HttpClient in this class without copying it to cloned clients via createHttpClient
+        /// </summary>
+        private static readonly Dictionary<Client, HttpClient> HttpClientsByClient = new Dictionary<Client, HttpClient>();
         #endregion
     }
 }
