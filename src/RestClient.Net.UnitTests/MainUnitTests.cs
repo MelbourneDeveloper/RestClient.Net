@@ -1142,12 +1142,13 @@ namespace RestClient.Net.UnitTests
         {
             using var restClient = new Client(
                 new NewtonsoftSerializationAdapter(),
-                createHttpClient: _testServerHttpClientFactory.CreateClient);
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: HeadersExtensions
+                .SetJsonContentTypeHeader()
+                .SetBasicAuthenticationHeader("Bob", "WrongPassword"));
 
             try
             {
-                restClient.SetBasicAuthenticationHeader("Bob", "WrongPassword");
-                restClient.SetJsonContentTypeHeader();
                 Person person = await restClient.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new Uri("secure/basic", UriKind.Relative)).ConfigureAwait(false);
             }
             catch (HttpStatusException ex)
