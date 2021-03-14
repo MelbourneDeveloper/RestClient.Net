@@ -4,11 +4,13 @@ using System.Linq;
 
 namespace RestClient.Net.Abstractions
 {
-    public sealed class RequestHeadersCollection : IHeadersCollection
+    public sealed class HeadersCollection : IHeadersCollection
     {
         #region Fields
-        private readonly Dictionary<string, IEnumerable<string>> dictionary = new();
+        private readonly IDictionary<string, IEnumerable<string>> dictionary;
         #endregion
+
+        public HeadersCollection(IDictionary<string, IEnumerable<string>> dictionary) => this.dictionary = dictionary;
 
         #region Public Properties
         IEnumerable<string> IHeadersCollection.this[string name] => dictionary[name];
@@ -16,10 +18,6 @@ namespace RestClient.Net.Abstractions
         #endregion
 
         #region Public Methods
-        public void Add(KeyValuePair<string, IEnumerable<string>> keyValuePair) => dictionary.Add(keyValuePair.Key, keyValuePair.Value);
-
-        public void Clear() => dictionary.Clear();
-
         public bool Contains(string name) => dictionary.ContainsKey(name);
 
         public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator() => dictionary.GetEnumerator();

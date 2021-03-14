@@ -1,5 +1,4 @@
 ﻿using RestClient.Net.Abstractions;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +19,12 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        public void Clear() => throw new NotImplementedException();
 
         public bool Contains(string name) => HttpResponseHeaders.Contains(name);
 
         public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator() => HttpResponseHeaders.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => HttpResponseHeaders.GetEnumerator();
-
-        public void Add(KeyValuePair<string, IEnumerable<string>> keyValuePair) => throw new NotImplementedException();
         #endregion
     }
 }

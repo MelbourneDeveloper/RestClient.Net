@@ -1,5 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using RestClient.Net.Abstractions.Extensions;
+using System;
 using System.Threading;
 
 namespace RestClient.Net.Abstractions
@@ -46,32 +46,7 @@ namespace RestClient.Net.Abstractions
             CustomHttpRequestMethod = customHttpRequestMethod;
             this.client = client;
 
-            //Default to the headers passed in the constructor
-            //Create the collection if it's null
-            Headers = headers ?? new RequestHeadersCollection();
-
-            //Return if there are no default headers
-            var defaultRequestHeaders = client?.DefaultRequestHeaders;
-            if (defaultRequestHeaders == null) return;
-            var defaultRequestHeadersList = defaultRequestHeaders.ToList();
-            if (defaultRequestHeadersList.Count == 0) return;
-
-            //Create a new list so we don't modify the list headers passed in
-            Headers = new RequestHeadersCollection();
-
-            //Add headers that were passed in
-            foreach (var kvp in defaultRequestHeadersList)
-            {
-                Headers.Add(kvp);
-            }
-
-            //Add the default headers
-            if (headers == null) return;
-
-            foreach (var kvp in headers)
-            {
-                Headers.Add(kvp);
-            }
+            Headers = client.AppendDefaultRequestHeaders(headers ?? NullHeadersCollection.Instance);
         }
 
         public override string ToString() => $"\r\nClient BaseUri: {client.BaseUri}\r\nResource: {Resource}\r\nHeaders: {Headers} Method: {HttpRequestMethod}";

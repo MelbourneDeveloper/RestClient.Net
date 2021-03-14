@@ -8,17 +8,6 @@ namespace RestClient.Net.Abstractions
     public interface IHeadersCollection : IEnumerable<KeyValuePair<string, IEnumerable<string>>>
     {
         /// <summary>
-        /// Adds a collection of strings by header name
-        /// </summary>
-        /// <param name="keyValuePair"></param>
-        void Add(KeyValuePair<string, IEnumerable<string>> keyValuePair);
-
-        /// <summary>
-        /// Clears the headers
-        /// </summary>
-        void Clear();
-
-        /// <summary>
         /// Gets the collection of strings belonging to a header name
         /// </summary>
         /// <param name="name"></param>

@@ -20,10 +20,17 @@ namespace RestClient.Net
     public sealed class Client : IClient, IDisposable
     {
         #region Fields
+        private bool disposed;
+
+        /// <summary>
+        /// Compresses and decompresses http requests 
+        /// </summary>
+        internal readonly IZip? zip;
+
         /// <summary>
         /// Logging abstraction that will trace request/response data and log events
         /// </summary>
-        private readonly ILogger _logger;
+        internal ILogger logger;
 
         private static readonly List<HttpRequestMethod> _updateHttpRequestMethods = new()
         {
@@ -32,31 +39,20 @@ namespace RestClient.Net
             HttpRequestMethod.Patch
         };
 
-        private readonly SendHttpRequestMessage sendHttpRequestFunc;
+        internal readonly SendHttpRequestMessage sendHttpRequestFunc;
 
         /// <summary>
         /// Delegate used for getting or creating HttpClient instances when the SendAsync call is made
         /// </summary>
-        private readonly CreateHttpClient createHttpClient;
-
-        /// <summary>
-        /// The http client created by the default factory delegate
-        /// TODO: We really shouldn't hang on to this....
-        /// </summary>
-        private readonly HttpClient? httpClient;
+        internal readonly CreateHttpClient createHttpClient;
 
         /// <summary>
         /// Gets the delegate responsible for converting rest requests to http requests
         /// </summary>
-        private readonly GetHttpRequestMessage getHttpRequestMessage;
+        internal readonly GetHttpRequestMessage getHttpRequestMessage;
         #endregion
 
         #region Public Properties
-
-        /// <summary>
-        /// Compresses and decompresses http requests 
-        /// </summary>
-        public IZip? Zip { get; }
 
         /// <summary>
         /// Default headers to be sent with http requests
@@ -87,32 +83,6 @@ namespace RestClient.Net
         /// Name of the client
         /// </summary>
         public string Name { get; }
-        #endregion
-
-        #region Func
-        private async Task<HttpResponseMessage> DefaultSendHttpRequestMessageFunc(HttpClient httpClient, GetHttpRequestMessage httpRequestMessageFunc, IRequest request)
-        {
-            try
-            {
-                if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
-
-                var httpRequestMessage = httpRequestMessageFunc(request);
-
-                _logger.LogTrace(Messages.InfoAttemptingToSend, request);
-
-                var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken).ConfigureAwait(false);
-
-                _logger.LogInformation(Messages.InfoSendReturnedNoException);
-
-                return httpResponseMessage;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, Messages.ErrorOnSend, request);
-
-                throw;
-            }
-        }
         #endregion
 
         #region Constructors
@@ -149,7 +119,7 @@ namespace RestClient.Net
             IZip? zip = null,
             bool throwExceptionOnFailure = true)
         {
-            DefaultRequestHeaders = defaultRequestHeaders ?? new RequestHeadersCollection();
+            DefaultRequestHeaders = defaultRequestHeaders ?? NullHeadersCollection.Instance;
 
 #if NET45
             SerializationAdapter = serializationAdapter ?? throw new ArgumentNullException(nameof(serializationAdapter));
@@ -158,7 +128,7 @@ namespace RestClient.Net
             {
                 //Use a shared instance for serialization. There should be no reason that this is not thread safe. Unless it's not.
                 SerializationAdapter = JsonSerializationAdapter.Instance;
-                this.SetJsonContentTypeHeader();
+                DefaultRequestHeaders = DefaultRequestHeaders.SetJsonContentTypeHeader();
             }
             else
             {
@@ -166,7 +136,7 @@ namespace RestClient.Net
             }
 #endif
 
-            _logger = (ILogger?)logger ?? NullLogger.Instance;
+            this.logger = (ILogger?)logger ?? NullLogger.Instance;
 
             if (baseUri != null && !baseUri.ToString().EndsWith("/", StringComparison.OrdinalIgnoreCase))
             {
@@ -177,22 +147,26 @@ namespace RestClient.Net
 
             Name = name ?? Guid.NewGuid().ToString();
 
-            this.getHttpRequestMessage = getHttpRequestMessage ?? DefaultGetHttpRequestMessage;
+            this.getHttpRequestMessage = getHttpRequestMessage ?? ClientExtensions.DefaultGetHttpRequestMessage;
 
             if (createHttpClient == null)
             {
-                httpClient = new HttpClient();
-                this.createHttpClient = n => httpClient;
+                if (!HttpClientsByClient.ContainsKey(this))
+                {
+                    HttpClientsByClient.Add(this, new HttpClient());
+                }
+
+                this.createHttpClient = n => HttpClientsByClient[this];
             }
             else
             {
                 this.createHttpClient = createHttpClient;
             }
 
-            this.sendHttpRequestFunc = sendHttpRequestFunc ?? DefaultSendHttpRequestMessageFunc;
+            this.sendHttpRequestFunc = sendHttpRequestFunc ?? ClientExtensions.DefaultSendHttpRequestMessageFunc;
 
             Timeout = timeout;
-            Zip = zip;
+            this.zip = zip;
             ThrowExceptionOnFailure = throwExceptionOnFailure;
         }
 
@@ -209,11 +183,11 @@ namespace RestClient.Net
 
             try
             {
-                _logger.LogTrace(Messages.TraceBeginSend, request, TraceEvent.Request);
+                logger.LogTrace(Messages.TraceBeginSend, request, TraceEvent.Request);
 
                 httpClient = createHttpClient(Name);
 
-                _logger.LogTrace("Got HttpClient null: {httpClientNull}", httpClient == null);
+                logger.LogTrace("Got HttpClient null: {httpClientNull}", httpClient == null);
 
                 if (httpClient == null) throw new InvalidOperationException("CreateHttpClient returned null");
 
@@ -222,36 +196,41 @@ namespace RestClient.Net
 
                 //TODO: DefaultRequestHeaders are not necessarily in sync here...
 
-                _logger.LogTrace("HttpClient configured. Request: {request} Adapter: {serializationAdapter}", request, SerializationAdapter);
+                logger.LogTrace("HttpClient configured. Request: {request} Adapter: {serializationAdapter}", request, SerializationAdapter);
 
                 if (request == null) throw new ArgumentNullException(nameof(request));
 
-                _logger.LogTrace(IsUpdate(request.HttpRequestMethod) ? "Request body serialized {bodyData}" : "No request body to serialize", new object[] { request.BodyData ?? new byte[0] });
+                logger.LogTrace(IsUpdate(request.HttpRequestMethod) ? "Request body serialized {bodyData}" : "No request body to serialize", new object[] { request.BodyData ?? new byte[0] });
+
+                //Note: we do not simply get the HttpRequestMessage here. If we use something like Polly, we may need to send it several times, and you cannot send the same message multiple times
+                //This is why we must compose the send func with getHttpRequestMessage
 
                 httpResponseMessage = await sendHttpRequestFunc(
                     httpClient,
                     getHttpRequestMessage,
-                    request
+                    request,
+                    logger,
+                    BaseUri
                     ).ConfigureAwait(false);
             }
             catch (TaskCanceledException tce)
             {
-                _logger.LogError(tce, Messages.ErrorTaskCancelled, request);
+                logger.LogError(tce, Messages.ErrorTaskCancelled, request);
                 throw;
             }
             catch (OperationCanceledException oce)
             {
-                _logger.LogError(oce, "OperationCanceledException {request}", request);
+                logger.LogError(oce, "OperationCanceledException {request}", request);
                 throw;
             }
             catch (Exception ex)
             {
                 var exception = new SendException(Messages.ErrorSendException, request, ex);
-                _logger.LogError(exception, Messages.ErrorSendException, request);
+                logger.LogError(exception, Messages.ErrorSendException, request);
                 throw exception;
             }
 
-            _logger.LogTrace("Successful request/response {request}", request);
+            logger.LogTrace("Successful request/response {request}", request);
 
             return await ProcessResponseAsync<TResponseBody>(request, httpResponseMessage, httpClient).ConfigureAwait(false);
         }
@@ -260,7 +239,7 @@ namespace RestClient.Net
         {
             byte[]? responseData = null;
 
-            if (Zip != null)
+            if (zip != null)
             {
                 //This is for cases where an unzipping utility needs to be used to unzip the content. This is actually a bug in UWP
                 var gzipHeader = httpResponseMessage.Content.Headers.ContentEncoding.FirstOrDefault(h =>
@@ -268,7 +247,7 @@ namespace RestClient.Net
                 if (gzipHeader != null)
                 {
                     var bytes = await httpResponseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
-                    responseData = Zip.Unzip(bytes);
+                    responseData = zip.Unzip(bytes);
                 }
             }
 
@@ -313,88 +292,33 @@ namespace RestClient.Net
                         this);
             }
 
-            _logger.LogTrace(Messages.TraceResponseProcessed, httpResponseMessageResponse, TraceEvent.Response);
+            logger.LogTrace(Messages.TraceResponseProcessed, httpResponseMessageResponse, TraceEvent.Response);
 
             return httpResponseMessageResponse;
         }
 
-        public void Dispose() => httpClient?.Dispose();
+        public void Dispose()
+        {
+            if (disposed) return;
+
+            disposed = true;
+
+            if (HttpClientsByClient.ContainsKey(this))
+            {
+                HttpClientsByClient[this].Dispose();
+                _ = HttpClientsByClient.Remove(this);
+            }
+        }
         #endregion
 
         #region Private Methods
         private static bool IsUpdate(HttpRequestMethod httpRequestMethod) => _updateHttpRequestMethods.Contains(httpRequestMethod);
 
-        private HttpRequestMessage DefaultGetHttpRequestMessage(IRequest request)
-        {
-            if (request == null) throw new ArgumentNullException(nameof(request));
-
-            try
-            {
-                _logger.LogTrace("Converting Request to HttpRequestMethod... Event: {event} Request: {request}", TraceEvent.Information, request);
-
-                var httpMethod = string.IsNullOrEmpty(request.CustomHttpRequestMethod)
-                    ? request.HttpRequestMethod switch
-                    {
-                        HttpRequestMethod.Get => HttpMethod.Get,
-                        HttpRequestMethod.Post => HttpMethod.Post,
-                        HttpRequestMethod.Put => HttpMethod.Put,
-                        HttpRequestMethod.Delete => HttpMethod.Delete,
-                        HttpRequestMethod.Patch => new HttpMethod("PATCH"),
-                        HttpRequestMethod.Custom => throw new NotImplementedException("CustomHttpRequestMethod must be specified for Custom Http Requests"),
-                        _ => throw new NotImplementedException()
-                    }
-                    : new HttpMethod(request.CustomHttpRequestMethod);
-
-                var httpRequestMessage = new HttpRequestMessage
-                {
-                    Method = httpMethod,
-                    RequestUri = BaseUri != null && request.Resource != null ? new Uri(BaseUri, request.Resource) : BaseUri ?? request.Resource
-                };
-
-                ByteArrayContent? httpContent = null;
-                if (request.BodyData != null && request.BodyData.Length > 0)
-                {
-                    httpContent = new ByteArrayContent(request.BodyData);
-                    httpRequestMessage.Content = httpContent;
-                    _logger.LogTrace("Request content was set. Length: {requestBodyLength}", request.BodyData.Length);
-                }
-                else
-                {
-                    _logger.LogTrace("No request content set up on HttpRequestMessage");
-                }
-
-                if (request.Headers != null)
-                {
-                    foreach (var headerName in request.Headers.Names)
-                    {
-                        if (string.Compare(headerName, MiscExtensions.ContentTypeHeaderName, StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            //Note: not sure why this is necessary...
-                            //The HttpClient class seems to differentiate between content headers and request message headers, but this distinction doesn't exist in the real world...
-                            //TODO: Other Content headers
-                            httpContent?.Headers.Add(MiscExtensions.ContentTypeHeaderName, request.Headers[headerName]);
-                        }
-                        else
-                        {
-                            httpRequestMessage.Headers.Add(headerName, request.Headers[headerName]);
-                        }
-                    }
-
-                    _logger.LogTrace("Headers added to request");
-                }
-
-                _logger.LogTrace("Successfully converted IRequest to HttpRequestMessage");
-
-                return httpRequestMessage;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Exception on DefaultGetHttpRequestMessage Event: {event}", TraceEvent.Request);
-
-                throw;
-            }
-        }
-
+        /// <summary>
+        /// This is an interesting approach to storing minted HttpClients. If the Client is not disposed, this dictionary may pile up and cause memory leaks
+        /// TODO: Find a way to store the HttpClient in this class without copying it to cloned clients via createHttpClient
+        /// </summary>
+        private static readonly Dictionary<Client, HttpClient> HttpClientsByClient = new Dictionary<Client, HttpClient>();
         #endregion
     }
 }
