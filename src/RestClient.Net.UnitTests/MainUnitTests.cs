@@ -58,15 +58,15 @@ namespace RestClient.Net.UnitTests
         private const string JsonPlaceholderBaseUriString = "https://jsonplaceholder.typicode.com";
         private const string JsonPlaceholderFirstPostSlug = "/posts/1";
         private const string JsonPlaceholderPostsSlug = "/posts";
-        private readonly Uri RestCountriesAllUri = new Uri(RestCountriesAllUriString);
-        private readonly Uri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString);
-        private readonly Uri JsonPlaceholderBaseUri = new Uri(JsonPlaceholderBaseUriString);
+        private readonly Uri RestCountriesAllUri = new(RestCountriesAllUriString);
+        private readonly Uri RestCountriesAustraliaUri = new(RestCountriesAustraliaUriString);
+        private readonly Uri JsonPlaceholderBaseUri = new(JsonPlaceholderBaseUriString);
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
         private const string SetCookieHeaderName = "Set-Cookie";
         private const string CacheControlHeaderName = "Cache-Control";
         private const string XRatelimitLimitHeaderName = "X-Ratelimit-Limit";
 
-        private static readonly UserPost _userRequestBody = new UserPost { title = "foo", userId = 10, body = "testbody" };
+        private static readonly UserPost _userRequestBody = new() { title = "foo", userId = 10, body = "testbody" };
 
         private static readonly string _userRequestBodyJson = "{\r\n" +
                 $"  \"userId\": {_userRequestBody.userId},\r\n" +
@@ -75,7 +75,7 @@ namespace RestClient.Net.UnitTests
                 "  \"body\": \"testbody\"\r\n" +
                 "}";
 
-        private readonly Dictionary<string, string> RestCountriesAllHeaders = new Dictionary<string, string>
+        private readonly Dictionary<string, string> RestCountriesAllHeaders = new()
         {
             {"Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
             {TransferEncodingHeaderName, "chunked" },
@@ -92,7 +92,7 @@ namespace RestClient.Net.UnitTests
             {"CF-RAY", "5a50554368bf1258-HKG" },
         };
 
-        private readonly Dictionary<string, string> JsonPlaceholderDeleteHeaders = new Dictionary<string, string>
+        private readonly Dictionary<string, string> JsonPlaceholderDeleteHeaders = new()
         {
             {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
             {"Connection", "keep-alive" },
@@ -113,7 +113,7 @@ namespace RestClient.Net.UnitTests
             {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
          };
 
-        private readonly Dictionary<string, string> JsonPlaceholderPostHeaders = new Dictionary<string, string>
+        private readonly Dictionary<string, string> JsonPlaceholderPostHeaders = new()
         {
             {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
             {"Connection", "keep-alive" },
@@ -138,7 +138,7 @@ namespace RestClient.Net.UnitTests
             {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
          };
 
-        private readonly Dictionary<string, string> GoogleHeadHeaders = new Dictionary<string, string>
+        private readonly Dictionary<string, string> GoogleHeadHeaders = new()
         {
             {"P3P", "CP=\"This is not a P3P policy! See g.co/p3phelp for more info.\"" },
             {"Date", "Sun, 21 Jun 2020 02:38:45 GMT" },
@@ -159,10 +159,10 @@ namespace RestClient.Net.UnitTests
         //private CreateHttpClient _createHttpClient = null;
 
         //Mock the httpclient
-        private static readonly MockHttpMessageHandler _mockHttpMessageHandler = new MockHttpMessageHandler();
+        private static readonly MockHttpMessageHandler _mockHttpMessageHandler = new();
         private static readonly CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
         private static readonly TestClientFactory _testServerHttpClientFactory;
-        private static Mock<ILogger<Client>> _logger = new Mock<ILogger<Client>>();
+        private static Mock<ILogger<Client>> _logger = new();
 
 #if NETCOREAPP3_1
         public const string LocalBaseUriString = "http://localhost";

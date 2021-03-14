@@ -70,7 +70,7 @@ namespace RestClient.Net.Abstractions.Extensions
         }
 
         public static IHeadersCollection CreateHeadersCollection(this string key, string value)
-        => new HeadersCollection(ImmutableDictionary.CreateRange(new List<KeyValuePair<string, IEnumerable<string>>> { new KeyValuePair<string, IEnumerable<string>>(key, new List<string> { value }) }));
+        => new HeadersCollection(ImmutableDictionary.CreateRange(new List<KeyValuePair<string, IEnumerable<string>>> { new(key, new List<string> { value }) }));
 
         public static IHeadersCollection CreateHeadersCollection(this KeyValuePair<string, IEnumerable<string>> kvp)
             => new HeadersCollection(ImmutableDictionary.CreateRange(new List<KeyValuePair<string, IEnumerable<string>>> { kvp }));
@@ -85,8 +85,7 @@ namespace RestClient.Net.Abstractions.Extensions
                 ImmutableDictionary.CreateRange(
                     new List<KeyValuePair<string, IEnumerable<string>>>
                     {
-                        new KeyValuePair<string, IEnumerable<string>>
-                        (key, ImmutableList.Create(value))
+                        new(key, ImmutableList.Create(value))
                     }
                     )) :
             requestHeaders.Append(key, value);

@@ -60,7 +60,7 @@ namespace RestClient.Net
         /// This is an interesting approach to storing minted HttpClients. If the Client is not disposed, this dictionary may pile up and cause memory leaks
         /// TODO: Find a way to store the HttpClient in this class without copying it to cloned clients via createHttpClient
         /// </summary>
-        private static readonly Dictionary<Client, HttpClient> HttpClientsByClient = new Dictionary<Client, HttpClient>();
+        private static readonly Dictionary<Client, HttpClient> HttpClientsByClient = new();
 
         private bool disposed;
 

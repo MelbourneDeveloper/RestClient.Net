@@ -9,9 +9,9 @@ namespace RestClient.Net.Abstractions
 {
     public class NullHeadersCollection : IHeadersCollection, IDisposable
     {
-        private readonly NullKvpEnumerator<string, IEnumerable<string>> nullEnumerator = new NullKvpEnumerator<string, IEnumerable<string>>();
+        private readonly NullKvpEnumerator<string, IEnumerable<string>> nullEnumerator = new();
 
-        public static NullHeadersCollection Instance { get; } = new NullHeadersCollection();
+        public static NullHeadersCollection Instance { get; } = new();
 
         #region Public Properties
         public IEnumerable<string> Names { get; } = new List<string>();

@@ -78,7 +78,7 @@ namespace RestClient.Net
                 new Request(
                     resource,
                     requestBodyData,
-                    headers: requestHeaders,
+                    requestHeaders,
                     HttpRequestMethod.Put,
                     client,
                     cancellationToken));

@@ -12,7 +12,7 @@ namespace RestClient.Net.Abstractions
         public static IClient CreateClient(this CreateClient clientFactory) =>
             //Use 'RestClient' by default because if this is null, the dictionary fails,
             //If this is random, then many clients will get created
-            CreateClient(clientFactory, "RestClient", null);
+            CreateClient(clientFactory, "RestClient");
 
         public static IClient CreateClient(this CreateClient clientFactory, string name, Uri? baseUri = null)
         {

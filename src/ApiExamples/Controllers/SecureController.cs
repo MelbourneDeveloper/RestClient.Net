@@ -44,7 +44,7 @@ namespace ApiExamples.Controllers
 
         private bool ValidateBearer() => Request.Headers["Authorization"] == "Bearer 123";
 
-        private static Person CreatePerson() => new Person
+        private static Person CreatePerson() => new()
         {
             FirstName = "Sam",
             BillingAddress = new Address

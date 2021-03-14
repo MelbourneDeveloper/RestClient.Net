@@ -1,5 +1,4 @@
-﻿using RestClient.Net.Abstractions;
-using System;
+﻿using System;
 using System.Text;
 using System.Text.Json;
 
@@ -10,7 +9,7 @@ namespace RestClient.Net.Abstractions
     /// </summary>
     public class JsonSerializationAdapter : ISerializationAdapter
     {
-        public static JsonSerializationAdapter Instance { get; } = new JsonSerializationAdapter();
+        public static JsonSerializationAdapter Instance { get; } = new();
 
         #region Public Properties
         public JsonSerializerOptions JsonSerializationOptions { get; }
