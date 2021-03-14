@@ -28,7 +28,7 @@
 		<FileVersion>4.1.0.0</FileVersion>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net5'">
+	<ItemGroup Condition="'$(TargetFramework)' != 'net5'">
 		<PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
 	</ItemGroup>
 

@@ -18,11 +18,6 @@ namespace RestClient.Net.Abstractions.Extensions
 
         #region Private Fields
 
-        private static readonly ImmutableDictionary<string, IEnumerable<string>> JsonMediaTypeDictionary =
-            ImmutableDictionary.CreateRange(new List<KeyValuePair<string, IEnumerable<string>>> { JsonMediaTypeKvp });
-
-        private static readonly KeyValuePair<string, IEnumerable<string>> JsonMediaTypeKvp =
-                    new KeyValuePair<string, IEnumerable<string>>(ContentTypeHeaderName, ImmutableList.Create(JsonMediaType));
 
         #endregion Private Fields
 
@@ -52,8 +47,25 @@ namespace RestClient.Net.Abstractions.Extensions
                 ? throw new ArgumentNullException(nameof(requestHeaders))
                 : requestHeaders.Append("Authorization", "Bearer " + bearerToken);
         }
+
         public static IHeadersCollection SetJsonContentTypeHeader(this IHeadersCollection? requestHeaders)
-            => _ = requestHeaders == null ? new RequestHeadersCollection(JsonMediaTypeDictionary) : requestHeaders.Append(ContentTypeHeaderName, JsonMediaType);
+        => CreateOrSetHeaderValue(requestHeaders, ContentTypeHeaderName, ContentTypeHeaderName);
+
+        public static IHeadersCollection CreateOrSetHeaderValue(
+            this IHeadersCollection? requestHeaders,
+            string key,
+            string value)
+            =>
+            _ = requestHeaders == null ?
+            new RequestHeadersCollection(
+                ImmutableDictionary.CreateRange(
+                    new List<KeyValuePair<string, IEnumerable<string>>>
+                    {
+                        new KeyValuePair<string, IEnumerable<string>>
+                        (key, ImmutableList.Create(value))
+                    }
+                    )) :
+            requestHeaders.Append(key, value);
 
         #endregion Public Methods
 
