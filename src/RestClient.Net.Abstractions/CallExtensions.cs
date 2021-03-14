@@ -7,6 +7,19 @@ namespace RestClient.Net
 {
     public static class CallExtensions
     {
+        public static Uri Combine(this Uri? baseUri, Uri? relativeUri)
+        =>
+        baseUri == null && relativeUri == null ? throw new InvalidOperationException($"{nameof(baseUri)} or {nameof(relativeUri)} must not be null") :
+        baseUri == null ? relativeUri is Uri ru && ru.IsAbsoluteUri
+            ? ru :
+            throw new InvalidOperationException("At least one Uri must be absolute and not null") :
+            relativeUri == null ? baseUri.IsAbsoluteUri ? baseUri :
+            throw new InvalidOperationException("At least one Uri must be absolute and not null") :
+            !baseUri.IsAbsoluteUri ? throw new InvalidOperationException($"{nameof(baseUri)} must be absolute") :
+            relativeUri.IsAbsoluteUri ? throw new InvalidOperationException($"{nameof(relativeUri)} must be relative") :
+            new Uri(baseUri, relativeUri);
+
+
         public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(this IClient client, IRequest request) => client == null ? throw new ArgumentNullException(nameof(client)) : client.SendAsync<TResponseBody>(request);
 
         #region Get
@@ -33,7 +46,7 @@ namespace RestClient.Net
                 ? throw new ArgumentNullException(nameof(client))
                 : client.SendAsync<TResponseBody>(
                 new Request(
-                    resource,
+                    client.BaseUri.Combine(resource),
                     null,
                     requestHeaders ?? NullHeadersCollection.Instance,
                     HttpRequestMethod.Get,
