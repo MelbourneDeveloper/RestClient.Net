@@ -100,9 +100,11 @@ namespace RestClient.Net.Abstractions.Extensions
         public static IHeadersCollection SetBearerTokenAuthenticationHeader(this IHeadersCollection? requestHeaders, string bearerToken)
             => CreateOrSetHeaderValue(requestHeaders, Authorization, "Bearer " + bearerToken);
 
+        public static IHeadersCollection SetJsonContentTypeHeader()
+        => SetJsonContentTypeHeader(null);
+
         public static IHeadersCollection SetJsonContentTypeHeader(this IHeadersCollection? requestHeaders)
         => CreateOrSetHeaderValue(requestHeaders, ContentTypeHeaderName, ContentTypeHeaderName);
-
         #endregion Public Methods
 
     }

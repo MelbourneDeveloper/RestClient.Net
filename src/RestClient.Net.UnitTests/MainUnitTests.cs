@@ -255,7 +255,7 @@ namespace RestClient.Net.UnitTests
             _mockHttpMessageHandler.When(RestCountriesAllUriString)
                     .Respond(
                 RestCountriesAllHeaders,
-                MiscExtensions.JsonMediaType,
+                HeadersExtensions.JsonMediaType,
                 File.ReadAllText("JSON/RestCountries.json"));
         }
         #endregion
@@ -626,7 +626,7 @@ namespace RestClient.Net.UnitTests
                 baseUri: JsonPlaceholderBaseUri,
                 createHttpClient: _createHttpClient,
                 logger: _logger.Object,
-                defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader(null));
+                defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader());
             var responseUserPost = httpRequestMethod switch
             {
                 HttpRequestMethod.Patch => await client.PatchAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative)).ConfigureAwait(false),
@@ -913,11 +913,10 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-
-                //The server expects the value of "Test"
-                client.SetJsonContentTypeHeader();
-                client.DefaultRequestHeaders.Add("Test", "Tests");
+                using var client = new Client(
+                    new NewtonsoftSerializationAdapter(),
+                    createHttpClient: _testServerHttpClientFactory.CreateClient,
+                    defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader().Append("Test", "Tests"));
 
                 var responsePerson = await client.PatchAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
                 Assert.Fail();
