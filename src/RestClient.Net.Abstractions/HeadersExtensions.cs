@@ -44,16 +44,19 @@ namespace RestClient.Net.Abstractions.Extensions
         public static IHeadersCollection Append(this IHeadersCollection headersCollection, string key, string value)
         => Append(headersCollection, key, new List<string> { value });
 
-        public static IHeadersCollection AppendRequestHeaders(this IClient client, IHeadersCollection headersCollection2)
+        public static IHeadersCollection AppendDefaultRequestHeaders(this IClient client, IHeadersCollection headersCollection2)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
             if (headersCollection2 == null) throw new ArgumentNullException(nameof(headersCollection2));
 
             var dictionary = new Dictionary<string, IEnumerable<string>>();
 
-            foreach (var kvp in client.DefaultRequestHeaders)
+            if (client.DefaultRequestHeaders != null)
             {
-                dictionary.Add(kvp.Key, kvp.Value);
+                foreach (var kvp in client.DefaultRequestHeaders)
+                {
+                    dictionary.Add(kvp.Key, kvp.Value);
+                }
             }
 
             foreach (var kvp in headersCollection2)
@@ -65,6 +68,7 @@ namespace RestClient.Net.Abstractions.Extensions
 
             return new HeadersCollection(dictionary);
         }
+
         public static IHeadersCollection CreateHeadersCollection(this string key, string value)
         => new HeadersCollection(ImmutableDictionary.CreateRange(new List<KeyValuePair<string, IEnumerable<string>>> { new KeyValuePair<string, IEnumerable<string>>(key, new List<string> { value }) }));
 

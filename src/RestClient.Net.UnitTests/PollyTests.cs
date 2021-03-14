@@ -34,9 +34,9 @@ namespace RestClient.Net.UnitTests
                 new Uri(MainUnitTests.LocalBaseUriString),
                 logger: null,
                 createHttpClient: MainUnitTests.GetTestClientFactory().CreateClient,
-                sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, request) => policy.ExecuteAsync(() =>
+                sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, request, logger, baseUri) => policy.ExecuteAsync(() =>
                     {
-                        var httpRequestMessage = httpRequestMessageFunc(request);
+                        var httpRequestMessage = httpRequestMessageFunc(request, logger, baseUri);
 
                         //On the third try change the Url to a the correct one
                         if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);

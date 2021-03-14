@@ -46,7 +46,7 @@ namespace RestClient.Net.Abstractions
             CustomHttpRequestMethod = customHttpRequestMethod;
             this.client = client;
 
-            Headers = client.AppendRequestHeaders(headers ?? NullHeadersCollection.Instance);
+            Headers = client.AppendDefaultRequestHeaders(headers ?? NullHeadersCollection.Instance);
         }
 
         public override string ToString() => $"\r\nClient BaseUri: {client.BaseUri}\r\nResource: {Resource}\r\nHeaders: {Headers} Method: {HttpRequestMethod}";

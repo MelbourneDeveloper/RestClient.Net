@@ -90,13 +90,13 @@ namespace RestClient.Net
         #endregion
 
         #region Func
-        private async Task<HttpResponseMessage> DefaultSendHttpRequestMessageFunc(HttpClient httpClient, GetHttpRequestMessage httpRequestMessageFunc, IRequest request)
+        private static async Task<HttpResponseMessage> DefaultSendHttpRequestMessageFunc(HttpClient httpClient, GetHttpRequestMessage httpRequestMessageFunc, IRequest request, ILogger logger, Uri? baseUri)
         {
             try
             {
                 if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
-                var httpRequestMessage = httpRequestMessageFunc(request);
+                var httpRequestMessage = httpRequestMessageFunc(request, logger, baseUri);
 
                 logger.LogTrace(Messages.InfoAttemptingToSend, request);
 
@@ -231,7 +231,9 @@ namespace RestClient.Net
                 httpResponseMessage = await sendHttpRequestFunc(
                     httpClient,
                     getHttpRequestMessage,
-                    request
+                    request,
+                    logger,
+                    BaseUri
                     ).ConfigureAwait(false);
             }
             catch (TaskCanceledException tce)
@@ -324,7 +326,7 @@ namespace RestClient.Net
         #region Private Methods
         private static bool IsUpdate(HttpRequestMethod httpRequestMethod) => _updateHttpRequestMethods.Contains(httpRequestMethod);
 
-        private HttpRequestMessage DefaultGetHttpRequestMessage(IRequest request)
+        private static HttpRequestMessage DefaultGetHttpRequestMessage(IRequest request, ILogger logger, Uri? baseUri)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
@@ -348,7 +350,7 @@ namespace RestClient.Net
                 var httpRequestMessage = new HttpRequestMessage
                 {
                     Method = httpMethod,
-                    RequestUri = BaseUri != null && request.Resource != null ? new Uri(BaseUri, request.Resource) : BaseUri ?? request.Resource
+                    RequestUri = baseUri != null && request.Resource != null ? new Uri(baseUri, request.Resource) : baseUri ?? request.Resource
                 };
 
                 ByteArrayContent? httpContent = null;
