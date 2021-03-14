@@ -7,10 +7,10 @@ namespace RestClient.Net.Abstractions
     public sealed class RequestHeadersCollection : IHeadersCollection
     {
         #region Fields
-        private readonly IDictionary<string, IEnumerable<string>> _dictionary;
+        private readonly IDictionary<string, IEnumerable<string>> dictionary;
         #endregion
 
-        public RequestHeadersCollection(IDictionary<string, IEnumerable<string>> dictionary) => _dictionary = dictionary;
+        public RequestHeadersCollection(IDictionary<string, IEnumerable<string>> dictionary) => this.dictionary = dictionary;
 
         #region Public Properties
         IEnumerable<string> IHeadersCollection.this[string name] => dictionary[name];
@@ -18,7 +18,7 @@ namespace RestClient.Net.Abstractions
         #endregion
 
         #region Public Methods
-        public bool Contains(string name) => _dictionary.ContainsKey(name);
+        public bool Contains(string name) => dictionary.ContainsKey(name);
 
         public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator() => dictionary.GetEnumerator();
 
