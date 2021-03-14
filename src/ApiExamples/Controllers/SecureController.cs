@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RestClientApiSamples;
 
+#pragma warning disable CA1062
+
 namespace ApiExamples.Controllers
 {
     [ApiController]

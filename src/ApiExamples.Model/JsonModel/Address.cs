@@ -1,5 +1,8 @@
 ﻿using System;
 
+#pragma warning disable CA1002
+#pragma warning disable CS8618
+
 namespace ApiExamples.Model.JsonModel
 {
     public class Address

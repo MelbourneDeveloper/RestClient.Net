@@ -1,11 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Nullable>enable</Nullable>
 		<TargetFrameworks>netstandard2.0;net45;net5.0</TargetFrameworks>
 		<DebugType>pdbonly</DebugType>
 		<RootNamespace>RestClient.Net.Abstractions</RootNamespace>
-		<Version>4.1.0</Version>
 		<PackageLicenseFile>License.txt</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -28,8 +26,6 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageIcon>Icon.png</PackageIcon>
 		<FileVersion>4.1.0.0</FileVersion>
-		<LangVersion>9</LangVersion>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net47'">

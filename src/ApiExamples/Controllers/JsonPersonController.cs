@@ -2,6 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
+#pragma warning disable IDE1006 // Naming Styles
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning disable CA1724 
+#pragma warning disable CA1716
+#pragma warning disable CA1707
+#pragma warning disable CA1056
+#pragma warning disable CA1056
+#pragma warning disable CA2227
+#pragma warning disable CA1002
+#pragma warning disable IDE0060 
+#pragma warning disable CA1801 
+#pragma warning disable IDE0060 // Remove unused parameter
+
 namespace ApiExamples.Controllers
 {
     [ApiController]

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 #pragma warning disable CA1063 // Implement IDisposable Correctly
 #pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
 
-namespace RestClient.Net
+namespace RestClient.Net.Abstractions
 {
     public class NullKvpEnumerator<T, T2> : IEnumerator<KeyValuePair<T, T2>>
     {
