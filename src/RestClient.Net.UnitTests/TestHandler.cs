@@ -13,7 +13,7 @@ namespace RestClient.Net.UnitTests
     public class TestHandler : DelegatingHandler
     {
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
-            CancellationToken cancellationToken) => throw new HttpStatusException("Ouch", new Mock<IResponse>().Object, new Mock<IClient>().Object);
+            CancellationToken cancellationToken) => throw new HttpStatusException("Ouch", new Mock<IResponse>().Object);
     }
 }
 #endif

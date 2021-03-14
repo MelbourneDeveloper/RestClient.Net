@@ -838,10 +838,12 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHeadersLocalIncorrectGet()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             try
             {
                 using var client = new Client(
-                    new NewtonsoftSerializationAdapter(),
+                    serializationAdapter,
                     createHttpClient: _testServerHttpClientFactory.CreateClient,
                     //The server expects the value of "Test"
                     defaultRequestHeaders: "Test".CreateHeadersCollection("Tests"));
@@ -852,7 +854,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -863,10 +865,12 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHeadersLocalIncorrectPost()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             try
             {
                 using var client = new Client(
-                    new NewtonsoftSerializationAdapter(),
+                    serializationAdapter,
                     createHttpClient: _testServerHttpClientFactory.CreateClient,
                     //The server expects the value of "Test"
                     defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader().Append("Test", "Tests"));
@@ -877,7 +881,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -922,6 +926,8 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHeadersLocalIncorrectPut()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             try
             {
                 using var client = new Client(
@@ -936,7 +942,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -967,6 +973,8 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHeadersLocalIncorrectPatch()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             try
             {
                 using var client = new Client(
@@ -980,7 +988,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }
@@ -1007,6 +1015,8 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHeadersLocalIncorrectDelete()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             try
             {
                 using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
@@ -1016,7 +1026,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = hex.Client.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
                 return;
             }

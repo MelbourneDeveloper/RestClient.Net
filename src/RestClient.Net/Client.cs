@@ -3,12 +3,15 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using RestClient.Net.Abstractions;
-using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+
+#if !NET45
+using RestClient.Net.Abstractions.Extensions;
+#endif
 
 namespace RestClient.Net
 {
@@ -266,7 +269,7 @@ namespace RestClient.Net
                 }
                 catch (Exception ex)
                 {
-                    throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, this, ex);
+                    throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, ex);
                 }
             }
 
@@ -288,8 +291,7 @@ namespace RestClient.Net
                     : throw new HttpStatusException(
                         Messages.GetErrorMessageNonSuccess(httpResponseMessageResponse.StatusCode,
                         httpResponseMessageResponse.RequestUri),
-                        httpResponseMessageResponse,
-                        this);
+                        httpResponseMessageResponse);
             }
 
             logger.LogTrace(Messages.TraceResponseProcessed, httpResponseMessageResponse, TraceEvent.Response);
