@@ -35,7 +35,7 @@ namespace RestClient.Net
                 new Request(
                     resource,
                     null,
-                    requestHeaders,
+                    requestHeaders ?? NullHeadersCollection.Instance,
                     HttpRequestMethod.Get,
                     cancellationToken));
         #endregion
@@ -52,7 +52,7 @@ namespace RestClient.Net
             new Request(
                 resource,
                 null,
-                requestHeaders,
+                requestHeaders ?? NullHeadersCollection.Instance,
                 HttpRequestMethod.Delete,
                 cancellationToken))
                 .ConfigureAwait(false);
@@ -70,7 +70,9 @@ namespace RestClient.Net
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
-            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders ?? NullHeadersCollection.Instance);
+            requestHeaders ??= NullHeadersCollection.Instance;
+
+            var requestBodyData = requestBody != null ? client.SerializationAdapter.Serialize(requestBody, requestHeaders) : null;
 
             return SendAsync<TResponseBody, TRequestBody>(client,
                 new Request(
@@ -91,7 +93,9 @@ namespace RestClient.Net
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
-            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders ?? NullHeadersCollection.Instance);
+            requestHeaders ??= NullHeadersCollection.Instance;
+
+            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders);
 
             return SendAsync<TResponseBody, TRequestBody>(client,
                 new Request(
@@ -112,7 +116,9 @@ namespace RestClient.Net
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
-            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders ?? NullHeadersCollection.Instance);
+            requestHeaders ??= NullHeadersCollection.Instance;
+
+            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders);
 
             return SendAsync<TResponseBody, TRequestBody>(client,
                 new Request(

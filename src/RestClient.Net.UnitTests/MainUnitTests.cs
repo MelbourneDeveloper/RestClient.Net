@@ -300,7 +300,7 @@ namespace RestClient.Net.UnitTests
             var response = await client.SendAsync<string, object>(new Request(
                 null,
                 null,
-                null,
+                NullHeadersCollection.Instance,
                 HttpRequestMethod.Custom,
                 default,
                 "HEAD")).ConfigureAwait(false);
