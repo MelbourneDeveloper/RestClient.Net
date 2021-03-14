@@ -710,9 +710,13 @@ namespace RestClient.Net.UnitTests
                 BillingAddress = new Address { Street = "Test St" }
             };
 
-            using var client = new Client(new ProtobufSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
             const string personKey = "123";
-            client.DefaultRequestHeaders.Add("PersonKey", personKey);
+
+            using var client = new Client(
+                new ProtobufSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: "PersonKey".CreateHeadersCollection(personKey));
+
             Person responsePerson = await client.PutAsync<Person, Person>(requestPerson, new Uri($"{LocalBaseUriString}/person")).ConfigureAwait(false);
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
             Assert.AreEqual(personKey, responsePerson.PersonKey);
@@ -734,8 +738,11 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHeadersResponseLocalGet()
         {
-            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-            client.DefaultRequestHeaders.Add("Test", "Test");
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: "Test".CreateHeadersCollection("Test"));
+
             var response = await client.GetAsync<Person>("headers").ConfigureAwait(false);
 
             Assert.IsTrue(response.Headers.Contains("Test1"));
@@ -797,10 +804,11 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-
-                //The server expects the value of "Test"
-                client.DefaultRequestHeaders.Add("Test", "Tests");
+                using var client = new Client(
+                    new NewtonsoftSerializationAdapter(),
+                    createHttpClient: _testServerHttpClientFactory.CreateClient,
+                    //The server expects the value of "Test"
+                    defaultRequestHeaders: "Test".CreateHeadersCollection("Tests"));
 
                 var responsePerson = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
                 Assert.Fail();
