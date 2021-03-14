@@ -19,6 +19,7 @@ using jsonperson = ApiExamples.Model.JsonModel.Person;
 using RichardSzalay.MockHttp;
 using System.IO;
 using Microsoft.Extensions.Logging;
+using RestClient.Net.Abstractions.Extensions;
 
 #if NETCOREAPP3_1
 using Microsoft.AspNetCore.Hosting;
@@ -186,13 +187,13 @@ namespace RestClient.Net.UnitTests
 
 
             _mockHttpMessageHandler.When(RestCountriesAustraliaUriString)
-            .Respond(MiscExtensions.JsonMediaType, File.ReadAllText("JSON/Australia.json"));
+            .Respond(HeadersExtensions.JsonMediaType, File.ReadAllText("JSON/Australia.json"));
 
             _mockHttpMessageHandler.When(HttpMethod.Delete, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
             //TODO: The curly braces make all the difference here. However, the lack of curly braces should be handled.
             Respond(
                 JsonPlaceholderDeleteHeaders,
-                MiscExtensions.JsonMediaType,
+                HeadersExtensions.JsonMediaType,
                 "{}"
                 );
 
@@ -214,28 +215,28 @@ namespace RestClient.Net.UnitTests
             Respond(
                 HttpStatusCode.OK,
                 JsonPlaceholderPostHeaders,
-                MiscExtensions.JsonMediaType,
+                HeadersExtensions.JsonMediaType,
                 _userRequestBodyJson
                 );
 #endif
 
             _mockHttpMessageHandler.
                 When(HttpMethod.Post, JsonPlaceholderBaseUriString + JsonPlaceholderPostsSlug).
-                With(request => request.Content.Headers.ContentType.MediaType == MiscExtensions.JsonMediaType).
+                With(request => request.Content.Headers.ContentType.MediaType == HeadersExtensions.JsonMediaType).
                 Respond(
                 HttpStatusCode.OK,
                 JsonPlaceholderPostHeaders,
-                MiscExtensions.JsonMediaType,
+                HeadersExtensions.JsonMediaType,
                 _userRequestBodyJson
                 );
 
             _mockHttpMessageHandler.
             When(HttpMethod.Put, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
-            With(request => request.Content.Headers.ContentType.MediaType == MiscExtensions.JsonMediaType).
+            With(request => request.Content.Headers.ContentType.MediaType == HeadersExtensions.JsonMediaType).
             Respond(
             HttpStatusCode.OK,
             JsonPlaceholderPostHeaders,
-            MiscExtensions.JsonMediaType,
+            HeadersExtensions.JsonMediaType,
             _userRequestBodyJson
             );
 
@@ -408,7 +409,7 @@ namespace RestClient.Net.UnitTests
 
             //In this case, return an error object
             _ = mockHttp.When(RestCountriesAllUriString)
-                    .Respond(statusCode, MiscExtensions.JsonMediaType, JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
+                    .Respond(statusCode, HeadersExtensions.JsonMediaType, JsonConvert.SerializeObject(new Error { Message = "Test", ErrorCode = 100 }));
 
             var httpClient = mockHttp.ToHttpClient();
 
@@ -431,7 +432,7 @@ namespace RestClient.Net.UnitTests
             var expectedError = new Error { Message = "Test", ErrorCode = 100 };
 
             _ = mockHttp.When(RestCountriesAllUriString)
-                    .Respond(statusCode, MiscExtensions.JsonMediaType, JsonConvert.SerializeObject(expectedError));
+                    .Respond(statusCode, HeadersExtensions.JsonMediaType, JsonConvert.SerializeObject(expectedError));
 
             var httpClient = mockHttp.ToHttpClient();
 
@@ -625,7 +626,7 @@ namespace RestClient.Net.UnitTests
                 baseUri: JsonPlaceholderBaseUri,
                 createHttpClient: _createHttpClient,
                 logger: _logger.Object,
-                defaultRequestHeaders: MiscExtensions.SetJsonContentTypeHeader(null));
+                defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader(null));
             var responseUserPost = httpRequestMethod switch
             {
                 HttpRequestMethod.Patch => await client.PatchAsync<UserPost, UserPost>(_userRequestBody, new Uri("/posts/1", UriKind.Relative)).ConfigureAwait(false),
@@ -1481,7 +1482,7 @@ namespace RestClient.Net.UnitTests
 
             using var mockHttpMessageHandler = new MockHttpMessageHandler();
             _ = mockHttpMessageHandler.When(expectedUriString)
-            .Respond(MiscExtensions.JsonMediaType, "Hi");
+            .Respond(HeadersExtensions.JsonMediaType, "Hi");
 
             var httpClient = mockHttpMessageHandler.ToHttpClient();
 
@@ -1529,8 +1530,8 @@ namespace RestClient.Net.UnitTests
         {
             if (hasDefaultJsonContentHeader)
             {
-                KeyValuePair<string, IEnumerable<string>>? contentTypeHeader = httpRequestMessage.Content.Headers.FirstOrDefault(k => k.Key == MiscExtensions.ContentTypeHeaderName);
-                if (contentTypeHeader.Value.Value.FirstOrDefault() != MiscExtensions.JsonMediaType) return false;
+                KeyValuePair<string, IEnumerable<string>>? contentTypeHeader = httpRequestMessage.Content.Headers.FirstOrDefault(k => k.Key == HeadersExtensions.ContentTypeHeaderName);
+                if (contentTypeHeader.Value.Value.FirstOrDefault() != HeadersExtensions.JsonMediaType) return false;
             }
 
             if (expectedHeaders != null)
