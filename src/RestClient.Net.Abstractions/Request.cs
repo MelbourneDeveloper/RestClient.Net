@@ -46,14 +46,7 @@ namespace RestClient.Net.Abstractions
             CustomHttpRequestMethod = customHttpRequestMethod;
             this.client = client;
 
-            //Default to the headers passed in the constructor
-            Headers = headers ?? NullHeadersCollection.Instance;
-
-            //Return if there are no default headers
-            var defaultRequestHeaders = client?.DefaultRequestHeaders;
-            if (defaultRequestHeaders == null) return;
-
-            Headers = Headers.Append(defaultRequestHeaders);
+            Headers = client.AppendRequestHeaders(headers ?? NullHeadersCollection.Instance);
         }
 
         public override string ToString() => $"\r\nClient BaseUri: {client.BaseUri}\r\nResource: {Resource}\r\nHeaders: {Headers} Method: {HttpRequestMethod}";

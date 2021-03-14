@@ -38,32 +38,33 @@ namespace RestClient.Net.Abstractions.Extensions
             return new HeadersCollection(dictionary);
         }
 
-        public static IHeadersCollection Append(this IHeadersCollection headersCollection, IHeadersCollection headersCollection2)
-        {
-            if (headersCollection == null) throw new ArgumentNullException(nameof(headersCollection));
-            if (headersCollection2 == null) throw new ArgumentNullException(nameof(headersCollection2));
-
-            var dictionary = new Dictionary<string, IEnumerable<string>>();
-
-            foreach (var kvp in headersCollection)
-            {
-                dictionary.Add(kvp.Key, kvp.Value);
-            }
-
-            foreach (var kvp in headersCollection2)
-            {
-                dictionary.Add(kvp.Key, kvp.Value);
-            }
-
-            return new HeadersCollection(dictionary);
-        }
-
         public static IHeadersCollection Append(this IHeadersCollection headersCollection, KeyValuePair<string, IEnumerable<string>> kvp)
         => Append(headersCollection, kvp.Key, kvp.Value);
 
         public static IHeadersCollection Append(this IHeadersCollection headersCollection, string key, string value)
         => Append(headersCollection, key, new List<string> { value });
 
+        public static IHeadersCollection AppendRequestHeaders(this IClient client, IHeadersCollection headersCollection2)
+        {
+            if (client == null) throw new ArgumentNullException(nameof(client));
+            if (headersCollection2 == null) throw new ArgumentNullException(nameof(headersCollection2));
+
+            var dictionary = new Dictionary<string, IEnumerable<string>>();
+
+            foreach (var kvp in client.DefaultRequestHeaders)
+            {
+                dictionary.Add(kvp.Key, kvp.Value);
+            }
+
+            foreach (var kvp in headersCollection2)
+            {
+                if (dictionary.ContainsKey(kvp.Key)) _ = dictionary.Remove(kvp.Key);
+
+                dictionary.Add(kvp.Key, kvp.Value);
+            }
+
+            return new HeadersCollection(dictionary);
+        }
         public static IHeadersCollection CreateHeadersCollection(this string key, string value)
         => new HeadersCollection(ImmutableDictionary.CreateRange(new List<KeyValuePair<string, IEnumerable<string>>> { new KeyValuePair<string, IEnumerable<string>>(key, new List<string> { value }) }));
 

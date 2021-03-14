@@ -43,7 +43,7 @@ namespace RestClient.Net.UnitTests
 
     {
         #region Fields
-        private static readonly IHeadersCollection headersCollections = HeadersExtensions.SetJsonContentTypeHeader();
+        private static readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.SetJsonContentTypeHeader();
         private static readonly ILoggerFactory consoleLoggerFactory =
 #if NET45
             consoleLoggerFactory = NullLoggerFactory.Instance;
@@ -61,7 +61,6 @@ namespace RestClient.Net.UnitTests
         private readonly Uri RestCountriesAllUri = new Uri(RestCountriesAllUriString);
         private readonly Uri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString);
         private readonly Uri JsonPlaceholderBaseUri = new Uri(JsonPlaceholderBaseUriString);
-        //private readonly Uri JsonPlaceholderFirstPostUri = new Uri(JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug);
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
         private const string SetCookieHeaderName = "Set-Cookie";
         private const string CacheControlHeaderName = "Cache-Control";
@@ -735,8 +734,8 @@ namespace RestClient.Net.UnitTests
                 new NewtonsoftSerializationAdapter(),
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
-                headersCollections.CreateOrSetHeaderValue("Test", "Test")
-                : headersCollections
+                DefaultJsonContentHeaderCollection.CreateOrSetHeaderValue("Test", "Test")
+                : DefaultJsonContentHeaderCollection
                 );
 
             Person responsePerson = await client.GetAsync<Person>(new Uri(
@@ -895,8 +894,8 @@ namespace RestClient.Net.UnitTests
                 new NewtonsoftSerializationAdapter(),
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
-                headersCollections.CreateOrSetHeaderValue("Test", "Test")
-                : headersCollections
+                DefaultJsonContentHeaderCollection.CreateOrSetHeaderValue("Test", "Test")
+                : DefaultJsonContentHeaderCollection
                 );
 
             var responsePerson = await client.PutAsync<Person, Person>(
@@ -954,8 +953,8 @@ namespace RestClient.Net.UnitTests
                 new NewtonsoftSerializationAdapter(),
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
-                headersCollections.CreateOrSetHeaderValue("Test", "Test")
-                : headersCollections);
+                DefaultJsonContentHeaderCollection.CreateOrSetHeaderValue("Test", "Test")
+                : DefaultJsonContentHeaderCollection);
 
             var responsePerson = await client.PatchAsync<Person, Person>(
                 new Person { FirstName = "Bob" },
@@ -999,8 +998,8 @@ namespace RestClient.Net.UnitTests
                 new NewtonsoftSerializationAdapter(),
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
-                headersCollections.CreateOrSetHeaderValue("Test", "Test")
-                : headersCollections);
+                DefaultJsonContentHeaderCollection.CreateOrSetHeaderValue("Test", "Test")
+                : DefaultJsonContentHeaderCollection);
 
             _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative), "Test".CreateHeadersCollection("Test")).ConfigureAwait(false);
         }
@@ -1106,7 +1105,7 @@ namespace RestClient.Net.UnitTests
                 .SetJsonContentTypeHeader()
                 .SetBearerTokenAuthenticationHeader(bearerToken));
 
-            Person person = await client.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative)).ConfigureAwait(false);
+            Person person = await client2.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative)).ConfigureAwait(false);
             Assert.AreEqual("Bear", person.FirstName);
         }
 
