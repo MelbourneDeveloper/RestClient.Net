@@ -7,6 +7,10 @@ namespace RestClient.Net.UnitTests
     {
         public IClient Client { get; }
 
-        public MockAspController(CreateClient clientFactory) => Client = clientFactory != null ? clientFactory("test") : throw new ArgumentNullException(nameof(clientFactory));
+        public MockAspController(CreateClient clientFactory)
+            => Client = clientFactory != null ? clientFactory("test",
+                //TODO: The test is actually calling this which is bad
+                new Uri("https://restcountries.eu/rest/v2/")
+                ) : throw new ArgumentNullException(nameof(clientFactory));
     }
 }

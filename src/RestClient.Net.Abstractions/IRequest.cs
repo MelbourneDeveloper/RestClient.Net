@@ -12,6 +12,6 @@ namespace RestClient.Net.Abstractions
         string? CustomHttpRequestMethod { get; }
         IHeadersCollection? Headers { get; }
         HttpRequestMethod HttpRequestMethod { get; }
-        Uri? Resource { get; }
+        Uri? Uri { get; }
     }
 }

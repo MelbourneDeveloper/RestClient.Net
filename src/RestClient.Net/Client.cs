@@ -114,6 +114,8 @@ namespace RestClient.Net
 
             this.logger = (ILogger?)logger ?? NullLogger.Instance;
 
+            //TODO: This is pretty horrible. We are changing the Uri, but there really doesn't seem to be another way to do this.
+            //This is exposed as a public variable so it could have side effects
             if (baseUri != null && !baseUri.ToString().EndsWith("/", StringComparison.OrdinalIgnoreCase))
             {
                 baseUri = new Uri($"{baseUri}/");
@@ -211,14 +213,23 @@ namespace RestClient.Net
 
                 httpClient = createHttpClient(Name);
 
+                if (httpClient.BaseAddress != null)
+                {
+                    throw new InvalidOperationException($"{nameof(createHttpClient)} returned a {nameof(HttpClient)} with a {nameof(HttpClient.BaseAddress)}. The {nameof(HttpClient)} must never have a {nameof(HttpClient.BaseAddress)}. Fix the {nameof(createHttpClient)} func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.BaseAddress)}");
+                }
+
+                if (httpClient.DefaultRequestHeaders.Any())
+                {
+                    throw new InvalidOperationException($"{nameof(createHttpClient)} returned a {nameof(HttpClient)} with at least one item in {nameof(HttpClient.DefaultRequestHeaders)}. The {nameof(HttpClient)} must never have {nameof(HttpClient.DefaultRequestHeaders)}. Fix the {nameof(createHttpClient)} func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.DefaultRequestHeaders)}");
+                }
+
                 logger.LogTrace("Got HttpClient null: {httpClientNull}", httpClient == null);
 
                 if (httpClient == null) throw new InvalidOperationException("CreateHttpClient returned null");
 
                 //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
+                //TODO: Get rid of this
                 if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
-
-                //TODO: DefaultRequestHeaders are not necessarily in sync here...
 
                 logger.LogTrace("HttpClient configured. Request: {request} Adapter: {serializationAdapter}", request, SerializationAdapter);
 
@@ -233,8 +244,7 @@ namespace RestClient.Net
                     httpClient,
                     getHttpRequestMessage,
                     request,
-                    logger,
-                    BaseUri
+                    logger
                     ).ConfigureAwait(false);
             }
             catch (TaskCanceledException tce)

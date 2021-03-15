@@ -40,9 +40,9 @@ namespace RestClient.Net.UnitTests
 {
     [TestClass]
     public class MainUnitTests
-
     {
         #region Fields
+        private static Uri testServerBaseUri;
         private static readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.SetJsonContentTypeHeader();
         private static readonly ILoggerFactory consoleLoggerFactory =
 #if NET45
@@ -77,80 +77,80 @@ namespace RestClient.Net.UnitTests
 
         private readonly Dictionary<string, string> RestCountriesAllHeaders = new()
         {
-            {"Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
-            {TransferEncodingHeaderName, "chunked" },
-            {"Connection", "keep-alive" },
-            {"Set-Cookie", "__cfduid=dde664b010195275c339e4b049626e6261592434261; expires=Fri, 17-Jul-20 22:51:03 GMT; path=/; domain=.restcountries.eu; HttpOnly; SameSite=Lax" },
-            {"Access-Control-Allow-Origin", "*" },
-            {"Access-Control-Allow-Methods", "GET" },
-            {"Access-Control-Allow-Headers", "Accept, X-Requested-With" },
-            {CacheControlHeaderName, "public, max-age=86400" },
-            {"CF-Cache-Status", "DYNAMIC" },
-            {"cf-request-id", "0366139e2100001258170ec200000001" },
-            {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
-            {"Server", "cloudflare" },
-            {"CF-RAY", "5a50554368bf1258-HKG" },
+            { "Date", "Wed, 17 Jun 2020 22:51:03 GMT" },
+            { TransferEncodingHeaderName, "chunked" },
+            { "Connection", "keep-alive" },
+            { "Set-Cookie", "__cfduid=dde664b010195275c339e4b049626e6261592434261; expires=Fri, 17-Jul-20 22:51:03 GMT; path=/; domain=.restcountries.eu; HttpOnly; SameSite=Lax" },
+            { "Access-Control-Allow-Origin", "*" },
+            { "Access-Control-Allow-Methods", "GET" },
+            { "Access-Control-Allow-Headers", "Accept, X-Requested-With" },
+            { CacheControlHeaderName, "public, max-age=86400" },
+            { "CF-Cache-Status", "DYNAMIC" },
+            { "cf-request-id", "0366139e2100001258170ec200000001" },
+            { "Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
+            { "Server", "cloudflare" },
+            { "CF-RAY", "5a50554368bf1258-HKG" },
         };
 
         private readonly Dictionary<string, string> JsonPlaceholderDeleteHeaders = new()
         {
-            {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
-            {"Connection", "keep-alive" },
-            {SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471851; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
-            {"X-Powered-By", "Express" },
-            {"Vary", "Origin, Accept-Encoding" },
-            {"Access-Control-Allow-Credentials", "true" },
-            {CacheControlHeaderName, "no-cache" },
-            {"Pragma", "no-cache" },
-            {"Expires", "1" },
-            {"X-Content-Type-Options", "nosniff" },
-            {"Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC1\"" },
-            {"Via", "1.1 vegur" },
-            {"CF-Cache-Status", "DYNAMIC" },
-            {"cf-request-id", "0368513dc10000ed3f0020a200000001" },
-            {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
-            {"Server", "cloudflare" },
-            {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
-         };
+            { "Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
+            { "Connection", "keep-alive" },
+            { SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471851; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
+            { "X-Powered-By", "Express" },
+            { "Vary", "Origin, Accept-Encoding" },
+            { "Access-Control-Allow-Credentials", "true" },
+            { CacheControlHeaderName, "no-cache" },
+            { "Pragma", "no-cache" },
+            { "Expires", "1" },
+            { "X-Content-Type-Options", "nosniff" },
+            { "Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC1\"" },
+            { "Via", "1.1 vegur" },
+            { "CF-Cache-Status", "DYNAMIC" },
+            { "cf-request-id", "0368513dc10000ed3f0020a200000001" },
+            { "Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
+            { "Server", "cloudflare" },
+            { "CF-RAY", "5a52eb0f9d0bed3f-SJC" },
+        };
 
         private readonly Dictionary<string, string> JsonPlaceholderPostHeaders = new()
         {
-            {"Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
-            {"Connection", "keep-alive" },
-            {SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471851; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
-            {"X-Powered-By", "Express" },
-            {XRatelimitLimitHeaderName, "10000" },
-            {"X-Ratelimit-Remaining", "9990" },
-            {"X-Ratelimit-Reset", "1592699847" },
-            {"Vary", "Origin, Accept-Encoding" },
-            {"Access-Control-Allow-Credentials", "true" },
-            {CacheControlHeaderName, "no-cache" },
-            {"Pragma", "no-cache" },
-            {"Expires", "1" },
-            {"Location","http://jsonplaceholder.typicode.com/posts/101" },
-            {"X-Content-Type-Options", "nosniff" },
-            {"Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC1\"" },
-            {"Via", "1.1 vegur" },
-            {"CF-Cache-Status", "DYNAMIC" },
-            {"cf-request-id", "0368513dc10000ed3f0020a200000002" },
-            {"Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
-            {"Server", "cloudflare" },
-            {"CF-RAY", "5a52eb0f9d0bed3f-SJC" },
-         };
+            { "Date", "Thu, 18 Jun 2020 09:17:40 GMT" },
+            { "Connection", "keep-alive" },
+            { SetCookieHeaderName, "__cfduid=d4048d349d1b9a8c70f8eb26dbf91e9a91592471851; expires=Sat, 18-Jul-20 09:17:36 GMT; path=/; domain=.typicode.com; HttpOnly; SameSite=Lax" },
+            { "X-Powered-By", "Express" },
+            { XRatelimitLimitHeaderName, "10000" },
+            { "X-Ratelimit-Remaining", "9990" },
+            { "X-Ratelimit-Reset", "1592699847" },
+            { "Vary", "Origin, Accept-Encoding" },
+            { "Access-Control-Allow-Credentials", "true" },
+            { CacheControlHeaderName, "no-cache" },
+            { "Pragma", "no-cache" },
+            { "Expires", "1" },
+            { "Location", "http://jsonplaceholder.typicode.com/posts/101" },
+            { "X-Content-Type-Options", "nosniff" },
+            { "Etag", "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC1\"" },
+            { "Via", "1.1 vegur" },
+            { "CF-Cache-Status", "DYNAMIC" },
+            { "cf-request-id", "0368513dc10000ed3f0020a200000002" },
+            { "Expect-CT", "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"" },
+            { "Server", "cloudflare" },
+            { "CF-RAY", "5a52eb0f9d0bed3f-SJC" },
+        };
 
         private readonly Dictionary<string, string> GoogleHeadHeaders = new()
         {
-            {"P3P", "CP=\"This is not a P3P policy! See g.co/p3phelp for more info.\"" },
-            {"Date", "Sun, 21 Jun 2020 02:38:45 GMT" },
-            {SetCookieHeaderName, "1P_JAR=2020-06-21-02; expires=Tue, 21-Jul-2020 02:38:45 GMT; path=/; domain=.google.com; Secure" },
+            { "P3P", "CP=\"This is not a P3P policy! See g.co/p3phelp for more info.\"" },
+            { "Date", "Sun, 21 Jun 2020 02:38:45 GMT" },
+            { SetCookieHeaderName, "1P_JAR=2020-06-21-02; expires=Tue, 21-Jul-2020 02:38:45 GMT; path=/; domain=.google.com; Secure" },
             //TODO: there should be two lines of cookie here but mock http doesn't seem to allow for this...
-            {"Server", "gws" },
-            {"X-XSS-Protection", "0" },
-            {"X-Frame-Options", "SAMEORIGIN" },
-            {"Transfer-Encoding", "SAMEORIGIN" },
-            {"Expires", "Sun, 21 Jun 2020 02:38:45 GMT" },
-            {CacheControlHeaderName, "private" },
-         };
+            { "Server", "gws" },
+            { "X-XSS-Protection", "0" },
+            { "X-Frame-Options", "SAMEORIGIN" },
+            { "Transfer-Encoding", "SAMEORIGIN" },
+            { "Expires", "Sun, 21 Jun 2020 02:38:45 GMT" },
+            { CacheControlHeaderName, "private" },
+        };
 
 
         //For realises - with factory
@@ -267,7 +267,9 @@ namespace RestClient.Net.UnitTests
         }
 
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         static MainUnitTests()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
 #if NETCOREAPP3_1
             if (_testServer == null)
@@ -293,16 +295,14 @@ namespace RestClient.Net.UnitTests
             var baseUri = new Uri(GoogleUrlString);
             using var client = new Client(
                 serializationAdapter: new NewtonsoftSerializationAdapter(),
-                baseUri: baseUri,
                 createHttpClient: _createHttpClient
                 );
 
             var response = await client.SendAsync<string, object>(new Request(
+                baseUri,
                 null,
-                null,
-                null,
+                NullHeadersCollection.Instance,
                 HttpRequestMethod.Custom,
-                client,
                 default,
                 "HEAD")).ConfigureAwait(false);
 
@@ -462,7 +462,7 @@ namespace RestClient.Net.UnitTests
             _logger.VerifyLog((state, t) => state.CheckValue("{OriginalFormat}", Messages.InfoSendReturnedNoException), LogLevel.Information, 1);
 
             _logger.VerifyLog((state, t) =>
-            state.CheckValue<IRequest>("request", (a) => a.Resource == null && a.HttpRequestMethod == HttpRequestMethod.Get) &&
+            state.CheckValue<IRequest>("request", (a) => a.Uri == RestCountriesAllUri && a.HttpRequestMethod == HttpRequestMethod.Get) &&
             state.CheckValue("{OriginalFormat}", Messages.InfoAttemptingToSend)
             , LogLevel.Trace, 1);
 
@@ -732,6 +732,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
                 DefaultJsonContentHeaderCollection.CreateOrSetHeaderValue("Test", "Test")
@@ -752,6 +753,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: "Test".CreateHeadersCollection("Test"));
 
@@ -783,7 +785,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 null,
-                null,
+                testServerBaseUri,
                 logger: _logger.Object,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
@@ -820,6 +822,7 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
                 headersCollections.CreateOrSetHeaderValue("Test", "Test")
@@ -844,6 +847,7 @@ namespace RestClient.Net.UnitTests
             {
                 using var client = new Client(
                     serializationAdapter,
+                    baseUri: testServerBaseUri,
                     createHttpClient: _testServerHttpClientFactory.CreateClient,
                     //The server expects the value of "Test"
                     defaultRequestHeaders: "Test".CreateHeadersCollection("Tests"));
@@ -871,6 +875,7 @@ namespace RestClient.Net.UnitTests
             {
                 using var client = new Client(
                     serializationAdapter,
+                    baseUri: testServerBaseUri,
                     createHttpClient: _testServerHttpClientFactory.CreateClient,
                     //The server expects the value of "Test"
                     defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader().Append("Test", "Tests"));
@@ -896,6 +901,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
                 DefaultJsonContentHeaderCollection.CreateOrSetHeaderValue("Test", "Test")
@@ -916,6 +922,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader().Append("Test", "Test"));
 
@@ -932,6 +939,7 @@ namespace RestClient.Net.UnitTests
             {
                 using var client = new Client(
                     new NewtonsoftSerializationAdapter(),
+                    baseUri: testServerBaseUri,
                     createHttpClient: _testServerHttpClientFactory.CreateClient,
                     //The server expects the value of "Test"
                     defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader().Append("Test", "Tests"));
@@ -957,6 +965,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
                 DefaultJsonContentHeaderCollection.CreateOrSetHeaderValue("Test", "Test")
@@ -967,6 +976,7 @@ namespace RestClient.Net.UnitTests
                 new Uri("headers", UriKind.Relative),
                 requestHeaders: "Test".CreateHeadersCollection("Test")
                 ).ConfigureAwait(false);
+
             Assert.IsNotNull(responsePerson);
         }
 
@@ -979,6 +989,7 @@ namespace RestClient.Net.UnitTests
             {
                 using var client = new Client(
                     new NewtonsoftSerializationAdapter(),
+                    baseUri: testServerBaseUri,
                     createHttpClient: _testServerHttpClientFactory.CreateClient,
                     defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader().Append("Test", "Tests"));
 
@@ -1004,6 +1015,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
                 DefaultJsonContentHeaderCollection.CreateOrSetHeaderValue("Test", "Test")
@@ -1019,7 +1031,10 @@ namespace RestClient.Net.UnitTests
 
             try
             {
-                using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+                using var client = new Client(
+                    new NewtonsoftSerializationAdapter(),
+                    baseUri: testServerBaseUri,
+                    createHttpClient: _testServerHttpClientFactory.CreateClient);
                 _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative)).ConfigureAwait(false);
                 Assert.Fail();
             }
@@ -1039,11 +1054,13 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHeadersLocalInRequest()
         {
-            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                createHttpClient: _testServerHttpClientFactory.CreateClient);
             var requestHeadersCollection = "Test".CreateHeadersCollection("Test");
             Person responsePerson = await client.SendAsync<Person, object>
                 (
-                new Request(new Uri("headers", UriKind.Relative), null, requestHeadersCollection, HttpRequestMethod.Get, client, default)
+                new Request(testServerBaseUri.Combine(new Uri("headers", UriKind.Relative)), null, requestHeadersCollection, HttpRequestMethod.Get, default)
                 ).ConfigureAwait(false); ;
             Assert.IsNotNull(responsePerson);
         }
@@ -1055,6 +1072,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 throwExceptionOnFailure: false
                 );
@@ -1072,7 +1090,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestErrorsLocalGetThrowException()
         {
-            using var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var restClient = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
+                createHttpClient: _testServerHttpClientFactory.CreateClient);
 
             try
             {
@@ -1096,6 +1117,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader());
 
@@ -1110,6 +1132,7 @@ namespace RestClient.Net.UnitTests
 
             using var client2 = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions
                 .SetJsonContentTypeHeader()
@@ -1124,6 +1147,7 @@ namespace RestClient.Net.UnitTests
         {
             using var restClient = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.SetBasicAuthenticationHeader("Bob", "WrongPassword"));
 
@@ -1146,6 +1170,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.SetBasicAuthenticationHeader("Bob", "ANicePassword"));
 
@@ -1158,6 +1183,7 @@ namespace RestClient.Net.UnitTests
         {
             using var restClient = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.SetBearerTokenAuthenticationHeader("321"));
 
@@ -1180,6 +1206,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions
                 .SetJsonContentTypeHeader()
@@ -1194,6 +1221,7 @@ namespace RestClient.Net.UnitTests
         {
             using var restClient = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions
                 .SetJsonContentTypeHeader()
@@ -1445,7 +1473,17 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                using var client = new Client(new NewtonsoftSerializationAdapter(), logger: _logger.Object);
+                using var client = new Client(
+                    new NewtonsoftSerializationAdapter(),
+                    baseUri: testServerBaseUri,
+                    createHttpClient: (n) =>
+                    {
+                        var httpClient = new HttpClient();
+                        httpClient.DefaultRequestHeaders.Add("asd", "asds");
+                        return httpClient;
+                    },
+                    logger: _logger.Object);
+
                 var requestPerson = new Person();
                 Person responsePerson = await client.PostAsync<Person, Person>(requestPerson).ConfigureAwait(false);
             }
@@ -1459,6 +1497,17 @@ namespace RestClient.Net.UnitTests
                 return;
             }
             Assert.Fail();
+        }
+
+        [TestMethod]
+        public async Task TestInvalidUriInformation()
+        {
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                logger: _logger.Object);
+
+            _ = await Assert.ThrowsExceptionAsync<InvalidOperationException>(()
+                => client.PostAsync<Person, Person>(new Person())).ConfigureAwait(false);
         }
 
         [TestMethod]
@@ -1677,13 +1726,16 @@ namespace RestClient.Net.UnitTests
 
         private static HttpClient MintClient()
         {
-#pragma warning disable IDE0022 // Use expression body for methods
 #if NETCOREAPP3_1
-            return _testServer.CreateClient();
+
+            var httpClient = _testServer.CreateClient();
+            testServerBaseUri = httpClient.BaseAddress;
+            httpClient.BaseAddress = null;
+            return httpClient;
 #else
-            return new HttpClient { BaseAddress = new Uri(LocalBaseUriString) };
+            testServerBaseUri = new Uri(LocalBaseUriString);
+            return new HttpClient();
 #endif
-#pragma warning restore IDE0022 // Use expression body for methods
         }
 
         private static IClient GetJsonClient(Uri? baseUri = null)
@@ -1695,10 +1747,10 @@ namespace RestClient.Net.UnitTests
             if (baseUri != null)
             {
                 var httpClient = MintClient();
-                httpClient.BaseAddress = baseUri;
                 var testClientFactory = new TestClientFactory(httpClient);
                 restClient = new Client(
                     new NewtonsoftSerializationAdapter(),
+                    baseUri: baseUri,
                     createHttpClient: testClientFactory.CreateClient,
                     defaultRequestHeaders: defaultHeaders);
             }
@@ -1706,6 +1758,7 @@ namespace RestClient.Net.UnitTests
             {
                 restClient = new Client(
                     new NewtonsoftSerializationAdapter(),
+                    baseUri: testServerBaseUri,
                     createHttpClient: _testServerHttpClientFactory.CreateClient,
                     defaultRequestHeaders: defaultHeaders);
             }

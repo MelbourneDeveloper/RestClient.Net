@@ -34,12 +34,12 @@ namespace RestClient.Net.UnitTests
                 new Uri(MainUnitTests.LocalBaseUriString),
                 logger: null,
                 createHttpClient: MainUnitTests.GetTestClientFactory().CreateClient,
-                sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, request, logger, baseUri) => policy.ExecuteAsync(() =>
+                sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, request, logger) => policy.ExecuteAsync(() =>
                     {
-                        var httpRequestMessage = httpRequestMessageFunc(request, logger, baseUri);
+                        var httpRequestMessage = httpRequestMessageFunc(request, logger);
 
                         //On the third try change the Url to a the correct one
-                        if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);
+                        if (tries == 2) httpRequestMessage.RequestUri = new Uri(MainUnitTests.LocalBaseUriString).Combine(new Uri("Person", UriKind.Relative));
                         tries++;
                         return httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
                     }));
@@ -69,7 +69,7 @@ namespace RestClient.Net.UnitTests
             _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
             .AddLogging()
             //Add the Polly policy to the named HttpClient instance
-            .AddHttpClient("rc", (c) => c.BaseAddress = baseUri).
+            .AddHttpClient("rc").
                 SetHandlerLifetime(TimeSpan.FromMinutes(5)).
                 AddPolicyHandler(policy);
 
@@ -80,7 +80,7 @@ namespace RestClient.Net.UnitTests
             var clientFactory = serviceProvider.GetService<CreateClient>();
 
             //Create a Rest Client that will get the HttpClient by the name of rc
-            var client = clientFactory("rc");
+            var client = clientFactory("rc", baseUri);
 
             //Make the call
             var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
