@@ -1468,12 +1468,12 @@ namespace RestClient.Net.UnitTests
                 httpResponseMessage,
                 httpClient);
 
-            _ = clientMock.Setup(c => c.SendAsync<string>(It.IsAny<IRequest>())).Returns
+            _ = clientMock.Setup(c => c.SendAsync<string, object>(It.IsAny<IRequest<object>>())).Returns
                 (
                 Task.FromResult<Response<string>>(response)
                 );
 
-            var returnedResponse = await clientMock.Object.SendAsync<string>(new Mock<IRequest>().Object).ConfigureAwait(false);
+            var returnedResponse = await clientMock.Object.SendAsync<string, object>(new Mock<IRequest<object>>().Object).ConfigureAwait(false);
 
             Assert.IsTrue(ReferenceEquals(response, returnedResponse));
         }
