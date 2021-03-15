@@ -127,7 +127,7 @@ namespace RestClient.Net.UnitTests
             var clientFactory = container.GetInstance<CreateClient>();
             var client = clientFactory("Test");
             Assert.IsNotNull(client);
-            Assert.AreEqual("Test", client.Name);
+            Assert.AreEqual("Test", ((Client)client).Name);
         }
     }
 }
