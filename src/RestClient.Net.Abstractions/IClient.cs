@@ -9,27 +9,18 @@ namespace RestClient.Net.Abstractions
     public interface IClient
     {
         /// <summary>
-        /// Adapter for serialization/deserialization of http body data
-        /// </summary>
-        ISerializationAdapter SerializationAdapter { get; }
-
-        /// <summary>
         /// Sends a strongly typed request to the server and waits for a strongly typed response
         /// </summary>
         /// <typeparam name="TResponseBody">The expected type of the response body</typeparam>
         /// <param name="request">The request that will be translated to a http request</param>
         /// <returns></returns>
-        Task<Response<TResponseBody>> SendAsync<TResponseBody>(IRequest request);
+        /// <typeparam name="TRequestBody"></typeparam>
+        Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(IRequest<TRequestBody> request);
 
         /// <summary>
         /// Default headers to be sent with http requests
         /// </summary>
         IHeadersCollection DefaultRequestHeaders { get; }
-
-        /// <summary>
-        /// Default timeout for http requests
-        /// </summary>
-        TimeSpan Timeout { get; }
 
         /// <summary>
         /// Base Uri for the client. Any resources specified on requests will be relative to this.

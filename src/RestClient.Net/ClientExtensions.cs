@@ -106,29 +106,7 @@ namespace RestClient.Net
             }
         }
 
-        internal static async Task<HttpResponseMessage> DefaultSendHttpRequestMessageFunc(HttpClient httpClient, GetHttpRequestMessage httpRequestMessageFunc, IRequest request, ILogger logger)
-        {
-            try
-            {
-                if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
-                var httpRequestMessage = httpRequestMessageFunc(request, logger);
-
-                logger.LogTrace(Messages.InfoAttemptingToSend, request);
-
-                var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken).ConfigureAwait(false);
-
-                logger.LogInformation(Messages.InfoSendReturnedNoException);
-
-                return httpResponseMessage;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, Messages.ErrorOnSend, request);
-
-                throw;
-            }
-        }
 
         #endregion Internal Methods
     }

@@ -3,10 +3,10 @@ using System.Threading;
 
 namespace RestClient.Net.Abstractions
 {
-    public interface IRequest
+    public interface IRequest<TBody>
     {
 #pragma warning disable CA1819 // Properties should not return arrays
-        byte[]? BodyData { get; }
+        TBody? BodyData { get; }
 #pragma warning restore CA1819 // Properties should not return arrays
         CancellationToken CancellationToken { get; }
         string? CustomHttpRequestMethod { get; }

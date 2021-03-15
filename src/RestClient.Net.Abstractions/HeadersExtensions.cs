@@ -90,11 +90,11 @@ namespace RestClient.Net.Abstractions.Extensions
                     )) :
             requestHeaders.Append(key, value);
 
-        public static TResponseBody DeserializeResponseBody<TResponseBody>(this IClient restClient, byte[] response, IHeadersCollection headersCollection) => restClient == null
-                                ? throw new ArgumentNullException(nameof(restClient))
-                        : response == null
-                        ? throw new ArgumentNullException(nameof(response))
-                        : restClient.SerializationAdapter.Deserialize<TResponseBody>(response, headersCollection);
+        //public static TResponseBody DeserializeResponseBody<TResponseBody>(this IClient restClient, byte[] response, IHeadersCollection headersCollection) => restClient == null
+        //                        ? throw new ArgumentNullException(nameof(restClient))
+        //                : response == null
+        //                ? throw new ArgumentNullException(nameof(response))
+        //                : restClient.SerializationAdapter.Deserialize<TResponseBody>(response, headersCollection);
 
         /// <summary>
         /// Sets the Authorization header for Basic Authentication with the specified credentials
