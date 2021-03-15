@@ -5,6 +5,6 @@ namespace RestClient.Net.Abstractions
 {
     public interface IGetHttpRequestMessage
     {
-        HttpRequestMessage GetHttpRequestMessage<T>(IRequest<T> request, ILogger logger);
+        HttpRequestMessage GetHttpRequestMessage<T>(IRequest<T> request, ILogger logger, ISerializationAdapter serializationAdapter);
     }
 }

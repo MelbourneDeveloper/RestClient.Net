@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using RestClient.Net.Abstractions;
 using System;
 using System.Net.Http;
@@ -12,15 +13,22 @@ namespace RestClient.Net
     {
         public static DefaultSendHttpRequestMessage Instance { get; } = new DefaultSendHttpRequestMessage();
 
-        public async Task<HttpResponseMessage> SendHttpRequestMessage<TRequestBody>(HttpClient httpClient, Abstractions.IGetHttpRequestMessage httpRequestMessageFunc, IRequest<TRequestBody> request, ILogger logger)
+        public async Task<HttpResponseMessage> SendHttpRequestMessage<TRequestBody>(
+            HttpClient httpClient,
+            IGetHttpRequestMessage httpRequestMessageFunc,
+            IRequest<TRequestBody> request,
+            ILogger logger,
+            ISerializationAdapter serializationAdapter)
         {
+            if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+            if (httpRequestMessageFunc == null) throw new ArgumentNullException(nameof(httpRequestMessageFunc));
+            if (request == default) throw new ArgumentNullException(nameof(request));
+
+            logger ??= NullLogger.Instance;
+
             try
             {
-                if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
-                if (httpRequestMessageFunc == null) throw new ArgumentNullException(nameof(httpRequestMessageFunc));
-                if (request == default) throw new ArgumentNullException(nameof(request));
-
-                var httpRequestMessage = httpRequestMessageFunc.GetHttpRequestMessage(request, logger);
+                var httpRequestMessage = httpRequestMessageFunc.GetHttpRequestMessage(request, logger, serializationAdapter);
 
                 logger.LogTrace(Messages.InfoAttemptingToSend, request);
 

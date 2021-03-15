@@ -4,8 +4,6 @@ using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 using RestClient.Net.Abstractions.Extensions;
 using System;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace RestClient.Net
 {
@@ -33,81 +31,6 @@ namespace RestClient.Net
 
         #endregion Public Methods
 
-        #region Internal Methods
 
-        internal static HttpRequestMessage DefaultGetHttpRequestMessage(IRequest request, ILogger logger)
-        {
-            if (request == null) throw new ArgumentNullException(nameof(request));
-
-            try
-            {
-                logger.LogTrace("Converting Request to HttpRequestMethod... Event: {event} Request: {request}", TraceEvent.Information, request);
-
-                var httpMethod = string.IsNullOrEmpty(request.CustomHttpRequestMethod)
-                    ? request.HttpRequestMethod switch
-                    {
-                        HttpRequestMethod.Get => HttpMethod.Get,
-                        HttpRequestMethod.Post => HttpMethod.Post,
-                        HttpRequestMethod.Put => HttpMethod.Put,
-                        HttpRequestMethod.Delete => HttpMethod.Delete,
-                        HttpRequestMethod.Patch => new HttpMethod("PATCH"),
-                        HttpRequestMethod.Custom => throw new NotImplementedException("CustomHttpRequestMethod must be specified for Custom Http Requests"),
-                        _ => throw new NotImplementedException()
-                    }
-                    : new HttpMethod(request.CustomHttpRequestMethod);
-
-                var httpRequestMessage = new HttpRequestMessage
-                {
-                    Method = httpMethod,
-                    RequestUri = request.Uri
-                };
-
-                ByteArrayContent? httpContent = null;
-                if (request.BodyData != null && request.BodyData.Length > 0)
-                {
-                    httpContent = new ByteArrayContent(request.BodyData);
-                    httpRequestMessage.Content = httpContent;
-                    logger.LogTrace("Request content was set. Length: {requestBodyLength}", request.BodyData.Length);
-                }
-                else
-                {
-                    logger.LogTrace("No request content set up on HttpRequestMessage");
-                }
-
-                if (request.Headers != null)
-                {
-                    foreach (var headerName in request.Headers.Names)
-                    {
-                        if (string.Compare(headerName, HeadersExtensions.ContentTypeHeaderName, StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            //Note: not sure why this is necessary...
-                            //The HttpClient class seems to differentiate between content headers and request message headers, but this distinction doesn't exist in the real world...
-                            //TODO: Other Content headers
-                            httpContent?.Headers.Add(HeadersExtensions.ContentTypeHeaderName, request.Headers[headerName]);
-                        }
-                        else
-                        {
-                            httpRequestMessage.Headers.Add(headerName, request.Headers[headerName]);
-                        }
-                    }
-
-                    logger.LogTrace("Headers added to request");
-                }
-
-                logger.LogTrace("Successfully converted IRequest to HttpRequestMessage");
-
-                return httpRequestMessage;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Exception on DefaultGetHttpRequestMessage Event: {event}", TraceEvent.Request);
-
-                throw;
-            }
-        }
-
-
-
-        #endregion Internal Methods
     }
 }

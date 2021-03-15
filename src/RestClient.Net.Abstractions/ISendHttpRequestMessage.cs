@@ -6,6 +6,11 @@ namespace RestClient.Net.Abstractions
 {
     public interface ISendHttpRequestMessage
     {
-        Task<HttpResponseMessage> SendHttpRequestMessage<TRequestBody>(HttpClient httpClient, IGetHttpRequestMessage httpRequestMessageFunc, IRequest<TRequestBody> request, ILogger logger);
+        Task<HttpResponseMessage> SendHttpRequestMessage<TRequestBody>(
+            HttpClient httpClient,
+            IGetHttpRequestMessage httpRequestMessageFunc,
+            IRequest<TRequestBody> request,
+            ILogger logger,
+            ISerializationAdapter serializationAdapter);
     }
 }

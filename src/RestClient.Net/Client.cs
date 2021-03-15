@@ -126,7 +126,7 @@ namespace RestClient.Net
 
             Name = name ?? Guid.NewGuid().ToString();
 
-            this.getHttpRequestMessage = getHttpRequestMessage ?? ClientExtensions.DefaultGetHttpRequestMessage;
+            this.getHttpRequestMessage = getHttpRequestMessage ?? DefaultGetHttpRequestMessage.Instance;
 
             if (createHttpClient == null)
             {
@@ -245,7 +245,8 @@ namespace RestClient.Net
                     httpClient,
                     getHttpRequestMessage,
                     request,
-                    logger
+                    logger,
+                    SerializationAdapter
                     ).ConfigureAwait(false);
             }
             catch (TaskCanceledException tce)

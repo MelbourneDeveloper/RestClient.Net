@@ -9,7 +9,7 @@ namespace RestClient.Net.Abstractions
 #pragma warning disable CA1819 // Properties should not return arrays
         public TBody? BodyData { get; }
 #pragma warning restore CA1819 // Properties should not return arrays
-        public IHeadersCollection? Headers { get; }
+        public IHeadersCollection Headers { get; }
         public Uri Uri { get; }
         public HttpRequestMethod HttpRequestMethod { get; }
         public CancellationToken CancellationToken { get; }
