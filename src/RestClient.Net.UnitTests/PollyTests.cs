@@ -18,6 +18,9 @@ using System.Threading.Tasks;
 
 namespace RestClient.Net.UnitTests
 {
+    //It sucks that we have to create a class in this way. The old version was far less verbose. 
+    //TODO: Look in to another way to achieve this
+
     public class PollySendHttpRequestMessage : ISendHttpRequestMessage
     {
         private readonly AsyncRetryPolicy<HttpResponseMessage> policy;
