@@ -42,7 +42,7 @@ namespace RestClient.Net.UnitTests
     public class MainUnitTests
     {
         #region Fields
-        private static Uri baseUri;
+        private static Uri testServerBaseUri;
         private static readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.SetJsonContentTypeHeader();
         private static readonly ILoggerFactory consoleLoggerFactory =
 #if NET45
@@ -1147,7 +1147,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: baseUri,
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.SetBasicAuthenticationHeader("Bob", "ANicePassword"));
 
@@ -1682,11 +1682,11 @@ namespace RestClient.Net.UnitTests
 #if NETCOREAPP3_1
 
             var httpClient = _testServer.CreateClient();
-            baseUri = httpClient.BaseAddress;
+            testServerBaseUri = httpClient.BaseAddress;
             httpClient.BaseAddress = null;
             return httpClient;
 #else
-            baseUri = new Uri(LocalBaseUriString);
+            testServerBaseUri = new Uri(LocalBaseUriString);
             return new HttpClient();
 #endif
         }

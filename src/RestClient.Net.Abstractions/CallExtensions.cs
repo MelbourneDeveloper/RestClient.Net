@@ -1,4 +1,5 @@
 using RestClient.Net.Abstractions;
+using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -48,7 +49,7 @@ namespace RestClient.Net
                 new Request(
                     client.BaseUri.Combine(resource),
                     null,
-                    requestHeaders ?? NullHeadersCollection.Instance,
+                    client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
                     HttpRequestMethod.Get,
                     cancellationToken));
         #endregion
