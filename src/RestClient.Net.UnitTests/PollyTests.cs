@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Polly;
 using Polly.Extensions.Http;
@@ -11,10 +12,35 @@ using RestClientApiSamples;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace RestClient.Net.UnitTests
 {
+    public class PollySendHttpRequestMessage : ISendHttpRequestMessage
+    {
+        private int tries;
+
+        public Task<HttpResponseMessage> SendHttpRequestMessage<TRequestBody>(
+            HttpClient httpClient,
+            IGetHttpRequestMessage httpRequestMessageFunc,
+            IRequest<TRequestBody> request,
+            ILogger logger,
+            ISerializationAdapter serializationAdapter)
+        {
+            if (httpRequestMessageFunc == null) throw new ArgumentNullException(nameof(httpRequestMessageFunc));
+            if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
+            var httpRequestMessage = httpRequestMessageFunc.GetHttpRequestMessage(request, logger, serializationAdapter);
+
+            //On the third try change the Url to a the correct one
+            if (tries == 2) httpRequestMessage.RequestUri = new Uri(MainUnitTests.LocalBaseUriString).Combine(new Uri("Person", UriKind.Relative));
+            tries++;
+            return httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
+        }
+    }
+
     [TestClass]
     public class PollyTests
     {
@@ -34,15 +60,7 @@ namespace RestClient.Net.UnitTests
                 new Uri(MainUnitTests.LocalBaseUriString),
                 logger: null,
                 createHttpClient: MainUnitTests.GetTestClientFactory().CreateClient,
-                sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, request, logger) => policy.ExecuteAsync(() =>
-                    {
-                        var httpRequestMessage = httpRequestMessageFunc(request, logger);
-
-                        //On the third try change the Url to a the correct one
-                        if (tries == 2) httpRequestMessage.RequestUri = new Uri(MainUnitTests.LocalBaseUriString).Combine(new Uri("Person", UriKind.Relative));
-                        tries++;
-                        return httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
-                    }));
+                sendHttpRequestFunc: new PollySendHttpRequestMessage());
 
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
 

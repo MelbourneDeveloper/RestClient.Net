@@ -1060,7 +1060,7 @@ namespace RestClient.Net.UnitTests
             var requestHeadersCollection = "Test".CreateHeadersCollection("Test");
             Person responsePerson = await client.SendAsync<Person, object>
                 (
-                new Request(testServerBaseUri.Combine(new Uri("headers", UriKind.Relative)), null, requestHeadersCollection, HttpRequestMethod.Get, default)
+                new Request<object>(testServerBaseUri.Combine(new Uri("headers", UriKind.Relative)), null, requestHeadersCollection, HttpRequestMethod.Get, default)
                 ).ConfigureAwait(false); ;
             Assert.IsNotNull(responsePerson);
         }
@@ -1070,8 +1070,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestErrorsLocalGet()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             using var client = new Client(
-                new NewtonsoftSerializationAdapter(),
+                serializationAdapter,
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 throwExceptionOnFailure: false
@@ -1079,7 +1081,7 @@ namespace RestClient.Net.UnitTests
 
             var response = await client.GetAsync<Person>("error").ConfigureAwait(false);
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
-            var apiResult = client.DeserializeResponseBody<ApiResult>(response.GetResponseData(), response.Headers);
+            var apiResult = serializationAdapter.Deserialize<ApiResult>(response.GetResponseData(), response.Headers);
             Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
 
             //Check that the response values are getting set correctly
@@ -1090,8 +1092,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestErrorsLocalGetThrowException()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             using var restClient = new Client(
-                new NewtonsoftSerializationAdapter(),
+                serializationAdapter,
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient);
 
@@ -1102,7 +1106,7 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
                 return;
             }
