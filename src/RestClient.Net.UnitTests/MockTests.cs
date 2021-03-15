@@ -36,6 +36,8 @@ namespace RestClient.Net.UnitTests
 
             _ = clientMock.Setup(c => c.SerializationAdapter).Returns(serializationAdapterMock.Object);
 
+            _ = clientMock.Setup(c => c.BaseUri).Returns(new Uri("http://www.asdasd.com"));
+
             _ = serializationAdapterMock.Setup(c => c.Deserialize<Person>(It.IsAny<byte[]>(), It.IsAny<IHeadersCollection>())).Returns(responsePerson);
 
             _ = responseMock.Setup(r => r.Body).Returns(responsePerson);
@@ -46,14 +48,5 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual("123", returnPersonResponse?.Body?.PersonKey);
         }
-    }
-
-    public class PersonService
-    {
-        private readonly IClient _client;
-
-        public PersonService(CreateClient clientFactory) => _client = clientFactory != null ? clientFactory("Person") : throw new ArgumentNullException(nameof(clientFactory));
-
-        public async Task<Response<Person>> SavePerson(Person person) => await _client.PostAsync<Person, Person>(person).ConfigureAwait(false);
     }
 }
