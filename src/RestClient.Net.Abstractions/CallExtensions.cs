@@ -10,6 +10,7 @@ namespace RestClient.Net
     {
         #region Public Methods
 
+        #region Misc
         public static Uri Combine(this Uri? baseUri, Uri? relativeUri)
         =>
         baseUri == null && relativeUri == null ? throw new InvalidOperationException($"{nameof(baseUri)} or {nameof(relativeUri)} must not be null") :
@@ -22,6 +23,9 @@ namespace RestClient.Net
             relativeUri.IsAbsoluteUri ? throw new InvalidOperationException($"{nameof(relativeUri)} must be relative") :
             new Uri(baseUri, relativeUri);
 
+        #endregion
+
+        #region Delete
 
         public static Task<Response> DeleteAsync(this IClient client, string resource) => DeleteAsync(client, resource != null ? new Uri(resource, UriKind.Relative) : null);
 
@@ -41,6 +45,10 @@ namespace RestClient.Net
 
             return response;
         }
+
+        #endregion
+
+        #region Get
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client) => GetAsync<TResponseBody>(client, default(Uri));
 
@@ -71,57 +79,148 @@ namespace RestClient.Net
                     HttpRequestMethod.Get,
                     cancellationToken));
 
-        public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody) => PatchAsync<TResponseBody, TRequestBody>(client, requestBody, default);
+        #endregion
 
-        public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, string? resource) => PatchAsync<TResponseBody, TRequestBody>(client, requestBody, resource != null ? new Uri(resource, UriKind.Relative) : default);
+        #region Patch
 
-        public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, Uri? resource, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
-        {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+        public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(
+            this IClient client,
+            TRequestBody requestBody) => PatchAsync<TResponseBody, TRequestBody>(
+                client,
+                requestBody);
 
-            requestHeaders = client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance);
+        public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(
+            this IClient client,
+            TRequestBody requestBody,
+            string resource) => PatchAsync<TResponseBody, TRequestBody>(
+                client,
+                requestBody,
+                resource != null ? new Uri(resource, UriKind.Relative) : default);
 
-            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders);
+        public static Task<Response<TResponseBody>> PatchAsync<TResponseBody>(
+        this IClient client,
+        Uri? resource = null,
+        IHeadersCollection? requestHeaders = null,
+        CancellationToken cancellationToken = default)
+        => PatchAsync<TResponseBody, object>(
+            client,
+            default,
+            resource,
+            requestHeaders,
+            cancellationToken);
 
-            return SendAsync<TResponseBody, TRequestBody>(client,
-                new Request(
-                    client.BaseUri.Combine(resource),
-                    requestBodyData,
-                    requestHeaders,
-                    HttpRequestMethod.Patch,
-                    cancellationToken));
-        }
+        public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(
+            this IClient client,
+            TRequestBody? requestBody = default,
+            Uri? resource = null,
+            IHeadersCollection? requestHeaders = null,
+            CancellationToken cancellationToken = default)
+            => SendAsync<TResponseBody, TRequestBody>(
+                client,
+                HttpRequestMethod.Patch,
+                requestBody,
+                resource,
+                requestHeaders,
+                cancellationToken);
 
-        public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody) => PostAsync<TResponseBody, TRequestBody>(client, requestBody, default);
+        #endregion
+
+        #region Post
+
+        public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(
+            this IClient client,
+            TRequestBody requestBody)
+            => PostAsync<TResponseBody, TRequestBody>(
+                client,
+                requestBody,
+                default);
 
 
-        public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, string? resource) => PostAsync<TResponseBody, TRequestBody>(client, requestBody, resource != null ? new Uri(resource, UriKind.Relative) : default);
+        public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(
+            this IClient client,
+            TRequestBody requestBody,
+            string? resource)
+            => PostAsync<TResponseBody, TRequestBody>(
+                client,
+                requestBody,
+                resource != null ? new Uri(resource, UriKind.Relative) : default);
 
-        //public static Task<Response<TResponseBody>> PostAsync<TResponseBody>(this IClient client, Uri? resource, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default) => PostAsync<TResponseBody, object>(client, null, resource, requestHeaders, cancellationToken);
+        public static Task<Response<TResponseBody>> PostAsync<TResponseBody>(
+            this IClient client,
+            Uri? resource = null,
+            IHeadersCollection? requestHeaders = null,
+            CancellationToken cancellationToken = default)
+            => PostAsync<TResponseBody, object>(
+                client,
+                default,
+                resource,
+                requestHeaders,
+                cancellationToken);
 
 
-        public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, Uri? resource, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
-        {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+        public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(
+            this IClient client,
+            TRequestBody? requestBody = default,
+            Uri? resource = null,
+            IHeadersCollection? requestHeaders = null,
+            CancellationToken cancellationToken = default)
+            => SendAsync<TResponseBody, TRequestBody>(
+                client,
+                HttpRequestMethod.Post,
+                requestBody,
+                resource,
+                requestHeaders,
+                cancellationToken);
 
-            requestHeaders = client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance);
+        #endregion
 
-            var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders);
+        #region Put
 
-            return SendAsync<TResponseBody, TRequestBody>(client,
-                new Request(
-                    client.BaseUri.Combine(resource),
-                    requestBodyData,
-                    requestHeaders,
-                    HttpRequestMethod.Post,
-                    cancellationToken));
-        }
+        public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(
+            this IClient client,
+            TRequestBody requestBody) => PutAsync<TResponseBody, TRequestBody>(
+                client,
+                requestBody,
+                default);
 
-        public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody) => PutAsync<TResponseBody, TRequestBody>(client, requestBody, default);
+        public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(
+            this IClient client,
+            TRequestBody requestBody,
+            string? resource) => PutAsync<TResponseBody, TRequestBody>(
+                client,
+                requestBody,
+                resource != null ? new Uri(resource, UriKind.Relative) : null);
 
-        public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody, string? resource) => PutAsync<TResponseBody, TRequestBody>(client, requestBody, resource != null ? new Uri(resource, UriKind.Relative) : null);
+        public static Task<Response<TResponseBody>> PutAsync<TResponseBody>(
+            this IClient client,
+            Uri? resource = null,
+            IHeadersCollection? requestHeaders = null,
+            CancellationToken cancellationToken = default)
+            => PutAsync<TResponseBody, object>(
+                client,
+                HttpRequestMethod.Put,
+                resource,
+                requestHeaders,
+                cancellationToken);
 
-        public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(this IClient client, TRequestBody requestBody = default, Uri? resource = null, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
+        public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(
+            this IClient client,
+            TRequestBody requestBody = default,
+            Uri? resource = null,
+            IHeadersCollection? requestHeaders = null,
+            CancellationToken cancellationToken = default)
+            => SendAsync<TResponseBody, TRequestBody>(
+                client,
+                HttpRequestMethod.Put,
+                requestBody,
+                resource,
+                requestHeaders,
+                cancellationToken);
+
+        #endregion
+
+        #region Send
+        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(IClient client, HttpRequestMethod httpRequestMethod, TRequestBody? requestBody, Uri? resource, IHeadersCollection? requestHeaders, CancellationToken cancellationToken)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
@@ -129,16 +228,39 @@ namespace RestClient.Net
 
             var requestBodyData = requestBody != null ? client.SerializationAdapter.Serialize(requestBody, requestHeaders) : null;
 
-            return SendAsync<TResponseBody, TRequestBody>(client,
-                new Request(
-                    client.BaseUri.Combine(resource),
-                    requestBodyData,
-                    requestHeaders,
-                    HttpRequestMethod.Put,
-                    cancellationToken));
+            return SendAsync<TResponseBody, TRequestBody>(
+                client,
+                resource,
+                requestBodyData,
+                requestHeaders,
+                httpRequestMethod,
+                cancellationToken);
         }
 
-        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(this IClient client, IRequest request) => client == null ? throw new ArgumentNullException(nameof(client)) : client.SendAsync<TResponseBody>(request);
+        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(
+            IClient client,
+            Uri? resource,
+            byte[]? requestBodyData,
+            IHeadersCollection requestHeaders,
+            HttpRequestMethod httpRequestMethod,
+            CancellationToken cancellationToken)
+            =>
+             client != null ? SendAsync<TResponseBody, TRequestBody>(client,
+                            new Request(
+                                client.BaseUri.Combine(resource),
+                                requestBodyData,
+                                requestHeaders,
+                                httpRequestMethod,
+                                cancellationToken)) : throw new ArgumentNullException(nameof(client));
+
+
+        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(
+            this IClient client,
+            IRequest request)
+            =>
+            client == null ? throw new ArgumentNullException(nameof(client)) : request != null ? client.SendAsync<TResponseBody>(request) : throw new ArgumentNullException(nameof(request));
+
+        #endregion
 
         #endregion Public Methods
     }
