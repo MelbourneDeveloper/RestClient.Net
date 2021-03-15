@@ -66,7 +66,7 @@ namespace RestClient.Net
             new Request(
                 client.BaseUri.Combine(resource),
                 null,
-                requestHeaders ?? NullHeadersCollection.Instance,
+                client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
                 HttpRequestMethod.Delete,
                 cancellationToken))
                 .ConfigureAwait(false);
@@ -84,7 +84,7 @@ namespace RestClient.Net
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
-            requestHeaders ??= NullHeadersCollection.Instance;
+            requestHeaders ??= client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance);
 
             var requestBodyData = requestBody != null ? client.SerializationAdapter.Serialize(requestBody, requestHeaders) : null;
 
@@ -107,7 +107,7 @@ namespace RestClient.Net
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
-            requestHeaders ??= NullHeadersCollection.Instance;
+            requestHeaders ??= client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance);
 
             var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders);
 
@@ -130,7 +130,7 @@ namespace RestClient.Net
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
-            requestHeaders ??= NullHeadersCollection.Instance;
+            requestHeaders ??= client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance);
 
             var requestBodyData = client.SerializationAdapter.Serialize(requestBody, requestHeaders);
 
