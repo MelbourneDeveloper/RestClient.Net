@@ -463,7 +463,7 @@ namespace RestClient.Net.UnitTests
             _logger.VerifyLog((state, t) => state.CheckValue("{OriginalFormat}", Messages.InfoSendReturnedNoException), LogLevel.Information, 1);
 
             _logger.VerifyLog((state, t) =>
-            state.CheckValue<IRequest>("request", (a) => a.Resource == null && a.HttpRequestMethod == HttpRequestMethod.Get) &&
+            state.CheckValue<IRequest>("request", (a) => a.Resource == RestCountriesAllUri && a.HttpRequestMethod == HttpRequestMethod.Get) &&
             state.CheckValue("{OriginalFormat}", Messages.InfoAttemptingToSend)
             , LogLevel.Trace, 1);
 
@@ -1090,7 +1090,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestErrorsLocalGetThrowException()
         {
-            using var restClient = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var restClient = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
+                createHttpClient: _testServerHttpClientFactory.CreateClient);
 
             try
             {
@@ -1129,6 +1132,7 @@ namespace RestClient.Net.UnitTests
 
             using var client2 = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions
                 .SetJsonContentTypeHeader()
@@ -1469,7 +1473,10 @@ namespace RestClient.Net.UnitTests
         {
             try
             {
-                using var client = new Client(new NewtonsoftSerializationAdapter(), logger: _logger.Object);
+                using var client = new Client(
+                    new NewtonsoftSerializationAdapter(),
+                    logger: _logger.Object);
+
                 var requestPerson = new Person();
                 Person responsePerson = await client.PostAsync<Person, Person>(requestPerson).ConfigureAwait(false);
             }
