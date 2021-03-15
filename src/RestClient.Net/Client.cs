@@ -114,6 +114,8 @@ namespace RestClient.Net
 
             this.logger = (ILogger?)logger ?? NullLogger.Instance;
 
+            //TODO: This is pretty horrible. We are changing the Uri, but there really doesn't seem to be another way to do this.
+            //This is exposed as a public variable so it could have side effects
             if (baseUri != null && !baseUri.ToString().EndsWith("/", StringComparison.OrdinalIgnoreCase))
             {
                 baseUri = new Uri($"{baseUri}/");
