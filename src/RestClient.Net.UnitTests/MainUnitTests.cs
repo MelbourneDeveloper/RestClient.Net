@@ -40,9 +40,9 @@ namespace RestClient.Net.UnitTests
 {
     [TestClass]
     public class MainUnitTests
-
     {
         #region Fields
+        private static Uri baseUri;
         private static readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.SetJsonContentTypeHeader();
         private static readonly ILoggerFactory consoleLoggerFactory =
 #if NET45
@@ -267,7 +267,9 @@ namespace RestClient.Net.UnitTests
         }
 
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         static MainUnitTests()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
 #if NETCOREAPP3_1
             if (_testServer == null)
@@ -1145,6 +1147,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: baseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.SetBasicAuthenticationHeader("Bob", "ANicePassword"));
 
@@ -1676,13 +1679,16 @@ namespace RestClient.Net.UnitTests
 
         private static HttpClient MintClient()
         {
-#pragma warning disable IDE0022 // Use expression body for methods
 #if NETCOREAPP3_1
-            return _testServer.CreateClient();
+
+            var httpClient = _testServer.CreateClient();
+            baseUri = httpClient.BaseAddress;
+            httpClient.BaseAddress = null;
+            return httpClient;
 #else
-            return new HttpClient { BaseAddress = new Uri(LocalBaseUriString) };
+            baseUri = new Uri(LocalBaseUriString);
+            return new HttpClient();
 #endif
-#pragma warning restore IDE0022 // Use expression body for methods
         }
 
         private static IClient GetJsonClient(Uri? baseUri = null)
