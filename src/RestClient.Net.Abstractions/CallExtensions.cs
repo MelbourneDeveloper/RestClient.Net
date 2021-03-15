@@ -85,12 +85,6 @@ namespace RestClient.Net
 
         public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(
             this IClient client,
-            TRequestBody requestBody) => PatchAsync<TResponseBody, TRequestBody>(
-                client,
-                requestBody);
-
-        public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(
-            this IClient client,
             TRequestBody requestBody,
             string resource) => PatchAsync<TResponseBody, TRequestBody>(
                 client,
@@ -175,13 +169,6 @@ namespace RestClient.Net
         #endregion
 
         #region Put
-
-        public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(
-            this IClient client,
-            TRequestBody requestBody) => PutAsync<TResponseBody, TRequestBody>(
-                client,
-                requestBody,
-                default);
 
         public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(
             this IClient client,
