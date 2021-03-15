@@ -1149,8 +1149,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationLocalWithError()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             using var restClient = new Client(
-                new NewtonsoftSerializationAdapter(),
+                serializationAdapter,
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.SetBasicAuthenticationHeader("Bob", "WrongPassword"));
@@ -1162,7 +1164,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -1185,8 +1187,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBearerTokenAuthenticationLocalWithError()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             using var restClient = new Client(
-                new NewtonsoftSerializationAdapter(),
+                serializationAdapter,
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.SetBearerTokenAuthenticationHeader("321"));
@@ -1198,7 +1202,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -1223,8 +1227,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationPostLocalWithError()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             using var restClient = new Client(
-                new NewtonsoftSerializationAdapter(),
+                serializationAdapter,
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions
@@ -1238,7 +1244,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException ex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.Response.StatusCode);
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(ex.Response.GetResponseData(), ex.Response.Headers);
+                var apiResult = serializationAdapter.Deserialize<ApiResult>(ex.Response.GetResponseData(), ex.Response.Headers);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
