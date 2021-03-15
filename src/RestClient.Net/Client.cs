@@ -226,9 +226,8 @@ namespace RestClient.Net
                 if (httpClient == null) throw new InvalidOperationException("CreateHttpClient returned null");
 
                 //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
+                //TODO: Get rid of this
                 if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
-
-                //TODO: DefaultRequestHeaders are not necessarily in sync here...
 
                 logger.LogTrace("HttpClient configured. Request: {request} Adapter: {serializationAdapter}", request, SerializationAdapter);
 
