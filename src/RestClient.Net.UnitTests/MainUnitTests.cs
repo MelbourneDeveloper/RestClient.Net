@@ -1477,6 +1477,13 @@ namespace RestClient.Net.UnitTests
             {
                 using var client = new Client(
                     new NewtonsoftSerializationAdapter(),
+                    baseUri: testServerBaseUri,
+                    createHttpClient: (n) =>
+                    {
+                        var httpClient = new HttpClient();
+                        httpClient.DefaultRequestHeaders.Add("asd", "asds");
+                        return httpClient;
+                    },
                     logger: _logger.Object);
 
                 var requestPerson = new Person();
