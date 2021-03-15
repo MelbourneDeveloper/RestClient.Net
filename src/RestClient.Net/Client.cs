@@ -50,13 +50,6 @@ namespace RestClient.Net
 
         #region Private Fields
 
-        private static readonly List<HttpRequestMethod> _updateHttpRequestMethods = new()
-        {
-            HttpRequestMethod.Put,
-            HttpRequestMethod.Post,
-            HttpRequestMethod.Patch
-        };
-
         /// <summary>
         /// This is an interesting approach to storing minted HttpClients. If the Client is not disposed, this dictionary may pile up and cause memory leaks
         /// TODO: Find a way to store the HttpClient in this class without copying it to cloned clients via createHttpClient
@@ -276,8 +269,6 @@ namespace RestClient.Net
         #endregion Public Methods
 
         #region Private Methods
-
-        private static bool IsUpdate(HttpRequestMethod httpRequestMethod) => _updateHttpRequestMethods.Contains(httpRequestMethod);
 
         private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody, TRequestBody>(IRequest<TRequestBody> request, HttpResponseMessage httpResponseMessage, HttpClient httpClient)
         {
