@@ -1722,10 +1722,10 @@ namespace RestClient.Net.UnitTests
             if (baseUri != null)
             {
                 var httpClient = MintClient();
-                httpClient.BaseAddress = baseUri;
                 var testClientFactory = new TestClientFactory(httpClient);
                 restClient = new Client(
                     new NewtonsoftSerializationAdapter(),
+                    baseUri: baseUri,
                     createHttpClient: testClientFactory.CreateClient,
                     defaultRequestHeaders: defaultHeaders);
             }
@@ -1733,6 +1733,7 @@ namespace RestClient.Net.UnitTests
             {
                 restClient = new Client(
                     new NewtonsoftSerializationAdapter(),
+                    baseUri: testServerBaseUri,
                     createHttpClient: _testServerHttpClientFactory.CreateClient,
                     defaultRequestHeaders: defaultHeaders);
             }
