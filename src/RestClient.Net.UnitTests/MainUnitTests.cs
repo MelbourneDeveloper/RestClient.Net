@@ -923,6 +923,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader().Append("Test", "Test"));
 
@@ -976,6 +977,7 @@ namespace RestClient.Net.UnitTests
                 new Uri("headers", UriKind.Relative),
                 requestHeaders: "Test".CreateHeadersCollection("Test")
                 ).ConfigureAwait(false);
+
             Assert.IsNotNull(responsePerson);
         }
 
@@ -1490,6 +1492,17 @@ namespace RestClient.Net.UnitTests
                 return;
             }
             Assert.Fail();
+        }
+
+        [TestMethod]
+        public async Task TestInvalidUriInformation()
+        {
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                logger: _logger.Object);
+
+            _ = await Assert.ThrowsExceptionAsync<InvalidOperationException>(()
+                => client.PostAsync<Person, Person>(new Person())).ConfigureAwait(false);
         }
 
         [TestMethod]
