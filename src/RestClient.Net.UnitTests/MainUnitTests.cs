@@ -776,6 +776,21 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task TestHeadersResponseLocalGet2()
+        {
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: "Test".CreateHeadersCollection("Test"));
+
+            var response = await client.GetAsync<Person>("headers").ConfigureAwait(false);
+
+            Assert.IsTrue(response.Headers.Names.ToList().Contains("Test1"));
+
+        }
+
+        [TestMethod]
         [DataRow(true)]
         [DataRow(false)]
         public async Task TestHeadersTraceLocalGet(bool useDefault)
