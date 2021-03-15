@@ -43,9 +43,9 @@ namespace RestClient.Net.UnitTests
                     .AddDependencyInjectionMapping()
                     .AddTransient<TestHandler>()
                     //Make sure the HttpClient is named the same as the Rest Client
-                    .AddSingleton<IClient>(x => new Client(name: clientName, createHttpClient: x.GetRequiredService<CreateHttpClient>()));
+                    .AddSingleton<IClient>(x => new Client(baseUri: baseUri, name: clientName, createHttpClient: x.GetRequiredService<CreateHttpClient>()));
 
-                _ = serviceCollection.AddHttpClient(clientName, (c) => c.BaseAddress = baseUri)
+                _ = serviceCollection.AddHttpClient(clientName)
                 .AddHttpMessageHandler<TestHandler>();
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
@@ -74,12 +74,12 @@ namespace RestClient.Net.UnitTests
                     .AddLogging()
                     .AddDependencyInjectionMapping()
                     .AddTransient<TestHandler>()
-                    .AddHttpClient(clientName, (c) => c.BaseAddress = baseUri)
+                    .AddHttpClient(clientName)
                     .AddHttpMessageHandler<TestHandler>();
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
                 var clientFactory = serviceProvider.GetService<CreateClient>();
-                var client = clientFactory(clientName);
+                var client = clientFactory(clientName, baseUri);
                 _ = await client.GetAsync<object>().ConfigureAwait(false);
             }
             catch (SendException hse)
@@ -94,14 +94,13 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestFactoryWithNames()
         {
-            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
             var serviceCollection = new ServiceCollection()
                 .AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
                 .AddLogging()
                 .AddSingleton<MockAspController>()
                 .AddDependencyInjectionMapping();
 
-            _ = serviceCollection.AddHttpClient("test", (c) => c.BaseAddress = baseUri);
+            _ = serviceCollection.AddHttpClient("test");
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var mockAspController = serviceProvider.GetService<MockAspController>();
