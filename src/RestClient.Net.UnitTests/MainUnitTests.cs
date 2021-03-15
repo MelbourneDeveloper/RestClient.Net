@@ -298,7 +298,7 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: _createHttpClient
                 );
 
-            var response = await client.SendAsync<string, object>(new Request(
+            var response = await client.SendAsync<string, object>(new Request<object>(
                 baseUri,
                 null,
                 NullHeadersCollection.Instance,

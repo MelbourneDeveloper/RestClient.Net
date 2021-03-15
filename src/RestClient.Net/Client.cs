@@ -236,7 +236,9 @@ namespace RestClient.Net
 
                 if (request == null) throw new ArgumentNullException(nameof(request));
 
-                logger.LogTrace(IsUpdate(request.HttpRequestMethod) ? "Request body serialized {bodyData}" : "No request body to serialize", new object[] { request?.BodyData });
+                var requestBodyIsNull = request.BodyData == null;
+
+                logger.LogTrace(!requestBodyIsNull ? "Request body" : "No request body", new object[] { requestBodyIsNull });
 
                 //Note: we do not simply get the HttpRequestMessage here. If we use something like Polly, we may need to send it several times, and you cannot send the same message multiple times
                 //This is why we must compose the send func with getHttpRequestMessage
