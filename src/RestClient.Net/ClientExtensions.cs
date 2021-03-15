@@ -35,7 +35,7 @@ namespace RestClient.Net
 
         #region Internal Methods
 
-        internal static HttpRequestMessage DefaultGetHttpRequestMessage(IRequest request, ILogger logger, Uri? baseUri)
+        internal static HttpRequestMessage DefaultGetHttpRequestMessage(IRequest request, ILogger logger)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
@@ -59,7 +59,7 @@ namespace RestClient.Net
                 var httpRequestMessage = new HttpRequestMessage
                 {
                     Method = httpMethod,
-                    RequestUri = baseUri != null && request.Resource != null ? new Uri(baseUri, request.Resource) : baseUri ?? request.Resource
+                    RequestUri = request.Uri
                 };
 
                 ByteArrayContent? httpContent = null;
@@ -106,13 +106,13 @@ namespace RestClient.Net
             }
         }
 
-        internal static async Task<HttpResponseMessage> DefaultSendHttpRequestMessageFunc(HttpClient httpClient, GetHttpRequestMessage httpRequestMessageFunc, IRequest request, ILogger logger, Uri? baseUri)
+        internal static async Task<HttpResponseMessage> DefaultSendHttpRequestMessageFunc(HttpClient httpClient, GetHttpRequestMessage httpRequestMessageFunc, IRequest request, ILogger logger)
         {
             try
             {
                 if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
-                var httpRequestMessage = httpRequestMessageFunc(request, logger, baseUri);
+                var httpRequestMessage = httpRequestMessageFunc(request, logger);
 
                 logger.LogTrace(Messages.InfoAttemptingToSend, request);
 

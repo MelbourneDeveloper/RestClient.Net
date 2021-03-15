@@ -242,8 +242,7 @@ namespace RestClient.Net
                     httpClient,
                     getHttpRequestMessage,
                     request,
-                    logger,
-                    BaseUri
+                    logger
                     ).ConfigureAwait(false);
             }
             catch (TaskCanceledException tce)

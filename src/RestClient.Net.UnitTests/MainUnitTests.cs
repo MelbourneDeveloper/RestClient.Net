@@ -295,12 +295,11 @@ namespace RestClient.Net.UnitTests
             var baseUri = new Uri(GoogleUrlString);
             using var client = new Client(
                 serializationAdapter: new NewtonsoftSerializationAdapter(),
-                baseUri: baseUri,
                 createHttpClient: _createHttpClient
                 );
 
             var response = await client.SendAsync<string, object>(new Request(
-                null,
+                baseUri,
                 null,
                 NullHeadersCollection.Instance,
                 HttpRequestMethod.Custom,
@@ -463,7 +462,7 @@ namespace RestClient.Net.UnitTests
             _logger.VerifyLog((state, t) => state.CheckValue("{OriginalFormat}", Messages.InfoSendReturnedNoException), LogLevel.Information, 1);
 
             _logger.VerifyLog((state, t) =>
-            state.CheckValue<IRequest>("request", (a) => a.Resource == RestCountriesAllUri && a.HttpRequestMethod == HttpRequestMethod.Get) &&
+            state.CheckValue<IRequest>("request", (a) => a.Uri == RestCountriesAllUri && a.HttpRequestMethod == HttpRequestMethod.Get) &&
             state.CheckValue("{OriginalFormat}", Messages.InfoAttemptingToSend)
             , LogLevel.Trace, 1);
 
@@ -1057,12 +1056,11 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient);
             var requestHeadersCollection = "Test".CreateHeadersCollection("Test");
             Person responsePerson = await client.SendAsync<Person, object>
                 (
-                new Request(new Uri("headers", UriKind.Relative), null, requestHeadersCollection, HttpRequestMethod.Get, default)
+                new Request(testServerBaseUri.Combine(new Uri("headers", UriKind.Relative)), null, requestHeadersCollection, HttpRequestMethod.Get, default)
                 ).ConfigureAwait(false); ;
             Assert.IsNotNull(responsePerson);
         }
