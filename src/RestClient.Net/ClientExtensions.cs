@@ -25,9 +25,8 @@ namespace RestClient.Net
             client.getHttpRequestMessage,
             client.Timeout,
             client.zip,
+        public static Client With(this Client client, IHeadersCollection defaultRequestHeaders)
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
-
-        public static Client WithDefaultHeaders(this Client client, IHeadersCollection defaultRequestHeaders)
         =>
             client != null ? new Client(
             client.SerializationAdapter,
@@ -42,8 +41,8 @@ namespace RestClient.Net
             client.zip,
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
-        public static Client WithDefaultHeaders(this Client client, string key, string value)
-            => WithDefaultHeaders(client, key.CreateHeadersCollection(value));
+        public static Client With(this Client client, string key, string value)
+            => With(client, key.CreateHeadersCollection(value));
 
         public static Client WithLogger(this Client client, ILogger<Client> logger)
         =>
