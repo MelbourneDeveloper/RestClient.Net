@@ -12,7 +12,7 @@ namespace RestClient.Net
 
         #region Public Methods
 
-        public static Client WithBaseUri(this Client client, Uri baseUri)
+        public static Client With(this Client client, Uri baseUri)
         =>
             client != null ? new Client(
             client.SerializationAdapter,
@@ -25,8 +25,9 @@ namespace RestClient.Net
             client.getHttpRequestMessage,
             client.Timeout,
             client.zip,
-        public static Client With(this Client client, IHeadersCollection defaultRequestHeaders)
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+
+        public static Client With(this Client client, IHeadersCollection defaultRequestHeaders)
         =>
             client != null ? new Client(
             client.SerializationAdapter,
@@ -44,7 +45,7 @@ namespace RestClient.Net
         public static Client With(this Client client, string key, string value)
             => With(client, key.CreateHeadersCollection(value));
 
-        public static Client WithLogger(this Client client, ILogger<Client> logger)
+        public static Client With(this Client client, ILogger<Client> logger)
         =>
             client != null ? new Client(
             client.SerializationAdapter,
@@ -59,7 +60,7 @@ namespace RestClient.Net
             client.zip,
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
-        public static Client WithSerializationAdapter(this Client client, ISerializationAdapter serializationAdapter)
+        public static Client With(this Client client, ISerializationAdapter serializationAdapter)
                                         =>
             client != null ? new Client(
             serializationAdapter,
