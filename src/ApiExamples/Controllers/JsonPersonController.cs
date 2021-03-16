@@ -90,6 +90,10 @@ namespace ApiExamples.Controllers
         [Route("save2")]
         public Person PostSave2() => new Person { FirstName = "J" };
         
+        [HttpPut]
+        [Route("save2")]
+        public Person PutSave2() => new Person { FirstName = "J" };
+        
         [HttpDelete]
 #pragma warning disable IDE0060 // Remove unused parameter
         public IActionResult Delete(string personKey) => Ok();
