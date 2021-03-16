@@ -725,7 +725,6 @@ namespace RestClient.Net.UnitTests
         }
         #endregion
 
-
         #region Local Headers
         [TestMethod]
         [DataRow(true)]
@@ -1381,7 +1380,7 @@ namespace RestClient.Net.UnitTests
             jsonperson responsePerson = await client.PostAsync<jsonperson>().ConfigureAwait(false);
             Assert.AreEqual("J", responsePerson.FirstName);
         }
-        
+
         [TestMethod]
         public async Task TestLocalPostBodyStringUri()
         {
@@ -1427,7 +1426,7 @@ namespace RestClient.Net.UnitTests
             jsonperson responsePerson = await client.PutAsync<jsonperson>().ConfigureAwait(false);
             Assert.AreEqual("J", responsePerson.FirstName);
         }
-        
+
         [TestMethod]
         public async Task TestLocalPutBodyStringUri()
         {
@@ -1473,7 +1472,7 @@ namespace RestClient.Net.UnitTests
             jsonperson responsePerson = await client.PatchAsync<jsonperson>().ConfigureAwait(false);
             Assert.AreEqual("J", responsePerson.FirstName);
         }
-        
+
         [TestMethod]
         public async Task TestLocalPatchBodyStringUri()
         {
@@ -1817,6 +1816,47 @@ namespace RestClient.Net.UnitTests
         }
 #endif
 
+        #endregion
+
+        #region With
+
+        [TestMethod]
+        public void TestWith()
+        {
+            var serializationAdapterMock = new Mock<ISerializationAdapter>();
+            const string name = "test";
+            var uri = new Uri("http://www.test.com");
+            var headersCollectionMock = new Mock<IHeadersCollection>();
+            var loggerMock = new Mock<ILogger<Client>>();
+#pragma warning disable IDE0039 // Use local function
+            CreateHttpClient? createHttpClient = (n) => new HttpClient();
+#pragma warning restore IDE0039 // Use local function
+            var sendHttpRequestMessageMock = new Mock<ISendHttpRequestMessage>();
+            var getHttpRequestMessageMock = new Mock<IGetHttpRequestMessage>();
+            var timeout = new TimeSpan(0, 1, 0);
+            var zipMock = new Mock<IZip>();
+            const bool throwExceptionOnFailure = true;
+
+            using var clientBase = new Client(
+                serializationAdapterMock.Object,
+                name,
+                uri,
+                headersCollectionMock.Object,
+                loggerMock.Object,
+                createHttpClient,
+                sendHttpRequestMessageMock.Object,
+                getHttpRequestMessageMock.Object,
+                timeout,
+                zipMock.Object,
+                throwExceptionOnFailure
+            );
+
+            var clientClone = clientBase.With(false);
+
+            Assert.IsTrue(ReferenceEquals(uri, clientBase.BaseUri));
+            Assert.IsTrue(ReferenceEquals(serializationAdapterMock.Object, clientBase.SerializationAdapter));
+            Assert.IsFalse(clientClone.ThrowExceptionOnFailure);
+        }
         #endregion
 
         #endregion

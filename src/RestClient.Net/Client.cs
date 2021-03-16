@@ -33,7 +33,7 @@ namespace RestClient.Net
         /// </summary>
         internal readonly IGetHttpRequestMessage getHttpRequestMessage;
 
-        internal readonly ISendHttpRequestMessage sendHttpRequest;
+        internal readonly ISendHttpRequestMessage sendHttpRequestMessage;
         /// <summary>
         /// Compresses and decompresses http requests 
         /// </summary>
@@ -126,7 +126,7 @@ namespace RestClient.Net
                 this.createHttpClient = createHttpClient;
             }
 
-            this.sendHttpRequest = sendHttpRequest ?? DefaultSendHttpRequestMessage.Instance;
+            sendHttpRequestMessage = sendHttpRequest ?? DefaultSendHttpRequestMessage.Instance;
 
             Timeout = timeout;
             this.zip = zip;
@@ -227,7 +227,7 @@ namespace RestClient.Net
                 //Note: we do not simply get the HttpRequestMessage here. If we use something like Polly, we may need to send it several times, and you cannot send the same message multiple times
                 //This is why we must compose the send func with getHttpRequestMessage
 
-                httpResponseMessage = await sendHttpRequest.SendHttpRequestMessage(
+                httpResponseMessage = await sendHttpRequestMessage.SendHttpRequestMessage(
                     httpClient,
                     getHttpRequestMessage,
                     request,

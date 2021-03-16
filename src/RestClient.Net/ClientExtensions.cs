@@ -21,7 +21,7 @@ namespace RestClient.Net
             client.DefaultRequestHeaders,
             client.logger is ILogger<Client> logger ? logger : null,
             client.createHttpClient,
-            client.sendHttpRequest,
+            client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
             client.Timeout,
             client.zip,
@@ -36,7 +36,7 @@ namespace RestClient.Net
             defaultRequestHeaders,
             client.logger is ILogger<Client> logger ? logger : null,
             client.createHttpClient,
-            client.sendHttpRequest,
+            client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
             client.Timeout,
             client.zip,
@@ -54,7 +54,7 @@ namespace RestClient.Net
             client.DefaultRequestHeaders,
             logger,
             client.createHttpClient,
-            client.sendHttpRequest,
+            client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
             client.Timeout,
             client.zip,
@@ -69,11 +69,86 @@ namespace RestClient.Net
             client.DefaultRequestHeaders,
             client.logger is ILogger<Client> logger ? logger : null,
             client.createHttpClient,
-            client.sendHttpRequest,
+            client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
             client.Timeout,
             client.zip,
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+
+        public static Client With(this Client client, CreateHttpClient createHttpClient)
+            =>
+                client != null ? new Client(
+                    client.SerializationAdapter,
+                    client.Name,
+                    client.BaseUri,
+                    client.DefaultRequestHeaders,
+                    client.logger is ILogger<Client> logger ? logger : null,
+                    createHttpClient,
+                    client.sendHttpRequestMessage,
+                    client.getHttpRequestMessage,
+                    client.Timeout,
+                    client.zip,
+                    client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+
+        public static Client With(this Client client, ISendHttpRequestMessage sendHttpRequestMessage)
+            =>
+                client != null ? new Client(
+                    client.SerializationAdapter,
+                    client.Name,
+                    client.BaseUri,
+                    client.DefaultRequestHeaders,
+                    client.logger is ILogger<Client> logger ? logger : null,
+                    client.createHttpClient,
+                    sendHttpRequestMessage,
+                    client.getHttpRequestMessage,
+                    client.Timeout,
+                    client.zip,
+                    client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+
+        public static Client With(this Client client, TimeSpan timeout)
+            =>
+                client != null ? new Client(
+                    client.SerializationAdapter,
+                    client.Name,
+                    client.BaseUri,
+                    client.DefaultRequestHeaders,
+                    client.logger is ILogger<Client> logger ? logger : null,
+                    client.createHttpClient,
+                    client.sendHttpRequestMessage,
+                    client.getHttpRequestMessage,
+                    timeout,
+                    client.zip,
+                    client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+
+        public static Client With(this Client client, IZip zip)
+            =>
+                client != null ? new Client(
+                    client.SerializationAdapter,
+                    client.Name,
+                    client.BaseUri,
+                    client.DefaultRequestHeaders,
+                    client.logger is ILogger<Client> logger ? logger : null,
+                    client.createHttpClient,
+                    client.sendHttpRequestMessage,
+                    client.getHttpRequestMessage,
+                    client.Timeout,
+                    zip,
+                    client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+
+        public static Client With(this Client client, bool throwExceptionOnFailure)
+            =>
+                client != null ? new Client(
+                    client.SerializationAdapter,
+                    client.Name,
+                    client.BaseUri,
+                    client.DefaultRequestHeaders,
+                    client.logger is ILogger<Client> logger ? logger : null,
+                    client.createHttpClient,
+                    client.sendHttpRequestMessage,
+                    client.getHttpRequestMessage,
+                    client.Timeout,
+                    client.zip,
+                    throwExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
         #endregion Public Methods
     }
