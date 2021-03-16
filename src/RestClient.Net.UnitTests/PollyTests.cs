@@ -1,9 +1,11 @@
 ﻿
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Polly;
 using Polly.Extensions.Http;
+using Polly.Retry;
 using RestClient.Net.Abstractions;
 using RestClient.Net.DependencyInjection;
 using RestClient.Net.UnitTests.Model;
@@ -11,22 +13,57 @@ using RestClientApiSamples;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace RestClient.Net.UnitTests
 {
+    //It sucks that we have to create a class in this way. The old version was far less verbose. 
+    //TODO: Look in to another way to achieve this
+
+    public class PollySendHttpRequestMessage : ISendHttpRequestMessage
+    {
+        private readonly AsyncRetryPolicy<HttpResponseMessage> policy;
+
+        public PollySendHttpRequestMessage(AsyncRetryPolicy<HttpResponseMessage> policy) => this.policy = policy;
+
+        public int Tries { get; private set; }
+
+        public Task<HttpResponseMessage> SendHttpRequestMessage<TRequestBody>(
+            HttpClient httpClient,
+            IGetHttpRequestMessage httpRequestMessageFunc,
+            IRequest<TRequestBody> request,
+            ILogger logger,
+            ISerializationAdapter serializationAdapter)
+        {
+            return policy.ExecuteAsync(() =>
+            {
+                if (httpRequestMessageFunc == null) throw new ArgumentNullException(nameof(httpRequestMessageFunc));
+                if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+                if (request == null) throw new ArgumentNullException(nameof(request));
+
+                var httpRequestMessage = httpRequestMessageFunc.GetHttpRequestMessage(request, logger, serializationAdapter);
+
+                //On the third try change the Url to a the correct one
+                if (Tries == 2) httpRequestMessage.RequestUri = new Uri(MainUnitTests.LocalBaseUriString).Combine(new Uri("Person", UriKind.Relative));
+                Tries++;
+                return httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
+            });
+        }
+    }
+
     [TestClass]
     public class PollyTests
     {
         [TestMethod]
         public async Task TestPollyManualIncorrectUri()
         {
-            var tries = 0;
-
             var policy = HttpPolicyExtensions
               .HandleTransientHttpError()
               .OrResult(response => response.StatusCode == HttpStatusCode.NotFound)
               .RetryAsync(3);
+
+            var sendHttpRequestFunc = new PollySendHttpRequestMessage(policy);
 
             using var client = new Client(
                 new ProtobufSerializationAdapter(),
@@ -34,23 +71,14 @@ namespace RestClient.Net.UnitTests
                 new Uri(MainUnitTests.LocalBaseUriString),
                 logger: null,
                 createHttpClient: MainUnitTests.GetTestClientFactory().CreateClient,
-                sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, request, logger) => policy.ExecuteAsync(() =>
-                    {
-                        var httpRequestMessage = httpRequestMessageFunc(request, logger);
-
-                        //On the third try change the Url to a the correct one
-                        if (tries == 2) httpRequestMessage.RequestUri = new Uri(MainUnitTests.LocalBaseUriString).Combine(new Uri("Person", UriKind.Relative));
-                        tries++;
-                        return httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
-                    }));
+                sendHttpRequest: sendHttpRequestFunc);
 
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
 
             //Note the Uri here is deliberately incorrect. It will cause a 404 Not found response. This is to make sure that polly is working
             person = await client.PostAsync<Person, Person>(person, new Uri("person2", UriKind.Relative)).ConfigureAwait(false);
             Assert.AreEqual("Bob", person.FirstName);
-            Assert.AreEqual(3, tries);
-
+            Assert.AreEqual(3, sendHttpRequestFunc.Tries);
         }
 
 

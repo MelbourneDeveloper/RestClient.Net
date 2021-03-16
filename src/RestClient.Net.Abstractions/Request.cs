@@ -3,13 +3,13 @@ using System.Threading;
 
 namespace RestClient.Net.Abstractions
 {
-    public class Request : IRequest
+    public class Request<TBody> : IRequest<TBody>
     {
         #region Public Properties
 #pragma warning disable CA1819 // Properties should not return arrays
-        public byte[]? BodyData { get; }
+        public TBody? BodyData { get; }
 #pragma warning restore CA1819 // Properties should not return arrays
-        public IHeadersCollection? Headers { get; }
+        public IHeadersCollection Headers { get; }
         public Uri Uri { get; }
         public HttpRequestMethod HttpRequestMethod { get; }
         public CancellationToken CancellationToken { get; }
@@ -28,7 +28,7 @@ namespace RestClient.Net.Abstractions
         /// 
         public Request(
             Uri uri,
-            byte[]? bodyData,
+            TBody? bodyData,
             IHeadersCollection headers,
             HttpRequestMethod httpRequestMethod,
             CancellationToken cancellationToken,

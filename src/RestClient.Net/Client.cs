@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace RestClient.Net
 {
+
     //TODO: Tests to make sure that null logger is OK
 
     /// <summary>
@@ -30,9 +31,9 @@ namespace RestClient.Net
         /// <summary>
         /// Gets the delegate responsible for converting rest requests to http requests
         /// </summary>
-        internal readonly GetHttpRequestMessage getHttpRequestMessage;
+        internal readonly IGetHttpRequestMessage getHttpRequestMessage;
 
-        internal readonly SendHttpRequestMessage sendHttpRequestFunc;
+        internal readonly ISendHttpRequestMessage sendHttpRequest;
         /// <summary>
         /// Compresses and decompresses http requests 
         /// </summary>
@@ -47,13 +48,6 @@ namespace RestClient.Net
 
         #region Private Fields
 
-        private static readonly List<HttpRequestMethod> _updateHttpRequestMethods = new()
-        {
-            HttpRequestMethod.Put,
-            HttpRequestMethod.Post,
-            HttpRequestMethod.Patch
-        };
-
         /// <summary>
         /// This is an interesting approach to storing minted HttpClients. If the Client is not disposed, this dictionary may pile up and cause memory leaks
         /// TODO: Find a way to store the HttpClient in this class without copying it to cloned clients via createHttpClient
@@ -67,12 +61,12 @@ namespace RestClient.Net
         #region Public Constructors
         /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies. Defaults to JSON and adds the default Content-Type header for JSON on platforms later than .NET Framework 4.5</param>
         /// <param name="name">The of the client instance. This is also passed to the HttpClient factory to get or create HttpClient instances</param>
-        /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only</param>
+        /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only. This should be an absolute Uri</param>
         /// <param name="defaultRequestHeaders">Default headers to be sent with http requests</param>
         /// <param name="logger">Logging abstraction that will trace request/response data and log events</param>
         /// <param name="createHttpClient">The delegate that is used for getting or creating HttpClient instances when the SendAsync call is made</param>
-        /// <param name="sendHttpRequestFunc">The Func responsible for performing the SendAsync method on HttpClient. This can replaced in the constructor in order to implement retries and so on.</param>
-        /// <param name="getHttpRequestMessage">Delegate responsible for converting rest requests to http requests</param>
+        /// <param name="sendHttpRequest">The service responsible for performing the SendAsync method on HttpClient. This can replaced in the constructor in order to implement retries and so on.</param>
+        /// <param name="getHttpRequestMessage">Service responsible for converting rest requests to http requests</param>
         /// <param name="timeout">Amount of time a request should wait before timing out</param>
         /// <param name="zip">Provides a mechanism for unzipping gzip responses on platforms where HttpClient does not do this automatically (Looking at you UWP)</param>
         /// <param name="throwExceptionOnFailure">Whether or not to throw an exception on non-successful http calls</param>
@@ -87,8 +81,8 @@ namespace RestClient.Net
             IHeadersCollection? defaultRequestHeaders = null,
             ILogger<Client>? logger = null,
             CreateHttpClient? createHttpClient = null,
-            SendHttpRequestMessage? sendHttpRequestFunc = null,
-            GetHttpRequestMessage? getHttpRequestMessage = null,
+            ISendHttpRequestMessage? sendHttpRequest = null,
+            IGetHttpRequestMessage? getHttpRequestMessage = null,
             TimeSpan timeout = default,
             IZip? zip = null,
             bool throwExceptionOnFailure = true)
@@ -116,7 +110,7 @@ namespace RestClient.Net
 
             Name = name ?? Guid.NewGuid().ToString();
 
-            this.getHttpRequestMessage = getHttpRequestMessage ?? ClientExtensions.DefaultGetHttpRequestMessage;
+            this.getHttpRequestMessage = getHttpRequestMessage ?? DefaultGetHttpRequestMessage.Instance;
 
             if (createHttpClient == null)
             {
@@ -132,7 +126,7 @@ namespace RestClient.Net
                 this.createHttpClient = createHttpClient;
             }
 
-            this.sendHttpRequestFunc = sendHttpRequestFunc ?? ClientExtensions.DefaultSendHttpRequestMessageFunc;
+            this.sendHttpRequest = sendHttpRequest ?? DefaultSendHttpRequestMessage.Instance;
 
             Timeout = timeout;
             this.zip = zip;
@@ -190,7 +184,7 @@ namespace RestClient.Net
             }
         }
 
-        async Task<Response<TResponseBody>> IClient.SendAsync<TResponseBody>(IRequest request)
+        async Task<Response<TResponseBody>> IClient.SendAsync<TResponseBody, TRequestBody>(IRequest<TRequestBody> request)
         {
             //Why do we need to check for null? Nullable is turned on....
             if (request == null) throw new ArgumentNullException(nameof(request));
@@ -226,16 +220,19 @@ namespace RestClient.Net
 
                 if (request == null) throw new ArgumentNullException(nameof(request));
 
-                logger.LogTrace(IsUpdate(request.HttpRequestMethod) ? "Request body serialized {bodyData}" : "No request body to serialize", new object[] { request.BodyData ?? new byte[0] });
+                var requestBodyIsNull = request.BodyData == null;
+
+                logger.LogTrace(!requestBodyIsNull ? "Request body" : "No request body", new object[] { requestBodyIsNull });
 
                 //Note: we do not simply get the HttpRequestMessage here. If we use something like Polly, we may need to send it several times, and you cannot send the same message multiple times
                 //This is why we must compose the send func with getHttpRequestMessage
 
-                httpResponseMessage = await sendHttpRequestFunc(
+                httpResponseMessage = await sendHttpRequest.SendHttpRequestMessage(
                     httpClient,
                     getHttpRequestMessage,
                     request,
-                    logger
+                    logger,
+                    SerializationAdapter
                     ).ConfigureAwait(false);
             }
             catch (TaskCanceledException tce)
@@ -263,8 +260,6 @@ namespace RestClient.Net
         #endregion Public Methods
 
         #region Private Methods
-
-        private static bool IsUpdate(HttpRequestMethod httpRequestMethod) => _updateHttpRequestMethods.Contains(httpRequestMethod);
 
         private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody>(
             IRequest request,

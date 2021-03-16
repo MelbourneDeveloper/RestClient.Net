@@ -300,7 +300,7 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: _createHttpClient
                 );
 
-            var response = await client.SendAsync<string, object>(new Request(
+            var response = await client.SendAsync<string, object>(new Request<object>(
                 baseUri,
                 null,
                 NullHeadersCollection.Instance,
@@ -778,7 +778,7 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHeadersResponseLocalCanEnumerateNames()
+        public async Task TestHeadersResponseLocalGet2()
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
@@ -1104,7 +1104,7 @@ namespace RestClient.Net.UnitTests
             var requestHeadersCollection = "Test".CreateHeadersCollection("Test");
             Person responsePerson = await client.SendAsync<Person, object>
                 (
-                new Request(testServerBaseUri.Combine(new Uri("headers", UriKind.Relative)), null, requestHeadersCollection, HttpRequestMethod.Get, default)
+                new Request<object>(testServerBaseUri.Combine(new Uri("headers", UriKind.Relative)), null, requestHeadersCollection, HttpRequestMethod.Get, default)
                 ).ConfigureAwait(false); ;
             Assert.IsNotNull(responsePerson);
         }
@@ -1114,8 +1114,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestErrorsLocalGet()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             using var client = new Client(
-                new NewtonsoftSerializationAdapter(),
+                serializationAdapter,
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 throwExceptionOnFailure: false
@@ -1123,7 +1125,7 @@ namespace RestClient.Net.UnitTests
 
             var response = await client.GetAsync<Person>("error").ConfigureAwait(false);
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
-            var apiResult = client.DeserializeResponseBody<ApiResult>(response.GetResponseData(), response.Headers);
+            var apiResult = serializationAdapter.Deserialize<ApiResult>(response.GetResponseData(), response.Headers);
             Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
 
             //Check that the response values are getting set correctly
@@ -1134,8 +1136,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestErrorsLocalGetThrowException()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             using var restClient = new Client(
-                new NewtonsoftSerializationAdapter(),
+                serializationAdapter,
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient);
 
@@ -1146,7 +1150,7 @@ namespace RestClient.Net.UnitTests
             }
             catch (HttpStatusException hex)
             {
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
                 return;
             }
@@ -1189,8 +1193,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationLocalWithError()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             using var restClient = new Client(
-                new NewtonsoftSerializationAdapter(),
+                serializationAdapter,
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.SetBasicAuthenticationHeader("Bob", "WrongPassword"));
@@ -1202,7 +1208,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -1225,8 +1231,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBearerTokenAuthenticationLocalWithError()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             using var restClient = new Client(
-                new NewtonsoftSerializationAdapter(),
+                serializationAdapter,
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.SetBearerTokenAuthenticationHeader("321"));
@@ -1238,7 +1246,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -1263,8 +1271,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestBasicAuthenticationPostLocalWithError()
         {
+            var serializationAdapter = new NewtonsoftSerializationAdapter();
+
             using var restClient = new Client(
-                new NewtonsoftSerializationAdapter(),
+                serializationAdapter,
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions
@@ -1278,7 +1288,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException ex)
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.Response.StatusCode);
-                var apiResult = restClient.DeserializeResponseBody<ApiResult>(ex.Response.GetResponseData(), ex.Response.Headers);
+                var apiResult = serializationAdapter.Deserialize<ApiResult>(ex.Response.GetResponseData(), ex.Response.Headers);
                 Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
                 return;
             }
@@ -1365,6 +1375,14 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task TestLocalPostBody2()
+        {
+            var client = GetJsonClient(new Uri($"{LocalBaseUriString}/jsonperson/save2"));
+            jsonperson responsePerson = await client.PostAsync<jsonperson>().ConfigureAwait(false);
+            Assert.AreEqual("J", responsePerson.FirstName);
+        }
+        
+        [TestMethod]
         public async Task TestLocalPostBodyStringUri()
         {
             var client = GetJsonClient();
@@ -1403,6 +1421,14 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task TestLocalPutBody2()
+        {
+            var client = GetJsonClient(new Uri($"{LocalBaseUriString}/jsonperson/save2"));
+            jsonperson responsePerson = await client.PutAsync<jsonperson>().ConfigureAwait(false);
+            Assert.AreEqual("J", responsePerson.FirstName);
+        }
+        
+        [TestMethod]
         public async Task TestLocalPutBodyStringUri()
         {
             var client = GetJsonClient();
@@ -1440,6 +1466,14 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
         }
 
+        [TestMethod]
+        public async Task TestLocalPatchBody2()
+        {
+            var client = GetJsonClient(new Uri($"{LocalBaseUriString}/jsonperson/save2"));
+            jsonperson responsePerson = await client.PatchAsync<jsonperson>().ConfigureAwait(false);
+            Assert.AreEqual("J", responsePerson.FirstName);
+        }
+        
         [TestMethod]
         public async Task TestLocalPatchBodyStringUri()
         {
@@ -1501,12 +1535,12 @@ namespace RestClient.Net.UnitTests
                 "test",
                 new Uri("http://www.test.com"));
 
-            _ = clientMock.Setup(c => c.SendAsync<string>(It.IsAny<IRequest>())).Returns
+            _ = clientMock.Setup(c => c.SendAsync<string, object>(It.IsAny<IRequest<object>>())).Returns
                 (
                 Task.FromResult(response)
                 );
 
-            var returnedResponse = await clientMock.Object.SendAsync<string>(new Mock<IRequest>().Object).ConfigureAwait(false);
+            var returnedResponse = await clientMock.Object.SendAsync<string, object>(new Mock<IRequest<object>>().Object).ConfigureAwait(false);
 
             Assert.IsTrue(ReferenceEquals(response, returnedResponse));
         }
