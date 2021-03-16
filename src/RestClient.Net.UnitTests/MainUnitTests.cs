@@ -1578,6 +1578,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestFactoryDoesntUseSameHttpClient()
         {
+            var logCount = 0;
             HttpClient? firstClient = null;
             HttpClient? secondClient = null;
 
@@ -1596,6 +1597,9 @@ namespace RestClient.Net.UnitTests
                         firstClient = httpClient;
                     }
                 }
+
+                //This is a filthy unit test. We do this to make sure that the http client was only logged twice (one for each GET)
+                logCount++;
             });
 
             var clientFactory = new ClientFactory(
@@ -1614,23 +1618,59 @@ namespace RestClient.Net.UnitTests
 #pragma warning restore CA1508 // Avoid dead conditional code
             Assert.IsFalse(isEqual);
         }
-#endif
 
         [TestMethod]
         public async Task TestHttpClientFactoryDoesntUseSameHttpClient()
         {
+            var logCount = 0;
+            HttpClient? firstClient = null;
+            HttpClient? secondClient = null;
+
+            using var callbackLoggerFactory = GetLoggerFactory((state) =>
+            {
+                if (state == null) return;
+                var exists = state.GetValue<HttpClient>("httpClient", out var httpClient);
+                if (exists)
+                {
+                    if (firstClient != null)
+                    {
+                        secondClient = httpClient;
+                    }
+                    else
+                    {
+                        firstClient = httpClient;
+                    }
+
+                    //This is a filthy unit test. We do this to make sure that the http client was only logged twice (one for each GET)
+                    logCount++;
+                }
+            });
+
             using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
-            using var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                logger: callbackLoggerFactory.CreateLogger<Client>(),
+                baseUri: RestCountriesAllUri,
+                createHttpClient: defaultHttpClientFactory.CreateClient); ;
+
             var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
-            //var firstClient = response.HttpClient;
 
-            using var client2 = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
+            using var client2 = new Client(
+                new NewtonsoftSerializationAdapter(),
+                logger: callbackLoggerFactory.CreateLogger<Client>(),
+                baseUri: RestCountriesAllUri,
+                createHttpClient: defaultHttpClientFactory.CreateClient);
+
             response = (HttpResponseMessageResponse<List<RestCountry>>)await client2.GetAsync<List<RestCountry>>().ConfigureAwait(false);
-            //var secondClient = response.HttpClient;
 
-            //Assert.IsFalse(ReferenceEquals(firstClient, secondClient));
+#pragma warning disable CA1508 // Avoid dead conditional code
+            Assert.IsFalse(ReferenceEquals(firstClient, secondClient));
+#pragma warning restore CA1508 // Avoid dead conditional code
+
+            Assert.AreEqual(2, logCount);
         }
+#endif
 
         /// <summary>
         /// This test is controversial. Should non-named clients always be Singleton? This is the way the factory is designed, but could trip some users up.
