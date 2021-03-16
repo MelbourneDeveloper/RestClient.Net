@@ -8,21 +8,44 @@ namespace RestClient.Net
 {
     public static class CallExtensions
     {
+        #region Fields
+        private const string MessageAtLeastOneUri = "At least one Uri must be absolute and not null";
+        #endregion
+
+        #region Private Methods
+        /// <summary>
+        /// Uris don't concatenate properly if the first Uri doesn't end with a forward slash. this is a known bug in .NET
+        /// </summary>
+        /// <param name="baseUri"></param>
+        /// <returns></returns>
+        private static Uri AddForwardSlashIfNecessary(this Uri baseUri)
+            => baseUri == null ? throw new ArgumentNullException(nameof(baseUri)) :
+            !baseUri.ToString().EndsWith("/", StringComparison.OrdinalIgnoreCase) ? new Uri($"{baseUri}/") : baseUri;
+
+        #endregion
+
+
         #region Public Methods
 
         #region Misc
+
+        /// <summary>
+        /// Combines two Uris in a safe way. 
+        /// </summary>
+        /// <param name="baseUri"></param>
+        /// <param name="relativeUri"></param>
+        /// <returns></returns>
         public static Uri Combine(this Uri? baseUri, Uri? relativeUri)
         =>
         baseUri == null && relativeUri == null ? throw new InvalidOperationException($"{nameof(baseUri)} or {nameof(relativeUri)} must not be null") :
         baseUri == null ? relativeUri is Uri ru && ru.IsAbsoluteUri
             ? ru :
-            throw new InvalidOperationException("At least one Uri must be absolute and not null") :
+            throw new InvalidOperationException(MessageAtLeastOneUri) :
             relativeUri == null ? baseUri.IsAbsoluteUri ? baseUri :
-            throw new InvalidOperationException("At least one Uri must be absolute and not null") :
+            throw new InvalidOperationException(MessageAtLeastOneUri) :
             !baseUri.IsAbsoluteUri ? throw new InvalidOperationException($"{nameof(baseUri)} must be absolute") :
             relativeUri.IsAbsoluteUri ? throw new InvalidOperationException($"{nameof(relativeUri)} must be relative") :
-            new Uri(baseUri, relativeUri);
-
+            new Uri(baseUri.AddForwardSlashIfNecessary(), relativeUri);
         #endregion
 
         #region Delete
