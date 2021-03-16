@@ -71,7 +71,7 @@ namespace RestClient.Net.UnitTests
                 new Uri(MainUnitTests.LocalBaseUriString),
                 logger: null,
                 createHttpClient: MainUnitTests.GetTestClientFactory().CreateClient,
-                sendHttpRequestFunc: sendHttpRequestFunc);
+                sendHttpRequest: sendHttpRequestFunc);
 
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
 
