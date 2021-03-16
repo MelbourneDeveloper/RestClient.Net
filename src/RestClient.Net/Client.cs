@@ -214,7 +214,7 @@ namespace RestClient.Net
                     throw new InvalidOperationException($"{nameof(createHttpClient)} returned a {nameof(HttpClient)} with at least one item in {nameof(HttpClient.DefaultRequestHeaders)}. The {nameof(HttpClient)} must never have {nameof(HttpClient.DefaultRequestHeaders)}. Fix the {nameof(createHttpClient)} func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.DefaultRequestHeaders)}");
                 }
 
-                logger.LogTrace("Got HttpClient null: {httpClientNull}", httpClient == null);
+                logger.LogTrace("Got HttpClient: {httpClient}", httpClient);
 
                 if (httpClient == null) throw new InvalidOperationException("CreateHttpClient returned null");
 
