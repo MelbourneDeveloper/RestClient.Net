@@ -1680,6 +1680,7 @@ namespace RestClient.Net.UnitTests
 #pragma warning disable CA1508 // Avoid dead conditional code
             Assert.IsNotNull(firstClient);
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
+            Assert.AreEqual(2, logCount);
 #pragma warning restore CA1508 // Avoid dead conditional code
         }
 
@@ -1732,6 +1733,7 @@ namespace RestClient.Net.UnitTests
 
 #pragma warning disable CA1508 // Avoid dead conditional code
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
+            Assert.AreEqual(2, logCount);
 #pragma warning restore CA1508 // Avoid dead conditional code
         }
 #endif
