@@ -1569,9 +1569,9 @@ namespace RestClient.Net.UnitTests
 
             var callbackLogger = new CallbackLogger<Client>((state) =>
             {
-                var httpClient = state?.GetValue<HttpClient>("httpClient");
-
-                if (httpClient != null)
+                if (state == null) return;
+                var exists = state.GetValue<HttpClient>("httpClient", out var httpClient);
+                if (exists)
                 {
                     if (firstClient != null)
                     {

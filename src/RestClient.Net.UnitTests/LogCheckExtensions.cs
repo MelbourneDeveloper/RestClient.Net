@@ -65,18 +65,22 @@ namespace RestClient.Net.UnitTests
         {
             if (compare == null) throw new ArgumentNullException(nameof(compare));
 
-            var actualValue = state.GetValue<T>(key);
+            var exists = state.GetValue<T>(key, out var actualValue);
 
-            return compare(actualValue);
+            return exists && compare(actualValue);
         }
 
-        public static T GetValue<T>(this object state, string key)
+#pragma warning disable CA1021 // Avoid out parameters
+        public static bool GetValue<T>(this object state, string key, out T value)
+#pragma warning restore CA1021 // Avoid out parameters
         {
             var keyValuePairList = (IReadOnlyList<KeyValuePair<string, object>>)state;
 
             var keyValuePair = keyValuePairList.FirstOrDefault(kvp => string.Compare(kvp.Key, key, StringComparison.Ordinal) == 0);
 
-            return (T)keyValuePair.Value;
+            value = (T)keyValuePair.Value;
+
+            return keyValuePair.Key != null;
         }
     }
 }
