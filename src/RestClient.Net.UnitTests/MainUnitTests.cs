@@ -1374,6 +1374,14 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task TestLocalPostBody2()
+        {
+            var client = GetJsonClient(new Uri($"{LocalBaseUriString}/jsonperson/save2"));
+            jsonperson responsePerson = await client.PostAsync<jsonperson>().ConfigureAwait(false);
+            Assert.AreEqual("J", responsePerson.FirstName);
+        }
+        
+        [TestMethod]
         public async Task TestLocalPostBodyStringUri()
         {
             var client = GetJsonClient();
