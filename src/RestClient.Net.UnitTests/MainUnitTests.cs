@@ -1561,13 +1561,27 @@ namespace RestClient.Net.UnitTests
         }
 
 #if!NET45 
+
+        private static ILoggerFactory GetLoggerFactory(Action<object?> callback)
+        {
+            var callbackLogger = new CallbackLogger<Client>(callback);
+
+            var callbackLoggerFactory = new LoggerFactory();
+#pragma warning disable CA2000 // Dispose objects before losing scope
+            var provider = new LoggerProvider(callbackLogger);
+#pragma warning restore CA2000 // Dispose objects before losing scope
+            callbackLoggerFactory.AddProvider(provider);
+
+            return callbackLoggerFactory;
+        }
+
         [TestMethod]
         public async Task TestFactoryDoesntUseSameHttpClient()
         {
             HttpClient? firstClient = null;
             HttpClient? secondClient = null;
 
-            var callbackLogger = new CallbackLogger<Client>((state) =>
+            using var callbackLoggerFactory = GetLoggerFactory((state) =>
             {
                 if (state == null) return;
                 var exists = state.GetValue<HttpClient>("httpClient", out var httpClient);
@@ -1583,10 +1597,6 @@ namespace RestClient.Net.UnitTests
                     }
                 }
             });
-
-            using var callbackLoggerFactory = new LoggerFactory();
-            using var provider = new LoggerProvider(callbackLogger);
-            callbackLoggerFactory.AddProvider(provider);
 
             var clientFactory = new ClientFactory(
                 _createHttpClient,
