@@ -815,7 +815,6 @@ namespace RestClient.Net.UnitTests
 
             //For coverage
             new NullHeadersCollection().Dispose();
-            
         }
 
         [TestMethod]
@@ -1498,8 +1497,7 @@ namespace RestClient.Net.UnitTests
                 //Shouldn't this be filled in?
                 new byte[0],
                 "test",
-                httpResponseMessage,
-                httpClient);
+                httpResponseMessage);
 
             _ = clientMock.Setup(c => c.SendAsync<string>(It.IsAny<IRequest>())).Returns
                 (

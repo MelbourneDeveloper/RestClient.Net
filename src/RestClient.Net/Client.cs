@@ -257,7 +257,7 @@ namespace RestClient.Net
 
             logger.LogTrace("Successful request/response {request}", request);
 
-            return await ProcessResponseAsync<TResponseBody>(request, httpResponseMessage, httpClient).ConfigureAwait(false);
+            return await ProcessResponseAsync<TResponseBody>(request, httpResponseMessage).ConfigureAwait(false);
         }
 
         #endregion Public Methods
@@ -266,7 +266,9 @@ namespace RestClient.Net
 
         private static bool IsUpdate(HttpRequestMethod httpRequestMethod) => _updateHttpRequestMethods.Contains(httpRequestMethod);
 
-        private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody>(IRequest request, HttpResponseMessage httpResponseMessage, HttpClient httpClient)
+        private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody>(
+            IRequest request,
+            HttpResponseMessage httpResponseMessage)
         {
             byte[]? responseData = null;
 
@@ -308,8 +310,7 @@ namespace RestClient.Net
                 request.HttpRequestMethod,
                 responseData,
                 responseBody,
-                httpResponseMessage,
-                httpClient
+                httpResponseMessage
             );
 
             if (!httpResponseMessageResponse.IsSuccess)
