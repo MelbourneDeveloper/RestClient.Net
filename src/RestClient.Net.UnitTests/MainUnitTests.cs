@@ -776,6 +776,36 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task TestHeadersResponseLocalCanEnumerateNames()
+        {
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: "Test".CreateHeadersCollection("Test"));
+
+            var response = await client.GetAsync<Person>("headers").ConfigureAwait(false);
+
+            Assert.IsTrue(response.Headers.Names.ToList().Contains("Test1"));
+
+        }
+
+        [TestMethod]
+        public void TestCanEnumerateNullHeaders()
+        {
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
+            foreach (var asdasd in NullHeadersCollection.Instance)
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
+            {
+
+            }
+
+            Assert.IsFalse(NullHeadersCollection.Instance.Contains("asdasd"));
+
+            Assert.IsTrue(!NullHeadersCollection.Instance[""].Any());
+        }
+
+        [TestMethod]
         [DataRow(true)]
         [DataRow(false)]
         public async Task TestHeadersTraceLocalGet(bool useDefault)
