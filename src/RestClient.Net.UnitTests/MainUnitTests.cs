@@ -813,7 +813,9 @@ namespace RestClient.Net.UnitTests
             Assert.IsNull(current.Key);
             Assert.IsNull(current.Value);
 
+            //For coverage
             new NullHeadersCollection().Dispose();
+            
         }
 
         [TestMethod]
