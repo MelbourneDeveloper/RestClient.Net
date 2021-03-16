@@ -24,10 +24,10 @@ namespace RestClient.Net.Abstractions
             responseData,
             requestUri) => Body = body;
 
-        public static implicit operator TResponseBody(Response<TResponseBody> readResult)
+        public static implicit operator TResponseBody(Response<TResponseBody> response)
             //TODO: This exception could be a bit misleading
 #pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
-            => readResult != null && readResult.Body != null ? readResult.Body : throw new ArgumentNullException(nameof(readResult));
+            => response != null && response.Body != null ? response.Body : throw new ArgumentNullException(nameof(response));
 #pragma warning restore CA1065 // Do not raise exceptions in unexpected locations
         #endregion
     }
