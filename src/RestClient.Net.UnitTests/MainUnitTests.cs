@@ -791,6 +791,34 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public void TestCanEnumerateNullHeaders()
+        {
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
+            foreach (var asdasd in NullHeadersCollection.Instance)
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
+            {
+
+            }
+
+            Assert.IsFalse(NullHeadersCollection.Instance.Contains("asdasd"));
+
+            Assert.IsTrue(!NullHeadersCollection.Instance[""].Any());
+
+            var value = (NullKvpEnumerator<string, IEnumerable<string>>)NullHeadersCollection.Instance.GetEnumerator();
+
+            Assert.IsNotNull(value);
+
+            var current = value.Current;
+
+            Assert.IsNull(current.Key);
+            Assert.IsNull(current.Value);
+
+            //For coverage
+            new NullHeadersCollection().Dispose();
+            
+        }
+
+        [TestMethod]
         [DataRow(true)]
         [DataRow(false)]
         public async Task TestHeadersTraceLocalGet(bool useDefault)
