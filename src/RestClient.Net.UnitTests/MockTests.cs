@@ -43,9 +43,7 @@ namespace RestClient.Net.UnitTests
                     uri
                 );
 
-            _ = clientMock.Setup(c => c.SendAsync<Person>(It.IsAny<Request>())).Returns(Task.FromResult(result));
-
-            _ = clientMock.Setup(c => c.SerializationAdapter).Returns(serializationAdapterMock.Object);
+            _ = clientMock.Setup(c => c.SendAsync<Person, Person>(It.IsAny<IRequest<Person>>())).Returns(Task.FromResult(result));
 
 #pragma warning disable CS8603 // Possible null reference return.
             _ = clientMock.Setup<Uri>(c => c.BaseUri).Returns(uri);
