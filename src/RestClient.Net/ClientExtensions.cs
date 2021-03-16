@@ -13,7 +13,7 @@ namespace RestClient.Net
     {
         #region Public Methods
 
-        public static Client WithDefaultHeaders(this Client client, IHeadersCollection defaultRequestHeaders)
+        public static Client With(this Client client, IHeadersCollection defaultRequestHeaders)
         =>
             client != null ? new Client(
             client.SerializationAdapter,
@@ -28,8 +28,8 @@ namespace RestClient.Net
             client.zip,
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
-        public static Client WithDefaultHeaders(this Client client, string key, string value)
-            => WithDefaultHeaders(client, key.CreateHeadersCollection(value));
+        public static Client With(this Client client, string key, string value)
+            => With(client, key.CreateHeadersCollection(value));
 
         #endregion Public Methods
 
