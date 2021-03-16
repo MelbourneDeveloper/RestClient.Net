@@ -7,23 +7,20 @@ namespace RestClient.Net
 {
     public class HttpResponseMessageResponse<TResponseBody> : Response<TResponseBody>
     {
-        #region Public Properties
-        public HttpResponseMessage HttpResponseMessage { get; }
-        public override bool IsSuccess => HttpResponseMessage.IsSuccessStatusCode;
-        public HttpClient HttpClient { get; }
-        #endregion
 
-        #region Constructor
+        #region Public Constructors
+
         /// <summary>
         /// Constructor for mocking. Don't use this for anything other than unit tests.
         /// </summary>
-        public HttpResponseMessageResponse(TResponseBody body) : this(NullHeadersCollection.Instance, 0, HttpRequestMethod.Get,
-#if NET45
-            new byte[0]
-#else
-            Array.Empty<byte>()
-#endif
-            , body, NullObjects.NullHttpResponseMessage, NullObjects.NullHttpClient)
+        public HttpResponseMessageResponse(TResponseBody body) : this(
+            NullHeadersCollection.Instance,
+            0,
+            HttpRequestMethod.Get,
+            new byte[0],
+            body,
+            NullObjects.NullHttpResponseMessage,
+            NullObjects.NullHttpClient)
         {
         }
 
@@ -48,9 +45,21 @@ namespace RestClient.Net
             HttpClient = httpClient;
         }
 
-        #endregion
+        #endregion Public Constructors
+
+        #region Public Properties
+
+        public HttpClient HttpClient { get; }
+        public HttpResponseMessage HttpResponseMessage { get; }
+        public override bool IsSuccess => HttpResponseMessage.IsSuccessStatusCode;
+
+        #endregion Public Properties
+
+        #region Public Methods
 
         public override string ToString() => $"Status: {StatusCode} HttpRequestMethod: {HttpRequestMethod} Body: {Body} Request Uri: {HttpResponseMessage?.RequestMessage?.RequestUri}";
+
+        #endregion Public Methods
 
     }
 }

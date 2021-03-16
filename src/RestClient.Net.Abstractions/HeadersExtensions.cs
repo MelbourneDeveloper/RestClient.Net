@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace RestClient.Net.Abstractions.Extensions
 {
     public static class HeadersExtensions
     {
-
         #region Internal Fields
 
         internal const string Authorization = "Authorization";
@@ -19,6 +19,9 @@ namespace RestClient.Net.Abstractions.Extensions
         #endregion Internal Fields
 
         #region Public Methods
+
+        public static IHeadersCollection ToHeadersCollection(this HttpResponseHeaders httpResponseHeaders)
+            => new HeadersCollection(httpResponseHeaders.ToImmutableDictionary());
 
         public static IHeadersCollection Append(this IHeadersCollection headersCollection, string key, IEnumerable<string> value)
         {

@@ -3,15 +3,13 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using RestClient.Net.Abstractions;
+using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-#if !NET45
-using RestClient.Net.Abstractions.Extensions;
-#endif
 
 namespace RestClient.Net
 {
@@ -288,7 +286,7 @@ namespace RestClient.Net
 
             responseData ??= await httpResponseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
-            var httpResponseHeadersCollection = new HttpResponseHeadersCollection(httpResponseMessage.Headers);
+            var httpResponseHeadersCollection = httpResponseMessage.Headers.ToHeadersCollection();
 
             TResponseBody responseBody = default;
 
