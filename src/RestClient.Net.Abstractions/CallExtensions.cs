@@ -62,6 +62,7 @@ namespace RestClient.Net
             {
                 return GetAsync<TResponseBody>(client, resource != null ? new Uri(resource, UriKind.Relative) : null);
             }
+            //TODO: This ain't no good
             catch (UriFormatException ufe)
             {
                 if (ufe.Message == "A relative URI cannot be created because the 'uriString' parameter represents an absolute URI.")

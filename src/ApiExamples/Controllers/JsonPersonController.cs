@@ -82,6 +82,10 @@ namespace ApiExamples.Controllers
         [Route("save")]
         public Person Patch([FromBody] Person person) => person;
 
+        [HttpPatch]
+        [Route("save2")]
+        public Person Patch() => new Person { FirstName = "J" };
+
         [HttpDelete]
 #pragma warning disable IDE0060 // Remove unused parameter
         public IActionResult Delete(string personKey) => Ok();
