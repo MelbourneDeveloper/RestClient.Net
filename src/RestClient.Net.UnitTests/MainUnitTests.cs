@@ -165,17 +165,19 @@ namespace RestClient.Net.UnitTests
         private static Mock<ILogger<Client>> _logger = new();
 
 #if NETCOREAPP3_1
+        private readonly Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
+        {
+            var client = _createHttpClient(n);
+            return new Lazy<HttpClient>(() => client);
+        };
+
         public const string LocalBaseUriString = "http://localhost";
         private static readonly TestServer _testServer;
 #else
         public const string LocalBaseUriString = "https://localhost:44337";
 #endif
 
-        private readonly Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
-        {
-            var client = _createHttpClient(n);
-            return new Lazy<HttpClient>(() => client);
-        };
+
         #endregion
 
         #region Setup
@@ -1582,25 +1584,7 @@ namespace RestClient.Net.UnitTests
             HttpClient? firstClient = null;
             HttpClient? secondClient = null;
 
-            using var callbackLoggerFactory = GetLoggerFactory((state) =>
-            {
-                if (state == null) return;
-                var exists = state.GetValue<HttpClient>("httpClient", out var httpClient);
-                if (exists)
-                {
-                    if (firstClient != null)
-                    {
-                        secondClient = httpClient;
-                    }
-                    else
-                    {
-                        firstClient = httpClient;
-                    }
-                }
-
-                //This is a filthy unit test. We do this to make sure that the http client was only logged twice (one for each GET)
-                logCount++;
-            });
+            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
 
             var clientFactory = new ClientFactory(
                 _createHttpClient,
@@ -1626,25 +1610,7 @@ namespace RestClient.Net.UnitTests
             HttpClient? firstClient = null;
             HttpClient? secondClient = null;
 
-            using var callbackLoggerFactory = GetLoggerFactory((state) =>
-            {
-                if (state == null) return;
-                var exists = state.GetValue<HttpClient>("httpClient", out var httpClient);
-                if (exists)
-                {
-                    if (firstClient != null)
-                    {
-                        secondClient = httpClient;
-                    }
-                    else
-                    {
-                        firstClient = httpClient;
-                    }
-
-                    //This is a filthy unit test. We do this to make sure that the http client was only logged twice (one for each GET)
-                    logCount++;
-                }
-            });
+            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
 
             using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
@@ -1670,7 +1636,6 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual(2, logCount);
         }
-#endif
 
         /// <summary>
         /// This test is controversial. Should non-named clients always be Singleton? This is the way the factory is designed, but could trip some users up.
@@ -1692,16 +1657,42 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHttpClientFactoryReusesHttpClient()
         {
+            var logCount = 0;
+            HttpClient? firstClient = null;
+            HttpClient? secondClient = null;
+
+            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
+
             using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
             using var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
             var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
-            //var firstClient = response.HttpClient;
 
             response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
-            //var secondClient = response.HttpClient;
 
-            //Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
+#pragma warning disable CA1508 // Avoid dead conditional code
+            Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
+#pragma warning restore CA1508 // Avoid dead conditional code
+        }
+
+        private static void GetHttpClentsFromLogs(object? state, ref int logCount, ref HttpClient? firstClient, ref HttpClient? secondClient)
+        {
+            if (state == null) return;
+            var exists = state.GetValue<HttpClient>("httpClient", out var httpClient);
+            if (exists)
+            {
+                if (firstClient != null)
+                {
+                    secondClient = httpClient;
+                }
+                else
+                {
+                    firstClient = httpClient;
+                }
+
+                //This is a filthy unit test. We do this to make sure that the http client was only logged twice (one for each GET)
+                logCount++;
+            }
         }
 
         [TestMethod]
@@ -1719,6 +1710,7 @@ namespace RestClient.Net.UnitTests
 
             //Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
         }
+#endif
 
         #endregion
 
