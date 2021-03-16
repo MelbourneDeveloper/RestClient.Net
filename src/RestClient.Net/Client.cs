@@ -303,14 +303,19 @@ namespace RestClient.Net
                 }
             }
 
-            var httpResponseMessageResponse = new HttpResponseMessageResponse<TResponseBody>
+            //No idea why this is necessary...
+            if (httpResponseMessage == null) throw new ArgumentNullException(nameof(httpResponseMessage));
+
+            var headersCollection2 = httpResponseMessage.Content?.Headers?.ToHeadersCollection();
+
+            var httpResponseMessageResponse = new Response<TResponseBody>
             (
-                httpResponseHeadersCollection,
+                httpResponseMessage.Headers.ToHeadersCollection().Append(headersCollection2),
                 (int)httpResponseMessage.StatusCode,
                 request.HttpRequestMethod,
                 responseData,
                 responseBody,
-                httpResponseMessage
+                request.Uri
             );
 
             if (!httpResponseMessageResponse.IsSuccess)

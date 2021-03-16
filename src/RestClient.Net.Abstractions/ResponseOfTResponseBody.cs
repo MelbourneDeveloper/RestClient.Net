@@ -3,14 +3,14 @@
 
 namespace RestClient.Net.Abstractions
 {
-    public abstract class Response<TResponseBody> : Response
+    public class Response<TResponseBody> : Response
     {
         #region Public Properties
-        public virtual TResponseBody? Body { get; }
+        public TResponseBody? Body { get; }
         #endregion
 
         #region Constructors
-        protected Response(
+        public Response(
         IHeadersCollection headersCollection,
         int statusCode,
         HttpRequestMethod httpRequestMethod,

@@ -10,10 +10,10 @@ namespace RestClient.Net.Abstractions
         #endregion
 
         #region Public Properties
+        public bool IsSuccess => StatusCode is >= 200 and <= 299;
         public virtual int StatusCode { get; }
         public virtual IHeadersCollection Headers { get; }
         public virtual HttpRequestMethod HttpRequestMethod { get; }
-        public abstract bool IsSuccess { get; }
         public virtual Uri? RequestUri { get; }
         #endregion
 

@@ -474,9 +474,9 @@ namespace RestClient.Net.UnitTests
             , LogLevel.Trace, 1);
 #endif
 
-            var httpResponseMessageResponse = response as HttpResponseMessageResponse<List<RestCountry>>;
+            var httpResponseMessageResponse = response;
 
-            Assert.AreEqual(StandardContentTypeToString, httpResponseMessageResponse?.HttpResponseMessage?.Content?.Headers?.ContentType?.ToString());
+            Assert.AreEqual(StandardContentTypeToString, httpResponseMessageResponse?.Headers["Content-Type"].First());
 
             Assert.AreEqual(RestCountriesAllHeaders[TransferEncodingHeaderName], response?.Headers[TransferEncodingHeaderName].First());
         }
@@ -1492,18 +1492,18 @@ namespace RestClient.Net.UnitTests
             var headersMock = new Mock<IHeadersCollection>();
             using var httpResponseMessage = new HttpResponseMessage();
             using var httpClient = new HttpClient();
-            var response = new HttpResponseMessageResponse<string>(
+            var response = new Response<string>(
                 headersMock.Object,
                 10,
                 HttpRequestMethod.Custom,
                 //Shouldn't this be filled in?
                 new byte[0],
                 "test",
-                httpResponseMessage);
+                new Uri("http://www.test.com"));
 
             _ = clientMock.Setup(c => c.SendAsync<string>(It.IsAny<IRequest>())).Returns
                 (
-                Task.FromResult<Response<string>>(response)
+                Task.FromResult(response)
                 );
 
             var returnedResponse = await clientMock.Object.SendAsync<string>(new Mock<IRequest>().Object).ConfigureAwait(false);
@@ -1592,10 +1592,10 @@ namespace RestClient.Net.UnitTests
                 loggerFactory: callbackLoggerFactory);
 
             var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "1", RestCountriesAllUri);
-            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
             client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "2", RestCountriesAllUri);
-            response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+            response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
             Assert.IsNotNull(firstClient);
 #pragma warning disable CA1508 // Avoid dead conditional code
@@ -1621,7 +1621,7 @@ namespace RestClient.Net.UnitTests
                 baseUri: RestCountriesAllUri,
                 createHttpClient: defaultHttpClientFactory.CreateClient); ;
 
-            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
             using var client2 = new Client(
                 new NewtonsoftSerializationAdapter(),
@@ -1629,7 +1629,7 @@ namespace RestClient.Net.UnitTests
                 baseUri: RestCountriesAllUri,
                 createHttpClient: defaultHttpClientFactory.CreateClient);
 
-            response = (HttpResponseMessageResponse<List<RestCountry>>)await client2.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+            response = await client2.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
             Assert.IsNotNull(firstClient);
 #pragma warning disable CA1508 // Avoid dead conditional code
@@ -1673,9 +1673,9 @@ namespace RestClient.Net.UnitTests
                 baseUri: RestCountriesAllUri,
                 createHttpClient: defaultHttpClientFactory.CreateClient);
 
-            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
-            response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+            response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
 #pragma warning disable CA1508 // Avoid dead conditional code
             Assert.IsNotNull(firstClient);
@@ -1721,7 +1721,7 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: defaultHttpClientFactory.CreateClient,
                 logger: callbackLoggerFactory.CreateLogger<Client>(),
                 name: "Test");
-            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
             using var client2 = new Client(
                 new NewtonsoftSerializationAdapter(),
@@ -1729,7 +1729,7 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: defaultHttpClientFactory.CreateClient,
                 logger: callbackLoggerFactory.CreateLogger<Client>(),
                 name: "Test");
-            response = (HttpResponseMessageResponse<List<RestCountry>>)await client2.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+            response = await client2.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
 #pragma warning disable CA1508 // Avoid dead conditional code
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));

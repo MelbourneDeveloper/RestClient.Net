@@ -25,14 +25,14 @@ namespace RestClient.Net.UnitTests
             var loggerMock = new Mock<ILogger>();
             var clientFactoryMock = new Mock<CreateClient>();
             var clientMock = new Mock<IClient>();
-            var responseMock = new Mock<HttpResponseMessageResponse<Person>>(new object[] { responsePerson });
+            var responseMock = new Mock<Response<Person>>(new object[] { responsePerson });
             var serializationAdapterMock = new Mock<ISerializationAdapter>();
 
             //Set the factory up to return the mock client
             _ = clientFactoryMock.Setup(f => f.Invoke("Person", null)).Returns(clientMock.Object);
 
             //Set the client up to return the response mock
-            _ = clientMock.Setup(c => c.SendAsync<Person>(It.IsAny<Request>())).Returns(Task.FromResult<Response<Person>>(responseMock.Object));
+            _ = clientMock.Setup(c => c.SendAsync<Person>(It.IsAny<Request>())).Returns(Task.FromResult(responseMock.Object));
 
             _ = clientMock.Setup(c => c.SerializationAdapter).Returns(serializationAdapterMock.Object);
 
