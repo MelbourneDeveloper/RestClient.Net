@@ -15,6 +15,8 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestPersonService()
         {
+            var uri = new Uri("http://www.asdasd.com");
+
             //Create a Person object to be sent as the Request
             var requestPerson = new Person { FirstName = "TestGuy", PersonKey = "" };
 
@@ -25,22 +27,31 @@ namespace RestClient.Net.UnitTests
             var loggerMock = new Mock<ILogger>();
             var clientFactoryMock = new Mock<CreateClient>();
             var clientMock = new Mock<IClient>();
-            var responseMock = new Mock<Response<Person>>(new object[] { responsePerson });
             var serializationAdapterMock = new Mock<ISerializationAdapter>();
 
             //Set the factory up to return the mock client
             _ = clientFactoryMock.Setup(f => f.Invoke("Person", null)).Returns(clientMock.Object);
 
             //Set the client up to return the response mock
-            _ = clientMock.Setup(c => c.SendAsync<Person>(It.IsAny<Request>())).Returns(Task.FromResult(responseMock.Object));
+            var result = new Response<Person>
+                (
+                    NullHeadersCollection.Instance,
+                    200,
+                    HttpRequestMethod.Post,
+                    new byte[0],
+                    responsePerson,
+                    uri
+                );
+
+            _ = clientMock.Setup(c => c.SendAsync<Person>(It.IsAny<Request>())).Returns(Task.FromResult(result));
 
             _ = clientMock.Setup(c => c.SerializationAdapter).Returns(serializationAdapterMock.Object);
 
-            _ = clientMock.Setup(c => c.BaseUri).Returns(new Uri("http://www.asdasd.com"));
+#pragma warning disable CS8603 // Possible null reference return.
+            _ = clientMock.Setup<Uri>(c => c.BaseUri).Returns(uri);
+#pragma warning restore CS8603 // Possible null reference return.
 
             _ = serializationAdapterMock.Setup(c => c.Deserialize<Person>(It.IsAny<byte[]>(), It.IsAny<IHeadersCollection>())).Returns(responsePerson);
-
-            _ = responseMock.Setup(r => r.Body).Returns(responsePerson);
 
             //Create the service and call SavePerson
             var personService = new PersonService(clientFactoryMock.Object);
