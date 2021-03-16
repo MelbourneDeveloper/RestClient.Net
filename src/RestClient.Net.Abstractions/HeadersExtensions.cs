@@ -20,8 +20,11 @@ namespace RestClient.Net.Abstractions.Extensions
 
         #region Public Methods
 
-        public static IHeadersCollection ToHeadersCollection(this HttpResponseHeaders httpResponseHeaders)
-            => new HeadersCollection(httpResponseHeaders.ToImmutableDictionary());
+        public static IHeadersCollection ToHeadersCollection(this HttpResponseHeaders? httpResponseHeaders)
+            => new HeadersCollection(httpResponseHeaders == null ? ImmutableDictionary.Create<string, IEnumerable<string>>() : httpResponseHeaders.ToImmutableDictionary());
+
+        public static IHeadersCollection ToHeadersCollection(this HttpContentHeaders? httpContentHeaders)
+            => new HeadersCollection(httpContentHeaders == null ? ImmutableDictionary.Create<string, IEnumerable<string>>() : httpContentHeaders.ToImmutableDictionary());
 
         public static IHeadersCollection Append(this IHeadersCollection headersCollection, string key, IEnumerable<string> value)
         {
@@ -67,6 +70,33 @@ namespace RestClient.Net.Abstractions.Extensions
                 if (dictionary.ContainsKey(kvp.Key)) _ = dictionary.Remove(kvp.Key);
 
                 dictionary.Add(kvp.Key, kvp.Value);
+            }
+
+            return new HeadersCollection(dictionary);
+        }
+
+        public static IHeadersCollection Append(this IHeadersCollection? headersCollection, IHeadersCollection? headersCollection2)
+        {
+
+            var dictionary = new Dictionary<string, IEnumerable<string>>();
+
+            if (headersCollection != null)
+            {
+                foreach (var kvp in headersCollection)
+                {
+                    dictionary.Add(kvp.Key, kvp.Value);
+                }
+            }
+
+            if (headersCollection2 != null)
+            {
+                foreach (var kvp in headersCollection2)
+                {
+                    //TODO: This looks a bit dodgy. Need tests around this to make sure crazy stuff don't happen
+                    if (dictionary.ContainsKey(kvp.Key)) _ = dictionary.Remove(kvp.Key);
+
+                    dictionary.Add(kvp.Key, kvp.Value);
+                }
             }
 
             return new HeadersCollection(dictionary);

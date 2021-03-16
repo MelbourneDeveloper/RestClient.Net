@@ -214,7 +214,7 @@ namespace RestClient.Net
                     throw new InvalidOperationException($"{nameof(createHttpClient)} returned a {nameof(HttpClient)} with at least one item in {nameof(HttpClient.DefaultRequestHeaders)}. The {nameof(HttpClient)} must never have {nameof(HttpClient.DefaultRequestHeaders)}. Fix the {nameof(createHttpClient)} func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.DefaultRequestHeaders)}");
                 }
 
-                logger.LogTrace("Got HttpClient null: {httpClientNull}", httpClient == null);
+                logger.LogTrace("Got HttpClient: {httpClient}", httpClient);
 
                 if (httpClient == null) throw new InvalidOperationException("CreateHttpClient returned null");
 
@@ -257,7 +257,7 @@ namespace RestClient.Net
 
             logger.LogTrace("Successful request/response {request}", request);
 
-            return await ProcessResponseAsync<TResponseBody>(request, httpResponseMessage, httpClient).ConfigureAwait(false);
+            return await ProcessResponseAsync<TResponseBody>(request, httpResponseMessage).ConfigureAwait(false);
         }
 
         #endregion Public Methods
@@ -266,7 +266,9 @@ namespace RestClient.Net
 
         private static bool IsUpdate(HttpRequestMethod httpRequestMethod) => _updateHttpRequestMethods.Contains(httpRequestMethod);
 
-        private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody>(IRequest request, HttpResponseMessage httpResponseMessage, HttpClient httpClient)
+        private async Task<Response<TResponseBody>> ProcessResponseAsync<TResponseBody>(
+            IRequest request,
+            HttpResponseMessage httpResponseMessage)
         {
             byte[]? responseData = null;
 
@@ -301,15 +303,19 @@ namespace RestClient.Net
                 }
             }
 
-            var httpResponseMessageResponse = new HttpResponseMessageResponse<TResponseBody>
+            //No idea why this is necessary...
+            if (httpResponseMessage == null) throw new ArgumentNullException(nameof(httpResponseMessage));
+
+            var headersCollection2 = httpResponseMessage.Content?.Headers?.ToHeadersCollection();
+
+            var httpResponseMessageResponse = new Response<TResponseBody>
             (
-                httpResponseHeadersCollection,
+                httpResponseMessage.Headers.ToHeadersCollection().Append(headersCollection2),
                 (int)httpResponseMessage.StatusCode,
                 request.HttpRequestMethod,
                 responseData,
                 responseBody,
-                httpResponseMessage,
-                httpClient
+                request.Uri
             );
 
             if (!httpResponseMessageResponse.IsSuccess)

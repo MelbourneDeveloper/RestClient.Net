@@ -65,16 +65,22 @@ namespace RestClient.Net.UnitTests
         {
             if (compare == null) throw new ArgumentNullException(nameof(compare));
 
+            var exists = state.GetValue<T>(key, out var actualValue);
+
+            return exists && compare(actualValue);
+        }
+
+#pragma warning disable CA1021 // Avoid out parameters
+        public static bool GetValue<T>(this object state, string key, out T value)
+#pragma warning restore CA1021 // Avoid out parameters
+        {
             var keyValuePairList = (IReadOnlyList<KeyValuePair<string, object>>)state;
 
             var keyValuePair = keyValuePairList.FirstOrDefault(kvp => string.Compare(kvp.Key, key, StringComparison.Ordinal) == 0);
 
-            //Check to make sure we were able to get the key from the dictionary or return false
-            if (keyValuePair.Key == null) return false;
+            value = (T)keyValuePair.Value;
 
-            var actualValue = (T)keyValuePair.Value;
-
-            return compare(actualValue);
+            return keyValuePair.Key != null;
         }
     }
 }
