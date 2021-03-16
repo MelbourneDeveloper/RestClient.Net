@@ -803,6 +803,17 @@ namespace RestClient.Net.UnitTests
             Assert.IsFalse(NullHeadersCollection.Instance.Contains("asdasd"));
 
             Assert.IsTrue(!NullHeadersCollection.Instance[""].Any());
+
+            var value = (NullKvpEnumerator<string, IEnumerable<string>>)NullHeadersCollection.Instance.GetEnumerator();
+
+            Assert.IsNotNull(value);
+
+            var current = value.Current;
+
+            Assert.IsNull(current.Key);
+            Assert.IsNull(current.Value);
+
+            new NullHeadersCollection().Dispose();
         }
 
         [TestMethod]
