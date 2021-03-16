@@ -9,7 +9,7 @@ namespace RestClient.Net.Abstractions
         string? CustomHttpRequestMethod { get; }
         IHeadersCollection Headers { get; }
         HttpRequestMethod HttpRequestMethod { get; }
-        Uri? Uri { get; }
+        Uri Uri { get; }
     }
 
     public interface IRequest<TBody> : IRequest

@@ -46,9 +46,9 @@ namespace RestClient.Net.UnitTests
         private static readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.SetJsonContentTypeHeader();
         private static readonly ILoggerFactory consoleLoggerFactory =
 #if NET45
-            consoleLoggerFactory = NullLoggerFactory.Instance;
+        consoleLoggerFactory = NullLoggerFactory.Instance;
 #else
-            LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
+        LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
 #endif
 
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
@@ -165,17 +165,19 @@ namespace RestClient.Net.UnitTests
         private static Mock<ILogger<Client>> _logger = new();
 
 #if NETCOREAPP3_1
+        private readonly Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
+        {
+            var client = _createHttpClient(n);
+            return new Lazy<HttpClient>(() => client);
+        };
+
         public const string LocalBaseUriString = "http://localhost";
         private static readonly TestServer _testServer;
 #else
         public const string LocalBaseUriString = "https://localhost:44337";
 #endif
 
-        private readonly Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
-        {
-            var client = _createHttpClient(n);
-            return new Lazy<HttpClient>(() => client);
-        };
+
         #endregion
 
         #region Setup
@@ -472,9 +474,9 @@ namespace RestClient.Net.UnitTests
             , LogLevel.Trace, 1);
 #endif
 
-            var httpResponseMessageResponse = response as HttpResponseMessageResponse<List<RestCountry>>;
+            var httpResponseMessageResponse = response;
 
-            Assert.AreEqual(StandardContentTypeToString, httpResponseMessageResponse?.HttpResponseMessage?.Content?.Headers?.ContentType?.ToString());
+            Assert.AreEqual(StandardContentTypeToString, httpResponseMessageResponse?.Headers["Content-Type"].First());
 
             Assert.AreEqual(RestCountriesAllHeaders[TransferEncodingHeaderName], response?.Headers[TransferEncodingHeaderName].First());
         }
@@ -815,7 +817,6 @@ namespace RestClient.Net.UnitTests
 
             //For coverage
             new NullHeadersCollection().Dispose();
-            
         }
 
         [TestMethod]
@@ -1525,19 +1526,18 @@ namespace RestClient.Net.UnitTests
             var headersMock = new Mock<IHeadersCollection>();
             using var httpResponseMessage = new HttpResponseMessage();
             using var httpClient = new HttpClient();
-            var response = new HttpResponseMessageResponse<string>(
+            var response = new Response<string>(
                 headersMock.Object,
                 10,
                 HttpRequestMethod.Custom,
                 //Shouldn't this be filled in?
                 new byte[0],
                 "test",
-                httpResponseMessage,
-                httpClient);
+                new Uri("http://www.test.com"));
 
             _ = clientMock.Setup(c => c.SendAsync<string, object>(It.IsAny<IRequest<object>>())).Returns
                 (
-                Task.FromResult<Response<string>>(response)
+                Task.FromResult(response)
                 );
 
             var returnedResponse = await clientMock.Object.SendAsync<string, object>(new Mock<IRequest<object>>().Object).ConfigureAwait(false);
@@ -1596,36 +1596,81 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(response.Body?.Count > 0);
         }
 
+#if!NET45 
+
+        private static ILoggerFactory GetLoggerFactory(Action<object?> callback)
+        {
+            var callbackLogger = new CallbackLogger<Client>(callback);
+
+            var callbackLoggerFactory = new LoggerFactory();
+#pragma warning disable CA2000 // Dispose objects before losing scope
+            var provider = new LoggerProvider(callbackLogger);
+#pragma warning restore CA2000 // Dispose objects before losing scope
+            callbackLoggerFactory.AddProvider(provider);
+
+            return callbackLoggerFactory;
+        }
+
         [TestMethod]
         public async Task TestFactoryDoesntUseSameHttpClient()
         {
-            var clientFactory = new ClientFactory(_createHttpClient, new NewtonsoftSerializationAdapter());
+            var logCount = 0;
+            HttpClient? firstClient = null;
+            HttpClient? secondClient = null;
+
+            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
+
+            var clientFactory = new ClientFactory(
+                _createHttpClient,
+                new NewtonsoftSerializationAdapter(),
+                loggerFactory: callbackLoggerFactory);
 
             var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "1", RestCountriesAllUri);
-            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
-            var firstClient = response.HttpClient;
+            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
             client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "2", RestCountriesAllUri);
-            response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
-            var secondClient = response.HttpClient;
+            response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
-            Assert.IsFalse(ReferenceEquals(firstClient, secondClient));
+            Assert.IsNotNull(firstClient);
+#pragma warning disable CA1508 // Avoid dead conditional code
+            var isEqual = ReferenceEquals(firstClient, secondClient);
+#pragma warning restore CA1508 // Avoid dead conditional code
+            Assert.IsFalse(isEqual);
         }
 
         [TestMethod]
         public async Task TestHttpClientFactoryDoesntUseSameHttpClient()
         {
+            var logCount = 0;
+            HttpClient? firstClient = null;
+            HttpClient? secondClient = null;
+
+            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
+
             using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
-            using var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
-            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
-            var firstClient = response.HttpClient;
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                logger: callbackLoggerFactory.CreateLogger<Client>(),
+                baseUri: RestCountriesAllUri,
+                createHttpClient: defaultHttpClientFactory.CreateClient); ;
 
-            using var client2 = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
-            response = (HttpResponseMessageResponse<List<RestCountry>>)await client2.GetAsync<List<RestCountry>>().ConfigureAwait(false);
-            var secondClient = response.HttpClient;
+            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
+            using var client2 = new Client(
+                new NewtonsoftSerializationAdapter(),
+                logger: callbackLoggerFactory.CreateLogger<Client>(),
+                baseUri: RestCountriesAllUri,
+                createHttpClient: defaultHttpClientFactory.CreateClient);
+
+            response = await client2.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+
+            Assert.IsNotNull(firstClient);
+#pragma warning disable CA1508 // Avoid dead conditional code
             Assert.IsFalse(ReferenceEquals(firstClient, secondClient));
+#pragma warning restore CA1508 // Avoid dead conditional code
+
+            Assert.AreEqual(2, logCount);
         }
 
         /// <summary>
@@ -1642,39 +1687,90 @@ namespace RestClient.Net.UnitTests
 
             var secondClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "RestClient", RestCountriesAllUri);
 
+            Assert.IsNotNull(firstClient);
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
         }
 
         [TestMethod]
         public async Task TestHttpClientFactoryReusesHttpClient()
         {
+            var logCount = 0;
+            HttpClient? firstClient = null;
+            HttpClient? secondClient = null;
+            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
+
             using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
-            using var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient);
-            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
-            var firstClient = response.HttpClient;
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                logger: callbackLoggerFactory.CreateLogger<Client>(),
+                baseUri: RestCountriesAllUri,
+                createHttpClient: defaultHttpClientFactory.CreateClient);
 
-            response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
-            var secondClient = response.HttpClient;
+            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
+            response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+
+#pragma warning disable CA1508 // Avoid dead conditional code
+            Assert.IsNotNull(firstClient);
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
+            Assert.AreEqual(2, logCount);
+#pragma warning restore CA1508 // Avoid dead conditional code
+        }
+
+        private static void GetHttpClentsFromLogs(object? state, ref int logCount, ref HttpClient? firstClient, ref HttpClient? secondClient)
+        {
+            if (state == null) return;
+            var exists = state.GetValue<HttpClient>("httpClient", out var httpClient);
+            if (exists)
+            {
+                if (firstClient != null)
+                {
+                    secondClient = httpClient;
+                }
+                else
+                {
+                    firstClient = httpClient;
+                }
+
+                //This is a filthy unit test. We do this to make sure that the http client was only logged twice (one for each GET)
+                logCount++;
+            }
         }
 
         [TestMethod]
         public async Task TestHttpClientFactoryReusesHttpClientWhenSameName()
         {
+            var logCount = 0;
+            HttpClient? firstClient = null;
+            HttpClient? secondClient = null;
+
+            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
+
             using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
 
-            using var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient, name: "Test");
-            var response = (HttpResponseMessageResponse<List<RestCountry>>)await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
-            var firstClient = response.HttpClient;
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: RestCountriesAllUri,
+                createHttpClient: defaultHttpClientFactory.CreateClient,
+                logger: callbackLoggerFactory.CreateLogger<Client>(),
+                name: "Test");
+            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
-            using var client2 = new Client(new NewtonsoftSerializationAdapter(), baseUri: RestCountriesAllUri, createHttpClient: defaultHttpClientFactory.CreateClient, name: "Test");
-            response = (HttpResponseMessageResponse<List<RestCountry>>)await client2.GetAsync<List<RestCountry>>().ConfigureAwait(false);
-            var secondClient = response.HttpClient;
+            using var client2 = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: RestCountriesAllUri,
+                createHttpClient: defaultHttpClientFactory.CreateClient,
+                logger: callbackLoggerFactory.CreateLogger<Client>(),
+                name: "Test");
+            response = await client2.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
+#pragma warning disable CA1508 // Avoid dead conditional code
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
+            Assert.AreEqual(2, logCount);
+#pragma warning restore CA1508 // Avoid dead conditional code
         }
+#endif
 
         #endregion
 
@@ -1726,6 +1822,7 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Helpers
+
 #if !NET45
         //TODO: Point a test at these on .NET 4.5
 
