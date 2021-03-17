@@ -12,6 +12,9 @@ namespace RestClient.Net
 
         #region Public Methods
 
+        /// <summary>
+        /// Clones the client With a change
+        /// </summary>
         public static Client With(this Client client, Uri baseUri)
         =>
             client != null ? new Client(
@@ -27,6 +30,9 @@ namespace RestClient.Net
             client.zip,
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
+        /// <summary>
+        /// Clones the client With a change
+        /// </summary>
         public static Client With(this Client client, IHeadersCollection defaultRequestHeaders)
         =>
             client != null ? new Client(
@@ -42,9 +48,15 @@ namespace RestClient.Net
             client.zip,
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
+        /// <summary>
+        /// Clones the client With a change
+        /// </summary>
         public static Client With(this Client client, string key, string value)
             => With(client, key.CreateHeadersCollection(value));
 
+        /// <summary>
+        /// Clones the client With a change
+        /// </summary>
         public static Client With(this Client client, ILogger<Client> logger)
         =>
             client != null ? new Client(
@@ -60,6 +72,9 @@ namespace RestClient.Net
             client.zip,
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
+        /// <summary>
+        /// Clones the client With a change
+        /// </summary>
         public static Client With(this Client client, ISerializationAdapter serializationAdapter)
                                         =>
             client != null ? new Client(
@@ -75,6 +90,9 @@ namespace RestClient.Net
             client.zip,
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
+        /// <summary>
+        /// Clones the client With a change
+        /// </summary>
         public static Client With(this Client client, CreateHttpClient createHttpClient)
             =>
                 client != null ? new Client(
@@ -90,6 +108,9 @@ namespace RestClient.Net
                     client.zip,
                     client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
+        /// <summary>
+        /// Clones the client With a change
+        /// </summary>
         public static Client With(this Client client, ISendHttpRequestMessage sendHttpRequestMessage)
             =>
                 client != null ? new Client(
@@ -105,6 +126,9 @@ namespace RestClient.Net
                     client.zip,
                     client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
+        /// <summary>
+        /// Clones the client With a change
+        /// </summary>
         public static Client With(this Client client, TimeSpan timeout)
             =>
                 client != null ? new Client(
@@ -120,6 +144,9 @@ namespace RestClient.Net
                     client.zip,
                     client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
+        /// <summary>
+        /// Clones the client With a change
+        /// </summary>
         public static Client With(this Client client, IZip zip)
             =>
                 client != null ? new Client(
@@ -135,6 +162,9 @@ namespace RestClient.Net
                     zip,
                     client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
+        /// <summary>
+        /// Clones the client With a change
+        /// </summary>
         public static Client With(this Client client, bool throwExceptionOnFailure)
             =>
                 client != null ? new Client(

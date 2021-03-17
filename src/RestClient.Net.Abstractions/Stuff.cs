@@ -1,6 +1,6 @@
 ﻿
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("RestClient.Net")]
-[assembly: InternalsVisibleTo("RestClient.Net.UnitTests")]
+[assembly: InternalsVisibleTo("RestClient.Net", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo("RestClient.Net.UnitTests", AllInternalsVisible = true)]
 

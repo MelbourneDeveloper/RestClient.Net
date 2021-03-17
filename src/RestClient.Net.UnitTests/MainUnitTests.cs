@@ -3,6 +3,7 @@ using ApiExamples.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
+using RestClient.Net;
 using RestClient.Net.Samples.Model;
 using RestClient.Net.UnitTests.Model;
 using RestClientApiSamples;
@@ -20,6 +21,7 @@ using RichardSzalay.MockHttp;
 using System.IO;
 using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions.Extensions;
+using System.Reflection;
 
 #if NETCOREAPP3_1
 using Microsoft.AspNetCore.Hosting;
@@ -1855,7 +1857,18 @@ namespace RestClient.Net.UnitTests
 
             Assert.IsTrue(ReferenceEquals(uri, clientBase.BaseUri));
             Assert.IsTrue(ReferenceEquals(serializationAdapterMock.Object, clientBase.SerializationAdapter));
+
+            var getHttpRequestMessage = GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage");
+
+            Assert.IsTrue(ReferenceEquals(getHttpRequestMessageMock.Object, getHttpRequestMessage));
             Assert.IsFalse(clientClone.ThrowExceptionOnFailure);
+        }
+
+        private static T? GetFieldValue<T>(Client clientClone, string fieldName)
+        {
+            var fieldInfo = typeof(Client).GetField(fieldName, BindingFlags.GetField | BindingFlags.NonPublic | BindingFlags.Instance);
+
+            return fieldInfo == null ? throw new InvalidOperationException() : (T?)fieldInfo.GetValue(clientClone);
         }
         #endregion
 
