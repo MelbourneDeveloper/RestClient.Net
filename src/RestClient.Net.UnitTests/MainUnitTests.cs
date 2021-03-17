@@ -2012,7 +2012,6 @@ namespace RestClient.Net.UnitTests
                 GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage")));
 
             Assert.AreEqual(clientBase.Name, clientClone.Name);
-            Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
             Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
 
             //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
@@ -2099,11 +2098,6 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(clientBase.Name, clientClone.Name);
             Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
             Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<ILogger<Client>>(clientBase, "logger"),
-            GetFieldValue<ILogger<Client>>(clientClone, "logger")
-            ));
 
             //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
             Assert.IsTrue(ReferenceEquals(clientBase.DefaultRequestHeaders, clientClone.DefaultRequestHeaders));
@@ -2201,6 +2195,45 @@ namespace RestClient.Net.UnitTests
             GetFieldValue<IZip>(clientClone, "zip")));
         }
 
+
+        [TestMethod]
+        public void TestWithZip()
+        {
+            using var clientBase = GetBaseClient();
+
+            var zip = new Mock<IZip>().Object;
+
+            var clientClone = clientBase.With(zip);
+
+            Assert.IsTrue(ReferenceEquals(
+            zip,
+            GetFieldValue<IZip>(clientClone, "zip")
+            ));
+
+
+            Assert.IsTrue(ReferenceEquals(clientBase.SerializationAdapter, clientClone.SerializationAdapter));
+
+            Assert.IsTrue(ReferenceEquals(
+                GetFieldValue<IGetHttpRequestMessage>(clientBase, "getHttpRequestMessage"),
+                GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage")));
+
+            Assert.IsTrue(ReferenceEquals(
+            GetFieldValue<CreateHttpClient>(clientBase, "createHttpClient"),
+            GetFieldValue<CreateHttpClient>(clientClone, "createHttpClient")
+            ));
+
+            Assert.AreEqual(clientBase.Name, clientClone.Name);
+            Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
+            Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
+            Assert.AreEqual(clientBase.BaseUri, clientClone.BaseUri);
+
+            //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
+            Assert.IsTrue(ReferenceEquals(clientBase.DefaultRequestHeaders, clientClone.DefaultRequestHeaders));
+
+            Assert.IsTrue(ReferenceEquals(
+            GetFieldValue<ISendHttpRequestMessage>(clientBase, "sendHttpRequestMessage"),
+            GetFieldValue<ISendHttpRequestMessage>(clientClone, "sendHttpRequestMessage")));
+        }
 
         private static Client GetBaseClient()
         {
