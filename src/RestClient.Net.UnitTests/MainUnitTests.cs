@@ -1566,12 +1566,14 @@ namespace RestClient.Net.UnitTests
                 var requestPerson = new Person();
                 Person responsePerson = await client.PostAsync<Person, Person>(requestPerson).ConfigureAwait(false);
             }
-            catch (SendException)
+            catch (SendException sex)
             {
 #if !NET45
                 _logger.VerifyLog<Client, SendException>((state, t)
                     => state.CheckValue("{OriginalFormat}", Messages.ErrorSendException), LogLevel.Error, 1);
 #endif
+
+                Assert.AreEqual(testServerBaseUri, sex.Request.Uri);
 
                 return;
             }
@@ -2086,7 +2088,7 @@ namespace RestClient.Net.UnitTests
             const string Key = "test";
             const string Value = "test1";
 
-            var clientClone = clientBase.With(Key, Value);
+            var clientClone = clientBase.WithDefaultRequestHeaders(Key, Value);
 
             Assert.AreEqual(Value, clientClone.DefaultRequestHeaders[Key].First());
 

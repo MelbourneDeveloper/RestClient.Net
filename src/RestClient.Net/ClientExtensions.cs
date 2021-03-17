@@ -51,7 +51,7 @@ namespace RestClient.Net
         /// <summary>
         /// Clones the client With a change
         /// </summary>
-        public static Client With(this Client client, string key, string value)
+        public static Client WithDefaultRequestHeaders(this Client client, string key, string value)
             => With(client, key.CreateHeadersCollection(value));
 
         /// <summary>
