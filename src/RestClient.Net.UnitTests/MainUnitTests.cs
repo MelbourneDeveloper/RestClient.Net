@@ -1991,6 +1991,51 @@ namespace RestClient.Net.UnitTests
             GetFieldValue<IZip>(clientClone, "zip")));
         }
 
+        [TestMethod]
+        public void TestWithName()
+        {
+            using var clientBase = GetBaseClient();
+
+            var timeout = new TimeSpan(0, 2, 0);
+
+            var clientClone = clientBase.With(timeout);
+
+            Assert.AreEqual(timeout, clientClone.Timeout);
+
+            Assert.IsTrue(ReferenceEquals(clientBase.BaseUri, clientClone.BaseUri));
+
+            Assert.IsTrue(ReferenceEquals(clientBase.SerializationAdapter, clientClone.SerializationAdapter));
+
+            Assert.IsTrue(ReferenceEquals(
+                GetFieldValue<IGetHttpRequestMessage>(clientBase, "getHttpRequestMessage"),
+                GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage")));
+
+            Assert.AreEqual(clientBase.Name, clientClone.Name);
+            Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
+            Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
+
+            //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
+            Assert.IsTrue(ReferenceEquals(clientBase.DefaultRequestHeaders, clientClone.DefaultRequestHeaders));
+
+            Assert.IsTrue(ReferenceEquals(
+                GetFieldValue<ILogger<Client>>(clientBase, "logger"),
+                GetFieldValue<ILogger<Client>>(clientClone, "logger")
+                ));
+
+            Assert.IsTrue(ReferenceEquals(
+            GetFieldValue<CreateHttpClient>(clientBase, "createHttpClient"),
+            GetFieldValue<CreateHttpClient>(clientClone, "createHttpClient")
+            ));
+
+            Assert.IsTrue(ReferenceEquals(
+            GetFieldValue<ISendHttpRequestMessage>(clientBase, "sendHttpRequestMessage"),
+            GetFieldValue<ISendHttpRequestMessage>(clientClone, "sendHttpRequestMessage")));
+
+            Assert.IsTrue(ReferenceEquals(
+            GetFieldValue<IZip>(clientBase, "zip"),
+            GetFieldValue<IZip>(clientClone, "zip")));
+        }
+
         private static Client GetBaseClient()
         {
             var serializationAdapterMock = new Mock<ISerializationAdapter>();
