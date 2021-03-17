@@ -1516,6 +1516,30 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Misc
+        [TestMethod]
+        public async Task TestDeserializationException()
+        {
+            using MockHttpMessageHandler mockHttpMessageHandler = new();
+
+            _ = mockHttpMessageHandler.When(RestCountriesAllUriString)
+            .Respond(
+            RestCountriesAllHeaders,
+            HeadersExtensions.JsonMediaType,
+            "Hi");
+
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                logger: _logger.Object,
+                baseUri: new Uri(RestCountriesAllUriString),
+                createHttpClient: (n) => new HttpClient(mockHttpMessageHandler));
+
+            _ = await Assert.ThrowsExceptionAsync<DeserializationException>(() => client.GetAsync<Person>()).ConfigureAwait(false);
+
+#if !NET45
+            _logger.VerifyLog<Client, DeserializationException>((state, t)
+                => state.CheckValue("{OriginalFormat}", Messages.ErrorMessageDeserialization), LogLevel.Error, 1);
+#endif
+        }
 
         /// <summary>
         /// This is just a stub to make sure it's easy to mock requests and responses

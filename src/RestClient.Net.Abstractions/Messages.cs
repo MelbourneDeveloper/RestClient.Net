@@ -6,7 +6,7 @@ namespace RestClient.Net.Abstractions
     {
         public const string InfoSendReturnedNoException = "SendAsync on HttpClient returned without an exception";
         public const string ErrorMessageAbsoluteUriAsString = "Absolute Uris cannot be specified as a string. Change the argument to a Uri and change the UriKind to relative.";
-        public const string ErrorMessageDeserialization = "An error occurred while attempting to deserialize the response";
+        public const string ErrorMessageDeserialization = "An error occurred while attempting to deserialize the response Response Data: {responseData}";
         public const string ErrorMessageHeaderAlreadyExists = "The Content-Type header has already been set";
 
         public const string InfoAttemptingToSend = "Attempting to send with the HttpClient. {request}";

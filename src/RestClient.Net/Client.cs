@@ -294,7 +294,11 @@ namespace RestClient.Net
                 }
                 catch (Exception ex)
                 {
-                    throw new DeserializationException(Messages.ErrorMessageDeserialization, responseData, ex);
+                    var deserializationException = new DeserializationException(Messages.ErrorMessageDeserialization, responseData, ex);
+
+                    logger.LogError(deserializationException, Messages.ErrorMessageDeserialization, responseData);
+
+                    throw deserializationException;
                 }
             }
 
