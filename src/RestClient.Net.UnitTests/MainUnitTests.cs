@@ -1825,6 +1825,33 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestWith()
         {
+            using var clientBase = GetBaseClient();
+
+            var clientClone = clientBase.With(false);
+
+            Assert.IsTrue(ReferenceEquals(clientBase.BaseUri, clientClone.BaseUri));
+            Assert.IsTrue(ReferenceEquals(clientBase.SerializationAdapter, clientClone.SerializationAdapter));
+            Assert.IsTrue(ReferenceEquals(
+                GetFieldValue<IGetHttpRequestMessage>(clientBase, "getHttpRequestMessage"),
+                GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage")));
+            Assert.IsTrue(ReferenceEquals(clientBase.Name, clientClone.Name));
+            //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
+            Assert.IsTrue(ReferenceEquals(clientBase.DefaultRequestHeaders, clientClone.DefaultRequestHeaders));
+            Assert.IsTrue(ReferenceEquals(
+                GetFieldValue<ILogger<Client>>(clientBase, "logger"),
+                GetFieldValue<ILogger<Client>>(clientClone, "logger")
+                ));
+
+            Assert.IsTrue(ReferenceEquals(
+            GetFieldValue<CreateHttpClient>(clientBase, "createHttpClient"),
+            GetFieldValue<CreateHttpClient>(clientClone, "createHttpClient")
+            ));
+
+            Assert.IsFalse(clientClone.ThrowExceptionOnFailure);
+        }
+
+        private static Client GetBaseClient()
+        {
             var serializationAdapterMock = new Mock<ISerializationAdapter>();
             const string name = "test";
             var uri = new Uri("http://www.test.com");
@@ -1838,30 +1865,21 @@ namespace RestClient.Net.UnitTests
             var timeout = new TimeSpan(0, 1, 0);
             var zipMock = new Mock<IZip>();
             const bool throwExceptionOnFailure = true;
+            var clientBase = new Client(
+                            serializationAdapterMock.Object,
+                            name,
+                            uri,
+                            headersCollectionMock.Object,
+                            loggerMock.Object,
+                            createHttpClient,
+                            sendHttpRequestMessageMock.Object,
+                            getHttpRequestMessageMock.Object,
+                            timeout,
+                            zipMock.Object,
+                            throwExceptionOnFailure
+                        );
 
-            using var clientBase = new Client(
-                serializationAdapterMock.Object,
-                name,
-                uri,
-                headersCollectionMock.Object,
-                loggerMock.Object,
-                createHttpClient,
-                sendHttpRequestMessageMock.Object,
-                getHttpRequestMessageMock.Object,
-                timeout,
-                zipMock.Object,
-                throwExceptionOnFailure
-            );
-
-            var clientClone = clientBase.With(false);
-
-            Assert.IsTrue(ReferenceEquals(uri, clientBase.BaseUri));
-            Assert.IsTrue(ReferenceEquals(serializationAdapterMock.Object, clientBase.SerializationAdapter));
-
-            var getHttpRequestMessage = GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage");
-
-            Assert.IsTrue(ReferenceEquals(getHttpRequestMessageMock.Object, getHttpRequestMessage));
-            Assert.IsFalse(clientClone.ThrowExceptionOnFailure);
+            return clientBase;
         }
 
         private static T? GetFieldValue<T>(Client clientClone, string fieldName)
