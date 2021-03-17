@@ -22,6 +22,7 @@ using System.IO;
 using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions.Extensions;
 using System.Reflection;
+using System.Text;
 using System.Collections.Immutable;
 
 #if NETCOREAPP3_1
@@ -1521,11 +1522,15 @@ namespace RestClient.Net.UnitTests
         {
             using MockHttpMessageHandler mockHttpMessageHandler = new();
 
+            const string Content = "Hi";
+
+
+
             _ = mockHttpMessageHandler.When(RestCountriesAllUriString)
             .Respond(
             RestCountriesAllHeaders,
             HeadersExtensions.JsonMediaType,
-            "Hi");
+            Content);
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
@@ -1533,12 +1538,23 @@ namespace RestClient.Net.UnitTests
                 baseUri: new Uri(RestCountriesAllUriString),
                 createHttpClient: (n) => new HttpClient(mockHttpMessageHandler));
 
-            _ = await Assert.ThrowsExceptionAsync<DeserializationException>(() => client.GetAsync<Person>()).ConfigureAwait(false);
-
+            try
+            {
+                await client.GetAsync<Person>().ConfigureAwait(false);
+            }
+            catch (DeserializationException dex)
+            {
 #if !NET45
-            _logger.VerifyLog<Client, DeserializationException>((state, t)
-                => state.CheckValue("{OriginalFormat}", Messages.ErrorMessageDeserialization), LogLevel.Error, 1);
+                _logger.VerifyLog<Client, DeserializationException>((state, t)
+                    => state.CheckValue("{OriginalFormat}", Messages.ErrorMessageDeserialization), LogLevel.Error, 1);
 #endif
+                Assert.IsTrue(dex.GetResponseData().SequenceEqual(Encoding.ASCII.GetBytes(Content)));
+
+                return;
+
+            }
+
+            Assert.Fail();
         }
 
         /// <summary>
