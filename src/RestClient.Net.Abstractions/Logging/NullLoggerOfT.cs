@@ -7,6 +7,8 @@ namespace Microsoft.Extensions.Logging.Abstractions
     {
         private readonly ILogger _logger;
 
+        public static NullLogger<T> Instance = new NullLogger<T>(NullLoggerFactory.Instance);
+
         public NullLogger(ILoggerFactory factory)
         {
             if (factory == null)

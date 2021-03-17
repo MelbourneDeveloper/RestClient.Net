@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using RestClient.Net.Abstractions;
 using System;
@@ -45,6 +43,5 @@ namespace RestClient.Net
                 throw;
             }
         }
-
     }
 }

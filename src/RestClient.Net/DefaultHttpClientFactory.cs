@@ -2,6 +2,8 @@
 using System.Collections.Concurrent;
 using System.Net.Http;
 using System.Threading;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace RestClient.Net
 {
@@ -11,23 +13,27 @@ namespace RestClient.Net
         private bool disposed;
         private readonly ConcurrentDictionary<string, Lazy<HttpClient>> httpClients;
         private readonly Func<string, Lazy<HttpClient>> createClientFunc;
+        private readonly ILogger<DefaultHttpClientFactory> logger;
         #endregion
 
         #region Constructor
-        public DefaultHttpClientFactory() : this(null)
-        {
-        }
-
-        public DefaultHttpClientFactory(Func<string, Lazy<HttpClient>>? createClientFunc)
+        public DefaultHttpClientFactory(Func<string, Lazy<HttpClient>>? createClientFunc = null, ILogger<DefaultHttpClientFactory>? logger = null)
         {
             httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();
+            this.logger = logger ?? NullLogger<DefaultHttpClientFactory>.Instance;
 
-            this.createClientFunc = createClientFunc ?? new Func<string, Lazy<HttpClient>>(name => new Lazy<HttpClient>(() => new HttpClient(), LazyThreadSafetyMode.ExecutionAndPublication));
+            this.createClientFunc = createClientFunc ?? (name => new Lazy<HttpClient>(() =>
+            {
+                this.logger.LogInformation("Created HttpClient {name}", name);
+                return new HttpClient();
+            }, LazyThreadSafetyMode.ExecutionAndPublication));
+
         }
         #endregion
 
         #region Implementation
-        public HttpClient CreateClient(string name) => name == null ? throw new ArgumentNullException(nameof(name)) : httpClients.GetOrAdd(name, createClientFunc).Value;
+        public HttpClient CreateClient(string name)
+            => name == null ? throw new ArgumentNullException(nameof(name)) : httpClients.GetOrAdd(name, createClientFunc).Value;
 
         public void Dispose()
         {
