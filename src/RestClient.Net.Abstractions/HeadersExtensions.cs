@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -32,21 +33,13 @@ namespace RestClient.Net.Abstractions.Extensions
             if (key == null) throw new ArgumentNullException(nameof(key));
             if (value == null) throw new ArgumentNullException(nameof(value));
 
-            var dictionary = new Dictionary<string, IEnumerable<string>>();
-
-            foreach (var kvp in headersCollection)
-            {
-                dictionary.Add(kvp.Key, kvp.Value);
-            }
+            var dictionary = headersCollection.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
             dictionary.Add(key, value);
 
             return new HeadersCollection(dictionary);
         }
-
-        public static IHeadersCollection Append(this IHeadersCollection headersCollection, KeyValuePair<string, IEnumerable<string>> kvp)
-        => Append(headersCollection, kvp.Key, kvp.Value);
-
+        
         public static IHeadersCollection Append(this IHeadersCollection headersCollection, string key, string value)
         => Append(headersCollection, key, new List<string> { value });
 
