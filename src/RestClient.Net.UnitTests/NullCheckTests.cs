@@ -62,5 +62,23 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual("httpRequestMessageFunc", exception.ParamName);
         }
+
+        [TestMethod]
+        public async Task TestDefaultSendHttpRequestMessageRequest()
+        {
+
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            {
+                _ = await DefaultSendHttpRequestMessage.Instance.SendHttpRequestMessage(
+                    httpClient,
+                    getHttpRequestMessageMock.Object,
+                    default(Request<string>),
+                    logger.Object,
+                    serializationAdapterMock.Object).ConfigureAwait(false);
+
+            }).ConfigureAwait(false);
+
+            Assert.AreEqual("request", exception.ParamName);
+        }
     }
 }
