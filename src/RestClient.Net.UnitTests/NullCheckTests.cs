@@ -85,34 +85,34 @@ namespace RestClient.Net.UnitTests
         public void TestGetHttpRequestMessage()
         {
 
-            var exception = Assert.ThrowsException<ArgumentNullException>( () =>
-            {
-                _ = DefaultGetHttpRequestMessage.Instance.GetHttpRequestMessage(
-                    default(Request<string>),
-                    logger.Object,
-                    serializationAdapterMock.Object);
+            var exception = Assert.ThrowsException<ArgumentNullException>(() =>
+           {
+               _ = DefaultGetHttpRequestMessage.Instance.GetHttpRequestMessage(
+                   default(Request<string>),
+                   logger.Object,
+                   serializationAdapterMock.Object);
 
-            });
+           });
 
             Assert.AreEqual("request", exception.ParamName);
         }
-        
+
         [TestMethod]
         public void TestGetHttpRequestMessageLogger()
         {
 
-            var exception = Assert.ThrowsException<ArgumentNullException>( () =>
-            {
-                _ = DefaultGetHttpRequestMessage.Instance.GetHttpRequestMessage(
-                    request.Object,
-                    logger.Object,
-                    null);
+            var exception = Assert.ThrowsException<ArgumentNullException>(() =>
+           {
+               _ = DefaultGetHttpRequestMessage.Instance.GetHttpRequestMessage(
+                   request.Object,
+                   logger.Object,
+                   null);
 
-            });
+           });
 
             Assert.AreEqual("serializationAdapter", exception.ParamName);
         }
-        
+
         [TestMethod]
         public async Task TestSendAsyncClient()
         {
@@ -135,6 +135,14 @@ namespace RestClient.Net.UnitTests
             }).ConfigureAwait(false);
 
             Assert.AreEqual("client", exception.ParamName);
+        }
+
+        [TestMethod]
+        public void TestClientFactoryExtensionsCreateClientClient()
+        {
+            var exception = Assert.ThrowsException<ArgumentNullException>(() => _ = ClientFactoryExtensions.CreateClient(default, "Asd"));
+
+            Assert.AreEqual("createClient", exception.ParamName);
         }
     }
 }
