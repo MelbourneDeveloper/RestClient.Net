@@ -24,6 +24,7 @@ using RestClient.Net.Abstractions.Extensions;
 using System.Reflection;
 using System.Text;
 using System.Collections.Immutable;
+using System.Collections;
 
 #if NETCOREAPP3_1
 using Microsoft.AspNetCore.Hosting;
@@ -985,6 +986,20 @@ namespace RestClient.Net.UnitTests
             var asdasd = "asd".CreateHeadersCollection("321");
             var afasds = asdasd.ToString();
             Assert.AreEqual("asd: 321\r\n", afasds);
+        }
+
+        [TestMethod]
+        public void TestHeaders()
+        {
+            var count = 0;
+            var asdasd = (IEnumerable)"asd".CreateHeadersCollection("321");
+            var asdasds = asdasd.GetEnumerator();
+            while (asdasds.MoveNext())
+            {
+                Assert.IsNotNull(asdasds.Current);
+                count++;
+            }
+            Assert.AreEqual(1, count);
         }
 
         [TestMethod]

@@ -188,7 +188,7 @@ namespace RestClient.Net
             {
                 logger.LogTrace(Messages.TraceBeginSend, request, TraceEvent.Request);
 
-                HttpClient httpClient = createHttpClient(Name);
+                var httpClient = createHttpClient(Name);
 
                 if (httpClient.BaseAddress != null)
                 {
