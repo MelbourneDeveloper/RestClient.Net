@@ -988,6 +988,8 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual("asd: 321\r\n", afasds);
         }
 
+
+
         [TestMethod]
         public void TestHeaders()
         {
@@ -1542,6 +1544,21 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Misc
+        [TestMethod]
+        public async Task TestBadBaseUri()
+        {
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
+                createHttpClient: (n) => new HttpClient { BaseAddress = new Uri("http://www.test.com") },
+                defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader().Append("Test", "Test"));
+
+            var exception = await Assert.ThrowsExceptionAsync<SendException>(() =>
+               client.PutAsync<Person, Person>(new Person { FirstName = "Bob" }, "headers")).ConfigureAwait(false);
+
+            Assert.IsTrue(exception.InnerException is InvalidOperationException);
+        }
+
         [TestMethod]
         public void TestDisposeTwice()
         {
