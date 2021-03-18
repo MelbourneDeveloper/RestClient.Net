@@ -812,7 +812,7 @@ namespace RestClient.Net.UnitTests
             var value = (NullKvpEnumerator<string, IEnumerable<string>>)NullHeadersCollection.Instance.GetEnumerator();
 
             value.Reset();
-            
+
             Assert.IsNotNull(value);
 
             var current = value.Current;
@@ -977,6 +977,14 @@ namespace RestClient.Net.UnitTests
 
             var responsePerson = await client.PutAsync<Person, Person>(new Person { FirstName = "Bob" }, "headers").ConfigureAwait(false);
             Assert.IsNotNull(responsePerson);
+        }
+
+        [TestMethod]
+        public void TestHeadersToString()
+        {
+            var asdasd = "asd".CreateHeadersCollection("321");
+            var afasds = asdasd.ToString();
+            Assert.AreEqual("asd: 321\r\n", afasds);
         }
 
         [TestMethod]
