@@ -80,5 +80,29 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual("request", exception.ParamName);
         }
+
+        [TestMethod]
+        public async Task TestSendAsyncClient()
+        {
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            {
+                _ = await CallExtensions.SendAsync<string, string>(null, request.Object).ConfigureAwait(false);
+
+            }).ConfigureAwait(false);
+
+            Assert.AreEqual("client", exception.ParamName);
+        }
+
+        [TestMethod]
+        public async Task TestDeleteAsyncClient()
+        {
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+            {
+                _ = await CallExtensions.DeleteAsync(null).ConfigureAwait(false);
+
+            }).ConfigureAwait(false);
+
+            Assert.AreEqual("client", exception.ParamName);
+        }
     }
 }

@@ -1518,6 +1518,39 @@ namespace RestClient.Net.UnitTests
 
         #region Misc
         [TestMethod]
+        public void TestDisposeTwice()
+        {
+            var client = new Client(new Mock<ISerializationAdapter>().Object);
+            client.Dispose();
+            client.Dispose();
+        }
+
+        [TestMethod]
+        public async Task TestHttpResponseMessageIsNullThrowsException()
+        {
+            var sendHttpRequestMessage = new Mock<ISendHttpRequestMessage>();
+            var serializationAdapter = new Mock<ISerializationAdapter>();
+
+            _ = sendHttpRequestMessage.Setup(s => s.SendHttpRequestMessage(
+                  It.IsAny<HttpClient>(),
+                  new Mock<IGetHttpRequestMessage>().Object,
+                  new Mock<IRequest<object>>().Object,
+                  _logger.Object,
+                  serializationAdapter.Object)).Returns<object>(null);
+
+            using var client = new Client(
+                serializationAdapter.Object,
+                "asd",
+                new Uri("http://www.test.com"),
+                sendHttpRequest: sendHttpRequestMessage.Object);
+
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => client.GetAsync<string>()).ConfigureAwait(false);
+
+            Assert.AreEqual("httpResponseMessage", exception.ParamName);
+
+        }
+
+        [TestMethod]
         public async Task TestDeserializationException()
         {
             using MockHttpMessageHandler mockHttpMessageHandler = new();

@@ -177,7 +177,7 @@ namespace RestClient.Net
             }
         }
 
-        async Task<Response<TResponseBody>> IClient.SendAsync<TResponseBody, TRequestBody>(IRequest<TRequestBody> request)
+        public async Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(IRequest<TRequestBody> request)
         {
             //Why do we need to check for null? Nullable is turned on....
             if (request == null) throw new ArgumentNullException(nameof(request));
@@ -258,6 +258,9 @@ namespace RestClient.Net
             IRequest request,
             HttpResponseMessage httpResponseMessage)
         {
+            //No idea why this is necessary...
+            if (httpResponseMessage == null) throw new ArgumentNullException(nameof(httpResponseMessage));
+
             var responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
             var httpResponseHeadersCollection = httpResponseMessage.Headers.ToHeadersCollection();
@@ -282,9 +285,6 @@ namespace RestClient.Net
                     throw deserializationException;
                 }
             }
-
-            //No idea why this is necessary...
-            if (httpResponseMessage == null) throw new ArgumentNullException(nameof(httpResponseMessage));
 
             var httpResponseMessageResponse = new Response<TResponseBody>
             (
