@@ -1797,6 +1797,33 @@ namespace RestClient.Net.UnitTests
 #pragma warning restore CA1508 // Avoid dead conditional code
         }
 
+        [TestMethod]
+        public async Task TestHttpClientFactoryReusesHttpClientWithoutFunc()
+        {
+            var logCount = 0;
+            HttpClient? firstClient = null;
+            HttpClient? secondClient = null;
+            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
+
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory();
+
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                logger: callbackLoggerFactory.CreateLogger<Client>(),
+                baseUri: RestCountriesAllUri,
+                createHttpClient: defaultHttpClientFactory.CreateClient);
+
+            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+
+            response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+
+#pragma warning disable CA1508 // Avoid dead conditional code
+            Assert.IsNotNull(firstClient);
+            Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
+            Assert.AreEqual(2, logCount);
+#pragma warning restore CA1508 // Avoid dead conditional code
+        }
+
         private static void GetHttpClentsFromLogs(object? state, ref int logCount, ref HttpClient? firstClient, ref HttpClient? secondClient)
         {
             if (state == null) return;
