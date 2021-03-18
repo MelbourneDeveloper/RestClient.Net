@@ -27,7 +27,6 @@ namespace RestClient.Net
             client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
             client.Timeout,
-            client.zip,
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
@@ -45,7 +44,6 @@ namespace RestClient.Net
             client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
             client.Timeout,
-            client.zip,
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
@@ -69,7 +67,6 @@ namespace RestClient.Net
             client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
             client.Timeout,
-            client.zip,
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
@@ -87,7 +84,6 @@ namespace RestClient.Net
             client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
             client.Timeout,
-            client.zip,
             client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
@@ -105,7 +101,6 @@ namespace RestClient.Net
                     client.sendHttpRequestMessage,
                     client.getHttpRequestMessage,
                     client.Timeout,
-                    client.zip,
                     client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
@@ -123,7 +118,6 @@ namespace RestClient.Net
                     client.sendHttpRequestMessage,
                     getHttpRequestMessage,
                     client.Timeout,
-                    client.zip,
                     client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
@@ -141,7 +135,6 @@ namespace RestClient.Net
                     sendHttpRequestMessage,
                     client.getHttpRequestMessage,
                     client.Timeout,
-                    client.zip,
                     client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
@@ -159,25 +152,6 @@ namespace RestClient.Net
                     client.sendHttpRequestMessage,
                     client.getHttpRequestMessage,
                     timeout,
-                    client.zip,
-                    client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
-
-        /// <summary>
-        /// Clones the client With a change
-        /// </summary>
-        public static Client With(this Client client, IZip zip)
-            =>
-                client != null ? new Client(
-                    client.SerializationAdapter,
-                    client.Name,
-                    client.BaseUri,
-                    client.DefaultRequestHeaders,
-                    client.logger is ILogger<Client> logger ? logger : null,
-                    client.createHttpClient,
-                    client.sendHttpRequestMessage,
-                    client.getHttpRequestMessage,
-                    client.Timeout,
-                    zip,
                     client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
@@ -195,7 +169,6 @@ namespace RestClient.Net
                     client.sendHttpRequestMessage,
                     client.getHttpRequestMessage,
                     client.Timeout,
-                    client.zip,
                     throwExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
 
         #endregion Public Methods

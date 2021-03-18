@@ -1901,10 +1901,6 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(
             GetFieldValue<ISendHttpRequestMessage>(clientBase, "sendHttpRequestMessage"),
             GetFieldValue<ISendHttpRequestMessage>(clientClone, "sendHttpRequestMessage")));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<IZip>(clientBase, "zip"),
-            GetFieldValue<IZip>(clientClone, "zip")));
         }
 
         [TestMethod]
@@ -1944,10 +1940,6 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(
             GetFieldValue<ISendHttpRequestMessage>(clientBase, "sendHttpRequestMessage"),
             GetFieldValue<ISendHttpRequestMessage>(clientClone, "sendHttpRequestMessage")));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<IZip>(clientBase, "zip"),
-            GetFieldValue<IZip>(clientClone, "zip")));
         }
 
         [TestMethod]
@@ -1988,10 +1980,6 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(
             GetFieldValue<ISendHttpRequestMessage>(clientBase, "sendHttpRequestMessage"),
             GetFieldValue<ISendHttpRequestMessage>(clientClone, "sendHttpRequestMessage")));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<IZip>(clientBase, "zip"),
-            GetFieldValue<IZip>(clientClone, "zip")));
         }
 
         [TestMethod]
@@ -2028,10 +2016,6 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(
             GetFieldValue<ISendHttpRequestMessage>(clientBase, "sendHttpRequestMessage"),
             GetFieldValue<ISendHttpRequestMessage>(clientClone, "sendHttpRequestMessage")));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<IZip>(clientBase, "zip"),
-            GetFieldValue<IZip>(clientClone, "zip")));
         }
 
         [TestMethod]
@@ -2072,10 +2056,6 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(
             GetFieldValue<ISendHttpRequestMessage>(clientBase, "sendHttpRequestMessage"),
             GetFieldValue<ISendHttpRequestMessage>(clientClone, "sendHttpRequestMessage")));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<IZip>(clientBase, "zip"),
-            GetFieldValue<IZip>(clientClone, "zip")));
         }
 
         [TestMethod]
@@ -2114,10 +2094,6 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(
             GetFieldValue<ISendHttpRequestMessage>(clientBase, "sendHttpRequestMessage"),
             GetFieldValue<ISendHttpRequestMessage>(clientClone, "sendHttpRequestMessage")));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<IZip>(clientBase, "zip"),
-            GetFieldValue<IZip>(clientClone, "zip")));
         }
 
         [TestMethod]
@@ -2157,10 +2133,6 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(
             GetFieldValue<ISendHttpRequestMessage>(clientBase, "sendHttpRequestMessage"),
             GetFieldValue<ISendHttpRequestMessage>(clientClone, "sendHttpRequestMessage")));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<IZip>(clientBase, "zip"),
-            GetFieldValue<IZip>(clientClone, "zip")));
         }
 
         [TestMethod]
@@ -2195,10 +2167,6 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(
             GetFieldValue<ISendHttpRequestMessage>(clientBase, "sendHttpRequestMessage"),
             GetFieldValue<ISendHttpRequestMessage>(clientClone, "sendHttpRequestMessage")));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<IZip>(clientBase, "zip"),
-            GetFieldValue<IZip>(clientClone, "zip")));
         }
 
         [TestMethod]
@@ -2234,10 +2202,6 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(
             GetFieldValue<ISendHttpRequestMessage>(clientBase, "sendHttpRequestMessage"),
             GetFieldValue<ISendHttpRequestMessage>(clientClone, "sendHttpRequestMessage")));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<IZip>(clientBase, "zip"),
-            GetFieldValue<IZip>(clientClone, "zip")));
         }
 
 
@@ -2274,50 +2238,6 @@ namespace RestClient.Net.UnitTests
 
             //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
             Assert.IsTrue(ReferenceEquals(clientBase.DefaultRequestHeaders, clientClone.DefaultRequestHeaders));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<IZip>(clientBase, "zip"),
-            GetFieldValue<IZip>(clientClone, "zip")));
-        }
-
-
-        [TestMethod]
-        public void TestWithZip()
-        {
-            using var clientBase = GetBaseClient();
-
-            var zip = new Mock<IZip>().Object;
-
-            var clientClone = clientBase.With(zip);
-
-            Assert.IsTrue(ReferenceEquals(
-            zip,
-            GetFieldValue<IZip>(clientClone, "zip")
-            ));
-
-
-            Assert.IsTrue(ReferenceEquals(clientBase.SerializationAdapter, clientClone.SerializationAdapter));
-
-            Assert.IsTrue(ReferenceEquals(
-                GetFieldValue<IGetHttpRequestMessage>(clientBase, "getHttpRequestMessage"),
-                GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage")));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<CreateHttpClient>(clientBase, "createHttpClient"),
-            GetFieldValue<CreateHttpClient>(clientClone, "createHttpClient")
-            ));
-
-            Assert.AreEqual(clientBase.Name, clientClone.Name);
-            Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
-            Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
-            Assert.AreEqual(clientBase.BaseUri, clientClone.BaseUri);
-
-            //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
-            Assert.IsTrue(ReferenceEquals(clientBase.DefaultRequestHeaders, clientClone.DefaultRequestHeaders));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<ISendHttpRequestMessage>(clientBase, "sendHttpRequestMessage"),
-            GetFieldValue<ISendHttpRequestMessage>(clientClone, "sendHttpRequestMessage")));
         }
 
         private static Client GetBaseClient()
@@ -2333,7 +2253,6 @@ namespace RestClient.Net.UnitTests
             var sendHttpRequestMessageMock = new Mock<ISendHttpRequestMessage>();
             var getHttpRequestMessageMock = new Mock<IGetHttpRequestMessage>();
             var timeout = new TimeSpan(0, 1, 0);
-            var zipMock = new Mock<IZip>();
             const bool throwExceptionOnFailure = true;
             var clientBase = new Client(
                             serializationAdapterMock.Object,
@@ -2345,7 +2264,6 @@ namespace RestClient.Net.UnitTests
                             sendHttpRequestMessageMock.Object,
                             getHttpRequestMessageMock.Object,
                             timeout,
-                            zipMock.Object,
                             throwExceptionOnFailure
                         );
 

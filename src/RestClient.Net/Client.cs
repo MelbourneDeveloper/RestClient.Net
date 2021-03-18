@@ -34,10 +34,6 @@ namespace RestClient.Net
         internal readonly IGetHttpRequestMessage getHttpRequestMessage;
 
         internal readonly ISendHttpRequestMessage sendHttpRequestMessage;
-        /// <summary>
-        /// Compresses and decompresses http requests 
-        /// </summary>
-        internal readonly IZip? zip;
 
         /// <summary>
         /// Logging abstraction that will trace request/response data and log events
@@ -68,7 +64,6 @@ namespace RestClient.Net
         /// <param name="sendHttpRequest">The service responsible for performing the SendAsync method on HttpClient. This can replaced in the constructor in order to implement retries and so on.</param>
         /// <param name="getHttpRequestMessage">Service responsible for converting rest requests to http requests</param>
         /// <param name="timeout">Amount of time a request should wait before timing out</param>
-        /// <param name="zip">Provides a mechanism for unzipping gzip responses on platforms where HttpClient does not do this automatically (Looking at you UWP)</param>
         /// <param name="throwExceptionOnFailure">Whether or not to throw an exception on non-successful http calls</param>
         public Client(
 #if NET45
@@ -84,7 +79,6 @@ namespace RestClient.Net
             ISendHttpRequestMessage? sendHttpRequest = null,
             IGetHttpRequestMessage? getHttpRequestMessage = null,
             TimeSpan timeout = default,
-            IZip? zip = null,
             bool throwExceptionOnFailure = true)
         {
             DefaultRequestHeaders = defaultRequestHeaders ?? NullHeadersCollection.Instance;
@@ -129,7 +123,6 @@ namespace RestClient.Net
             sendHttpRequestMessage = sendHttpRequest ?? DefaultSendHttpRequestMessage.Instance;
 
             Timeout = timeout;
-            this.zip = zip;
             ThrowExceptionOnFailure = throwExceptionOnFailure;
         }
 
@@ -265,23 +258,11 @@ namespace RestClient.Net
             IRequest request,
             HttpResponseMessage httpResponseMessage)
         {
-            byte[]? responseData = null;
-
-            if (zip != null)
-            {
-                //This is for cases where an unzipping utility needs to be used to unzip the content. This is actually a bug in UWP
-                var gzipHeader = httpResponseMessage.Content.Headers.ContentEncoding.FirstOrDefault(h =>
-                    !string.IsNullOrEmpty(h) && h.Equals("gzip", StringComparison.OrdinalIgnoreCase));
-                if (gzipHeader != null)
-                {
-                    var bytes = await httpResponseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
-                    responseData = zip.Unzip(bytes);
-                }
-            }
-
-            responseData ??= await httpResponseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+            var responseData = await httpResponseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
             var httpResponseHeadersCollection = httpResponseMessage.Headers.ToHeadersCollection();
+            var contentHeaders = httpResponseMessage.Content?.Headers?.ToHeadersCollection();
+            var allHeaders = httpResponseMessage.Headers.ToHeadersCollection().Append(contentHeaders);
 
             TResponseBody responseBody = default;
 
@@ -305,11 +286,9 @@ namespace RestClient.Net
             //No idea why this is necessary...
             if (httpResponseMessage == null) throw new ArgumentNullException(nameof(httpResponseMessage));
 
-            var headersCollection2 = httpResponseMessage.Content?.Headers?.ToHeadersCollection();
-
             var httpResponseMessageResponse = new Response<TResponseBody>
             (
-                httpResponseMessage.Headers.ToHeadersCollection().Append(headersCollection2),
+                allHeaders,
                 (int)httpResponseMessage.StatusCode,
                 request.HttpRequestMethod,
                 responseData,
