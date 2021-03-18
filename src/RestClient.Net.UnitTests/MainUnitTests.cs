@@ -811,6 +811,8 @@ namespace RestClient.Net.UnitTests
 
             var value = (NullKvpEnumerator<string, IEnumerable<string>>)NullHeadersCollection.Instance.GetEnumerator();
 
+            value.Reset();
+            
             Assert.IsNotNull(value);
 
             var current = value.Current;

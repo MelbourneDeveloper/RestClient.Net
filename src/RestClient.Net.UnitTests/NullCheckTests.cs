@@ -82,6 +82,38 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public void TestGetHttpRequestMessage()
+        {
+
+            var exception = Assert.ThrowsException<ArgumentNullException>( () =>
+            {
+                _ = DefaultGetHttpRequestMessage.Instance.GetHttpRequestMessage(
+                    default(Request<string>),
+                    logger.Object,
+                    serializationAdapterMock.Object);
+
+            });
+
+            Assert.AreEqual("request", exception.ParamName);
+        }
+        
+        [TestMethod]
+        public void TestGetHttpRequestMessageLogger()
+        {
+
+            var exception = Assert.ThrowsException<ArgumentNullException>( () =>
+            {
+                _ = DefaultGetHttpRequestMessage.Instance.GetHttpRequestMessage(
+                    request.Object,
+                    logger.Object,
+                    null);
+
+            });
+
+            Assert.AreEqual("serializationAdapter", exception.ParamName);
+        }
+        
+        [TestMethod]
         public async Task TestSendAsyncClient()
         {
             var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
