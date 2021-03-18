@@ -183,13 +183,12 @@ namespace RestClient.Net
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             HttpResponseMessage httpResponseMessage;
-            HttpClient httpClient;
 
             try
             {
                 logger.LogTrace(Messages.TraceBeginSend, request, TraceEvent.Request);
 
-                httpClient = createHttpClient(Name);
+                HttpClient httpClient = createHttpClient(Name);
 
                 if (httpClient.BaseAddress != null)
                 {
