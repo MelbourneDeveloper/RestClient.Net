@@ -202,6 +202,14 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(exception.InnerException is InvalidOperationException);
         }
 
+        [TestMethod]
+        public async Task TestSendNoRequest()
+        => Assert.AreEqual("request", (await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => new Client(
+              serializationAdapter: new NewtonsoftSerializationAdapter(),
+              createHttpClient: (n) => new HttpClient()
+              ).SendAsync<string, object>(null)).ConfigureAwait(false)).ParamName);
+
+
 #if !NET45
         [TestMethod]
         public void TestJsonSerializationAdapterDeserialize() =>

@@ -1570,7 +1570,6 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Misc
-
         [TestMethod]
         public void TestDefaultGetHttpRequestMessageCustomNoThing()
         {
