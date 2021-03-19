@@ -552,25 +552,6 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
-        public async Task TestAbsoluteUriAsStringThrowsException()
-        {
-            try
-            {
-                using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
-                List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUriString).ConfigureAwait(false);
-                _ = countries.FirstOrDefault();
-            }
-            catch (UriFormatException ufe)
-            {
-                Assert.AreEqual(ufe.Message, Messages.ErrorMessageAbsoluteUriAsString);
-                return;
-            }
-
-            Assert.Fail("Incorrect error message returned");
-        }
-
-
-        [TestMethod]
         public async Task TestPostUserWithCancellation()
         {
             try
@@ -1599,6 +1580,24 @@ namespace RestClient.Net.UnitTests
                 default,
                 NullHeadersCollection.Instance,
                 HttpRequestMethod.Custom,
+                cancellationToken: default);
+
+            _ = Assert.ThrowsException<InvalidOperationException>(() => _ = defaultGetHttpRequestMessage.GetHttpRequestMessage(
+                  request,
+                  _logger.Object,
+                  new Mock<ISerializationAdapter>().Object));
+        }
+
+
+        [TestMethod]
+        public void TestInvalidHttpRequestMethod()
+        {
+            var defaultGetHttpRequestMessage = new DefaultGetHttpRequestMessage();
+            var request = new Request<string>(
+                new Uri("http://www.test.com"),
+                default,
+                NullHeadersCollection.Instance,
+                (HttpRequestMethod)10,
                 cancellationToken: default);
 
             _ = Assert.ThrowsException<InvalidOperationException>(() => _ = defaultGetHttpRequestMessage.GetHttpRequestMessage(

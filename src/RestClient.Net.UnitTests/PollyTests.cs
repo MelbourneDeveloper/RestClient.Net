@@ -34,9 +34,8 @@ namespace RestClient.Net.UnitTests
             IGetHttpRequestMessage httpRequestMessageFunc,
             IRequest<TRequestBody> request,
             ILogger logger,
-            ISerializationAdapter serializationAdapter)
-        {
-            return policy.ExecuteAsync(() =>
+            ISerializationAdapter serializationAdapter) =>
+            policy.ExecuteAsync(() =>
             {
                 if (httpRequestMessageFunc == null) throw new ArgumentNullException(nameof(httpRequestMessageFunc));
                 if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
@@ -49,7 +48,6 @@ namespace RestClient.Net.UnitTests
                 Tries++;
                 return httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
             });
-        }
     }
 
     [TestClass]
