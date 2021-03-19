@@ -433,12 +433,12 @@ namespace RestClient.Net.UnitTests
             var factory = new SingletonHttpClientFactory(httpClient);
             factory.Dispose();
             factory.Dispose();
-            
+
             var factory2 = new DefaultHttpClientFactory();
             factory2.Dispose();
             factory2.Dispose();
         }
-        
+
         [TestMethod]
         public async Task TestBadRequestCanDeserializeErrorMessage()
         {
