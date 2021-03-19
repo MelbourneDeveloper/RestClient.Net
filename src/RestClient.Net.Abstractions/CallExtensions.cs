@@ -79,7 +79,8 @@ namespace RestClient.Net
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client) => GetAsync<TResponseBody>(client, default(Uri));
 
-        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, string? resource) => GetAsync<TResponseBody>(client, resource != null ? new Uri(resource, UriKind.Relative) : null);
+        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, string? resource)
+            => GetAsync<TResponseBody>(client, resource != null ? new Uri(resource, UriKind.Relative) : null);
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(
             this IClient client,

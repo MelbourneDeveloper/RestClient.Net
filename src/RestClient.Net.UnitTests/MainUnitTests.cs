@@ -1063,6 +1063,21 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task TestGetWitStringResource()
+        {
+
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                //The server expects the value of "Test"
+                defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader());
+
+            _ = await client.GetAsync<List<Person>>("JsonPerson/People").ConfigureAwait(false);
+
+        }
+
+        [TestMethod]
         [DataRow(true)]
         [DataRow(false)]
         public async Task TestHeadersLocalPatch(bool useDefault)
