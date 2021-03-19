@@ -125,6 +125,12 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public void TestSendAsyncClient2() =>
+    Assert.AreEqual("client", Assert.ThrowsException<ArgumentNullException>(() =>
+        _ = CallExtensions.SendAsync<string, string>(null, HttpRequestMethod.Delete, "Asd", new Uri("http://www.testing.com"))).ParamName);
+
+
+        [TestMethod]
         public async Task TestDeleteAsyncClient()
         {
             var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
@@ -166,18 +172,18 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestAppendDefaultRequestHeaders() =>
             Assert.AreEqual("client", Assert.ThrowsException<ArgumentNullException>(() =>
-                _ = HeadersExtensions.AppendDefaultRequestHeaders(null,NullHeadersCollection.Instance)).ParamName);
+                _ = HeadersExtensions.AppendDefaultRequestHeaders(null, NullHeadersCollection.Instance)).ParamName);
 
         [TestMethod]
         public void TestRequestUri() =>
             Assert.AreEqual("uri", Assert.ThrowsException<ArgumentNullException>(() =>
-                _ = new Request<string>(default, "asd",NullHeadersCollection.Instance, HttpRequestMethod.Get)).ParamName);
+                _ = new Request<string>(default, "asd", NullHeadersCollection.Instance, HttpRequestMethod.Get)).ParamName);
 
         [TestMethod]
         public void TestRequestUri2() =>
             Assert.ThrowsException<InvalidOperationException>(() =>
-                _ = new Request<string>(new Uri("Hi", UriKind.Relative), "asd",NullHeadersCollection.Instance, HttpRequestMethod.Get));
-       
+                _ = new Request<string>(new Uri("Hi", UriKind.Relative), "asd", NullHeadersCollection.Instance, HttpRequestMethod.Get));
+
         [TestMethod]
         public void TestAppendDefaultRequestHeadersheadersCollection() =>
             Assert.AreEqual("headersCollection", Assert.ThrowsException<ArgumentNullException>(() =>
@@ -187,7 +193,7 @@ namespace RestClient.Net.UnitTests
                         null
                     )).ParamName);
 
-        
+
         [TestMethod]
         public async Task TestClientValidateHttpClientNull()
         {
