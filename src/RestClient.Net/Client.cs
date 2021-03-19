@@ -178,7 +178,6 @@ namespace RestClient.Net
 
         public async Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(IRequest<TRequestBody> request)
         {
-            //Why do we need to check for null? Nullable is turned on....
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             HttpResponseMessage httpResponseMessage;
@@ -208,8 +207,6 @@ namespace RestClient.Net
                 if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
 
                 logger.LogTrace("HttpClient configured. Request: {request} Adapter: {serializationAdapter}", request, SerializationAdapter);
-
-                if (request == null) throw new ArgumentNullException(nameof(request));
 
                 var requestBodyIsNull = request.BodyData == null;
 

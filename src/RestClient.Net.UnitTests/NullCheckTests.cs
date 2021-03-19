@@ -171,5 +171,13 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(exception.InnerException is InvalidOperationException);
         }
 
+        //[TestMethod]
+        //public async Task TestClientValidateRequestNull()
+        //{
+        //    using var client = new Client(new Mock<ISerializationAdapter>().Object, baseUri: new Uri("http://www.test.com"), createHttpClient: (n) => null);
+        //    var exception = await Assert.ThrowsExceptionAsync<SendException>(() => client.SendAsync<string,string>(new Request<string>()).ConfigureAwait(false);
+        //    Assert.IsTrue(exception.InnerException is InvalidOperationException);
+        //}
+
     }
 }
