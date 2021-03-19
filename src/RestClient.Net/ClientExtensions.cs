@@ -19,7 +19,6 @@ namespace RestClient.Net
         =>
             client != null ? new Client(
             client.SerializationAdapter,
-            client.Name,
             baseUri,
             client.DefaultRequestHeaders,
             client.logger is ILogger<Client> logger ? logger : null,
@@ -27,7 +26,8 @@ namespace RestClient.Net
             client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
             client.Timeout,
-            client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+            client.ThrowExceptionOnFailure,
+            client.Name) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
         /// Clones the client With a change
@@ -36,7 +36,6 @@ namespace RestClient.Net
         =>
             client != null ? new Client(
             client.SerializationAdapter,
-            client.Name,
             client.BaseUri,
             defaultRequestHeaders,
             client.logger is ILogger<Client> logger ? logger : null,
@@ -44,7 +43,8 @@ namespace RestClient.Net
             client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
             client.Timeout,
-            client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+            client.ThrowExceptionOnFailure,
+            client.Name) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
         /// Clones the client With a change
@@ -59,7 +59,6 @@ namespace RestClient.Net
         =>
             client != null ? new Client(
             client.SerializationAdapter,
-            client.Name,
             client.BaseUri,
             client.DefaultRequestHeaders,
             logger,
@@ -67,7 +66,8 @@ namespace RestClient.Net
             client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
             client.Timeout,
-            client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+            client.ThrowExceptionOnFailure,
+            client.Name) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
         /// Clones the client With a change
@@ -76,7 +76,6 @@ namespace RestClient.Net
                                         =>
             client != null ? new Client(
             serializationAdapter,
-            client.Name,
             client.BaseUri,
             client.DefaultRequestHeaders,
             client.logger is ILogger<Client> logger ? logger : null,
@@ -84,7 +83,8 @@ namespace RestClient.Net
             client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
             client.Timeout,
-            client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+            client.ThrowExceptionOnFailure,
+            client.Name) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
         /// Clones the client With a change
@@ -93,7 +93,6 @@ namespace RestClient.Net
             =>
                 client != null ? new Client(
                     client.SerializationAdapter,
-                    client.Name,
                     client.BaseUri,
                     client.DefaultRequestHeaders,
                     client.logger is ILogger<Client> logger ? logger : null,
@@ -101,7 +100,8 @@ namespace RestClient.Net
                     client.sendHttpRequestMessage,
                     client.getHttpRequestMessage,
                     client.Timeout,
-                    client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+                    client.ThrowExceptionOnFailure,
+                    client.Name) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
         /// Clones the client With a change
@@ -110,7 +110,6 @@ namespace RestClient.Net
             =>
                 client != null ? new Client(
                     client.SerializationAdapter,
-                    client.Name,
                     client.BaseUri,
                     client.DefaultRequestHeaders,
                     client.logger is ILogger<Client> logger ? logger : null,
@@ -118,7 +117,8 @@ namespace RestClient.Net
                     client.sendHttpRequestMessage,
                     getHttpRequestMessage,
                     client.Timeout,
-                    client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+                    client.ThrowExceptionOnFailure,
+                    client.Name) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
         /// Clones the client With a change
@@ -127,7 +127,6 @@ namespace RestClient.Net
             =>
                 client != null ? new Client(
                     client.SerializationAdapter,
-                    client.Name,
                     client.BaseUri,
                     client.DefaultRequestHeaders,
                     client.logger is ILogger<Client> logger ? logger : null,
@@ -135,7 +134,8 @@ namespace RestClient.Net
                     sendHttpRequestMessage,
                     client.getHttpRequestMessage,
                     client.Timeout,
-                    client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+                    client.ThrowExceptionOnFailure,
+                    client.Name) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
         /// Clones the client With a change
@@ -144,7 +144,6 @@ namespace RestClient.Net
             =>
                 client != null ? new Client(
                     client.SerializationAdapter,
-                    client.Name,
                     client.BaseUri,
                     client.DefaultRequestHeaders,
                     client.logger is ILogger<Client> logger ? logger : null,
@@ -152,7 +151,8 @@ namespace RestClient.Net
                     client.sendHttpRequestMessage,
                     client.getHttpRequestMessage,
                     timeout,
-                    client.ThrowExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+                    client.ThrowExceptionOnFailure,
+                    client.Name) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
         /// Clones the client With a change
@@ -161,7 +161,6 @@ namespace RestClient.Net
             =>
                 client != null ? new Client(
                     client.SerializationAdapter,
-                    client.Name,
                     client.BaseUri,
                     client.DefaultRequestHeaders,
                     client.logger is ILogger<Client> logger ? logger : null,
@@ -169,7 +168,8 @@ namespace RestClient.Net
                     client.sendHttpRequestMessage,
                     client.getHttpRequestMessage,
                     client.Timeout,
-                    throwExceptionOnFailure) : throw new ArgumentNullException(nameof(client));
+                    throwExceptionOnFailure,
+                    client.Name) : throw new ArgumentNullException(nameof(client));
 
         #endregion Public Methods
     }

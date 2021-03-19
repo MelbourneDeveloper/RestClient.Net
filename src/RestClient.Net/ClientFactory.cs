@@ -53,10 +53,10 @@ namespace RestClient.Net
         private IClient MintClient(string name, Uri? baseUri = null) =>
             new Client(
                 SerializationAdapter,
-                name,
                 baseUri,
                 logger: loggerFactory?.CreateLogger<Client>(),
-                createHttpClient: createHttpClient);
+                createHttpClient: createHttpClient,
+                name: name);
         #endregion
     }
 }

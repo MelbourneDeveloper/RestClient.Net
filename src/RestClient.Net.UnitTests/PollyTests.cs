@@ -67,11 +67,11 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(
                 new ProtobufSerializationAdapter(),
-                null,
                 new Uri(MainUnitTests.LocalBaseUriString),
                 logger: null,
                 createHttpClient: MainUnitTests.GetTestClientFactory().CreateClient,
-                sendHttpRequest: sendHttpRequestFunc);
+                sendHttpRequest: sendHttpRequestFunc,
+                name: null);
 
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
 

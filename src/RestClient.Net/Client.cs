@@ -67,11 +67,10 @@ namespace RestClient.Net
         /// <param name="throwExceptionOnFailure">Whether or not to throw an exception on non-successful http calls</param>
         public Client(
 #if NET45
-           ISerializationAdapter serializationAdapter,
+            ISerializationAdapter serializationAdapter,
 #else
-           ISerializationAdapter? serializationAdapter = null,
+            ISerializationAdapter? serializationAdapter = null,
 #endif
-            string? name = null,
             Uri? baseUri = null,
             IHeadersCollection? defaultRequestHeaders = null,
             ILogger<Client>? logger = null,
@@ -79,7 +78,8 @@ namespace RestClient.Net
             ISendHttpRequestMessage? sendHttpRequest = null,
             IGetHttpRequestMessage? getHttpRequestMessage = null,
             TimeSpan timeout = default,
-            bool throwExceptionOnFailure = true)
+            bool throwExceptionOnFailure = true,
+            string? name = null)
         {
             DefaultRequestHeaders = defaultRequestHeaders ?? NullHeadersCollection.Instance;
 

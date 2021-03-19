@@ -533,9 +533,9 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                null,
                 RestCountriesAustraliaUri,
-                createHttpClient: _createHttpClient);
+                createHttpClient: _createHttpClient,
+                name: null);
 
             var json = await client.GetAsync<string>().ConfigureAwait(false);
             var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).FirstOrDefault();
@@ -848,10 +848,10 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                null,
                 testServerBaseUri,
                 logger: _logger.Object,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
+                name: null,
                 defaultRequestHeaders: useDefault ?
                 headersCollections.CreateOrSetHeaderValue("Test", "Test")
                 : headersCollections
@@ -1614,9 +1614,9 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(
                 serializationAdapter.Object,
-                "asd",
                 new Uri("http://www.test.com"),
-                sendHttpRequest: sendHttpRequestMessage.Object);
+                sendHttpRequest: sendHttpRequestMessage.Object,
+                name: "asd");
 
             var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => client.GetAsync<string>()).ConfigureAwait(false);
 
@@ -2390,7 +2390,6 @@ namespace RestClient.Net.UnitTests
             const bool throwExceptionOnFailure = true;
             var clientBase = new Client(
                             serializationAdapterMock.Object,
-                            name,
                             uri,
                             headersCollectionMock.Object,
                             loggerMock.Object,
@@ -2399,7 +2398,8 @@ namespace RestClient.Net.UnitTests
                             getHttpRequestMessageMock.Object,
                             timeout,
                             throwExceptionOnFailure
-                        );
+,
+                            name);
 
             return clientBase;
         }
