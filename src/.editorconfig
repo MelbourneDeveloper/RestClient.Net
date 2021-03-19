@@ -59,6 +59,8 @@ dotnet_diagnostic.CA1032.severity = None
 dotnet_diagnostic.CS1591.severity = warning
 
 #########################################
+dotnet_diagnostic.IDE0059.severity = error
+
 
 dotnet_diagnostic.CS1573.severity = error
 

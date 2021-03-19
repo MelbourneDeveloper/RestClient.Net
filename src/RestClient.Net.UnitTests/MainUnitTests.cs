@@ -558,7 +558,7 @@ namespace RestClient.Net.UnitTests
             {
                 using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
                 List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUriString).ConfigureAwait(false);
-                var country = countries.FirstOrDefault();
+                _ = countries.FirstOrDefault();
             }
             catch (UriFormatException ufe)
             {
@@ -858,7 +858,7 @@ namespace RestClient.Net.UnitTests
 
                 );
 
-            var response = await client.GetAsync<Person>(new Uri(
+            _ = await client.GetAsync<Person>(new Uri(
                 "headers",
                 UriKind.Relative),
                 requestHeaders: "Test"
@@ -916,7 +916,7 @@ namespace RestClient.Net.UnitTests
                     //The server expects the value of "Test"
                     defaultRequestHeaders: "Test".CreateHeadersCollection("Tests"));
 
-                var responsePerson = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
+                _ = await client.GetAsync<Person>(new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
                 Assert.Fail();
             }
             catch (HttpStatusException hex)
@@ -944,7 +944,7 @@ namespace RestClient.Net.UnitTests
                     //The server expects the value of "Test"
                     defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader().Append("Test", "Tests"));
 
-                var responsePerson = await client.PostAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
+                _ = await client.PostAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
                 Assert.Fail();
             }
             catch (HttpStatusException hex)
@@ -1016,10 +1016,10 @@ namespace RestClient.Net.UnitTests
                 count++;
             }
             Assert.AreEqual(1, count);
-            
+
             enumerator = ((IEnumerable)NullHeadersCollection.Instance).GetEnumerator();
             var current = enumerator.Current;
-            Assert.AreEqual(null, current);
+            Assert.IsNotNull(current);
             while (enumerator.MoveNext())
             {
             }
@@ -1039,7 +1039,7 @@ namespace RestClient.Net.UnitTests
                     //The server expects the value of "Test"
                     defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader().Append("Test", "Tests"));
 
-                var responsePerson = await client.PutAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
+                _ = await client.PutAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
                 Assert.Fail();
             }
             catch (HttpStatusException hex)
@@ -1254,7 +1254,7 @@ namespace RestClient.Net.UnitTests
 
             try
             {
-                Person person = await restClient.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative)).ConfigureAwait(false);
+                _ = await restClient.GetAsync<Person>(new Uri("secure/basic", UriKind.Relative)).ConfigureAwait(false);
             }
             catch (HttpStatusException hex)
             {
@@ -1292,7 +1292,7 @@ namespace RestClient.Net.UnitTests
 
             try
             {
-                Person person = await restClient.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative)).ConfigureAwait(false);
+                _ = await restClient.GetAsync<Person>(new Uri("secure/bearer", UriKind.Relative)).ConfigureAwait(false);
             }
             catch (HttpStatusException hex)
             {
@@ -1334,7 +1334,7 @@ namespace RestClient.Net.UnitTests
 
             try
             {
-                Person person = await restClient.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new Uri("secure/basic", UriKind.Relative)).ConfigureAwait(false);
+                _ = await restClient.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new Uri("secure/basic", UriKind.Relative)).ConfigureAwait(false);
             }
             catch (HttpStatusException ex)
             {
@@ -1718,7 +1718,7 @@ namespace RestClient.Net.UnitTests
                     logger: _logger.Object);
 
                 var requestPerson = new Person();
-                Person responsePerson = await client.PostAsync<Person, Person>(requestPerson).ConfigureAwait(false);
+                _ = await client.PostAsync<Person, Person>(requestPerson).ConfigureAwait(false);
             }
             catch (SendException sex)
             {

@@ -24,7 +24,6 @@ namespace RestClient.Net.UnitTests
             var responsePerson = new Person { FirstName = "TestGuy", PersonKey = "123" };
 
             //Create mock objects
-            var loggerMock = new Mock<ILogger>();
             var clientFactoryMock = new Mock<CreateClient>();
             var clientMock = new Mock<IClient>();
             var serializationAdapterMock = new Mock<ISerializationAdapter>();

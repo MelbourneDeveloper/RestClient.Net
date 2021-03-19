@@ -111,7 +111,7 @@ namespace RestClient.Net.UnitTests
             var client = clientFactory("rc", baseUri);
 
             //Make the call
-            var response = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+            _ = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
 
             //TODO: Implement this completely to ensure that the policy is being applied
         }
