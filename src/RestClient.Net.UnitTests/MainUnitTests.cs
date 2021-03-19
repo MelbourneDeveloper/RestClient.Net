@@ -1016,6 +1016,14 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public void TestAppendHeaders2()
+        {
+            var headers = "asd".CreateHeadersCollection("123");
+            var headers2 = headers.Append(null);
+            Assert.AreEqual(1, headers2.Count());
+        }
+
+        [TestMethod]
         public async Task TestHeadersLocalIncorrectPut()
         {
             var serializationAdapter = new NewtonsoftSerializationAdapter();
