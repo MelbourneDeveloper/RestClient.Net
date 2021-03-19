@@ -586,14 +586,15 @@ namespace RestClient.Net.UnitTests
 
                 _ = await task.ConfigureAwait(false);
             }
-            catch (OperationCanceledException)
+            catch (TaskCanceledException)
             {
+
                 //Success
                 return;
             }
             catch (Exception)
             {
-                Assert.Fail("The operation threw an exception that was not an OperationCanceledException");
+                Assert.Fail("The operation threw an exception that was not an TaskCanceledException");
             }
 
             Assert.Fail("The operation completed successfully");
@@ -617,7 +618,7 @@ namespace RestClient.Net.UnitTests
             {
 #if !NET45
                 _logger.VerifyLog<Client, TaskCanceledException>((state, t)
-                    => state.CheckValue("{OriginalFormat}", Messages.ErrorOnSend), LogLevel.Error, 1);
+                    => state.CheckValue("{OriginalFormat}", Messages.ErrorTaskCancelled), LogLevel.Error, 1);
 #endif
 
                 //Success

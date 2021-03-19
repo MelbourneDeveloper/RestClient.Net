@@ -36,6 +36,11 @@ namespace RestClient.Net
 
                 return httpResponseMessage;
             }
+            catch (OperationCanceledException oce)
+            {
+                logger.LogError(oce, "Operation cancelled {request}", request);
+                throw;
+            }
             catch (Exception ex)
             {
                 logger.LogError(ex, Messages.ErrorOnSend, request);

@@ -228,11 +228,6 @@ namespace RestClient.Net
                 logger.LogError(tce, Messages.ErrorTaskCancelled, request);
                 throw;
             }
-            catch (OperationCanceledException oce)
-            {
-                logger.LogError(oce, "OperationCanceledException {request}", request);
-                throw;
-            }
             catch (Exception ex)
             {
                 var exception = new SendException(Messages.ErrorSendException, request, ex);

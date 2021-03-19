@@ -239,7 +239,7 @@ namespace RestClient.Net
         #endregion
 
         #region Send
-        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(IClient client, HttpRequestMethod httpRequestMethod, TRequestBody? requestBody, Uri? resource, IHeadersCollection? requestHeaders, CancellationToken cancellationToken)
+        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(IClient client, HttpRequestMethod httpRequestMethod, TRequestBody? requestBody, Uri? resource, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
