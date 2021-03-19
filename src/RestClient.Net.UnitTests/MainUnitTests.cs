@@ -1008,14 +1008,21 @@ namespace RestClient.Net.UnitTests
         public void TestHeaders()
         {
             var count = 0;
-            var asdasd = (IEnumerable)"asd".CreateHeadersCollection("321");
-            var asdasds = asdasd.GetEnumerator();
-            while (asdasds.MoveNext())
+            var enumerable = (IEnumerable)"asd".CreateHeadersCollection("321");
+            var enumerator = enumerable.GetEnumerator();
+            while (enumerator.MoveNext())
             {
-                Assert.IsNotNull(asdasds.Current);
+                Assert.IsNotNull(enumerator.Current);
                 count++;
             }
             Assert.AreEqual(1, count);
+            
+            enumerator = ((IEnumerable)NullHeadersCollection.Instance).GetEnumerator();
+            var current = enumerator.Current;
+            Assert.AreEqual(null, current);
+            while (enumerator.MoveNext())
+            {
+            }
         }
 
         [TestMethod]

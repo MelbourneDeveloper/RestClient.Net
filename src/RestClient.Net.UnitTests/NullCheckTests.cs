@@ -171,12 +171,12 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(exception.InnerException is InvalidOperationException);
         }
 
-        #if !NET45
+#if !NET45
         [TestMethod]
         public void TestJsonSerializationAdapterDeserialize() =>
             Assert.AreEqual("responseData", Assert.ThrowsException<ArgumentNullException>(() =>
-                _ = new JsonSerializationAdapter().Deserialize<string>(null,NullHeadersCollection.Instance)).ParamName);
-        #endif
+                _ = new JsonSerializationAdapter().Deserialize<string>(null, NullHeadersCollection.Instance)).ParamName);
+#endif
 
     }
 }
