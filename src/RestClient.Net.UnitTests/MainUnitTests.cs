@@ -427,6 +427,19 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public void TestFactoryDisposeTwice()
+        {
+            using var httpClient = new HttpClient();
+            var factory = new SingletonHttpClientFactory(httpClient);
+            factory.Dispose();
+            factory.Dispose();
+            
+            var factory2 = new DefaultHttpClientFactory();
+            factory2.Dispose();
+            factory2.Dispose();
+        }
+        
+        [TestMethod]
         public async Task TestBadRequestCanDeserializeErrorMessage()
         {
             var adapter = new NewtonsoftSerializationAdapter();
