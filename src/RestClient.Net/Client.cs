@@ -170,11 +170,10 @@ namespace RestClient.Net
 
             disposed = true;
 
-            if (HttpClientsByClient.ContainsKey(this))
-            {
-                HttpClientsByClient[this].Dispose();
-                _ = HttpClientsByClient.Remove(this);
-            }
+            if (!HttpClientsByClient.ContainsKey(this)) return;
+            
+            HttpClientsByClient[this].Dispose();
+            _ = HttpClientsByClient.Remove(this);
         }
 
         public async Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(IRequest<TRequestBody> request)
@@ -190,6 +189,10 @@ namespace RestClient.Net
 
                 var httpClient = createHttpClient(Name);
 
+                logger.LogTrace("Got HttpClient: {httpClient}", httpClient);
+
+                if (httpClient == null) throw new InvalidOperationException("CreateHttpClient returned null");
+
                 if (httpClient.BaseAddress != null)
                 {
                     throw new InvalidOperationException($"{nameof(createHttpClient)} returned a {nameof(HttpClient)} with a {nameof(HttpClient.BaseAddress)}. The {nameof(HttpClient)} must never have a {nameof(HttpClient.BaseAddress)}. Fix the {nameof(createHttpClient)} func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.BaseAddress)}");
@@ -199,10 +202,6 @@ namespace RestClient.Net
                 {
                     throw new InvalidOperationException($"{nameof(createHttpClient)} returned a {nameof(HttpClient)} with at least one item in {nameof(HttpClient.DefaultRequestHeaders)}. The {nameof(HttpClient)} must never have {nameof(HttpClient.DefaultRequestHeaders)}. Fix the {nameof(createHttpClient)} func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.DefaultRequestHeaders)}");
                 }
-
-                logger.LogTrace("Got HttpClient: {httpClient}", httpClient);
-
-                if (httpClient == null) throw new InvalidOperationException("CreateHttpClient returned null");
 
                 //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
                 //TODO: Get rid of this

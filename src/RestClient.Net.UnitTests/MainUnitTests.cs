@@ -599,6 +599,7 @@ namespace RestClient.Net.UnitTests
             Assert.Fail("The operation completed successfully");
         }
 
+        //TODO: This looks like a dodgy test that is making an actually http call
         [TestMethod]
         public async Task TestPostUserTimeout()
         {

@@ -39,7 +39,7 @@ namespace RestClient.Net.Abstractions.Extensions
 
             return new HeadersCollection(dictionary);
         }
-        
+
         public static IHeadersCollection Append(this IHeadersCollection headersCollection, string key, string value)
         => Append(headersCollection, key, new List<string> { value });
 

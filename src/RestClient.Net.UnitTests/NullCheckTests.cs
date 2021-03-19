@@ -9,13 +9,14 @@ using RestClient.Net.Abstractions;
 using RestClient.Net.Abstractions.Extensions;
 
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+#pragma warning disable CS8603 // Possible null reference return.
+#pragma warning disable CA1063 // Implement IDisposable Correctly
+#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
 
 namespace RestClient.Net.UnitTests
 {
     [TestClass]
-#pragma warning disable CA1063 // Implement IDisposable Correctly
     public class NullCheckTests : IDisposable
-#pragma warning restore CA1063 // Implement IDisposable Correctly
     {
         private readonly Mock<IGetHttpRequestMessage> getHttpRequestMessageMock = new Mock<IGetHttpRequestMessage>();
         private readonly Mock<IRequest<string>> request = new Mock<IRequest<string>>();
@@ -23,11 +24,7 @@ namespace RestClient.Net.UnitTests
         private readonly Mock<ISerializationAdapter> serializationAdapterMock = new Mock<ISerializationAdapter>();
         private readonly HttpClient httpClient = new HttpClient();
 
-#pragma warning disable CA1063 // Implement IDisposable Correctly
-#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
         public void Dispose() => httpClient.Dispose();
-#pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
-#pragma warning restore CA1063 // Implement IDisposable Correctly
 
         [TestMethod]
         public async Task TestDefaultSendHttpRequestMessagehttpClient()
@@ -164,5 +161,15 @@ namespace RestClient.Net.UnitTests
         public void TestHeadersExtensionsAppendValue() =>
             Assert.AreEqual("value", Assert.ThrowsException<ArgumentNullException>(() =>
             _ = HeadersExtensions.Append(NullHeadersCollection.Instance, "asdAS", default(IEnumerable<string>))).ParamName);
+
+
+        [TestMethod]
+        public async Task TestClientValidateHttpClientNull()
+        {
+            using var client = new Client(new Mock<ISerializationAdapter>().Object, baseUri: new Uri("http://www.test.com"), createHttpClient: (n) => null);
+            var exception = await Assert.ThrowsExceptionAsync<SendException>(() => client.GetAsync<string>()).ConfigureAwait(false);
+            Assert.IsTrue(exception.InnerException is InvalidOperationException);
+        }
+
     }
 }
