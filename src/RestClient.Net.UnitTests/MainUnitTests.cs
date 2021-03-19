@@ -813,11 +813,9 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestCanEnumerateNullHeaders()
         {
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
-            foreach (var asdasd in NullHeadersCollection.Instance)
-#pragma warning restore IDE0059 // Unnecessary assignment of a value
+            foreach (var kvp in NullHeadersCollection.Instance)
             {
-
+                Assert.IsNotNull(kvp);
             }
 
             Assert.IsFalse(NullHeadersCollection.Instance.Contains("asdasd"));
@@ -1026,6 +1024,16 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public void TestAppendHeaders()
+        {
+            var headers = "asd".CreateHeadersCollection("123");
+            const string expectedValue = "321";
+            var headers2 = "asd".CreateHeadersCollection(expectedValue);
+            var headers3 = headers.Append(headers2);
+            Assert.AreEqual(expectedValue, headers3.First().Value.First());
+        }
+
+        [TestMethod]
         public async Task TestHeadersLocalIncorrectPut()
         {
             var serializationAdapter = new NewtonsoftSerializationAdapter();
@@ -1088,7 +1096,7 @@ namespace RestClient.Net.UnitTests
                     createHttpClient: _testServerHttpClientFactory.CreateClient,
                     defaultRequestHeaders: HeadersExtensions.SetJsonContentTypeHeader().Append("Test", "Tests"));
 
-                var responsePerson = await client.PatchAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
+                _ = await client.PatchAsync<Person, Person>(new Person(), new Uri("headers", UriKind.Relative)).ConfigureAwait(false);
                 Assert.Fail();
             }
             catch (HttpStatusException hex)

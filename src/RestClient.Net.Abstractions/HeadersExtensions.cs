@@ -81,15 +81,14 @@ namespace RestClient.Net.Abstractions.Extensions
                 }
             }
 
-            if (headersCollection2 != null)
-            {
-                foreach (var kvp in headersCollection2)
-                {
-                    //TODO: This looks a bit dodgy. Need tests around this to make sure crazy stuff don't happen
-                    if (dictionary.ContainsKey(kvp.Key)) _ = dictionary.Remove(kvp.Key);
+            if (headersCollection2 == null) return new HeadersCollection(dictionary);
 
-                    dictionary.Add(kvp.Key, kvp.Value);
-                }
+            foreach (var kvp in headersCollection2)
+            {
+                //TODO: This looks a bit dodgy. Need tests around this to make sure crazy stuff don't happen
+                if (dictionary.ContainsKey(kvp.Key)) _ = dictionary.Remove(kvp.Key);
+
+                dictionary.Add(kvp.Key, kvp.Value);
             }
 
             return new HeadersCollection(dictionary);
