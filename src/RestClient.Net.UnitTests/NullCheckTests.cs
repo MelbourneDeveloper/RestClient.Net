@@ -164,6 +164,22 @@ namespace RestClient.Net.UnitTests
 
 
         [TestMethod]
+        public void TestAppendDefaultRequestHeaders() =>
+            Assert.AreEqual("client", Assert.ThrowsException<ArgumentNullException>(() =>
+                _ = HeadersExtensions.AppendDefaultRequestHeaders(null,NullHeadersCollection.Instance)).ParamName);
+
+        
+        [TestMethod]
+        public void TestAppendDefaultRequestHeadersheadersCollection() =>
+            Assert.AreEqual("headersCollection", Assert.ThrowsException<ArgumentNullException>(() =>
+                _ = HeadersExtensions.AppendDefaultRequestHeaders(
+                    new Client(
+                        new Mock<ISerializationAdapter>().Object),
+                        null
+                    )).ParamName);
+
+        
+        [TestMethod]
         public async Task TestClientValidateHttpClientNull()
         {
             using var client = new Client(new Mock<ISerializationAdapter>().Object, baseUri: new Uri("http://www.test.com"), createHttpClient: (n) => null);

@@ -43,10 +43,10 @@ namespace RestClient.Net.Abstractions.Extensions
         public static IHeadersCollection Append(this IHeadersCollection headersCollection, string key, string value)
         => Append(headersCollection, key, new List<string> { value });
 
-        public static IHeadersCollection AppendDefaultRequestHeaders(this IClient client, IHeadersCollection headersCollection2)
+        public static IHeadersCollection AppendDefaultRequestHeaders(this IClient client, IHeadersCollection headersCollection)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
-            if (headersCollection2 == null) throw new ArgumentNullException(nameof(headersCollection2));
+            if (headersCollection == null) throw new ArgumentNullException(nameof(headersCollection));
 
             var dictionary = new Dictionary<string, IEnumerable<string>>();
 
@@ -58,7 +58,7 @@ namespace RestClient.Net.Abstractions.Extensions
                 }
             }
 
-            foreach (var kvp in headersCollection2)
+            foreach (var kvp in headersCollection)
             {
                 if (dictionary.ContainsKey(kvp.Key)) _ = dictionary.Remove(kvp.Key);
 
