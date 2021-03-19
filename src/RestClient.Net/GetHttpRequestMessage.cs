@@ -32,7 +32,7 @@ namespace RestClient.Net
                         HttpRequestMethod.Put => HttpMethod.Put,
                         HttpRequestMethod.Delete => HttpMethod.Delete,
                         HttpRequestMethod.Patch => new HttpMethod("PATCH"),
-                        HttpRequestMethod.Custom => throw new NotImplementedException("CustomHttpRequestMethod must be specified for Custom Http Requests"),
+                        HttpRequestMethod.Custom => throw new InvalidOperationException("CustomHttpRequestMethod must be specified for Custom Http Requests"),
                         _ => throw new NotImplementedException()
                     }
                     : new HttpMethod(request.CustomHttpRequestMethod);

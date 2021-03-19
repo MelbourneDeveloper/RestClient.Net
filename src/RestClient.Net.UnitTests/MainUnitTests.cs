@@ -1544,6 +1544,24 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Misc
+
+        [TestMethod]
+        public void TestDefaultGetHttpRequestMessageCustomNoThing()
+        {
+            var defaultGetHttpRequestMessage = new DefaultGetHttpRequestMessage();
+            var request = new Request<string>(
+                new Uri("http://www.test.com"),
+                default,
+                NullHeadersCollection.Instance,
+                HttpRequestMethod.Custom,
+                default);
+
+            _ = Assert.ThrowsException<InvalidOperationException>(() => _ = defaultGetHttpRequestMessage.GetHttpRequestMessage(
+                  request,
+                  _logger.Object,
+                  new Mock<ISerializationAdapter>().Object));
+        }
+
         [TestMethod]
         public async Task TestBadBaseUri()
         {
@@ -1715,7 +1733,7 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(response.Body?.Count > 0);
         }
 
-#if!NET45 
+#if !NET45
 
         private static ILoggerFactory GetLoggerFactory(Action<object?> callback)
         {
