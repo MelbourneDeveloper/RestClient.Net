@@ -168,7 +168,16 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual("client", Assert.ThrowsException<ArgumentNullException>(() =>
                 _ = HeadersExtensions.AppendDefaultRequestHeaders(null,NullHeadersCollection.Instance)).ParamName);
 
-        
+        [TestMethod]
+        public void TestRequestUri() =>
+            Assert.AreEqual("uri", Assert.ThrowsException<ArgumentNullException>(() =>
+                _ = new Request<string>(default, "asd",NullHeadersCollection.Instance, HttpRequestMethod.Get)).ParamName);
+
+        [TestMethod]
+        public void TestRequestUri2() =>
+            Assert.ThrowsException<InvalidOperationException>(() =>
+                _ = new Request<string>(new Uri("Hi", UriKind.Relative), "asd",NullHeadersCollection.Instance, HttpRequestMethod.Get));
+       
         [TestMethod]
         public void TestAppendDefaultRequestHeadersheadersCollection() =>
             Assert.AreEqual("headersCollection", Assert.ThrowsException<ArgumentNullException>(() =>
