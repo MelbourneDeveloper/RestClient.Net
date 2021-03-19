@@ -23,16 +23,16 @@ namespace RestClient.Net.Abstractions
         /// <param name="bodyData"></param>
         /// <param name="headers"></param>
         /// <param name="httpRequestMethod"></param>
-        /// <param name="cancellationToken"></param>
         /// <param name="customHttpRequestMethod"></param>
+        /// <param name="cancellationToken"></param>
         /// 
         public Request(
             Uri uri,
             TBody? bodyData,
             IHeadersCollection headers,
             HttpRequestMethod httpRequestMethod,
-            CancellationToken cancellationToken,
-            string? customHttpRequestMethod = null)
+            string? customHttpRequestMethod = null,
+            CancellationToken cancellationToken = default)
         {
             BodyData = bodyData;
             Uri = uri;

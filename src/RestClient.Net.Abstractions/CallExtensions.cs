@@ -67,7 +67,7 @@ namespace RestClient.Net
                 null,
                 client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
                 HttpRequestMethod.Delete,
-                cancellationToken))
+                cancellationToken: cancellationToken))
                 .ConfigureAwait(false);
 
             return response;
@@ -109,7 +109,7 @@ namespace RestClient.Net
                     null,
                     client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
                     HttpRequestMethod.Get,
-                    cancellationToken));
+                    cancellationToken: cancellationToken));
 
         #endregion
 
@@ -268,7 +268,7 @@ namespace RestClient.Net
                                 requestBodyData,
                                 requestHeaders,
                                 httpRequestMethod,
-                                cancellationToken)) : throw new ArgumentNullException(nameof(client));
+                                cancellationToken: cancellationToken)) : throw new ArgumentNullException(nameof(client));
 
 
         public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(

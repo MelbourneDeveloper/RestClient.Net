@@ -171,7 +171,7 @@ namespace RestClient.Net
             disposed = true;
 
             if (!HttpClientsByClient.ContainsKey(this)) return;
-            
+
             HttpClientsByClient[this].Dispose();
             _ = HttpClientsByClient.Remove(this);
         }

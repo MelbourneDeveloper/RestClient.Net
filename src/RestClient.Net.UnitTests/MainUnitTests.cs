@@ -310,8 +310,8 @@ namespace RestClient.Net.UnitTests
                 null,
                 NullHeadersCollection.Instance,
                 HttpRequestMethod.Custom,
-                default,
-                "HEAD")).ConfigureAwait(false);
+                "HEAD",
+                default)).ConfigureAwait(false);
 
             Assert.AreEqual(GoogleHeadHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
         }
@@ -1148,7 +1148,7 @@ namespace RestClient.Net.UnitTests
             var requestHeadersCollection = "Test".CreateHeadersCollection("Test");
             Person responsePerson = await client.SendAsync<Person, object>
                 (
-                new Request<object>(testServerBaseUri.Combine(new Uri("headers", UriKind.Relative)), null, requestHeadersCollection, HttpRequestMethod.Get, default)
+                new Request<object>(testServerBaseUri.Combine(new Uri("headers", UriKind.Relative)), null, requestHeadersCollection, HttpRequestMethod.Get, cancellationToken: default)
                 ).ConfigureAwait(false); ;
             Assert.IsNotNull(responsePerson);
         }
@@ -1568,7 +1568,7 @@ namespace RestClient.Net.UnitTests
                 default,
                 NullHeadersCollection.Instance,
                 HttpRequestMethod.Custom,
-                default);
+                cancellationToken: default);
 
             _ = Assert.ThrowsException<InvalidOperationException>(() => _ = defaultGetHttpRequestMessage.GetHttpRequestMessage(
                   request,
