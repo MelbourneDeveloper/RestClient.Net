@@ -77,7 +77,6 @@ namespace RestClient.Net
             CreateHttpClient? createHttpClient = null,
             ISendHttpRequestMessage? sendHttpRequest = null,
             IGetHttpRequestMessage? getHttpRequestMessage = null,
-            TimeSpan timeout = default,
             bool throwExceptionOnFailure = true,
             string? name = null)
         {
@@ -122,7 +121,6 @@ namespace RestClient.Net
 
             sendHttpRequestMessage = sendHttpRequest ?? DefaultSendHttpRequestMessage.Instance;
 
-            Timeout = timeout;
             ThrowExceptionOnFailure = throwExceptionOnFailure;
         }
 
@@ -154,11 +152,6 @@ namespace RestClient.Net
         /// Specifies whether or not the client will throw an exception when non-successful status codes are returned in the http response. The default is true
         /// </summary>
         public bool ThrowExceptionOnFailure { get; } = true;
-
-        /// <summary>
-        /// Default timeout for http requests
-        /// </summary>
-        public TimeSpan Timeout { get; }
 
         #endregion Public Properties
 
@@ -201,10 +194,6 @@ namespace RestClient.Net
                 {
                     throw new InvalidOperationException($"{nameof(createHttpClient)} returned a {nameof(HttpClient)} with at least one item in {nameof(HttpClient.DefaultRequestHeaders)}. The {nameof(HttpClient)} must never have {nameof(HttpClient.DefaultRequestHeaders)}. Fix the {nameof(createHttpClient)} func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.DefaultRequestHeaders)}");
                 }
-
-                //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
-                //TODO: Get rid of this
-                if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
 
                 logger.LogTrace("HttpClient configured. Request: {request} Adapter: {serializationAdapter}", request, SerializationAdapter);
 
