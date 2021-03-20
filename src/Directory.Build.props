@@ -22,6 +22,7 @@
 	    <Copyright>© $([System.DateTime]::UtcNow.ToString(yyyy)) Christian Findlay</Copyright>
 	    <RepositoryType>git</RepositoryType>
 	    <PackageIcon>Icon.png</PackageIcon>
+	    <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	    <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
 	    <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
 	    <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
