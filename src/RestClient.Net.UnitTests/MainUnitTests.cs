@@ -581,6 +581,7 @@ namespace RestClient.Net.UnitTests
             Assert.Fail("The operation completed successfully");
         }
 
+        /*
         [TestMethod]
         public async Task TestPostUserTimeout()
         {
@@ -597,6 +598,7 @@ namespace RestClient.Net.UnitTests
                 => state.CheckValue("{OriginalFormat}", Messages.ErrorTaskCancelled), LogLevel.Error, 1);
 #endif
         }
+        */
 
         [TestMethod]
 #if NETCOREAPP3_1
