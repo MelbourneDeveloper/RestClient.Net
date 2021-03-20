@@ -401,7 +401,7 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: _createHttpClient);
             var json = await client.GetAsync<string>().ConfigureAwait(false);
 
-            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).FirstOrDefault();
+            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).First();
             Assert.AreEqual("Australia", country.name);
         }
 #endif
@@ -538,7 +538,7 @@ namespace RestClient.Net.UnitTests
                 name: null);
 
             var json = await client.GetAsync<string>().ConfigureAwait(false);
-            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).FirstOrDefault();
+            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).First();
             Assert.AreEqual("Australia", country.name);
         }
 
@@ -547,7 +547,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUri).ConfigureAwait(false);
-            var country = countries.FirstOrDefault();
+            var country = countries.First();
             Assert.AreEqual("Australia", country.name);
         }
 
@@ -1993,7 +1993,7 @@ namespace RestClient.Net.UnitTests
 
 #if !NET45
 
-        //Test TODOs: 
+        //Test TODOs:
         // - Uri doesn't add a forward slash when only base ur is supplied. E.g. if the base uri is http://www.test.com with no resource, the request uri should be http://www.test.com with no forward slash at the end
         // - Base uri should absolute. Rejust non-absolute Uris
         // - Resource must be relative if base is supplied
