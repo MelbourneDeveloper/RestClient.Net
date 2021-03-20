@@ -16,7 +16,7 @@ namespace RestClient.Net.UnitTests
         {
             #region DeleteDefault
 
-            var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+            using var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
             await client.DeleteAsync("posts/1");
 
             #endregion
@@ -27,7 +27,7 @@ namespace RestClient.Net.UnitTests
         {
             #region GetNewtonsoft
 
-            var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
+            using var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
             var response = await client.GetAsync<List<RestCountry>>();
 
             #endregion
@@ -40,7 +40,7 @@ namespace RestClient.Net.UnitTests
         {
             #region GetDefault
 
-            var client = new Client(baseUri: new Uri("https://restcountries.eu/rest/v2/"));
+            using var client = new Client(baseUri: new Uri("https://restcountries.eu/rest/v2/"));
             var response = await client.GetAsync<List<RestCountry>>();
 
             #endregion
@@ -53,7 +53,7 @@ namespace RestClient.Net.UnitTests
             #region PostBinary
 
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
-            var client = new Client(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
+            using var client = new Client(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
             person = await client.PostAsync<Person, Person>(person);
 
             #endregion
@@ -63,13 +63,14 @@ namespace RestClient.Net.UnitTests
         public async Task PostNewtonsoft()
         {
             #region PostNewtonsoft
-            var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-           //TODO: client.SetJsonContentTypeHeader();
+
+            using var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
             var body = new UserPost
             {
                 title = "Title"
             };
             UserPost userPost = await client.PostAsync<UserPost, UserPost>(body, "/posts");
+
             #endregion
         }
     }
