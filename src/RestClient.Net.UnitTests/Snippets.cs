@@ -48,7 +48,7 @@ namespace RestClient.Net.UnitTests
 
 #endif
 
-        public async Task PostBinary()
+        public static async Task PostBinary()
         {
             #region PostBinary
 
