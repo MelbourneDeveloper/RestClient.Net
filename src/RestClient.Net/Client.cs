@@ -257,7 +257,7 @@ namespace RestClient.Net
             var contentHeaders = httpResponseMessage.Content?.Headers?.ToHeadersCollection();
             var allHeaders = httpResponseMessage.Headers.ToHeadersCollection().Append(contentHeaders);
 
-            TResponseBody responseBody = default;
+            TResponseBody? responseBody = default;
 
             if (httpResponseMessage.IsSuccessStatusCode)
             {
