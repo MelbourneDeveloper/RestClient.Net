@@ -113,16 +113,17 @@ namespace RestClient.Net
         Uri? resource = null,
         IHeadersCollection? requestHeaders = null,
         CancellationToken cancellationToken = default)
-        => PatchAsync<TResponseBody, object>(
-            client,
-            default,
-            resource,
-            requestHeaders,
-            cancellationToken);
+            => SendAsync<TResponseBody, object>(
+                client,
+                HttpRequestMethod.Patch,
+                default,
+                resource,
+                requestHeaders,
+                cancellationToken);
 
         public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(
             this IClient client,
-            TRequestBody? requestBody = default,
+            TRequestBody requestBody,
             Uri? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
@@ -161,8 +162,9 @@ namespace RestClient.Net
             Uri? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
-            => PostAsync<TResponseBody, object>(
+            => SendAsync<TResponseBody, object>(
                 client,
+                HttpRequestMethod.Post,
                 default,
                 resource,
                 requestHeaders,
@@ -209,7 +211,7 @@ namespace RestClient.Net
 
         public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(
             this IClient client,
-            TRequestBody requestBody = default,
+            TRequestBody requestBody,
             Uri? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
