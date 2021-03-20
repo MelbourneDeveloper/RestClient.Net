@@ -52,7 +52,7 @@ namespace RestClient.Net.UnitTests
 
             //Create the service and call SavePerson
             var personService = new PersonService(clientFactoryMock.Object);
-            var returnPersonResponse = await personService.SavePerson(requestPerson).ConfigureAwait(false);
+            var returnPersonResponse = await personService.SavePerson(requestPerson);
 
             Assert.AreEqual("123", returnPersonResponse?.Body?.PersonKey);
         }

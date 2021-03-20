@@ -50,7 +50,7 @@ namespace RestClient.Net.UnitTests
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
                 var client = serviceProvider.GetService<IClient>();
-                _ = await client.GetAsync<object>().ConfigureAwait(false);
+                _ = await client.GetAsync<object>();
                 _ = serviceCollection.Configure<string>((s) => { });
             }
             catch (SendException hse)
@@ -80,7 +80,7 @@ namespace RestClient.Net.UnitTests
                 var serviceProvider = serviceCollection.BuildServiceProvider();
                 var clientFactory = serviceProvider.GetService<CreateClient>();
                 var client = clientFactory(clientName, baseUri);
-                _ = await client.GetAsync<object>().ConfigureAwait(false);
+                _ = await client.GetAsync<object>();
             }
             catch (SendException hse)
             {
@@ -104,7 +104,7 @@ namespace RestClient.Net.UnitTests
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var mockAspController = serviceProvider.GetService<MockAspController>();
-            var response = await mockAspController.Client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+            var response = await mockAspController.Client.GetAsync<List<RestCountry>>();
             Assert.AreEqual(250, response.Body?.Count);
         }
 

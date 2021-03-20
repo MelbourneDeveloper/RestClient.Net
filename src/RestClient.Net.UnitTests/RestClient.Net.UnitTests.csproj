@@ -4,6 +4,7 @@
     <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <RootNamespace>RestClient.Net.UnitTests</RootNamespace>
+    <NoWarn>CA2007</NoWarn>
   </PropertyGroup>
 
   <Choose>
