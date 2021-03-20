@@ -3,37 +3,16 @@
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;net45;net5.0</TargetFrameworks>
 		<DebugType>pdbonly</DebugType>
-		<AssemblyVersion>4.1.0.0</AssemblyVersion>
-		<FileVersion>4.1.0.0</FileVersion>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Authors>Christian Findlay</Authors>
 		<Description>
 			.NET REST Client Framework for all platforms
 
 			www.rest-client.net
 		</Description>
-		<Copyright>© 2020 Christian Findlay</Copyright>
-		<PackageLicenseUrl></PackageLicenseUrl>
-		<PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
-		<PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
-		<PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/4</PackageReleaseNotes>
-		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<NoWarn>CA2007</NoWarn>
-		<PackageLicenseFile>License.txt</PackageLicenseFile>
-		<RootNamespace>RestClient.Net</RootNamespace>
-		<PackageIconUrl></PackageIconUrl>
-		<RepositoryType>git</RepositoryType>
-		<PackageIcon>Icon.png</PackageIcon>
-		<DocumentationFile>RestClient.Net.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="RestClient.Net.xml" />
-		<None Include="..\Images\Rendered\Icon.png">
-			<Pack>True</Pack>
-			<PackagePath></PackagePath>
-		</None>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="3.9.0">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -42,13 +21,6 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<None Include="License.txt">
-			<Pack>True</Pack>
-			<PackagePath></PackagePath>
-		</None>
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\RestClient.Net.Abstractions\RestClient.Net.Abstractions.csproj" />
 	</ItemGroup>
 
