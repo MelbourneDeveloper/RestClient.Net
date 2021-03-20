@@ -8,10 +8,8 @@ using RestClient.Net.UnitTests.Model;
 
 namespace RestClient.Net.UnitTests
 {
-    [TestClass]
     public class Snippets
     {
-        [TestMethod]
         public async Task Delete()
         {
             #region DeleteDefault
@@ -22,7 +20,6 @@ namespace RestClient.Net.UnitTests
             #endregion
         }
 
-        [TestMethod]
         public async Task GetNewtonsoft()
         {
             #region GetNewtonsoft
@@ -35,7 +32,6 @@ namespace RestClient.Net.UnitTests
 
 #if NETCOREAPP
 
-        [TestMethod]
         public async Task GetDefault()
         {
             #region GetDefault
@@ -59,7 +55,6 @@ namespace RestClient.Net.UnitTests
             #endregion
         }
 
-        [TestMethod]
         public async Task PostNewtonsoft()
         {
             #region PostNewtonsoft
