@@ -9,6 +9,7 @@ namespace RestClient.Net.Abstractions.Extensions
 {
     public static class HeadersExtensions
     {
+
         #region Internal Fields
 
         internal const string Authorization = "Authorization";
@@ -20,12 +21,6 @@ namespace RestClient.Net.Abstractions.Extensions
         #endregion Internal Fields
 
         #region Public Methods
-
-        public static IHeadersCollection ToHeadersCollection(this HttpResponseHeaders? httpResponseHeaders)
-            => new HeadersCollection(httpResponseHeaders == null ? ImmutableDictionary.Create<string, IEnumerable<string>>() : httpResponseHeaders.ToImmutableDictionary());
-
-        public static IHeadersCollection ToHeadersCollection(this HttpContentHeaders? httpContentHeaders)
-            => new HeadersCollection(httpContentHeaders == null ? ImmutableDictionary.Create<string, IEnumerable<string>>() : httpContentHeaders.ToImmutableDictionary());
 
         public static IHeadersCollection Append(this IHeadersCollection headersCollection, string key, IEnumerable<string> value)
         {
@@ -42,31 +37,6 @@ namespace RestClient.Net.Abstractions.Extensions
 
         public static IHeadersCollection Append(this IHeadersCollection headersCollection, string key, string value)
         => Append(headersCollection, key, new List<string> { value });
-
-        public static IHeadersCollection AppendDefaultRequestHeaders(this IClient client, IHeadersCollection headersCollection)
-        {
-            if (client == null) throw new ArgumentNullException(nameof(client));
-            if (headersCollection == null) throw new ArgumentNullException(nameof(headersCollection));
-
-            var dictionary = new Dictionary<string, IEnumerable<string>>();
-
-            if (client.DefaultRequestHeaders != null)
-            {
-                foreach (var kvp in client.DefaultRequestHeaders)
-                {
-                    dictionary.Add(kvp.Key, kvp.Value);
-                }
-            }
-
-            foreach (var kvp in headersCollection)
-            {
-                if (dictionary.ContainsKey(kvp.Key)) _ = dictionary.Remove(kvp.Key);
-
-                dictionary.Add(kvp.Key, kvp.Value);
-            }
-
-            return new HeadersCollection(dictionary);
-        }
 
         public static IHeadersCollection Append(this IHeadersCollection? headersCollection, IHeadersCollection? headersCollection2)
         {
@@ -93,13 +63,49 @@ namespace RestClient.Net.Abstractions.Extensions
             return new HeadersCollection(dictionary);
         }
 
+        public static IHeadersCollection AppendDefaultRequestHeaders(this IClient client, IHeadersCollection headersCollection)
+        {
+            if (client == null) throw new ArgumentNullException(nameof(client));
+            if (headersCollection == null) throw new ArgumentNullException(nameof(headersCollection));
+
+            var dictionary = new Dictionary<string, IEnumerable<string>>();
+
+            if (client.DefaultRequestHeaders != null)
+            {
+                foreach (var kvp in client.DefaultRequestHeaders)
+                {
+                    dictionary.Add(kvp.Key, kvp.Value);
+                }
+            }
+
+            foreach (var kvp in headersCollection)
+            {
+                if (dictionary.ContainsKey(kvp.Key)) _ = dictionary.Remove(kvp.Key);
+
+                dictionary.Add(kvp.Key, kvp.Value);
+            }
+
+            return new HeadersCollection(dictionary);
+        }
+
         public static IHeadersCollection CreateHeadersCollection(this string key, string value)
         => new HeadersCollection(ImmutableDictionary.CreateRange(new List<KeyValuePair<string, IEnumerable<string>>> { new(key, new List<string> { value }) }));
 
         public static IHeadersCollection CreateHeadersCollection(this KeyValuePair<string, IEnumerable<string>> kvp)
             => new HeadersCollection(ImmutableDictionary.CreateRange(new List<KeyValuePair<string, IEnumerable<string>>> { kvp }));
 
-        public static IHeadersCollection CreateOrSetHeaderValue(
+        /// <summary>
+        /// Sets the Authorization header for Basic Authentication with the specified credentials
+        /// </summary>
+        public static IHeadersCollection CreateHeadersCollectionWithBasicAuthentication(string userName, string password) => WithBasicAuthentication(null, userName, password);
+
+        public static IHeadersCollection CreateHeadersCollectionWithBearerTokenAuthentication(string bearerToken)
+        => WithBearerTokenAuthentication(null, bearerToken);
+
+        public static IHeadersCollection CreateHeadersCollectionWithJsonContentType()
+        => WithJsonContentTypeHeader(null);
+
+        public static IHeadersCollection WithHeaderValue(
             this IHeadersCollection? requestHeaders,
             string key,
             string value)
@@ -114,28 +120,22 @@ namespace RestClient.Net.Abstractions.Extensions
                     )) :
             requestHeaders.Append(key, value);
 
+        public static IHeadersCollection ToHeadersCollection(this HttpResponseHeaders? httpResponseHeaders)
+            => new HeadersCollection(httpResponseHeaders == null ? ImmutableDictionary.Create<string, IEnumerable<string>>() : httpResponseHeaders.ToImmutableDictionary());
+
+        public static IHeadersCollection ToHeadersCollection(this HttpContentHeaders? httpContentHeaders)
+            => new HeadersCollection(httpContentHeaders == null ? ImmutableDictionary.Create<string, IEnumerable<string>>() : httpContentHeaders.ToImmutableDictionary());
         /// <summary>
         /// Sets the Authorization header for Basic Authentication with the specified credentials
         /// </summary>
         public static IHeadersCollection WithBasicAuthentication(this IHeadersCollection? requestHeaders, string userName, string password)
-            => CreateOrSetHeaderValue(requestHeaders, Authorization, "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(userName + ":" + password)));
-
-        /// <summary>
-        /// Sets the Authorization header for Basic Authentication with the specified credentials
-        /// </summary>
-        public static IHeadersCollection CreateHeadersCollectionWithBasicAuthentication(string userName, string password) => WithBasicAuthentication(null, userName, password);
-
-        public static IHeadersCollection CreateHeadersCollectionWithBearerTokenAuthentication(string bearerToken)
-        => WithBearerTokenAuthentication(null, bearerToken);
+            => WithHeaderValue(requestHeaders, Authorization, "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(userName + ":" + password)));
 
         public static IHeadersCollection WithBearerTokenAuthentication(this IHeadersCollection? requestHeaders, string bearerToken)
-            => CreateOrSetHeaderValue(requestHeaders, Authorization, "Bearer " + bearerToken);
-
-        public static IHeadersCollection CreateHeadersCollectionWithJsonContentType()
-        => WithJsonContentTypeHeader(null);
+            => WithHeaderValue(requestHeaders, Authorization, "Bearer " + bearerToken);
 
         public static IHeadersCollection WithJsonContentTypeHeader(this IHeadersCollection? requestHeaders)
-        => CreateOrSetHeaderValue(requestHeaders, ContentTypeHeaderName, JsonMediaType);
+        => WithHeaderValue(requestHeaders, ContentTypeHeaderName, JsonMediaType);
 
         #endregion Public Methods
 

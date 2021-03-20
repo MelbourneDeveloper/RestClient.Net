@@ -720,7 +720,7 @@ namespace RestClient.Net.UnitTests
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
-                DefaultJsonContentHeaderCollection.CreateOrSetHeaderValue("Test", "Test")
+                DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test")
                 : DefaultJsonContentHeaderCollection
                 );
 
@@ -816,7 +816,7 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 name: null,
                 defaultRequestHeaders: useDefault ?
-                headersCollections.CreateOrSetHeaderValue("Test", "Test")
+                headersCollections.WithHeaderValue("Test", "Test")
                 : headersCollections
 
                 );
@@ -852,7 +852,7 @@ namespace RestClient.Net.UnitTests
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
-                headersCollections.CreateOrSetHeaderValue("Test", "Test")
+                headersCollections.WithHeaderValue("Test", "Test")
                 : headersCollections
                 );
 
@@ -931,7 +931,7 @@ namespace RestClient.Net.UnitTests
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
-                DefaultJsonContentHeaderCollection.CreateOrSetHeaderValue("Test", "Test")
+                DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test")
                 : DefaultJsonContentHeaderCollection
                 );
 
@@ -1059,7 +1059,7 @@ namespace RestClient.Net.UnitTests
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
-                DefaultJsonContentHeaderCollection.CreateOrSetHeaderValue("Test", "Test")
+                DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test")
                 : DefaultJsonContentHeaderCollection);
 
             var responsePerson = await client.PatchAsync<Person, Person>(
@@ -1109,7 +1109,7 @@ namespace RestClient.Net.UnitTests
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
-                DefaultJsonContentHeaderCollection.CreateOrSetHeaderValue("Test", "Test")
+                DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test")
                 : DefaultJsonContentHeaderCollection);
 
             _ = await client.DeleteAsync(new Uri("headers/1", UriKind.Relative), "Test".CreateHeadersCollection("Test"));
