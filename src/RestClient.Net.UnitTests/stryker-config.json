@@ -10,8 +10,8 @@
         "timeout-ms": 10000,
         "project-file": "RestClient.Net.UnitTests.csproj",
         "max-concurrent-test-runners": 4,
-        "threshold-high": 99,
-        "threshold-low": 89,
+        "threshold-high": 80,
+        "threshold-low": 70,
         "threshold-break": 60,
         "mutation-level": "Basic",
         "excluded-mutations": [
