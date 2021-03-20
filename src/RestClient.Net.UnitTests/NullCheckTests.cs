@@ -18,11 +18,11 @@ namespace RestClient.Net.UnitTests
     [TestClass]
     public class NullCheckTests : IDisposable
     {
-        private readonly Mock<IGetHttpRequestMessage> getHttpRequestMessageMock = new Mock<IGetHttpRequestMessage>();
-        private readonly Mock<IRequest<string>> request = new Mock<IRequest<string>>();
-        private readonly Mock<ILogger<Client>> logger = new Mock<ILogger<Client>>();
-        private readonly Mock<ISerializationAdapter> serializationAdapterMock = new Mock<ISerializationAdapter>();
-        private readonly HttpClient httpClient = new HttpClient();
+        private readonly Mock<IGetHttpRequestMessage> getHttpRequestMessageMock = new();
+        private readonly Mock<IRequest<string>> request = new();
+        private readonly Mock<ILogger<Client>> logger = new();
+        private readonly Mock<ISerializationAdapter> serializationAdapterMock = new();
+        private readonly HttpClient httpClient = new();
 
         public void Dispose() => httpClient.Dispose();
 
