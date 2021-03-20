@@ -24,5 +24,5 @@ jobs:
     - name: Build
       run: dotnet build src/RestClient.Net.sln --no-restore
 
-    - name: Test
-      run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal
+    #- name: Test
+    #  run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal
