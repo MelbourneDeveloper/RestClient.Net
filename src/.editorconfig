@@ -1,5 +1,10 @@
 ﻿[*.cs]
 
+dotnet_diagnostic.CA2237.severity = None
+
+dotnet_diagnostic.CA1014.severity = None
+
+
 # Default severity for all analyzer diagnostics
 dotnet_analyzer_diagnostic.severity = error
 

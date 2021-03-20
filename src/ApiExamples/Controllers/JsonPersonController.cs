@@ -84,15 +84,15 @@ namespace ApiExamples.Controllers
 
         [HttpPatch]
         [Route("save2")]
-        public Person Patch() => new Person { FirstName = "J" };
+        public Person Patch() => new() { FirstName = "J" };
 
         [HttpPost]
         [Route("save2")]
-        public Person PostSave2() => new Person { FirstName = "J" };
+        public Person PostSave2() => new() { FirstName = "J" };
 
         [HttpPut]
         [Route("save2")]
-        public Person PutSave2() => new Person { FirstName = "J" };
+        public Person PutSave2() => new() { FirstName = "J" };
 
         [HttpDelete]
 #pragma warning disable IDE0060 // Remove unused parameter
