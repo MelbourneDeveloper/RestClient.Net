@@ -7,12 +7,24 @@
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
-		<AnalysisLevel>latest</AnalysisLevel>
+        <AnalysisLevel>latest</AnalysisLevel>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
-		<RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
-		<RunAnalyzers>true</RunAnalyzers>
-		<Nullable>enable</Nullable>
-        <Version>5.0.0</Version>            
+        <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
+        <RunAnalyzers>true</RunAnalyzers>
+        <Nullable>enable</Nullable>
+        <Version>4.1.0</Version>
+        <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
+        <Copyright>© $([System.DateTime]::UtcNow.ToString(yyyy)) Christian Findlay</Copyright>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageIcon>Icon.png</PackageIcon>
+        <Authors>Christian Findlay</Authors>
+        <Company>Christian Findlay</Company>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
+        <PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/4</PackageReleaseNotes>
+        <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
     </PropertyGroup>
 </Project>
