@@ -52,7 +52,7 @@ namespace RestClient.Net.UnitTests
         {
             #region PostBinary
 
-            var person = new Person { FirstName = "Bob", Surname = "Smith" };
+            var person = new Person {FirstName = "Bob", Surname = "Smith"};
             using var client = new Client(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
             person = await client.PostAsync<Person, Person>(person);
 
