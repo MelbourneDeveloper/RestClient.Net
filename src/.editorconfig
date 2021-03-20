@@ -1,5 +1,15 @@
 ﻿[*.cs]
 
+dotnet_diagnostic.CA2237.severity = None
+
+dotnet_diagnostic.CA1014.severity = None
+
+
+#Why doesn't this setting work?
+#csharp_style_expression_bodied_local_functions = true;
+dotnet_diagnostic.IDE0061.severity = none
+
+
 # Default severity for all analyzer diagnostics
 dotnet_analyzer_diagnostic.severity = error
 
@@ -91,9 +101,6 @@ dotnet_diagnostic.CA1010.severity = error
 
 # CA1012: Abstract types should not have public constructors
 dotnet_diagnostic.CA1012.severity = error
-
-# CA1014: Mark assemblies with CLSCompliant
-dotnet_diagnostic.CA1014.severity = error
 
 # CA1016: Mark assemblies with assembly version
 dotnet_diagnostic.CA1016.severity = error
