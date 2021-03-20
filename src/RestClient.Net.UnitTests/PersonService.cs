@@ -11,6 +11,6 @@ namespace RestClient.Net.UnitTests
 
         public PersonService(CreateClient clientFactory) => _client = clientFactory != null ? clientFactory("Person") : throw new ArgumentNullException(nameof(clientFactory));
 
-        public async Task<Response<Person>> SavePerson(Person person) => await _client.PostAsync<Person, Person>(person).ConfigureAwait(false);
+        public async Task<Response<Person>> SavePerson(Person person) => await _client.PostAsync<Person, Person>(person);
     }
 }
