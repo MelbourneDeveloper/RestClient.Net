@@ -13,10 +13,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
 
     - name: Restore dependencies
       run: dotnet restore src/RestClient.Net.sln
@@ -25,4 +31,4 @@ jobs:
       run: dotnet build src/RestClient.Net.sln --no-restore
 
     - name: Test
-      run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal
+      run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework netcoreapp3.1

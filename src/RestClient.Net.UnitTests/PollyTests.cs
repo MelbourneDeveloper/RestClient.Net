@@ -74,7 +74,7 @@ namespace RestClient.Net.UnitTests
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
 
             //Note the Uri here is deliberately incorrect. It will cause a 404 Not found response. This is to make sure that polly is working
-            person = await client.PostAsync<Person, Person>(person, new Uri("person2", UriKind.Relative)).ConfigureAwait(false);
+            person = await client.PostAsync<Person, Person>(person, new Uri("person2", UriKind.Relative));
             Assert.AreEqual("Bob", person.FirstName);
             Assert.AreEqual(3, sendHttpRequestFunc.Tries);
         }
@@ -109,7 +109,7 @@ namespace RestClient.Net.UnitTests
             var client = clientFactory("rc", baseUri);
 
             //Make the call
-            _ = await client.GetAsync<List<RestCountry>>().ConfigureAwait(false);
+            _ = await client.GetAsync<List<RestCountry>>();
 
             //TODO: Implement this completely to ensure that the policy is being applied
         }

@@ -38,7 +38,7 @@ namespace RestClient.Net
             }
             catch (OperationCanceledException oce)
             {
-                logger.LogError(oce, "Operation cancelled {request}", request);
+                logger.LogError(oce, Messages.ErrorMessageOperationCancelled, request);
                 throw;
             }
             catch (Exception ex)

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
+    <NoWarn>CA2007</NoWarn>
   </PropertyGroup>
 
   <Choose>

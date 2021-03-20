@@ -37,9 +37,9 @@ namespace RestClient.Net.UnitTests
                     getHttpRequestMessageMock.Object,
                     request.Object,
                     logger.Object,
-                    serializationAdapterMock.Object).ConfigureAwait(false);
+                    serializationAdapterMock.Object);
 
-            }).ConfigureAwait(false);
+            });
 
             Assert.AreEqual("httpClient", exception.ParamName);
         }
@@ -55,9 +55,9 @@ namespace RestClient.Net.UnitTests
                     null,
                     request.Object,
                     logger.Object,
-                    serializationAdapterMock.Object).ConfigureAwait(false);
+                    serializationAdapterMock.Object);
 
-            }).ConfigureAwait(false);
+            });
 
             Assert.AreEqual("httpRequestMessageFunc", exception.ParamName);
         }
@@ -73,9 +73,9 @@ namespace RestClient.Net.UnitTests
                     getHttpRequestMessageMock.Object,
                     default(Request<string>),
                     logger.Object,
-                    serializationAdapterMock.Object).ConfigureAwait(false);
+                    serializationAdapterMock.Object);
 
-            }).ConfigureAwait(false);
+            });
 
             Assert.AreEqual("request", exception.ParamName);
         }
@@ -117,9 +117,9 @@ namespace RestClient.Net.UnitTests
         {
             var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
             {
-                _ = await CallExtensions.SendAsync<string, string>(null, request.Object).ConfigureAwait(false);
+                _ = await CallExtensions.SendAsync<string, string>(null, request.Object);
 
-            }).ConfigureAwait(false);
+            });
 
             Assert.AreEqual("client", exception.ParamName);
         }
@@ -135,9 +135,9 @@ namespace RestClient.Net.UnitTests
         {
             var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
             {
-                _ = await CallExtensions.DeleteAsync(null).ConfigureAwait(false);
+                _ = await CallExtensions.DeleteAsync(null);
 
-            }).ConfigureAwait(false);
+            });
 
             Assert.AreEqual("client", exception.ParamName);
         }
@@ -198,7 +198,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestClientValidateHttpClientNull()
         {
             using var client = new Client(new Mock<ISerializationAdapter>().Object, baseUri: new Uri("http://www.test.com"), createHttpClient: (n) => null);
-            var exception = await Assert.ThrowsExceptionAsync<SendException>(() => client.GetAsync<string>()).ConfigureAwait(false);
+            var exception = await Assert.ThrowsExceptionAsync<SendException>(() => client.GetAsync<string>());
             Assert.IsTrue(exception.InnerException is InvalidOperationException);
         }
 
@@ -207,7 +207,7 @@ namespace RestClient.Net.UnitTests
         => Assert.AreEqual("request", (await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => new Client(
               serializationAdapter: new NewtonsoftSerializationAdapter(),
               createHttpClient: (n) => new HttpClient()
-              ).SendAsync<string, object>(null)).ConfigureAwait(false)).ParamName);
+              ).SendAsync<string, object>(null))).ParamName);
 
 
 #if !NET45
