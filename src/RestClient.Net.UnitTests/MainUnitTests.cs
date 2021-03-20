@@ -581,41 +581,22 @@ namespace RestClient.Net.UnitTests
             Assert.Fail("The operation completed successfully");
         }
 
-        //TODO: This looks like a dodgy test that is making an actually http call
-        /*
         [TestMethod]
         public async Task TestPostUserTimeout()
         {
-            try
-            {
-                using var client = new Client(
-                    new NewtonsoftSerializationAdapter(),
-                    baseUri: JsonPlaceholderBaseUri,
-                    timeout: new TimeSpan(0, 0, 0, 0, 1),
-                    logger: _logger.Object);
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: JsonPlaceholderBaseUri,
+                timeout: new TimeSpan(0, 0, 0, 0, 1),
+                logger: _logger.Object);
 
-                _ = await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative));
-            }
-            catch (TaskCanceledException)
-            {
+            var exception = await Assert.ThrowsExceptionAsync<TaskCanceledException>(() => client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative)));
+
 #if !NET45
-                _logger.VerifyLog<Client, TaskCanceledException>((state, t)
-                    => state.CheckValue("{OriginalFormat}", Messages.ErrorTaskCancelled), LogLevel.Error, 1);
+            _logger.VerifyLog<Client, OperationCanceledException>((state, t)
+                => state.CheckValue("{OriginalFormat}", Messages.ErrorTaskCancelled), LogLevel.Error, 1);
 #endif
-
-                //Success
-                return;
-            }
-            catch (Exception)
-            {
-                Assert.Fail("The operation threw an exception that was not an TaskCanceledException");
-            }
-
-            Assert.Fail("The operation completed successfully");
-
-            //TODO: Verify the log
         }
-        */
 
         [TestMethod]
 #if NETCOREAPP3_1
