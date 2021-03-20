@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
-    <IsPackable>false</IsPackable>
-    <RootNamespace>RestClient.Net.UnitTests</RootNamespace>
   </PropertyGroup>
 
   <Choose>
@@ -13,6 +11,7 @@
         <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.0" />
         <ProjectReference Include="..\ApiExamples\ApiExamples.csproj" />
         <ProjectReference Include="..\RestClient.Net.DependencyInjection\RestClient.Net.DependencyInjection.csproj" />
+        <PackageReference Include="Microsoft.Extensions.Http.Polly"  Version="3.1.0" />
       </ItemGroup>
     </When>
   </Choose>
@@ -33,10 +32,7 @@
     <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\BinaryDataContractSerializationAdapter.cs" Link="SerializationAdapters\BinaryDataContractSerializationAdapter.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.Net.Samples\SerializationAdapters\ProtobufSerializationAdapter.cs" Link="SerializationAdapters\ProtobufSerializationAdapter.cs" />
     <Compile Include="..\RestClient.Net.Samples\RestClient.NET.Samples\SerializationAdapters\XmlSerializationAdapter.cs" Link="SerializationAdapters\XmlSerializationAdapter.cs" />
-    <Content Include="JSON\Australia.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="JSON\RestCountries.json">
+    <Content Include="JSON\*.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
@@ -53,18 +49,6 @@
     <PackageReference Include="structuremap" Version="4.7.1" />
     <ProjectReference Include="..\ApiExamples.Model\ApiExamples.Model.csproj" />
     <ProjectReference Include="..\RestClient.NET\RestClient.Net.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
-    <PackageReference Include="Microsoft.Extensions.Http.Polly">
-      <Version>3.1.0</Version>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-    <PackageReference Include="Microsoft.Extensions.Http.Polly">
-      <Version>3.1.0</Version>
-    </PackageReference>
   </ItemGroup>
 
 </Project>
