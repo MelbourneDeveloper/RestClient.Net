@@ -50,6 +50,7 @@
     <PackageReference Include="structuremap" Version="4.7.1" />
     <ProjectReference Include="..\ApiExamples.Model\ApiExamples.Model.csproj" />
     <ProjectReference Include="..\RestClient.NET\RestClient.Net.csproj" />
+    <PackageReference Include="MarkdownSnippets.MsBuild" Version="23.1.0" PrivateAssets="all"/>
   </ItemGroup>
 
 </Project>

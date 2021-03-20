@@ -40,42 +40,76 @@ NuGet: Install-Package RestClient.NET
 
 Please read [this article](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-(ISerializationAdapter)#newtonsoft) about Serialization and Deserialization.
 
+
 ### [Get](https://github.com/MelbourneDeveloper/RestClient.Net/blob/13c95c615400d39523c02e803b46a564ff4c91db/RestClient.Net.UnitTests/UnitTests.cs#L81)
 
 With [Newtonsoft serialization](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-With-ISerializationAdapter#newtonsoft)
 
+<!-- snippet: GetNewtonsoft -->
+<a id='snippet-getnewtonsoft'></a>
 ```cs
 var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
 var response = await client.GetAsync<List<RestCountry>>();
 ```
+<sup><a href='/src/RestClient.Net.UnitTests/Snippets.cs#L28-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-getnewtonsoft' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 With [default serialization on .NET Core](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-With-ISerializationAdapter#default-json-serialization-adapter)
+
+<!-- snippet: GetDefault -->
+<a id='snippet-getdefault'></a>
 ```cs
-var client = new Client(new Uri("https://restcountries.eu/rest/v2/"));
+var client = new Client(baseUri: new Uri("https://restcountries.eu/rest/v2/"));
 var response = await client.GetAsync<List<RestCountry>>();
 ```
+<sup><a href='/src/RestClient.Net.UnitTests/Snippets.cs#L41-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-getdefault' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
 
 ### Post / Put / Patch
 
-[**Protocol Buffers**](https://github.com/MelbourneDeveloper/RestClient.Net/blob/80d19ebc599027e2c68acb06a4e1f853683c3517/RestClient.Net.Samples/RestClient.Net.CoreSample/Program.cs#L25) (Binary)
+
+#### Protocol Buffers (Binary)
+
+<!-- snippet: PostBinary -->
+<a id='snippet-postbinary'></a>
 ```cs
 var person = new Person { FirstName = "Bob", Surname = "Smith" };
 var client = new Client(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
 person = await client.PostAsync<Person, Person>(person);
 ```
+<sup><a href='/src/RestClient.Net.UnitTests/Snippets.cs#L53-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-postbinary' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
-[**JSON**](https://github.com/MelbourneDeveloper/RestClient.Net/blob/236a454232455aa3dc0cea230e991329288c153d/RestClient.Net.Samples/RestClient.NET.Samples/MainPage.xaml.cs#L233)
+
+#### JSON
+
+<!-- snippet: PostNewtonsoft -->
+<a id='snippet-postnewtonsoft'></a>
 ```cs
 var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-client.SetJsonContentTypeHeader();
-UserPost userPost = await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Title" }, "/posts");
+//TODO: client.SetJsonContentTypeHeader();
+var body = new UserPost
+{
+    title = "Title"
+};
+UserPost userPost = await client.PostAsync<UserPost, UserPost>(body, "/posts");
 ```
+<sup><a href='/src/RestClient.Net.UnitTests/Snippets.cs#L65-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-postnewtonsoft' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
-### [Delete](https://github.com/MelbourneDeveloper/RestClient.Net/blob/f7f4f88b90c6b0014530891d094d958193776a52/RestClient.Net.UnitTests/UnitTests.cs#L94)
+
+### Delete
+
+<!-- snippet: DeleteDefault -->
+<a id='snippet-deletedefault'></a>
 ```cs
 var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
 await client.DeleteAsync("posts/1");
 ```
+<sup><a href='/src/RestClient.Net.UnitTests/Snippets.cs#L17-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-deletedefault' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
 
 ## Donate
 
@@ -83,6 +117,7 @@ await client.DeleteAsync("posts/1");
 | -------------  |:-------------:|
 | Bitcoin        | [33LrG1p81kdzNUHoCnsYGj6EHRprTKWu3U](https://www.blockchain.com/btc/address/33LrG1p81kdzNUHoCnsYGj6EHRprTKWu3U) |
 | Ethereum       | [0x7ba0ea9975ac0efb5319886a287dcf5eecd3038e](https://etherdonation.com/d?to=0x7ba0ea9975ac0efb5319886a287dcf5eecd3038e) |
+
 
 ## [Contribution](https://github.com/MelbourneDeveloper/RestClient.Net/blob/master/CONTRIBUTING.md)
 
