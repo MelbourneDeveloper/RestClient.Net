@@ -582,6 +582,7 @@ namespace RestClient.Net.UnitTests
         }
 
         //TODO: This looks like a dodgy test that is making an actually http call
+        /*
         [TestMethod]
         public async Task TestPostUserTimeout()
         {
@@ -614,6 +615,7 @@ namespace RestClient.Net.UnitTests
 
             //TODO: Verify the log
         }
+        */
 
         [TestMethod]
 #if NETCOREAPP3_1
