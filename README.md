@@ -48,7 +48,7 @@ With [Newtonsoft serialization](https://github.com/MelbourneDeveloper/RestClient
 <!-- snippet: GetNewtonsoft -->
 <a id='snippet-getnewtonsoft'></a>
 ```cs
-var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
+using var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
 var response = await client.GetAsync<List<RestCountry>>();
 ```
 <sup><a href='/src/RestClient.Net.UnitTests/Snippets.cs#L28-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-getnewtonsoft' title='Start of snippet'>anchor</a></sup>
@@ -59,7 +59,7 @@ With [default serialization on .NET Core](https://github.com/MelbourneDeveloper/
 <!-- snippet: GetDefault -->
 <a id='snippet-getdefault'></a>
 ```cs
-var client = new Client(baseUri: new Uri("https://restcountries.eu/rest/v2/"));
+using var client = new Client(baseUri: new Uri("https://restcountries.eu/rest/v2/"));
 var response = await client.GetAsync<List<RestCountry>>();
 ```
 <sup><a href='/src/RestClient.Net.UnitTests/Snippets.cs#L41-L46' title='Snippet source file'>snippet source</a> | <a href='#snippet-getdefault' title='Start of snippet'>anchor</a></sup>
@@ -74,8 +74,8 @@ var response = await client.GetAsync<List<RestCountry>>();
 <!-- snippet: PostBinary -->
 <a id='snippet-postbinary'></a>
 ```cs
-var person = new Person { FirstName = "Bob", Surname = "Smith" };
-var client = new Client(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
+var person = new Person {FirstName = "Bob", Surname = "Smith"};
+using var client = new Client(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
 person = await client.PostAsync<Person, Person>(person);
 ```
 <sup><a href='/src/RestClient.Net.UnitTests/Snippets.cs#L53-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-postbinary' title='Start of snippet'>anchor</a></sup>
@@ -87,15 +87,14 @@ person = await client.PostAsync<Person, Person>(person);
 <!-- snippet: PostNewtonsoft -->
 <a id='snippet-postnewtonsoft'></a>
 ```cs
-var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-//TODO: client.SetJsonContentTypeHeader();
+using var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
 var body = new UserPost
 {
     title = "Title"
 };
 UserPost userPost = await client.PostAsync<UserPost, UserPost>(body, "/posts");
 ```
-<sup><a href='/src/RestClient.Net.UnitTests/Snippets.cs#L65-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-postnewtonsoft' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/RestClient.Net.UnitTests/Snippets.cs#L65-L74' title='Snippet source file'>snippet source</a> | <a href='#snippet-postnewtonsoft' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -104,7 +103,7 @@ UserPost userPost = await client.PostAsync<UserPost, UserPost>(body, "/posts");
 <!-- snippet: DeleteDefault -->
 <a id='snippet-deletedefault'></a>
 ```cs
-var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
+using var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
 await client.DeleteAsync("posts/1");
 ```
 <sup><a href='/src/RestClient.Net.UnitTests/Snippets.cs#L17-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-deletedefault' title='Start of snippet'>anchor</a></sup>
