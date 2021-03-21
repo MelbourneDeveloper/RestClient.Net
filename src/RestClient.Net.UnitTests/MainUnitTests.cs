@@ -38,18 +38,18 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Moq.Protected;
 #endif
 
-#pragma warning disable CA1810 // Initialize reference type static fields inline
-#pragma warning disable CA1506 // Initialize reference type static fields inline
+#pragma warning disable CA1810 // Initialize reference type fields inline
+#pragma warning disable CA1506 // Initialize reference type fields inline
 
 namespace RestClient.Net.UnitTests
 {
     [TestClass]
-    public class MainUnitTests
+    public class MainUnitTests : IDisposable
     {
         #region Fields
-        private static Uri testServerBaseUri;
-        private static readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.CreateHeadersCollectionWithJsonContentType();
-        private static readonly ILoggerFactory consoleLoggerFactory =
+        private Uri testServerBaseUri;
+        private readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.CreateHeadersCollectionWithJsonContentType();
+        private readonly ILoggerFactory consoleLoggerFactory =
 #if NET45
         consoleLoggerFactory = NullLoggerFactory.Instance;
 #else
@@ -71,9 +71,9 @@ namespace RestClient.Net.UnitTests
         private const string CacheControlHeaderName = "Cache-Control";
         private const string XRatelimitLimitHeaderName = "X-Ratelimit-Limit";
 
-        private static readonly UserPost _userRequestBody = new() { title = "foo", userId = 10, body = "testbody" };
+        private readonly UserPost _userRequestBody = new() { title = "foo", userId = 10, body = "testbody" };
 
-        private static readonly string _userRequestBodyJson = "{\r\n" +
+        private readonly string _userRequestBodyJson = "{\r\n" +
                 $"  \"userId\": {_userRequestBody.userId},\r\n" +
                 "  \"id\": 0,\r\n" +
                 "  \"title\": \"foo\",\r\n" +
@@ -157,27 +157,15 @@ namespace RestClient.Net.UnitTests
             { CacheControlHeaderName, "private" },
         };
 
-
-        //For realises - with factory
-        //private static readonly CreateHttpClient _createHttpClient = (n) => new HttpClient();
-        //For realsies - no factory
-        //private CreateHttpClient _createHttpClient = null;
-
         //Mock the httpclient
-        private static readonly MockHttpMessageHandler _mockHttpMessageHandler = new();
-        private static readonly CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
-        private static readonly TestClientFactory _testServerHttpClientFactory;
-        private static Mock<ILogger<Client>> _logger = new();
+        private readonly MockHttpMessageHandler _mockHttpMessageHandler = new();
+        private readonly TestClientFactory _testServerHttpClientFactory;
+        private Mock<ILogger<Client>> _logger = new();
+        private bool disposedValue;
 
 #if NETCOREAPP3_1
-        private readonly Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
-        {
-            var client = _createHttpClient(n);
-            return new Lazy<HttpClient>(() => client);
-        };
-
         public const string LocalBaseUriString = "http://localhost";
-        private static readonly TestServer _testServer;
+        private static TestServer? _testServer;
 #else
         public const string LocalBaseUriString = "https://localhost:44337";
 #endif
@@ -266,8 +254,8 @@ namespace RestClient.Net.UnitTests
         }
         #endregion
 
-        #region Public Static Methods
-        public static TestClientFactory GetTestClientFactory()
+        #region Public Methods
+        public TestClientFactory GetTestClientFactory()
         {
             var testClient = MintClient();
             return new TestClientFactory(testClient);
@@ -275,7 +263,7 @@ namespace RestClient.Net.UnitTests
 
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        static MainUnitTests()
+        public MainUnitTests()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
 #if NETCOREAPP3_1
@@ -302,7 +290,7 @@ namespace RestClient.Net.UnitTests
             var baseUri = new Uri(GoogleUrlString);
             using var client = new Client(
                 serializationAdapter: new NewtonsoftSerializationAdapter(),
-                createHttpClient: _createHttpClient
+                createHttpClient: GetCreateHttpClient()
                 );
 
             var response = await client.SendAsync<string, object>(new Request<object>(
@@ -328,7 +316,7 @@ namespace RestClient.Net.UnitTests
         {
             var headers = new HeadersCollection(new Dictionary<string, IEnumerable<string>>());
 
-            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: _createHttpClient);
+            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: GetCreateHttpClient());
 
             var parameters = new object();
 
@@ -387,7 +375,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetDefaultSerializationRestCountries()
         {
-            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: _createHttpClient);
+            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: GetCreateHttpClient());
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
@@ -398,7 +386,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 baseUri: RestCountriesAustraliaUri,
-                createHttpClient: _createHttpClient);
+                createHttpClient: GetCreateHttpClient());
             var json = await client.GetAsync<string>();
 
             var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).First();
@@ -471,7 +459,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(new NewtonsoftSerializationAdapter(),
                 baseUri: RestCountriesAllUri,
-                createHttpClient: _createHttpClient,
+                createHttpClient: GetCreateHttpClient(),
                 logger: _logger.Object);
 
             var response = await client.GetAsync<List<RestCountry>>();
@@ -508,7 +496,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
                 logger: _logger.Object,
-                createHttpClient: _createHttpClient
+                createHttpClient: GetCreateHttpClient()
                 );
             var response = await client.DeleteAsync(JsonPlaceholderFirstPostSlug);
 
@@ -534,7 +522,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 RestCountriesAustraliaUri,
-                createHttpClient: _createHttpClient,
+                createHttpClient: GetCreateHttpClient(),
                 name: null);
 
             var json = await client.GetAsync<string>();
@@ -545,7 +533,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetRestCountriesNoBaseUri()
         {
-            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: GetCreateHttpClient());
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUri);
             var country = countries.First();
             Assert.AreEqual("Australia", country.name);
@@ -581,25 +569,6 @@ namespace RestClient.Net.UnitTests
             Assert.Fail("The operation completed successfully");
         }
 
-        /*
-        [TestMethod]
-        public async Task TestPostUserTimeout()
-        {
-            using var client = new Client(
-                new NewtonsoftSerializationAdapter(),
-                baseUri: JsonPlaceholderBaseUri,
-                timeout: new TimeSpan(0, 0, 0, 0, 1),
-                logger: _logger.Object);
-
-            var exception = await Assert.ThrowsExceptionAsync<TaskCanceledException>(() => client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative)));
-
-#if !NET45
-            _logger.VerifyLog<Client, OperationCanceledException>((state, t)
-                => state.CheckValue("{OriginalFormat}", Messages.ErrorTaskCancelled), LogLevel.Error, 1);
-#endif
-        }
-        */
-
         [TestMethod]
 #if NETCOREAPP3_1
         //TODO: seems like this can't be mocked on .NET Framework?
@@ -612,7 +581,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
-                createHttpClient: _createHttpClient,
+                createHttpClient: GetCreateHttpClient(),
                 logger: _logger.Object,
                 defaultRequestHeaders: HeadersExtensions.CreateHeadersCollectionWithJsonContentType());
             var responseUserPost = httpRequestMethod switch
@@ -651,7 +620,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
-                createHttpClient: _createHttpClient,
+                createHttpClient: GetCreateHttpClient(),
                 logger: consoleLoggerFactory.CreateLogger<Client>());
             var response = await client.PostAsync<PostUserResponse, UserPost>(_userRequestBody, JsonPlaceholderPostsSlug);
             Assert.AreEqual(JsonPlaceholderPostHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
@@ -1763,7 +1732,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestFactoryCreationWithUri()
         {
-            var clientFactory = new ClientFactory(_createHttpClient, new NewtonsoftSerializationAdapter());
+            var clientFactory = new ClientFactory(GetCreateHttpClient(), new NewtonsoftSerializationAdapter());
             var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "test", RestCountriesAllUri);
             var response = await client.GetAsync<List<RestCountry>>();
             Assert.IsTrue(response.Body?.Count > 0);
@@ -1794,7 +1763,7 @@ namespace RestClient.Net.UnitTests
             using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
 
             var clientFactory = new ClientFactory(
-                _createHttpClient,
+                GetCreateHttpClient(),
                 new NewtonsoftSerializationAdapter(),
                 loggerFactory: callbackLoggerFactory);
 
@@ -1820,7 +1789,7 @@ namespace RestClient.Net.UnitTests
 
             using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
 
-            using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
@@ -1852,7 +1821,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestClientFactoryReusesClient()
         {
-            using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
 
             var clientFactory = new ClientFactory(defaultHttpClientFactory.CreateClient, new NewtonsoftSerializationAdapter());
 
@@ -1872,7 +1841,7 @@ namespace RestClient.Net.UnitTests
             HttpClient? secondClient = null;
             using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
 
-            using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
@@ -1947,7 +1916,7 @@ namespace RestClient.Net.UnitTests
 
             using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
 
-            using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
@@ -2408,7 +2377,6 @@ namespace RestClient.Net.UnitTests
 #pragma warning restore IDE0039 // Use local function
             var sendHttpRequestMessageMock = new Mock<ISendHttpRequestMessage>();
             var getHttpRequestMessageMock = new Mock<IGetHttpRequestMessage>();
-            var timeout = new TimeSpan(0, 1, 0);
             const bool throwExceptionOnFailure = true;
             var clientBase = new Client(
                             serializationAdapterMock.Object,
@@ -2437,6 +2405,13 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Helpers
+
+        private CreateHttpClient GetCreateHttpClient() => (n) => _mockHttpMessageHandler.ToHttpClient();
+
+        private Func<string, Lazy<HttpClient>> GetLazyCreate()
+            => new((n) => new Lazy<HttpClient>(_mockHttpMessageHandler.ToHttpClient()));
+
+
 
 #if !NET45
         //TODO: Point a test at these on .NET 4.5
@@ -2513,10 +2488,10 @@ namespace RestClient.Net.UnitTests
             Assert.Fail($"No exception thrown");
         }
 
-        private static HttpClient MintClient()
+        private HttpClient MintClient()
         {
 #if NETCOREAPP3_1
-
+            if (_testServer == null) throw new InvalidOperationException("Test server null");
             var httpClient = _testServer.CreateClient();
             testServerBaseUri = httpClient.BaseAddress;
             httpClient.BaseAddress = null;
@@ -2527,7 +2502,7 @@ namespace RestClient.Net.UnitTests
 #endif
         }
 
-        private static IClient GetJsonClient(Uri? baseUri = null)
+        private IClient GetJsonClient(Uri? baseUri = null)
         {
             IClient restClient;
 
@@ -2560,6 +2535,37 @@ namespace RestClient.Net.UnitTests
             requestHeadersCollection.Contains("Test") && requestHeadersCollection["Test"].First() == "Test";
 
         private static bool CheckResponseHeaders(IHeadersCollection responseHeadersCollection) => responseHeadersCollection.Contains("Test1") && responseHeadersCollection["Test1"].First() == "a";
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _mockHttpMessageHandler.Dispose();
+                    consoleLoggerFactory.Dispose();
+                    //_testServer.Dispose();
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+                // TODO: set large fields to null
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+        // ~MainUnitTests()
+        // {
+        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
 #endif
         #endregion
     }
