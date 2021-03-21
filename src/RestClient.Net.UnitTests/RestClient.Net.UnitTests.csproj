@@ -8,11 +8,11 @@
   <Choose>
     <When Condition=" '$(TargetFramework)'=='netcoreapp3.1' ">
       <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
-        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.0" />
         <ProjectReference Include="..\ApiExamples\ApiExamples.csproj" />
         <ProjectReference Include="..\RestClient.Net.DependencyInjection\RestClient.Net.DependencyInjection.csproj" />
-        <PackageReference Include="Microsoft.Extensions.Http.Polly"  Version="3.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="5.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.13" />
       </ItemGroup>
     </When>
   </Choose>
@@ -36,10 +36,10 @@
     <Content Include="JSON\*.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-    <PackageReference Include="Moq" Version="4.13.1" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
     <PackageReference Include="coverlet.collector" Version="1.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

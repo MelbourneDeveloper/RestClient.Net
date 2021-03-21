@@ -23,7 +23,7 @@ namespace RestClient.Net.UnitTests
             _ = serviceCollection.AddHttpClient("test", (c) => c.BaseAddress = baseUri);
             _ = serviceCollection.AddDependencyInjectionMapping();
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            var httpClientFactory = serviceProvider.GetService<CreateHttpClient>();
+            var httpClientFactory = serviceProvider.GetRequiredService<CreateHttpClient>();
             var httpClient = httpClientFactory("test");
             Assert.AreEqual(baseUri, httpClient.BaseAddress);
         }
@@ -49,7 +49,7 @@ namespace RestClient.Net.UnitTests
                 .AddHttpMessageHandler<TestHandler>();
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
-                var client = serviceProvider.GetService<IClient>();
+                var client = serviceProvider.GetRequiredService<IClient>();
                 _ = await client.GetAsync<object>();
                 _ = serviceCollection.Configure<string>((s) => { });
             }
@@ -78,7 +78,7 @@ namespace RestClient.Net.UnitTests
                     .AddHttpMessageHandler<TestHandler>();
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
-                var clientFactory = serviceProvider.GetService<CreateClient>();
+                var clientFactory = serviceProvider.GetRequiredService<CreateClient>();
                 var client = clientFactory(clientName, baseUri);
                 _ = await client.GetAsync<object>();
             }
@@ -103,7 +103,7 @@ namespace RestClient.Net.UnitTests
             _ = serviceCollection.AddHttpClient("test");
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            var mockAspController = serviceProvider.GetService<MockAspController>();
+            var mockAspController = serviceProvider.GetRequiredService<MockAspController>();
             var response = await mockAspController.Client.GetAsync<List<RestCountry>>();
             Assert.AreEqual(250, response.Body?.Count);
         }
