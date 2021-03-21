@@ -32,7 +32,7 @@ using Microsoft.AspNetCore.TestHost;
 using ApiExamples;
 #endif
 
-#if NET45
+#if NET472
 using Microsoft.Extensions.Logging.Abstractions;
 #else
 using Moq.Protected;
@@ -50,7 +50,7 @@ namespace RestClient.Net.UnitTests
         private static Uri testServerBaseUri;
         private static readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.CreateHeadersCollectionWithJsonContentType();
         private static readonly ILoggerFactory consoleLoggerFactory =
-#if NET45
+#if NET472
         consoleLoggerFactory = NullLoggerFactory.Instance;
 #else
         LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
@@ -316,7 +316,7 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(GoogleHeadHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
         }
 
-#if !NET45
+#if !NET472
 
 
         /// <summary>
@@ -478,7 +478,7 @@ namespace RestClient.Net.UnitTests
             Assert.IsNotNull(response);
             Assert.IsTrue(response?.Body?.Count > 0);
 
-#if !NET45
+#if !NET472
             _logger.VerifyLog((state, t) => state.CheckValue("{OriginalFormat}", Messages.InfoSendReturnedNoException), LogLevel.Information, 1);
 
             _logger.VerifyLog((state, t) =>
@@ -512,7 +512,7 @@ namespace RestClient.Net.UnitTests
                 );
             var response = await client.DeleteAsync(JsonPlaceholderFirstPostSlug);
 
-#if !NET45
+#if !NET472
             _logger.VerifyLog((state, t) =>
             state.CheckValue("{OriginalFormat}", Messages.TraceBeginSend) &&
             state.CheckValue<IRequest>("request", (r) => r.HttpRequestMethod == HttpRequestMethod.Delete)
@@ -593,7 +593,7 @@ namespace RestClient.Net.UnitTests
 
             var exception = await Assert.ThrowsExceptionAsync<TaskCanceledException>(() => client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative)));
 
-#if !NET45
+#if !NET472
             _logger.VerifyLog<Client, OperationCanceledException>((state, t)
                 => state.CheckValue("{OriginalFormat}", Messages.ErrorTaskCancelled), LogLevel.Error, 1);
 #endif
@@ -629,7 +629,7 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(_userRequestBody.userId, responseUserPost.Body?.userId);
             Assert.AreEqual(_userRequestBody.title, responseUserPost.Body?.title);
 
-#if !NET45
+#if !NET472
             var expectedStatusCode = HttpStatusCode.OK;
 
             _logger.VerifyLog((state, t) =>
@@ -829,7 +829,7 @@ namespace RestClient.Net.UnitTests
                 requestHeaders: "Test"
                 .CreateHeadersCollection("Test"));
 
-#if !NET45
+#if !NET472
             _logger.VerifyLog((state, t) =>
             state.CheckValue<IRequest>("request", (request) => request.Headers != null && CheckRequestHeaders(request.Headers)) &&
             state.CheckValue("{OriginalFormat}", Messages.InfoAttemptingToSend)
@@ -1673,7 +1673,7 @@ namespace RestClient.Net.UnitTests
             }
             catch (DeserializationException dex)
             {
-#if !NET45
+#if !NET472
                 _logger.VerifyLog<Client, DeserializationException>((state, t)
                     => state.CheckValue("{OriginalFormat}", Messages.ErrorMessageDeserialization), LogLevel.Error, 1);
 #endif
@@ -1737,7 +1737,7 @@ namespace RestClient.Net.UnitTests
             }
             catch (SendException sex)
             {
-#if !NET45
+#if !NET472
                 _logger.VerifyLog<Client, SendException>((state, t)
                     => state.CheckValue("{OriginalFormat}", Messages.ErrorSendException), LogLevel.Error, 1);
 #endif
@@ -1769,7 +1769,7 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(response.Body?.Count > 0);
         }
 
-#if !NET45
+#if !NET472
 
         private static ILoggerFactory GetLoggerFactory(Action<object?> callback)
         {
@@ -1976,7 +1976,7 @@ namespace RestClient.Net.UnitTests
 
         #region Uri Construction
 
-#if !NET45
+#if !NET472
 
         //Test TODOs:
         // - Uri doesn't add a forward slash when only base ur is supplied. E.g. if the base uri is http://www.test.com with no resource, the request uri should be http://www.test.com with no forward slash at the end
@@ -2438,7 +2438,7 @@ namespace RestClient.Net.UnitTests
 
         #region Helpers
 
-#if !NET45
+#if !NET472
         //TODO: Point a test at these on .NET 4.5
 
         private static void GetHttpClientMoq(out Mock<HttpMessageHandler> handlerMock, out HttpClient httpClient, HttpResponseMessage value)
@@ -2555,7 +2555,7 @@ namespace RestClient.Net.UnitTests
             return restClient;
         }
 
-#if !NET45
+#if !NET472
         private static bool CheckRequestHeaders(IHeadersCollection requestHeadersCollection) =>
             requestHeadersCollection.Contains("Test") && requestHeadersCollection["Test"].First() == "Test";
 

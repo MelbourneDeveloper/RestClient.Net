@@ -1,4 +1,4 @@
-﻿#if !NET45
+﻿#if !NET472
 
 #pragma warning disable CA1063 // Implement IDisposable Correctly
 #pragma warning disable CA1816 // Dispose methods should call SuppressFinalize

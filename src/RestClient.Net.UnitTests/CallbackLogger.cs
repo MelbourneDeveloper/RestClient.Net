@@ -1,4 +1,4 @@
-﻿#if !NET45
+﻿#if !NET472
 
 using Microsoft.Extensions.Logging;
 using System;

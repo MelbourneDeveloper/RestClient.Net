@@ -210,7 +210,7 @@ namespace RestClient.Net.UnitTests
               ).SendAsync<string, object>(null))).ParamName);
 
 
-#if !NET45
+#if !NET472
         [TestMethod]
         public void TestJsonSerializationAdapterDeserialize() =>
             Assert.AreEqual("responseData", Assert.ThrowsException<ArgumentNullException>(() =>
