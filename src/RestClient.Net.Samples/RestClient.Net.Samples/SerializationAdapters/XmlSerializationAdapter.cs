@@ -13,7 +13,7 @@ namespace RestClient.Net
     {
         #region Public Methods
 
-        public TResponseBody Deserialize<TResponseBody>(byte[] responseData, IHeadersCollection? responseHeaders)
+        public TResponseBody? Deserialize<TResponseBody>(byte[] responseData, IHeadersCollection? responseHeaders)
         {
             if (responseData == null) throw new ArgumentNullException(nameof(responseData));
 
@@ -21,7 +21,7 @@ namespace RestClient.Net
             using var stream = new MemoryStream();
             stream.Write(responseData, 0, responseData.Length);
             _ = stream.Seek(0, SeekOrigin.Begin);
-            return (TResponseBody)serializer.Deserialize(stream);
+            return (TResponseBody?)serializer.Deserialize(stream);
         }
 
         public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)
