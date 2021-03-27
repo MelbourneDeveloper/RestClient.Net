@@ -130,5 +130,19 @@ namespace RestClient.Net.UnitTests
             Assert.IsNotNull(client);
             Assert.AreEqual("Test", ((Client)client).Name);
         }
+
+
+        [TestMethod]
+        public void TestClientGetsCorrectHttpClient()
+        {
+            var serviceCollection = new ServiceCollection();
+            _ = serviceCollection.AddHttpClient("test", (c) => c.Timeout = timeout);
+            _ = serviceCollection.AddDependencyInjectionMapping();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            var createClient = serviceProvider.GetRequiredService<CreateClient>();
+            var client = (Client)createClient("test");
+            Assert.AreEqual(timeout, client.lazyHttpClient.Value.Timeout);
+        }
     }
 }
