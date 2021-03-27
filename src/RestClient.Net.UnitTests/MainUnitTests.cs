@@ -2529,13 +2529,14 @@ namespace RestClient.Net.UnitTests
             requestHeadersCollection.Contains("Test") && requestHeadersCollection["Test"].First() == "Test";
 
         private static bool CheckResponseHeaders(IHeadersCollection responseHeadersCollection) => responseHeadersCollection.Contains("Test1") && responseHeadersCollection["Test1"].First() == "a";
+#endif
 
         public void Dispose()
         {
             _mockHttpMessageHandler.Dispose();
             consoleLoggerFactory.Dispose();
         }
-#endif
+
         #endregion
     }
 }
