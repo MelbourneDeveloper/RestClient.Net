@@ -2368,7 +2368,7 @@ namespace RestClient.Net.UnitTests
 
         private static void GetHttpClientMoq(out Mock<HttpMessageHandler> handlerMock, out HttpClient httpClient, HttpResponseMessage value)
         {
-            handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+            handlerMock = new Mock<HttpMessageHandler>();
 
             handlerMock
             .Protected()
