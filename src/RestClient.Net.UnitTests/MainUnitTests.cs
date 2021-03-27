@@ -1783,17 +1783,10 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHttpClientFactoryDoesntUseSameHttpClient()
         {
-            var logCount = 0;
-            HttpClient? firstClient = null;
-            HttpClient? secondClient = null;
-
-            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
-
             using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                logger: callbackLoggerFactory.CreateLogger<Client>(),
                 baseUri: RestCountriesAllUri,
                 createHttpClient: defaultHttpClientFactory.CreateClient); ;
 
@@ -1801,18 +1794,13 @@ namespace RestClient.Net.UnitTests
 
             using var client2 = new Client(
                 new NewtonsoftSerializationAdapter(),
-                logger: callbackLoggerFactory.CreateLogger<Client>(),
                 baseUri: RestCountriesAllUri,
                 createHttpClient: defaultHttpClientFactory.CreateClient);
 
             response = await client2.GetAsync<List<RestCountry>>();
 
-            Assert.IsNotNull(firstClient);
-#pragma warning disable CA1508 // Avoid dead conditional code
-            Assert.IsFalse(ReferenceEquals(firstClient, secondClient));
-#pragma warning restore CA1508 // Avoid dead conditional code
-
-            Assert.AreEqual(2, logCount);
+            Assert.IsNotNull(client.lazyHttpClient.Value);
+            Assert.IsFalse(ReferenceEquals(client.lazyHttpClient.Value, client2.lazyHttpClient.Value));
         }
 
         /// <summary>
