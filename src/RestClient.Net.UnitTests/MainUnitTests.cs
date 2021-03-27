@@ -1781,6 +1781,16 @@ namespace RestClient.Net.UnitTests
             Assert.IsFalse(ReferenceEquals(client.lazyHttpClient.Value, client2.lazyHttpClient.Value));
         }
 
+        [TestMethod]
+        public void TestHttpClientFactoryDoesntUseSameHttpClientByName()
+        {
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory();
+            var client1 = defaultHttpClientFactory.CreateClient("Test1");
+            var client2 = defaultHttpClientFactory.CreateClient("Test2");
+            Assert.IsNotNull(client1);
+            Assert.IsFalse(ReferenceEquals(client1, client2));
+        }
+
         /// <summary>
         /// This test is controversial. Should non-named clients always be Singleton? This is the way the factory is designed, but could trip some users up.
         /// </summary>
@@ -1821,6 +1831,9 @@ namespace RestClient.Net.UnitTests
             Assert.IsNotNull(client.lazyHttpClient.Value);
             Assert.IsTrue(ReferenceEquals(client.lazyHttpClient.Value, client2.lazyHttpClient.Value));
         }
+
+
+
 #endif
 
         #endregion
