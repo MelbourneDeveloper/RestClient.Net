@@ -398,8 +398,8 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: _createHttpClient);
             var json = await client.GetAsync<string>();
 
-            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).First();
-            Assert.AreEqual("Australia", country.name);
+            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json)?.First();
+            Assert.AreEqual("Australia", country?.name);
         }
 #endif
 
@@ -535,8 +535,8 @@ namespace RestClient.Net.UnitTests
                 name: null);
 
             var json = await client.GetAsync<string>();
-            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).First();
-            Assert.AreEqual("Australia", country.name);
+            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json)?.First();
+            Assert.AreEqual("Australia", country?.name);
         }
 
         [TestMethod]
@@ -885,7 +885,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult?.Errors[0]);
                 return;
             }
 
@@ -913,7 +913,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult?.Errors[0]);
                 return;
             }
 
@@ -1026,7 +1026,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult?.Errors[0]);
                 return;
             }
 
@@ -1090,7 +1090,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult?.Errors[0]);
                 return;
             }
 
@@ -1132,7 +1132,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult?.Errors[0]);
                 return;
             }
 
@@ -1172,7 +1172,7 @@ namespace RestClient.Net.UnitTests
             var response = await client.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             var apiResult = serializationAdapter.Deserialize<ApiResult>(response.GetResponseData(), response.Headers);
-            Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
+            Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult?.Errors.First());
 
             //Check that the response values are getting set correctly
             Assert.AreEqual(new Uri($"{LocalBaseUriString}/error"), response.RequestUri);
@@ -1197,7 +1197,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult?.Errors.First());
                 return;
             }
 
@@ -1255,7 +1255,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult?.Errors.First());
                 return;
             }
             Assert.Fail();
@@ -1293,7 +1293,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult?.Errors.First());
                 return;
             }
             Assert.Fail();
@@ -1335,7 +1335,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(ex.Response.GetResponseData(), ex.Response.Headers);
-                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult?.Errors.First());
                 return;
             }
             Assert.Fail();
