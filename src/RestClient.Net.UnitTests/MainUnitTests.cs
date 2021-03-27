@@ -70,14 +70,9 @@ namespace RestClient.Net.UnitTests
         private const string CacheControlHeaderName = "Cache-Control";
         private const string XRatelimitLimitHeaderName = "X-Ratelimit-Limit";
 
-        private readonly UserPost _userRequestBody = new() { title = "foo", userId = 10, body = "testbody" };
+        private readonly UserPost _userRequestBody;
 
-        private readonly string _userRequestBodyJson = "{\r\n" +
-                $"  \"userId\": {_userRequestBody.userId},\r\n" +
-                "  \"id\": 0,\r\n" +
-                "  \"title\": \"foo\",\r\n" +
-                "  \"body\": \"testbody\"\r\n" +
-                "}";
+        private readonly string _userRequestBodyJson;
 
         private readonly Dictionary<string, string> RestCountriesAllHeaders = new()
         {
@@ -269,7 +264,19 @@ namespace RestClient.Net.UnitTests
 #endif
         }
 
-        public MainUnitTests() => _testServerHttpClientFactory = GetTestClientFactory();
+        public MainUnitTests()
+        {
+            _userRequestBody = new() { title = "foo", userId = 10, body = "testbody" };
+
+            _userRequestBodyJson = "{\r\n" +
+                   $"  \"userId\": {_userRequestBody.userId},\r\n" +
+                   "  \"id\": 0,\r\n" +
+                   "  \"title\": \"foo\",\r\n" +
+                   "  \"body\": \"testbody\"\r\n" +
+                   "}";
+
+            _testServerHttpClientFactory = GetTestClientFactory();
+        }
         #endregion
 
         #region Tests
