@@ -21,7 +21,7 @@
 				<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.0" />
 				<ProjectReference Include="..\ApiExamples\ApiExamples.csproj" />
 				<ProjectReference Include="..\RestClient.Net.DependencyInjection\RestClient.Net.DependencyInjection.csproj" />
-				<PackageReference Include="Microsoft.Extensions.Http.Polly"  Version="3.1.0" />
+				<PackageReference Include="Microsoft.Extensions.Http.Polly"  Version="5.0.1" />
 			</ItemGroup>
 		</When>
 		<Otherwise>
@@ -60,8 +60,6 @@
 		<PackageReference Include="structuremap" Version="4.7.1" />
 		<ProjectReference Include="..\ApiExamples.Model\ApiExamples.Model.csproj" />
 		<ProjectReference Include="..\RestClient.NET\RestClient.Net.csproj" />
-		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="3.1.0" />
-		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="3.1.0" />
 	</ItemGroup>
 
 </Project>

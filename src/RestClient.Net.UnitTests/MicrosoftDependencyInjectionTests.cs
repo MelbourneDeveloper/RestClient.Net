@@ -23,7 +23,7 @@ namespace RestClient.Net.UnitTests
             _ = serviceCollection.AddHttpClient("test", (c) => c.BaseAddress = baseUri);
             _ = serviceCollection.AddDependencyInjectionMapping();
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            var httpClientFactory = serviceProvider.GetService<CreateHttpClient>();
+            var httpClientFactory = serviceProvider.GetRequiredService<CreateHttpClient>();
             var httpClient = httpClientFactory("test");
             Assert.AreEqual(baseUri, httpClient.BaseAddress);
         }
