@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 using System.Net.Http;
 
@@ -7,7 +8,7 @@ namespace RestClient.Net.DependencyInjection
     public static class Extensionss
     {
 
-        public static IServiceCollection AddRestClientDotNet(this IServiceCollection serviceCollection, ISerializationAdapter? serializationAdapter = null)
+        public static IServiceCollection AddRestClient(this IServiceCollection serviceCollection, ISerializationAdapter? serializationAdapter = null)
         {
             serializationAdapter ??= new JsonSerializationAdapter();
 
@@ -20,7 +21,10 @@ namespace RestClient.Net.DependencyInjection
             })
             .AddSingleton<CreateClient>((sp) =>
             {
-                var clientFactory = new ClientFactory(sp.GetRequiredService<CreateHttpClient>(), sp.GetRequiredService<ISerializationAdapter>());
+                var clientFactory = new ClientFactory(
+                    sp.GetRequiredService<CreateHttpClient>(),
+                    sp.GetRequiredService<ISerializationAdapter>(),
+                    sp.GetService<ILoggerFactory>());
                 return clientFactory.CreateClient;
             });
 

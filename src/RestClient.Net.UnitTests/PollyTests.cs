@@ -100,7 +100,7 @@ namespace RestClient.Net.UnitTests
                 AddPolicyHandler(policy);
 
             //Provides mapping for Microsoft's IHttpClientFactory (This is what makes the magic happen)
-            _ = serviceCollection.AddRestClientDotNet();
+            _ = serviceCollection.AddRestClient();
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var clientFactory = serviceProvider.GetRequiredService<CreateClient>();
