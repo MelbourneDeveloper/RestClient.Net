@@ -162,6 +162,8 @@ namespace RestClient.Net
             {
                 var httpClient = lazyHttpClient.Value ?? throw new InvalidOperationException("createHttpClient returned null");
 
+                //Validate these on every call because they could change any time
+
                 if (httpClient.BaseAddress != null)
                 {
                     throw new InvalidOperationException($"createHttpClient returned a {nameof(HttpClient)} with a {nameof(HttpClient.BaseAddress)}. The {nameof(HttpClient)} must never have a {nameof(HttpClient.BaseAddress)}. Fix the createHttpClient func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.BaseAddress)}");

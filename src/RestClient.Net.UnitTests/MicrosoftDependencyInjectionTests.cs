@@ -15,17 +15,18 @@ namespace RestClient.Net.UnitTests
     [TestClass]
     public class MicrosoftDependencyInjectionTests
     {
+        private readonly TimeSpan timeout = new(1, 0, 0);
+
         [TestMethod]
         public void TestDIMapping()
         {
             var serviceCollection = new ServiceCollection();
-            var baseUri = new Uri("http://www.test.com");
-            _ = serviceCollection.AddHttpClient("test", (c) => c.BaseAddress = baseUri);
+            _ = serviceCollection.AddHttpClient("test", (c) => c.Timeout = timeout);
             _ = serviceCollection.AddDependencyInjectionMapping();
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var httpClientFactory = serviceProvider.GetRequiredService<CreateHttpClient>();
             var httpClient = httpClientFactory("test");
-            Assert.AreEqual(baseUri, httpClient.BaseAddress);
+            Assert.AreEqual(timeout, httpClient.Timeout);
         }
 
         [TestMethod]
