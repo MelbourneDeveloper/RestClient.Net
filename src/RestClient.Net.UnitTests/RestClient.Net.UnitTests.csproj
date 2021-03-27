@@ -12,16 +12,16 @@
 				<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.0" />
 				<ProjectReference Include="..\ApiExamples\ApiExamples.csproj" />
 				<ProjectReference Include="..\RestClient.Net.DependencyInjection\RestClient.Net.DependencyInjection.csproj" />
-				<PackageReference Include="Microsoft.Extensions.Http.Polly"  Version="3.1.0" />
+				<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="3.1.0" />
 			</ItemGroup>
 		</When>
 		<When Condition=" '$(TargetFramework)'=='net5.0' ">
 			<ItemGroup>
 				<PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
-				<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.0" />
+				<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.4" />
 				<ProjectReference Include="..\ApiExamples\ApiExamples.csproj" />
 				<ProjectReference Include="..\RestClient.Net.DependencyInjection\RestClient.Net.DependencyInjection.csproj" />
-				<PackageReference Include="Microsoft.Extensions.Http.Polly"  Version="5.0.1" />
+				<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="5.0.1" />
 			</ItemGroup>
 		</When>
 		<Otherwise>
@@ -47,10 +47,10 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-		<PackageReference Include="Moq" Version="4.13.1" />
+		<PackageReference Include="Moq" Version="4.16.1" />
 		<PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
 		<PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
-		<PackageReference Include="coverlet.collector" Version="1.1.0">
+		<PackageReference Include="coverlet.collector" Version="3.0.3">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
