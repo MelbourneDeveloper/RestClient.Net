@@ -26,15 +26,12 @@ using System.Text;
 using System.Collections.Immutable;
 using System.Collections;
 
-#if NETCOREAPP3_1
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using ApiExamples;
-#endif
-
 #if NET45
 using Microsoft.Extensions.Logging.Abstractions;
 #else
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using ApiExamples;
 using Moq.Protected;
 #endif
 
@@ -169,7 +166,7 @@ namespace RestClient.Net.UnitTests
         private static readonly TestClientFactory _testServerHttpClientFactory;
         private static Mock<ILogger<Client>> _logger = new();
 
-#if NETCOREAPP3_1
+#if !NET45
         private readonly Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
         {
             var client = _createHttpClient(n);
@@ -205,7 +202,7 @@ namespace RestClient.Net.UnitTests
 
             _mockHttpMessageHandler.
                 When(HttpMethod.Post, JsonPlaceholderBaseUriString + JsonPlaceholderPostsSlug).
-                With(request => request.Content.Headers.ContentType == null).
+                With(request => request?.Content?.Headers?.ContentType == null).
                 Respond(
                 HttpStatusCode.Created,
                 JsonPlaceholderPostHeaders,
@@ -216,7 +213,7 @@ namespace RestClient.Net.UnitTests
                 "}"
                 );
 
-#if NETCOREAPP3_1
+#if !NET45
             _mockHttpMessageHandler.When(HttpMethod.Patch, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
             Respond(
                 HttpStatusCode.OK,
@@ -228,7 +225,7 @@ namespace RestClient.Net.UnitTests
 
             _mockHttpMessageHandler.
                 When(HttpMethod.Post, JsonPlaceholderBaseUriString + JsonPlaceholderPostsSlug).
-                With(request => request.Content.Headers.ContentType.MediaType == HeadersExtensions.JsonMediaType).
+                With(request => request?.Content?.Headers?.ContentType?.MediaType == HeadersExtensions.JsonMediaType).
                 Respond(
                 HttpStatusCode.OK,
                 JsonPlaceholderPostHeaders,
@@ -238,7 +235,7 @@ namespace RestClient.Net.UnitTests
 
             _mockHttpMessageHandler.
             When(HttpMethod.Put, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
-            With(request => request.Content.Headers.ContentType.MediaType == HeadersExtensions.JsonMediaType).
+            With(request => request?.Content?.Headers?.ContentType?.MediaType == HeadersExtensions.JsonMediaType).
             Respond(
             HttpStatusCode.OK,
             JsonPlaceholderPostHeaders,
@@ -278,7 +275,7 @@ namespace RestClient.Net.UnitTests
         static MainUnitTests()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
-#if NETCOREAPP3_1
+#if !NET45
             if (_testServer == null)
             {
                 var hostBuilder = new WebHostBuilder();
@@ -601,7 +598,7 @@ namespace RestClient.Net.UnitTests
         */
 
         [TestMethod]
-#if NETCOREAPP3_1
+#if !NET45
         //TODO: seems like this can't be mocked on .NET Framework?
         [DataRow(HttpRequestMethod.Patch)]
 #endif
@@ -2461,7 +2458,7 @@ namespace RestClient.Net.UnitTests
         {
             if (hasDefaultJsonContentHeader)
             {
-                KeyValuePair<string, IEnumerable<string>>? contentTypeHeader = httpRequestMessage.Content.Headers.FirstOrDefault(k => k.Key == HeadersExtensions.ContentTypeHeaderName);
+                var contentTypeHeader = httpRequestMessage?.Content?.Headers.FirstOrDefault(k => k.Key == HeadersExtensions.ContentTypeHeaderName);
                 if (contentTypeHeader.Value.Value.FirstOrDefault() != HeadersExtensions.JsonMediaType) return false;
             }
 
@@ -2469,9 +2466,9 @@ namespace RestClient.Net.UnitTests
             {
                 foreach (var expectedHeader in expectedHeaders)
                 {
-                    KeyValuePair<string, IEnumerable<string>>? foundKeyValuePair = httpRequestMessage.Headers.FirstOrDefault(k => k.Key == expectedHeader.Key);
+                    var foundKeyValuePair = httpRequestMessage?.Headers.FirstOrDefault(k => k.Key == expectedHeader.Key);
 
-                    var foundHeaderStrings = foundKeyValuePair.Value.Value.ToList();
+                    var foundHeaderStrings = foundKeyValuePair?.Value.Value.ToList();
 
                     var i = 0;
                     foreach (var expectedHeaderString in expectedHeader.Value)
@@ -2515,7 +2512,7 @@ namespace RestClient.Net.UnitTests
 
         private static HttpClient MintClient()
         {
-#if NETCOREAPP3_1
+#if !NET45
 
             var httpClient = _testServer.CreateClient();
             testServerBaseUri = httpClient.BaseAddress;
