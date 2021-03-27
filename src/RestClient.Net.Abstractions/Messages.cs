@@ -11,7 +11,7 @@ namespace RestClient.Net.Abstractions
 
         public const string InfoAttemptingToSend = "Attempting to send with the HttpClient. {request}";
         public const string TraceResponseProcessed = "Response processed: {response} Event: {event}";
-        public const string TraceBeginSend = "Begin send {request} Event: {event}";
+        public const string TraceBeginSend = "Begin send {request} Event: {event} HttpClient: {httpClient} Adapter: {serializationAdapter} Request Body: {requestBody}";
         public const string ErrorOnSend = "Error on SendAsync. {request}";
         public const string ErrorTaskCancelled = "TaskCanceledException {request}";
         public const string ErrorSendException = "HttpClient Send Exception";

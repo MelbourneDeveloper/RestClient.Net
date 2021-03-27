@@ -25,7 +25,6 @@ namespace RestClient.Net
             client.createHttpClient,
             client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
-            client.Timeout,
             client.ThrowExceptionOnFailure,
             client.Name) : throw new ArgumentNullException(nameof(client));
 
@@ -42,7 +41,6 @@ namespace RestClient.Net
             client.createHttpClient,
             client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
-            client.Timeout,
             client.ThrowExceptionOnFailure,
             client.Name) : throw new ArgumentNullException(nameof(client));
 
@@ -65,7 +63,6 @@ namespace RestClient.Net
             client.createHttpClient,
             client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
-            client.Timeout,
             client.ThrowExceptionOnFailure,
             client.Name) : throw new ArgumentNullException(nameof(client));
 
@@ -82,7 +79,6 @@ namespace RestClient.Net
             client.createHttpClient,
             client.sendHttpRequestMessage,
             client.getHttpRequestMessage,
-            client.Timeout,
             client.ThrowExceptionOnFailure,
             client.Name) : throw new ArgumentNullException(nameof(client));
 
@@ -99,7 +95,6 @@ namespace RestClient.Net
                     createHttpClient,
                     client.sendHttpRequestMessage,
                     client.getHttpRequestMessage,
-                    client.Timeout,
                     client.ThrowExceptionOnFailure,
                     client.Name) : throw new ArgumentNullException(nameof(client));
 
@@ -116,7 +111,6 @@ namespace RestClient.Net
                     client.createHttpClient,
                     client.sendHttpRequestMessage,
                     getHttpRequestMessage,
-                    client.Timeout,
                     client.ThrowExceptionOnFailure,
                     client.Name) : throw new ArgumentNullException(nameof(client));
 
@@ -133,26 +127,9 @@ namespace RestClient.Net
                     client.createHttpClient,
                     sendHttpRequestMessage,
                     client.getHttpRequestMessage,
-                    client.Timeout,
                     client.ThrowExceptionOnFailure,
                     client.Name) : throw new ArgumentNullException(nameof(client));
 
-        /// <summary>
-        /// Clones the client With a change
-        /// </summary>
-        public static Client With(this Client client, TimeSpan timeout)
-            =>
-                client != null ? new Client(
-                    client.SerializationAdapter,
-                    client.BaseUri,
-                    client.DefaultRequestHeaders,
-                    client.logger is ILogger<Client> logger ? logger : null,
-                    client.createHttpClient,
-                    client.sendHttpRequestMessage,
-                    client.getHttpRequestMessage,
-                    timeout,
-                    client.ThrowExceptionOnFailure,
-                    client.Name) : throw new ArgumentNullException(nameof(client));
 
         /// <summary>
         /// Clones the client With a change
@@ -167,7 +144,6 @@ namespace RestClient.Net
                     client.createHttpClient,
                     client.sendHttpRequestMessage,
                     client.getHttpRequestMessage,
-                    client.Timeout,
                     throwExceptionOnFailure,
                     client.Name) : throw new ArgumentNullException(nameof(client));
 

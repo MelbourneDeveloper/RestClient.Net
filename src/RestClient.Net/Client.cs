@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging.Abstractions;
 using RestClient.Net.Abstractions;
 using RestClient.Net.Abstractions.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -44,11 +43,8 @@ namespace RestClient.Net
 
         #region Private Fields
 
-        /// <summary>
-        /// This is an interesting approach to storing minted HttpClients. If the Client is not disposed, this dictionary may pile up and cause memory leaks
-        /// TODO: Find a way to store the HttpClient in this class without copying it to cloned clients via createHttpClient
-        /// </summary>
-        private static readonly Dictionary<Client, HttpClient> HttpClientsByClient = new();
+
+        internal readonly Lazy<HttpClient> lazyHttpClient;
 
         private bool disposed;
 
@@ -77,7 +73,6 @@ namespace RestClient.Net
             CreateHttpClient? createHttpClient = null,
             ISendHttpRequestMessage? sendHttpRequest = null,
             IGetHttpRequestMessage? getHttpRequestMessage = null,
-            TimeSpan timeout = default,
             bool throwExceptionOnFailure = true,
             string? name = null)
         {
@@ -106,23 +101,12 @@ namespace RestClient.Net
 
             this.getHttpRequestMessage = getHttpRequestMessage ?? DefaultGetHttpRequestMessage.Instance;
 
-            if (createHttpClient == null)
-            {
-                if (!HttpClientsByClient.ContainsKey(this))
-                {
-                    HttpClientsByClient.Add(this, new HttpClient());
-                }
+            this.createHttpClient = createHttpClient ?? new CreateHttpClient((n) => new HttpClient());
 
-                this.createHttpClient = n => HttpClientsByClient[this];
-            }
-            else
-            {
-                this.createHttpClient = createHttpClient;
-            }
+            lazyHttpClient = new Lazy<HttpClient>(() => this.createHttpClient(Name));
 
             sendHttpRequestMessage = sendHttpRequest ?? DefaultSendHttpRequestMessage.Instance;
 
-            Timeout = timeout;
             ThrowExceptionOnFailure = throwExceptionOnFailure;
         }
 
@@ -155,11 +139,6 @@ namespace RestClient.Net
         /// </summary>
         public bool ThrowExceptionOnFailure { get; } = true;
 
-        /// <summary>
-        /// Default timeout for http requests
-        /// </summary>
-        public TimeSpan Timeout { get; }
-
         #endregion Public Properties
 
         #region Public Methods
@@ -170,10 +149,7 @@ namespace RestClient.Net
 
             disposed = true;
 
-            if (!HttpClientsByClient.ContainsKey(this)) return;
-
-            HttpClientsByClient[this].Dispose();
-            _ = HttpClientsByClient.Remove(this);
+            lazyHttpClient.Value?.Dispose();
         }
 
         public async Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(IRequest<TRequestBody> request)
@@ -184,39 +160,27 @@ namespace RestClient.Net
 
             try
             {
-                logger.LogTrace(Messages.TraceBeginSend, request, TraceEvent.Request);
+                var httpClient = lazyHttpClient.Value ?? throw new InvalidOperationException("createHttpClient returned null");
 
-                var httpClient = createHttpClient(Name);
-
-                logger.LogTrace("Got HttpClient: {httpClient}", httpClient);
-
-                if (httpClient == null) throw new InvalidOperationException("CreateHttpClient returned null");
+                //Validate these on every call because they could change any time
 
                 if (httpClient.BaseAddress != null)
                 {
-                    throw new InvalidOperationException($"{nameof(createHttpClient)} returned a {nameof(HttpClient)} with a {nameof(HttpClient.BaseAddress)}. The {nameof(HttpClient)} must never have a {nameof(HttpClient.BaseAddress)}. Fix the {nameof(createHttpClient)} func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.BaseAddress)}");
+                    throw new InvalidOperationException($"createHttpClient returned a {nameof(HttpClient)} with a {nameof(HttpClient.BaseAddress)}. The {nameof(HttpClient)} must never have a {nameof(HttpClient.BaseAddress)}. Fix the createHttpClient func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.BaseAddress)}");
                 }
 
                 if (httpClient.DefaultRequestHeaders.Any())
                 {
-                    throw new InvalidOperationException($"{nameof(createHttpClient)} returned a {nameof(HttpClient)} with at least one item in {nameof(HttpClient.DefaultRequestHeaders)}. The {nameof(HttpClient)} must never have {nameof(HttpClient.DefaultRequestHeaders)}. Fix the {nameof(createHttpClient)} func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.DefaultRequestHeaders)}");
+                    throw new InvalidOperationException($"createHttpClient returned a {nameof(HttpClient)} with at least one item in {nameof(HttpClient.DefaultRequestHeaders)}. The {nameof(HttpClient)} must never have {nameof(HttpClient.DefaultRequestHeaders)}. Fix the createHttpClient func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.DefaultRequestHeaders)}");
                 }
 
-                //Note: if HttpClient naming is not handled properly, this may alter the HttpClient of another RestClient
-                //TODO: Get rid of this
-                if (httpClient.Timeout != Timeout && Timeout != default) httpClient.Timeout = Timeout;
-
-                logger.LogTrace("HttpClient configured. Request: {request} Adapter: {serializationAdapter}", request, SerializationAdapter);
-
-                var requestBodyIsNull = request.BodyData == null;
-
-                logger.LogTrace(!requestBodyIsNull ? "Request body" : "No request body", new object[] { requestBodyIsNull });
+                logger.LogTrace(Messages.TraceBeginSend, request, TraceEvent.Request, lazyHttpClient.Value, SerializationAdapter, (object?)request.BodyData ?? "");
 
                 //Note: we do not simply get the HttpRequestMessage here. If we use something like Polly, we may need to send it several times, and you cannot send the same message multiple times
                 //This is why we must compose the send func with getHttpRequestMessage
 
                 httpResponseMessage = await sendHttpRequestMessage.SendHttpRequestMessage(
-                    httpClient,
+                    lazyHttpClient.Value,
                     getHttpRequestMessage,
                     request,
                     logger,

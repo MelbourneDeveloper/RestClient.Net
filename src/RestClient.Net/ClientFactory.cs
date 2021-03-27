@@ -46,7 +46,8 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        public IClient CreateClient(string name, Uri? baseUri = null) => name == null ? throw new ArgumentNullException(nameof(name)) : clients.GetOrAdd(name, createClientFunc(name, baseUri)).Value;
+        public IClient CreateClient(string name, Uri? baseUri = null)
+            => name == null ? throw new ArgumentNullException(nameof(name)) : clients.GetOrAdd(name, createClientFunc(name, baseUri)).Value;
         #endregion
 
         #region Private Methods
