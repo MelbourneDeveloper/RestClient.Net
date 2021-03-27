@@ -187,7 +187,20 @@ namespace RestClient.Net.UnitTests
             state.CheckValue("{OriginalFormat}", "Hi")
             , LogLevel.Information, 1);
         }
-    }
 
+        [TestMethod]
+        public void TestCanGetClient()
+        {
+            var testService = new ServiceCollection()
+            .AddHttpClient()
+            .AddRestClient()
+            .AddSingleton<ITestService, TestService>()
+            .BuildServiceProvider()
+            .GetRequiredService<ITestService>();
+
+            Assert.AreEqual(TestService.Uri, testService.Client.BaseUri);
+        }
+
+    }
 
 }
