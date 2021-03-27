@@ -35,20 +35,22 @@ using ApiExamples;
 using Moq.Protected;
 #endif
 
-#pragma warning disable CA1810 // Initialize reference type static fields inline
-#pragma warning disable CA1506 // Initialize reference type static fields inline
+#pragma warning disable CA1810 // Initialize reference type fields inline
+#pragma warning disable CA1506 // Initialize reference type fields inline
+#pragma warning disable CA1063 // Implement IDisposable Correctly
+#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
 
 namespace RestClient.Net.UnitTests
 {
     [TestClass]
-    public class MainUnitTests
+    public class MainUnitTests : IDisposable
     {
         #region Fields
-        private static Uri testServerBaseUri;
-        private static readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.CreateHeadersCollectionWithJsonContentType();
-        private static readonly ILoggerFactory consoleLoggerFactory =
+        private readonly Uri testServerBaseUri = new(LocalBaseUriString);
+        private readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.CreateHeadersCollectionWithJsonContentType();
+        private readonly ILoggerFactory consoleLoggerFactory =
 #if NET45
-        consoleLoggerFactory = NullLoggerFactory.Instance;
+        NullLoggerFactory.Instance;
 #else
         LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
 #endif
@@ -68,14 +70,9 @@ namespace RestClient.Net.UnitTests
         private const string CacheControlHeaderName = "Cache-Control";
         private const string XRatelimitLimitHeaderName = "X-Ratelimit-Limit";
 
-        private static readonly UserPost _userRequestBody = new() { title = "foo", userId = 10, body = "testbody" };
+        private readonly UserPost _userRequestBody;
 
-        private static readonly string _userRequestBodyJson = "{\r\n" +
-                $"  \"userId\": {_userRequestBody.userId},\r\n" +
-                "  \"id\": 0,\r\n" +
-                "  \"title\": \"foo\",\r\n" +
-                "  \"body\": \"testbody\"\r\n" +
-                "}";
+        private readonly string _userRequestBodyJson;
 
         private readonly Dictionary<string, string> RestCountriesAllHeaders = new()
         {
@@ -154,25 +151,12 @@ namespace RestClient.Net.UnitTests
             { CacheControlHeaderName, "private" },
         };
 
-
-        //For realises - with factory
-        //private static readonly CreateHttpClient _createHttpClient = (n) => new HttpClient();
-        //For realsies - no factory
-        //private CreateHttpClient _createHttpClient = null;
-
         //Mock the httpclient
-        private static readonly MockHttpMessageHandler _mockHttpMessageHandler = new();
-        private static readonly CreateHttpClient _createHttpClient = (n) => _mockHttpMessageHandler.ToHttpClient();
-        private static readonly TestClientFactory _testServerHttpClientFactory;
-        private static Mock<ILogger<Client>> _logger = new();
+        private readonly MockHttpMessageHandler _mockHttpMessageHandler = new();
+        private readonly TestClientFactory _testServerHttpClientFactory;
+        private Mock<ILogger<Client>> _logger = new();
 
 #if !NET45
-        private readonly Func<string, Lazy<HttpClient>> _createLazyHttpClientFunc = (n) =>
-        {
-            var client = _createHttpClient(n);
-            return new Lazy<HttpClient>(() => client);
-        };
-
         public const string LocalBaseUriString = "http://localhost";
         private static readonly TestServer _testServer;
 #else
@@ -263,30 +247,35 @@ namespace RestClient.Net.UnitTests
         }
         #endregion
 
-        #region Public Static Methods
+        #region Public Methods
         public static TestClientFactory GetTestClientFactory()
         {
             var testClient = MintClient();
             return new TestClientFactory(testClient);
         }
 
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         static MainUnitTests()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
 #if !NET45
-            if (_testServer == null)
-            {
-                var hostBuilder = new WebHostBuilder();
-                hostBuilder.UseStartup<Startup>();
-                _testServer = new TestServer(hostBuilder);
-            }
-#endif
 
-#pragma warning disable IDE0021 // Use expression body for constructors
+            var hostBuilder = new WebHostBuilder();
+            hostBuilder.UseStartup<Startup>();
+            _testServer = new TestServer(hostBuilder);
+#endif
+        }
+
+        public MainUnitTests()
+        {
+            _userRequestBody = new() { title = "foo", userId = 10, body = "testbody" };
+
+            _userRequestBodyJson = "{\r\n" +
+                   $"  \"userId\": {_userRequestBody.userId},\r\n" +
+                   "  \"id\": 0,\r\n" +
+                   "  \"title\": \"foo\",\r\n" +
+                   "  \"body\": \"testbody\"\r\n" +
+                   "}";
+
             _testServerHttpClientFactory = GetTestClientFactory();
-#pragma warning restore IDE0021 // Use expression body for constructors
         }
         #endregion
 
@@ -299,7 +288,7 @@ namespace RestClient.Net.UnitTests
             var baseUri = new Uri(GoogleUrlString);
             using var client = new Client(
                 serializationAdapter: new NewtonsoftSerializationAdapter(),
-                createHttpClient: _createHttpClient
+                createHttpClient: GetCreateHttpClient()
                 );
 
             var response = await client.SendAsync<string, object>(new Request<object>(
@@ -325,7 +314,7 @@ namespace RestClient.Net.UnitTests
         {
             var headers = new HeadersCollection(new Dictionary<string, IEnumerable<string>>());
 
-            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: _createHttpClient);
+            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: GetCreateHttpClient());
 
             var parameters = new object();
 
@@ -384,7 +373,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetDefaultSerializationRestCountries()
         {
-            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: _createHttpClient);
+            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: GetCreateHttpClient());
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
@@ -395,7 +384,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 baseUri: RestCountriesAustraliaUri,
-                createHttpClient: _createHttpClient);
+                createHttpClient: GetCreateHttpClient());
             var json = await client.GetAsync<string>();
 
             var country = JsonConvert.DeserializeObject<List<RestCountry>>(json)?.First();
@@ -468,7 +457,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(new NewtonsoftSerializationAdapter(),
                 baseUri: RestCountriesAllUri,
-                createHttpClient: _createHttpClient,
+                createHttpClient: GetCreateHttpClient(),
                 logger: _logger.Object);
 
             var response = await client.GetAsync<List<RestCountry>>();
@@ -505,7 +494,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
                 logger: _logger.Object,
-                createHttpClient: _createHttpClient
+                createHttpClient: GetCreateHttpClient()
                 );
             var response = await client.DeleteAsync(JsonPlaceholderFirstPostSlug);
 
@@ -531,7 +520,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 RestCountriesAustraliaUri,
-                createHttpClient: _createHttpClient,
+                createHttpClient: GetCreateHttpClient(),
                 name: null);
 
             var json = await client.GetAsync<string>();
@@ -542,7 +531,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetRestCountriesNoBaseUri()
         {
-            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _createHttpClient);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: GetCreateHttpClient());
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUri);
             var country = countries.First();
             Assert.AreEqual("Australia", country.name);
@@ -578,25 +567,6 @@ namespace RestClient.Net.UnitTests
             Assert.Fail("The operation completed successfully");
         }
 
-        /*
-        [TestMethod]
-        public async Task TestPostUserTimeout()
-        {
-            using var client = new Client(
-                new NewtonsoftSerializationAdapter(),
-                baseUri: JsonPlaceholderBaseUri,
-                timeout: new TimeSpan(0, 0, 0, 0, 1),
-                logger: _logger.Object);
-
-            var exception = await Assert.ThrowsExceptionAsync<TaskCanceledException>(() => client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new Uri("/posts", UriKind.Relative)));
-
-#if !NET45
-            _logger.VerifyLog<Client, OperationCanceledException>((state, t)
-                => state.CheckValue("{OriginalFormat}", Messages.ErrorTaskCancelled), LogLevel.Error, 1);
-#endif
-        }
-        */
-
         [TestMethod]
 #if !NET45
         //TODO: seems like this can't be mocked on .NET Framework?
@@ -609,7 +579,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
-                createHttpClient: _createHttpClient,
+                createHttpClient: GetCreateHttpClient(),
                 logger: _logger.Object,
                 defaultRequestHeaders: HeadersExtensions.CreateHeadersCollectionWithJsonContentType());
             var responseUserPost = httpRequestMethod switch
@@ -648,7 +618,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 baseUri: JsonPlaceholderBaseUri,
-                createHttpClient: _createHttpClient,
+                createHttpClient: GetCreateHttpClient(),
                 logger: consoleLoggerFactory.CreateLogger<Client>());
             var response = await client.PostAsync<PostUserResponse, UserPost>(_userRequestBody, JsonPlaceholderPostsSlug);
             Assert.AreEqual(JsonPlaceholderPostHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
@@ -1760,7 +1730,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestFactoryCreationWithUri()
         {
-            var clientFactory = new ClientFactory(_createHttpClient, new NewtonsoftSerializationAdapter());
+            var clientFactory = new ClientFactory(GetCreateHttpClient(), new NewtonsoftSerializationAdapter());
             var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "test", RestCountriesAllUri);
             var response = await client.GetAsync<List<RestCountry>>();
             Assert.IsTrue(response.Body?.Count > 0);
@@ -1791,7 +1761,7 @@ namespace RestClient.Net.UnitTests
             using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
 
             var clientFactory = new ClientFactory(
-                _createHttpClient,
+                GetCreateHttpClient(),
                 new NewtonsoftSerializationAdapter(),
                 loggerFactory: callbackLoggerFactory);
 
@@ -1817,7 +1787,7 @@ namespace RestClient.Net.UnitTests
 
             using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
 
-            using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
@@ -1849,7 +1819,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestClientFactoryReusesClient()
         {
-            using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
 
             var clientFactory = new ClientFactory(defaultHttpClientFactory.CreateClient, new NewtonsoftSerializationAdapter());
 
@@ -1869,7 +1839,7 @@ namespace RestClient.Net.UnitTests
             HttpClient? secondClient = null;
             using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
 
-            using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
@@ -1944,7 +1914,7 @@ namespace RestClient.Net.UnitTests
 
             using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
 
-            using var defaultHttpClientFactory = new DefaultHttpClientFactory(_createLazyHttpClientFunc);
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
@@ -2435,7 +2405,13 @@ namespace RestClient.Net.UnitTests
 
         #region Helpers
 
+        private CreateHttpClient GetCreateHttpClient() => (n) => _mockHttpMessageHandler.ToHttpClient();
+
+
 #if !NET45
+        private Func<string, Lazy<HttpClient>> GetLazyCreate()
+            => new((n) => new Lazy<HttpClient>(() => _mockHttpMessageHandler.ToHttpClient()));
+
         //TODO: Point a test at these on .NET 4.5
 
         private static void GetHttpClientMoq(out Mock<HttpMessageHandler> handlerMock, out HttpClient httpClient, HttpResponseMessage value)
@@ -2513,19 +2489,17 @@ namespace RestClient.Net.UnitTests
         }
 
         private static HttpClient MintClient()
-        {
 #if !NET45
+        {
             var httpClient = _testServer.CreateClient();
-            testServerBaseUri = httpClient?.BaseAddress ?? throw new InvalidOperationException("Http Client is null");
             httpClient.BaseAddress = null;
             return httpClient;
-#else
-            testServerBaseUri = new Uri(LocalBaseUriString);
-            return new HttpClient();
-#endif
         }
+#else
+        => new();
+#endif
 
-        private static IClient GetJsonClient(Uri? baseUri = null)
+        private IClient GetJsonClient(Uri? baseUri = null)
         {
             IClient restClient;
 
@@ -2559,6 +2533,13 @@ namespace RestClient.Net.UnitTests
 
         private static bool CheckResponseHeaders(IHeadersCollection responseHeadersCollection) => responseHeadersCollection.Contains("Test1") && responseHeadersCollection["Test1"].First() == "a";
 #endif
+
+        public void Dispose()
+        {
+            _mockHttpMessageHandler.Dispose();
+            consoleLoggerFactory.Dispose();
+        }
+
         #endregion
     }
 }
