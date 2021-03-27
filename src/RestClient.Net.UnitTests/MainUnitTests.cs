@@ -35,10 +35,12 @@ using ApiExamples;
 using Moq.Protected;
 #endif
 
-#pragma warning disable CA1810 // Initialize reference type fields inline
 #pragma warning disable CA1506 // Initialize reference type fields inline
-#pragma warning disable CA1063 // Implement IDisposable Correctly
 #pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
+#pragma warning disable CA1063 // Implement IDisposable Correctly
+#pragma warning disable CA1810
+#pragma warning disable IDE0061 
+#pragma warning disable CA1825 // Avoid zero-length array allocations
 
 namespace RestClient.Net.UnitTests
 {
