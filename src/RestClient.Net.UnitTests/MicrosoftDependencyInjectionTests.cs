@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using RestClient.Net.Abstractions;
 using RestClient.Net.DependencyInjection;
 using RestClient.Net.UnitTests.Model;
@@ -163,18 +165,23 @@ namespace RestClient.Net.UnitTests
             Assert.IsNotNull(client.lazyHttpClient.Value.Timeout);
         }
 
-        //[TestMethod]
-        //public void TestClientGetsCorrectLogger()
-        //{
-        //    var serviceCollection = new ServiceCollection();
-        //    _ = serviceCollection.AddHttpClient();
-        //    _ = serviceCollection.AddRestClientDotNet();
-        //    var serviceProvider = serviceCollection.BuildServiceProvider();
+        [TestMethod]
+        public void TestClientGetsCorrectLogger()
+        {
+            var loggerProviderMock = new Mock<ILoggerProvider>();
+            var loggerMock = new Mock<ILogger<Client>>();
+            _ = loggerProviderMock.Setup(p => p.CreateLogger(It.IsAny<string>())).Returns(loggerMock.Object);
 
-        //    var createClient = serviceProvider.GetRequiredService<CreateClient>();
-        //    var client = (Client)createClient("test");
+            var client = (Client)new ServiceCollection()
+            .AddLogging((builder) => builder.AddProvider(loggerProviderMock.Object))
+            .AddHttpClient()
+            .AddRestClientDotNet()
+            .BuildServiceProvider()
+            .GetRequiredService<CreateClient>()("test");
 
-        //    Assert.IsFalse(ReferenceEquals(NullLogger.Instance, client.logger));
-        //}
+            Assert.IsTrue(ReferenceEquals(loggerMock.Object, client.logger));
+        }
     }
+
+
 }
