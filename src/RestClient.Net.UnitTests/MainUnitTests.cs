@@ -26,15 +26,12 @@ using System.Text;
 using System.Collections.Immutable;
 using System.Collections;
 
-#if NETCOREAPP3_1
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using ApiExamples;
-#endif
-
 #if NET45
 using Microsoft.Extensions.Logging.Abstractions;
 #else
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using ApiExamples;
 using Moq.Protected;
 #endif
 
@@ -163,7 +160,7 @@ namespace RestClient.Net.UnitTests
         private Mock<ILogger<Client>> _logger = new();
         private bool disposedValue;
 
-#if NETCOREAPP3_1
+#if !NET45
         public const string LocalBaseUriString = "http://localhost";
         private static TestServer? _testServer;
 #else
@@ -193,7 +190,7 @@ namespace RestClient.Net.UnitTests
 
             _mockHttpMessageHandler.
                 When(HttpMethod.Post, JsonPlaceholderBaseUriString + JsonPlaceholderPostsSlug).
-                With(request => request.Content.Headers.ContentType == null).
+                With(request => request?.Content?.Headers?.ContentType == null).
                 Respond(
                 HttpStatusCode.Created,
                 JsonPlaceholderPostHeaders,
@@ -204,7 +201,7 @@ namespace RestClient.Net.UnitTests
                 "}"
                 );
 
-#if NETCOREAPP3_1
+#if !NET45
             _mockHttpMessageHandler.When(HttpMethod.Patch, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
             Respond(
                 HttpStatusCode.OK,
@@ -216,7 +213,7 @@ namespace RestClient.Net.UnitTests
 
             _mockHttpMessageHandler.
                 When(HttpMethod.Post, JsonPlaceholderBaseUriString + JsonPlaceholderPostsSlug).
-                With(request => request.Content.Headers.ContentType.MediaType == HeadersExtensions.JsonMediaType).
+                With(request => request?.Content?.Headers?.ContentType?.MediaType == HeadersExtensions.JsonMediaType).
                 Respond(
                 HttpStatusCode.OK,
                 JsonPlaceholderPostHeaders,
@@ -226,7 +223,7 @@ namespace RestClient.Net.UnitTests
 
             _mockHttpMessageHandler.
             When(HttpMethod.Put, JsonPlaceholderBaseUriString + JsonPlaceholderFirstPostSlug).
-            With(request => request.Content.Headers.ContentType.MediaType == HeadersExtensions.JsonMediaType).
+            With(request => request?.Content?.Headers?.ContentType?.MediaType == HeadersExtensions.JsonMediaType).
             Respond(
             HttpStatusCode.OK,
             JsonPlaceholderPostHeaders,
@@ -266,7 +263,7 @@ namespace RestClient.Net.UnitTests
         public MainUnitTests()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
-#if NETCOREAPP3_1
+#if !NET45
             if (_testServer == null)
             {
                 var hostBuilder = new WebHostBuilder();
@@ -389,8 +386,8 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: GetCreateHttpClient());
             var json = await client.GetAsync<string>();
 
-            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).First();
-            Assert.AreEqual("Australia", country.name);
+            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json)?.First();
+            Assert.AreEqual("Australia", country?.name);
         }
 #endif
 
@@ -451,7 +448,7 @@ namespace RestClient.Net.UnitTests
 
             var error = client.SerializationAdapter.Deserialize<Error>(response.GetResponseData(), response.Headers);
 
-            Assert.AreEqual(expectedError.Message, error.Message);
+            Assert.AreEqual(expectedError.Message, error?.Message);
         }
 
         [TestMethod]
@@ -526,8 +523,8 @@ namespace RestClient.Net.UnitTests
                 name: null);
 
             var json = await client.GetAsync<string>();
-            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json).First();
-            Assert.AreEqual("Australia", country.name);
+            var country = JsonConvert.DeserializeObject<List<RestCountry>>(json)?.First();
+            Assert.AreEqual("Australia", country?.name);
         }
 
         [TestMethod]
@@ -570,7 +567,7 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
-#if NETCOREAPP3_1
+#if !NET45
         //TODO: seems like this can't be mocked on .NET Framework?
         [DataRow(HttpRequestMethod.Patch)]
 #endif
@@ -857,7 +854,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult?.Errors[0]);
                 return;
             }
 
@@ -885,7 +882,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult?.Errors[0]);
                 return;
             }
 
@@ -998,7 +995,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult?.Errors[0]);
                 return;
             }
 
@@ -1062,7 +1059,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult?.Errors[0]);
                 return;
             }
 
@@ -1104,7 +1101,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult.Errors[0]);
+                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult?.Errors[0]);
                 return;
             }
 
@@ -1144,7 +1141,7 @@ namespace RestClient.Net.UnitTests
             var response = await client.GetAsync<Person>("error");
             Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
             var apiResult = serializationAdapter.Deserialize<ApiResult>(response.GetResponseData(), response.Headers);
-            Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
+            Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult?.Errors.First());
 
             //Check that the response values are getting set correctly
             Assert.AreEqual(new Uri($"{LocalBaseUriString}/error"), response.RequestUri);
@@ -1169,7 +1166,7 @@ namespace RestClient.Net.UnitTests
             catch (HttpStatusException hex)
             {
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult?.Errors.First());
                 return;
             }
 
@@ -1227,7 +1224,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult?.Errors.First());
                 return;
             }
             Assert.Fail();
@@ -1265,7 +1262,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult?.Errors.First());
                 return;
             }
             Assert.Fail();
@@ -1307,7 +1304,7 @@ namespace RestClient.Net.UnitTests
             {
                 Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.Response.StatusCode);
                 var apiResult = serializationAdapter.Deserialize<ApiResult>(ex.Response.GetResponseData(), ex.Response.Headers);
-                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult.Errors.First());
+                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult?.Errors.First());
                 return;
             }
             Assert.Fail();
@@ -2436,15 +2433,17 @@ namespace RestClient.Net.UnitTests
         {
             if (hasDefaultJsonContentHeader)
             {
-                KeyValuePair<string, IEnumerable<string>>? contentTypeHeader = httpRequestMessage.Content.Headers.FirstOrDefault(k => k.Key == HeadersExtensions.ContentTypeHeaderName);
-                if (contentTypeHeader.Value.Value.FirstOrDefault() != HeadersExtensions.JsonMediaType) return false;
+                var contentTypeHeader = httpRequestMessage?.Content?.Headers.FirstOrDefault(k => k.Key == HeadersExtensions.ContentTypeHeaderName);
+                if (contentTypeHeader?.Value.FirstOrDefault() != HeadersExtensions.JsonMediaType) return false;
             }
 
             if (expectedHeaders != null)
             {
                 foreach (var expectedHeader in expectedHeaders)
                 {
-                    KeyValuePair<string, IEnumerable<string>>? foundKeyValuePair = httpRequestMessage.Headers.FirstOrDefault(k => k.Key == expectedHeader.Key);
+                    var foundKeyValuePair = httpRequestMessage?.Headers.FirstOrDefault(k => k.Key == expectedHeader.Key);
+
+                    if (foundKeyValuePair?.Value == null) throw new InvalidOperationException("Didn't find header");
 
                     var foundHeaderStrings = foundKeyValuePair.Value.Value.ToList();
 
@@ -2461,7 +2460,7 @@ namespace RestClient.Net.UnitTests
             }
 
             return
-                httpRequestMessage.Method == HttpMethod.Post &&
+                httpRequestMessage?.Method == HttpMethod.Post &&
                 httpRequestMessage.RequestUri == requestUri;
         }
 #endif
@@ -2490,10 +2489,9 @@ namespace RestClient.Net.UnitTests
 
         private HttpClient MintClient()
         {
-#if NETCOREAPP3_1
-            if (_testServer == null) throw new InvalidOperationException("Test server null");
+#if !NET45
             var httpClient = _testServer.CreateClient();
-            testServerBaseUri = httpClient.BaseAddress;
+            testServerBaseUri = httpClient?.BaseAddress ?? throw new InvalidOperationException("Http Client is null");
             httpClient.BaseAddress = null;
             return httpClient;
 #else

@@ -58,7 +58,7 @@ dotnet_diagnostic.CA1031.severity = None
 
 # CA1825: Avoid zero-length array allocations
 # Not compatible with .NET 45
-dotnet_diagnostic.CA1825.severity = None
+dotnet_diagnostic.CA1825.severity = none
 
 # CA1032: Implement standard exception constructors
 dotnet_diagnostic.CA1032.severity = None

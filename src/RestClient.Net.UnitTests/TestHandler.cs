@@ -1,4 +1,4 @@
-﻿#if NETCOREAPP3_1
+﻿#if !NET45
 
 using Moq;
 using RestClient.Net.Abstractions;

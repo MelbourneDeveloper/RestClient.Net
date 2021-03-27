@@ -10,6 +10,6 @@
         /// <summary>
         /// Takes binary data from the Http Response and converts it to an object of type T
         /// </summary>
-        TResponseBody Deserialize<TResponseBody>(byte[] responseData, IHeadersCollection responseHeaders);
+        TResponseBody? Deserialize<TResponseBody>(byte[] responseData, IHeadersCollection responseHeaders);
     }
 }
