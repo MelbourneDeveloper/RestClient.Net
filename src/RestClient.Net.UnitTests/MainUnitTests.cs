@@ -50,13 +50,6 @@ namespace RestClient.Net.UnitTests
         #region Fields
         private readonly Uri testServerBaseUri = new(LocalBaseUriString);
         private readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.CreateHeadersCollectionWithJsonContentType();
-        private readonly ILoggerFactory consoleLoggerFactory =
-#if NET45
-        NullLoggerFactory.Instance;
-#else
-        LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
-#endif
-
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
         private const string GoogleUrlString = "https://www.google.com";
         private const string RestCountriesAllUriString = "https://restcountries.eu/rest/v2/";
@@ -71,9 +64,7 @@ namespace RestClient.Net.UnitTests
         private const string SetCookieHeaderName = "Set-Cookie";
         private const string CacheControlHeaderName = "Cache-Control";
         private const string XRatelimitLimitHeaderName = "X-Ratelimit-Limit";
-
         private readonly UserPost _userRequestBody;
-
         private readonly string _userRequestBodyJson;
 
         private readonly Dictionary<string, string> RestCountriesAllHeaders = new()
@@ -157,14 +148,17 @@ namespace RestClient.Net.UnitTests
         private readonly MockHttpMessageHandler _mockHttpMessageHandler = new();
         private readonly TestClientFactory _testServerHttpClientFactory;
         private Mock<ILogger<Client>> _logger = new();
+        private readonly ILoggerFactory consoleLoggerFactory =
+#if NET45
+        NullLoggerFactory.Instance;
 
-#if !NET45
-        public const string LocalBaseUriString = "http://localhost";
-        private static readonly TestServer _testServer;
+        private const string LocalBaseUriString = "http://localhost";
 #else
+        LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
+        private static readonly TestServer _testServer;
+
         public const string LocalBaseUriString = "https://localhost:44337";
 #endif
-
 
         #endregion
 
