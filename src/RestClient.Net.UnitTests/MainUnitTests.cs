@@ -37,6 +37,8 @@ using Moq.Protected;
 
 #pragma warning disable CA1810 // Initialize reference type fields inline
 #pragma warning disable CA1506 // Initialize reference type fields inline
+#pragma warning disable CA1063 // Implement IDisposable Correctly
+#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
 
 namespace RestClient.Net.UnitTests
 {
@@ -44,11 +46,11 @@ namespace RestClient.Net.UnitTests
     public class MainUnitTests : IDisposable
     {
         #region Fields
-        private Uri testServerBaseUri;
+        private readonly Uri testServerBaseUri = new(LocalBaseUriString);
         private readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.CreateHeadersCollectionWithJsonContentType();
         private readonly ILoggerFactory consoleLoggerFactory =
 #if NET45
-        consoleLoggerFactory = NullLoggerFactory.Instance;
+        NullLoggerFactory.Instance;
 #else
         LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
 #endif
@@ -158,11 +160,10 @@ namespace RestClient.Net.UnitTests
         private readonly MockHttpMessageHandler _mockHttpMessageHandler = new();
         private readonly TestClientFactory _testServerHttpClientFactory;
         private Mock<ILogger<Client>> _logger = new();
-        private bool disposedValue;
 
 #if !NET45
         public const string LocalBaseUriString = "http://localhost";
-        private static TestServer? _testServer;
+        private static readonly TestServer _testServer;
 #else
         public const string LocalBaseUriString = "https://localhost:44337";
 #endif
@@ -258,23 +259,19 @@ namespace RestClient.Net.UnitTests
             return new TestClientFactory(testClient);
         }
 
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public MainUnitTests()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        static MainUnitTests()
         {
 #if !NET45
-            if (_testServer == null)
-            {
-                var hostBuilder = new WebHostBuilder();
-                hostBuilder.UseStartup<Startup>();
-                _testServer = new TestServer(hostBuilder);
-            }
-#endif
 
-#pragma warning disable IDE0021 // Use expression body for constructors
+            var hostBuilder = new WebHostBuilder();
+            hostBuilder.UseStartup<Startup>();
+            _testServer = new TestServer(hostBuilder);
+#endif
+        }
+
+        public MainUnitTests()
+        {
             _testServerHttpClientFactory = GetTestClientFactory();
-#pragma warning restore IDE0021 // Use expression body for constructors
         }
         #endregion
 
@@ -2374,6 +2371,7 @@ namespace RestClient.Net.UnitTests
 #pragma warning restore IDE0039 // Use local function
             var sendHttpRequestMessageMock = new Mock<ISendHttpRequestMessage>();
             var getHttpRequestMessageMock = new Mock<IGetHttpRequestMessage>();
+            var timeout = new TimeSpan(0, 1, 0);
             const bool throwExceptionOnFailure = true;
             var clientBase = new Client(
                             serializationAdapterMock.Object,
@@ -2495,7 +2493,6 @@ namespace RestClient.Net.UnitTests
             httpClient.BaseAddress = null;
             return httpClient;
 #else
-            testServerBaseUri = new Uri(LocalBaseUriString);
             return new HttpClient();
 #endif
         }
@@ -2534,35 +2531,10 @@ namespace RestClient.Net.UnitTests
 
         private static bool CheckResponseHeaders(IHeadersCollection responseHeadersCollection) => responseHeadersCollection.Contains("Test1") && responseHeadersCollection["Test1"].First() == "a";
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    _mockHttpMessageHandler.Dispose();
-                    consoleLoggerFactory.Dispose();
-                    //_testServer.Dispose();
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
-                disposedValue = true;
-            }
-        }
-
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~MainUnitTests()
-        // {
-        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-        //     Dispose(disposing: false);
-        // }
-
         public void Dispose()
         {
-            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            _mockHttpMessageHandler.Dispose();
+            consoleLoggerFactory.Dispose();
         }
 #endif
         #endregion
