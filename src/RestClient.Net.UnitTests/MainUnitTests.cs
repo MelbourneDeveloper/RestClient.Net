@@ -2513,9 +2513,8 @@ namespace RestClient.Net.UnitTests
         private static HttpClient MintClient()
         {
 #if !NET45
-
             var httpClient = _testServer.CreateClient();
-            testServerBaseUri = httpClient.BaseAddress;
+            testServerBaseUri = httpClient?.BaseAddress ?? throw new InvalidOperationException("Http Client is null");
             httpClient.BaseAddress = null;
             return httpClient;
 #else

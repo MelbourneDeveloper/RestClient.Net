@@ -49,7 +49,7 @@ namespace RestClient.Net.UnitTests
                 .AddHttpMessageHandler<TestHandler>();
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
-                var client = serviceProvider.GetService<IClient>();
+                var client = serviceProvider.GetRequiredService<IClient>();
                 _ = await client.GetAsync<object>();
                 _ = serviceCollection.Configure<string>((s) => { });
             }

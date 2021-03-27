@@ -21,7 +21,7 @@ namespace RestClient.Net
             using var stream = new MemoryStream();
             stream.Write(responseData, 0, responseData.Length);
             _ = stream.Seek(0, SeekOrigin.Begin);
-            return (TResponseBody)serializer.Deserialize(stream);
+            return (TResponseBody)serializer.Deserialize(stream) ?? throw new DeserializationException("Deserialization resulted in null", responseData, null);
         }
 
         public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)
