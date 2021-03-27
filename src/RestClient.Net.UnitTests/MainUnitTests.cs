@@ -1043,6 +1043,47 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task TestTimeoutPatch()
+        {
+            //Note this works by specifying a really quick timespan. The assumption is that the server won't respond quickly enough.
+
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
+                logger: _logger.Object,
+                createHttpClient: _testServerHttpClientFactory.CreateClient);
+
+            var exception = await Assert.ThrowsExceptionAsync<SendException>(() => client.PatchAsync<Person, Person>(
+                new Person { FirstName = "Bob" },
+                TimeSpan.FromMilliseconds(.01),
+                new Uri("headers", UriKind.Relative),
+                requestHeaders: "Test".CreateHeadersCollection("Test")
+                ));
+
+#if !NET45
+            _logger.VerifyLog<Client, OperationCanceledException>((state, t)
+                => state.CheckValue("{OriginalFormat}", Messages.ErrorMessageOperationCancelled), LogLevel.Error, 1);
+#endif
+        }
+
+        [TestMethod]
+        public async Task TestTimeoutPatch2()
+        {
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test"));
+
+            var responsePerson = await client.PatchAsync<Person, Person>(
+                new Person { FirstName = "Bob" },
+                TimeSpan.FromMilliseconds(10000),
+                new Uri("headers", UriKind.Relative),
+                requestHeaders: "Test".CreateHeadersCollection("Test")
+                );
+        }
+
+        [TestMethod]
         public async Task TestHeadersLocalIncorrectPatch()
         {
             var serializationAdapter = new NewtonsoftSerializationAdapter();
