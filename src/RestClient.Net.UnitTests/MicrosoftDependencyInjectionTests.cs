@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestClient.Net.Abstractions;
 using RestClient.Net.DependencyInjection;
@@ -22,7 +23,7 @@ namespace RestClient.Net.UnitTests
         {
             var serviceCollection = new ServiceCollection();
             _ = serviceCollection.AddHttpClient("test", (c) => c.Timeout = timeout);
-            _ = serviceCollection.AddDependencyInjectionMapping();
+            _ = serviceCollection.AddRestClientDotNet();
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var httpClientFactory = serviceProvider.GetRequiredService<CreateHttpClient>();
             var httpClient = httpClientFactory("test");
@@ -41,7 +42,7 @@ namespace RestClient.Net.UnitTests
                     .AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
                     .AddLogging()
                     .AddSingleton(typeof(IClient), typeof(Client))
-                    .AddDependencyInjectionMapping()
+                    .AddRestClientDotNet()
                     .AddTransient<TestHandler>()
                     //Make sure the HttpClient is named the same as the Rest Client
                     .AddSingleton<IClient>(x => new Client(baseUri: baseUri, name: clientName, createHttpClient: x.GetRequiredService<CreateHttpClient>()));
@@ -73,7 +74,7 @@ namespace RestClient.Net.UnitTests
                 var baseUri = new Uri("http://www.test.com");
                 _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
                     .AddLogging()
-                    .AddDependencyInjectionMapping()
+                    .AddRestClientDotNet()
                     .AddTransient<TestHandler>()
                     .AddHttpClient(clientName)
                     .AddHttpMessageHandler<TestHandler>();
@@ -99,7 +100,7 @@ namespace RestClient.Net.UnitTests
                 .AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
                 .AddLogging()
                 .AddSingleton<MockAspController>()
-                .AddDependencyInjectionMapping();
+                .AddRestClientDotNet();
 
             _ = serviceCollection.AddHttpClient("test");
 
@@ -137,12 +138,43 @@ namespace RestClient.Net.UnitTests
         {
             var serviceCollection = new ServiceCollection();
             _ = serviceCollection.AddHttpClient("test", (c) => c.Timeout = timeout);
-            _ = serviceCollection.AddDependencyInjectionMapping();
+            _ = serviceCollection.AddRestClientDotNet();
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var createClient = serviceProvider.GetRequiredService<CreateClient>();
             var client = (Client)createClient("test");
+
             Assert.AreEqual(timeout, client.lazyHttpClient.Value.Timeout);
+
+            Assert.IsFalse(ReferenceEquals(NullLogger.Instance, client.logger));
         }
+
+        [TestMethod]
+        public void TestClientGetsUnnamedHttpClient()
+        {
+            var serviceCollection = new ServiceCollection();
+            _ = serviceCollection.AddHttpClient();
+            _ = serviceCollection.AddRestClientDotNet();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            var createClient = serviceProvider.GetRequiredService<CreateClient>();
+            var client = (Client)createClient("test");
+
+            Assert.IsNotNull(client.lazyHttpClient.Value.Timeout);
+        }
+
+        //[TestMethod]
+        //public void TestClientGetsCorrectLogger()
+        //{
+        //    var serviceCollection = new ServiceCollection();
+        //    _ = serviceCollection.AddHttpClient();
+        //    _ = serviceCollection.AddRestClientDotNet();
+        //    var serviceProvider = serviceCollection.BuildServiceProvider();
+
+        //    var createClient = serviceProvider.GetRequiredService<CreateClient>();
+        //    var client = (Client)createClient("test");
+
+        //    Assert.IsFalse(ReferenceEquals(NullLogger.Instance, client.logger));
+        //}
     }
 }

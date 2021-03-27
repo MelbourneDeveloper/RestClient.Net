@@ -7,7 +7,7 @@ namespace RestClient.Net.DependencyInjection
     public static class Extensionss
     {
 
-        public static IServiceCollection AddDependencyInjectionMapping(this IServiceCollection serviceCollection, ISerializationAdapter? serializationAdapter = null)
+        public static IServiceCollection AddRestClientDotNet(this IServiceCollection serviceCollection, ISerializationAdapter? serializationAdapter = null)
         {
             serializationAdapter ??= new JsonSerializationAdapter();
 
