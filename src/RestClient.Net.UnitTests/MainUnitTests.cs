@@ -253,7 +253,7 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Public Methods
-        public TestClientFactory GetTestClientFactory()
+        public static TestClientFactory GetTestClientFactory()
         {
             var testClient = MintClient();
             return new TestClientFactory(testClient);
@@ -269,10 +269,7 @@ namespace RestClient.Net.UnitTests
 #endif
         }
 
-        public MainUnitTests()
-        {
-            _testServerHttpClientFactory = GetTestClientFactory();
-        }
+        public MainUnitTests() => _testServerHttpClientFactory = GetTestClientFactory();
         #endregion
 
         #region Tests
@@ -2403,12 +2400,11 @@ namespace RestClient.Net.UnitTests
 
         private CreateHttpClient GetCreateHttpClient() => (n) => _mockHttpMessageHandler.ToHttpClient();
 
-        private Func<string, Lazy<HttpClient>> GetLazyCreate()
-            => new((n) => new Lazy<HttpClient>(_mockHttpMessageHandler.ToHttpClient()));
-
-
 
 #if !NET45
+        private Func<string, Lazy<HttpClient>> GetLazyCreate()
+            => new((n) => new Lazy<HttpClient>(() => _mockHttpMessageHandler.ToHttpClient()));
+
         //TODO: Point a test at these on .NET 4.5
 
         private static void GetHttpClientMoq(out Mock<HttpMessageHandler> handlerMock, out HttpClient httpClient, HttpResponseMessage value)
@@ -2485,17 +2481,13 @@ namespace RestClient.Net.UnitTests
             Assert.Fail($"No exception thrown");
         }
 
-        private HttpClient MintClient()
-        {
+        private static HttpClient MintClient()
+        =>
 #if !NET45
-            var httpClient = _testServer.CreateClient();
-            testServerBaseUri = httpClient?.BaseAddress ?? throw new InvalidOperationException("Http Client is null");
-            httpClient.BaseAddress = null;
-            return httpClient;
+             _testServer.CreateClient();
 #else
-            return new HttpClient();
+             new();
 #endif
-        }
 
         private IClient GetJsonClient(Uri? baseUri = null)
         {
