@@ -460,7 +460,7 @@ namespace RestClient.Net.UnitTests
 
             var error = client.SerializationAdapter.Deserialize<Error>(response.GetResponseData(), response.Headers);
 
-            Assert.AreEqual(expectedError.Message, error.Message);
+            Assert.AreEqual(expectedError.Message, error?.Message);
         }
 
         [TestMethod]
@@ -2459,7 +2459,7 @@ namespace RestClient.Net.UnitTests
             if (hasDefaultJsonContentHeader)
             {
                 var contentTypeHeader = httpRequestMessage?.Content?.Headers.FirstOrDefault(k => k.Key == HeadersExtensions.ContentTypeHeaderName);
-                if (contentTypeHeader.Value.Value.FirstOrDefault() != HeadersExtensions.JsonMediaType) return false;
+                if (contentTypeHeader?.Value.FirstOrDefault() != HeadersExtensions.JsonMediaType) return false;
             }
 
             if (expectedHeaders != null)
@@ -2468,7 +2468,9 @@ namespace RestClient.Net.UnitTests
                 {
                     var foundKeyValuePair = httpRequestMessage?.Headers.FirstOrDefault(k => k.Key == expectedHeader.Key);
 
-                    var foundHeaderStrings = foundKeyValuePair?.Value.Value.ToList();
+                    if (foundKeyValuePair?.Value == null) throw new InvalidOperationException("Didn't find header");
+
+                    var foundHeaderStrings = foundKeyValuePair.Value.Value.ToList();
 
                     var i = 0;
                     foreach (var expectedHeaderString in expectedHeader.Value)
@@ -2483,7 +2485,7 @@ namespace RestClient.Net.UnitTests
             }
 
             return
-                httpRequestMessage.Method == HttpMethod.Post &&
+                httpRequestMessage?.Method == HttpMethod.Post &&
                 httpRequestMessage.RequestUri == requestUri;
         }
 #endif

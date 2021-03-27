@@ -78,7 +78,7 @@ namespace RestClient.Net.UnitTests
                     .AddHttpMessageHandler<TestHandler>();
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
-                var clientFactory = serviceProvider.GetService<CreateClient>();
+                var clientFactory = serviceProvider.GetRequiredService<CreateClient>();
                 var client = clientFactory(clientName, baseUri);
                 _ = await client.GetAsync<object>();
             }
@@ -103,7 +103,7 @@ namespace RestClient.Net.UnitTests
             _ = serviceCollection.AddHttpClient("test");
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            var mockAspController = serviceProvider.GetService<MockAspController>();
+            var mockAspController = serviceProvider.GetRequiredService<MockAspController>();
             var response = await mockAspController.Client.GetAsync<List<RestCountry>>();
             Assert.AreEqual(250, response.Body?.Count);
         }
