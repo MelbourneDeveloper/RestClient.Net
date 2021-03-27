@@ -25,7 +25,7 @@ namespace RestClient.Net.UnitTests
         {
             var serviceCollection = new ServiceCollection();
             _ = serviceCollection.AddHttpClient("test", (c) => c.Timeout = timeout);
-            _ = serviceCollection.AddRestClientDotNet();
+            _ = serviceCollection.AddRestClient();
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var httpClientFactory = serviceProvider.GetRequiredService<CreateHttpClient>();
             var httpClient = httpClientFactory("test");
@@ -44,7 +44,7 @@ namespace RestClient.Net.UnitTests
                     .AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
                     .AddLogging()
                     .AddSingleton(typeof(IClient), typeof(Client))
-                    .AddRestClientDotNet()
+                    .AddRestClient()
                     .AddTransient<TestHandler>()
                     //Make sure the HttpClient is named the same as the Rest Client
                     .AddSingleton<IClient>(x => new Client(baseUri: baseUri, name: clientName, createHttpClient: x.GetRequiredService<CreateHttpClient>()));
@@ -76,7 +76,7 @@ namespace RestClient.Net.UnitTests
                 var baseUri = new Uri("http://www.test.com");
                 _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
                     .AddLogging()
-                    .AddRestClientDotNet()
+                    .AddRestClient()
                     .AddTransient<TestHandler>()
                     .AddHttpClient(clientName)
                     .AddHttpMessageHandler<TestHandler>();
@@ -102,7 +102,7 @@ namespace RestClient.Net.UnitTests
                 .AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
                 .AddLogging()
                 .AddSingleton<MockAspController>()
-                .AddRestClientDotNet();
+                .AddRestClient();
 
             _ = serviceCollection.AddHttpClient("test");
 
@@ -140,7 +140,7 @@ namespace RestClient.Net.UnitTests
         {
             var serviceCollection = new ServiceCollection();
             _ = serviceCollection.AddHttpClient("test", (c) => c.Timeout = timeout);
-            _ = serviceCollection.AddRestClientDotNet();
+            _ = serviceCollection.AddRestClient();
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var createClient = serviceProvider.GetRequiredService<CreateClient>();
@@ -156,7 +156,7 @@ namespace RestClient.Net.UnitTests
         {
             var serviceCollection = new ServiceCollection();
             _ = serviceCollection.AddHttpClient();
-            _ = serviceCollection.AddRestClientDotNet();
+            _ = serviceCollection.AddRestClient();
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var createClient = serviceProvider.GetRequiredService<CreateClient>();
@@ -175,11 +175,17 @@ namespace RestClient.Net.UnitTests
             var client = (Client)new ServiceCollection()
             .AddLogging((builder) => builder.AddProvider(loggerProviderMock.Object))
             .AddHttpClient()
-            .AddRestClientDotNet()
+            .AddRestClient()
             .BuildServiceProvider()
             .GetRequiredService<CreateClient>()("test");
 
-            Assert.IsTrue(ReferenceEquals(loggerMock.Object, client.logger));
+            var logger = (ILogger<Client>)client.logger;
+
+            logger.LogInformation("Hi");
+
+            loggerMock.VerifyLog((state, t) =>
+            state.CheckValue("{OriginalFormat}", "Hi")
+            , LogLevel.Information, 1);
         }
     }
 
