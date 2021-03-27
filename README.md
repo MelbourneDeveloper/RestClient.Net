@@ -6,7 +6,7 @@
 
 The best .NET REST Client with task-based async, strong types and dependency injection on all platforms. Consume your ASP .NET Core Web APIs or consume RESTful APIs over the internet in C# or Visual Basic.
 
-![.NET Core](https://github.com/MelbourneDeveloper/RestClient.Net/workflows/.NET/badge.svg)
+[![.NET](https://github.com/MelbourneDeveloper/RestClient.Net/actions/workflows/dotnet.yml/badge.svg?branch=5%2Fdevelop)](https://github.com/MelbourneDeveloper/RestClient.Net/actions/workflows/dotnet.yml)
 
 **[Documentation Here](https://github.com/MelbourneDeveloper/RestClient.Net/wiki)**
 
