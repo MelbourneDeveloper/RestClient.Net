@@ -9,7 +9,7 @@ namespace RestClient.Net.Abstractions
         public DeserializationException(
             string message,
             byte[] responseData,
-            Exception innerException) : base(message, innerException) => this.responseData = responseData;
+            Exception? innerException) : base(message, innerException) => this.responseData = responseData;
 
         public byte[] GetResponseData() => responseData;
     }

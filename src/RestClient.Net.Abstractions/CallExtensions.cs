@@ -24,7 +24,6 @@ namespace RestClient.Net
 
         #endregion
 
-
         #region Public Methods
 
         #region Misc

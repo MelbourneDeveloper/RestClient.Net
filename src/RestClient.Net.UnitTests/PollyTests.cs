@@ -103,7 +103,7 @@ namespace RestClient.Net.UnitTests
             _ = serviceCollection.AddDependencyInjectionMapping();
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            var clientFactory = serviceProvider.GetService<CreateClient>();
+            var clientFactory = serviceProvider.GetRequiredService<CreateClient>();
 
             //Create a Rest Client that will get the HttpClient by the name of rc
             var client = clientFactory("rc", baseUri);

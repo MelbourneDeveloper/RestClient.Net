@@ -16,14 +16,14 @@ namespace RestClient.Net
         public BinaryDataContractSerializationAdapter(List<Type> knownDataContracts) => this.knownDataContracts = knownDataContracts;
 
         #region Public Methods
-        public TResponseBody Deserialize<TResponseBody>(byte[] responseData, IHeadersCollection? responseHeaders)
+        public TResponseBody? Deserialize<TResponseBody>(byte[] responseData, IHeadersCollection? responseHeaders)
         {
             if (responseData == null) throw new ArgumentNullException(nameof(responseData));
 
             var serializer = new DataContractSerializer(typeof(TResponseBody), knownDataContracts);
             using var stream = new MemoryStream(responseData);
             using var reader = XmlDictionaryReader.CreateBinaryReader(stream, XmlDictionaryReaderQuotas.Max);
-            return (TResponseBody)serializer.ReadObject(reader);
+            return (TResponseBody?)serializer.ReadObject(reader);
         }
 
         public byte[] Serialize<TRequestBody>(TRequestBody value, IHeadersCollection requestHeaders)
