@@ -162,8 +162,6 @@ namespace RestClient.Net
             {
                 var httpClient = lazyHttpClient.Value ?? throw new InvalidOperationException("createHttpClient returned null");
 
-                logger.LogTrace(Messages.TraceBeginSend, request, TraceEvent.Request, httpClient);
-
                 if (httpClient.BaseAddress != null)
                 {
                     throw new InvalidOperationException($"createHttpClient returned a {nameof(HttpClient)} with a {nameof(HttpClient.BaseAddress)}. The {nameof(HttpClient)} must never have a {nameof(HttpClient.BaseAddress)}. Fix the createHttpClient func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.BaseAddress)}");
@@ -174,17 +172,13 @@ namespace RestClient.Net
                     throw new InvalidOperationException($"createHttpClient returned a {nameof(HttpClient)} with at least one item in {nameof(HttpClient.DefaultRequestHeaders)}. The {nameof(HttpClient)} must never have {nameof(HttpClient.DefaultRequestHeaders)}. Fix the createHttpClient func so that it never creates a {nameof(HttpClient)} with {nameof(HttpClient.DefaultRequestHeaders)}");
                 }
 
-                logger.LogTrace("HttpClient configured. Request: {request} Adapter: {serializationAdapter}", request, SerializationAdapter);
-
-                var requestBodyIsNull = request.BodyData == null;
-
-                logger.LogTrace(!requestBodyIsNull ? "Request body" : "No request body", new object[] { requestBodyIsNull });
+                logger.LogTrace(Messages.TraceBeginSend, request, TraceEvent.Request, lazyHttpClient.Value, SerializationAdapter, (object?)request.BodyData ?? "");
 
                 //Note: we do not simply get the HttpRequestMessage here. If we use something like Polly, we may need to send it several times, and you cannot send the same message multiple times
                 //This is why we must compose the send func with getHttpRequestMessage
 
                 httpResponseMessage = await sendHttpRequestMessage.SendHttpRequestMessage(
-                    httpClient,
+                    lazyHttpClient.Value,
                     getHttpRequestMessage,
                     request,
                     logger,
