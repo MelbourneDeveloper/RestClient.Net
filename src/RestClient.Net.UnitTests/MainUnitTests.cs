@@ -2489,11 +2489,14 @@ namespace RestClient.Net.UnitTests
         }
 
         private static HttpClient MintClient()
-        =>
 #if !NET45
-             _testServer.CreateClient();
+        {
+            var httpClient = _testServer.CreateClient();
+            httpClient.BaseAddress = null;
+            return httpClient;
+        }
 #else
-             new();
+        => new();
 #endif
 
         private IClient GetJsonClient(Uri? baseUri = null)
