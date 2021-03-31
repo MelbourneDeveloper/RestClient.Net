@@ -79,7 +79,11 @@ namespace RestClient.Net
 
         #region Get
 
-        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client) => GetAsync<TResponseBody>(client, default(RelativeUri));
+        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client)
+            => GetAsync<TResponseBody>(client, default(RelativeUri));
+
+        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, Uri uri)
+    => GetAsync<TResponseBody>(client, uri.ToAbsoluteUri().RelativeUri);
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, string? resource)
             => GetAsync<TResponseBody>(client, resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUri().RelativeUri : null);
@@ -169,7 +173,6 @@ namespace RestClient.Net
                 requestBody,
                 default);
 
-
         public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(
             this IClient client,
             TRequestBody requestBody,
@@ -192,7 +195,6 @@ namespace RestClient.Net
                 requestHeaders,
                 cancellationToken);
 
-
         public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(
             this IClient client,
             TRequestBody? requestBody = default,
@@ -206,6 +208,16 @@ namespace RestClient.Net
                 resource,
                 requestHeaders,
                 cancellationToken);
+
+        public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(
+            this IClient client,
+            TRequestBody requestBody,
+            Uri resource)
+            => SendAsync<TResponseBody, TRequestBody>(
+                client,
+                HttpRequestMethod.Post,
+                requestBody,
+                resource.ToAbsoluteUri().RelativeUri);
 
         #endregion
 
