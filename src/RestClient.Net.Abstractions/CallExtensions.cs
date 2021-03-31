@@ -90,7 +90,7 @@ namespace RestClient.Net
                 ? throw new ArgumentNullException(nameof(client))
                 : client.SendAsync<TResponseBody, object>(
                 new Request<object>(
-                    client.BaseUri.WithRelativeUri(resource),
+                    resource != null ? client.BaseUri.WithRelativeUri(resource) : client.BaseUri,
                     null,
                     client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
                     HttpRequestMethod.Get,
@@ -110,7 +110,7 @@ namespace RestClient.Net
 
         public static Task<Response<TResponseBody>> PatchAsync<TResponseBody>(
         this IClient client,
-        Uri? resource = null,
+        RelativeUri? resource = null,
         IHeadersCollection? requestHeaders = null,
         CancellationToken cancellationToken = default)
             => SendAsync<TResponseBody, object>(
@@ -126,7 +126,7 @@ namespace RestClient.Net
         this IClient client,
         TRequestBody request,
         TimeSpan timeout,
-        Uri? resource = null,
+        RelativeUri? resource = null,
         IHeadersCollection? requestHeaders = null)
         {
             using var cancellationTokenSource = new CancellationTokenSource(timeout);
@@ -143,7 +143,7 @@ namespace RestClient.Net
         public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(
             this IClient client,
             TRequestBody requestBody,
-            Uri? resource = null,
+            RelativeUri? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
             => SendAsync<TResponseBody, TRequestBody>(
@@ -178,7 +178,7 @@ namespace RestClient.Net
 
         public static Task<Response<TResponseBody>> PostAsync<TResponseBody>(
             this IClient client,
-            Uri? resource = null,
+            RelativeUri? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
             => SendAsync<TResponseBody, object>(
@@ -193,7 +193,7 @@ namespace RestClient.Net
         public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(
             this IClient client,
             TRequestBody? requestBody = default,
-            Uri? resource = null,
+            RelativeUri? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
             => SendAsync<TResponseBody, TRequestBody>(
@@ -245,7 +245,13 @@ namespace RestClient.Net
         #endregion
 
         #region Send
-        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(IClient client, HttpRequestMethod httpRequestMethod, TRequestBody? requestBody, Uri? resource, IHeadersCollection? requestHeaders = null, CancellationToken cancellationToken = default)
+        public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(
+            IClient client,
+            HttpRequestMethod httpRequestMethod,
+            TRequestBody? requestBody,
+            RelativeUri? resource,
+            IHeadersCollection? requestHeaders = null,
+            CancellationToken cancellationToken = default)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
