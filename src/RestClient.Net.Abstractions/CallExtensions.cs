@@ -50,7 +50,8 @@ namespace RestClient.Net
 
         #region Delete
 
-        public static Task<Response> DeleteAsync(this IClient client, string resource) => DeleteAsync(client, resource != null ? new Uri(resource, UriKind.Relative) : null);
+        public static Task<Response> DeleteAsync(this IClient client, string resource)
+            => DeleteAsync(client, resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUri().RelativeUri : null);
 
         public static async Task<Response> DeleteAsync(
             this IClient client,
@@ -106,7 +107,7 @@ namespace RestClient.Net
             string resource) => PatchAsync<TResponseBody, TRequestBody>(
                 client,
                 requestBody,
-                resource != null ? new Uri(resource, UriKind.Relative) : default);
+                resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUri().RelativeUri : default);
 
         public static Task<Response<TResponseBody>> PatchAsync<TResponseBody>(
         this IClient client,
@@ -174,7 +175,7 @@ namespace RestClient.Net
             => PostAsync<TResponseBody, TRequestBody>(
                 client,
                 requestBody,
-                resource != null ? new Uri(resource, UriKind.Relative) : default);
+                resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUri().RelativeUri : default);
 
         public static Task<Response<TResponseBody>> PostAsync<TResponseBody>(
             this IClient client,
@@ -214,11 +215,11 @@ namespace RestClient.Net
             string? resource) => PutAsync<TResponseBody, TRequestBody>(
                 client,
                 requestBody,
-                resource != null ? new Uri(resource, UriKind.Relative) : null);
+                resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUri().RelativeUri : null);
 
         public static Task<Response<TResponseBody>> PutAsync<TResponseBody>(
             this IClient client,
-            Uri? resource = null,
+            RelativeUri? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
             => PutAsync<TResponseBody, object>(
@@ -231,7 +232,7 @@ namespace RestClient.Net
         public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(
             this IClient client,
             TRequestBody requestBody,
-            Uri? resource = null,
+            RelativeUri? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
             => SendAsync<TResponseBody, TRequestBody>(
