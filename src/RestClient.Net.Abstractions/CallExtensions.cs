@@ -64,7 +64,8 @@ namespace RestClient.Net
 
             var response = (Response)await client.SendAsync<object, object>(
             new Request<object>(
-                resource != null ? client.BaseUri.WithRelativeUri(resource) : client.BaseUri,
+                (resource != null ? client.BaseUri?.WithRelativeUri(resource) :
+                client.BaseUri) ?? throw new ArgumentNullException(nameof(resource)),
                 null,
                 client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
                 HttpRequestMethod.Delete,
@@ -91,7 +92,8 @@ namespace RestClient.Net
                 ? throw new ArgumentNullException(nameof(client))
                 : client.SendAsync<TResponseBody, object>(
                 new Request<object>(
-                    resource != null ? client.BaseUri.WithRelativeUri(resource) : client.BaseUri,
+                    (resource != null ? client.BaseUri?.WithRelativeUri(resource) :
+                    client.BaseUri) ?? throw new ArgumentNullException(nameof(resource)),
                     null,
                     client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
                     HttpRequestMethod.Get,
