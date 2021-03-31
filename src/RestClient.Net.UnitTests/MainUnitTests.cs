@@ -59,8 +59,8 @@ namespace RestClient.Net.UnitTests
         private const string JsonPlaceholderFirstPostSlug = "/posts/1";
         private const string JsonPlaceholderPostsSlug = "/posts";
         private readonly AbsoluteUri RestCountriesAllUri = new Uri(RestCountriesAllUriString).ToAbsoluteUri();
-        private readonly Uri RestCountriesAustraliaUri = new(RestCountriesAustraliaUriString);
-        private readonly Uri JsonPlaceholderBaseUri = new(JsonPlaceholderBaseUriString);
+        private readonly AbsoluteUri RestCountriesAustraliaUri = new Uri(RestCountriesAustraliaUriString).ToAbsoluteUri();
+        private readonly AbsoluteUri JsonPlaceholderBaseUri = new Uri(JsonPlaceholderBaseUriString).ToAbsoluteUri();
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
         private const string SetCookieHeaderName = "Set-Cookie";
         private const string CacheControlHeaderName = "Cache-Control";

@@ -257,6 +257,20 @@ namespace RestClient.Net
                 requestHeaders,
                 cancellationToken);
 
+        public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(
+            this IClient client,
+            TRequestBody requestBody,
+            Uri resource,
+            IHeadersCollection? requestHeaders = null,
+            CancellationToken cancellationToken = default)
+            => SendAsync<TResponseBody, TRequestBody>(
+                client,
+                HttpRequestMethod.Put,
+                requestBody,
+                resource.ToAbsoluteUri().RelativeUri,
+                requestHeaders,
+                cancellationToken);
+
         #endregion
 
         #region Send
