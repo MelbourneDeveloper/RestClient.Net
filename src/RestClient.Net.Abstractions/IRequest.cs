@@ -1,5 +1,5 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
+using Uris;
 
 namespace RestClient.Net.Abstractions
 {
@@ -9,7 +9,7 @@ namespace RestClient.Net.Abstractions
         string? CustomHttpRequestMethod { get; }
         IHeadersCollection Headers { get; }
         HttpRequestMethod HttpRequestMethod { get; }
-        Uri Uri { get; }
+        AbsoluteUri Uri { get; }
     }
 
     public interface IRequest<TBody> : IRequest

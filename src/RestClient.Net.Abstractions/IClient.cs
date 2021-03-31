@@ -1,5 +1,5 @@
-using System;
 using System.Threading.Tasks;
+using Uris;
 
 namespace RestClient.Net.Abstractions
 {
@@ -25,6 +25,6 @@ namespace RestClient.Net.Abstractions
         /// <summary>
         /// Base Uri for the client. Any resources specified on requests will be relative to this.
         /// </summary>
-        Uri? BaseUri { get; }
+        AbsoluteUri? BaseUri { get; }
     }
 }

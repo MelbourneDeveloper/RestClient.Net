@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Uris;
 
 namespace RestClient.Net.Abstractions
 {
@@ -7,7 +7,7 @@ namespace RestClient.Net.Abstractions
         IHeadersCollection Headers { get; }
         HttpRequestMethod HttpRequestMethod { get; }
         bool IsSuccess { get; }
-        Uri? RequestUri { get; }
+        AbsoluteUri RequestUri { get; }
         int StatusCode { get; }
         byte[] GetResponseData();
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Uris;
 
 namespace RestClient.Net.Abstractions
 {
@@ -10,7 +11,7 @@ namespace RestClient.Net.Abstractions
         public TBody? BodyData { get; }
 #pragma warning restore CA1819 // Properties should not return arrays
         public IHeadersCollection Headers { get; }
-        public Uri Uri { get; }
+        public AbsoluteUri Uri { get; }
         public HttpRequestMethod HttpRequestMethod { get; }
         public CancellationToken CancellationToken { get; }
         public string? CustomHttpRequestMethod { get; }
@@ -27,7 +28,7 @@ namespace RestClient.Net.Abstractions
         /// <param name="cancellationToken"></param>
         /// 
         public Request(
-            Uri uri,
+            AbsoluteUri uri,
             TBody? bodyData,
             IHeadersCollection headers,
             HttpRequestMethod httpRequestMethod,
@@ -42,8 +43,6 @@ namespace RestClient.Net.Abstractions
             Headers = headers;
 
             if (uri == null) throw new ArgumentNullException(nameof(uri));
-
-            if (!uri.IsAbsoluteUri) throw new InvalidOperationException($"{nameof(uri)} must be an absolute Uri. Try using one of the extension methods to build the request");
         }
 
         public override string ToString() => $"\r\nResource: {Uri}\r\nHeaders: {Headers} Method: {HttpRequestMethod}";

@@ -3,6 +3,7 @@ using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Uris;
 
 namespace RestClient.Net
 {
@@ -53,7 +54,7 @@ namespace RestClient.Net
 
         public static async Task<Response> DeleteAsync(
             this IClient client,
-            Uri? resource = null,
+            RelativeUri? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
         {
@@ -62,7 +63,7 @@ namespace RestClient.Net
 
             var response = (Response)await client.SendAsync<object, object>(
             new Request<object>(
-                client.BaseUri.Combine(resource),
+                resource != null ? client.BaseUri.WithRelativeUri(resource) : client.BaseUri,
                 null,
                 client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
                 HttpRequestMethod.Delete,
@@ -76,20 +77,20 @@ namespace RestClient.Net
 
         #region Get
 
-        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client) => GetAsync<TResponseBody>(client, default(Uri));
+        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client) => GetAsync<TResponseBody>(client, default(RelativeUri));
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, string? resource)
-            => GetAsync<TResponseBody>(client, resource != null ? new Uri(resource, UriKind.Relative) : null);
+            => GetAsync<TResponseBody>(client, resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUri().RelativeUri : null);
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(
             this IClient client,
-            Uri? resource = null,
+            RelativeUri? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default) => client == null
                 ? throw new ArgumentNullException(nameof(client))
                 : client.SendAsync<TResponseBody, object>(
                 new Request<object>(
-                    client.BaseUri.Combine(resource),
+                    client.BaseUri.WithRelativeUri(resource),
                     null,
                     client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
                     HttpRequestMethod.Get,
@@ -261,7 +262,7 @@ namespace RestClient.Net
 
         public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(
             IClient client,
-            Uri? resource,
+            RelativeUri? resource,
             TRequestBody? requestBodyData,
             IHeadersCollection requestHeaders,
             HttpRequestMethod httpRequestMethod,
@@ -269,7 +270,7 @@ namespace RestClient.Net
             =>
              client != null ? SendAsync<TResponseBody, TRequestBody>(client,
                             new Request<TRequestBody>(
-                                client.BaseUri.Combine(resource),
+                                resource != null ? client.BaseUri?.WithRelativeUri(resource) : client.BaseUri,
                                 requestBodyData,
                                 requestHeaders,
                                 httpRequestMethod,
