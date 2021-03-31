@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-
+using Uris;
 
 namespace RestClient.Net
 {
@@ -67,7 +67,7 @@ namespace RestClient.Net
 #else
             ISerializationAdapter? serializationAdapter = null,
 #endif
-            Uri? baseUri = null,
+            AbsoluteUri? baseUri = null,
             IHeadersCollection? defaultRequestHeaders = null,
             ILogger<Client>? logger = null,
             CreateHttpClient? createHttpClient = null,
@@ -117,7 +117,7 @@ namespace RestClient.Net
         /// <summary>
         /// Base Uri for the client. Any resources specified on requests will be relative to this.
         /// </summary>
-        public Uri? BaseUri { get; }
+        public AbsoluteUri? BaseUri { get; }
 
         /// <summary>
         /// Default headers to be sent with http requests

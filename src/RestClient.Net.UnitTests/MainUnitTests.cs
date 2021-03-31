@@ -25,6 +25,7 @@ using System.Reflection;
 using System.Text;
 using System.Collections.Immutable;
 using System.Collections;
+using Uris;
 
 #if NET45
 using Microsoft.Extensions.Logging.Abstractions;
@@ -48,7 +49,7 @@ namespace RestClient.Net.UnitTests
     public class MainUnitTests : IDisposable
     {
         #region Fields
-        private readonly Uri testServerBaseUri = new(LocalBaseUriString);
+        private readonly AbsoluteUri testServerBaseUri = new Uri(LocalBaseUriString).ToAbsoluteUri();
         private readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.CreateHeadersCollectionWithJsonContentType();
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
         private const string GoogleUrlString = "https://www.google.com";
@@ -57,7 +58,7 @@ namespace RestClient.Net.UnitTests
         private const string JsonPlaceholderBaseUriString = "https://jsonplaceholder.typicode.com";
         private const string JsonPlaceholderFirstPostSlug = "/posts/1";
         private const string JsonPlaceholderPostsSlug = "/posts";
-        private readonly Uri RestCountriesAllUri = new(RestCountriesAllUriString);
+        private readonly AbsoluteUri RestCountriesAllUri = new Uri(RestCountriesAllUriString).ToAbsoluteUri();
         private readonly Uri RestCountriesAustraliaUri = new(RestCountriesAustraliaUriString);
         private readonly Uri JsonPlaceholderBaseUri = new(JsonPlaceholderBaseUriString);
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
@@ -1157,7 +1158,7 @@ namespace RestClient.Net.UnitTests
             var requestHeadersCollection = "Test".CreateHeadersCollection("Test");
             Person responsePerson = await client.SendAsync<Person, object>
                 (
-                new Request<object>(testServerBaseUri.Combine(new Uri("headers", UriKind.Relative)), null, requestHeadersCollection, HttpRequestMethod.Get, cancellationToken: default)
+                new Request<object>(testServerBaseUri.WithRelativeUri(new Uri("headers", UriKind.Relative).ToAbsoluteUri().RelativeUri), null, requestHeadersCollection, HttpRequestMethod.Get, cancellationToken: default)
                 ); ;
             Assert.IsNotNull(responsePerson);
         }
@@ -1590,7 +1591,7 @@ namespace RestClient.Net.UnitTests
         {
             var defaultGetHttpRequestMessage = new DefaultGetHttpRequestMessage();
             var request = new Request<string>(
-                new Uri("http://www.test.com"),
+                new Uri("http://www.test.com").ToAbsoluteUri(),
                 default,
                 NullHeadersCollection.Instance,
                 (HttpRequestMethod)10,
