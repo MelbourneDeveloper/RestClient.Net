@@ -277,7 +277,8 @@ namespace RestClient.Net
             =>
              client != null ? SendAsync<TResponseBody, TRequestBody>(client,
                             new Request<TRequestBody>(
-                                resource != null ? client.BaseUri?.WithRelativeUri(resource) : client.BaseUri,
+                                (resource != null ? client.BaseUri?.WithRelativeUri(resource) :
+                                client.BaseUri) ?? throw new ArgumentNullException(nameof(resource)),
                                 requestBodyData,
                                 requestHeaders,
                                 httpRequestMethod,
