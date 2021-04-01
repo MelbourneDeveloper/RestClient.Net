@@ -5,13 +5,14 @@ using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
+using Uris;
 
 namespace RestClient.Net
 {
     public class ClientFactory
     {
         #region Fields
-        private readonly Func<string, Uri?, Lazy<IClient>> createClientFunc;
+        private readonly Func<string, AbsoluteUri?, Lazy<IClient>> createClientFunc;
         private readonly ConcurrentDictionary<string, Lazy<IClient>> clients;
         private readonly CreateHttpClient createHttpClient;
         private readonly ILoggerFactory loggerFactory;
@@ -46,12 +47,12 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        public IClient CreateClient(string name, Uri? baseUri = null)
+        public IClient CreateClient(string name, AbsoluteUri? baseUri = null)
             => name == null ? throw new ArgumentNullException(nameof(name)) : clients.GetOrAdd(name, createClientFunc(name, baseUri)).Value;
         #endregion
 
         #region Private Methods
-        private IClient MintClient(string name, Uri? baseUri = null) =>
+        private IClient MintClient(string name, AbsoluteUri? baseUri = null) =>
             new Client(
                 SerializationAdapter,
                 baseUri,
