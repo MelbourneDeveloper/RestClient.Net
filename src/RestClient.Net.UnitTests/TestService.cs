@@ -1,12 +1,13 @@
 ﻿using RestClient.Net.Abstractions;
 using System;
 using System.Threading.Tasks;
+using Urls;
 
 namespace RestClient.Net.UnitTests
 {
     public class TestService : ITestService
     {
-        public static Uri Uri { get; } = new Uri("http://www.test.com");
+        public static AbsoluteUrl Uri { get; } = new("http://www.test.com");
 
         public IClient Client { get; }
 
