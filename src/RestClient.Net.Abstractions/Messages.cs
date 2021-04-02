@@ -1,5 +1,4 @@
-﻿using System;
-using Urls;
+﻿using Urls;
 
 namespace RestClient.Net.Abstractions
 {

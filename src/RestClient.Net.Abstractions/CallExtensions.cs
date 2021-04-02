@@ -10,7 +10,7 @@ namespace RestClient.Net
     public static class CallExtensions
     {
         #region Fields
-        private const string MessageAtLeastOneUri = "At least one Uri must be absolute and not null";
+        //private const string MessageAtLeastOneUri = "At least one Uri must be absolute and not null";
         #endregion
 
         #region Private Methods
@@ -19,9 +19,9 @@ namespace RestClient.Net
         /// </summary>
         /// <param name="baseUri"></param>
         /// <returns></returns>
-        private static Uri AddForwardSlashIfNecessary(this Uri baseUri)
-            => baseUri == null ? throw new ArgumentNullException(nameof(baseUri)) :
-            !baseUri.ToString().EndsWith("/", StringComparison.OrdinalIgnoreCase) ? new Uri($"{baseUri}/") : baseUri;
+        //private static Uri AddForwardSlashIfNecessary(this Uri baseUri)
+        //    => baseUri == null ? throw new ArgumentNullException(nameof(baseUri)) :
+        //    !baseUri.ToString().EndsWith("/", StringComparison.OrdinalIgnoreCase) ? new Uri($"{baseUri}/") : baseUri;
 
         #endregion
 
@@ -35,17 +35,17 @@ namespace RestClient.Net
         /// <param name="baseUri"></param>
         /// <param name="RelativeUrl"></param>
         /// <returns></returns>
-        public static Uri Combine(this Uri? baseUri, Uri? RelativeUrl)
-        =>
-        baseUri == null && RelativeUrl == null ? throw new InvalidOperationException($"{nameof(baseUri)} or {nameof(RelativeUrl)} must not be null") :
-        baseUri == null ? RelativeUrl is Uri ru && ru.IsAbsoluteUrl
-            ? ru :
-            throw new InvalidOperationException(MessageAtLeastOneUri) :
-            RelativeUrl == null ? baseUri.IsAbsoluteUrl ? baseUri :
-            throw new InvalidOperationException(MessageAtLeastOneUri) :
-            !baseUri.IsAbsoluteUrl ? throw new InvalidOperationException($"{nameof(baseUri)} must be absolute") :
-            RelativeUrl.IsAbsoluteUrl ? throw new InvalidOperationException($"{nameof(RelativeUrl)} must be relative") :
-            new Uri(baseUri.AddForwardSlashIfNecessary(), RelativeUrl);
+        //public static Uri Combine(this Uri? baseUri, Uri? RelativeUrl)
+        //=>
+        //baseUri == null && RelativeUrl == null ? throw new InvalidOperationException($"{nameof(baseUri)} or {nameof(RelativeUrl)} must not be null") :
+        //baseUri == null ? RelativeUrl is Uri ru && ru.IsAbsoluteUrl
+        //    ? ru :
+        //    throw new InvalidOperationException(MessageAtLeastOneUri) :
+        //    RelativeUrl == null ? baseUri.IsAbsoluteUrl ? baseUri :
+        //    throw new InvalidOperationException(MessageAtLeastOneUri) :
+        //    !baseUri.IsAbsoluteUrl ? throw new InvalidOperationException($"{nameof(baseUri)} must be absolute") :
+        //    RelativeUrl.IsAbsoluteUrl ? throw new InvalidOperationException($"{nameof(RelativeUrl)} must be relative") :
+        //    new Uri(baseUri.AddForwardSlashIfNecessary(), RelativeUrl);
         #endregion
 
         #region Delete
