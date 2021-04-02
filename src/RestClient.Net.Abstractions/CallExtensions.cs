@@ -130,7 +130,7 @@ namespace RestClient.Net
         this IClient client,
         TRequestBody request,
         TimeSpan timeout,
-        Uri? resource = null,
+        RelativeUri? resource = null,
         IHeadersCollection? requestHeaders = null)
         {
             using var cancellationTokenSource = new CancellationTokenSource(timeout);
