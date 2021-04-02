@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RestClient.Net.Abstractions;
 using RestClient.Net.Abstractions.Extensions;
-using Uris;
+using Urls;
 
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 #pragma warning disable CS8603 // Possible null reference return.
@@ -128,7 +128,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestSendAsyncClient2() =>
     Assert.AreEqual("client", Assert.ThrowsException<ArgumentNullException>(() =>
-        _ = CallExtensions.SendAsync<string, string>(null, HttpRequestMethod.Delete, "Asd", new Uri("http://www.testing.com").ToAbsoluteUri().RelativeUri)).ParamName);
+        _ = CallExtensions.SendAsync<string, string>(null, HttpRequestMethod.Delete, "Asd", new Uri("http://www.testing.com").ToAbsoluteUrl().RelativeUrl)).ParamName);
 
 
         [TestMethod]

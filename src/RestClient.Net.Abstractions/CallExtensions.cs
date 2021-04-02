@@ -3,7 +3,7 @@ using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Uris;
+using Urls;
 
 namespace RestClient.Net
 {
@@ -33,29 +33,29 @@ namespace RestClient.Net
         /// Combines two Uris in a safe way. 
         /// </summary>
         /// <param name="baseUri"></param>
-        /// <param name="relativeUri"></param>
+        /// <param name="RelativeUrl"></param>
         /// <returns></returns>
-        public static Uri Combine(this Uri? baseUri, Uri? relativeUri)
+        public static Uri Combine(this Uri? baseUri, Uri? RelativeUrl)
         =>
-        baseUri == null && relativeUri == null ? throw new InvalidOperationException($"{nameof(baseUri)} or {nameof(relativeUri)} must not be null") :
-        baseUri == null ? relativeUri is Uri ru && ru.IsAbsoluteUri
+        baseUri == null && RelativeUrl == null ? throw new InvalidOperationException($"{nameof(baseUri)} or {nameof(RelativeUrl)} must not be null") :
+        baseUri == null ? RelativeUrl is Uri ru && ru.IsAbsoluteUrl
             ? ru :
             throw new InvalidOperationException(MessageAtLeastOneUri) :
-            relativeUri == null ? baseUri.IsAbsoluteUri ? baseUri :
+            RelativeUrl == null ? baseUri.IsAbsoluteUrl ? baseUri :
             throw new InvalidOperationException(MessageAtLeastOneUri) :
-            !baseUri.IsAbsoluteUri ? throw new InvalidOperationException($"{nameof(baseUri)} must be absolute") :
-            relativeUri.IsAbsoluteUri ? throw new InvalidOperationException($"{nameof(relativeUri)} must be relative") :
-            new Uri(baseUri.AddForwardSlashIfNecessary(), relativeUri);
+            !baseUri.IsAbsoluteUrl ? throw new InvalidOperationException($"{nameof(baseUri)} must be absolute") :
+            RelativeUrl.IsAbsoluteUrl ? throw new InvalidOperationException($"{nameof(RelativeUrl)} must be relative") :
+            new Uri(baseUri.AddForwardSlashIfNecessary(), RelativeUrl);
         #endregion
 
         #region Delete
 
         public static Task<Response> DeleteAsync(this IClient client, string resource)
-            => DeleteAsync(client, resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUri().RelativeUri : null);
+            => DeleteAsync(client, resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUrl().RelativeUrl : null);
 
         public static async Task<Response> DeleteAsync(
             this IClient client,
-            RelativeUri? resource = null,
+            RelativeUrl? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
         {
@@ -64,7 +64,7 @@ namespace RestClient.Net
 
             var response = (Response)await client.SendAsync<object, object>(
             new Request<object>(
-                (resource != null ? client.BaseUri?.WithRelativeUri(resource) :
+                (resource != null ? client.BaseUri?.WithRelativeUrl(resource) :
                 client.BaseUri) ?? throw new ArgumentNullException(nameof(resource)),
                 null,
                 client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
@@ -80,20 +80,20 @@ namespace RestClient.Net
         #region Get
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client)
-            => GetAsync<TResponseBody>(client, default(RelativeUri));
+            => GetAsync<TResponseBody>(client, default(RelativeUrl));
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, string? resource)
-            => GetAsync<TResponseBody>(client, resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUri().RelativeUri : null);
+            => GetAsync<TResponseBody>(client, resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUrl().RelativeUrl : null);
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(
             this IClient client,
-            RelativeUri? resource = null,
+            RelativeUrl? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default) => client == null
                 ? throw new ArgumentNullException(nameof(client))
                 : client.SendAsync<TResponseBody, object>(
                 new Request<object>(
-                    (resource != null ? client.BaseUri?.WithRelativeUri(resource) :
+                    (resource != null ? client.BaseUri?.WithRelativeUrl(resource) :
                     client.BaseUri) ?? throw new ArgumentNullException(nameof(resource)),
                     null,
                     client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
@@ -110,11 +110,11 @@ namespace RestClient.Net
             string resource) => PatchAsync<TResponseBody, TRequestBody>(
                 client,
                 requestBody,
-                resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUri().RelativeUri : default);
+                resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUrl().RelativeUrl : default);
 
         public static Task<Response<TResponseBody>> PatchAsync<TResponseBody>(
         this IClient client,
-        RelativeUri? resource = null,
+        RelativeUrl? resource = null,
         IHeadersCollection? requestHeaders = null,
         CancellationToken cancellationToken = default)
             => SendAsync<TResponseBody, object>(
@@ -130,7 +130,7 @@ namespace RestClient.Net
         this IClient client,
         TRequestBody request,
         TimeSpan timeout,
-        RelativeUri? resource = null,
+        RelativeUrl? resource = null,
         IHeadersCollection? requestHeaders = null)
         {
             using var cancellationTokenSource = new CancellationTokenSource(timeout);
@@ -147,7 +147,7 @@ namespace RestClient.Net
         public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(
             this IClient client,
             TRequestBody requestBody,
-            RelativeUri? resource = null,
+            RelativeUrl? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
             => SendAsync<TResponseBody, TRequestBody>(
@@ -177,11 +177,11 @@ namespace RestClient.Net
             => PostAsync<TResponseBody, TRequestBody>(
                 client,
                 requestBody,
-                resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUri().RelativeUri : default);
+                resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUrl().RelativeUrl : default);
 
         public static Task<Response<TResponseBody>> PostAsync<TResponseBody>(
             this IClient client,
-            RelativeUri? resource = null,
+            RelativeUrl? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
             => SendAsync<TResponseBody, object>(
@@ -195,7 +195,7 @@ namespace RestClient.Net
         public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(
             this IClient client,
             TRequestBody? requestBody = default,
-            RelativeUri? resource = null,
+            RelativeUrl? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
             => SendAsync<TResponseBody, TRequestBody>(
@@ -216,11 +216,11 @@ namespace RestClient.Net
             string? resource) => PutAsync<TResponseBody, TRequestBody>(
                 client,
                 requestBody,
-                resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUri().RelativeUri : null);
+                resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUrl().RelativeUrl : null);
 
         public static Task<Response<TResponseBody>> PutAsync<TResponseBody>(
             this IClient client,
-            RelativeUri? resource = null,
+            RelativeUrl? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
             => PutAsync<TResponseBody, object>(
@@ -233,7 +233,7 @@ namespace RestClient.Net
         public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(
             this IClient client,
             TRequestBody requestBody,
-            RelativeUri? resource = null,
+            RelativeUrl? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
             => SendAsync<TResponseBody, TRequestBody>(
@@ -251,7 +251,7 @@ namespace RestClient.Net
             IClient client,
             HttpRequestMethod httpRequestMethod,
             TRequestBody? requestBody,
-            RelativeUri? resource,
+            RelativeUrl? resource,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
         {
@@ -270,7 +270,7 @@ namespace RestClient.Net
 
         public static Task<Response<TResponseBody>> SendAsync<TResponseBody, TRequestBody>(
             IClient client,
-            RelativeUri? resource,
+            RelativeUrl? resource,
             TRequestBody? requestBodyData,
             IHeadersCollection requestHeaders,
             HttpRequestMethod httpRequestMethod,
@@ -278,7 +278,7 @@ namespace RestClient.Net
             =>
              client != null ? SendAsync<TResponseBody, TRequestBody>(client,
                             new Request<TRequestBody>(
-                                (resource != null ? client.BaseUri?.WithRelativeUri(resource) :
+                                (resource != null ? client.BaseUri?.WithRelativeUrl(resource) :
                                 client.BaseUri) ?? throw new ArgumentNullException(nameof(resource)),
                                 requestBodyData,
                                 requestHeaders,

@@ -1,4 +1,4 @@
-﻿using Uris;
+﻿using Urls;
 #pragma warning disable CA2225 // Operator overloads have named alternates
 
 namespace RestClient.Net.Abstractions
@@ -14,7 +14,7 @@ namespace RestClient.Net.Abstractions
         public virtual int StatusCode { get; }
         public virtual IHeadersCollection Headers { get; }
         public virtual HttpRequestMethod HttpRequestMethod { get; }
-        public virtual AbsoluteUri RequestUri { get; }
+        public virtual AbsoluteUrl RequestUri { get; }
         #endregion
 
         #region Constructor
@@ -24,7 +24,7 @@ namespace RestClient.Net.Abstractions
         int statusCode,
         HttpRequestMethod httpRequestMethod,
         byte[] responseData,
-        AbsoluteUri requestUri
+        AbsoluteUrl requestUri
         )
         {
             StatusCode = statusCode;

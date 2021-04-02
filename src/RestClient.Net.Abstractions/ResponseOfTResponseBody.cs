@@ -1,5 +1,5 @@
 ﻿using System;
-using Uris;
+using Urls;
 #pragma warning disable CA2225 // Operator overloads have named alternates
 
 namespace RestClient.Net.Abstractions
@@ -17,7 +17,7 @@ namespace RestClient.Net.Abstractions
         HttpRequestMethod httpRequestMethod,
         byte[] responseData,
         TResponseBody? body,
-        AbsoluteUri requestUri
+        AbsoluteUrl requestUri
         ) : base(
             headersCollection,
             statusCode,
