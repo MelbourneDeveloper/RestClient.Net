@@ -73,7 +73,6 @@ namespace RestClient.Net.UnitTests
             {
                 const string clientName = "Test";
                 var serviceCollection = new ServiceCollection();
-                var baseUri = new Uri("http://www.test.com");
                 _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
                     .AddLogging()
                     .AddRestClient()
@@ -83,7 +82,7 @@ namespace RestClient.Net.UnitTests
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
                 var clientFactory = serviceProvider.GetRequiredService<CreateClient>();
-                var client = clientFactory(clientName, baseUri);
+                var client = clientFactory(clientName, new("http://www.test.com"));
                 _ = await client.GetAsync<object>();
             }
             catch (SendException hse)
