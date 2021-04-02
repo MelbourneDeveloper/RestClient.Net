@@ -95,7 +95,7 @@ namespace RestClient.Net
 
             this.logger = (ILogger?)logger ?? NullLogger.Instance;
 
-            BaseUri = baseUri;
+            BaseUri = baseUri ?? AbsoluteUrl.Empty;
 
             Name = name ?? Guid.NewGuid().ToString();
 
@@ -117,7 +117,7 @@ namespace RestClient.Net
         /// <summary>
         /// Base Uri for the client. Any resources specified on requests will be relative to this.
         /// </summary>
-        public AbsoluteUrl? BaseUri { get; }
+        public AbsoluteUrl BaseUri { get; }
 
         /// <summary>
         /// Default headers to be sent with http requests

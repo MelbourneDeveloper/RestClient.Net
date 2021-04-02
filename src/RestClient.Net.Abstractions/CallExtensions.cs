@@ -9,22 +9,6 @@ namespace RestClient.Net
 {
     public static class CallExtensions
     {
-        #region Fields
-        //private const string MessageAtLeastOneUri = "At least one Uri must be absolute and not null";
-        #endregion
-
-        #region Private Methods
-        /// <summary>
-        /// Uris don't concatenate properly if the first Uri doesn't end with a forward slash. this is a known bug in .NET
-        /// </summary>
-        /// <param name="baseUri"></param>
-        /// <returns></returns>
-        //private static Uri AddForwardSlashIfNecessary(this Uri baseUri)
-        //    => baseUri == null ? throw new ArgumentNullException(nameof(baseUri)) :
-        //    !baseUri.ToString().EndsWith("/", StringComparison.OrdinalIgnoreCase) ? new Uri($"{baseUri}/") : baseUri;
-
-        #endregion
-
         #region Public Methods
 
         #region Misc
@@ -50,8 +34,8 @@ namespace RestClient.Net
 
         #region Delete
 
-        public static Task<Response> DeleteAsync(this IClient client, string resource)
-            => DeleteAsync(client, resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUrl().RelativeUrl : null);
+        public static Task<Response> DeleteAsync(this IClient client, string path)
+            => DeleteAsync(client, new RelativeUrl(path));
 
         public static async Task<Response> DeleteAsync(
             this IClient client,
@@ -82,8 +66,8 @@ namespace RestClient.Net
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client)
             => GetAsync<TResponseBody>(client, default(RelativeUrl));
 
-        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, string? resource)
-            => GetAsync<TResponseBody>(client, resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUrl().RelativeUrl : null);
+        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, string path)
+            => GetAsync<TResponseBody>(client, new RelativeUrl(path));
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(
             this IClient client,
@@ -124,10 +108,10 @@ namespace RestClient.Net
         public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(
             this IClient client,
             TRequestBody requestBody,
-            string resource) => PatchAsync<TResponseBody, TRequestBody>(
+            string path) => PatchAsync<TResponseBody, TRequestBody>(
                 client,
                 requestBody,
-                resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUrl().RelativeUrl : default);
+                new RelativeUrl(path));
 
         public static Task<Response<TResponseBody>> PatchAsync<TResponseBody>(
         this IClient client,
@@ -184,17 +168,16 @@ namespace RestClient.Net
             TRequestBody requestBody)
             => PostAsync<TResponseBody, TRequestBody>(
                 client,
-                requestBody,
-                default);
+                requestBody, null, null, default);
 
         public static Task<Response<TResponseBody>> PostAsync<TResponseBody, TRequestBody>(
             this IClient client,
             TRequestBody requestBody,
-            string? resource)
+            string path)
             => PostAsync<TResponseBody, TRequestBody>(
                 client,
                 requestBody,
-                resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUrl().RelativeUrl : default);
+                new RelativeUrl(path));
 
         public static Task<Response<TResponseBody>> PostAsync<TResponseBody>(
             this IClient client,
@@ -230,10 +213,10 @@ namespace RestClient.Net
         public static Task<Response<TResponseBody>> PutAsync<TResponseBody, TRequestBody>(
             this IClient client,
             TRequestBody requestBody,
-            string? resource) => PutAsync<TResponseBody, TRequestBody>(
+            string path) => PutAsync<TResponseBody, TRequestBody>(
                 client,
                 requestBody,
-                resource != null ? new Uri(resource, UriKind.Relative).ToAbsoluteUrl().RelativeUrl : null);
+                new RelativeUrl(path));
 
         public static Task<Response<TResponseBody>> PutAsync<TResponseBody>(
             this IClient client,
