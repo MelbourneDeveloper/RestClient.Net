@@ -125,6 +125,25 @@ namespace RestClient.Net
                 requestHeaders,
                 cancellationToken);
 
+
+        public static async Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(
+        this IClient client,
+        TRequestBody request,
+        TimeSpan timeout,
+        Uri? resource = null,
+        IHeadersCollection? requestHeaders = null)
+        {
+            using var cancellationTokenSource = new CancellationTokenSource(timeout);
+
+            return await SendAsync<TResponseBody, object>(
+                client,
+                HttpRequestMethod.Patch,
+                request,
+                resource,
+                requestHeaders,
+                cancellationTokenSource.Token).ConfigureAwait(false);
+        }
+
         public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(
             this IClient client,
             TRequestBody requestBody,

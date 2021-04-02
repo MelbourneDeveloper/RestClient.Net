@@ -25,7 +25,6 @@ using System.Reflection;
 using System.Text;
 using System.Collections.Immutable;
 using System.Collections;
-using Uris;
 
 #if NET45
 using Microsoft.Extensions.Logging.Abstractions;
@@ -36,10 +35,12 @@ using ApiExamples;
 using Moq.Protected;
 #endif
 
-#pragma warning disable CA1810 // Initialize reference type fields inline
 #pragma warning disable CA1506 // Initialize reference type fields inline
-#pragma warning disable CA1063 // Implement IDisposable Correctly
 #pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
+#pragma warning disable CA1063 // Implement IDisposable Correctly
+#pragma warning disable CA1810
+#pragma warning disable IDE0061 
+#pragma warning disable CA1825 // Avoid zero-length array allocations
 
 namespace RestClient.Net.UnitTests
 {
@@ -49,13 +50,6 @@ namespace RestClient.Net.UnitTests
         #region Fields
         private readonly Uri testServerBaseUri = new(LocalBaseUriString);
         private readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.CreateHeadersCollectionWithJsonContentType();
-        private readonly ILoggerFactory consoleLoggerFactory =
-#if NET45
-        NullLoggerFactory.Instance;
-#else
-        LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
-#endif
-
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
         private const string GoogleUrlString = "https://www.google.com";
         private const string RestCountriesAllUriString = "https://restcountries.eu/rest/v2/";
@@ -70,9 +64,7 @@ namespace RestClient.Net.UnitTests
         private const string SetCookieHeaderName = "Set-Cookie";
         private const string CacheControlHeaderName = "Cache-Control";
         private const string XRatelimitLimitHeaderName = "X-Ratelimit-Limit";
-
         private readonly UserPost _userRequestBody;
-
         private readonly string _userRequestBodyJson;
 
         private readonly Dictionary<string, string> RestCountriesAllHeaders = new()
@@ -156,14 +148,17 @@ namespace RestClient.Net.UnitTests
         private readonly MockHttpMessageHandler _mockHttpMessageHandler = new();
         private readonly TestClientFactory _testServerHttpClientFactory;
         private Mock<ILogger<Client>> _logger = new();
+        private readonly ILoggerFactory consoleLoggerFactory =
+#if NET45
+        NullLoggerFactory.Instance;
 
-#if !NET45
-        public const string LocalBaseUriString = "http://localhost";
-        private static readonly TestServer _testServer;
+        private const string LocalBaseUriString = "http://localhost";
 #else
+        LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
+        private static readonly TestServer _testServer;
+
         public const string LocalBaseUriString = "https://localhost:44337";
 #endif
-
 
         #endregion
 
@@ -286,7 +281,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHead()
         {
-            var baseUri = (AbsoluteUri)new Uri(GoogleUrlString);
+            var baseUri = new Uri(GoogleUrlString);
             using var client = new Client(
                 serializationAdapter: new NewtonsoftSerializationAdapter(),
                 createHttpClient: GetCreateHttpClient()
@@ -694,8 +689,9 @@ namespace RestClient.Net.UnitTests
                 : DefaultJsonContentHeaderCollection
                 );
 
-            Person responsePerson = await client.GetAsync<Person>(new RelativeUri(
-                "headers"),
+            Person responsePerson = await client.GetAsync<Person>(new Uri(
+                "headers",
+                UriKind.Relative),
                 "Test".CreateHeadersCollection("Test")
                 );
 
@@ -1041,6 +1037,47 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public async Task TestTimeoutPatch()
+        {
+            //Note this works by specifying a really quick timespan. The assumption is that the server won't respond quickly enough.
+
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
+                logger: _logger.Object,
+                createHttpClient: _testServerHttpClientFactory.CreateClient);
+
+            var exception = await Assert.ThrowsExceptionAsync<SendException>(() => client.PatchAsync<Person, Person>(
+                new Person { FirstName = "Bob" },
+                TimeSpan.FromMilliseconds(.01),
+                new Uri("headers", UriKind.Relative),
+                requestHeaders: "Test".CreateHeadersCollection("Test")
+                ));
+
+#if !NET45
+            _logger.VerifyLog<Client, OperationCanceledException>((state, t)
+                => state.CheckValue("{OriginalFormat}", Messages.ErrorMessageOperationCancelled), LogLevel.Error, 1);
+#endif
+        }
+
+        [TestMethod]
+        public async Task TestTimeoutPatch2()
+        {
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                defaultRequestHeaders: DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test"));
+
+            var responsePerson = await client.PatchAsync<Person, Person>(
+                new Person { FirstName = "Bob" },
+                TimeSpan.FromMilliseconds(10000),
+                new Uri("headers", UriKind.Relative),
+                requestHeaders: "Test".CreateHeadersCollection("Test")
+                );
+        }
+
+        [TestMethod]
         public async Task TestHeadersLocalIncorrectPatch()
         {
             var serializationAdapter = new NewtonsoftSerializationAdapter();
@@ -1075,7 +1112,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: (AbsoluteUri)testServerBaseUri,
+                baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
                 DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test")
@@ -1738,60 +1775,31 @@ namespace RestClient.Net.UnitTests
 
 #if !NET45
 
-        private static ILoggerFactory GetLoggerFactory(Action<object?> callback)
-        {
-            var callbackLogger = new CallbackLogger<Client>(callback);
-
-            var callbackLoggerFactory = new LoggerFactory();
-#pragma warning disable CA2000 // Dispose objects before losing scope
-            var provider = new LoggerProvider(callbackLogger);
-#pragma warning restore CA2000 // Dispose objects before losing scope
-            callbackLoggerFactory.AddProvider(provider);
-
-            return callbackLoggerFactory;
-        }
-
         [TestMethod]
         public async Task TestFactoryDoesntUseSameHttpClient()
         {
-            var logCount = 0;
-            HttpClient? firstClient = null;
-            HttpClient? secondClient = null;
-
-            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
-
             var clientFactory = new ClientFactory(
                 GetCreateHttpClient(),
-                new NewtonsoftSerializationAdapter(),
-                loggerFactory: callbackLoggerFactory);
+                new NewtonsoftSerializationAdapter());
 
-            var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "1", RestCountriesAllUri);
+            var client = (Client)ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "1", RestCountriesAllUri);
             var response = await client.GetAsync<List<RestCountry>>();
 
-            client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "2", RestCountriesAllUri);
-            response = await client.GetAsync<List<RestCountry>>();
+            var client2 = (Client)ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "2", RestCountriesAllUri);
+            response = await client2.GetAsync<List<RestCountry>>();
 
-            Assert.IsNotNull(firstClient);
-#pragma warning disable CA1508 // Avoid dead conditional code
-            var isEqual = ReferenceEquals(firstClient, secondClient);
-#pragma warning restore CA1508 // Avoid dead conditional code
+            Assert.IsNotNull(client.lazyHttpClient.Value);
+            var isEqual = ReferenceEquals(client.lazyHttpClient.Value, client2.lazyHttpClient.Value);
             Assert.IsFalse(isEqual);
         }
 
         [TestMethod]
         public async Task TestHttpClientFactoryDoesntUseSameHttpClient()
         {
-            var logCount = 0;
-            HttpClient? firstClient = null;
-            HttpClient? secondClient = null;
-
-            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
-
             using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                logger: callbackLoggerFactory.CreateLogger<Client>(),
                 baseUri: RestCountriesAllUri,
                 createHttpClient: defaultHttpClientFactory.CreateClient); ;
 
@@ -1799,18 +1807,23 @@ namespace RestClient.Net.UnitTests
 
             using var client2 = new Client(
                 new NewtonsoftSerializationAdapter(),
-                logger: callbackLoggerFactory.CreateLogger<Client>(),
                 baseUri: RestCountriesAllUri,
                 createHttpClient: defaultHttpClientFactory.CreateClient);
 
             response = await client2.GetAsync<List<RestCountry>>();
 
-            Assert.IsNotNull(firstClient);
-#pragma warning disable CA1508 // Avoid dead conditional code
-            Assert.IsFalse(ReferenceEquals(firstClient, secondClient));
-#pragma warning restore CA1508 // Avoid dead conditional code
+            Assert.IsNotNull(client.lazyHttpClient.Value);
+            Assert.IsFalse(ReferenceEquals(client.lazyHttpClient.Value, client2.lazyHttpClient.Value));
+        }
 
-            Assert.AreEqual(2, logCount);
+        [TestMethod]
+        public void TestHttpClientFactoryDoesntUseSameHttpClientByName()
+        {
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory();
+            var client1 = defaultHttpClientFactory.CreateClient("Test1");
+            var client2 = defaultHttpClientFactory.CreateClient("Test2");
+            Assert.IsNotNull(client1);
+            Assert.IsFalse(ReferenceEquals(client1, client2));
         }
 
         /// <summary>
@@ -1832,95 +1845,14 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
-        public async Task TestHttpClientFactoryReusesHttpClient()
-        {
-            var logCount = 0;
-            HttpClient? firstClient = null;
-            HttpClient? secondClient = null;
-            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
-
-            using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
-
-            using var client = new Client(
-                new NewtonsoftSerializationAdapter(),
-                logger: callbackLoggerFactory.CreateLogger<Client>(),
-                baseUri: RestCountriesAllUri,
-                createHttpClient: defaultHttpClientFactory.CreateClient);
-
-            var response = await client.GetAsync<List<RestCountry>>();
-
-            response = await client.GetAsync<List<RestCountry>>();
-
-#pragma warning disable CA1508 // Avoid dead conditional code
-            Assert.IsNotNull(firstClient);
-            Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
-            Assert.AreEqual(2, logCount);
-#pragma warning restore CA1508 // Avoid dead conditional code
-        }
-
-        [TestMethod]
-        public async Task TestHttpClientFactoryReusesHttpClientWithoutFunc()
-        {
-            var logCount = 0;
-            HttpClient? firstClient = null;
-            HttpClient? secondClient = null;
-            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
-
-            using var defaultHttpClientFactory = new DefaultHttpClientFactory();
-
-            using var client = new Client(
-                new NewtonsoftSerializationAdapter(),
-                logger: callbackLoggerFactory.CreateLogger<Client>(),
-                baseUri: RestCountriesAllUri,
-                createHttpClient: defaultHttpClientFactory.CreateClient);
-
-            var response = await client.GetAsync<List<RestCountry>>();
-
-            response = await client.GetAsync<List<RestCountry>>();
-
-#pragma warning disable CA1508 // Avoid dead conditional code
-            Assert.IsNotNull(firstClient);
-            Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
-            Assert.AreEqual(2, logCount);
-#pragma warning restore CA1508 // Avoid dead conditional code
-        }
-
-        private static void GetHttpClentsFromLogs(object? state, ref int logCount, ref HttpClient? firstClient, ref HttpClient? secondClient)
-        {
-            if (state == null) return;
-            var exists = state.GetValue<HttpClient>("httpClient", out var httpClient);
-            if (exists)
-            {
-                if (firstClient != null)
-                {
-                    secondClient = httpClient;
-                }
-                else
-                {
-                    firstClient = httpClient;
-                }
-
-                //This is a filthy unit test. We do this to make sure that the http client was only logged twice (one for each GET)
-                logCount++;
-            }
-        }
-
-        [TestMethod]
         public async Task TestHttpClientFactoryReusesHttpClientWhenSameName()
         {
-            var logCount = 0;
-            HttpClient? firstClient = null;
-            HttpClient? secondClient = null;
-
-            using var callbackLoggerFactory = GetLoggerFactory((state) => { GetHttpClentsFromLogs(state, ref logCount, ref firstClient, ref secondClient); });
-
             using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 baseUri: RestCountriesAllUri,
                 createHttpClient: defaultHttpClientFactory.CreateClient,
-                logger: callbackLoggerFactory.CreateLogger<Client>(),
                 name: "Test");
             var response = await client.GetAsync<List<RestCountry>>();
 
@@ -1928,15 +1860,15 @@ namespace RestClient.Net.UnitTests
                 new NewtonsoftSerializationAdapter(),
                 baseUri: RestCountriesAllUri,
                 createHttpClient: defaultHttpClientFactory.CreateClient,
-                logger: callbackLoggerFactory.CreateLogger<Client>(),
                 name: "Test");
             response = await client2.GetAsync<List<RestCountry>>();
 
-#pragma warning disable CA1508 // Avoid dead conditional code
-            Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
-            Assert.AreEqual(2, logCount);
-#pragma warning restore CA1508 // Avoid dead conditional code
+            Assert.IsNotNull(client.lazyHttpClient.Value);
+            Assert.IsTrue(ReferenceEquals(client.lazyHttpClient.Value, client2.lazyHttpClient.Value));
         }
+
+
+
 #endif
 
         #endregion
@@ -2006,7 +1938,6 @@ namespace RestClient.Net.UnitTests
                 GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage")));
 
             Assert.AreEqual(clientBase.Name, clientClone.Name);
-            Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
 
             //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
             Assert.IsTrue(ReferenceEquals(clientBase.DefaultRequestHeaders, clientClone.DefaultRequestHeaders));
@@ -2044,7 +1975,6 @@ namespace RestClient.Net.UnitTests
                 GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage")));
 
             Assert.AreEqual(clientBase.Name, clientClone.Name);
-            Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
             Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
 
             //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
@@ -2085,7 +2015,6 @@ namespace RestClient.Net.UnitTests
                 GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage")));
 
             Assert.AreEqual(clientBase.Name, clientClone.Name);
-            Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
 
             //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
             Assert.IsTrue(ReferenceEquals(clientBase.DefaultRequestHeaders, clientClone.DefaultRequestHeaders));
@@ -2121,47 +2050,6 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(clientBase.BaseUri, clientClone.BaseUri));
 
             Assert.AreEqual(clientBase.Name, clientClone.Name);
-            Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
-
-            //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
-            Assert.IsTrue(ReferenceEquals(clientBase.DefaultRequestHeaders, clientClone.DefaultRequestHeaders));
-
-            Assert.IsTrue(ReferenceEquals(
-                GetFieldValue<ILogger<Client>>(clientBase, "logger"),
-                GetFieldValue<ILogger<Client>>(clientClone, "logger")
-                ));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<CreateHttpClient>(clientBase, "createHttpClient"),
-            GetFieldValue<CreateHttpClient>(clientClone, "createHttpClient")
-            ));
-
-            Assert.IsTrue(ReferenceEquals(
-            GetFieldValue<ISendHttpRequestMessage>(clientBase, "sendHttpRequestMessage"),
-            GetFieldValue<ISendHttpRequestMessage>(clientClone, "sendHttpRequestMessage")));
-        }
-
-        [TestMethod]
-        public void TestWithTimeout()
-        {
-            using var clientBase = GetBaseClient();
-
-            var timeout = new TimeSpan(0, 2, 0);
-
-            var clientClone = clientBase.With(timeout);
-
-            Assert.AreEqual(timeout, clientClone.Timeout);
-
-            Assert.IsTrue(ReferenceEquals(clientBase.BaseUri, clientClone.BaseUri));
-
-            Assert.IsTrue(ReferenceEquals(clientBase.SerializationAdapter, clientClone.SerializationAdapter));
-
-            Assert.IsTrue(ReferenceEquals(
-                GetFieldValue<IGetHttpRequestMessage>(clientBase, "getHttpRequestMessage"),
-                GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage")));
-
-            Assert.AreEqual(clientBase.Name, clientClone.Name);
-            Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
 
             //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
             Assert.IsTrue(ReferenceEquals(clientBase.DefaultRequestHeaders, clientClone.DefaultRequestHeaders));
@@ -2201,7 +2089,6 @@ namespace RestClient.Net.UnitTests
                 GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage")));
 
             Assert.AreEqual(clientBase.Name, clientClone.Name);
-            Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
             Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
 
             Assert.IsTrue(ReferenceEquals(
@@ -2240,7 +2127,6 @@ namespace RestClient.Net.UnitTests
                 GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage")));
 
             Assert.AreEqual(clientBase.Name, clientClone.Name);
-            Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
             Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
 
             Assert.IsTrue(ReferenceEquals(
@@ -2276,7 +2162,6 @@ namespace RestClient.Net.UnitTests
                 GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage")));
 
             Assert.AreEqual(clientBase.Name, clientClone.Name);
-            Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
             Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
 
             //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
@@ -2311,7 +2196,6 @@ namespace RestClient.Net.UnitTests
                 GetFieldValue<IGetHttpRequestMessage>(clientClone, "getHttpRequestMessage")));
 
             Assert.AreEqual(clientBase.Name, clientClone.Name);
-            Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
             Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
 
             //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
@@ -2355,7 +2239,6 @@ namespace RestClient.Net.UnitTests
             ));
 
             Assert.AreEqual(clientBase.Name, clientClone.Name);
-            Assert.AreEqual(clientBase.Timeout, clientClone.Timeout);
             Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
             Assert.AreEqual(clientBase.BaseUri, clientClone.BaseUri);
 
@@ -2385,7 +2268,6 @@ namespace RestClient.Net.UnitTests
                             createHttpClient,
                             sendHttpRequestMessageMock.Object,
                             getHttpRequestMessageMock.Object,
-                            timeout,
                             throwExceptionOnFailure
 ,
                             name);
@@ -2416,7 +2298,7 @@ namespace RestClient.Net.UnitTests
 
         private static void GetHttpClientMoq(out Mock<HttpMessageHandler> handlerMock, out HttpClient httpClient, HttpResponseMessage value)
         {
-            handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+            handlerMock = new Mock<HttpMessageHandler>();
 
             handlerMock
             .Protected()
