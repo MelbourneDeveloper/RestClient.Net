@@ -25,6 +25,7 @@ using System.Reflection;
 using System.Text;
 using System.Collections.Immutable;
 using System.Collections;
+using Uris;
 
 #if NET45
 using Microsoft.Extensions.Logging.Abstractions;
@@ -285,7 +286,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestHead()
         {
-            var baseUri = new Uri(GoogleUrlString);
+            var baseUri = (AbsoluteUri)new Uri(GoogleUrlString);
             using var client = new Client(
                 serializationAdapter: new NewtonsoftSerializationAdapter(),
                 createHttpClient: GetCreateHttpClient()
@@ -693,9 +694,8 @@ namespace RestClient.Net.UnitTests
                 : DefaultJsonContentHeaderCollection
                 );
 
-            Person responsePerson = await client.GetAsync<Person>(new Uri(
-                "headers",
-                UriKind.Relative),
+            Person responsePerson = await client.GetAsync<Person>(new RelativeUri(
+                "headers"),
                 "Test".CreateHeadersCollection("Test")
                 );
 
@@ -1075,7 +1075,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUri: (AbsoluteUri)testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
                 DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test")
