@@ -45,7 +45,14 @@ namespace RestClient.Net.UnitTests
                 var httpRequestMessage = httpRequestMessageFunc.GetHttpRequestMessage(request, logger, serializationAdapter);
 
                 //On the third try change the Url to a the correct one
-                if (Tries == 2) httpRequestMessage.RequestUri = new Uri(MainUnitTests.LocalBaseUriString).WithRelativeUrl(new("Person"));
+                if (Tries == 2)
+                {
+                    httpRequestMessage.RequestUri =
+                    new AbsoluteUrl(MainUnitTests.LocalBaseUriString)
+                    .WithRelativeUrl(new RelativeUrl("Person"))
+                    .ToUri();
+                }
+
                 Tries++;
                 return httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
             });

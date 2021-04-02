@@ -100,6 +100,23 @@ namespace RestClient.Net
                     HttpRequestMethod.Get,
                     cancellationToken: cancellationToken));
 
+
+        //Is this good?
+
+        public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(
+            this IClient client,
+            AbsoluteUrl resource,
+            IHeadersCollection? requestHeaders = null,
+            CancellationToken cancellationToken = default) => client == null
+                ? throw new ArgumentNullException(nameof(client))
+                : client.SendAsync<TResponseBody, object>(
+                new Request<object>(
+                    resource,
+                    null,
+                    client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
+                    HttpRequestMethod.Get,
+                    cancellationToken: cancellationToken));
+
         #endregion
 
         #region Patch

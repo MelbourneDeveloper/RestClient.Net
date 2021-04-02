@@ -14,12 +14,12 @@
 		<RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
 		<RunAnalyzers>true</RunAnalyzers>
 		<Nullable>enable</Nullable>
-        <Version>5.0.0</Version>
+        <Version>5.0.0-alpha</Version>
 	    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 		<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
 	    <Authors>Christian Findlay</Authors>
 	    <Company>Christian Findlay</Company>
-	    <Copyright>© $([System.DateTime]::UtcNow.ToString(yyyy)) Christian Findlay</Copyright>
+	    <Copyright>Â© $([System.DateTime]::UtcNow.ToString(yyyy)) Christian Findlay</Copyright>
 	    <RepositoryType>git</RepositoryType>
 	    <PackageIcon>Icon.png</PackageIcon>
 	    <PackageLicenseExpression>MIT</PackageLicenseExpression>
