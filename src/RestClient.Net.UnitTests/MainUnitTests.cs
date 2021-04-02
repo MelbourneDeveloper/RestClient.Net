@@ -25,6 +25,7 @@ using System.Reflection;
 using System.Text;
 using System.Collections.Immutable;
 using System.Collections;
+using Uris;
 
 #if NET45
 using Microsoft.Extensions.Logging.Abstractions;
@@ -48,7 +49,7 @@ namespace RestClient.Net.UnitTests
     public class MainUnitTests : IDisposable
     {
         #region Fields
-        private readonly Uri testServerBaseUri = new(LocalBaseUriString);
+        private readonly AbsoluteUri testServerBaseUri = (AbsoluteUri)new Uri(LocalBaseUriString);
         private readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.CreateHeadersCollectionWithJsonContentType();
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
         private const string GoogleUrlString = "https://www.google.com";
@@ -57,8 +58,8 @@ namespace RestClient.Net.UnitTests
         private const string JsonPlaceholderBaseUriString = "https://jsonplaceholder.typicode.com";
         private const string JsonPlaceholderFirstPostSlug = "/posts/1";
         private const string JsonPlaceholderPostsSlug = "/posts";
-        private readonly Uri RestCountriesAllUri = new(RestCountriesAllUriString);
-        private readonly Uri RestCountriesAustraliaUri = new(RestCountriesAustraliaUriString);
+        private readonly AbsoluteUri RestCountriesAllUri = (AbsoluteUri)new Uri(RestCountriesAllUriString);
+        private readonly AbsoluteUri RestCountriesAustraliaUri = (AbsoluteUri)new Uri(RestCountriesAustraliaUriString);
         private readonly Uri JsonPlaceholderBaseUri = new(JsonPlaceholderBaseUriString);
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
         private const string SetCookieHeaderName = "Set-Cookie";

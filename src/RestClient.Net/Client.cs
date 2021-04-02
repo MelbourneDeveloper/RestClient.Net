@@ -51,26 +51,6 @@ namespace RestClient.Net
         #endregion Private Fields
 
         #region Public Constructors
-        //Constructor for the old school Uri
-
-        public Client(
-#if NET45
-        ISerializationAdapter serializationAdapter,
-#else
-        ISerializationAdapter? serializationAdapter = null,
-#endif
-        Uri? baseUri = null,
-        IHeadersCollection? defaultRequestHeaders = null,
-        ILogger<Client>? logger = null,
-        CreateHttpClient? createHttpClient = null,
-        ISendHttpRequestMessage? sendHttpRequest = null,
-        IGetHttpRequestMessage? getHttpRequestMessage = null,
-        bool throwExceptionOnFailure = true,
-        string? name = null) : this(serializationAdapter, baseUri?.ToAbsoluteUri(), defaultRequestHeaders, logger, createHttpClient, sendHttpRequest, getHttpRequestMessage, throwExceptionOnFailure, name)
-        {
-        }
-
-
         /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies. Defaults to JSON and adds the default Content-Type header for JSON on platforms later than .NET Framework 4.5</param>
         /// <param name="name">The of the client instance. This is also passed to the HttpClient factory to get or create HttpClient instances</param>
         /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only. This should be an absolute Uri</param>
