@@ -666,10 +666,11 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(
                 new ProtobufSerializationAdapter(),
+                new(LocalBaseUriString),
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: "PersonKey".CreateHeadersCollection(personKey));
 
-            Person responsePerson = await client.PutAsync<Person, Person>(requestPerson, new RelativeUrl($"{LocalBaseUriString}/person"));
+            Person responsePerson = await client.PutAsync<Person, Person>(requestPerson, new RelativeUrl("person"));
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
             Assert.AreEqual(personKey, responsePerson.PersonKey);
         }
