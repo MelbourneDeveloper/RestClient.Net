@@ -1394,7 +1394,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalDeleteStringUri()
         {
             var client = GetJsonClient(new($"{LocalBaseUriString}/JsonPerson"));
-            var response = await client.DeleteAsync("?personKey=abc");
+            var response = await client.DeleteAsync(client.BaseUri.RelativeUrl.AddQueryString("personKey", "abc"));
             Assert.AreEqual(200, response.StatusCode);
         }
 
@@ -1761,7 +1761,7 @@ namespace RestClient.Net.UnitTests
                 new NewtonsoftSerializationAdapter(),
                 logger: _logger.Object);
 
-            _ = await Assert.ThrowsExceptionAsync<InvalidOperationException>(()
+            _ = await Assert.ThrowsExceptionAsync<SendException>(()
                 => client.PostAsync<Person, Person>(new Person()));
         }
 
