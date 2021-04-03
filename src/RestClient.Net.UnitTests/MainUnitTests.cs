@@ -647,8 +647,8 @@ namespace RestClient.Net.UnitTests
                 BillingAddress = new Address { Street = "Test St" }
             };
 
-            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: _testServerHttpClientFactory.CreateClient);
-            var responsePerson = await client.PostAsync<Person, Person>(requestPerson, new RelativeUrl($"{LocalBaseUriString}/person"));
+            using var client = new Client(new NewtonsoftSerializationAdapter(), new AbsoluteUrl(LocalBaseUriString), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            var responsePerson = await client.PostAsync<Person, Person>(requestPerson, new RelativeUrl("person"));
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.Body?.BillingAddress.Street);
         }
 
