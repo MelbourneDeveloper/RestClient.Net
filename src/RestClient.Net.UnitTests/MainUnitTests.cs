@@ -1400,8 +1400,9 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestLocalDeleteUri()
         {
-            var client = GetJsonClient(new($"{LocalBaseUriString}/JsonPerson"));
-            var response = await client.DeleteAsync(RelativeUrl.Empty.AddQueryString("personKey", "abc"));
+            var baseUri = new AbsoluteUrl($"{LocalBaseUriString}/JsonPerson");
+            var client = GetJsonClient(baseUri);
+            var response = await client.DeleteAsync(baseUri.RelativeUrl.AddQueryString("personKey", "abc"));
             Assert.AreEqual(200, response.StatusCode);
         }
 
