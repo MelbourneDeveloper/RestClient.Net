@@ -1903,7 +1903,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(baseUri: new("http://www.test.com/test"), createHttpClient: (n) => httpClient);
 
             //Act
-            var response = await client.GetAsync<string>(new("test"));
+            var response = await client.GetAsync<string>(client.BaseUri.AppendPath("test"));
 
             var requestUri = response?.RequestUri;
             if (requestUri == null) throw new InvalidOperationException("No uri");
