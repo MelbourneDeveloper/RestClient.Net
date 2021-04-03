@@ -11,27 +11,6 @@ namespace RestClient.Net
     {
         #region Public Methods
 
-        #region Misc
-
-        /// <summary>
-        /// Combines two Uris in a safe way. 
-        /// </summary>
-        /// <param name="baseUri"></param>
-        /// <param name="RelativeUrl"></param>
-        /// <returns></returns>
-        //public static Uri Combine(this Uri? baseUri, Uri? RelativeUrl)
-        //=>
-        //baseUri == null && RelativeUrl == null ? throw new InvalidOperationException($"{nameof(baseUri)} or {nameof(RelativeUrl)} must not be null") :
-        //baseUri == null ? RelativeUrl is Uri ru && ru.IsAbsoluteUrl
-        //    ? ru :
-        //    throw new InvalidOperationException(MessageAtLeastOneUri) :
-        //    RelativeUrl == null ? baseUri.IsAbsoluteUrl ? baseUri :
-        //    throw new InvalidOperationException(MessageAtLeastOneUri) :
-        //    !baseUri.IsAbsoluteUrl ? throw new InvalidOperationException($"{nameof(baseUri)} must be absolute") :
-        //    RelativeUrl.IsAbsoluteUrl ? throw new InvalidOperationException($"{nameof(RelativeUrl)} must be relative") :
-        //    new Uri(baseUri.AddForwardSlashIfNecessary(), RelativeUrl);
-        #endregion
-
         #region Delete
 
         public static Task<Response> DeleteAsync(this IClient client, string path)
@@ -64,7 +43,8 @@ namespace RestClient.Net
         #region Get
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client)
-            => GetAsync<TResponseBody>(client, default(RelativeUrl));
+          => client == null ? throw new ArgumentNullException(nameof(client)) :
+             GetAsync<TResponseBody>(client, client.BaseUri.RelativeUrl);
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, string path)
             => GetAsync<TResponseBody>(client, new RelativeUrl(path));
@@ -77,7 +57,7 @@ namespace RestClient.Net
                 ? throw new ArgumentNullException(nameof(client))
                 : client.SendAsync<TResponseBody, object>(
                 new Request<object>(
-                    (resource != null ? client.BaseUri?.WithRelativeUrl(resource) :
+                    (resource != null ? client.BaseUri.WithRelativeUrl(resource) :
                     client.BaseUri) ?? throw new ArgumentNullException(nameof(resource)),
                     null,
                     client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),

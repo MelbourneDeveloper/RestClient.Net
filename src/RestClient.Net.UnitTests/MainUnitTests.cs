@@ -53,7 +53,7 @@ namespace RestClient.Net.UnitTests
         private readonly IHeadersCollection DefaultJsonContentHeaderCollection = HeadersExtensions.CreateHeadersCollectionWithJsonContentType();
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
         private const string GoogleUrlString = "https://www.google.com";
-        private const string RestCountriesAllUriString = "https://restcountries.eu/rest/v2/";
+        private const string RestCountriesAllUriString = "https://restcountries.eu/rest/v2";
         private const string RestCountriesAustraliaUriString = "https://restcountries.eu/rest/v2/name/australia/";
         private const string JsonPlaceholderBaseUriString = "https://jsonplaceholder.typicode.com";
         private const string JsonPlaceholderFirstPostSlug = "/posts/1";
@@ -1410,7 +1410,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalDeleteUriCancellationToken()
         {
             var client = GetJsonClient(new($"{LocalBaseUriString}/JsonPerson"));
-            var response = await client.DeleteAsync(RelativeUrl.Empty.AddQueryString("personKey", "abc"), cancellationToken: new CancellationToken());
+            var response = await client.DeleteAsync(client.BaseUri.RelativeUrl.AddQueryString("personKey", "abc"), cancellationToken: new CancellationToken());
             Assert.AreEqual(200, response.StatusCode);
 
             //TODO: Verify the log
