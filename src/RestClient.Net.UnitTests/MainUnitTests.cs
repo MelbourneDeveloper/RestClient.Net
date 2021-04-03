@@ -54,7 +54,7 @@ namespace RestClient.Net.UnitTests
         private const string StandardContentTypeToString = "application/json; charset=utf-8";
         private const string GoogleUrlString = "https://www.google.com";
         private const string RestCountriesAllUriString = "https://restcountries.eu/rest/v2";
-        private const string RestCountriesAustraliaUriString = "https://restcountries.eu/rest/v2/name/australia/";
+        private const string RestCountriesAustraliaUriString = "https://restcountries.eu/rest/v2/name/australia";
         private const string JsonPlaceholderBaseUriString = "https://jsonplaceholder.typicode.com";
         private const string JsonPlaceholderFirstPostSlug = "/posts/1";
         private const string JsonPlaceholderPostsSlug = "/posts";
