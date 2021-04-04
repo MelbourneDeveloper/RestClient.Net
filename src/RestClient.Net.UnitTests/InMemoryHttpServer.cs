@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using RestClient.Net.Abstractions;
 using System;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using Urls;
 
@@ -15,10 +16,14 @@ namespace RestClient.Net.UnitTests
     public class InMemoryHttpServerTests
     {
         [TestMethod]
-        public async Task TestGetFromUrl()
+        [DataRow(HttpRequestMethod.Get, false)]
+        [DataRow(HttpRequestMethod.Patch, true)]
+        public async Task TestGetFromUrl(HttpRequestMethod httpRequestMethod, bool hasRequestBody)
         {
-            var testThing2 = new TestThing2 { TestPropery1 = "1", TestPropery2 = 2 };
-            var responseJson = JsonConvert.SerializeObject(testThing2);
+            var responseThing = new ResponseThing { TestPropery1 = "1", TestPropery2 = 2 };
+            var requestThing = new RequestThing { TestPropery3 = "asdasd", TestPropery4 = 321 };
+            var responseJson = JsonConvert.SerializeObject(responseThing);
+            var requestJson = JsonConvert.SerializeObject(requestThing);
             const string headerKey = "key";
             const string headerValue = "value";
 
@@ -31,32 +36,55 @@ namespace RestClient.Net.UnitTests
                 Assert.AreEqual("?Id=1", context?.Request?.Url?.Query);
                 Assert.AreEqual(headerValue, context?.Request?.Headers[headerKey]);
 
+                if (hasRequestBody)
+                {
+                    var length = context?.Request?.ContentLength64;
+                    if (!length.HasValue) throw new InvalidOperationException();
+                    var buffer = new byte[length.Value];
+                    _ = (context?.Request?.InputStream.ReadAsync(buffer, 0, (int)length.Value));
+                    Assert.AreEqual(requestJson, Encoding.UTF8.GetString(buffer));
+                }
 
                 if (context == null) throw new InvalidOperationException();
 
                 await context.WriteContentAndCloseAsync(responseJson).ConfigureAwait(false);
             });
 
-            var clientAndResponse = await
-                server
-                .AbsoluteUrl
-                .WithRelativeUrl(
-                    new RelativeUrl("seg1/seg2")
-                    .WithQueryParamers(new { Id = 1 }))
-                .GetAsync<TestThing2>(new HeadersCollection(headerKey, headerValue));
+            var absoluteUrl = server
+                            .AbsoluteUrl
+                            .WithRelativeUrl(
+                                new RelativeUrl("seg1/seg2")
+                                .WithQueryParamers(new { Id = 1 }));
+
+            var clientAndResponse = httpRequestMethod switch
+            {
+                HttpRequestMethod.Get => await absoluteUrl.GetAsync<ResponseThing>(new HeadersCollection(headerKey, headerValue)),
+                HttpRequestMethod.Patch => await absoluteUrl.PatchAsync<ResponseThing, RequestThing>(requestThing, new HeadersCollection(headerKey, headerValue)),
+                HttpRequestMethod.Post => throw new NotImplementedException(),
+                HttpRequestMethod.Put => throw new NotImplementedException(),
+                HttpRequestMethod.Delete => throw new NotImplementedException(),
+                HttpRequestMethod.Custom => throw new NotImplementedException(),
+                _ => throw new NotImplementedException()
+            };
 
             // Assert
             Assert.IsNotNull(clientAndResponse.Response.Body);
-            Assert.AreEqual(testThing2.TestPropery1, clientAndResponse.Response.Body.TestPropery1);
-            Assert.AreEqual(testThing2.TestPropery2, clientAndResponse.Response.Body.TestPropery2);
+            Assert.AreEqual(responseThing.TestPropery1, clientAndResponse.Response.Body.TestPropery1);
+            Assert.AreEqual(responseThing.TestPropery2, clientAndResponse.Response.Body.TestPropery2);
             Assert.AreEqual((int)HttpStatusCode.OK, clientAndResponse.Response.StatusCode);
         }
     }
 
-    public class TestThing2
+    public class ResponseThing
     {
         public string TestPropery1 { get; set; } = "";
         public int TestPropery2 { get; set; }
+    }
+
+    public class RequestThing
+    {
+        public string TestPropery3 { get; set; } = "";
+        public int TestPropery4 { get; set; }
     }
 }
 

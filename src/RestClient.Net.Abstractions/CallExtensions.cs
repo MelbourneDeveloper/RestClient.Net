@@ -127,7 +127,7 @@ namespace RestClient.Net
 
         public static Task<Response<TResponseBody>> PatchAsync<TResponseBody, TRequestBody>(
             this IClient client,
-            TRequestBody requestBody,
+            TRequestBody? requestBody = default,
             RelativeUrl? resource = null,
             IHeadersCollection? requestHeaders = null,
             CancellationToken cancellationToken = default)
