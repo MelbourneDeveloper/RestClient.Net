@@ -2280,6 +2280,16 @@ namespace RestClient.Net.UnitTests
         }
         #endregion
 
+        #region Client Call Extensions
+        [TestMethod]
+        public async Task TestGetGood()
+        {
+            var clientAndResponse = await RestCountriesAllUriString.ToAbsoluteUrl().GetAsync<List<RestCountry>>();
+            var response = await clientAndResponse.Client.GetAsync<List<RestCountry>>();
+            Assert.IsNotNull(response.Body);
+        }
+        #endregion
+
         #endregion
 
         #region Helpers
