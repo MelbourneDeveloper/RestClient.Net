@@ -2281,6 +2281,7 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Client Call Extensions
+#if !NET45
         [TestMethod]
         public async Task TestGetGood()
         {
@@ -2288,6 +2289,7 @@ namespace RestClient.Net.UnitTests
             var response = await clientAndResponse.Client.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(response.Body);
         }
+#endif
         #endregion
 
         #endregion
