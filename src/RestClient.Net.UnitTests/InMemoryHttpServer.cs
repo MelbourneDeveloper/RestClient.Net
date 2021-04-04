@@ -13,7 +13,7 @@ namespace RestClient.Net.UnitTests
     public class InMemoryHttpServerTests
     {
         [TestMethod]
-        public async Task TestReturnsHtmlText()
+        public async Task TestGetFromUrl()
         {
             var testThing2 = new TestThing2 { TestPropery1 = "1", TestPropery2 = 2 };
             var responseJson = JsonConvert.SerializeObject(testThing2);
