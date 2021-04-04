@@ -1,0 +1,31 @@
+﻿using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading.Tasks;
+
+namespace Http.Server
+{
+    public static class ServerExtensions
+    {
+        public static Task ServeAsync(this HttpServer listener, Action<HttpListenerContext> action)
+        {
+            return Task.Run(() =>
+            {
+                var context = listener.listener.GetContext();
+                action(context);
+            });
+        }
+
+        public static string GetLocalhostAddress()
+        {
+            var listener = new TcpListener(IPAddress.Loopback, 0);
+            listener.Start();
+            var port = ((IPEndPoint)listener.LocalEndpoint).Port;
+            listener.Stop();
+
+            return $"http://localhost:{port}/";
+        }
+    }
+}
+
+
