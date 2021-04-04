@@ -8,7 +8,7 @@ The best .NET REST Client with task-based async, strong types, and dependency in
 
 ## 5.0.x [Alpha Release](https://www.nuget.org/packages/RestClient.NET/5.0.0-alpha)
 
-This page represents documentation for the alpha release. Please include pre-release when adding the NuGet packages. See the main branch for 4.x
+This page represents documentation for the alpha release. Please include pre-release when adding the NuGet packages. See the main branch for 4.x. There will be some breaking changes until the actual release.
 
 ### [Follow Me on Twitter for Updates](https://twitter.com/intent/follow?screen_name=cfdevelop&tw_p=followbutton) ##
 
