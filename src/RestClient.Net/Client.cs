@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-
+using Urls;
 
 namespace RestClient.Net
 {
@@ -63,18 +63,18 @@ namespace RestClient.Net
         /// <param name="throwExceptionOnFailure">Whether or not to throw an exception on non-successful http calls</param>
         public Client(
 #if NET45
-            ISerializationAdapter serializationAdapter,
+        ISerializationAdapter serializationAdapter,
 #else
-            ISerializationAdapter? serializationAdapter = null,
+        ISerializationAdapter? serializationAdapter = null,
 #endif
-            Uri? baseUri = null,
-            IHeadersCollection? defaultRequestHeaders = null,
-            ILogger<Client>? logger = null,
-            CreateHttpClient? createHttpClient = null,
-            ISendHttpRequestMessage? sendHttpRequest = null,
-            IGetHttpRequestMessage? getHttpRequestMessage = null,
-            bool throwExceptionOnFailure = true,
-            string? name = null)
+        AbsoluteUrl? baseUri = null,
+        IHeadersCollection? defaultRequestHeaders = null,
+        ILogger<Client>? logger = null,
+        CreateHttpClient? createHttpClient = null,
+        ISendHttpRequestMessage? sendHttpRequest = null,
+        IGetHttpRequestMessage? getHttpRequestMessage = null,
+        bool throwExceptionOnFailure = true,
+        string? name = null)
         {
             DefaultRequestHeaders = defaultRequestHeaders ?? NullHeadersCollection.Instance;
 
@@ -95,7 +95,7 @@ namespace RestClient.Net
 
             this.logger = (ILogger?)logger ?? NullLogger.Instance;
 
-            BaseUri = baseUri;
+            BaseUri = baseUri ?? AbsoluteUrl.Empty;
 
             Name = name ?? Guid.NewGuid().ToString();
 
@@ -117,7 +117,7 @@ namespace RestClient.Net
         /// <summary>
         /// Base Uri for the client. Any resources specified on requests will be relative to this.
         /// </summary>
-        public Uri? BaseUri { get; }
+        public AbsoluteUrl BaseUri { get; }
 
         /// <summary>
         /// Default headers to be sent with http requests

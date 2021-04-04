@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RestClient.Net.Abstractions;
 using RestClient.Net.Abstractions.Extensions;
+using Urls;
 
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 #pragma warning disable CS8603 // Possible null reference return.
@@ -127,7 +128,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestSendAsyncClient2() =>
     Assert.AreEqual("client", Assert.ThrowsException<ArgumentNullException>(() =>
-        _ = CallExtensions.SendAsync<string, string>(null, HttpRequestMethod.Delete, "Asd", new Uri("http://www.testing.com"))).ParamName);
+        _ = CallExtensions.SendAsync<string, string>(null, HttpRequestMethod.Delete, "Asd", new Uri("http://www.testing.com").ToAbsoluteUrl().RelativeUrl)).ParamName);
 
 
         [TestMethod]
@@ -180,11 +181,6 @@ namespace RestClient.Net.UnitTests
                 _ = new Request<string>(default, "asd", NullHeadersCollection.Instance, HttpRequestMethod.Get)).ParamName);
 
         [TestMethod]
-        public void TestRequestUri2() =>
-            Assert.ThrowsException<InvalidOperationException>(() =>
-                _ = new Request<string>(new Uri("Hi", UriKind.Relative), "asd", NullHeadersCollection.Instance, HttpRequestMethod.Get));
-
-        [TestMethod]
         public void TestAppendDefaultRequestHeadersheadersCollection() =>
             Assert.AreEqual("headersCollection", Assert.ThrowsException<ArgumentNullException>(() =>
                 _ = HeadersExtensions.AppendDefaultRequestHeaders(
@@ -197,7 +193,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestClientValidateHttpClientNull()
         {
-            using var client = new Client(new Mock<ISerializationAdapter>().Object, baseUri: new Uri("http://www.test.com"), createHttpClient: (n) => null);
+            using var client = new Client(new Mock<ISerializationAdapter>().Object, baseUri: new AbsoluteUrl("http://www.test.com"), createHttpClient: (n) => null);
             var exception = await Assert.ThrowsExceptionAsync<SendException>(() => client.GetAsync<string>());
             Assert.IsTrue(exception.InnerException is InvalidOperationException);
         }

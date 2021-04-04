@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Urls;
 
 namespace RestClient.Net.UnitTests
 {
@@ -44,7 +45,14 @@ namespace RestClient.Net.UnitTests
                 var httpRequestMessage = httpRequestMessageFunc.GetHttpRequestMessage(request, logger, serializationAdapter);
 
                 //On the third try change the Url to a the correct one
-                if (Tries == 2) httpRequestMessage.RequestUri = new Uri(MainUnitTests.LocalBaseUriString).Combine(new Uri("Person", UriKind.Relative));
+                if (Tries == 2)
+                {
+                    httpRequestMessage.RequestUri =
+                    new AbsoluteUrl(MainUnitTests.LocalBaseUriString)
+                    .WithRelativeUrl(new RelativeUrl("Person"))
+                    .ToUri();
+                }
+
                 Tries++;
                 return httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
             });
@@ -65,7 +73,7 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(
                 new ProtobufSerializationAdapter(),
-                new Uri(MainUnitTests.LocalBaseUriString),
+                new(MainUnitTests.LocalBaseUriString),
                 logger: null,
                 createHttpClient: MainUnitTests.GetTestClientFactory().CreateClient,
                 sendHttpRequest: sendHttpRequestFunc,
@@ -74,7 +82,7 @@ namespace RestClient.Net.UnitTests
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
 
             //Note the Uri here is deliberately incorrect. It will cause a 404 Not found response. This is to make sure that polly is working
-            person = await client.PostAsync<Person, Person>(person, new Uri("person2", UriKind.Relative));
+            person = await client.PostAsync<Person, Person>(person, new("person2"));
             Assert.AreEqual("Bob", person.FirstName);
             Assert.AreEqual(3, sendHttpRequestFunc.Tries);
         }
@@ -91,7 +99,6 @@ namespace RestClient.Net.UnitTests
 
             //Create a Microsoft IoC Container
             var serviceCollection = new ServiceCollection();
-            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
             _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
             .AddLogging()
             //Add the Polly policy to the named HttpClient instance
@@ -106,7 +113,7 @@ namespace RestClient.Net.UnitTests
             var clientFactory = serviceProvider.GetRequiredService<CreateClient>();
 
             //Create a Rest Client that will get the HttpClient by the name of rc
-            var client = clientFactory("rc", baseUri);
+            var client = clientFactory("rc", new("https://restcountries.eu/rest/v2/"));
 
             //Make the call
             _ = await client.GetAsync<List<RestCountry>>();

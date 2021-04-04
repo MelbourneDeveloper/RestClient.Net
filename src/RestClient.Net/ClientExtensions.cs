@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 using RestClient.Net.Abstractions.Extensions;
 using System;
+using Urls;
 
 namespace RestClient.Net
 {
@@ -15,7 +16,7 @@ namespace RestClient.Net
         /// <summary>
         /// Clones the client With a change
         /// </summary>
-        public static Client With(this Client client, Uri baseUri)
+        public static Client With(this Client client, AbsoluteUrl baseUri)
         =>
             client != null ? new Client(
             client.SerializationAdapter,

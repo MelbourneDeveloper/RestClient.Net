@@ -1,11 +1,10 @@
 ﻿
-using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RestClient.Net.Abstractions;
 using RestClientApiSamples;
-using System;
 using System.Threading.Tasks;
+using Urls;
 
 namespace RestClient.Net.UnitTests
 {
@@ -15,7 +14,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestPersonService()
         {
-            var uri = new Uri("http://www.asdasd.com");
+            var uri = new AbsoluteUrl("http://www.asdasd.com");
 
             //Create a Person object to be sent as the Request
             var requestPerson = new Person { FirstName = "TestGuy", PersonKey = "" };
@@ -45,7 +44,7 @@ namespace RestClient.Net.UnitTests
             _ = clientMock.Setup(c => c.SendAsync<Person, Person>(It.IsAny<IRequest<Person>>())).Returns(Task.FromResult(result));
 
 #pragma warning disable CS8603 // Possible null reference return.
-            _ = clientMock.Setup<Uri>(c => c.BaseUri).Returns(uri);
+            _ = clientMock.Setup<AbsoluteUrl>(c => c.BaseUri).Returns(uri);
 #pragma warning restore CS8603 // Possible null reference return.
 
             _ = serializationAdapterMock.Setup(c => c.Deserialize<Person>(It.IsAny<byte[]>(), It.IsAny<IHeadersCollection>())).Returns(responsePerson);
