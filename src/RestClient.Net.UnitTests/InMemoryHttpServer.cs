@@ -1,6 +1,5 @@
 ﻿using Http.Server;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -21,9 +20,7 @@ namespace RestClient.Net.UnitTests
 
             var task = server.ServeAsync(async (context) =>
             {
-                var writer = new StreamWriter(context.Response.OutputStream);
-                await writer.WriteAsync(outputHtml).ConfigureAwait(false);
-                writer.Close();
+                await context.WriteContentAsync(outputHtml).ConfigureAwait(false);
             });
 
 

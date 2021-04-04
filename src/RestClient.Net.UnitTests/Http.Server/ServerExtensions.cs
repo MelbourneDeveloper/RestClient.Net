@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -25,6 +26,14 @@ namespace Http.Server
             listener.Stop();
 
             return $"http://localhost:{port}/".ToAbsoluteUrl();
+        }
+
+        public static async Task WriteContentAsync(this HttpListenerContext context, string outputHtml)
+        {
+            if (context == null) throw new ArgumentNullException(nameof(context));
+            var writer = new StreamWriter(context.Response.OutputStream);
+            await writer.WriteAsync(outputHtml).ConfigureAwait(false);
+            writer.Close();
         }
     }
 }
