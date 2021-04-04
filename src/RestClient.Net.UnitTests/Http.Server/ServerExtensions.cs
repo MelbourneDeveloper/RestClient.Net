@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using Urls;
 
 namespace Http.Server
 {
@@ -16,14 +17,14 @@ namespace Http.Server
            });
         }
 
-        public static string GetLocalhostAddress()
+        public static AbsoluteUrl GetLocalhostAddress()
         {
             var listener = new TcpListener(IPAddress.Loopback, 0);
             listener.Start();
             var port = ((IPEndPoint)listener.LocalEndpoint).Port;
             listener.Stop();
 
-            return $"http://localhost:{port}/";
+            return $"http://localhost:{port}/".ToAbsoluteUrl();
         }
     }
 }

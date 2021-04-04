@@ -1,10 +1,10 @@
 ﻿using Http.Server;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Urls;
 
 namespace RestClient.Net.UnitTests
 {
@@ -27,7 +27,7 @@ namespace RestClient.Net.UnitTests
             });
 
 
-            using var myhttpclient = new HttpClient() { BaseAddress = new Uri(url) };
+            using var myhttpclient = new HttpClient() { BaseAddress = url.ToUri() };
 
             // Act
             using var request = new HttpRequestMessage();
@@ -40,7 +40,6 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(outputHtml, content);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
-            await task;
         }
     }
 }

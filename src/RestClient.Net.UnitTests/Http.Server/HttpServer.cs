@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
+using Urls;
 
-#pragma warning disable CA1054 // URI-like parameters should not be strings
 #pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
 #pragma warning disable CA1063 // Implement IDisposable Correctly
 
@@ -13,9 +13,11 @@ namespace Http.Server
     {
         internal readonly HttpListener listener = new();
 
-        public HttpServer(string url)
+        public HttpServer(AbsoluteUrl url)
         {
-            listener.Prefixes.Add(url);
+            if (url == null) throw new ArgumentNullException(nameof(url));
+
+            listener.Prefixes.Add(url.ToString() + "/");
             listener.Start();
         }
 
