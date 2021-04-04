@@ -7,13 +7,13 @@ namespace Http.Server
 {
     public static class ServerExtensions
     {
-        public static Task ServeAsync(this HttpServer listener, Action<HttpListenerContext> action)
+        public static Task ServeAsync(this HttpServer listener, Func<HttpListenerContext, Task> func)
         {
-            return Task.Run(() =>
-            {
-                var context = listener.listener.GetContext();
-                action(context);
-            });
+            return Task.Run<Task>(() =>
+           {
+               var context = listener.listener.GetContext();
+               return func(context);
+           });
         }
 
         public static string GetLocalhostAddress()

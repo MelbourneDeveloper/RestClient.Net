@@ -19,10 +19,10 @@ namespace RestClient.Net.UnitTests
 
             using var server = new HttpServer(url);
 
-            var task = server.ServeAsync((context) =>
+            var task = server.ServeAsync(async (context) =>
             {
                 var writer = new StreamWriter(context.Response.OutputStream);
-                writer.Write(outputHtml);
+                await writer.WriteAsync(outputHtml).ConfigureAwait(false);
                 writer.Close();
             });
 
@@ -41,8 +41,6 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
             await task;
-
         }
-
     }
 }
