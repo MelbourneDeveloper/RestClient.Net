@@ -24,6 +24,18 @@ This page represents documentation for the alpha release. Please include pre-rel
 
 ### Examples
 
+#### POST an Object and get Response
+
+```cs
+using var client =
+    //Build the Url from the host name
+    new Client(baseUri: "jsonplaceholder.typicode.com".ToHttpsUriFromHost());
+
+UserPost userPost = await client.PostAsync<UserPost, UserPost>(
+    //POST the UserPost to the server
+    new UserPost { title = "Title" }, "posts"
+    );
+```
 
 #### Make Call and Construct Client
 
