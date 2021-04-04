@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Urls;
 
 namespace RestClient.Net.UnitTests
 {
@@ -14,17 +13,10 @@ namespace RestClient.Net.UnitTests
         public async Task TestReturnsHtmlText()
         {
             var outputHtml = "Hi";
-            var url = ServerExtensions.GetLocalhostAddress();
 
-            using var server = new HttpServer(url);
+            using var server = ServerExtensions.GetLocalhostAddress().GetSingleRequestServer("Hi");
 
-            var task = server.ServeAsync(async (context) =>
-            {
-                await context.WriteContentAsync(outputHtml).ConfigureAwait(false);
-            });
-
-
-            using var myhttpclient = new HttpClient() { BaseAddress = url.ToUri() };
+            using var myhttpclient = new HttpClient() { BaseAddress = server.AbsoluteUrl };
 
             // Act
             using var request = new HttpRequestMessage();

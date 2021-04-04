@@ -1,9 +1,11 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading.Tasks;
 using Urls;
+
+#pragma warning disable CA1835 // Prefer the 'Memory'-based overloads for 'ReadAsync' and 'WriteAsync'
 
 namespace Http.Server
 {
@@ -28,12 +30,31 @@ namespace Http.Server
             return $"http://localhost:{port}/".ToAbsoluteUrl();
         }
 
-        public static async Task WriteContentAsync(this HttpListenerContext context, string outputHtml)
+        public static Task WriteContentAndCloseAsync(this HttpListenerContext context, string responseContent)
+            => responseContent == null
+                ? throw new ArgumentNullException(nameof(responseContent))
+                : WriteContentAndCloseAsync(context, Encoding.UTF8.GetBytes(responseContent));
+
+
+        public static async Task WriteContentAndCloseAsync(this HttpListenerContext context, byte[] responseContent)
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
-            var writer = new StreamWriter(context.Response.OutputStream);
-            await writer.WriteAsync(outputHtml).ConfigureAwait(false);
-            writer.Close();
+            if (responseContent == null) throw new ArgumentNullException(nameof(responseContent));
+
+            await context.Response.OutputStream.WriteAsync(responseContent, 0, responseContent.Length).ConfigureAwait(false);
+            context.Response.OutputStream.Close();
+        }
+
+        public static HttpServer GetSingleRequestServer(this AbsoluteUrl url, string responseContent)
+        {
+            var server = new HttpServer(url);
+
+            var task = server.ServeAsync(async (context) =>
+            {
+                await context.WriteContentAndCloseAsync(responseContent).ConfigureAwait(false);
+            });
+
+            return server;
         }
     }
 }

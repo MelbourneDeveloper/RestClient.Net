@@ -13,9 +13,11 @@ namespace Http.Server
     {
         internal readonly HttpListener listener = new();
 
+        public AbsoluteUrl AbsoluteUrl { get; }
+
         public HttpServer(AbsoluteUrl url)
         {
-            if (url == null) throw new ArgumentNullException(nameof(url));
+            AbsoluteUrl = url ?? throw new ArgumentNullException(nameof(url));
 
             listener.Prefixes.Add(url.ToString() + "/");
             listener.Start();
