@@ -24,6 +24,8 @@ This page represents documentation for the alpha release. Please include pre-rel
 
 ### Examples
 
+For a full set of examples see these [unit tests](https://github.com/MelbourneDeveloper/RestClient.Net/blob/3574038f02a83a299f9536b71c7f839ae72e0e08/src/RestClient.Net.UnitTests/MainUnitTests.cs#L279).
+
 #### POST an Object and get Response
 
 ```cs
