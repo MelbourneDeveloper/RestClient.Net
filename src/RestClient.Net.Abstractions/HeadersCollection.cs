@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace RestClient.Net.Abstractions
@@ -11,6 +12,16 @@ namespace RestClient.Net.Abstractions
         #endregion
 
         public HeadersCollection(IDictionary<string, IEnumerable<string>> dictionary) => this.dictionary = dictionary;
+
+        public HeadersCollection(string key, string value) : this(ImmutableDictionary.CreateRange(
+                    new List<KeyValuePair<string, IEnumerable<string>>>
+                    {
+                        new(key, ImmutableList.Create(value))
+                    }
+                    ))
+        {
+        }
+
 
         #region Public Properties
         IEnumerable<string> IHeadersCollection.this[string name] => dictionary[name];
