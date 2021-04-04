@@ -2,80 +2,25 @@
 
 # .NET REST Client Framework for all platforms #
 
+## 5.0.x [Alpha Release](https://www.nuget.org/packages/RestClient.NET/5.0.0-alpha)
+
+This page represents documentation for the alpha release. Please include pre-release when adding the NuGet packages. See the main branch for 4.x
+
 ## [Follow Me on Twitter for Updates](https://twitter.com/intent/follow?screen_name=cfdevelop&tw_p=followbutton) ##
 
 The best .NET REST Client with task-based async, strong types and dependency injection on all platforms. Consume your ASP .NET Core Web APIs or consume RESTful APIs over the internet in C# or Visual Basic.
 
 [![.NET](https://github.com/MelbourneDeveloper/RestClient.Net/actions/workflows/dotnet.yml/badge.svg?branch=5%2Fdevelop)](https://github.com/MelbourneDeveloper/RestClient.Net/actions/workflows/dotnet.yml)
 
-**[Documentation Here](https://github.com/MelbourneDeveloper/RestClient.Net/wiki)**
-
-### Announcement ###
-
-**Version 4.0.0 has been released!**
-
-Check out the [features and fixes](https://github.com/MelbourneDeveloper/RestClient.Net/projects/3). There are some breaking changes. `IHttpClientFactory` and `IClientFactory` have been converted to delegates to save on boilerplate code.
-
-Check out blog posts here https://christianfindlay.com/
-
 ### Why You Should Use It ###
 
-* It's fast! [Initial tests](https://codereview.stackexchange.com/questions/235804/c-rest-client-benchmarking) show that it is faster than RestSharp and is one of the faster .NET Rest Clients available.
-* Designed for Dependency Injection, Unit Testing and use with IoC Containers
-* Async friendly. All operations use async, await keywords.
-* Integrates with [Polly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Integration-With-Polly) resilience and transient-fault-handling
-* Automatic serialization with any method (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers))
-* Installation from NuGet is easy on any platform
-* Uses strong types with content body
-* Supports [WebAssembly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Web-Assembly-Support), Android, iOS, Windows 10, .NET Framework 4.5+, .NET Core (.NET Standard 2.0)
-* Supports GET, POST, PUT, PATCH, DELETE with ability to use less common HTTP methods
-
-These features together make this the best C# REST client and the best alternative to RestSharp. Consuming REST APIs is simple and encourages best practice.
-
-## [Quick Start & Samples](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Quick-Start-&-Samples)
-
-See [documentation](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Quick-Start-&-Samples) for more examples.
-
-NuGet: Install-Package RestClient.NET
-
-Please read [this article](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-(ISerializationAdapter)#newtonsoft) about Serialization and Deserialization.
-
-### [Get](https://github.com/MelbourneDeveloper/RestClient.Net/blob/13c95c615400d39523c02e803b46a564ff4c91db/RestClient.Net.UnitTests/UnitTests.cs#L81)
-
-With [Newtonsoft serialization](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-With-ISerializationAdapter#newtonsoft)
-
-```cs
-var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://restcountries.eu/rest/v2/"));
-var response = await client.GetAsync<List<RestCountry>>();
-```
-
-With [default serialization on .NET Core](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-With-ISerializationAdapter#default-json-serialization-adapter)
-```cs
-var client = new Client(new Uri("https://restcountries.eu/rest/v2/"));
-var response = await client.GetAsync<List<RestCountry>>();
-```
-
-### Post / Put / Patch
-
-[**Protocol Buffers**](https://github.com/MelbourneDeveloper/RestClient.Net/blob/80d19ebc599027e2c68acb06a4e1f853683c3517/RestClient.Net.Samples/RestClient.Net.CoreSample/Program.cs#L25) (Binary)
-```cs
-var person = new Person { FirstName = "Bob", Surname = "Smith" };
-var client = new Client(new ProtobufSerializationAdapter(), new Uri("http://localhost:42908/person"));
-person = await client.PostAsync<Person, Person>(person);
-```
-
-[**JSON**](https://github.com/MelbourneDeveloper/RestClient.Net/blob/236a454232455aa3dc0cea230e991329288c153d/RestClient.Net.Samples/RestClient.NET.Samples/MainPage.xaml.cs#L233)
-```cs
-var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-client.SetJsonContentTypeHeader();
-UserPost userPost = await client.PostAsync<UserPost, UserPost>(new UserPost { title = "Title" }, "/posts");
-```
-
-### [Delete](https://github.com/MelbourneDeveloper/RestClient.Net/blob/f7f4f88b90c6b0014530891d094d958193776a52/RestClient.Net.UnitTests/UnitTests.cs#L94)
-```cs
-var client = new Client(new NewtonsoftSerializationAdapter(), new Uri("https://jsonplaceholder.typicode.com"));
-await client.DeleteAsync("posts/1");
-```
+* Treats Urls as first class citizens. Urls are immutable [records](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/records) and have a fluent API for construction.
+* Designed for Dependency Injection. Mock your REST calls and add RestClient.Net to your IoC container with one line of code
+* Async friendly. All operations use async, await keywords
+* Automatic request/response body serialization to/from strong types (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers))
+* Install from NuGet on any platform from .NET Framework 4.5 up to .NET 5. Supports Xamarin (Mono, iOS, Android), UWP, [WebAssembly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Web-Assembly-Support) and Unity with .NET Standard 2.0
+* Supports GET, POST, PUT, PATCH, DELETE with ability and custom methods
+* Tight code (around 350 lines) means you can make a change if you need to
 
 ## Donate
 
@@ -86,4 +31,4 @@ await client.DeleteAsync("posts/1");
 
 ## [Contribution](https://github.com/MelbourneDeveloper/RestClient.Net/blob/master/CONTRIBUTING.md)
 
-Please log any issues or feedback in the issues section. For pull requests, please see the contribution guide.
+
