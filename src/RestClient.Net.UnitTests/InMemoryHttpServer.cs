@@ -3,9 +3,10 @@
 using Http.Server;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using System;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
+using Urls;
 
 namespace RestClient.Net.UnitTests
 {
@@ -22,10 +23,22 @@ namespace RestClient.Net.UnitTests
                 .GetLocalhostAddress()
                 .GetSingleRequestServer(async (context) =>
             {
+                Assert.AreEqual("seg1/", context?.Request?.Url?.Segments?[1]);
+                Assert.AreEqual("seg2", context?.Request?.Url?.Segments?[2]);
+                Assert.AreEqual("?Id=1", context?.Request?.Url?.Query);
+
+                if (context == null) throw new InvalidOperationException();
+
                 await context.WriteContentAndCloseAsync(responseJson).ConfigureAwait(false);
             });
 
-            var clientAndResponse = await server.AbsoluteUrl.GetAsync<TestThing2>();
+            var clientAndResponse = await
+                server
+                .AbsoluteUrl
+                .WithRelativeUrl(
+                    new RelativeUrl("seg1/seg2")
+                    .WithQueryParamers(new { Id = 1 }))
+                .GetAsync<TestThing2>();
 
             // Assert
             Assert.IsNotNull(clientAndResponse.Response.Body);
