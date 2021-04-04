@@ -14,7 +14,10 @@ namespace RestClient.Net.UnitTests
         {
             var outputHtml = "Hi";
 
-            using var server = ServerExtensions.GetLocalhostAddress().GetSingleRequestServer("Hi");
+            using var server = ServerExtensions.GetLocalhostAddress().GetSingleRequestServer(async (context) =>
+            {
+                await context.WriteContentAndCloseAsync(outputHtml).ConfigureAwait(false);
+            });
 
             using var myhttpclient = new HttpClient() { BaseAddress = server.AbsoluteUrl };
 

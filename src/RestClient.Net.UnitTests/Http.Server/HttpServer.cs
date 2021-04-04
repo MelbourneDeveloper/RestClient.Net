@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Threading.Tasks;
 using Urls;
 
 #pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
@@ -12,15 +13,19 @@ namespace Http.Server
     public class HttpServer : IDisposable
     {
         internal readonly HttpListener listener = new();
-
+        internal readonly Func<HttpListenerContext, Task> func;
         public AbsoluteUrl AbsoluteUrl { get; }
 
-        public HttpServer(AbsoluteUrl url)
+        public HttpServer(AbsoluteUrl url, Func<HttpListenerContext, Task> func)
         {
             AbsoluteUrl = url ?? throw new ArgumentNullException(nameof(url));
+            this.func = func ?? throw new ArgumentNullException(nameof(func));
 
             listener.Prefixes.Add(url.ToString() + "/");
             listener.Start();
+
+            _ = Task.Run(() =>
+               func(listener.GetContext()));
         }
 
         public void Dispose()

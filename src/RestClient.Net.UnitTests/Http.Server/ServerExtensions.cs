@@ -45,17 +45,15 @@ namespace Http.Server
             context.Response.OutputStream.Close();
         }
 
-        public static HttpServer GetSingleRequestServer(this AbsoluteUrl url, string responseContent)
-        {
-            var server = new HttpServer(url);
+        public static HttpServer GetSingleRequestServer(this AbsoluteUrl url, Func<HttpListenerContext, Task> func) => new(url, func);
 
-            var task = server.ServeAsync(async (context) =>
+        public static HttpServer GetSingleRequestServer(this AbsoluteUrl url, string responseContent)
+            =>
+            GetSingleRequestServer(url, async (context) =>
             {
                 await context.WriteContentAndCloseAsync(responseContent).ConfigureAwait(false);
             });
 
-            return server;
-        }
     }
 }
 
