@@ -18,6 +18,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         [DataRow(HttpRequestMethod.Get, false)]
         [DataRow(HttpRequestMethod.Patch, true)]
+        [DataRow(HttpRequestMethod.Post, true)]
         public async Task TestGetFromUrl(HttpRequestMethod httpRequestMethod, bool hasRequestBody)
         {
             var responseThing = new ResponseThing { TestPropery1 = "1", TestPropery2 = 2 };
@@ -60,7 +61,7 @@ namespace RestClient.Net.UnitTests
             {
                 HttpRequestMethod.Get => await absoluteUrl.GetAsync<ResponseThing>(new HeadersCollection(headerKey, headerValue)),
                 HttpRequestMethod.Patch => await absoluteUrl.PatchAsync<ResponseThing, RequestThing>(requestThing, new HeadersCollection(headerKey, headerValue)),
-                HttpRequestMethod.Post => throw new NotImplementedException(),
+                HttpRequestMethod.Post => await absoluteUrl.PostAsync<ResponseThing, RequestThing>(requestThing, new HeadersCollection(headerKey, headerValue)),
                 HttpRequestMethod.Put => throw new NotImplementedException(),
                 HttpRequestMethod.Delete => throw new NotImplementedException(),
                 HttpRequestMethod.Custom => throw new NotImplementedException(),
@@ -72,6 +73,7 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(responseThing.TestPropery1, clientAndResponse.Response.Body.TestPropery1);
             Assert.AreEqual(responseThing.TestPropery2, clientAndResponse.Response.Body.TestPropery2);
             Assert.AreEqual((int)HttpStatusCode.OK, clientAndResponse.Response.StatusCode);
+            Assert.AreEqual(httpRequestMethod, clientAndResponse.Response.HttpRequestMethod);
         }
     }
 
