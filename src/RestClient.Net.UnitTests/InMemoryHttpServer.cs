@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Urls;
 
+#pragma warning disable IDE0072 // Add missing cases
+
 namespace RestClient.Net.UnitTests
 {
     [TestClass]
@@ -19,6 +21,8 @@ namespace RestClient.Net.UnitTests
         [DataRow(HttpRequestMethod.Get, false)]
         [DataRow(HttpRequestMethod.Patch, true)]
         [DataRow(HttpRequestMethod.Post, true)]
+        [DataRow(HttpRequestMethod.Put, true)]
+        [DataRow(HttpRequestMethod.Delete, false)]
         public async Task TestGetFromUrl(HttpRequestMethod httpRequestMethod, bool hasRequestBody)
         {
             var responseThing = new ResponseThing { TestPropery1 = "1", TestPropery2 = 2 };
@@ -57,23 +61,32 @@ namespace RestClient.Net.UnitTests
                                 new RelativeUrl("seg1/seg2")
                                 .WithQueryParamers(new { Id = 1 }));
 
-            var clientAndResponse = httpRequestMethod switch
+            if (httpRequestMethod == HttpRequestMethod.Delete)
             {
-                HttpRequestMethod.Get => await absoluteUrl.GetAsync<ResponseThing>(new HeadersCollection(headerKey, headerValue)),
-                HttpRequestMethod.Patch => await absoluteUrl.PatchAsync<ResponseThing, RequestThing>(requestThing, new HeadersCollection(headerKey, headerValue)),
-                HttpRequestMethod.Post => await absoluteUrl.PostAsync<ResponseThing, RequestThing>(requestThing, new HeadersCollection(headerKey, headerValue)),
-                HttpRequestMethod.Put => await absoluteUrl.PutAsync<ResponseThing, RequestThing>(requestThing, new HeadersCollection(headerKey, headerValue)),
-                HttpRequestMethod.Delete => throw new NotImplementedException(),
-                HttpRequestMethod.Custom => throw new NotImplementedException(),
-                _ => throw new NotImplementedException()
-            };
+                var clientAndResponse = await absoluteUrl.DeleteAsync(new HeadersCollection(headerKey, headerValue));
+                Assert.AreEqual((int)HttpStatusCode.OK, clientAndResponse.Response.StatusCode);
+                Assert.AreEqual(httpRequestMethod, clientAndResponse.Response.HttpRequestMethod);
+            }
+            else
+            {
+                var clientAndResponse = httpRequestMethod switch
+                {
+                    HttpRequestMethod.Get => await absoluteUrl.GetAsync<ResponseThing>(new HeadersCollection(headerKey, headerValue)),
+                    HttpRequestMethod.Patch => await absoluteUrl.PatchAsync<ResponseThing, RequestThing>(requestThing, new HeadersCollection(headerKey, headerValue)),
+                    HttpRequestMethod.Post => await absoluteUrl.PostAsync<ResponseThing, RequestThing>(requestThing, new HeadersCollection(headerKey, headerValue)),
+                    HttpRequestMethod.Put => await absoluteUrl.PutAsync<ResponseThing, RequestThing>(requestThing, new HeadersCollection(headerKey, headerValue)),
+                    HttpRequestMethod.Custom => throw new NotImplementedException(),
+                    _ => throw new NotImplementedException()
+                };
 
-            // Assert
-            Assert.IsNotNull(clientAndResponse.Response.Body);
-            Assert.AreEqual(responseThing.TestPropery1, clientAndResponse.Response.Body.TestPropery1);
-            Assert.AreEqual(responseThing.TestPropery2, clientAndResponse.Response.Body.TestPropery2);
-            Assert.AreEqual((int)HttpStatusCode.OK, clientAndResponse.Response.StatusCode);
-            Assert.AreEqual(httpRequestMethod, clientAndResponse.Response.HttpRequestMethod);
+                // Assert
+                Assert.IsNotNull(clientAndResponse.Response.Body);
+                Assert.AreEqual(responseThing.TestPropery1, clientAndResponse.Response.Body.TestPropery1);
+                Assert.AreEqual(responseThing.TestPropery2, clientAndResponse.Response.Body.TestPropery2);
+                Assert.AreEqual((int)HttpStatusCode.OK, clientAndResponse.Response.StatusCode);
+                Assert.AreEqual(httpRequestMethod, clientAndResponse.Response.HttpRequestMethod);
+            }
+
         }
     }
 
