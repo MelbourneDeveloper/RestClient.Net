@@ -62,7 +62,7 @@ namespace RestClient.Net.UnitTests
                 HttpRequestMethod.Get => await absoluteUrl.GetAsync<ResponseThing>(new HeadersCollection(headerKey, headerValue)),
                 HttpRequestMethod.Patch => await absoluteUrl.PatchAsync<ResponseThing, RequestThing>(requestThing, new HeadersCollection(headerKey, headerValue)),
                 HttpRequestMethod.Post => await absoluteUrl.PostAsync<ResponseThing, RequestThing>(requestThing, new HeadersCollection(headerKey, headerValue)),
-                HttpRequestMethod.Put => throw new NotImplementedException(),
+                HttpRequestMethod.Put => await absoluteUrl.PutAsync<ResponseThing, RequestThing>(requestThing, new HeadersCollection(headerKey, headerValue)),
                 HttpRequestMethod.Delete => throw new NotImplementedException(),
                 HttpRequestMethod.Custom => throw new NotImplementedException(),
                 _ => throw new NotImplementedException()

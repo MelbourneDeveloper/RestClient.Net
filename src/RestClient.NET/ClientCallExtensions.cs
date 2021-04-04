@@ -59,6 +59,23 @@ namespace RestClient.Net
             return (client, response);
         }
 
+        public static async Task<(IClient Client, Response<TResponseBody> Response)> PutAsync<TResponseBody, TRequestBody>(
+            this AbsoluteUrl url,
+            TRequestBody? requestBody = default,
+            IHeadersCollection? headersCollection = null,
+            CancellationToken cancellationToken = default)
+        {
+            if (url == null) throw new ArgumentNullException(nameof(url));
+            var client = new Client(baseUri: url.WithRelativeUrl(RelativeUrl.Empty));
+            var response = await client.PutAsync<TResponseBody, TRequestBody>(
+                requestBody,
+                url.RelativeUrl,
+                headersCollection,
+                cancellationToken)
+                .ConfigureAwait(false) ?? throw new InvalidOperationException("The response was null");
+            return (client, response);
+        }
+
     }
 }
 
