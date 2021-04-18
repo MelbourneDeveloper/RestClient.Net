@@ -14,7 +14,7 @@ This page represents documentation for the alpha release. Please include pre-rel
 
 ### Why You Should Use It ###
 
-* Treats Urls as first-class citizens. URLs are immutable [records](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/records) and have a fluent API for construction.
+* Treats Urls as first-class citizens with [Urls](https://github.com/MelbourneDeveloper/Urls). URLs are immutable [records](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/records) and have a fluent API for construction.
 * Designed for Dependency Injection. Mock your REST calls and add RestClient.Net to your IoC container with one line of code
 * Async friendly. All operations use async, await keywords
 * Automatic request/response body serialization to/from strong types (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers))
