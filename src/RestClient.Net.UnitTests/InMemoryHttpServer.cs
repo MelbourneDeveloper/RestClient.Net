@@ -59,7 +59,7 @@ namespace RestClient.Net.UnitTests
                             .AbsoluteUrl
                             .WithRelativeUrl(
                                 new RelativeUrl("seg1/seg2")
-                                .WithQueryParamers(new { Id = 1 }));
+                                .WithQueryParameters(new { Id = 1 }));
 
             if (httpRequestMethod == HttpRequestMethod.Delete)
             {
