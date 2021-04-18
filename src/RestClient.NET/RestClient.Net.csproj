@@ -10,6 +10,9 @@
 			www.rest-client.net
 		</Description>
 		<NoWarn>CA2007</NoWarn>
+		<AssemblyVersion>5.0.1.0</AssemblyVersion>
+		<FileVersion>5.0.1.0</FileVersion>
+		<Version>5.0.1-alpha</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
