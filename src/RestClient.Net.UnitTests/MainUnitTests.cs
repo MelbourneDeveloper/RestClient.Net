@@ -311,7 +311,7 @@ namespace RestClient.Net.UnitTests
         {
             var headers = new HeadersCollection(new Dictionary<string, IEnumerable<string>>());
 
-            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: GetCreateHttpClient());
+            using var client = new Client(RestCountriesAllUri, createHttpClient: GetCreateHttpClient());
 
             var parameters = new object();
 
@@ -342,7 +342,7 @@ namespace RestClient.Net.UnitTests
             var testDefaultKvp = new KeyValuePair<string, IEnumerable<string>>("default", new List<string> { "test", "test2" });
 
 
-            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: createHttpClient, defaultRequestHeaders: testDefaultKvp.CreateHeadersCollection());
+            using var client = new Client(RestCountriesAllUri, createHttpClient: createHttpClient, defaultRequestHeaders: testDefaultKvp.CreateHeadersCollection());
 
 
             //Act
@@ -370,7 +370,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetDefaultSerializationRestCountries()
         {
-            using var client = new Client(baseUri: RestCountriesAllUri, createHttpClient: GetCreateHttpClient());
+            using var client = new Client(RestCountriesAllUri, createHttpClient: GetCreateHttpClient());
             List<RestCountry> countries = await client.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
@@ -380,7 +380,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestGetDefaultSerializationRestCountriesAsJson()
         {
             using var client = new Client(
-                baseUri: RestCountriesAustraliaUri,
+                RestCountriesAustraliaUri,
                 createHttpClient: GetCreateHttpClient());
             var json = await client.GetAsync<string>();
 
@@ -1901,7 +1901,7 @@ namespace RestClient.Net.UnitTests
 
             var httpClient = mockHttpMessageHandler.ToHttpClient();
 
-            using var client = new Client(baseUri: new("http://www.test.com/test"), createHttpClient: (n) => httpClient);
+            using var client = new Client(new AbsoluteUrl("http://www.test.com/test"), createHttpClient: (n) => httpClient);
 
             //Act
             var response = await client.GetAsync<string>(client.BaseUri.AppendPath("test"));
