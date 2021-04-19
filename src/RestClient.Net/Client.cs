@@ -18,7 +18,7 @@ namespace RestClient.Net
     /// <summary>
     /// Rest client implementation using Microsoft's HttpClient class. 
     /// </summary>
-    public sealed class Client : IClient, IDisposable
+    public sealed record Client : IClient, IDisposable
     {
         #region Internal Fields
 
