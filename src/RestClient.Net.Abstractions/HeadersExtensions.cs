@@ -137,6 +137,8 @@ namespace RestClient.Net.Abstractions.Extensions
         public static IHeadersCollection WithJsonContentTypeHeader(this IHeadersCollection? requestHeaders)
         => WithHeaderValue(requestHeaders, ContentTypeHeaderName, JsonMediaType);
 
+        public static IHeadersCollection JsonContentTypeHeaders { get; } = new HeadersCollection(ContentTypeHeaderName, JsonMediaType);
+
         #endregion Public Methods
 
     }
