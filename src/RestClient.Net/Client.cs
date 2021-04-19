@@ -51,6 +51,54 @@ namespace RestClient.Net
         #endregion Private Fields
 
         #region Public Constructors
+        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies. Defaults to JSON and adds the default Content-Type header for JSON on platforms later than .NET Framework 4.5</param>
+        /// <param name="name">The of the client instance. This is also passed to the HttpClient factory to get or create HttpClient instances</param>
+        /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only. This should be an absolute Uri</param>
+        /// <param name="defaultRequestHeaders">Default headers to be sent with http requests</param>
+        /// <param name="logger">Logging abstraction that will trace request/response data and log events</param>
+        /// <param name="createHttpClient">The delegate that is used for getting or creating HttpClient instances when the SendAsync call is made</param>
+        /// <param name="sendHttpRequest">The service responsible for performing the SendAsync method on HttpClient. This can replaced in the constructor in order to implement retries and so on.</param>
+        /// <param name="getHttpRequestMessage">Service responsible for converting rest requests to http requests</param>
+        /// <param name="timeout">Amount of time a request should wait before timing out</param>
+        /// <param name="throwExceptionOnFailure">Whether or not to throw an exception on non-successful http calls</param>
+        public Client(
+#pragma warning disable CA1054 // URI-like parameters should not be strings
+        string baseUrl,
+#pragma warning restore CA1054 // URI-like parameters should not be strings
+#if NET45
+        ISerializationAdapter serializationAdapter,
+#else
+        ISerializationAdapter? serializationAdapter = null,
+#endif
+        IHeadersCollection? defaultRequestHeaders = null,
+        ILogger<Client>? logger = null,
+        CreateHttpClient? createHttpClient = null,
+        ISendHttpRequestMessage? sendHttpRequest = null,
+        IGetHttpRequestMessage? getHttpRequestMessage = null,
+        bool throwExceptionOnFailure = true,
+        string? name = null) : this(
+            serializationAdapter,
+            baseUrl.ToAbsoluteUrl(),
+            defaultRequestHeaders,
+            logger,
+            createHttpClient,
+            sendHttpRequest,
+            getHttpRequestMessage,
+            throwExceptionOnFailure,
+            name)
+        {
+        }
+
+        /// <param name="serializationAdapter">The serialization adapter for serializing/deserializing http content bodies. Defaults to JSON and adds the default Content-Type header for JSON on platforms later than .NET Framework 4.5</param>
+        /// <param name="name">The of the client instance. This is also passed to the HttpClient factory to get or create HttpClient instances</param>
+        /// <param name="baseUri">The base Url for the client. Specify this if the client will be used for one Url only. This should be an absolute Uri</param>
+        /// <param name="defaultRequestHeaders">Default headers to be sent with http requests</param>
+        /// <param name="logger">Logging abstraction that will trace request/response data and log events</param>
+        /// <param name="createHttpClient">The delegate that is used for getting or creating HttpClient instances when the SendAsync call is made</param>
+        /// <param name="sendHttpRequest">The service responsible for performing the SendAsync method on HttpClient. This can replaced in the constructor in order to implement retries and so on.</param>
+        /// <param name="getHttpRequestMessage">Service responsible for converting rest requests to http requests</param>
+        /// <param name="timeout">Amount of time a request should wait before timing out</param>
+        /// <param name="throwExceptionOnFailure">Whether or not to throw an exception on non-successful http calls</param>
         public Client(
         AbsoluteUrl? baseUri,
 #if NET45

@@ -205,6 +205,13 @@ namespace RestClient.Net.UnitTests
               createHttpClient: (n) => new HttpClient()
               ).SendAsync<string, object>(null))).ParamName);
 
+        [TestMethod]
+        public void Test()
+        {
+            using var client = new Client("http://www.test.com/test?test=test#frag")
+                .WithDefaultRequestHeaders("a", "b");
+        }
+
 
 #if !NET45
         [TestMethod]
