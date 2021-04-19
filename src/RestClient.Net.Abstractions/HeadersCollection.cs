@@ -11,6 +11,8 @@ namespace RestClient.Net.Abstractions
         private readonly IDictionary<string, IEnumerable<string>> dictionary;
         #endregion
 
+        #region Public Constructors
+
         public HeadersCollection(IDictionary<string, IEnumerable<string>> dictionary) => this.dictionary = dictionary;
 
         public HeadersCollection(string key, string value) : this(ImmutableDictionary.CreateRange(
@@ -22,11 +24,13 @@ namespace RestClient.Net.Abstractions
         {
         }
 
+        #endregion Public Constructors
 
         #region Public Properties
-        IEnumerable<string> IHeadersCollection.this[string name] => dictionary[name];
+        public static HeadersCollection Empty { get; } = new HeadersCollection(ImmutableDictionary.Create<string, IEnumerable<string>>());
         public IEnumerable<string> Names => dictionary.Keys;
-        #endregion
+        IEnumerable<string> IHeadersCollection.this[string name] => dictionary[name];
+        #endregion Public Properties
 
         #region Public Methods
         public bool Contains(string name) => dictionary.ContainsKey(name);
@@ -34,9 +38,7 @@ namespace RestClient.Net.Abstractions
         public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator() => dictionary.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => dictionary.GetEnumerator();
-        #endregion
-
         public override string ToString() => string.Join("\r\n", dictionary.Select(kvp => $"{kvp.Key}: {string.Join(", ", kvp.Value)}\r\n"));
-
+        #endregion
     }
 }
