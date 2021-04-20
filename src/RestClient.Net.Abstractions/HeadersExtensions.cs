@@ -88,10 +88,10 @@ namespace RestClient.Net.Abstractions.Extensions
             return new HeadersCollection(dictionary);
         }
 
-        public static IHeadersCollection CreateHeadersCollection(this string key, string value)
+        public static IHeadersCollection ToHeadersCollection(this string key, string value)
         => new HeadersCollection(ImmutableDictionary.CreateRange(new List<KeyValuePair<string, IEnumerable<string>>> { new(key, new List<string> { value }) }));
 
-        public static IHeadersCollection CreateHeadersCollection(this KeyValuePair<string, IEnumerable<string>> kvp)
+        public static IHeadersCollection ToHeadersCollection(this KeyValuePair<string, IEnumerable<string>> kvp)
             => new HeadersCollection(ImmutableDictionary.CreateRange(new List<KeyValuePair<string, IEnumerable<string>>> { kvp }));
 
         /// <summary>
