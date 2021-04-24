@@ -82,7 +82,7 @@ namespace RestClient.Net.UnitTests
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
                 var clientFactory = serviceProvider.GetRequiredService<CreateClient>();
-                var client = clientFactory(clientName, new("http://www.test.com"));
+                var client = clientFactory(clientName, (o) => o.BaseUrl = new("http://www.test.com"));
                 _ = await client.GetAsync<object>();
             }
             catch (SendException hse)
@@ -122,7 +122,7 @@ namespace RestClient.Net.UnitTests
                     _ = s.WithDefaultConventions();
                 });
 
-                _ = c.For<CreateClient>().Use<CreateClient>(con => new ClientFactory(con.GetInstance<CreateHttpClient>(), con.GetInstance<ISerializationAdapter>(), null).CreateClient);
+                _ = c.For<CreateClient>().Use<CreateClient>(con => new ClientFactory(con.GetInstance<CreateHttpClient>(), null).CreateClient);
                 _ = c.For<CreateHttpClient>().Use<CreateHttpClient>(con => new DefaultHttpClientFactory(null, null).CreateClient);
                 _ = c.For<ISerializationAdapter>().Use<NewtonsoftSerializationAdapter>();
             });

@@ -1768,8 +1768,12 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestFactoryCreationWithUri()
         {
-            var clientFactory = new ClientFactory(GetCreateHttpClient(), new NewtonsoftSerializationAdapter());
-            var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "test", RestCountriesAllUri);
+            var clientFactory = new ClientFactory(GetCreateHttpClient());
+            var client = clientFactory.CreateClient("test", (o) =>
+            {
+                o.BaseUrl = RestCountriesAllUri;
+                o.SerializationAdapter = new NewtonsoftSerializationAdapter();
+            });
             var response = await client.GetAsync<List<RestCountry>>();
             Assert.IsTrue(response.Body?.Count > 0);
         }
@@ -1780,13 +1784,12 @@ namespace RestClient.Net.UnitTests
         public async Task TestFactoryDoesntUseSameHttpClient()
         {
             var clientFactory = new ClientFactory(
-                GetCreateHttpClient(),
-                new NewtonsoftSerializationAdapter());
+                GetCreateHttpClient());
 
-            var client = (Client)ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "1", RestCountriesAllUri);
+            var client = (Client)clientFactory.CreateClient("1", (o) => o.BaseUrl = RestCountriesAllUri);
             var response = await client.GetAsync<List<RestCountry>>();
 
-            var client2 = (Client)ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "2", RestCountriesAllUri);
+            var client2 = (Client)clientFactory.CreateClient("2", (o) => o.BaseUrl = RestCountriesAllUri);
             response = await client2.GetAsync<List<RestCountry>>();
 
             Assert.IsNotNull(client.lazyHttpClient.Value);
@@ -1835,11 +1838,11 @@ namespace RestClient.Net.UnitTests
         {
             using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
 
-            var clientFactory = new ClientFactory(defaultHttpClientFactory.CreateClient, new NewtonsoftSerializationAdapter());
+            var clientFactory = new ClientFactory(defaultHttpClientFactory.CreateClient);
 
-            var firstClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "RestClient", RestCountriesAllUri);
+            var firstClient = clientFactory.CreateClient("RestClient", (o) => o.BaseUrl = RestCountriesAllUri);
 
-            var secondClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "RestClient", RestCountriesAllUri);
+            var secondClient = clientFactory.CreateClient("RestClient", (o) => o.BaseUrl = RestCountriesAllUri);
 
             Assert.IsNotNull(firstClient);
             Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
@@ -1868,7 +1871,16 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(client.lazyHttpClient.Value, client2.lazyHttpClient.Value));
         }
 
-
+#else
+        [TestMethod]
+        public void TestFactoryCreationWithoutAdapterThrowsException()
+        {
+            _ = Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                var clientFactory = new ClientFactory(GetCreateHttpClient());
+                var client = clientFactory.CreateClient("test");
+            });
+        }
 
 #endif
 

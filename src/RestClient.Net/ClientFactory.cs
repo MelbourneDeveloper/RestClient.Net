@@ -5,38 +5,24 @@ using RestClient.Net.Abstractions;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using Urls;
 
 namespace RestClient.Net
 {
     public class ClientFactory
     {
         #region Fields
-        private readonly Func<string, AbsoluteUrl?, Lazy<IClient>> createClientFunc;
+        private readonly Func<string, Action<CreateClientOptions>?, Lazy<IClient>> createClientFunc;
         private readonly ConcurrentDictionary<string, Lazy<IClient>> clients;
         private readonly CreateHttpClient createHttpClient;
         private readonly ILoggerFactory loggerFactory;
         #endregion
 
-        #region Public Properties
-        public ISerializationAdapter SerializationAdapter { get; }
-        #endregion
-
         #region Constructor
         public ClientFactory(
             CreateHttpClient createHttpClient,
-#if !NET45
-            ISerializationAdapter? serializationAdapter = null,
-#else
-            ISerializationAdapter serializationAdapter,
-#endif
             ILoggerFactory? loggerFactory = null)
         {
-#if !NET45
-            SerializationAdapter = serializationAdapter ?? new JsonSerializationAdapter();
-#else
-            SerializationAdapter = serializationAdapter;
-#endif
+
             this.createHttpClient = createHttpClient;
             this.loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
 
@@ -47,18 +33,32 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        public IClient CreateClient(string name, AbsoluteUrl? baseUri = null)
-            => name == null ? throw new ArgumentNullException(nameof(name)) : clients.GetOrAdd(name, createClientFunc(name, baseUri)).Value;
+        public IClient CreateClient(string name, Action<CreateClientOptions>? configureClient = null)
+            => name == null ? throw new ArgumentNullException(nameof(name)) : clients.GetOrAdd(name, createClientFunc(name, configureClient)).Value;
         #endregion
 
         #region Private Methods
-        private IClient MintClient(string name, AbsoluteUrl? baseUri = null) =>
-            new Client(
-                SerializationAdapter,
-                baseUri,
-                logger: loggerFactory?.CreateLogger<Client>(),
-                createHttpClient: createHttpClient,
-                name: name);
+        private IClient MintClient(string name, Action<CreateClientOptions>? configureClient = null)
+        {
+            var createClientOptions = new CreateClientOptions(createHttpClient);
+
+            configureClient?.Invoke(createClientOptions);
+
+#if NET45
+            if (createClientOptions.SerializationAdapter == null) throw new InvalidOperationException("You must specify a SerializationAdapter");
+#endif
+
+            return new Client(
+                createClientOptions.SerializationAdapter,
+                createClientOptions.BaseUrl,
+                createClientOptions.HeadersCollection,
+                loggerFactory?.CreateLogger<Client>(),
+                createClientOptions.CreateHttpClient,
+                createClientOptions.SendHttpRequestMessage,
+                createClientOptions.GetHttpRequestMessage,
+                createClientOptions.ThrowsExceptionOnFailure,
+                name);
+        }
         #endregion
     }
 }
