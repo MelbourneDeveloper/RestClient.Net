@@ -346,10 +346,10 @@ namespace RestClient.Net.UnitTests
 
 
             //Act
-            _ = await client.PostAsync<List<RestCountry>, object>(new object(), null, testKvp.CreateHeadersCollection());
+            _ = await client.PostAsync<List<RestCountry>, object>(new object(), null, testKvp.ToHeadersCollection());
 
             //Make sure we can call it twice
-            _ = await client.PostAsync<List<RestCountry>, object>(new object(), null, testKvp.CreateHeadersCollection());
+            _ = await client.PostAsync<List<RestCountry>, object>(new object(), null, testKvp.ToHeadersCollection());
 
             var expectedHeaders = new List<KeyValuePair<string, IEnumerable<string>>>
             {
@@ -668,7 +668,7 @@ namespace RestClient.Net.UnitTests
                 new ProtobufSerializationAdapter(),
                 new(LocalBaseUriString),
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
-                defaultRequestHeaders: "PersonKey".CreateHeadersCollection(personKey));
+                defaultRequestHeaders: "PersonKey".ToHeadersCollection(personKey));
 
             Person responsePerson = await client.PutAsync<Person, Person>(requestPerson, new RelativeUrl("person"));
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
@@ -693,7 +693,7 @@ namespace RestClient.Net.UnitTests
 
             Person responsePerson = await client.GetAsync<Person>(new RelativeUrl(
                 "headers"),
-                "Test".CreateHeadersCollection("Test")
+                "Test".ToHeadersCollection("Test")
                 );
 
             Assert.IsNotNull(responsePerson);
@@ -706,7 +706,7 @@ namespace RestClient.Net.UnitTests
                 new NewtonsoftSerializationAdapter(),
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
-                defaultRequestHeaders: "Test".CreateHeadersCollection("Test"));
+                defaultRequestHeaders: "Test".ToHeadersCollection("Test"));
 
             var response = await client.GetAsync<Person>("headers");
 
@@ -733,7 +733,7 @@ namespace RestClient.Net.UnitTests
                 new NewtonsoftSerializationAdapter(),
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
-                defaultRequestHeaders: "Test".CreateHeadersCollection("Test"));
+                defaultRequestHeaders: "Test".ToHeadersCollection("Test"));
 
             var response = await client.GetAsync<Person>("headers");
 
@@ -790,7 +790,7 @@ namespace RestClient.Net.UnitTests
             _ = await client.GetAsync<Person>(new RelativeUrl(
                 "headers"),
                 requestHeaders: "Test"
-                .CreateHeadersCollection("Test"));
+                .ToHeadersCollection("Test"));
 
 #if !NET45
             _logger.VerifyLog((state, t) =>
@@ -824,7 +824,7 @@ namespace RestClient.Net.UnitTests
             var responsePerson = await client.PostAsync<Person, Person>(
                 new Person { FirstName = "Bob" },
                 new RelativeUrl("headers"),
-                requestHeaders: "Test".CreateHeadersCollection("Test")
+                requestHeaders: "Test".ToHeadersCollection("Test")
                 );
 
             Assert.IsNotNull(responsePerson);
@@ -842,7 +842,7 @@ namespace RestClient.Net.UnitTests
                     baseUri: testServerBaseUri,
                     createHttpClient: _testServerHttpClientFactory.CreateClient,
                     //The server expects the value of "Test"
-                    defaultRequestHeaders: "Test".CreateHeadersCollection("Tests"));
+                    defaultRequestHeaders: "Test".ToHeadersCollection("Tests"));
 
                 _ = await client.GetAsync<Person>(new RelativeUrl("headers"));
                 Assert.Fail();
@@ -903,7 +903,7 @@ namespace RestClient.Net.UnitTests
             var responsePerson = await client.PutAsync<Person, Person>(
                 new Person { FirstName = "Bob" },
                 new RelativeUrl("headers"),
-                requestHeaders: "Test".CreateHeadersCollection("Test")
+                requestHeaders: "Test".ToHeadersCollection("Test")
                 );
 
             Assert.IsNotNull(responsePerson);
@@ -925,7 +925,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestHeadersToString()
         {
-            var asdasd = "asd".CreateHeadersCollection("321");
+            var asdasd = "asd".ToHeadersCollection("321");
             var afasds = asdasd.ToString();
             Assert.AreEqual("asd: 321\r\n", afasds);
         }
@@ -936,7 +936,7 @@ namespace RestClient.Net.UnitTests
         public void TestHeaders()
         {
             var count = 0;
-            var enumerable = (IEnumerable)"asd".CreateHeadersCollection("321");
+            var enumerable = (IEnumerable)"asd".ToHeadersCollection("321");
             var enumerator = enumerable.GetEnumerator();
             while (enumerator.MoveNext())
             {
@@ -956,9 +956,9 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestAppendHeaders()
         {
-            var headers = "asd".CreateHeadersCollection("123");
+            var headers = "asd".ToHeadersCollection("123");
             const string expectedValue = "321";
-            var headers2 = "asd".CreateHeadersCollection(expectedValue);
+            var headers2 = "asd".ToHeadersCollection(expectedValue);
             var headers3 = headers.Append(headers2);
             Assert.AreEqual(expectedValue, headers3.First().Value.First());
         }
@@ -966,7 +966,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestAppendHeaders2()
         {
-            var headers = "asd".CreateHeadersCollection("123");
+            var headers = "asd".ToHeadersCollection("123");
             var headers2 = headers.Append(null);
             Assert.AreEqual(1, headers2.Count());
         }
@@ -1030,7 +1030,7 @@ namespace RestClient.Net.UnitTests
             var responsePerson = await client.PatchAsync<Person, Person>(
                 new Person { FirstName = "Bob" },
                 new RelativeUrl("headers"),
-                requestHeaders: "Test".CreateHeadersCollection("Test")
+                requestHeaders: "Test".ToHeadersCollection("Test")
                 );
 
             Assert.IsNotNull(responsePerson);
@@ -1051,7 +1051,7 @@ namespace RestClient.Net.UnitTests
                 new Person { FirstName = "Bob" },
                 TimeSpan.FromMilliseconds(.01),
                 new("headers"),
-                requestHeaders: "Test".CreateHeadersCollection("Test")
+                requestHeaders: "Test".ToHeadersCollection("Test")
                 ));
 
 #if !NET45
@@ -1073,7 +1073,7 @@ namespace RestClient.Net.UnitTests
                 new Person { FirstName = "Bob" },
                 TimeSpan.FromMilliseconds(10000),
                 new("headers"),
-                requestHeaders: "Test".CreateHeadersCollection("Test")
+                requestHeaders: "Test".ToHeadersCollection("Test")
                 );
         }
 
@@ -1118,7 +1118,7 @@ namespace RestClient.Net.UnitTests
                 DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test")
                 : DefaultJsonContentHeaderCollection);
 
-            _ = await client.DeleteAsync(new("headers/1"), "Test".CreateHeadersCollection("Test"));
+            _ = await client.DeleteAsync(new("headers/1"), "Test".ToHeadersCollection("Test"));
         }
 
         [TestMethod]
@@ -1154,7 +1154,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 createHttpClient: _testServerHttpClientFactory.CreateClient);
-            var requestHeadersCollection = "Test".CreateHeadersCollection("Test");
+            var requestHeadersCollection = "Test".ToHeadersCollection("Test");
             Person responsePerson = await client.SendAsync<Person, object>
                 (
                 new Request<object>(testServerBaseUri.WithRelativeUrl(new("headers")), null, requestHeadersCollection, HttpRequestMethod.Get, cancellationToken: default)
