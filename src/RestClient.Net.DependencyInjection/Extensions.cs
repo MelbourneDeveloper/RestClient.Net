@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
+using RestClient.Net.DI;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using Urls;
 
 namespace RestClient.Net.DependencyInjection
 {
@@ -26,9 +25,9 @@ namespace RestClient.Net.DependencyInjection
             {
                 var clientFactory = new ClientFactory(
                     sp.GetRequiredService<CreateHttpClient>(),
-                    sp.GetRequiredService<ISerializationAdapter>(),
                     sp.GetService<ILoggerFactory>());
-                return clientFactory.CreateClient;
+
+                return new CreateClient((a, b) => clientFactory.CreateClient("asdasds", a));
             });
 
             return serviceCollection;
@@ -49,27 +48,14 @@ namespace RestClient.Net.DependencyInjection
 
             _ = builder.Services.Configure<ClientBuilderOptions>(builder.Name, options =>
               {
-                  options.ClientBuildActions.Add(b => b.PrimaryClient = configureClient());
+                  options.HttpMessageHandlerBuilderActions.Add(b => b.PrimaryClient = configureClient());
               });
 
             return builder;
         }
     }
 
-    public class ClientBuilderOptions
-    {
-        public IList<Action<ClientBuilder>> ClientBuildActions { get; } = new List<Action<ClientBuilder>>();
-        public AbsoluteUrl BaseUrl { get; set; } = AbsoluteUrl.Empty;
-    }
 
-    public abstract class ClientBuilder
-    {
-        protected ClientBuilder(IClient primaryClient) => PrimaryClient = primaryClient;
-
-        public IClient PrimaryClient { get; internal set; }
-
-        public abstract IClient Build();
-    }
 
     public interface IClientBuilder
     {

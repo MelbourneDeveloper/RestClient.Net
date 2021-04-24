@@ -2,41 +2,28 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using RestClient.Net.Abstractions;
+using RestClient.Net.DI;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using Urls;
 
 namespace RestClient.Net
 {
     public class ClientFactory
     {
         #region Fields
-        private readonly Func<string, AbsoluteUrl?, Lazy<IClient>> createClientFunc;
+        private readonly Func<string, Action<ClientBuilderOptions>?, Lazy<IClient>> createClientFunc;
         private readonly ConcurrentDictionary<string, Lazy<IClient>> clients;
         private readonly CreateHttpClient createHttpClient;
         private readonly ILoggerFactory loggerFactory;
         #endregion
 
-        #region Public Properties
-        public ISerializationAdapter SerializationAdapter { get; }
-        #endregion
-
         #region Constructor
         public ClientFactory(
             CreateHttpClient createHttpClient,
-#if !NET45
-            ISerializationAdapter? serializationAdapter = null,
-#else
-            ISerializationAdapter serializationAdapter,
-#endif
             ILoggerFactory? loggerFactory = null)
         {
-#if !NET45
-            SerializationAdapter = serializationAdapter ?? new JsonSerializationAdapter();
-#else
-            SerializationAdapter = serializationAdapter;
-#endif
+
             this.createHttpClient = createHttpClient;
             this.loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
 
@@ -47,18 +34,24 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        public IClient CreateClient(string name, AbsoluteUrl? baseUri = null)
-            => name == null ? throw new ArgumentNullException(nameof(name)) : clients.GetOrAdd(name, createClientFunc(name, baseUri)).Value;
+        public IClient CreateClient(string name, Action<ClientBuilderOptions>? configureClient = null)
+            => name == null ? throw new ArgumentNullException(nameof(name)) : clients.GetOrAdd(name, createClientFunc(name, configureClient)).Value;
         #endregion
 
         #region Private Methods
-        private IClient MintClient(string name, AbsoluteUrl? baseUri = null) =>
-            new Client(
-                SerializationAdapter,
-                baseUri,
+        private IClient MintClient(string name, Action<ClientBuilderOptions>? configureClient = null)
+        {
+            var obj = new ClientBuilderOptions(createHttpClient);
+
+            configureClient?.Invoke(obj);
+
+            return new Client(
+                obj.SerializationAdapter,
+                obj.BaseUrl,
+                createHttpClient: obj.CreateHttpClient,
                 logger: loggerFactory?.CreateLogger<Client>(),
-                createHttpClient: createHttpClient,
                 name: name);
+        }
         #endregion
     }
 }
