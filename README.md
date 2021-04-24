@@ -2,8 +2,6 @@
 
 # .NET REST Client Framework for all platforms #
 
-Version 5.0 Alpha [here](https://github.com/MelbourneDeveloper/RestClient.Net/tree/5/develop)
-
 NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
 
 ## [Follow Me on Twitter for Updates](https://twitter.com/intent/follow?screen_name=cfdevelop&tw_p=followbutton) ##
