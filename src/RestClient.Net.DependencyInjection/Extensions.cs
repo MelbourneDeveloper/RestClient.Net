@@ -10,7 +10,7 @@ namespace RestClient.Net.DependencyInjection
     public static class Extensionss
     {
 
-        public static IServiceCollection AddRestClient(this IServiceCollection serviceCollection, Action<ClientBuilderOptions> configureClient)
+        public static IServiceCollection AddRestClient(this IServiceCollection serviceCollection, Action<ClientBuilderOptions>? configureClient = null)
         {
             _ = serviceCollection
             .AddSingleton<CreateHttpClient>((sp) =>
@@ -24,8 +24,8 @@ namespace RestClient.Net.DependencyInjection
                     sp.GetRequiredService<CreateHttpClient>(),
                     sp.GetService<ILoggerFactory>());
 
-                return new CreateClient((a) => clientFactory.CreateClient(a, configureClient));
-            });
+                return new CreateClient((n) => clientFactory.CreateClient(n, configureClient));
+            }).AddSingleton((sp) => sp.GetRequiredService<CreateClient>()("RestClient"));
 
             return serviceCollection;
         }

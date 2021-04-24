@@ -6,25 +6,29 @@ using RestClient.Net.Abstractions;
 using System;
 using System.Threading.Tasks;
 using RestClient.Net.DependencyInjection;
+using System.Net.Http;
 
 namespace RestClient.Net.UnitTests
 {
 
     [TestClass]
-    public class MicrosoftDependencyInjectionTests
+    public class MicrosoftDependencyInjectionTests2
     {
 
         [TestMethod]
         public void TestDIMapping()
         {
-            const string expectedName = "Jim";
+            HttpClient? expectedHttpClient = null;
 
             var serviceCollection = new ServiceCollection()
                 .AddSingleton<ISomeService, SomeService>()
                 .AddRestClient((o) => { });
 
-            _ = serviceCollection.AddHttpClient("test", (c) => c.Timeout = new TimeSpan(0, 0, 1));
-
+            _ = serviceCollection.AddHttpClient("test", (c) =>
+            {
+                c.Timeout = new TimeSpan(0, 0, 1);
+                expectedHttpClient = c;
+            });
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
@@ -35,7 +39,8 @@ namespace RestClient.Net.UnitTests
                 throw new InvalidOperationException("Nah");
             }
 
-            Assert.AreEqual(expectedName, client.Name);
+            Assert.AreEqual("RestClient", client.Name);
+            Assert.IsTrue(ReferenceEquals(expectedHttpClient, client.lazyHttpClient.Value));
         }
 
 
