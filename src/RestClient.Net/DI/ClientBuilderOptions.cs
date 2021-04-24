@@ -1,7 +1,7 @@
 ﻿using RestClient.Net.Abstractions;
 using Urls;
 
-namespace RestClient.Net.DI
+namespace RestClient.Net
 {
     public class ClientBuilderOptions
     {
