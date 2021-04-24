@@ -113,7 +113,7 @@ namespace RestClient.Net.UnitTests
             var clientFactory = serviceProvider.GetRequiredService<CreateClient>();
 
             //Create a Rest Client that will get the HttpClient by the name of rc
-            var client = clientFactory("rc", new("https://restcountries.eu/rest/v2/"));
+            var client = clientFactory("rc", (o) => o.BaseUrl = new("https://restcountries.eu/rest/v2/"));
 
             //Make the call
             _ = await client.GetAsync<List<RestCountry>>();
