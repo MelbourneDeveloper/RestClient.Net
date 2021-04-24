@@ -2,9 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestClient.Net.Abstractions;
 using System;
-using System.Threading.Tasks;
 using RestClient.Net.DependencyInjection;
 using System.Net.Http;
 
