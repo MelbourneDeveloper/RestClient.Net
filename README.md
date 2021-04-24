@@ -30,7 +30,7 @@ This page represents documentation for the alpha release. Please include pre-rel
 * Supports GET, POST, PUT, PATCH, DELETE with ability and custom methods
 * Tight code (around 350 lines) means you can make a change if you need to
 
-### Examples
+## Examples
 
 For a full set of examples see these [unit tests](https://github.com/MelbourneDeveloper/RestClient.Net/blob/3574038f02a83a299f9536b71c7f839ae72e0e08/src/RestClient.Net.UnitTests/MainUnitTests.cs#L279).
 
@@ -47,9 +47,9 @@ UserPost userPost = await client.PostAsync<UserPost, UserPost>(
     );
 ```
 
-#### Dependency Injection
+### Dependency Injection
 
-##### Wiring it up
+#### Wiring it up
 ```cs
 var serviceCollection = new ServiceCollection()
     //Add a service which has an IClient dependency
@@ -61,7 +61,7 @@ var serviceCollection = new ServiceCollection()
 _ = serviceCollection.AddHttpClient();
 ```
 
-##### Getting a Global IClient in a Service
+#### Getting a Global IClient in a Service
 
 ```cs
 public class GetString1 : IGetString
@@ -74,7 +74,7 @@ public class GetString1 : IGetString
 }
 ```
 
-##### Getting a IClient Using a Factory
+#### Getting a IClient Using a Factory
 
 ```cs
 public class GetString2 : IGetString
