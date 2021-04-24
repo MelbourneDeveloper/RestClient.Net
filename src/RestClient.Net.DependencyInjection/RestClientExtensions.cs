@@ -8,7 +8,6 @@ namespace RestClient.Net.DependencyInjection
 {
     public static class RestClientExtensions
     {
-
         public static IServiceCollection AddRestClient(this IServiceCollection serviceCollection, Action<ClientBuilderOptions>? configureClient = null)
         {
             _ = serviceCollection
@@ -29,34 +28,5 @@ namespace RestClient.Net.DependencyInjection
 
             return serviceCollection;
         }
-
-
-        //public static IClientBuilder ConfigurePrimaryClient(this IClientBuilder builder, Func<IClient> configureClient)
-        //{
-        //    if (builder == null)
-        //    {
-        //        throw new ArgumentNullException(nameof(builder));
-        //    }
-
-        //    if (configureClient == null)
-        //    {
-        //        throw new ArgumentNullException(nameof(configureClient));
-        //    }
-
-        //    _ = builder.Services.Configure<ClientBuilderOptions>(builder.Name, options =>
-        //      {
-        //          options.HttpMessageHandlerBuilderActions.Add(b => b.PrimaryClient = configureClient());
-        //      });
-
-        //    return builder;
-        //}
-    }
-
-
-
-    public interface IClientBuilder
-    {
-        string Name { get; }
-        IServiceCollection Services { get; }
     }
 }
