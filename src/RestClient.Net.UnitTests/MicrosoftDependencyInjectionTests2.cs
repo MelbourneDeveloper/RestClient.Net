@@ -15,9 +15,11 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestDIMapping()
         {
+            const string expectedName = "Jim";
+
             var serviceCollection = new ServiceCollection()
                 .AddSingleton<ISomeService, SomeService>()
-                .AddRestClient<ISomeService, SomeService>(() => new Client(name: "Jim"));
+                .AddRestClient<ISomeService, SomeService>(() => new Client(name: expectedName));
 
             _ = serviceCollection.AddHttpClient("test", (c) => c.Timeout = new TimeSpan(0, 0, 1));
 
@@ -26,13 +28,19 @@ namespace RestClient.Net.UnitTests
 
             var someService = serviceProvider.GetRequiredService<ISomeService>();
 
-            Assert.AreEqual()
+            if (someService.Client is not Client client)
+            {
+                throw new InvalidOperationException("Nah");
+            }
+
+            Assert.AreEqual(expectedName, client.Name);
         }
 
     }
 
     public interface ISomeService
     {
+        IClient Client { get; }
         Task<string> GetAsync();
     }
 
