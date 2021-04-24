@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RestClient.Net.Abstractions;
+using RestClient.Net.DI;
 using RestClientApiSamples;
 using System.Threading.Tasks;
 using Urls;
@@ -28,7 +29,7 @@ namespace RestClient.Net.UnitTests
             var serializationAdapterMock = new Mock<ISerializationAdapter>();
 
             //Set the factory up to return the mock client
-            _ = clientFactoryMock.Setup(f => f.Invoke("Person")).Returns(clientMock.Object);
+            _ = clientFactoryMock.Setup(f => f.Invoke("Person", null)).Returns(clientMock.Object);
 
             //Set the client up to return the response mock
             var result = new Response<Person>

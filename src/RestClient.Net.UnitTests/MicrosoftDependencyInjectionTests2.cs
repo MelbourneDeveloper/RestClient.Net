@@ -105,7 +105,7 @@ namespace RestClient.Net.UnitTests
     {
         public IClient Client { get; }
 
-        public SomeService2(CreateClient2 createClient2)
+        public SomeService2(CreateClient createClient2)
         {
             if (createClient2 == null) throw new ArgumentNullException(nameof(createClient2));
             Client = createClient2("test", (o) => { o.BaseUrl = o.BaseUrl with { Host = "Hi" }; });

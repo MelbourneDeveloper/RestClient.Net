@@ -1,13 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using RestClient.Net.Abstractions;
 using RestClient.Net.DI;
 using System;
 using System.Net.Http;
 
 namespace RestClient.Net.DependencyInjection
 {
-    public static class Extensionss
+    public static class RestClientExtensions
     {
 
         public static IServiceCollection AddRestClient(this IServiceCollection serviceCollection, Action<ClientBuilderOptions>? configureClient = null)
@@ -18,15 +17,7 @@ namespace RestClient.Net.DependencyInjection
                 var microsoftHttpClientFactoryWrapper = new MicrosoftHttpClientFactoryWrapper(sp.GetRequiredService<IHttpClientFactory>());
                 return microsoftHttpClientFactoryWrapper.CreateClient;
             })
-            .AddSingleton((sp) =>
-            {
-                var clientFactory = new ClientFactory(
-                    sp.GetRequiredService<CreateHttpClient>(),
-                    sp.GetService<ILoggerFactory>());
-
-                return new CreateClient((n) => clientFactory.CreateClient(n, configureClient));
-            })
-            .AddSingleton<CreateClient2>((sp) =>
+            .AddSingleton<CreateClient>((sp) =>
             {
                 var clientFactory = new ClientFactory(
                     sp.GetRequiredService<CreateHttpClient>(),
@@ -34,7 +25,7 @@ namespace RestClient.Net.DependencyInjection
 
                 return clientFactory.CreateClient;
             })
-            .AddSingleton((sp) => sp.GetRequiredService<CreateClient>()("RestClient"));
+            .AddSingleton((sp) => sp.GetRequiredService<CreateClient>()("RestClient", configureClient));
 
             return serviceCollection;
         }

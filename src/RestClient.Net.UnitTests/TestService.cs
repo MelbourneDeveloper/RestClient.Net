@@ -1,4 +1,5 @@
 ﻿using RestClient.Net.Abstractions;
+using RestClient.Net.DI;
 using System;
 using System.Threading.Tasks;
 
