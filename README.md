@@ -84,7 +84,7 @@ public class GetString2 : IGetString
     public GetString2(CreateClient createClient)
     {
         //Use the options to set the BaseUrl or other properties on the Client
-        Client = createClient("test", (o) => { o.BaseUrl = o.BaseUrl with { Host = "Hi" }; });
+        Client = createClient("test", (o) => { o.BaseUrl = o.BaseUrl with { Host = "www.test.com" }; });
     }
 
     public async Task<string> GetStringAsync() => await Client.GetAsync<string>();
