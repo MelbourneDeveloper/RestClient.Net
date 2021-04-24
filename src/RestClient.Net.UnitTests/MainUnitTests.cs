@@ -342,7 +342,7 @@ namespace RestClient.Net.UnitTests
             var testDefaultKvp = new KeyValuePair<string, IEnumerable<string>>("default", new List<string> { "test", "test2" });
 
 
-            using var client = new Client(RestCountriesAllUri, createHttpClient: createHttpClient, defaultRequestHeaders: testDefaultKvp.CreateHeadersCollection());
+            using var client = new Client(RestCountriesAllUri, createHttpClient: createHttpClient, defaultRequestHeaders: testDefaultKvp.ToHeadersCollection());
 
 
             //Act

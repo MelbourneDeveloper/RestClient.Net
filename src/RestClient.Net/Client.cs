@@ -191,27 +191,27 @@ namespace RestClient.Net
         /// <summary>
         /// Base Uri for the client. Any resources specified on requests will be relative to this.
         /// </summary>
-        public AbsoluteUrl BaseUri { get; }
+        public AbsoluteUrl BaseUri { get; init; }
 
         /// <summary>
         /// Default headers to be sent with http requests
         /// </summary>
-        public IHeadersCollection DefaultRequestHeaders { get; }
+        public IHeadersCollection DefaultRequestHeaders { get; init; }
 
         /// <summary>
         /// Name of the client
         /// </summary>
-        public string Name { get; }
+        public string Name { get; init; }
 
         /// <summary>
         /// Adapter for serialization/deserialization of http body data
         /// </summary>
-        public ISerializationAdapter SerializationAdapter { get; }
+        public ISerializationAdapter SerializationAdapter { get; init; }
 
         /// <summary>
         /// Specifies whether or not the client will throw an exception when non-successful status codes are returned in the http response. The default is true
         /// </summary>
-        public bool ThrowExceptionOnFailure { get; } = true;
+        public bool ThrowExceptionOnFailure { get; init; } = true;
 
         #endregion Public Properties
 
