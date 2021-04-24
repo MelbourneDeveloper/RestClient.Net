@@ -18,13 +18,15 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestDIMapping()
         {
-            HttpClient? expectedHttpClient = null;
+            const int secondsTimeout = 123;
 
             var serviceCollection = new ServiceCollection()
                 .AddSingleton<ISomeService, SomeService>()
                 .AddRestClient((o) => { });
 
-            _ = serviceCollection.AddHttpClient("RestClient", (c) => expectedHttpClient = c);
+            _ = serviceCollection.AddHttpClient("RestClient", new Action<HttpClient>((c) =>
+                c.Timeout = new TimeSpan(0, 0, secondsTimeout)
+            ));
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
@@ -36,7 +38,9 @@ namespace RestClient.Net.UnitTests
             }
 
             Assert.AreEqual("RestClient", client.Name);
-            Assert.IsTrue(ReferenceEquals(expectedHttpClient, client.lazyHttpClient.Value));
+
+            //Make sure we got the HttpClient that the Microsft DI put in the container
+            Assert.AreEqual(secondsTimeout, client.lazyHttpClient.Value.Timeout.TotalSeconds);
         }
 
 

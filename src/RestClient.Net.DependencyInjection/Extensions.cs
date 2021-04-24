@@ -25,7 +25,8 @@ namespace RestClient.Net.DependencyInjection
                     sp.GetService<ILoggerFactory>());
 
                 return new CreateClient((n) => clientFactory.CreateClient(n, configureClient));
-            }).AddSingleton((sp) => sp.GetRequiredService<CreateClient>()("RestClient"));
+            })
+            .AddSingleton((sp) => sp.GetRequiredService<CreateClient>()("RestClient"));
 
             return serviceCollection;
         }
