@@ -27,8 +27,8 @@ namespace RestClient.Net
 
             var response = (Response)await client.SendAsync<object, object>(
             new Request<object>(
-                (resource != null ? client.BaseUri?.WithRelativeUrl(resource) :
-                client.BaseUri) ?? throw new ArgumentNullException(nameof(resource)),
+                (resource != null ? client.BaseUrl?.WithRelativeUrl(resource) :
+                client.BaseUrl) ?? throw new ArgumentNullException(nameof(resource)),
                 null,
                 client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
                 HttpRequestMethod.Delete,
@@ -44,7 +44,7 @@ namespace RestClient.Net
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client)
           => client == null ? throw new ArgumentNullException(nameof(client)) :
-             GetAsync<TResponseBody>(client, client.BaseUri.RelativeUrl);
+             GetAsync<TResponseBody>(client, client.BaseUrl.RelativeUrl);
 
         public static Task<Response<TResponseBody>> GetAsync<TResponseBody>(this IClient client, string path)
             => GetAsync<TResponseBody>(client, new RelativeUrl(path));
@@ -57,8 +57,8 @@ namespace RestClient.Net
                 ? throw new ArgumentNullException(nameof(client))
                 : client.SendAsync<TResponseBody, object>(
                 new Request<object>(
-                    (resource != null ? client.BaseUri.WithRelativeUrl(resource) :
-                    client.BaseUri) ?? throw new ArgumentNullException(nameof(resource)),
+                    (resource != null ? client.BaseUrl.WithRelativeUrl(resource) :
+                    client.BaseUrl) ?? throw new ArgumentNullException(nameof(resource)),
                     null,
                     client.AppendDefaultRequestHeaders(requestHeaders ?? NullHeadersCollection.Instance),
                     HttpRequestMethod.Get,
@@ -258,8 +258,8 @@ namespace RestClient.Net
             =>
              client != null ? SendAsync<TResponseBody, TRequestBody>(client,
                             new Request<TRequestBody>(
-                                (resource != null ? client.BaseUri?.WithRelativeUrl(resource) :
-                                client.BaseUri) ?? throw new ArgumentNullException(nameof(resource)),
+                                (resource != null ? client.BaseUrl?.WithRelativeUrl(resource) :
+                                client.BaseUrl) ?? throw new ArgumentNullException(nameof(resource)),
                                 requestBodyData,
                                 requestHeaders,
                                 httpRequestMethod,

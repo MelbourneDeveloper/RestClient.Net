@@ -169,7 +169,7 @@ namespace RestClient.Net
 
             this.logger = (ILogger?)logger ?? NullLogger.Instance;
 
-            BaseUri = baseUri ?? AbsoluteUrl.Empty;
+            BaseUrl = baseUri ?? AbsoluteUrl.Empty;
 
             Name = name ?? Guid.NewGuid().ToString();
 
@@ -189,9 +189,9 @@ namespace RestClient.Net
         #region Public Properties
 
         /// <summary>
-        /// Base Uri for the client. Any resources specified on requests will be relative to this.
+        /// Base Url for the client. Any resources specified on requests will be relative to this.
         /// </summary>
-        public AbsoluteUrl BaseUri { get; init; }
+        public AbsoluteUrl BaseUrl { get; init; }
 
         /// <summary>
         /// Default headers to be sent with http requests

@@ -1394,7 +1394,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalDeleteStringUri()
         {
             var client = GetJsonClient(new($"{LocalBaseUriString}/JsonPerson"));
-            var response = await client.DeleteAsync(client.BaseUri.RelativeUrl.AddQueryString("personKey", "abc"));
+            var response = await client.DeleteAsync(client.BaseUrl.RelativeUrl.AddQueryString("personKey", "abc"));
             Assert.AreEqual(200, response.StatusCode);
         }
 
@@ -1411,7 +1411,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalDeleteUriCancellationToken()
         {
             var client = GetJsonClient(new($"{LocalBaseUriString}/JsonPerson"));
-            var response = await client.DeleteAsync(client.BaseUri.RelativeUrl.AddQueryString("personKey", "abc"), cancellationToken: new CancellationToken());
+            var response = await client.DeleteAsync(client.BaseUrl.RelativeUrl.AddQueryString("personKey", "abc"), cancellationToken: new CancellationToken());
             Assert.AreEqual(200, response.StatusCode);
 
             //TODO: Verify the log
@@ -1904,7 +1904,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(new AbsoluteUrl("http://www.test.com/test"), createHttpClient: (n) => httpClient);
 
             //Act
-            var response = await client.GetAsync<string>(client.BaseUri.AppendPath("test"));
+            var response = await client.GetAsync<string>(client.BaseUrl.AppendPath("test"));
 
             var requestUri = response?.RequestUri;
             if (requestUri == null) throw new InvalidOperationException("No uri");
@@ -1927,7 +1927,7 @@ namespace RestClient.Net.UnitTests
 
             Assert.IsFalse(clientClone.ThrowExceptionOnFailure);
 
-            Assert.IsTrue(ReferenceEquals(clientBase.BaseUri, clientClone.BaseUri));
+            Assert.IsTrue(ReferenceEquals(clientBase.BaseUrl, clientClone.BaseUrl));
 
             Assert.IsTrue(ReferenceEquals(clientBase.SerializationAdapter, clientClone.SerializationAdapter));
 
@@ -1964,7 +1964,7 @@ namespace RestClient.Net.UnitTests
 
             var clientClone = clientBase.With(baseUri);
 
-            Assert.AreEqual(baseUri, clientClone.BaseUri);
+            Assert.AreEqual(baseUri, clientClone.BaseUrl);
 
             Assert.IsTrue(ReferenceEquals(clientBase.SerializationAdapter, clientClone.SerializationAdapter));
 
@@ -2006,7 +2006,7 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
 
-            Assert.IsTrue(ReferenceEquals(clientBase.BaseUri, clientClone.BaseUri));
+            Assert.IsTrue(ReferenceEquals(clientBase.BaseUrl, clientClone.BaseUrl));
 
             Assert.IsTrue(ReferenceEquals(
                 GetFieldValue<IGetHttpRequestMessage>(clientBase, "getHttpRequestMessage"),
@@ -2045,7 +2045,7 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
 
-            Assert.IsTrue(ReferenceEquals(clientBase.BaseUri, clientClone.BaseUri));
+            Assert.IsTrue(ReferenceEquals(clientBase.BaseUrl, clientClone.BaseUrl));
 
             Assert.AreEqual(clientBase.Name, clientClone.Name);
 
@@ -2078,7 +2078,7 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual(headersCollection, clientClone.DefaultRequestHeaders);
 
-            Assert.IsTrue(ReferenceEquals(clientBase.BaseUri, clientClone.BaseUri));
+            Assert.IsTrue(ReferenceEquals(clientBase.BaseUrl, clientClone.BaseUrl));
 
             Assert.IsTrue(ReferenceEquals(clientBase.SerializationAdapter, clientClone.SerializationAdapter));
 
@@ -2116,7 +2116,7 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual(Value, clientClone.DefaultRequestHeaders[Key].First());
 
-            Assert.IsTrue(ReferenceEquals(clientBase.BaseUri, clientClone.BaseUri));
+            Assert.IsTrue(ReferenceEquals(clientBase.BaseUrl, clientClone.BaseUrl));
 
             Assert.IsTrue(ReferenceEquals(clientBase.SerializationAdapter, clientClone.SerializationAdapter));
 
@@ -2151,7 +2151,7 @@ namespace RestClient.Net.UnitTests
 
             Assert.IsTrue(ReferenceEquals(_logger.Object, GetFieldValue<ILogger<Client>>(clientClone, "logger")));
 
-            Assert.IsTrue(ReferenceEquals(clientBase.BaseUri, clientClone.BaseUri));
+            Assert.IsTrue(ReferenceEquals(clientBase.BaseUrl, clientClone.BaseUrl));
 
             Assert.IsTrue(ReferenceEquals(clientBase.SerializationAdapter, clientClone.SerializationAdapter));
 
@@ -2185,7 +2185,7 @@ namespace RestClient.Net.UnitTests
             var clientClone = clientBase.With(createHttpClient);
 
 
-            Assert.IsTrue(ReferenceEquals(clientBase.BaseUri, clientClone.BaseUri));
+            Assert.IsTrue(ReferenceEquals(clientBase.BaseUrl, clientClone.BaseUrl));
 
             Assert.IsTrue(ReferenceEquals(clientBase.SerializationAdapter, clientClone.SerializationAdapter));
 
@@ -2238,7 +2238,7 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual(clientBase.Name, clientClone.Name);
             Assert.AreEqual(clientBase.ThrowExceptionOnFailure, clientClone.ThrowExceptionOnFailure);
-            Assert.AreEqual(clientBase.BaseUri, clientClone.BaseUri);
+            Assert.AreEqual(clientBase.BaseUrl, clientClone.BaseUrl);
 
             //Note the header reference is getting copied across. This might actually be problematic if the collection is not immutable
             Assert.IsTrue(ReferenceEquals(clientBase.DefaultRequestHeaders, clientClone.DefaultRequestHeaders));

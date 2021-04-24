@@ -197,7 +197,7 @@ namespace RestClient.Net.UnitTests
             .BuildServiceProvider()
             .GetRequiredService<ITestService>();
 
-            Assert.AreEqual(TestService.Uri, testService?.Client?.BaseUri?.ToUri());
+            Assert.AreEqual(TestService.Uri, testService?.Client?.BaseUrl?.ToUri());
         }
 
     }

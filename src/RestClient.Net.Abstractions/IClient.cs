@@ -23,8 +23,8 @@ namespace RestClient.Net.Abstractions
         IHeadersCollection DefaultRequestHeaders { get; }
 
         /// <summary>
-        /// Base Uri for the client. Any resources specified on requests will be relative to this.
+        /// Base Url for the client. Any resources specified on requests will be relative to this.
         /// </summary>
-        AbsoluteUrl BaseUri { get; }
+        AbsoluteUrl BaseUrl { get; }
     }
 }

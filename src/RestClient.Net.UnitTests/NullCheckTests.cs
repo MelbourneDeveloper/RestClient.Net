@@ -215,19 +215,19 @@ namespace RestClient.Net.UnitTests
             using var client2 = client with
             {
                 DefaultRequestHeaders = new HeadersCollection("a", "b"),
-                BaseUri = client.BaseUri,
+                BaseUrl = client.BaseUrl,
                 SerializationAdapter = client.SerializationAdapter,
                 Name = client.Name,
                 ThrowExceptionOnFailure = client.ThrowExceptionOnFailure
             };
-            Assert.AreEqual("frag", client2.BaseUri.RelativeUrl.Fragment);
-            Assert.AreEqual("www.test.com", client2.BaseUri.Host);
-            Assert.IsTrue(client2.BaseUri.RelativeUrl.Path.SequenceEqual(new List<string> { "test", "test2" }));
-            Assert.AreEqual("test", client.BaseUri.RelativeUrl.QueryParameters[0].FieldName);
+            Assert.AreEqual("frag", client2.BaseUrl.RelativeUrl.Fragment);
+            Assert.AreEqual("www.test.com", client2.BaseUrl.Host);
+            Assert.IsTrue(client2.BaseUrl.RelativeUrl.Path.SequenceEqual(new List<string> { "test", "test2" }));
+            Assert.AreEqual("test", client.BaseUrl.RelativeUrl.QueryParameters[0].FieldName);
             Assert.AreEqual(client.SerializationAdapter, client2.SerializationAdapter);
             Assert.AreEqual(client.ThrowExceptionOnFailure, client2.ThrowExceptionOnFailure);
             Assert.AreEqual(client.Name, client2.Name);
-            Assert.AreEqual(client.BaseUri, client2.BaseUri);
+            Assert.AreEqual(client.BaseUrl, client2.BaseUrl);
         }
 
         [TestMethod]

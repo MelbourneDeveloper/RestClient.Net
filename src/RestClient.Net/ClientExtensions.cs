@@ -36,7 +36,7 @@ namespace RestClient.Net
         =>
             client != null ? new Client(
             client.SerializationAdapter,
-            client.BaseUri,
+            client.BaseUrl,
             defaultRequestHeaders,
             client.logger is ILogger<Client> logger ? logger : null,
             client.createHttpClient,
@@ -58,7 +58,7 @@ namespace RestClient.Net
         =>
             client != null ? new Client(
             client.SerializationAdapter,
-            client.BaseUri,
+            client.BaseUrl,
             client.DefaultRequestHeaders,
             logger,
             client.createHttpClient,
@@ -74,7 +74,7 @@ namespace RestClient.Net
                                         =>
             client != null ? new Client(
             serializationAdapter,
-            client.BaseUri,
+            client.BaseUrl,
             client.DefaultRequestHeaders,
             client.logger is ILogger<Client> logger ? logger : null,
             client.createHttpClient,
@@ -90,7 +90,7 @@ namespace RestClient.Net
             =>
                 client != null ? new Client(
                     client.SerializationAdapter,
-                    client.BaseUri,
+                    client.BaseUrl,
                     client.DefaultRequestHeaders,
                     client.logger is ILogger<Client> logger ? logger : null,
                     createHttpClient,
@@ -106,7 +106,7 @@ namespace RestClient.Net
             =>
                 client != null ? new Client(
                     client.SerializationAdapter,
-                    client.BaseUri,
+                    client.BaseUrl,
                     client.DefaultRequestHeaders,
                     client.logger is ILogger<Client> logger ? logger : null,
                     client.createHttpClient,
@@ -122,7 +122,7 @@ namespace RestClient.Net
             =>
                 client != null ? new Client(
                     client.SerializationAdapter,
-                    client.BaseUri,
+                    client.BaseUrl,
                     client.DefaultRequestHeaders,
                     client.logger is ILogger<Client> logger ? logger : null,
                     client.createHttpClient,
@@ -139,7 +139,7 @@ namespace RestClient.Net
             =>
                 client != null ? new Client(
                     client.SerializationAdapter,
-                    client.BaseUri,
+                    client.BaseUrl,
                     client.DefaultRequestHeaders,
                     client.logger is ILogger<Client> logger ? logger : null,
                     client.createHttpClient,
