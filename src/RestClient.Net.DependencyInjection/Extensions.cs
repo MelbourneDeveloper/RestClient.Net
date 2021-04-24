@@ -31,25 +31,25 @@ namespace RestClient.Net.DependencyInjection
         }
 
 
-        public static IClientBuilder ConfigurePrimaryClient(this IClientBuilder builder, Func<IClient> configureClient)
-        {
-            if (builder == null)
-            {
-                throw new ArgumentNullException(nameof(builder));
-            }
+        //public static IClientBuilder ConfigurePrimaryClient(this IClientBuilder builder, Func<IClient> configureClient)
+        //{
+        //    if (builder == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(builder));
+        //    }
 
-            if (configureClient == null)
-            {
-                throw new ArgumentNullException(nameof(configureClient));
-            }
+        //    if (configureClient == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(configureClient));
+        //    }
 
-            _ = builder.Services.Configure<ClientBuilderOptions>(builder.Name, options =>
-              {
-                  options.HttpMessageHandlerBuilderActions.Add(b => b.PrimaryClient = configureClient());
-              });
+        //    _ = builder.Services.Configure<ClientBuilderOptions>(builder.Name, options =>
+        //      {
+        //          options.HttpMessageHandlerBuilderActions.Add(b => b.PrimaryClient = configureClient());
+        //      });
 
-            return builder;
-        }
+        //    return builder;
+        //}
     }
 
 

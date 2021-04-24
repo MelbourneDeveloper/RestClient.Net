@@ -1,13 +1,11 @@
-﻿using RestClient.Net.Abstractions;
-
-namespace RestClient.Net.DI
+﻿namespace RestClient.Net.DI
 {
-    public abstract class ClientBuilder
-    {
-        protected ClientBuilder(IClient primaryClient) => PrimaryClient = primaryClient;
+    //public abstract class ClientBuilder
+    //{
+    //    protected ClientBuilder(IClient primaryClient) => PrimaryClient = primaryClient;
 
-        public IClient PrimaryClient { get; internal set; }
+    //    public IClient PrimaryClient { get; internal set; }
 
-        public abstract IClient Build();
-    }
+    //    public abstract IClient Build();
+    //}
 }

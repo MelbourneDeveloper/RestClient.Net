@@ -24,11 +24,7 @@ namespace RestClient.Net.UnitTests
                 .AddSingleton<ISomeService, SomeService>()
                 .AddRestClient((o) => { });
 
-            _ = serviceCollection.AddHttpClient("test", (c) =>
-            {
-                c.Timeout = new TimeSpan(0, 0, 1);
-                expectedHttpClient = c;
-            });
+            _ = serviceCollection.AddHttpClient("RestClient", (c) => expectedHttpClient = c);
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 

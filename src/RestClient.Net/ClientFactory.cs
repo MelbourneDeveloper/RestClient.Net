@@ -48,7 +48,6 @@ namespace RestClient.Net
             return new Client(
                 obj.SerializationAdapter,
                 obj.BaseUrl,
-
                 createHttpClient: obj.CreateHttpClient,
                 logger: loggerFactory?.CreateLogger<Client>(),
                 name: name);
