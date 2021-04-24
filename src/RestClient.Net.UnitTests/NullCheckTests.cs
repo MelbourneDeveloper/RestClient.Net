@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RestClient.Net.Abstractions;
 using RestClient.Net.Abstractions.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Urls;
 
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
@@ -144,13 +144,13 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual("client", exception.ParamName);
         }
 
-        [TestMethod]
-        public void TestClientFactoryExtensionsCreateClientClient()
-        {
-            var exception = Assert.ThrowsException<ArgumentNullException>(() => _ = ClientFactoryExtensions.CreateClient(default, "Asd"));
+        //[TestMethod]
+        //public void TestClientFactoryExtensionsCreateClientClient()
+        //{
+        //    var exception = Assert.ThrowsException<ArgumentNullException>(() => _ = ClientFactoryExtensions.CreateClient(default, "Asd"));
 
-            Assert.AreEqual("createClient", exception.ParamName);
-        }
+        //    Assert.AreEqual("createClient", exception.ParamName);
+        //}
 
         [TestMethod]
         public void TestHeadersExtensionsAppendHeadersCollection()

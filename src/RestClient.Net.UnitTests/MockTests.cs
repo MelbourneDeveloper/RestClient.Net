@@ -28,7 +28,7 @@ namespace RestClient.Net.UnitTests
             var serializationAdapterMock = new Mock<ISerializationAdapter>();
 
             //Set the factory up to return the mock client
-            _ = clientFactoryMock.Setup(f => f.Invoke("Person", null)).Returns(clientMock.Object);
+            _ = clientFactoryMock.Setup(f => f.Invoke("Person")).Returns(clientMock.Object);
 
             //Set the client up to return the response mock
             var result = new Response<Person>
@@ -44,7 +44,7 @@ namespace RestClient.Net.UnitTests
             _ = clientMock.Setup(c => c.SendAsync<Person, Person>(It.IsAny<IRequest<Person>>())).Returns(Task.FromResult(result));
 
 #pragma warning disable CS8603 // Possible null reference return.
-            _ = clientMock.Setup<AbsoluteUrl>(c => c.BaseUrl).Returns(uri);
+            _ = clientMock.Setup(c => c.BaseUrl).Returns(uri);
 #pragma warning restore CS8603 // Possible null reference return.
 
             _ = serializationAdapterMock.Setup(c => c.Deserialize<Person>(It.IsAny<byte[]>(), It.IsAny<IHeadersCollection>())).Returns(responsePerson);

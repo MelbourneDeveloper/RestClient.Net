@@ -1765,34 +1765,34 @@ namespace RestClient.Net.UnitTests
                 => client.PostAsync<Person, Person>(new Person()));
         }
 
-        [TestMethod]
-        public async Task TestFactoryCreationWithUri()
-        {
-            var clientFactory = new ClientFactory(GetCreateHttpClient(), new NewtonsoftSerializationAdapter());
-            var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "test", RestCountriesAllUri);
-            var response = await client.GetAsync<List<RestCountry>>();
-            Assert.IsTrue(response.Body?.Count > 0);
-        }
+        //[TestMethod]
+        //public async Task TestFactoryCreationWithUri()
+        //{
+        //    var clientFactory = new ClientFactory(GetCreateHttpClient(), new NewtonsoftSerializationAdapter());
+        //    var client = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "test", RestCountriesAllUri);
+        //    var response = await client.GetAsync<List<RestCountry>>();
+        //    Assert.IsTrue(response.Body?.Count > 0);
+        //}
 
 #if !NET45
 
-        [TestMethod]
-        public async Task TestFactoryDoesntUseSameHttpClient()
-        {
-            var clientFactory = new ClientFactory(
-                GetCreateHttpClient(),
-                new NewtonsoftSerializationAdapter());
+        //[TestMethod]
+        //public async Task TestFactoryDoesntUseSameHttpClient()
+        //{
+        //    var clientFactory = new ClientFactory(
+        //        GetCreateHttpClient(),
+        //        new NewtonsoftSerializationAdapter());
 
-            var client = (Client)ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "1", RestCountriesAllUri);
-            var response = await client.GetAsync<List<RestCountry>>();
+        //    var client = (Client)ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "1", RestCountriesAllUri);
+        //    var response = await client.GetAsync<List<RestCountry>>();
 
-            var client2 = (Client)ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "2", RestCountriesAllUri);
-            response = await client2.GetAsync<List<RestCountry>>();
+        //    var client2 = (Client)ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "2", RestCountriesAllUri);
+        //    response = await client2.GetAsync<List<RestCountry>>();
 
-            Assert.IsNotNull(client.lazyHttpClient.Value);
-            var isEqual = ReferenceEquals(client.lazyHttpClient.Value, client2.lazyHttpClient.Value);
-            Assert.IsFalse(isEqual);
-        }
+        //    Assert.IsNotNull(client.lazyHttpClient.Value);
+        //    var isEqual = ReferenceEquals(client.lazyHttpClient.Value, client2.lazyHttpClient.Value);
+        //    Assert.IsFalse(isEqual);
+        //}
 
         [TestMethod]
         public async Task TestHttpClientFactoryDoesntUseSameHttpClient()
@@ -1830,20 +1830,20 @@ namespace RestClient.Net.UnitTests
         /// <summary>
         /// This test is controversial. Should non-named clients always be Singleton? This is the way the factory is designed, but could trip some users up.
         /// </summary>
-        [TestMethod]
-        public void TestClientFactoryReusesClient()
-        {
-            using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
+        //[TestMethod]
+        //public void TestClientFactoryReusesClient()
+        //{
+        //    using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
 
-            var clientFactory = new ClientFactory(defaultHttpClientFactory.CreateClient, new NewtonsoftSerializationAdapter());
+        //    var clientFactory = new ClientFactory(defaultHttpClientFactory.CreateClient, new NewtonsoftSerializationAdapter());
 
-            var firstClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "RestClient", RestCountriesAllUri);
+        //    var firstClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "RestClient", RestCountriesAllUri);
 
-            var secondClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "RestClient", RestCountriesAllUri);
+        //    var secondClient = ClientFactoryExtensions.CreateClient(clientFactory.CreateClient, "RestClient", RestCountriesAllUri);
 
-            Assert.IsNotNull(firstClient);
-            Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
-        }
+        //    Assert.IsNotNull(firstClient);
+        //    Assert.IsTrue(ReferenceEquals(firstClient, secondClient));
+        //}
 
         [TestMethod]
         public async Task TestHttpClientFactoryReusesHttpClientWhenSameName()

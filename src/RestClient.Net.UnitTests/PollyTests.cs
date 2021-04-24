@@ -88,38 +88,38 @@ namespace RestClient.Net.UnitTests
         }
 
 
-        [TestMethod]
-        public async Task TestPollyWithDependencyInjection()
-        {
-            //Configure a Polly policy
-            var policy = HttpPolicyExtensions
-                .HandleTransientHttpError()
-                .OrResult(msg => msg.StatusCode == HttpStatusCode.NotFound)
-                .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
+        //[TestMethod]
+        //public async Task TestPollyWithDependencyInjection()
+        //{
+        //    //Configure a Polly policy
+        //    var policy = HttpPolicyExtensions
+        //        .HandleTransientHttpError()
+        //        .OrResult(msg => msg.StatusCode == HttpStatusCode.NotFound)
+        //        .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 
-            //Create a Microsoft IoC Container
-            var serviceCollection = new ServiceCollection();
-            _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
-            .AddLogging()
-            //Add the Polly policy to the named HttpClient instance
-            .AddHttpClient("rc").
-                SetHandlerLifetime(TimeSpan.FromMinutes(5)).
-                AddPolicyHandler(policy);
+        //    //Create a Microsoft IoC Container
+        //    var serviceCollection = new ServiceCollection();
+        //    _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
+        //    .AddLogging()
+        //    //Add the Polly policy to the named HttpClient instance
+        //    .AddHttpClient("rc").
+        //        SetHandlerLifetime(TimeSpan.FromMinutes(5)).
+        //        AddPolicyHandler(policy);
 
-            //Provides mapping for Microsoft's IHttpClientFactory (This is what makes the magic happen)
-            _ = serviceCollection.AddRestClient();
+        //    //Provides mapping for Microsoft's IHttpClientFactory (This is what makes the magic happen)
+        //    _ = serviceCollection.AddRestClient();
 
-            var serviceProvider = serviceCollection.BuildServiceProvider();
-            var clientFactory = serviceProvider.GetRequiredService<CreateClient>();
+        //    var serviceProvider = serviceCollection.BuildServiceProvider();
+        //    var clientFactory = serviceProvider.GetRequiredService<CreateClient>();
 
-            //Create a Rest Client that will get the HttpClient by the name of rc
-            var client = clientFactory("rc", new("https://restcountries.eu/rest/v2/"));
+        //    //Create a Rest Client that will get the HttpClient by the name of rc
+        //    var client = clientFactory("rc", new("https://restcountries.eu/rest/v2/"));
 
-            //Make the call
-            _ = await client.GetAsync<List<RestCountry>>();
+        //    //Make the call
+        //    _ = await client.GetAsync<List<RestCountry>>();
 
-            //TODO: Implement this completely to ensure that the policy is being applied
-        }
+        //    //TODO: Implement this completely to ensure that the policy is being applied
+        //}
 
     }
 }
