@@ -4,6 +4,8 @@
 
 Version 5.0 Alpha [here](https://github.com/MelbourneDeveloper/RestClient.Net/tree/5/develop)
 
+NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
+
 ## [Follow Me on Twitter for Updates](https://twitter.com/intent/follow?screen_name=cfdevelop&tw_p=followbutton) ##
 
 The best .NET REST Client with task-based async, strong types and dependency injection on all platforms. Consume your ASP .NET Core Web APIs or consume RESTful APIs over the internet in C# or Visual Basic.
@@ -14,7 +16,7 @@ The best .NET REST Client with task-based async, strong types and dependency inj
 
 The best .NET REST Client with task-based async, strong types, and dependency injection on all platforms. Consume your ASP .NET Core Web APIs or consume RESTful APIs over the internet in C# or Visual Basic.
 
-## 5.0.x [Alpha Release](https://www.nuget.org/packages/RestClient.NET/5.0.0-alpha)
+## 5.0.x [Beta Release](https://www.nuget.org/packages/RestClient.NET/5.0.0-alpha)
 
 This page represents documentation for the alpha release. Please include pre-release when adding the NuGet packages. See the main branch for 4.x. There will be some breaking changes until the actual release.
 
