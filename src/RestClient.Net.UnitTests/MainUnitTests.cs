@@ -1769,7 +1769,11 @@ namespace RestClient.Net.UnitTests
         public async Task TestFactoryCreationWithUri()
         {
             var clientFactory = new ClientFactory(GetCreateHttpClient());
-            var client = clientFactory.CreateClient("test", (o) => o.BaseUrl = RestCountriesAllUri);
+            var client = clientFactory.CreateClient("test", (o) =>
+            {
+                o.BaseUrl = RestCountriesAllUri;
+                o.SerializationAdapter = new NewtonsoftSerializationAdapter();
+            });
             var response = await client.GetAsync<List<RestCountry>>();
             Assert.IsTrue(response.Body?.Count > 0);
         }
@@ -1867,7 +1871,16 @@ namespace RestClient.Net.UnitTests
             Assert.IsTrue(ReferenceEquals(client.lazyHttpClient.Value, client2.lazyHttpClient.Value));
         }
 
-
+#else
+        [TestMethod]
+        public void TestFactoryCreationWithoutAdapterThrowsException()
+        {
+            _ = Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                var clientFactory = new ClientFactory(GetCreateHttpClient());
+                var client = clientFactory.CreateClient("test");
+            });
+        }
 
 #endif
 

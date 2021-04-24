@@ -44,6 +44,10 @@ namespace RestClient.Net
 
             configureClient?.Invoke(createClientOptions);
 
+#if NET45
+            if (createClientOptions.SerializationAdapter == null) throw new InvalidOperationException("You must specify a SerializationAdapter");
+#endif
+
             return new Client(
                 createClientOptions.SerializationAdapter,
                 createClientOptions.BaseUrl,
