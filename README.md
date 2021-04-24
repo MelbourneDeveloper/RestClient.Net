@@ -47,6 +47,52 @@ UserPost userPost = await client.PostAsync<UserPost, UserPost>(
     );
 ```
 
+#### Dependency Injection
+
+##### Wiring it up
+```cs
+var serviceCollection = new ServiceCollection()
+    //Add a service which has an IClient dependency
+    .AddSingleton<IGetString, GetString1>()
+    //Add RestClient.Net
+    .AddRestClient();
+
+//Use HttpClient dependency injection
+_ = serviceCollection.AddHttpClient();
+```
+
+##### Getting a Global IClient in a Service
+
+```cs
+public class GetString1 : IGetString
+{
+    public IClient Client { get; }
+
+    public GetString1(IClient client) => Client = client;
+
+    public async Task<string> GetStringAsync() => await Client.GetAsync<string>();
+}
+```
+
+##### Getting a IClient Using a Factory
+
+```cs
+public class GetString2 : IGetString
+{
+    public IClient Client { get; }
+
+    public GetString2(CreateClient createClient)
+    {
+        if (createClient == null) throw new ArgumentNullException(nameof(createClient));
+        
+        //Use the options to set the BaseUrl or other properties on the Client
+        Client = createClient("test", (o) => { o.BaseUrl = o.BaseUrl with { Host = "Hi" }; });
+    }
+
+    public async Task<string> GetStringAsync() => await Client.GetAsync<string>();
+}
+```
+
 #### Make Call and Construct Client
 
 ```cs
