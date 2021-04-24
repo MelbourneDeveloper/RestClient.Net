@@ -47,7 +47,7 @@ UserPost userPost = await client.PostAsync<UserPost, UserPost>(
     );
 ```
 
-### Dependency Injection
+### Dependency Injection (RestClient.Net.DependencyInjection NuGet Package)
 
 #### Wiring it up
 ```cs
