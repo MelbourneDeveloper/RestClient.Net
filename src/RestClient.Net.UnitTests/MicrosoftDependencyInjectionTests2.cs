@@ -14,9 +14,12 @@ namespace RestClient.Net.UnitTests
     [TestClass]
     public class MicrosoftDependencyInjectionTests2
     {
+        private const string DefaultRestClientName = "RestClient";
 
         [TestMethod]
-        public void TestDIMapping()
+        [DataRow(DefaultRestClientName, true)]
+        [DataRow("123", false)]
+        public void TestDIMapping(string httpClientName, bool isEqual)
         {
             const int secondsTimeout = 123;
 
@@ -24,7 +27,7 @@ namespace RestClient.Net.UnitTests
                 .AddSingleton<ISomeService, SomeService>()
                 .AddRestClient((o) => { });
 
-            _ = serviceCollection.AddHttpClient("RestClient", new Action<HttpClient>((c) =>
+            _ = serviceCollection.AddHttpClient(httpClientName, new Action<HttpClient>((c) =>
                 c.Timeout = new TimeSpan(0, 0, secondsTimeout)
             ));
 
@@ -37,11 +40,20 @@ namespace RestClient.Net.UnitTests
                 throw new InvalidOperationException("Nah");
             }
 
-            Assert.AreEqual("RestClient", client.Name);
+            Assert.AreEqual(DefaultRestClientName, client.Name);
 
-            //Make sure we got the HttpClient that the Microsft DI put in the container
-            Assert.AreEqual(secondsTimeout, client.lazyHttpClient.Value.Timeout.TotalSeconds);
+            if (isEqual)
+            {
+                //Make sure we got the HttpClient that the Microsft DI put in the container
+                Assert.AreEqual(secondsTimeout, client.lazyHttpClient.Value.Timeout.TotalSeconds);
+            }
+            else
+            {
+                Assert.AreNotEqual(secondsTimeout, client.lazyHttpClient.Value.Timeout.TotalSeconds);
+            }
+
         }
+
 
 
     }
