@@ -9,7 +9,7 @@
 
 		  www.rest-client.net
 
-		  This package contains abstractions for dependency injection with no implementations
+		  This package contains dependency injection extensions for the Microsoft.Extensions.DependencyInjection framework
 	  </Description>
 
   </PropertyGroup>
