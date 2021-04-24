@@ -24,7 +24,7 @@ namespace RestClient.Net.UnitTests
             const int secondsTimeout = 123;
 
             var serviceCollection = new ServiceCollection()
-                .AddSingleton<ISomeService, SomeService>()
+                .AddSingleton<IGetString, GetString1>()
                 .AddRestClient();
 
             _ = serviceCollection.AddHttpClient(httpClientName, new Action<HttpClient>((c) =>
@@ -33,7 +33,7 @@ namespace RestClient.Net.UnitTests
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
-            var someService = serviceProvider.GetRequiredService<ISomeService>();
+            var someService = serviceProvider.GetRequiredService<IGetString>();
 
             if (someService.Client is not Client client)
             {
@@ -59,7 +59,7 @@ namespace RestClient.Net.UnitTests
             const int secondsTimeout = 123;
 
             var serviceCollection = new ServiceCollection()
-                .AddSingleton<ISomeService, SomeService2>()
+                .AddSingleton<IGetString, GetString2>()
                 .AddRestClient();
 
             _ = serviceCollection.AddHttpClient("Jim", new Action<HttpClient>((c) =>
@@ -68,7 +68,7 @@ namespace RestClient.Net.UnitTests
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
-            var someService = serviceProvider.GetRequiredService<ISomeService>();
+            var someService = serviceProvider.GetRequiredService<IGetString>();
 
             if (someService.Client is not Client client)
             {
@@ -76,42 +76,8 @@ namespace RestClient.Net.UnitTests
             }
 
             Assert.AreEqual("test", client.Name);
-
-
             Assert.AreEqual("Hi", client.BaseUrl.Host);
-
         }
-
-
     }
-
-    public interface ISomeService
-    {
-        IClient Client { get; }
-        Task<string> GetAsync();
-    }
-
-    public class SomeService : ISomeService
-    {
-        public IClient Client { get; }
-
-        public SomeService(IClient client) => Client = client;
-
-        public async Task<string> GetAsync() => await Client.GetAsync<string>();
-    }
-
-    public class SomeService2 : ISomeService
-    {
-        public IClient Client { get; }
-
-        public SomeService2(CreateClient createClient2)
-        {
-            if (createClient2 == null) throw new ArgumentNullException(nameof(createClient2));
-            Client = createClient2("test", (o) => { o.BaseUrl = o.BaseUrl with { Host = "Hi" }; });
-        }
-
-        public async Task<string> GetAsync() => await Client.GetAsync<string>();
-    }
-
 }
 #endif
