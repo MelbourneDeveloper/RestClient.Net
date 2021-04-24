@@ -1,17 +1,11 @@
-﻿
-
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Polly;
 using Polly.Extensions.Http;
 using Polly.Retry;
 using RestClient.Net.Abstractions;
-using RestClient.Net.DependencyInjection;
-using RestClient.Net.UnitTests.Model;
 using RestClientApiSamples;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;

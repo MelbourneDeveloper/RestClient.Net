@@ -5,10 +5,13 @@ using RestClient.Net.Abstractions;
 using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Urls;
+
+#if! NET45
+using System.Linq;
+#endif
 
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 #pragma warning disable CS8603 // Possible null reference return.
