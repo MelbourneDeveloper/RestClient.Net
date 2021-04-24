@@ -16,7 +16,7 @@ namespace RestClient.Net
             CancellationToken cancellationToken = default)
         {
             if (url == null) throw new ArgumentNullException(nameof(url));
-            var client = new Client(baseUri: url.WithRelativeUrl(RelativeUrl.Empty));
+            var client = new Client(url.WithRelativeUrl(RelativeUrl.Empty));
             var response = await client.GetAsync<TResponseBody>(
                 url.RelativeUrl,
                 headersCollection,
@@ -32,7 +32,7 @@ namespace RestClient.Net
             CancellationToken cancellationToken = default)
         {
             if (url == null) throw new ArgumentNullException(nameof(url));
-            var client = new Client(baseUri: url.WithRelativeUrl(RelativeUrl.Empty));
+            var client = new Client(url.WithRelativeUrl(RelativeUrl.Empty));
             var response = await client.PatchAsync<TResponseBody, TRequestBody>(
                 requestBody,
                 url.RelativeUrl,
@@ -49,7 +49,7 @@ namespace RestClient.Net
             CancellationToken cancellationToken = default)
         {
             if (url == null) throw new ArgumentNullException(nameof(url));
-            var client = new Client(baseUri: url.WithRelativeUrl(RelativeUrl.Empty));
+            var client = new Client(url.WithRelativeUrl(RelativeUrl.Empty));
             var response = await client.PostAsync<TResponseBody, TRequestBody>(
                 requestBody,
                 url.RelativeUrl,
@@ -66,7 +66,7 @@ namespace RestClient.Net
             CancellationToken cancellationToken = default)
         {
             if (url == null) throw new ArgumentNullException(nameof(url));
-            var client = new Client(baseUri: url.WithRelativeUrl(RelativeUrl.Empty));
+            var client = new Client(url.WithRelativeUrl(RelativeUrl.Empty));
             var response = await client.PutAsync<TResponseBody, TRequestBody>(
                 requestBody,
                 url.RelativeUrl,
@@ -82,7 +82,7 @@ namespace RestClient.Net
             CancellationToken cancellationToken = default)
         {
             if (url == null) throw new ArgumentNullException(nameof(url));
-            var client = new Client(baseUri: url.WithRelativeUrl(RelativeUrl.Empty));
+            var client = new Client(url.WithRelativeUrl(RelativeUrl.Empty));
             var response = await client.DeleteAsync(
                 url.RelativeUrl,
                 headersCollection,

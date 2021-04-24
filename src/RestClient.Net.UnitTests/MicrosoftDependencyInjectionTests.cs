@@ -47,7 +47,7 @@ namespace RestClient.Net.UnitTests
                     .AddRestClient()
                     .AddTransient<TestHandler>()
                     //Make sure the HttpClient is named the same as the Rest Client
-                    .AddSingleton<IClient>(x => new Client(baseUri: new("http://www.test.com"), name: clientName, createHttpClient: x.GetRequiredService<CreateHttpClient>()));
+                    .AddSingleton<IClient>(x => new Client(new AbsoluteUrl("http://www.test.com"), name: clientName, createHttpClient: x.GetRequiredService<CreateHttpClient>()));
 
                 _ = serviceCollection.AddHttpClient(clientName)
                 .AddHttpMessageHandler<TestHandler>();
@@ -197,7 +197,7 @@ namespace RestClient.Net.UnitTests
             .BuildServiceProvider()
             .GetRequiredService<ITestService>();
 
-            Assert.AreEqual(TestService.Uri, testService?.Client?.BaseUri?.ToUri());
+            Assert.AreEqual(TestService.Uri, testService?.Client?.BaseUrl?.ToUri());
         }
 
     }

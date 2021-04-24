@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -207,6 +208,28 @@ namespace RestClient.Net.UnitTests
 
 
 #if !NET45
+        [TestMethod]
+        public void TestCreateFromUrlStringAndWith()
+        {
+            using var client = new Client("http://www.test.com/test/test2?test=test#frag");
+            using var client2 = client with
+            {
+                DefaultRequestHeaders = new HeadersCollection("a", "b"),
+                BaseUrl = client.BaseUrl,
+                SerializationAdapter = client.SerializationAdapter,
+                Name = client.Name,
+                ThrowExceptionOnFailure = client.ThrowExceptionOnFailure
+            };
+            Assert.AreEqual("frag", client2.BaseUrl.RelativeUrl.Fragment);
+            Assert.AreEqual("www.test.com", client2.BaseUrl.Host);
+            Assert.IsTrue(client2.BaseUrl.RelativeUrl.Path.SequenceEqual(new List<string> { "test", "test2" }));
+            Assert.AreEqual("test", client.BaseUrl.RelativeUrl.QueryParameters[0].FieldName);
+            Assert.AreEqual(client.SerializationAdapter, client2.SerializationAdapter);
+            Assert.AreEqual(client.ThrowExceptionOnFailure, client2.ThrowExceptionOnFailure);
+            Assert.AreEqual(client.Name, client2.Name);
+            Assert.AreEqual(client.BaseUrl, client2.BaseUrl);
+        }
+
         [TestMethod]
         public void TestJsonSerializationAdapterDeserialize() =>
             Assert.AreEqual("responseData", Assert.ThrowsException<ArgumentNullException>(() =>

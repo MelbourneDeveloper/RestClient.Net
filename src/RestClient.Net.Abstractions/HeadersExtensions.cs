@@ -97,12 +97,12 @@ namespace RestClient.Net.Abstractions.Extensions
         /// <summary>
         /// Sets the Authorization header for Basic Authentication with the specified credentials
         /// </summary>
-        public static IHeadersCollection CreateHeadersCollectionWithBasicAuthentication(string userName, string password) => WithBasicAuthentication(null, userName, password);
+        public static IHeadersCollection FromBasicCredentials(string userName, string password) => WithBasicAuthentication(null, userName, password);
 
-        public static IHeadersCollection CreateHeadersCollectionWithBearerTokenAuthentication(string bearerToken)
+        public static IHeadersCollection FromBearerToken(string bearerToken)
         => WithBearerTokenAuthentication(null, bearerToken);
 
-        public static IHeadersCollection CreateHeadersCollectionWithJsonContentType()
+        public static IHeadersCollection FromJsonContentType()
         => WithJsonContentTypeHeader(null);
 
         public static IHeadersCollection WithHeaderValue(
