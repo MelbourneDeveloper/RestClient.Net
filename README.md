@@ -39,7 +39,7 @@ For a full set of examples see these [unit tests](https://github.com/MelbourneDe
 ```cs
 using var client =
     //Build the Url from the host name
-    new Client(baseUri: "jsonplaceholder.typicode.com".ToHttpsUriFromHost());
+    new Client("jsonplaceholder.typicode.com".ToHttpsUriFromHost());
 
 UserPost userPost = await client.PostAsync<UserPost, UserPost>(
     //POST the UserPost to the server
