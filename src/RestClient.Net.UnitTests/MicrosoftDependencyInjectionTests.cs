@@ -14,10 +14,8 @@ using Urls;
 
 namespace RestClient.Net.UnitTests
 {
-    //https://github.com/microsoft/aspnet-api-versioning/blob/master/src/Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer/Microsoft.Extensions.DependencyInjection/IServiceCollectionExtensions.cs
-
     [TestClass]
-    public class MicrosoftDependencyInjectionTests
+    public class MicrosoftDependencyInjectionTests2
     {
         private readonly TimeSpan timeout = new(1, 0, 0);
 

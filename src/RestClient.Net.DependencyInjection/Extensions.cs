@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
+using System;
 using System.Net.Http;
 
 namespace RestClient.Net.DependencyInjection
@@ -29,6 +30,13 @@ namespace RestClient.Net.DependencyInjection
             });
 
             return serviceCollection;
+        }
+
+        public static IServiceCollection AddRestClient<T, TI>(this IServiceCollection serviceCollection, Func<IClient> createClient)
+        {
+#pragma warning disable IDE0022 // Use expression body for methods
+            return serviceCollection;
+#pragma warning restore IDE0022 // Use expression body for methods
         }
     }
 }
