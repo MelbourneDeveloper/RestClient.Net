@@ -54,8 +54,8 @@ UserPost userPost = await client.PostAsync<UserPost, UserPost>(
 var serviceCollection = new ServiceCollection()
     //Add a service which has an IClient dependency
     .AddSingleton<IGetString, GetString1>()
-    //Add RestClient.Net
-    .AddRestClient();
+    //Add RestClient.Net with a default Base Url of http://www.test.com
+    .AddRestClient((o) => o.BaseUrl = "http://www.test.com".ToAbsoluteUrl());
 
 //Use HttpClient dependency injection
 _ = serviceCollection.AddHttpClient();
