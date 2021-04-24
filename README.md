@@ -83,8 +83,6 @@ public class GetString2 : IGetString
 
     public GetString2(CreateClient createClient)
     {
-        if (createClient == null) throw new ArgumentNullException(nameof(createClient));
-        
         //Use the options to set the BaseUrl or other properties on the Client
         Client = createClient("test", (o) => { o.BaseUrl = o.BaseUrl with { Host = "Hi" }; });
     }
