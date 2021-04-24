@@ -108,22 +108,31 @@ var response = await "https://restcountries.eu/rest/v2"
 #### Query Github Issues with GraphQL (You must authorize GraphQL Github App)
 
 ```cs
-public static class GitHubGraphQLMethods
-{
-    public static async Task<T> GetIssues<T>(string repo, string accessToken)
-    => (await "https://api.github.com/graphql"
-        .ToAbsoluteUrl()
-        .PostAsync<QueryResponse<T>, QueryRequest>(
-            new QueryRequest("{ search(query: \"repo:" + repo + "\", type: ISSUE, first: 100) {nodes {... on Issue { number title body } } }}")
-            , HeadersExtensions.CreateHeadersCollectionWithBearerTokenAuthentication(accessToken)
-        .Append("User-Agent", "RestClient.Net"))).Response.Body.data.search;
-}
+using RestClient.Net.Abstractions.Extensions;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Urls;
 
-public record QueryRequest(string query);
-public record Issue(int? number, string title, string body);
-public record Issues(List<Issue> nodes);
-public record Data<T>(T search);
-public record QueryResponse<T>(Data<T> data);
+namespace RestClient.Net
+{
+    public static class GitHubGraphQLMethods
+    {
+        public static async Task<T> GetIssues<T>(string repo, string accessToken)
+        => (await "https://api.github.com/graphql"
+            .ToAbsoluteUrl()
+            .PostAsync<QueryResponse<T>, QueryRequest>(
+                new QueryRequest("{ search(query: \"repo:" + repo + "\", type: ISSUE, first: 100) {nodes {... on Issue { number title body } } }}")
+                , HeadersExtensions.FromBearerToken(accessToken)
+            .Append("User-Agent", "RestClient.Net"))).Response.Body.data.search;
+    }
+
+    public record QueryRequest(string query);
+    public record Issue(int? number, string title, string body);
+    public record Issues(List<Issue> nodes);
+    public record Data<T>(T search);
+    public record QueryResponse<T>(Data<T> data);
+
+}
 ```
 
 
