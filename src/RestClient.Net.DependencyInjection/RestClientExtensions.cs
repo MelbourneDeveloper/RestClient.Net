@@ -7,7 +7,7 @@ namespace RestClient.Net.DependencyInjection
 {
     public static class RestClientExtensions
     {
-        public static IServiceCollection AddRestClient(this IServiceCollection serviceCollection, Action<ClientBuilderOptions>? configureClient = null)
+        public static IServiceCollection AddRestClient(this IServiceCollection serviceCollection, Action<CreateClientOptions>? configureClient = null)
         {
             _ = serviceCollection
             .AddSingleton<CreateHttpClient>((sp) =>

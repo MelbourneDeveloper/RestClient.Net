@@ -11,7 +11,7 @@ namespace RestClient.Net
     public class ClientFactory
     {
         #region Fields
-        private readonly Func<string, Action<ClientBuilderOptions>?, Lazy<IClient>> createClientFunc;
+        private readonly Func<string, Action<CreateClientOptions>?, Lazy<IClient>> createClientFunc;
         private readonly ConcurrentDictionary<string, Lazy<IClient>> clients;
         private readonly CreateHttpClient createHttpClient;
         private readonly ILoggerFactory loggerFactory;
@@ -33,23 +33,27 @@ namespace RestClient.Net
         #endregion
 
         #region Implementation
-        public IClient CreateClient(string name, Action<ClientBuilderOptions>? configureClient = null)
+        public IClient CreateClient(string name, Action<CreateClientOptions>? configureClient = null)
             => name == null ? throw new ArgumentNullException(nameof(name)) : clients.GetOrAdd(name, createClientFunc(name, configureClient)).Value;
         #endregion
 
         #region Private Methods
-        private IClient MintClient(string name, Action<ClientBuilderOptions>? configureClient = null)
+        private IClient MintClient(string name, Action<CreateClientOptions>? configureClient = null)
         {
-            var obj = new ClientBuilderOptions(createHttpClient);
+            var createClientOptions = new CreateClientOptions(createHttpClient);
 
-            configureClient?.Invoke(obj);
+            configureClient?.Invoke(createClientOptions);
 
             return new Client(
-                obj.SerializationAdapter,
-                obj.BaseUrl,
-                createHttpClient: obj.CreateHttpClient,
-                logger: loggerFactory?.CreateLogger<Client>(),
-                name: name);
+                createClientOptions.SerializationAdapter,
+                createClientOptions.BaseUrl,
+                createClientOptions.HeadersCollection,
+                loggerFactory?.CreateLogger<Client>(),
+                createClientOptions.CreateHttpClient,
+                createClientOptions.SendHttpRequestMessage,
+                createClientOptions.GetHttpRequestMessage,
+                createClientOptions.ThrowsExceptionOnFailure,
+                name);
         }
         #endregion
     }
