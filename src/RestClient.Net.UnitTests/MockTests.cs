@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RestClient.Net.Abstractions;
-using RestClient.Net.DI;
 using RestClientApiSamples;
 using System.Threading.Tasks;
 using Urls;

@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using RestClient.Net.Abstractions;
-using RestClient.Net.DI;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;

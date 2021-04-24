@@ -10,7 +10,7 @@ namespace RestClient.Net.UnitTests
         public MockAspController(CreateClient clientFactory)
             => Client = clientFactory != null ? clientFactory("test",
                 //TODO: The test is actually calling this which is bad
-                new("https://restcountries.eu/rest/v2/")
+                (o) => o.BaseUrl = new("https://restcountries.eu/rest/v2/")
                 ) : throw new ArgumentNullException(nameof(clientFactory));
     }
 }

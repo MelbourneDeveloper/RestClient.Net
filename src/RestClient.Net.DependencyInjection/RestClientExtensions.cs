@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using RestClient.Net.DI;
 using System;
 using System.Net.Http;
 

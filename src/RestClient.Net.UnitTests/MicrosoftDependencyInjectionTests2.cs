@@ -7,7 +7,6 @@ using System;
 using System.Threading.Tasks;
 using RestClient.Net.DependencyInjection;
 using System.Net.Http;
-using RestClient.Net.DI;
 
 namespace RestClient.Net.UnitTests
 {
