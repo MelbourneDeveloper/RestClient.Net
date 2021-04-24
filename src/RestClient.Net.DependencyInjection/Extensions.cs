@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Logging;
 using RestClient.Net.Abstractions;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
+using Urls;
 
 namespace RestClient.Net.DependencyInjection
 {
@@ -32,11 +34,46 @@ namespace RestClient.Net.DependencyInjection
             return serviceCollection;
         }
 
-        public static IServiceCollection AddRestClient<T, TI>(this IServiceCollection serviceCollection, Func<IClient> createClient)
+
+        public static IClientBuilder ConfigurePrimaryClient(this IClientBuilder builder, Func<IClient> configureClient)
         {
-#pragma warning disable IDE0022 // Use expression body for methods
-            return serviceCollection;
-#pragma warning restore IDE0022 // Use expression body for methods
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
+            if (configureClient == null)
+            {
+                throw new ArgumentNullException(nameof(configureClient));
+            }
+
+            _ = builder.Services.Configure<ClientBuilderOptions>(builder.Name, options =>
+              {
+                  options.ClientBuildActions.Add(b => b.PrimaryClient = configureClient());
+              });
+
+            return builder;
         }
+    }
+
+    public class ClientBuilderOptions
+    {
+        public IList<Action<ClientBuilder>> ClientBuildActions { get; } = new List<Action<ClientBuilder>>();
+        public AbsoluteUrl BaseUrl { get; set; } = AbsoluteUrl.Empty;
+    }
+
+    public abstract class ClientBuilder
+    {
+        protected ClientBuilder(IClient primaryClient) => PrimaryClient = primaryClient;
+
+        public IClient PrimaryClient { get; internal set; }
+
+        public abstract IClient Build();
+    }
+
+    public interface IClientBuilder
+    {
+        string Name { get; }
+        IServiceCollection Services { get; }
     }
 }
