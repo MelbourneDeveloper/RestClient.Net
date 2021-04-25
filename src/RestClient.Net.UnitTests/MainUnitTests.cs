@@ -424,7 +424,7 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: factory.CreateClient, baseUri: RestCountriesAllUri, logger: _logger.Object);
 
-            await AssertThrowsAsync<HttpStatusException>(client.GetAsync<List<RestCountry>>(), Messages.GetErrorMessageNonSuccess((int)statusCode, RestCountriesAllUri));
+            _ = await Assert.ThrowsExceptionAsync<HttpStatusException>(() => client.GetAsync<List<RestCountry>>(), Messages.GetErrorMessageNonSuccess((int)statusCode, RestCountriesAllUri));
         }
 
         [TestMethod]
@@ -2325,29 +2325,6 @@ namespace RestClient.Net.UnitTests
                 httpRequestMessage.RequestUri == requestUri;
         }
 #endif
-
-        public static async Task AssertThrowsAsync<T>(Task task, string expectedMessage) where T : Exception
-        {
-            if (task == null) throw new ArgumentNullException(nameof(task));
-
-            try
-            {
-                await task;
-            }
-            catch (Exception ex)
-            {
-                if (ex is T)
-                {
-                    Assert.AreEqual(expectedMessage, ex.Message);
-                    return;
-                }
-
-                Assert.Fail($"Expection exception type: {typeof(T)} Actual type: {ex.GetType()}");
-            }
-
-            Assert.Fail($"No exception thrown");
-        }
-
         private static HttpClient MintClient()
 #if !NET45
         {
