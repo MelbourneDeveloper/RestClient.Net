@@ -1168,18 +1168,12 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.FromBasicCredentials("Bob", "WrongPassword"));
 
-            try
-            {
-                _ = await restClient.GetAsync<Person>(new RelativeUrl("secure/basic"));
-            }
-            catch (HttpStatusException hex)
-            {
-                Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
-                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult?.Errors.First());
-                return;
-            }
-            Assert.Fail();
+            var hex = await Assert.ThrowsExceptionAsync<HttpStatusException>(() => restClient.GetAsync<Person>(new RelativeUrl("secure/basic")));
+
+            Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
+            var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+            Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult?.Errors.First());
+
         }
 
         [TestMethod]
