@@ -25,10 +25,7 @@ namespace RestClient.Net.Abstractions
             requestUri) => Body = body;
 
         public static implicit operator TResponseBody?(Response<TResponseBody> response)
-            //TODO: This exception could be a bit misleading
-#pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
             => response != null && response.Body != null ? response.Body : default;
-#pragma warning restore CA1065 // Do not raise exceptions in unexpected locations
         #endregion
     }
 }

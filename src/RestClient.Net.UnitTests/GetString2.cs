@@ -16,7 +16,7 @@ namespace RestClient.Net.UnitTests
             Client = createClient("test", (o) => { o.BaseUrl = o.BaseUrl with { Host = "Hi" }; });
         }
 
-        public async Task<string> GetStringAsync() => await Client.GetAsync<string>();
+        public async Task<string?> GetStringAsync() => await Client.GetAsync<string>();
     }
 
 }
