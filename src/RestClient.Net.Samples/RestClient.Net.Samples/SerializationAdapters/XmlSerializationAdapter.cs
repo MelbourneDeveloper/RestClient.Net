@@ -17,6 +17,10 @@ namespace RestClient.Net
         {
             if (responseData == null) throw new ArgumentNullException(nameof(responseData));
 
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
+            var markup = Encoding.UTF8.GetString(responseData);
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
+
             var serializer = new XmlSerializer(typeof(TResponseBody));
             using var stream = new MemoryStream();
             stream.Write(responseData, 0, responseData.Length);

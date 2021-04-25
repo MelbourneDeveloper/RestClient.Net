@@ -61,6 +61,7 @@ namespace RestClient.Net.UnitTests
         private readonly AbsoluteUrl RestCountriesAllUri = new(RestCountriesAllUriString);
         private readonly AbsoluteUrl RestCountriesAustraliaUri = new(RestCountriesAustraliaUriString);
         private readonly AbsoluteUrl JsonPlaceholderBaseUri = new(JsonPlaceholderBaseUriString);
+        private readonly AbsoluteUrl GeoPluginUrl = new("http://www.geoplugin.net/xml.gp");
         private const string TransferEncodingHeaderName = "Transfer-Encoding";
         private const string SetCookieHeaderName = "Set-Cookie";
         private const string CacheControlHeaderName = "Cache-Control";
@@ -241,6 +242,17 @@ namespace RestClient.Net.UnitTests
                 RestCountriesAllHeaders,
                 HeadersExtensions.JsonMediaType,
                 File.ReadAllText("JSON/RestCountries.json"));
+
+
+
+
+            //Return all rest countries with a status code of 200
+            _mockHttpMessageHandler.When(GeoPluginUrl.ToString())
+                    .Respond(
+                RestCountriesAllHeaders,
+                HeadersExtensions.JsonMediaType,
+                File.ReadAllText("JSON/GeoPlugin.xml"));
+
         }
         #endregion
 
@@ -638,9 +650,15 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestGetWithXmlSerialization()
         {
-            using var client = new Client(new XmlSerializationAdapter(), baseUri: new("http://www.geoplugin.net/xml.gp"));
+            using var client = new Client(
+                new XmlSerializationAdapter(),
+                createHttpClient: GetCreateHttpClient(),
+                baseUri: GeoPluginUrl);
             var geoPlugin = await client.GetAsync<GeoPlugin>();
+
             Assert.IsNotNull(geoPlugin);
+            Assert.AreEqual("-37.7858", geoPlugin?.Body?.Geoplugin_latitude);
+            Assert.AreEqual("Oceania", geoPlugin?.Body?.Geoplugin_continentName);
         }
         #endregion
 

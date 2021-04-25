@@ -46,6 +46,10 @@
 		<Content Include="JSON\*.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<None Remove="JSON\GeoPlugin.xml" />
+		<Content Include="JSON\GeoPlugin.xml">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
 		<PackageReference Include="Moq" Version="4.16.1" />
 		<PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
