@@ -2344,11 +2344,13 @@ namespace RestClient.Net.UnitTests
 
         #region Response
         [TestMethod]
-        public void TestResponseCanReturnNull()
+        [DataRow(null)]
+        [DataRow("test")]
+        public void TestResponseCanReturnValue(string Body)
         {
-            var emptyResponse = new Response<string>(HeadersCollection.Empty, 1, HttpRequestMethod.Custom, new byte[0], null, AbsoluteUrl.Empty);
+            var emptyResponse = new Response<string>(HeadersCollection.Empty, 1, HttpRequestMethod.Custom, new byte[0], Body, AbsoluteUrl.Empty);
             string? responseString = emptyResponse;
-            Assert.AreEqual(null, responseString);
+            Assert.AreEqual(Body, responseString);
         }
         #endregion
 
