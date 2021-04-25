@@ -1614,34 +1614,26 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestErrorLogging()
         {
-            try
-            {
-                using var client = new Client(
-                    new NewtonsoftSerializationAdapter(),
-                    baseUri: testServerBaseUri,
-                    createHttpClient: (n) =>
-                    {
-                        var httpClient = new HttpClient();
-                        httpClient.DefaultRequestHeaders.Add("asd", "asds");
-                        return httpClient;
-                    },
-                    logger: _logger.Object);
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUri: testServerBaseUri,
+                createHttpClient: (n) =>
+                {
+                    var httpClient = new HttpClient();
+                    httpClient.DefaultRequestHeaders.Add("asd", "asds");
+                    return httpClient;
+                },
+                logger: _logger.Object);
 
-                var requestPerson = new Person();
-                _ = await client.PostAsync<Person, Person>(requestPerson);
-            }
-            catch (SendException sex)
-            {
+            var requestPerson = new Person();
+            var sex = await Assert.ThrowsExceptionAsync<SendException>(() => client.PostAsync<Person, Person>(requestPerson));
+
 #if !NET45
-                _logger.VerifyLog<Client, SendException>((state, t)
-                    => state.CheckValue("{OriginalFormat}", Messages.ErrorSendException), LogLevel.Error, 1);
+            _logger.VerifyLog<Client, SendException>((state, t)
+                => state.CheckValue("{OriginalFormat}", Messages.ErrorSendException), LogLevel.Error, 1);
 #endif
 
-                Assert.AreEqual(testServerBaseUri, sex.Request.Uri);
-
-                return;
-            }
-            Assert.Fail();
+            Assert.AreEqual(testServerBaseUri, sex.Request.Uri);
         }
 
         [TestMethod]
