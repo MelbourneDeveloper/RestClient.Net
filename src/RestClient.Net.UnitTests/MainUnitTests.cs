@@ -1561,8 +1561,6 @@ namespace RestClient.Net.UnitTests
 
             const string Content = "Hi";
 
-
-
             _ = mockHttpMessageHandler.When(RestCountriesAllUriString)
             .Respond(
             RestCountriesAllHeaders,
@@ -1575,23 +1573,12 @@ namespace RestClient.Net.UnitTests
                 baseUri: new(RestCountriesAllUriString),
                 createHttpClient: (n) => new HttpClient(mockHttpMessageHandler));
 
-            try
-            {
-                await client.GetAsync<Person>();
-            }
-            catch (DeserializationException dex)
-            {
+            var dex = await Assert.ThrowsExceptionAsync<DeserializationException>(() => client.GetAsync<Person>());
 #if !NET45
-                _logger.VerifyLog<Client, DeserializationException>((state, t)
-                    => state.CheckValue("{OriginalFormat}", Messages.ErrorMessageDeserialization), LogLevel.Error, 1);
+            _logger.VerifyLog<Client, DeserializationException>((state, t)
+                => state.CheckValue("{OriginalFormat}", Messages.ErrorMessageDeserialization), LogLevel.Error, 1);
 #endif
-                Assert.IsTrue(dex.GetResponseData().SequenceEqual(Encoding.ASCII.GetBytes(Content)));
-
-                return;
-
-            }
-
-            Assert.Fail();
+            Assert.IsTrue(dex.GetResponseData().SequenceEqual(Encoding.ASCII.GetBytes(Content)));
         }
 
         /// <summary>
