@@ -1,5 +1,4 @@
-﻿using System;
-using Urls;
+﻿using Urls;
 #pragma warning disable CA2225 // Operator overloads have named alternates
 
 namespace RestClient.Net.Abstractions
@@ -25,10 +24,10 @@ namespace RestClient.Net.Abstractions
             responseData,
             requestUri) => Body = body;
 
-        public static implicit operator TResponseBody(Response<TResponseBody> response)
+        public static implicit operator TResponseBody?(Response<TResponseBody> response)
             //TODO: This exception could be a bit misleading
 #pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
-            => response != null && response.Body != null ? response.Body : throw new ArgumentNullException(nameof(response));
+            => response != null && response.Body != null ? response.Body : default;
 #pragma warning restore CA1065 // Do not raise exceptions in unexpected locations
         #endregion
     }

@@ -2333,6 +2333,23 @@ namespace RestClient.Net.UnitTests
         }
         #endregion
 
+        #region Response
+        //[TestMethod]
+        //public void TestNullasdasd()
+        //{
+        //    var emptyResponse = new Response<string>(HeadersCollection.Empty, 1, HttpRequestMethod.Custom, new byte[0], null, AbsoluteUrl.Empty);
+        //    _ = Assert.ThrowsException<ArgumentNullException>(() => { string responseString = emptyResponse; });
+        //}
+
+        [TestMethod]
+        public void TestResponseCanReturnNull()
+        {
+            var emptyResponse = new Response<string>(HeadersCollection.Empty, 1, HttpRequestMethod.Custom, new byte[0], null, AbsoluteUrl.Empty);
+            string? responseString = emptyResponse;
+            Assert.AreEqual(null, responseString);
+        }
+        #endregion
+
         #endregion
 
         #region Helpers
