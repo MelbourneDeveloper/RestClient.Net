@@ -95,7 +95,7 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
-        public async Task TestFactoryWithNames()
+        public void TestFactoryWithNames()
         {
             var serviceCollection = new ServiceCollection()
                 .AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
@@ -107,8 +107,7 @@ namespace RestClient.Net.UnitTests
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var mockAspController = serviceProvider.GetRequiredService<MockAspController>();
-            var response = await mockAspController.Client.GetAsync<List<RestCountry>>();
-            Assert.AreEqual(250, response.Body?.Count);
+            Assert.IsNotNull(mockAspController);
         }
 
         [TestMethod]
