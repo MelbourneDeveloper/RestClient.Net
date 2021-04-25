@@ -300,6 +300,8 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: GetCreateHttpClient()
                 );
 
+            Assert.AreEqual(true, client.ThrowExceptionOnFailure);
+
             var response = await client.SendAsync<string, object>(new Request<object>(
                 baseUri,
                 null,
@@ -2364,6 +2366,18 @@ namespace RestClient.Net.UnitTests
         }
 #pragma warning restore CS8604 // Possible null reference argument.
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+        #endregion
+
+        #region Request
+#if !NET45
+        [TestMethod]
+        public void Test()
+        {
+            var url = "http://www.test.com".ToAbsoluteUrl();
+            var request = new Request<string>(url, null, HeadersCollection.Empty, HttpRequestMethod.Post, null, default);
+            Assert.IsTrue(request.ToString().Contains(url.ToString(), StringComparison.OrdinalIgnoreCase));
+        }
+#endif
         #endregion
 
         #endregion
