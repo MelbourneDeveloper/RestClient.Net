@@ -2352,6 +2352,18 @@ namespace RestClient.Net.UnitTests
             string? responseString = emptyResponse;
             Assert.AreEqual(Body, responseString);
         }
+
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+        [TestMethod]
+        public void TestResponseCanBeNull()
+        {
+            Response<string> emptyResponse = null;
+            string? responseString = emptyResponse;
+            Assert.AreEqual(null, responseString);
+        }
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
         #endregion
 
         #endregion
