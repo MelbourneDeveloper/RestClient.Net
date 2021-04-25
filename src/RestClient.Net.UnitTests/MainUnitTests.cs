@@ -1569,6 +1569,14 @@ namespace RestClient.Net.UnitTests
 
         #region Misc
         [TestMethod]
+        public void TestJsonHeaders()
+        {
+            var keyValuePair = HeadersExtensions.JsonContentTypeHeaders.First();
+            Assert.AreEqual(HeadersExtensions.ContentTypeHeaderName, keyValuePair.Key);
+            Assert.AreEqual(HeadersExtensions.JsonMediaType, keyValuePair.Value.First());
+        }
+
+        [TestMethod]
         public void TestDefaultGetHttpRequestMessageCustomNoThing()
         {
             var defaultGetHttpRequestMessage = new DefaultGetHttpRequestMessage();
