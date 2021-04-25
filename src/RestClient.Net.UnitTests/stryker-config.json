@@ -13,7 +13,7 @@
         "threshold-high": 80,
         "threshold-low": 70,
         "threshold-break": 60,
-        "mutation-level": "Standard",
+        "mutation-level": "Complete",
         "excluded-mutations": [
         ],
         "ignore-methods": [
