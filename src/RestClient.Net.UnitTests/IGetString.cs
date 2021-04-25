@@ -8,7 +8,7 @@ namespace RestClient.Net.UnitTests
     public interface IGetString
     {
         IClient Client { get; }
-        Task<string> GetStringAsync();
+        Task<string?> GetStringAsync();
     }
 
 }

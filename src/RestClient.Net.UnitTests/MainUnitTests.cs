@@ -371,7 +371,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestGetDefaultSerializationRestCountries()
         {
             using var client = new Client(RestCountriesAllUri, createHttpClient: GetCreateHttpClient());
-            List<RestCountry> countries = await client.GetAsync<List<RestCountry>>();
+            List<RestCountry>? countries = await client.GetAsync<List<RestCountry>>();
             Assert.IsNotNull(countries);
             Assert.IsTrue(countries.Count > 0);
         }
@@ -384,7 +384,11 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: GetCreateHttpClient());
             var json = await client.GetAsync<string>();
 
+            Assert.IsNotNull(json);
+
+#pragma warning disable CS8604 // Possible null reference argument.
             var country = JsonConvert.DeserializeObject<List<RestCountry>>(json)?.First();
+#pragma warning restore CS8604 // Possible null reference argument.
             Assert.AreEqual("Australia", country?.name);
         }
 #endif
@@ -521,7 +525,12 @@ namespace RestClient.Net.UnitTests
                 name: null);
 
             var json = await client.GetAsync<string>();
+
+            Assert.IsNotNull(json);
+
+#pragma warning disable CS8604 // Possible null reference argument.
             var country = JsonConvert.DeserializeObject<List<RestCountry>>(json)?.First();
+#pragma warning restore CS8604 // Possible null reference argument.
             Assert.AreEqual("Australia", country?.name);
         }
 
@@ -529,9 +538,10 @@ namespace RestClient.Net.UnitTests
         public async Task TestGetRestCountriesNoBaseUri()
         {
             using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: GetCreateHttpClient());
-            List<RestCountry> countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUri);
-            var country = countries.First();
-            Assert.AreEqual("Australia", country.name);
+            List<RestCountry>? countries = await client.GetAsync<List<RestCountry>>(RestCountriesAustraliaUri);
+            var country = countries?.First();
+            Assert.IsNotNull(country);
+            Assert.AreEqual("Australia", country?.name);
         }
 
         [TestMethod]
@@ -670,9 +680,9 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: "PersonKey".ToHeadersCollection(personKey));
 
-            Person responsePerson = await client.PutAsync<Person, Person>(requestPerson, new RelativeUrl("person"));
-            Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.BillingAddress.Street);
-            Assert.AreEqual(personKey, responsePerson.PersonKey);
+            Person? responsePerson = await client.PutAsync<Person, Person>(requestPerson, new RelativeUrl("person"));
+            Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson?.BillingAddress?.Street);
+            Assert.AreEqual(personKey, responsePerson?.PersonKey);
         }
         #endregion
 
@@ -691,7 +701,7 @@ namespace RestClient.Net.UnitTests
                 : DefaultJsonContentHeaderCollection
                 );
 
-            Person responsePerson = await client.GetAsync<Person>(new RelativeUrl(
+            Person? responsePerson = await client.GetAsync<Person>(new RelativeUrl(
                 "headers"),
                 "Test".ToHeadersCollection("Test")
                 );
@@ -1155,10 +1165,9 @@ namespace RestClient.Net.UnitTests
                 new NewtonsoftSerializationAdapter(),
                 createHttpClient: _testServerHttpClientFactory.CreateClient);
             var requestHeadersCollection = "Test".ToHeadersCollection("Test");
-            Person responsePerson = await client.SendAsync<Person, object>
-                (
+            Person? responsePerson = await client.SendAsync<Person, object>(
                 new Request<object>(testServerBaseUri.WithRelativeUrl(new("headers")), null, requestHeadersCollection, HttpRequestMethod.Get, cancellationToken: default)
-                ); ;
+                );
             Assert.IsNotNull(responsePerson);
         }
         #endregion
@@ -1239,8 +1248,8 @@ namespace RestClient.Net.UnitTests
                 .FromJsonContentType()
                 .WithBearerTokenAuthentication(bearerToken));
 
-            Person person = await client2.GetAsync<Person>(new RelativeUrl("secure/bearer"));
-            Assert.AreEqual("Bear", person.FirstName);
+            Person? person = await client2.GetAsync<Person>(new RelativeUrl("secure/bearer"));
+            Assert.AreEqual("Bear", person?.FirstName);
         }
 
         [TestMethod]
@@ -1277,8 +1286,8 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.FromBasicCredentials("Bob", "ANicePassword"));
 
-            Person person = await client.GetAsync<Person>(new RelativeUrl("secure/basic"));
-            Assert.AreEqual("Sam", person.FirstName);
+            Person? person = await client.GetAsync<Person>(new RelativeUrl("secure/basic"));
+            Assert.AreEqual("Sam", person?.FirstName);
         }
 
         [TestMethod]
@@ -1317,8 +1326,8 @@ namespace RestClient.Net.UnitTests
                 .FromJsonContentType()
                 .WithBasicAuthentication("Bob", "ANicePassword"));
 
-            Person person = await client.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new RelativeUrl("secure/basic"));
-            Assert.AreEqual("Sam", person.FirstName);
+            Person? person = await client.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new RelativeUrl("secure/basic"));
+            Assert.AreEqual("Sam", person?.FirstName);
         }
 
         [TestMethod]
@@ -1356,7 +1365,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalGetNoArgs()
         {
             var client = GetJsonClient(new($"{LocalBaseUriString}/JsonPerson"));
-            jsonperson responsePerson = await client.GetAsync<jsonperson>();
+            jsonperson? responsePerson = await client.GetAsync<jsonperson>();
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
@@ -1365,7 +1374,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalGetStringUri()
         {
             var client = GetJsonClient();
-            jsonperson responsePerson = await client.GetAsync<jsonperson>("JsonPerson");
+            jsonperson? responsePerson = await client.GetAsync<jsonperson>("JsonPerson");
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
@@ -1374,7 +1383,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalGetUri()
         {
             var client = GetJsonClient();
-            jsonperson responsePerson = await client.GetAsync<jsonperson>(new RelativeUrl("JsonPerson"));
+            jsonperson? responsePerson = await client.GetAsync<jsonperson>(new RelativeUrl("JsonPerson"));
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
@@ -1383,7 +1392,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestLocalGetUriCancellationToken()
         {
             var client = GetJsonClient();
-            jsonperson responsePerson = await client.GetAsync<jsonperson>(new RelativeUrl("JsonPerson"), cancellationToken: new CancellationToken());
+            jsonperson? responsePerson = await client.GetAsync<jsonperson>(new RelativeUrl("JsonPerson"), cancellationToken: new CancellationToken());
             Assert.IsNotNull(responsePerson);
             Assert.IsNotNull("Sam", responsePerson.FirstName);
         }
@@ -1424,16 +1433,16 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient(new($"{LocalBaseUriString}/JsonPerson/save"));
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson);
-            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson);
+            Assert.AreEqual(requestPerson.FirstName, responsePerson?.FirstName);
         }
 
         [TestMethod]
         public async Task TestLocalPostBody2()
         {
             var client = GetJsonClient(new($"{LocalBaseUriString}/jsonperson/save2"));
-            jsonperson responsePerson = await client.PostAsync<jsonperson>();
-            Assert.AreEqual("J", responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PostAsync<jsonperson>();
+            Assert.AreEqual("J", responsePerson?.FirstName);
         }
 
         [TestMethod]
@@ -1441,8 +1450,8 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson, "jsonperson/save");
-            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson, "jsonperson/save");
+            Assert.AreEqual(requestPerson.FirstName, responsePerson?.FirstName);
         }
 
         [TestMethod]
@@ -1450,8 +1459,8 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson, new RelativeUrl("jsonperson/save"));
-            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson, new RelativeUrl("jsonperson/save"));
+            Assert.AreEqual(requestPerson.FirstName, responsePerson?.FirstName);
         }
 
         [TestMethod]
@@ -1459,8 +1468,8 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson, new("jsonperson/save"), null, new CancellationToken());
-            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PostAsync<jsonperson, jsonperson>(requestPerson, new("jsonperson/save"), null, new CancellationToken());
+            Assert.AreEqual(requestPerson.FirstName, responsePerson?.FirstName);
         }
         #endregion
 
@@ -1470,16 +1479,16 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient(new($"{LocalBaseUriString}/jsonperson/save"));
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestBody: requestPerson);
-            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestBody: requestPerson);
+            Assert.AreEqual(requestPerson.FirstName, responsePerson?.FirstName);
         }
 
         [TestMethod]
         public async Task TestLocalPutBody2()
         {
             var client = GetJsonClient(new($"{LocalBaseUriString}/jsonperson/save2"));
-            jsonperson responsePerson = await client.PutAsync<jsonperson>();
-            Assert.AreEqual("J", responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PutAsync<jsonperson>();
+            Assert.AreEqual("J", responsePerson?.FirstName);
         }
 
         [TestMethod]
@@ -1487,8 +1496,8 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestPerson, "jsonperson/save");
-            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestPerson, "jsonperson/save");
+            Assert.AreEqual(requestPerson.FirstName, responsePerson?.FirstName);
         }
 
         [TestMethod]
@@ -1496,8 +1505,8 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestPerson, new RelativeUrl("jsonperson/save"));
-            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestPerson, new RelativeUrl("jsonperson/save"));
+            Assert.AreEqual(requestPerson.FirstName, responsePerson?.FirstName);
         }
 
         [TestMethod]
@@ -1505,8 +1514,8 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestPerson, new RelativeUrl("jsonperson/save"), cancellationToken: new CancellationToken());
-            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PutAsync<jsonperson, jsonperson>(requestPerson, new RelativeUrl("jsonperson/save"), cancellationToken: new CancellationToken());
+            Assert.AreEqual(requestPerson.FirstName, responsePerson?.FirstName);
         }
         #endregion
 
@@ -1516,16 +1525,16 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient(new($"{LocalBaseUriString}/jsonperson/save"));
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson);
-            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson);
+            Assert.AreEqual(requestPerson.FirstName, responsePerson?.FirstName);
         }
 
         [TestMethod]
         public async Task TestLocalPatchBody2()
         {
             var client = GetJsonClient(new($"{LocalBaseUriString}/jsonperson/save2"));
-            jsonperson responsePerson = await client.PatchAsync<jsonperson>();
-            Assert.AreEqual("J", responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PatchAsync<jsonperson>();
+            Assert.AreEqual("J", responsePerson?.FirstName);
         }
 
         [TestMethod]
@@ -1533,8 +1542,8 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, "jsonperson/save");
-            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, "jsonperson/save");
+            Assert.AreEqual(requestPerson.FirstName, responsePerson?.FirstName);
         }
 
         [TestMethod]
@@ -1542,8 +1551,8 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, new RelativeUrl("jsonperson/save"));
-            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, new RelativeUrl("jsonperson/save"));
+            Assert.AreEqual(requestPerson.FirstName, responsePerson?.FirstName);
         }
 
         [TestMethod]
@@ -1551,8 +1560,8 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, new RelativeUrl("jsonperson/save"), cancellationToken: new CancellationToken());
-            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, new RelativeUrl("jsonperson/save"), cancellationToken: new CancellationToken());
+            Assert.AreEqual(requestPerson.FirstName, responsePerson?.FirstName);
         }
 
         [TestMethod]
@@ -1560,8 +1569,8 @@ namespace RestClient.Net.UnitTests
         {
             var client = GetJsonClient();
             var requestPerson = new jsonperson { FirstName = "Bob" };
-            jsonperson responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, new("jsonperson/save"), cancellationToken: new CancellationToken());
-            Assert.AreEqual(requestPerson.FirstName, responsePerson.FirstName);
+            jsonperson? responsePerson = await client.PatchAsync<jsonperson, jsonperson>(requestPerson, new("jsonperson/save"), cancellationToken: new CancellationToken());
+            Assert.AreEqual(requestPerson.FirstName, responsePerson?.FirstName);
         }
         #endregion
 
@@ -2331,6 +2340,30 @@ namespace RestClient.Net.UnitTests
 
             return fieldInfo == null ? throw new InvalidOperationException() : (T?)fieldInfo.GetValue(clientClone);
         }
+        #endregion
+
+        #region Response
+        [TestMethod]
+        [DataRow(null)]
+        [DataRow("test")]
+        public void TestResponseCanReturnValue(string Body)
+        {
+            var emptyResponse = new Response<string>(HeadersCollection.Empty, 1, HttpRequestMethod.Custom, new byte[0], Body, AbsoluteUrl.Empty);
+            string? responseString = emptyResponse;
+            Assert.AreEqual(Body, responseString);
+        }
+
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+        [TestMethod]
+        public void TestResponseCanBeNull()
+        {
+            Response<string> emptyResponse = null;
+            string? responseString = emptyResponse;
+            Assert.AreEqual(null, responseString);
+        }
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
         #endregion
 
         #endregion

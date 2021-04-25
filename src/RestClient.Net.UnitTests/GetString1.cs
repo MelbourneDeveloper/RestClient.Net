@@ -11,7 +11,7 @@ namespace RestClient.Net.UnitTests
 
         public GetString1(IClient client) => Client = client;
 
-        public async Task<string> GetStringAsync() => await Client.GetAsync<string>();
+        public async Task<string?> GetStringAsync() => await Client.GetAsync<string>();
     }
 
 }

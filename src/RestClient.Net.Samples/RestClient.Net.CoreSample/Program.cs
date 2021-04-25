@@ -30,7 +30,7 @@ namespace RESTClient.NET.CoreSample
                 Console.WriteLine($"Sending a POST with body of person {person.FirstName} {person.Surname} serialized to binary with Google Protobuffers");
                 person = await client.PostAsync<Person, Person>(person).ConfigureAwait(false);
 
-                Console.WriteLine($"Success! The response has a body of person {person.FirstName} {person.Surname} serialized from binary with Google Protobuffers");
+                Console.WriteLine($"Success! The response has a body of person {person?.FirstName} {person?.Surname} serialized from binary with Google Protobuffers");
             }
             catch (Exception ex)
             {

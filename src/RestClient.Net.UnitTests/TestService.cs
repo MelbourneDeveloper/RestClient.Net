@@ -16,7 +16,7 @@ namespace RestClient.Net.UnitTests
             createClient("TestServiceClient", (o) => o.BaseUrl = Uri) :
             throw new ArgumentNullException(nameof(createClient));
 
-        public async Task<TestThing> GetTestThingAsync() => await Client.GetAsync<TestThing>().ConfigureAwait(false);
+        public async Task<TestThing?> GetTestThingAsync() => await Client.GetAsync<TestThing>().ConfigureAwait(false);
     }
 
 }
