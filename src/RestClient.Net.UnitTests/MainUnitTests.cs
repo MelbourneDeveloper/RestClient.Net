@@ -557,34 +557,22 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
-        public async Task TestPostUserWithCancellation()
-        {
-            try
-            {
-                using var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: JsonPlaceholderBaseUri);
+        public Task TestPostUserWithCancellation()
+        => Assert.ThrowsExceptionAsync<TaskCanceledException>(async () =>
+           {
 
-                using var tokenSource = new CancellationTokenSource();
-                var token = tokenSource.Token;
+               using var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: JsonPlaceholderBaseUri);
 
-                var task = client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new RelativeUrl("/posts"), cancellationToken: token);
+               using var tokenSource = new CancellationTokenSource();
+               var token = tokenSource.Token;
 
-                tokenSource.Cancel();
+               var task = client.PostAsync<UserPost, UserPost>(new UserPost { title = "Moops" }, new RelativeUrl("/posts"), cancellationToken: token);
 
-                _ = await task;
-            }
-            catch (TaskCanceledException)
-            {
+               tokenSource.Cancel();
 
-                //Success
-                return;
-            }
-            catch (Exception)
-            {
-                Assert.Fail("The operation threw an exception that was not an TaskCanceledException");
-            }
+               _ = await task;
+           });
 
-            Assert.Fail("The operation completed successfully");
-        }
 
         [TestMethod]
 #if !NET45
@@ -863,27 +851,21 @@ namespace RestClient.Net.UnitTests
         {
             var serializationAdapter = new NewtonsoftSerializationAdapter();
 
-            try
+            var hex = await Assert.ThrowsExceptionAsync<HttpStatusException>(async () =>
             {
                 using var client = new Client(
-                    serializationAdapter,
-                    baseUri: testServerBaseUri,
-                    createHttpClient: _testServerHttpClientFactory.CreateClient,
-                    //The server expects the value of "Test"
-                    defaultRequestHeaders: "Test".ToHeadersCollection("Tests"));
+                serializationAdapter,
+                baseUri: testServerBaseUri,
+                createHttpClient: _testServerHttpClientFactory.CreateClient,
+                //The server expects the value of "Test"
+                defaultRequestHeaders: "Test".ToHeadersCollection("Tests"));
 
                 _ = await client.GetAsync<Person>(new RelativeUrl("headers"));
-                Assert.Fail();
-            }
-            catch (HttpStatusException hex)
-            {
-                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult?.Errors[0]);
-                return;
-            }
+            });
 
-            Assert.Fail();
+            Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
+            var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+            Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult?.Errors[0]);
         }
 
         [TestMethod]
