@@ -1200,18 +1200,12 @@ namespace RestClient.Net.UnitTests
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.FromBearerToken("321"));
 
-            try
-            {
-                _ = await restClient.GetAsync<Person>(new RelativeUrl("secure/bearer"));
-            }
-            catch (HttpStatusException hex)
-            {
-                Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
-                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult?.Errors.First());
-                return;
-            }
-            Assert.Fail();
+
+            var hex = await Assert.ThrowsExceptionAsync<HttpStatusException>(() => restClient.GetAsync<Person>(new RelativeUrl("secure/bearer")));
+
+            Assert.AreEqual((int)HttpStatusCode.Unauthorized, hex.Response.StatusCode);
+            var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+            Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult?.Errors.First());
         }
 
         [TestMethod]
@@ -1242,18 +1236,11 @@ namespace RestClient.Net.UnitTests
                 .FromJsonContentType()
                 .WithBasicAuthentication("Bob", "WrongPassword"));
 
-            try
-            {
-                _ = await restClient.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new RelativeUrl("secure/basic"));
-            }
-            catch (HttpStatusException ex)
-            {
-                Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.Response.StatusCode);
-                var apiResult = serializationAdapter.Deserialize<ApiResult>(ex.Response.GetResponseData(), ex.Response.Headers);
-                Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult?.Errors.First());
-                return;
-            }
-            Assert.Fail();
+            var ex = await Assert.ThrowsExceptionAsync<HttpStatusException>(() => restClient.PostAsync<Person, Person>(new Person { FirstName = "Sam" }, new RelativeUrl("secure/basic")));
+
+            Assert.AreEqual((int)HttpStatusCode.Unauthorized, ex.Response.StatusCode);
+            var apiResult = serializationAdapter.Deserialize<ApiResult>(ex.Response.GetResponseData(), ex.Response.Headers);
+            Assert.AreEqual(ApiMessages.SecureControllerNotAuthorizedMessage, apiResult?.Errors.First());
         }
         #endregion
 
