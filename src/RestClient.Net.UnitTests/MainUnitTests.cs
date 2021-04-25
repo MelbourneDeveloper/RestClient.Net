@@ -2395,6 +2395,12 @@ namespace RestClient.Net.UnitTests
         }
         #endregion
 
+        [TestMethod]
+        public void TestJsonSerializationAdapterDefaultsAreCorrect()
+        {
+            var jsonSerializationAdapter = new JsonSerializationAdapter();
+            Assert.AreEqual(true, jsonSerializationAdapter.JsonSerializationOptions.PropertyNameCaseInsensitive);
+        }
         #endregion
 
         #region Helpers
