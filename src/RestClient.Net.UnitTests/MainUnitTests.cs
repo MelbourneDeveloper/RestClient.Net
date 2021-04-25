@@ -1849,6 +1849,39 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
+        public void TestClientFactoryValues()
+        {
+            using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());
+
+            var clientFactory = new ClientFactory(defaultHttpClientFactory.CreateClient);
+
+            static HttpClient createHttpClient(string n) => new();
+            var defaultGetHttpRequestMessage = new DefaultGetHttpRequestMessage();
+            var newtonsoftSerializationAdapter = new NewtonsoftSerializationAdapter();
+
+            const string Name = "123";
+
+            var client = (Client)clientFactory.CreateClient(Name, (o) =>
+            {
+                o.BaseUrl = RestCountriesAllUri;
+                o.CreateHttpClient = createHttpClient;
+                o.GetHttpRequestMessage = DefaultGetHttpRequestMessage.Instance;
+                o.HeadersCollection = HeadersCollection.Empty;
+                o.SendHttpRequestMessage = DefaultSendHttpRequestMessage.Instance;
+                o.SerializationAdapter = newtonsoftSerializationAdapter;
+                o.ThrowExceptionOnFailure = true;
+            });
+
+            Assert.AreEqual(RestCountriesAllUri, client.BaseUrl);
+            Assert.AreEqual(createHttpClient, client.createHttpClient);
+            Assert.AreEqual(DefaultGetHttpRequestMessage.Instance, client.getHttpRequestMessage);
+            Assert.AreEqual(HeadersCollection.Empty, client.DefaultRequestHeaders);
+            Assert.AreEqual(DefaultSendHttpRequestMessage.Instance, client.sendHttpRequestMessage);
+            Assert.AreEqual(true, client.ThrowExceptionOnFailure);
+            Assert.AreEqual(Name, client.Name);
+        }
+
+        [TestMethod]
         public async Task TestHttpClientFactoryReusesHttpClientWhenSameName()
         {
             using var defaultHttpClientFactory = new DefaultHttpClientFactory(GetLazyCreate());

@@ -20,6 +20,6 @@ namespace RestClient.Net
         public ISendHttpRequestMessage SendHttpRequestMessage { get; set; }
         public IGetHttpRequestMessage GetHttpRequestMessage { get; set; }
         public IHeadersCollection HeadersCollection { get; set; }
-        public bool ThrowsExceptionOnFailure { get; set; }
+        public bool ThrowExceptionOnFailure { get; set; }
     }
 }

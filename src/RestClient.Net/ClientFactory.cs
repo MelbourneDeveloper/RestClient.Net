@@ -56,7 +56,7 @@ namespace RestClient.Net
                 createClientOptions.CreateHttpClient,
                 createClientOptions.SendHttpRequestMessage,
                 createClientOptions.GetHttpRequestMessage,
-                createClientOptions.ThrowsExceptionOnFailure,
+                createClientOptions.ThrowExceptionOnFailure,
                 name);
         }
         #endregion
