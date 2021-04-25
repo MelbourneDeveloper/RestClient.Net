@@ -1117,19 +1117,12 @@ namespace RestClient.Net.UnitTests
                 baseUri: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient);
 
-            try
-            {
-                var response = await restClient.GetAsync<Person>("error");
-                Assert.AreEqual((int)HttpStatusCode.BadRequest, response.StatusCode);
-            }
-            catch (HttpStatusException hex)
-            {
-                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult?.Errors.First());
-                return;
-            }
 
-            Assert.Fail();
+            var hex = await Assert.ThrowsExceptionAsync<HttpStatusException>(async ()
+                => await restClient.GetAsync<Person>("error"));
+
+            var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
+            Assert.AreEqual(ApiMessages.ErrorControllerErrorMessage, apiResult?.Errors.First());
         }
         #endregion
 
