@@ -665,7 +665,10 @@ namespace RestClient.Net.UnitTests
                 BillingAddress = new Address { Street = "Test St" }
             };
 
-            using var client = new Client(new NewtonsoftSerializationAdapter(), new AbsoluteUrl(LocalBaseUriString), createHttpClient: _testServerHttpClientFactory.CreateClient);
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                new AbsoluteUrl(LocalBaseUriString),
+                createHttpClient: _testServerHttpClientFactory.CreateClient);
             var responsePerson = await client.PostAsync<Person, Person>(requestPerson, new RelativeUrl("person"));
             Assert.AreEqual(requestPerson.BillingAddress.Street, responsePerson.Body?.BillingAddress.Street);
         }
@@ -2371,13 +2374,25 @@ namespace RestClient.Net.UnitTests
         #region Request
 #if !NET45
         [TestMethod]
-        public void Test()
+        public void TestRequestToStringHasSomething()
         {
             var url = "http://www.test.com".ToAbsoluteUrl();
             var request = new Request<string>(url, null, HeadersCollection.Empty, HttpRequestMethod.Post, null, default);
             Assert.IsTrue(request.ToString().Contains(url.ToString(), StringComparison.OrdinalIgnoreCase));
         }
 #endif
+        #endregion
+
+        #region Headers Collection
+        [TestMethod]
+        public void TestHeadersCollectionConstructor()
+        {
+            const string Key = "a";
+            const string Value = "b";
+            var headersCollection = new HeadersCollection(Key, Value);
+            Assert.AreEqual(Key, headersCollection.First().Key);
+            Assert.AreEqual(Value, headersCollection.First().Value.First());
+        }
         #endregion
 
         #endregion
