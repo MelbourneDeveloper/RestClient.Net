@@ -856,6 +856,7 @@ namespace RestClient.Net.UnitTests
         [DataRow(HttpRequestMethod.Post)]
         [DataRow(HttpRequestMethod.Put)]
         [DataRow(HttpRequestMethod.Patch)]
+        [DataRow(HttpRequestMethod.Delete)]
         public async Task TestHeadersIncorrectLocal(HttpRequestMethod httpRequestMethod)
         {
             var serializationAdapter = new NewtonsoftSerializationAdapter();
@@ -877,6 +878,7 @@ namespace RestClient.Net.UnitTests
                     HttpRequestMethod.Post => await client.PostAsync<Person, Person>(new Person(), new RelativeUrl("headers")),
                     HttpRequestMethod.Put => await client.PutAsync<Person, Person>(new Person(), new RelativeUrl("headers")),
                     HttpRequestMethod.Patch => await client.PatchAsync<Person, Person>(new Person(), new RelativeUrl("headers")),
+                    HttpRequestMethod.Delete => await client.DeleteAsync(new RelativeUrl("headers/1")),
                     _ => throw new NotImplementedException()
                 };
             });
@@ -1064,31 +1066,6 @@ namespace RestClient.Net.UnitTests
                 : DefaultJsonContentHeaderCollection);
 
             _ = await client.DeleteAsync(new("headers/1"), "Test".ToHeadersCollection("Test"));
-        }
-
-        [TestMethod]
-        public async Task TestHeadersLocalIncorrectDelete()
-        {
-            var serializationAdapter = new NewtonsoftSerializationAdapter();
-
-            try
-            {
-                using var client = new Client(
-                    new NewtonsoftSerializationAdapter(),
-                    baseUri: testServerBaseUri,
-                    createHttpClient: _testServerHttpClientFactory.CreateClient);
-                _ = await client.DeleteAsync(new RelativeUrl("headers/1"));
-                Assert.Fail();
-            }
-            catch (HttpStatusException hex)
-            {
-                Assert.AreEqual((int)HttpStatusCode.BadRequest, hex.Response.StatusCode);
-                var apiResult = serializationAdapter.Deserialize<ApiResult>(hex.Response.GetResponseData(), hex.Response.Headers);
-                Assert.AreEqual(ApiMessages.HeadersControllerExceptionMessage, apiResult?.Errors[0]);
-                return;
-            }
-
-            Assert.Fail();
         }
         #endregion
 
