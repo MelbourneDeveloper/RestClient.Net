@@ -203,6 +203,38 @@ namespace RestClient.Net.UnitTests
 
 
 #if !NET45
+#pragma warning disable IDE0072 // Add missing cases
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+        [TestMethod]
+        [DataRow(HttpRequestMethod.Get)]
+        [DataRow(HttpRequestMethod.Patch)]
+        [DataRow(HttpRequestMethod.Post)]
+        [DataRow(HttpRequestMethod.Put)]
+        [DataRow(HttpRequestMethod.Delete)]
+        public async Task TestThatNullUrlRaisesException(HttpRequestMethod httpRequestMethod)
+        {
+            AbsoluteUrl absoluteUrl = null;
+            var requestThing = new RequestThing();
+
+            _ = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () =>
+              {
+
+                  var clientAndResponse = httpRequestMethod switch
+                  {
+                      HttpRequestMethod.Delete => await absoluteUrl.DeleteAsync(),
+                      HttpRequestMethod.Get => await absoluteUrl.GetAsync<ResponseThing>(),
+                      HttpRequestMethod.Patch => await absoluteUrl.PatchAsync<ResponseThing, RequestThing>(requestThing),
+                      HttpRequestMethod.Post => await absoluteUrl.PostAsync<ResponseThing, RequestThing>(requestThing),
+                      HttpRequestMethod.Put => await absoluteUrl.PutAsync<ResponseThing, RequestThing>(requestThing),
+                      _ => throw new NotImplementedException()
+                  };
+              });
+        }
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning restore IDE0072 // Add missing cases
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+
         [TestMethod]
         public void TestCreateFromUrlStringAndWith()
         {
