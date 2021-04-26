@@ -243,9 +243,6 @@ namespace RestClient.Net.UnitTests
                 HeadersExtensions.JsonMediaType,
                 File.ReadAllText("JSON/RestCountries.json"));
 
-
-
-
             //Return all rest countries with a status code of 200
             _mockHttpMessageHandler.When(GeoPluginUrl.ToString())
                     .Respond(
@@ -2240,6 +2237,13 @@ namespace RestClient.Net.UnitTests
             var request = new Request<string>(url, null, HeadersCollection.Empty, HttpRequestMethod.Post, null, default);
             Assert.IsTrue(request.ToString().Contains(url.ToString(), StringComparison.OrdinalIgnoreCase));
         }
+
+        [TestMethod]
+        public void TestJsonSerializationAdapterDefaultsAreCorrect()
+        {
+            var jsonSerializationAdapter = new JsonSerializationAdapter();
+            Assert.AreEqual(true, jsonSerializationAdapter.JsonSerializationOptions.PropertyNameCaseInsensitive);
+        }
 #endif
         #endregion
 
@@ -2255,12 +2259,6 @@ namespace RestClient.Net.UnitTests
         }
         #endregion
 
-        [TestMethod]
-        public void TestJsonSerializationAdapterDefaultsAreCorrect()
-        {
-            var jsonSerializationAdapter = new JsonSerializationAdapter();
-            Assert.AreEqual(true, jsonSerializationAdapter.JsonSerializationOptions.PropertyNameCaseInsensitive);
-        }
         #endregion
 
         #region Helpers
