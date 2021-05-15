@@ -17,7 +17,7 @@ namespace RestClient.Net.Abstractions
 
         public ISendHttpRequestMessage SendHttpRequestMessage { get; set; }
         public IGetHttpRequestMessage GetHttpRequestMessage { get; set; }
-        public IHeadersCollection HeadersCollection { get; set; }
+        public IHeadersCollection DefaultRequestHeaders { get; set; }
         public bool ThrowExceptionOnFailure { get; set; }
     }
 }

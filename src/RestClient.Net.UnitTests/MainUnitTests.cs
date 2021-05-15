@@ -1745,7 +1745,7 @@ namespace RestClient.Net.UnitTests
                 o.BaseUrl = RestCountriesAllUri;
                 o.CreateHttpClient = createHttpClient;
                 o.GetHttpRequestMessage = DefaultGetHttpRequestMessage.Instance;
-                o.HeadersCollection = HeadersCollection.Empty;
+                o.DefaultRequestHeaders = HeadersCollection.Empty;
                 o.SendHttpRequestMessage = DefaultSendHttpRequestMessage.Instance;
                 o.SerializationAdapter = newtonsoftSerializationAdapter;
                 o.ThrowExceptionOnFailure = true;

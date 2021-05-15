@@ -51,7 +51,7 @@ namespace RestClient.Net
             return new Client(
                 createClientOptions.SerializationAdapter,
                 createClientOptions.BaseUrl,
-                createClientOptions.HeadersCollection,
+                createClientOptions.DefaultRequestHeaders,
                 loggerFactory?.CreateLogger<Client>(),
                 createClientOptions.CreateHttpClient,
                 createClientOptions.SendHttpRequestMessage,
