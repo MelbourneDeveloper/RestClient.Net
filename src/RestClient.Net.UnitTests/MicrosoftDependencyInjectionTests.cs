@@ -5,10 +5,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RestClient.Net.Abstractions;
 using RestClient.Net.DependencyInjection;
-using RestClient.Net.UnitTests.Model;
 using StructureMap;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Urls;
 

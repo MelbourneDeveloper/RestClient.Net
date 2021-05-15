@@ -1,10 +1,8 @@
-﻿using RestClient.Net.Abstractions;
-using Urls;
+﻿using Urls;
 
-namespace RestClient.Net
+namespace RestClient.Net.Abstractions
 {
     public class CreateClientOptions
-
     {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public CreateClientOptions(CreateHttpClient createHttpClient) => CreateHttpClient = createHttpClient;

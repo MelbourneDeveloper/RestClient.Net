@@ -14,9 +14,9 @@
 		<RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
 		<RunAnalyzers>true</RunAnalyzers>
 		<Nullable>enable</Nullable>
-        <Version>5.0.3-beta</Version>
-		<AssemblyVersion>5.0.3.0</AssemblyVersion>
-		<FileVersion>5.0.3.0</FileVersion>
+        <Version>5.0.5-beta</Version>
+		<AssemblyVersion>5.0.5.0</AssemblyVersion>
+		<FileVersion>5.0.5.0</FileVersion>
 		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 		<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
 	    <Authors>Christian Findlay</Authors>
