@@ -2258,6 +2258,7 @@ namespace RestClient.Net.UnitTests
         [DataRow(HeadersExtensions.ContentLocationHeaderName, "Sandwiches", true)]
         [DataRow(HeadersExtensions.ContentMD5HeaderName, "Q2h1Y2sgSW51ZwDIAXR5IQ==", true)]
         [DataRow(HeadersExtensions.ContentRangeHeaderName, "bytes 200-1000/67589", true)]
+        [DataRow("Content-Stuff", "123", false)]
         public void TestGetHttpRequestMessage(string headerName, string headerValue, bool isContentHeader)
         {
             var loggerMock = new Mock<ILogger>();
@@ -2314,7 +2315,11 @@ namespace RestClient.Net.UnitTests
                         throw new NotImplementedException();
                 }
 
-
+                Assert.AreEqual(0, httpRequestMessage?.Headers?.ToList().Count);
+            }
+            else
+            {
+                Assert.AreEqual(headerValue, httpRequestMessage.Headers.First().Value.First());
             }
         }
 #pragma warning restore CA1502 // Specify IFormatProvider
