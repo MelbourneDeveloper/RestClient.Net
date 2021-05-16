@@ -38,7 +38,7 @@ namespace RestClient.Net.Abstractions
         public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator() => dictionary.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => dictionary.GetEnumerator();
-        public override string ToString() => string.Join("\r\n", dictionary.Select(kvp => $"{kvp.Key}: {string.Join(", ", kvp.Value)}\r\n"));
+        public override string ToString() => string.Join("\r\n", dictionary.Select(kvp => $"{kvp.Key}: {string.Join(", ", kvp.Value)}"));
         #endregion
     }
 }

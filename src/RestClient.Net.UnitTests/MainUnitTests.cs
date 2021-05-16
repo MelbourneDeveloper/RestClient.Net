@@ -924,9 +924,9 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestHeadersToString()
         {
-            var asdasd = "asd".ToHeadersCollection("321");
-            var afasds = asdasd.ToString();
-            Assert.AreEqual("asd: 321\r\n", afasds);
+            var headers = "a".ToHeadersCollection("1").Append("b", "2");
+            var actualResult = headers.ToString();
+            Assert.AreEqual("a: 1\r\nb: 2", actualResult);
         }
 
 
@@ -2248,6 +2248,7 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Headers Collection
+
 #if !NET45
 #pragma warning disable CA1502
         [TestMethod]
