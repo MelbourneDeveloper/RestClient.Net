@@ -2250,12 +2250,36 @@ namespace RestClient.Net.UnitTests
         #region Headers Collection
 #if !NET45
         [TestMethod]
-        public void TestGetHttpRequestMessage()
+        [DataRow(HeadersExtensions.ContentTypeHeaderName, HeadersExtensions.JsonMediaType, true)]
+        public void TestGetHttpRequestMessage(string headerName, string headerValue, bool isContentHeader)
         {
             var loggerMock = new Mock<ILogger>();
-            var request = new Request<string>(new("http://www.test.com"), "a", HeadersCollection.Empty, HttpRequestMethod.Get);
+
+            var request = new Request<string>(new("http://www.test.com"), "a",
+                headerName.ToHeadersCollection(headerValue),
+                HttpRequestMethod.Get);
+
             var defaultGetHttpRequestMessage = new DefaultGetHttpRequestMessage();
-            var httpRequestMessage = defaultGetHttpRequestMessage.GetHttpRequestMessage(request, loggerMock.Object, new JsonSerializationAdapter());
+
+            var httpRequestMessage = defaultGetHttpRequestMessage.GetHttpRequestMessage(
+                request,
+                loggerMock.Object,
+                new JsonSerializationAdapter());
+
+            if (isContentHeader)
+            {
+                switch (headerName)
+                {
+                    case HeadersExtensions.ContentTypeHeaderName:
+                        Assert.AreEqual(headerValue, httpRequestMessage?.Content?.Headers?.ContentType?.MediaType);
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
+
+
+            }
+
             Assert.IsNotNull(httpRequestMessage);
         }
 #endif
