@@ -18,13 +18,24 @@ namespace RestClient.Net.Abstractions.Extensions
         //https://www.ietf.org/rfc/rfc2616.txt
         //HttpClient rejects these if you try to set them directly
         //It will accept headers with a prefix of "Content" that is not in this list though
-        internal const string ContentTypeHeaderName = "Content-Type";
-        internal const string ContentEncodingHeaderName = "Content-Encoding";
-        internal const string ContentLanguageHeaderName = "Content-Language";
-        internal const string ContentLengthHeaderName = "Content-Length";
-        internal const string ContentLocationHeaderName = "Content-Location";
-        internal const string ContentMD5HeaderName = "Content-MD5";
-        internal const string ContentRangeHeaderName = "Content-Range";
+        public const string ContentTypeHeaderName = "Content-Type";
+        public const string ContentEncodingHeaderName = "Content-Encoding";
+        public const string ContentLanguageHeaderName = "Content-Language";
+        public const string ContentLengthHeaderName = "Content-Length";
+        public const string ContentLocationHeaderName = "Content-Location";
+        public const string ContentMD5HeaderName = "Content-MD5";
+        public const string ContentRangeHeaderName = "Content-Range";
+
+        internal static List<string> ContentHeaderNames = new()
+        {
+            ContentTypeHeaderName,
+            ContentEncodingHeaderName,
+            ContentLanguageHeaderName,
+            ContentLengthHeaderName,
+            ContentLocationHeaderName,
+            ContentMD5HeaderName,
+            ContentRangeHeaderName
+        };
 
         internal const string JsonMediaType = "application/json";
 

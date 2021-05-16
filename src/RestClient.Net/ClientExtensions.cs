@@ -6,11 +6,14 @@ using RestClient.Net.Abstractions.Extensions;
 using System;
 using Urls;
 
+#if NET45
+using System.Collections.Generic;
+#endif
+
 namespace RestClient.Net
 {
     public static class ClientExtensions
     {
-
         #region Public Methods
 
         /// <summary>
@@ -147,6 +150,25 @@ namespace RestClient.Net
                     client.getHttpRequestMessage,
                     throwExceptionOnFailure,
                     client.Name) : throw new ArgumentNullException(nameof(client));
+
+#if NET45
+        public static bool Contains<T>(this IList<T> list, T compareItem, IEqualityComparer<T>? comparer = null)
+        {
+            if (list == null) throw new ArgumentNullException(nameof(list));
+
+            comparer ??= EqualityComparer<T>.Default;
+
+            foreach (var item in list)
+            {
+                if (comparer.Equals(item, compareItem))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+#endif
 
         #endregion Public Methods
     }
