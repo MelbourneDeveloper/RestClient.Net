@@ -19,7 +19,8 @@
         "ignore-methods": [
             "*Log*",
             "ToString",
-            "*HashCode*"
+            "*HashCode*",
+            "*ConfigureAwait*"
         ]
     }
 }
