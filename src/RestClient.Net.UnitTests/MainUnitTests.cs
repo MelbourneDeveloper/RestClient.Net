@@ -2252,6 +2252,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         [DataRow(HeadersExtensions.ContentTypeHeaderName, HeadersExtensions.JsonMediaType, true)]
         [DataRow(HeadersExtensions.ContentEncodingHeaderName, HeadersExtensions.ContentEncodingGzip, true)]
+        [DataRow(HeadersExtensions.ContentLanguageHeaderName, "de-DE", true)]
         public void TestGetHttpRequestMessage(string headerName, string headerValue, bool isContentHeader)
         {
             var loggerMock = new Mock<ILogger>();
@@ -2277,6 +2278,10 @@ namespace RestClient.Net.UnitTests
 
                     case HeadersExtensions.ContentEncodingHeaderName:
                         Assert.AreEqual(headerValue, httpRequestMessage?.Content?.Headers?.ContentEncoding?.First());
+                        break;
+
+                    case HeadersExtensions.ContentLanguageHeaderName:
+                        Assert.AreEqual(headerValue, httpRequestMessage?.Content?.Headers?.ContentLanguage?.First());
                         break;
 
                     default:
