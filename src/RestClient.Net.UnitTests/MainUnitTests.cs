@@ -2253,6 +2253,7 @@ namespace RestClient.Net.UnitTests
         [DataRow(HeadersExtensions.ContentTypeHeaderName, HeadersExtensions.JsonMediaType, true)]
         [DataRow(HeadersExtensions.ContentEncodingHeaderName, HeadersExtensions.ContentEncodingGzip, true)]
         [DataRow(HeadersExtensions.ContentLanguageHeaderName, "de-DE", true)]
+        [DataRow(HeadersExtensions.ContentLengthHeaderName, "256", true)]
         public void TestGetHttpRequestMessage(string headerName, string headerValue, bool isContentHeader)
         {
             var loggerMock = new Mock<ILogger>();
@@ -2282,6 +2283,12 @@ namespace RestClient.Net.UnitTests
 
                     case HeadersExtensions.ContentLanguageHeaderName:
                         Assert.AreEqual(headerValue, httpRequestMessage?.Content?.Headers?.ContentLanguage?.First());
+                        break;
+
+                    case HeadersExtensions.ContentLengthHeaderName:
+#pragma warning disable CA1305 // Specify IFormatProvider
+                        Assert.AreEqual(long.Parse(headerValue), httpRequestMessage?.Content?.Headers?.ContentLength);
+#pragma warning restore CA1305 // Specify IFormatProvider
                         break;
 
                     default:
