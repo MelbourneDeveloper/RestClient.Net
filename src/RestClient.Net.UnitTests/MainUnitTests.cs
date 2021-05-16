@@ -2256,6 +2256,7 @@ namespace RestClient.Net.UnitTests
         [DataRow(HeadersExtensions.ContentLanguageHeaderName, "de-DE", true)]
         [DataRow(HeadersExtensions.ContentLengthHeaderName, "256", true)]
         [DataRow(HeadersExtensions.ContentLocationHeaderName, "Sandwiches", true)]
+        [DataRow(HeadersExtensions.ContentMD5HeaderName, "Q2h1Y2sgSW51ZwDIAXR5IQ==", true)]
         public void TestGetHttpRequestMessage(string headerName, string headerValue, bool isContentHeader)
         {
             var loggerMock = new Mock<ILogger>();
@@ -2294,7 +2295,13 @@ namespace RestClient.Net.UnitTests
                         break;
 
                     case HeadersExtensions.ContentLocationHeaderName:
-                        Assert.AreEqual(headerValue, httpRequestMessage?.Content?.Headers?.ContentLocation);
+                        Assert.AreEqual(new Uri(headerValue, UriKind.Relative), httpRequestMessage?.Content?.Headers?.ContentLocation);
+                        break;
+
+                    case HeadersExtensions.ContentMD5HeaderName:
+                        var expectedBytes = Convert.FromBase64String(headerValue);
+                        var actualBytes = httpRequestMessage?.Content?.Headers?.ContentMD5 ?? new byte[0];
+                        Assert.IsTrue(expectedBytes.SequenceEqual(actualBytes));
                         break;
 
                     default:
