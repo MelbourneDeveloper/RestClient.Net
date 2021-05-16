@@ -2251,6 +2251,7 @@ namespace RestClient.Net.UnitTests
 #if !NET45
         [TestMethod]
         [DataRow(HeadersExtensions.ContentTypeHeaderName, HeadersExtensions.JsonMediaType, true)]
+        [DataRow(HeadersExtensions.ContentEncodingHeaderName, "asd", true)]
         public void TestGetHttpRequestMessage(string headerName, string headerValue, bool isContentHeader)
         {
             var loggerMock = new Mock<ILogger>();
@@ -2273,6 +2274,11 @@ namespace RestClient.Net.UnitTests
                     case HeadersExtensions.ContentTypeHeaderName:
                         Assert.AreEqual(headerValue, httpRequestMessage?.Content?.Headers?.ContentType?.MediaType);
                         break;
+
+                    case HeadersExtensions.ContentEncodingHeaderName:
+                        Assert.AreEqual(headerValue, httpRequestMessage?.Content?.Headers?.ContentEncoding?.First());
+                        break;
+
                     default:
                         throw new NotImplementedException();
                 }
