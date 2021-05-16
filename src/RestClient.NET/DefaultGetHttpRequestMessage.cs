@@ -7,6 +7,10 @@ using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Net.Http;
 
+#if !NET45
+using System.Linq;
+#endif
+
 namespace RestClient.Net
 {
     public class DefaultGetHttpRequestMessage : IGetHttpRequestMessage
@@ -60,12 +64,13 @@ namespace RestClient.Net
                 {
                     foreach (var headerName in request.Headers.Names)
                     {
-                        if (string.Compare(headerName, HeadersExtensions.ContentTypeHeaderName, StringComparison.OrdinalIgnoreCase) == 0)
+                        if (HeadersExtensions.ContentHeaderNames.Contains(headerName, StringComparer.OrdinalIgnoreCase))
+                        //string.Compare(headerName, HeadersExtensions.ContentTypeHeaderName, StringComparison.OrdinalIgnoreCase) == 0)
                         {
                             //Note: not sure why this is necessary...
                             //The HttpClient class seems to differentiate between content headers and request message headers, but this distinction doesn't exist in the real world...
                             //TODO: Other Content headers
-                            httpContent?.Headers.Add(HeadersExtensions.ContentTypeHeaderName, request.Headers[headerName]);
+                            httpContent?.Headers.Add(headerName, request.Headers[headerName]);
                         }
                         else
                         {

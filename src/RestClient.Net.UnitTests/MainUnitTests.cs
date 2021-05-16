@@ -2248,6 +2248,83 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Headers Collection
+#if !NET45
+#pragma warning disable CA1502
+        [TestMethod]
+        [DataRow(HeadersExtensions.ContentTypeHeaderName, HeadersExtensions.JsonMediaType, true)]
+        [DataRow(HeadersExtensions.ContentEncodingHeaderName, HeadersExtensions.ContentEncodingGzip, true)]
+        [DataRow(HeadersExtensions.ContentLanguageHeaderName, "de-DE", true)]
+        [DataRow(HeadersExtensions.ContentLengthHeaderName, "256", true)]
+        [DataRow(HeadersExtensions.ContentLocationHeaderName, "Sandwiches", true)]
+        [DataRow(HeadersExtensions.ContentMD5HeaderName, "Q2h1Y2sgSW51ZwDIAXR5IQ==", true)]
+        [DataRow(HeadersExtensions.ContentRangeHeaderName, "bytes 200-1000/67589", true)]
+        [DataRow("Content-Stuff", "123", false)]
+        public void TestGetHttpRequestMessage(string headerName, string headerValue, bool isContentHeader)
+        {
+            var loggerMock = new Mock<ILogger>();
+
+            var request = new Request<string>(new("http://www.test.com"), "a",
+                headerName.ToHeadersCollection(headerValue),
+                HttpRequestMethod.Get);
+
+            var defaultGetHttpRequestMessage = new DefaultGetHttpRequestMessage();
+
+            var httpRequestMessage = defaultGetHttpRequestMessage.GetHttpRequestMessage(
+                request,
+                loggerMock.Object,
+                new JsonSerializationAdapter());
+
+            if (isContentHeader)
+            {
+                switch (headerName)
+                {
+                    case HeadersExtensions.ContentTypeHeaderName:
+                        Assert.AreEqual(headerValue, httpRequestMessage?.Content?.Headers?.ContentType?.MediaType);
+                        break;
+
+                    case HeadersExtensions.ContentEncodingHeaderName:
+                        Assert.AreEqual(headerValue, httpRequestMessage?.Content?.Headers?.ContentEncoding?.First());
+                        break;
+
+                    case HeadersExtensions.ContentLanguageHeaderName:
+                        Assert.AreEqual(headerValue, httpRequestMessage?.Content?.Headers?.ContentLanguage?.First());
+                        break;
+
+                    case HeadersExtensions.ContentLengthHeaderName:
+#pragma warning disable CA1305 // Specify IFormatProvider
+                        Assert.AreEqual(long.Parse(headerValue), httpRequestMessage?.Content?.Headers?.ContentLength);
+#pragma warning restore CA1305 // Specify IFormatProvider
+                        break;
+
+                    case HeadersExtensions.ContentLocationHeaderName:
+                        Assert.AreEqual(new Uri(headerValue, UriKind.Relative), httpRequestMessage?.Content?.Headers?.ContentLocation);
+                        break;
+
+                    case HeadersExtensions.ContentMD5HeaderName:
+                        var expectedBytes = Convert.FromBase64String(headerValue);
+                        var actualBytes = httpRequestMessage?.Content?.Headers?.ContentMD5 ?? new byte[0];
+                        Assert.IsTrue(expectedBytes.SequenceEqual(actualBytes));
+                        break;
+
+                    case HeadersExtensions.ContentRangeHeaderName:
+                        Assert.AreEqual(headerValue, httpRequestMessage?.Content?.Headers?.ContentRange?.ToString());
+
+                        break;
+
+                    default:
+                        throw new NotImplementedException();
+                }
+
+                Assert.AreEqual(0, httpRequestMessage?.Headers?.ToList().Count);
+            }
+            else
+            {
+                Assert.AreEqual(headerValue, httpRequestMessage.Headers.First().Value.First());
+            }
+        }
+#pragma warning restore CA1502 // Specify IFormatProvider
+#endif
+
         [TestMethod]
         public void TestHeadersCollectionConstructor()
         {
