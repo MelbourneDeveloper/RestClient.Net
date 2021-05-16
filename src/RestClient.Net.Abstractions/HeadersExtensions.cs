@@ -38,6 +38,7 @@ namespace RestClient.Net.Abstractions.Extensions
         };
 
         internal const string JsonMediaType = "application/json";
+        internal const string ContentEncodingGzip = "gzip";
 
         #endregion Internal Fields
 

@@ -70,7 +70,7 @@ namespace RestClient.Net
                             //Note: not sure why this is necessary...
                             //The HttpClient class seems to differentiate between content headers and request message headers, but this distinction doesn't exist in the real world...
                             //TODO: Other Content headers
-                            httpContent?.Headers.Add(HeadersExtensions.ContentTypeHeaderName, request.Headers[headerName]);
+                            httpContent?.Headers.Add(headerName, request.Headers[headerName]);
                         }
                         else
                         {

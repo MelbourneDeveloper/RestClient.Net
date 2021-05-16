@@ -2251,7 +2251,7 @@ namespace RestClient.Net.UnitTests
 #if !NET45
         [TestMethod]
         [DataRow(HeadersExtensions.ContentTypeHeaderName, HeadersExtensions.JsonMediaType, true)]
-        [DataRow(HeadersExtensions.ContentEncodingHeaderName, "asd", true)]
+        [DataRow(HeadersExtensions.ContentEncodingHeaderName, HeadersExtensions.ContentEncodingGzip, true)]
         public void TestGetHttpRequestMessage(string headerName, string headerValue, bool isContentHeader)
         {
             var loggerMock = new Mock<ILogger>();
