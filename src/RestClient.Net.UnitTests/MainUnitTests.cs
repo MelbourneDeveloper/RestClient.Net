@@ -2249,11 +2249,13 @@ namespace RestClient.Net.UnitTests
 
         #region Headers Collection
 #if !NET45
+#pragma warning disable CA1502
         [TestMethod]
         [DataRow(HeadersExtensions.ContentTypeHeaderName, HeadersExtensions.JsonMediaType, true)]
         [DataRow(HeadersExtensions.ContentEncodingHeaderName, HeadersExtensions.ContentEncodingGzip, true)]
         [DataRow(HeadersExtensions.ContentLanguageHeaderName, "de-DE", true)]
         [DataRow(HeadersExtensions.ContentLengthHeaderName, "256", true)]
+        [DataRow(HeadersExtensions.ContentLocationHeaderName, "Sandwiches", true)]
         public void TestGetHttpRequestMessage(string headerName, string headerValue, bool isContentHeader)
         {
             var loggerMock = new Mock<ILogger>();
@@ -2291,15 +2293,18 @@ namespace RestClient.Net.UnitTests
 #pragma warning restore CA1305 // Specify IFormatProvider
                         break;
 
+                    case HeadersExtensions.ContentLocationHeaderName:
+                        Assert.AreEqual(headerValue, httpRequestMessage?.Content?.Headers?.ContentLocation);
+                        break;
+
                     default:
                         throw new NotImplementedException();
                 }
 
 
             }
-
-            Assert.IsNotNull(httpRequestMessage);
         }
+#pragma warning restore CA1502 // Specify IFormatProvider
 #endif
 
         [TestMethod]
