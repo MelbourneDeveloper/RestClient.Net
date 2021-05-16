@@ -2248,6 +2248,18 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Headers Collection
+#if !NET45
+        [TestMethod]
+        public void TestGetHttpRequestMessage()
+        {
+            var loggerMock = new Mock<ILogger>();
+            var request = new Request<string>(new("http://www.test.com"), "a", HeadersCollection.Empty, HttpRequestMethod.Get);
+            var defaultGetHttpRequestMessage = new DefaultGetHttpRequestMessage();
+            var httpRequestMessage = defaultGetHttpRequestMessage.GetHttpRequestMessage(request, loggerMock.Object, new JsonSerializationAdapter());
+            Assert.IsNotNull(httpRequestMessage);
+        }
+#endif
+
         [TestMethod]
         public void TestHeadersCollectionConstructor()
         {
