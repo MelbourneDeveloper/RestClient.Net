@@ -151,6 +151,23 @@ namespace RestClient.Net
                     throwExceptionOnFailure,
                     client.Name) : throw new ArgumentNullException(nameof(client));
 
+        /// <summary>
+        /// Clones the client With a change
+        /// </summary>
+        public static Client With(this Client client, string name)
+            =>
+                client != null ? new Client(
+                    client.SerializationAdapter,
+                    client.BaseUrl,
+                    client.DefaultRequestHeaders,
+                    client.logger is ILogger<Client> logger ? logger : null,
+                    client.createHttpClient,
+                    client.sendHttpRequestMessage,
+                    client.getHttpRequestMessage,
+                    client.ThrowExceptionOnFailure,
+                    name) : throw new ArgumentNullException(nameof(client));
+
+
 #if NET45
         public static bool Contains<T>(this IList<T> list, T compareItem, IEqualityComparer<T>? comparer = null)
         {

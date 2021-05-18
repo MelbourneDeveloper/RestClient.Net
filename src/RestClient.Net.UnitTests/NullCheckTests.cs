@@ -239,14 +239,14 @@ namespace RestClient.Net.UnitTests
         public void TestCreateFromUrlStringAndWith()
         {
             using var client = new Client("http://www.test.com/test/test2?test=test#frag");
-            using var client2 = client with
-            {
-                DefaultRequestHeaders = new HeadersCollection("a", "b"),
-                BaseUrl = client.BaseUrl,
-                SerializationAdapter = client.SerializationAdapter,
-                Name = client.Name,
-                ThrowExceptionOnFailure = client.ThrowExceptionOnFailure
-            };
+            using var client2 =
+                client
+                .WithDefaultRequestHeaders("a", "b")
+                .With(client.BaseUrl)
+                .With(client.SerializationAdapter)
+                .With(client.Name)
+                .With(client.ThrowExceptionOnFailure);
+
             Assert.AreEqual("frag", client2.BaseUrl.RelativeUrl.Fragment);
             Assert.AreEqual("www.test.com", client2.BaseUrl.Host);
             Assert.IsTrue(client2.BaseUrl.RelativeUrl.Path.SequenceEqual(new List<string> { "test", "test2" }));
