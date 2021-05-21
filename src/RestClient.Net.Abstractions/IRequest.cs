@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using Urls;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     public interface IRequest
     {

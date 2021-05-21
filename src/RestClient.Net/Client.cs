@@ -2,8 +2,6 @@
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using RestClient.Net.Abstractions;
-using RestClient.Net.Abstractions.Extensions;
 using System;
 using System.Linq;
 using System.Net.Http;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     /// <summary>
     /// Abstraction for storing and enumerating http request headers

@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using RestClient.Net.Abstractions;
-using RestClient.Net.Abstractions.Extensions;
 using Urls;
 
 #if !NET45

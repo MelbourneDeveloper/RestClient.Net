@@ -1,5 +1,4 @@
-﻿using RestClient.Net.Abstractions;
-using RestClientApiSamples;
+﻿using RestClientApiSamples;
 using System;
 using System.Threading.Tasks;
 

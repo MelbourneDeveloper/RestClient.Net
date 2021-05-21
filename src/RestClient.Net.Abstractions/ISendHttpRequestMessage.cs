@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     public interface ISendHttpRequestMessage
     {

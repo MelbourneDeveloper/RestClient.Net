@@ -2,7 +2,7 @@
 using System.Threading;
 using Urls;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     public class Request<TBody> : IRequest<TBody>
     {

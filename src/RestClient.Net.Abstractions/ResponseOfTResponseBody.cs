@@ -1,7 +1,7 @@
 ﻿using Urls;
 #pragma warning disable CA2225 // Operator overloads have named alternates
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     public class Response<TResponseBody> : Response
     {

@@ -3,8 +3,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using RestClient.Net.Abstractions;
-using RestClient.Net.DependencyInjection;
 using StructureMap;
 using System;
 using System.Threading.Tasks;

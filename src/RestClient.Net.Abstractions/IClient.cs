@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Urls;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     /// <summary>
     /// Dependency Injection abstraction for rest clients. Use the IClientFactory abstraction when more than one client is needed for an application.

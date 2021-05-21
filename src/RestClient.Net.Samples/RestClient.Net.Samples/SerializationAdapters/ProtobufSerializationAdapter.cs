@@ -1,5 +1,4 @@
 ﻿using Google.Protobuf;
-using RestClient.Net.Abstractions;
 using System;
 
 namespace RestClient.Net

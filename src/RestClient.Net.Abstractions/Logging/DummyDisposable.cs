@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Device.Net
+namespace RestClient.Net
 {
     internal class DummyDisposable : IDisposable
     {

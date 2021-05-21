@@ -3,7 +3,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using RestClient.Net.DependencyInjection;
 using System.Net.Http;
 
 namespace RestClient.Net.UnitTests

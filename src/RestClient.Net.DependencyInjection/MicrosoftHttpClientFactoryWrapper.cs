@@ -1,6 +1,6 @@
 ﻿using snh = System.Net.Http;
 
-namespace RestClient.Net.DependencyInjection
+namespace RestClient.Net
 {
     public class MicrosoftHttpClientFactoryWrapper
     {

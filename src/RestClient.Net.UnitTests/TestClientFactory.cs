@@ -1,5 +1,4 @@
-﻿using RestClient.Net.Abstractions;
-using System;
+﻿using System;
 using System.Net.Http;
 
 #pragma warning disable CA1801 // Review unused parameters

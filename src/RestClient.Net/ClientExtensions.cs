@@ -1,8 +1,6 @@
 ﻿
 
 using Microsoft.Extensions.Logging;
-using RestClient.Net.Abstractions;
-using RestClient.Net.Abstractions.Extensions;
 using System;
 using Urls;
 
