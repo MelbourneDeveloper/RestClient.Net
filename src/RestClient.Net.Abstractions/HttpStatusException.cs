@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     public class HttpStatusException : Exception
     {

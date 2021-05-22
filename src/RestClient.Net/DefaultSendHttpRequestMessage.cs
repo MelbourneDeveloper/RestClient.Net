@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using RestClient.Net.Abstractions;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;

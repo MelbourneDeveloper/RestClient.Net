@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace RestClient.Net.Abstractions.Extensions
+namespace RestClient.Net
 {
     public static class HeadersExtensions
     {

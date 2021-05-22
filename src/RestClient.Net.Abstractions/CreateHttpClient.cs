@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     /// <summary>
     /// Get or create a HttpClient

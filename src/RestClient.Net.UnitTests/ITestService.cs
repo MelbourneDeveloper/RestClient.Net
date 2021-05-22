@@ -1,5 +1,4 @@
-﻿using RestClient.Net.Abstractions;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace RestClient.Net.UnitTests
 {

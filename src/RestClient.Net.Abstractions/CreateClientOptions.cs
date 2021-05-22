@@ -1,6 +1,6 @@
 ﻿using Urls;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     public class CreateClientOptions
     {

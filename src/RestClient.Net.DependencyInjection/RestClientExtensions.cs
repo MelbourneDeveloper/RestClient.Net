@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using RestClient.Net.Abstractions;
 using System;
 using System.Net.Http;
 
-namespace RestClient.Net.DependencyInjection
+namespace RestClient.Net
 {
     public static class RestClientExtensions
     {

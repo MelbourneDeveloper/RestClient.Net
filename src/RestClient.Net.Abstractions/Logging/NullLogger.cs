@@ -1,4 +1,4 @@
-﻿using Device.Net;
+﻿using RestClient.Net;
 using System;
 
 namespace Microsoft.Extensions.Logging.Abstractions

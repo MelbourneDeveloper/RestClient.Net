@@ -3,7 +3,6 @@
 using Http.Server;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using RestClient.Net.Abstractions;
 using System;
 using System.Net;
 using System.Text;

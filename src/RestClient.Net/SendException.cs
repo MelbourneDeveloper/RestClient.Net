@@ -1,5 +1,4 @@
-﻿using RestClient.Net.Abstractions;
-using System;
+﻿using System;
 
 namespace RestClient.Net
 {

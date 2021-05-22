@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Net.Http;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     public interface IGetHttpRequestMessage
     {

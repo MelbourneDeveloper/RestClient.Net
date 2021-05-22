@@ -1,6 +1,5 @@
 ﻿#if !NET45
 
-using RestClient.Net.Abstractions;
 using System.Threading.Tasks;
 
 namespace RestClient.Net.UnitTests

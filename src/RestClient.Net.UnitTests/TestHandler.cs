@@ -1,7 +1,6 @@
 ﻿#if !NET45
 
 using Moq;
-using RestClient.Net.Abstractions;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;

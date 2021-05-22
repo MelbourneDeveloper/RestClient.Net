@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using RestClient.Net.Abstractions;
 using System.Text;
 
 namespace RestClient.Net

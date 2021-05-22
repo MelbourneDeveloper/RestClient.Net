@@ -1,6 +1,6 @@
 ﻿using Urls;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     internal static class Messages
     {

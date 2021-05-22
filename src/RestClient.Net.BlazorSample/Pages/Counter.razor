@@ -1,0 +1,48 @@
+﻿@page "/countrydata"
+
+@using BlazorApp1.Data
+@using RestClient.Net;
+@using Urls;
+
+<h1>Countries</h1>
+
+<p>This page shows data about countries.</p>
+
+@if (countries == null)
+{
+<p><em>Loading...</em></p> }
+else
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Flag</th>
+            <th>Capital</th>
+            <th>Borders</th>
+            <th>Population</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var country in countries)
+        {
+<tr>
+    <td>@country.name</td>
+    <td><img src="@country.flag" width="320" height="200" /></td>
+    <td>@country.capital</td>
+    <td>@string.Join(", ", country.borders)</td>
+    <td>@country.population</td>
+</tr>
+}
+    </tbody>
+</table>}
+
+@code { private List<RestCountry> countries = new List<RestCountry>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        countries = await new Client(
+            new NewtonsoftSerializationAdapter(),
+            baseUrl: "https://restcountries.eu/rest/v2/".ToAbsoluteUrl())
+            .GetAsync<List<RestCountry>>() ?? new List<RestCountry>();
+    } }

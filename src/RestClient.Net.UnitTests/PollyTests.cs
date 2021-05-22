@@ -6,8 +6,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Polly;
 using Polly.Extensions.Http;
 using Polly.Retry;
-using RestClient.Net.Abstractions;
-using RestClient.Net.DependencyInjection;
 using RestClient.Net.UnitTests.Model;
 using RestClientApiSamples;
 using System;
