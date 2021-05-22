@@ -32,16 +32,17 @@ else
     <td>@country.capital</td>
     <td>@string.Join(", ", country.borders)</td>
     <td>@country.population</td>
-</tr>}
+</tr>
+}
     </tbody>
 </table>}
 
 @code { private List<RestCountry> countries = new List<RestCountry>();
 
-            protected override async Task OnInitializedAsync()
-            {
-                countries = await new Client(
-                    new NewtonsoftSerializationAdapter(),
-                    baseUrl: "https://restcountries.eu/rest/v2/".ToAbsoluteUrl())
-                    .GetAsync<List<RestCountry>>() ?? new List<RestCountry>();
-            } }
+    protected override async Task OnInitializedAsync()
+    {
+        countries = await new Client(
+            new NewtonsoftSerializationAdapter(),
+            baseUrl: "https://restcountries.eu/rest/v2/".ToAbsoluteUrl())
+            .GetAsync<List<RestCountry>>() ?? new List<RestCountry>();
+    } }
