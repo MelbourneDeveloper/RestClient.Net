@@ -1,4 +1,7 @@
-#if (NETCOREAPP3_1)
+
+#pragma warning disable CA1052 // Static holder types should be Static or NotInheritable
+
+#if NETCOREAPP3_1
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 #else
@@ -11,7 +14,7 @@ namespace BlazorApp1
     public class Program
     {
         //This is for server side rendering
-#if (NETCOREAPP3_1)
+#if NETCOREAPP3_1
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -30,7 +33,7 @@ namespace BlazorApp1
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            await builder.Build().RunAsync();
+            await builder.Build().RunAsync().ConfigureAwait(false);
         }
 #endif
     }

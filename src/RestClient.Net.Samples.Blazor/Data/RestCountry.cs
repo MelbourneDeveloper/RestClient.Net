@@ -1,4 +1,10 @@
-using System;
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning disable CA1707 // Identifiers should not contain underscores
+#pragma warning disable IDE1006 // Naming Styles
+#pragma warning disable CA1056 // URI-like properties should not be strings
+#pragma warning disable CA1002 // Do not expose generic lists
+#pragma warning disable CA2227 // Collection properties should be read only
+
 using System.Collections.Generic;
 
 namespace BlazorApp1.Data

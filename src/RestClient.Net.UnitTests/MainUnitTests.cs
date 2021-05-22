@@ -417,7 +417,7 @@ namespace RestClient.Net.UnitTests
 
             using var factory = new SingletonHttpClientFactory(httpClient);
 
-            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: factory.CreateClient, baseUri: RestCountriesAllUri, logger: _logger.Object);
+            using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: factory.CreateClient, baseUrl: RestCountriesAllUri, logger: _logger.Object);
 
             _ = await Assert.ThrowsExceptionAsync<HttpStatusException>(() => client.GetAsync<List<RestCountry>>(), Messages.GetErrorMessageNonSuccess((int)statusCode, RestCountriesAllUri));
         }
@@ -453,7 +453,7 @@ namespace RestClient.Net.UnitTests
 
             using var factory = new SingletonHttpClientFactory(httpClient);
 
-            using var client = new Client(adapter, createHttpClient: factory.CreateClient, baseUri: RestCountriesAllUri, logger: _logger.Object, throwExceptionOnFailure: false);
+            using var client = new Client(adapter, createHttpClient: factory.CreateClient, baseUrl: RestCountriesAllUri, logger: _logger.Object, throwExceptionOnFailure: false);
 
             var response = await client.GetAsync<List<RestCountry>>();
 
@@ -466,7 +466,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestGetRestCountries()
         {
             using var client = new Client(new NewtonsoftSerializationAdapter(),
-                baseUri: RestCountriesAllUri,
+                baseUrl: RestCountriesAllUri,
                 createHttpClient: GetCreateHttpClient(),
                 logger: _logger.Object);
 
@@ -502,7 +502,7 @@ namespace RestClient.Net.UnitTests
         public async Task TestDelete()
         {
             using var client = new Client(new NewtonsoftSerializationAdapter(),
-                baseUri: JsonPlaceholderBaseUri,
+                baseUrl: JsonPlaceholderBaseUri,
                 logger: _logger.Object,
                 createHttpClient: GetCreateHttpClient()
                 );
@@ -558,7 +558,7 @@ namespace RestClient.Net.UnitTests
         => Assert.ThrowsExceptionAsync<TaskCanceledException>(async () =>
            {
 
-               using var client = new Client(new NewtonsoftSerializationAdapter(), baseUri: JsonPlaceholderBaseUri);
+               using var client = new Client(new NewtonsoftSerializationAdapter(), baseUrl: JsonPlaceholderBaseUri);
 
                using var tokenSource = new CancellationTokenSource();
                var token = tokenSource.Token;
@@ -582,7 +582,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: JsonPlaceholderBaseUri,
+                baseUrl: JsonPlaceholderBaseUri,
                 createHttpClient: GetCreateHttpClient(),
                 logger: _logger.Object,
                 defaultRequestHeaders: HeadersExtensions.FromJsonContentType());
@@ -621,7 +621,7 @@ namespace RestClient.Net.UnitTests
             //var logger = new ConsoleLogger();
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: JsonPlaceholderBaseUri,
+                baseUrl: JsonPlaceholderBaseUri,
                 createHttpClient: GetCreateHttpClient(),
                 logger: consoleLoggerFactory.CreateLogger<Client>());
             var response = await client.PostAsync<PostUserResponse, UserPost>(_userRequestBody, JsonPlaceholderPostsSlug);
@@ -638,7 +638,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(
                 new XmlSerializationAdapter(),
                 createHttpClient: GetCreateHttpClient(),
-                baseUri: GeoPluginUrl);
+                baseUrl: GeoPluginUrl);
             var geoPlugin = await client.GetAsync<GeoPlugin>();
 
             Assert.IsNotNull(geoPlugin);
@@ -700,7 +700,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
                 DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test")
@@ -720,7 +720,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: "Test".ToHeadersCollection("Test"));
 
@@ -747,7 +747,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: "Test".ToHeadersCollection("Test"));
 
@@ -830,7 +830,7 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
                 headersCollections.WithHeaderValue("Test", "Test")
@@ -860,7 +860,7 @@ namespace RestClient.Net.UnitTests
             {
                 using var client = new Client(
                 serializationAdapter,
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 //The server expects the value of "Test"
                 defaultRequestHeaders: HeadersExtensions.FromJsonContentType().Append("Test", "Tests"));
@@ -890,7 +890,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
                 DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test")
@@ -911,7 +911,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.FromJsonContentType().Append("Test", "Test"));
 
@@ -974,7 +974,7 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 //The server expects the value of "Test"
                 defaultRequestHeaders: HeadersExtensions.FromJsonContentType());
@@ -990,7 +990,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
                 DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test")
@@ -1012,7 +1012,7 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 logger: _logger.Object,
                 createHttpClient: _testServerHttpClientFactory.CreateClient);
 
@@ -1034,7 +1034,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test"));
 
@@ -1054,7 +1054,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: useDefault ?
                 DefaultJsonContentHeaderCollection.WithHeaderValue("Test", "Test")
@@ -1087,7 +1087,7 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(
                 serializationAdapter,
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 throwExceptionOnFailure: false
                 );
@@ -1109,7 +1109,7 @@ namespace RestClient.Net.UnitTests
 
             using var restClient = new Client(
                 serializationAdapter,
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient);
 
 
@@ -1127,7 +1127,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.FromJsonContentType());
 
@@ -1142,7 +1142,7 @@ namespace RestClient.Net.UnitTests
 
             using var client2 = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions
                 .FromJsonContentType()
@@ -1159,7 +1159,7 @@ namespace RestClient.Net.UnitTests
 
             using var restClient = new Client(
                 serializationAdapter,
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.FromBasicCredentials("Bob", "WrongPassword"));
 
@@ -1176,7 +1176,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.FromBasicCredentials("Bob", "ANicePassword"));
 
@@ -1191,7 +1191,7 @@ namespace RestClient.Net.UnitTests
 
             using var restClient = new Client(
                 serializationAdapter,
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions.FromBearerToken("321"));
 
@@ -1208,7 +1208,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions
                 .FromJsonContentType()
@@ -1225,7 +1225,7 @@ namespace RestClient.Net.UnitTests
 
             using var restClient = new Client(
                 serializationAdapter,
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: _testServerHttpClientFactory.CreateClient,
                 defaultRequestHeaders: HeadersExtensions
                 .FromJsonContentType()
@@ -1506,7 +1506,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: (n) => new HttpClient { BaseAddress = new Uri("http://www.test.com") },
                 defaultRequestHeaders: HeadersExtensions.FromJsonContentType().Append("Test", "Test"));
 
@@ -1565,7 +1565,7 @@ namespace RestClient.Net.UnitTests
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 logger: _logger.Object,
-                baseUri: new(RestCountriesAllUriString),
+                baseUrl: new(RestCountriesAllUriString),
                 createHttpClient: (n) => new HttpClient(mockHttpMessageHandler));
 
             var dex = await Assert.ThrowsExceptionAsync<DeserializationException>(() => client.GetAsync<Person>());
@@ -1611,7 +1611,7 @@ namespace RestClient.Net.UnitTests
         {
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: testServerBaseUri,
+                baseUrl: testServerBaseUri,
                 createHttpClient: (n) =>
                 {
                     var httpClient = new HttpClient();
@@ -1681,14 +1681,14 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: RestCountriesAllUri,
+                baseUrl: RestCountriesAllUri,
                 createHttpClient: defaultHttpClientFactory.CreateClient); ;
 
             var response = await client.GetAsync<List<RestCountry>>();
 
             using var client2 = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: RestCountriesAllUri,
+                baseUrl: RestCountriesAllUri,
                 createHttpClient: defaultHttpClientFactory.CreateClient);
 
             response = await client2.GetAsync<List<RestCountry>>();
@@ -1765,14 +1765,14 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: RestCountriesAllUri,
+                baseUrl: RestCountriesAllUri,
                 createHttpClient: defaultHttpClientFactory.CreateClient,
                 name: "Test");
             var response = await client.GetAsync<List<RestCountry>>();
 
             using var client2 = new Client(
                 new NewtonsoftSerializationAdapter(),
-                baseUri: RestCountriesAllUri,
+                baseUrl: RestCountriesAllUri,
                 createHttpClient: defaultHttpClientFactory.CreateClient,
                 name: "Test");
             response = await client2.GetAsync<List<RestCountry>>();
@@ -2422,7 +2422,7 @@ namespace RestClient.Net.UnitTests
                 var testClientFactory = new TestClientFactory(httpClient);
                 restClient = new Client(
                     new NewtonsoftSerializationAdapter(),
-                    baseUri: baseUri,
+                    baseUrl: baseUri,
                     createHttpClient: testClientFactory.CreateClient,
                     defaultRequestHeaders: defaultHeaders);
             }
@@ -2430,7 +2430,7 @@ namespace RestClient.Net.UnitTests
             {
                 restClient = new Client(
                     new NewtonsoftSerializationAdapter(),
-                    baseUri: testServerBaseUri,
+                    baseUrl: testServerBaseUri,
                     createHttpClient: _testServerHttpClientFactory.CreateClient,
                     defaultRequestHeaders: defaultHeaders);
             }

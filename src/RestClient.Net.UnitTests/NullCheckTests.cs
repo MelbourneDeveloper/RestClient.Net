@@ -187,7 +187,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public async Task TestClientValidateHttpClientNull()
         {
-            using var client = new Client(new Mock<ISerializationAdapter>().Object, baseUri: new AbsoluteUrl("http://www.test.com"), createHttpClient: (n) => null);
+            using var client = new Client(new Mock<ISerializationAdapter>().Object, baseUrl: new AbsoluteUrl("http://www.test.com"), createHttpClient: (n) => null);
             var exception = await Assert.ThrowsExceptionAsync<SendException>(() => client.GetAsync<string>());
             Assert.IsTrue(exception.InnerException is InvalidOperationException);
         }
