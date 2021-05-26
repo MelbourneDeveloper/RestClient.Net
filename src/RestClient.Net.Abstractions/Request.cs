@@ -1,80 +1,52 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
+using Urls;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
-    public class Request<TRequestBody>
+    public class Request<TBody> : IRequest<TBody>
     {
         #region Public Properties
-        public IHeadersCollection Headers { get; set; }
-        public Uri Resource { get; set; }
-        public HttpRequestMethod HttpRequestMethod { get; set; }
-        public TRequestBody Body { get; set; }
-        public CancellationToken CancellationToken { get; set; }
-        public string CustomHttpRequestMethod { get; set; }
+#pragma warning disable CA1819 // Properties should not return arrays
+        public TBody? BodyData { get; }
+#pragma warning restore CA1819 // Properties should not return arrays
+        public IHeadersCollection Headers { get; }
+        public AbsoluteUrl Uri { get; }
+        public HttpRequestMethod HttpRequestMethod { get; }
+        public CancellationToken CancellationToken { get; }
+        public string? CustomHttpRequestMethod { get; }
         #endregion
-
-        #region Constructors
-        /// <summary>
-        /// Use this to construct mocked requests
-        /// </summary>
-        public Request()
-        {
-
-        }
 
         /// <summary>
         /// Construct a Request
         /// </summary>
-        /// <param name="resource"></param>
-        /// <param name="body"></param>
+        /// <param name="uri"></param>
+        /// <param name="bodyData"></param>
         /// <param name="headers"></param>
         /// <param name="httpRequestMethod"></param>
-        /// <param name="client"></param>
+        /// <param name="customHttpRequestMethod"></param>
         /// <param name="cancellationToken"></param>
-        public Request(Uri resource,
-            TRequestBody body,
+        /// 
+        public Request(
+            AbsoluteUrl uri,
+            TBody? bodyData,
             IHeadersCollection headers,
             HttpRequestMethod httpRequestMethod,
-            IClient client,
-            CancellationToken cancellationToken)
+            string? customHttpRequestMethod = null,
+            CancellationToken cancellationToken = default)
         {
-            Body = body;
-            Resource = resource;
+            BodyData = bodyData;
+            Uri = uri;
             HttpRequestMethod = httpRequestMethod;
             CancellationToken = cancellationToken;
-
-            //Default to the headers passed in the constructor
+            CustomHttpRequestMethod = customHttpRequestMethod;
             Headers = headers;
 
-            //Create the collection if it's null
-            if (Headers == null) Headers = new RequestHeadersCollection();
-
-            //Return if there are no default headers
-            var defaultRequestHeaders = client?.DefaultRequestHeaders;
-            if (defaultRequestHeaders == null) return;
-            var defaultRequestHeadersList = defaultRequestHeaders.ToList();
-            if (defaultRequestHeadersList.Count == 0) return;
-
-            //Create a new list so we don't modify the list headers passed in
-            Headers = new RequestHeadersCollection();
-
-            //Add headers that were passed in
-            foreach (var kvp in defaultRequestHeadersList)
-            {
-                Headers.Add(kvp);
-            }
-
-            //Add the default headers
-            if (headers != null)
-            {
-                foreach (var kvp in headers)
-                {
-                    Headers.Add(kvp);
-                }
-            }
+            if (uri == null) throw new ArgumentNullException(nameof(uri));
         }
-        #endregion
+
+        public override string ToString() => $"\r\nResource: {Uri}\r\nHeaders: {Headers} Method: {HttpRequestMethod}";
+
+
     }
 }

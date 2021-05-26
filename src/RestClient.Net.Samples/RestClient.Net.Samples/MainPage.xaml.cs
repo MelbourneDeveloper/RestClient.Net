@@ -160,15 +160,9 @@ namespace RestClient.Net.Sample
             await DisplayAlert("Error", message);
         }
 
-        private string GetPassword()
-        {
-            return ThePasswordBox.Text;
-        }
+        private string GetPassword() => ThePasswordBox.Text;
 
-        private async Task DisplayAlert(string title, string message)
-        {
-            await DisplayAlert(title, message, "OK");
-        }
+        private async Task DisplayAlert(string title, string message) => await DisplayAlert(title, message, "OK");
 
         private void ToggleBusy(bool isBusy)
         {
@@ -197,20 +191,11 @@ namespace RestClient.Net.Sample
             }
         }
 
-        private void ReposBox_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            ReposPage.BindingContext = ReposBox.SelectedItem as Repository;
-        }
+        private void ReposBox_ItemSelected(object sender, SelectedItemChangedEventArgs e) => ReposPage.BindingContext = ReposBox.SelectedItem as Repository;
 
-        private async void SaveButton_Clicked(object sender, EventArgs e)
-        {
-            await OnSavedClicked();
-        }
+        private async void SaveButton_Clicked(object sender, EventArgs e) => await OnSavedClicked();
 
-        private void GetReposButton_Clicked(object sender, EventArgs e)
-        {
-            OnGetReposClick();
-        }
+        private void GetReposButton_Clicked(object sender, EventArgs e) => OnGetReposClick();
 
         private async void Delete_Clicked(object sender, EventArgs e)
         {

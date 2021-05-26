@@ -1,23 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     /// <summary>
     /// Abstraction for storing and enumerating http request headers
     /// </summary>
     public interface IHeadersCollection : IEnumerable<KeyValuePair<string, IEnumerable<string>>>
     {
-        /// <summary>
-        /// Adds a collection of strings by header name
-        /// </summary>
-        /// <param name="keyValuePair"></param>
-        void Add(KeyValuePair<string, IEnumerable<string>> keyValuePair);
-
-        /// <summary>
-        /// Clears the headers
-        /// </summary>
-        void Clear();
-
         /// <summary>
         /// Gets the collection of strings belonging to a header name
         /// </summary>

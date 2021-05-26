@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+	  <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
+	  <DebugType>pdbonly</DebugType>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <Description>.NET REST Client Framework for all platforms. This package contains ASP.NET Core DI infrastructure.</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\RestClient.Net.Abstractions\RestClient.Net.Abstractions.csproj" />
     <ProjectReference Include="..\RestClient.Net\RestClient.Net.csproj" />
   </ItemGroup>

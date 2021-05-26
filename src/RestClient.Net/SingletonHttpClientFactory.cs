@@ -6,7 +6,7 @@ namespace RestClient.Net
     /// <summary>
     /// Factory for using a single HttpClient. This can be used in the simplest scenarios. 
     /// </summary>
-    public class SingletonHttpClientFactory : IDisposable
+    public sealed class SingletonHttpClientFactory : IDisposable
     {
         #region Fields
         private bool disposed;
@@ -17,26 +17,15 @@ namespace RestClient.Net
         #endregion
 
         #region Constructor
-        public SingletonHttpClientFactory() : this(null)
-        {
-        }
-
-        public SingletonHttpClientFactory(HttpClient httpClient)
-        {
-            if (httpClient == null) httpClient = new HttpClient();
-            HttpClient = httpClient;
-        }
+        public SingletonHttpClientFactory(HttpClient httpClient) => HttpClient = httpClient;
         #endregion
 
         #region Implementation
-#pragma warning disable IDE0060
-#pragma warning disable CA1801
-        public HttpClient CreateClient(string name)
-#pragma warning restore IDE0060
-#pragma warning restore CA1801
-        {
-            return HttpClient;
-        }
+#pragma warning disable CA1801 // Review unused parameters
+#pragma warning disable IDE0060 // Remove unused parameter
+        public HttpClient CreateClient(string name) => HttpClient;
+#pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning restore CA1801 // Review unused parameters
 
         public void Dispose()
         {

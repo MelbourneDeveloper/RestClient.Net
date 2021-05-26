@@ -1,58 +1,88 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿
+
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Polly;
 using Polly.Extensions.Http;
-using RestClient.Net.Abstractions;
-using RestClient.Net.DependencyInjection;
+using Polly.Retry;
 using RestClient.Net.UnitTests.Model;
 using RestClientApiSamples;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Urls;
 
 namespace RestClient.Net.UnitTests
 {
+    //It sucks that we have to create a class in this way. The old version was far less verbose. 
+    //TODO: Look in to another way to achieve this
+
+    public class PollySendHttpRequestMessage : ISendHttpRequestMessage
+    {
+        private readonly AsyncRetryPolicy<HttpResponseMessage> policy;
+
+        public PollySendHttpRequestMessage(AsyncRetryPolicy<HttpResponseMessage> policy) => this.policy = policy;
+
+        public int Tries { get; private set; }
+
+        public Task<HttpResponseMessage> SendHttpRequestMessage<TRequestBody>(
+            HttpClient httpClient,
+            IGetHttpRequestMessage httpRequestMessageFunc,
+            IRequest<TRequestBody> request,
+            ILogger logger,
+            ISerializationAdapter serializationAdapter) =>
+            policy.ExecuteAsync(() =>
+            {
+                if (httpRequestMessageFunc == null) throw new ArgumentNullException(nameof(httpRequestMessageFunc));
+                if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+                if (request == null) throw new ArgumentNullException(nameof(request));
+
+                var httpRequestMessage = httpRequestMessageFunc.GetHttpRequestMessage(request, logger, serializationAdapter);
+
+                //On the third try change the Url to a the correct one
+                if (Tries == 2)
+                {
+                    httpRequestMessage.RequestUri =
+                    new AbsoluteUrl(MainUnitTests.LocalBaseUriString)
+                    .WithRelativeUrl(new RelativeUrl("Person"))
+                    .ToUri();
+                }
+
+                Tries++;
+                return httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
+            });
+    }
+
     [TestClass]
     public class PollyTests
     {
         [TestMethod]
         public async Task TestPollyManualIncorrectUri()
         {
-            var tries = 0;
-
             var policy = HttpPolicyExtensions
               .HandleTransientHttpError()
               .OrResult(response => response.StatusCode == HttpStatusCode.NotFound)
               .RetryAsync(3);
 
-            var client = new Client(
-                new ProtobufSerializationAdapter(),
-                null,
-                new Uri(UnitTests.LocalBaseUriString),
-                logger: null,
-                createHttpClient: UnitTests.GetTestClientFactory().CreateClient,
-                sendHttpRequestFunc: (httpClient, httpRequestMessageFunc, logger, cancellationToken) =>
-                {
-                    return policy.ExecuteAsync(() =>
-                    {
-                        var httpRequestMessage = httpRequestMessageFunc.Invoke();
+            var sendHttpRequestFunc = new PollySendHttpRequestMessage(policy);
 
-                        //On the third try change the Url to a the correct one
-                        if (tries == 2) httpRequestMessage.RequestUri = new Uri("Person", UriKind.Relative);
-                        tries++;
-                        return httpClient.SendAsync(httpRequestMessage, cancellationToken);
-                    });
-                });
+            using var client = new Client(
+                new ProtobufSerializationAdapter(),
+                new(MainUnitTests.LocalBaseUriString),
+                logger: null,
+                createHttpClient: MainUnitTests.GetTestClientFactory().CreateClient,
+                sendHttpRequest: sendHttpRequestFunc,
+                name: null);
 
             var person = new Person { FirstName = "Bob", Surname = "Smith" };
 
             //Note the Uri here is deliberately incorrect. It will cause a 404 Not found response. This is to make sure that polly is working
-            person = await client.PostAsync<Person, Person>(person, new Uri("person2", UriKind.Relative));
-            Assert.AreEqual("Bob", person.FirstName);
-            Assert.AreEqual(3, tries);
-
+            person = await client.PostAsync<Person, Person>(person, new("person2"));
+            Assert.AreEqual("Bob", person?.FirstName);
+            Assert.AreEqual(3, sendHttpRequestFunc.Tries);
         }
 
 
@@ -67,25 +97,24 @@ namespace RestClient.Net.UnitTests
 
             //Create a Microsoft IoC Container
             var serviceCollection = new ServiceCollection();
-            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
-            serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
-            .AddSingleton(typeof(ILogger), typeof(ConsoleLogger))
+            _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
+            .AddLogging()
             //Add the Polly policy to the named HttpClient instance
-            .AddHttpClient("rc", (c) => { c.BaseAddress = baseUri; }).
+            .AddHttpClient("rc").
                 SetHandlerLifetime(TimeSpan.FromMinutes(5)).
                 AddPolicyHandler(policy);
 
             //Provides mapping for Microsoft's IHttpClientFactory (This is what makes the magic happen)
-            serviceCollection.AddDependencyInjectionMapping();
+            _ = serviceCollection.AddRestClient();
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            var clientFactory = serviceProvider.GetService<CreateClient>();
+            var clientFactory = serviceProvider.GetRequiredService<CreateClient>();
 
             //Create a Rest Client that will get the HttpClient by the name of rc
-            var client = clientFactory("rc");
+            var client = clientFactory("rc", (o) => o.BaseUrl = new("https://restcountries.eu/rest/v2/"));
 
             //Make the call
-            var response = await client.GetAsync<List<RestCountry>>();
+            _ = await client.GetAsync<List<RestCountry>>();
 
             //TODO: Implement this completely to ensure that the policy is being applied
         }

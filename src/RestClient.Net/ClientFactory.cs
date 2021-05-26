@@ -1,74 +1,62 @@
-﻿using RestClient.Net.Abstractions;
+﻿
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-
-#if NET45
-using RestClient.Net.Abstractions.Logging;
-#else
-using Microsoft.Extensions.Logging;
-#endif
-
 
 namespace RestClient.Net
 {
     public class ClientFactory
     {
         #region Fields
-        private readonly Func<string, Lazy<IClient>> _createClientFunc;
-        private readonly ConcurrentDictionary<string, Lazy<IClient>> _clients;
-        private readonly CreateHttpClient _createHttpClient;
-        #endregion
-
-        #region Public Properties
-        public ISerializationAdapter SerializationAdapter { get; }
-        public ILogger Logger { get; }
+        private readonly Func<string, Action<CreateClientOptions>?, Lazy<IClient>> createClientFunc;
+        private readonly ConcurrentDictionary<string, Lazy<IClient>> clients;
+        private readonly CreateHttpClient createHttpClient;
+        private readonly ILoggerFactory loggerFactory;
         #endregion
 
         #region Constructor
         public ClientFactory(
-#if NETCOREAPP3_1
-            ISerializationAdapter serializationAdapter = null,
-#else
-            ISerializationAdapter serializationAdapter,
-#endif
-            CreateHttpClient createHttpClient = null,
-            ILogger logger = null)
+            CreateHttpClient createHttpClient,
+            ILoggerFactory? loggerFactory = null)
         {
-            SerializationAdapter = serializationAdapter;
-            _createHttpClient = createHttpClient;
-            Logger = logger;
 
-            _clients = new ConcurrentDictionary<string, Lazy<IClient>>();
+            this.createHttpClient = createHttpClient;
+            this.loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
 
-            _createClientFunc = name =>
-            {
-                return new Lazy<IClient>(() => MintClient(name), LazyThreadSafetyMode.ExecutionAndPublication);
-            };
+            clients = new ConcurrentDictionary<string, Lazy<IClient>>();
+
+            createClientFunc = (name, baseUri) => new Lazy<IClient>(() => MintClient(name, baseUri), LazyThreadSafetyMode.ExecutionAndPublication);
         }
         #endregion
 
         #region Implementation
-        public IClient CreateClient(string name)
-        {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            return _clients.GetOrAdd(name, _createClientFunc).Value;
-        }
+        public IClient CreateClient(string name, Action<CreateClientOptions>? configureClient = null)
+            => name == null ? throw new ArgumentNullException(nameof(name)) : clients.GetOrAdd(name, createClientFunc(name, configureClient)).Value;
         #endregion
 
         #region Private Methods
-        private IClient MintClient(string name)
+        private IClient MintClient(string name, Action<CreateClientOptions>? configureClient = null)
         {
+            var createClientOptions = new CreateClientOptions(createHttpClient);
+
+            configureClient?.Invoke(createClientOptions);
+
+#if NET45
+            if (createClientOptions.SerializationAdapter == null) throw new InvalidOperationException("You must specify a SerializationAdapter");
+#endif
+
             return new Client(
-                SerializationAdapter,
-                name,
-                null,
-                logger: Logger,
-                createHttpClient: _createHttpClient);
+                createClientOptions.SerializationAdapter,
+                createClientOptions.BaseUrl,
+                createClientOptions.DefaultRequestHeaders,
+                loggerFactory?.CreateLogger<Client>(),
+                createClientOptions.CreateHttpClient,
+                createClientOptions.SendHttpRequestMessage,
+                createClientOptions.GetHttpRequestMessage,
+                createClientOptions.ThrowExceptionOnFailure,
+                name);
         }
         #endregion
     }

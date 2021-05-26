@@ -9,9 +9,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using client = RestClient.Net.Client;
 
-#if __WASM__
-using Uno.UI.Wasm;
-#endif
+#pragma warning disable Uno0001 // Uno type or member is not implemented
+
 
 namespace RestClient.Net.Samples.Uno
 {
@@ -36,7 +35,7 @@ namespace RestClient.Net.Samples.Uno
 
         #region Private Methods
 
-        private void GetBitBucketClient(string password, bool isGet)
+        private void GetBitBucketClient(string password)
         {
             var url = "https://api.bitbucket.org/2.0/repositories/" + UsernameBox.Text;
 
@@ -63,17 +62,17 @@ namespace RestClient.Net.Samples.Uno
                 ReposBox.IsEnabled = false;
 
                 //Ensure the client is ready to go
-                GetBitBucketClient(GetPassword(), true);
+                GetBitBucketClient(GetPassword());
 
                 //Download the repository data
-                RepositoryList repos = (await _BitbucketClient.GetAsync<RepositoryList>());
+                RepositoryList repos = await _BitbucketClient.GetAsync<RepositoryList>();
 
                 //Put it in the List Box
                 ReposBox.ItemsSource = repos.values;
                 ReposBox.SelectedItem = repos.values.FirstOrDefault();
                 ReposBox.IsEnabled = true;
             }
-            catch (Exception ex)
+            catch
             {
                 await HandleException($"An error occurred while attempting to get repos.");
             }
@@ -87,14 +86,13 @@ namespace RestClient.Net.Samples.Uno
 
             try
             {
-                var selectedRepo = ReposBox.SelectedItem as Repository;
-                if (selectedRepo == null)
+                if (!(ReposBox.SelectedItem is Repository selectedRepo))
                 {
                     return;
                 }
 
                 //Ensure the client is ready to go
-                GetBitBucketClient(GetPassword(), false);
+                GetBitBucketClient(GetPassword());
 
                 var requestUri = $"{UsernameBox.Text}/{selectedRepo.full_name.Split('/')[1]}";
 
@@ -113,20 +111,16 @@ namespace RestClient.Net.Samples.Uno
             ToggleBusy(false);
         }
 
-        private async Task HandleException(string message)
-        {
-            await DisplayAlert("Error", message);
-        }
+        private async Task HandleException(string message) => await DisplayAlert("Error", message);
 
-        private string GetPassword()
-        {
+        private string GetPassword() =>
 
 #if __WASM__
-            return ThePasswordBox.Text;
+            ThePasswordBox.Text;
 #else
-            return ThePasswordBox.Password;
+            ThePasswordBox.Password;
 #endif
-        }
+
 
         private async Task DisplayAlert(string title, string message)
         {
@@ -134,10 +128,7 @@ namespace RestClient.Net.Samples.Uno
             await messageDialog.ShowAsync();
         }
 
-        private void ToggleBusy(bool isBusy)
-        {
-            ReposActivityIndicator.Visibility = isBusy ? Visibility.Visible : Visibility.Collapsed;
-        }
+        private void ToggleBusy(bool isBusy) => ReposActivityIndicator.Visibility = isBusy ? Visibility.Visible : Visibility.Collapsed;
 
         private void AttachEventHandlers()
         {
@@ -148,21 +139,14 @@ namespace RestClient.Net.Samples.Uno
         #endregion
 
         #region Event Handlers
-        private void ReposBox_ItemSelected(object sender, SelectionChangedEventArgs e)
-        {
-            ReposPage.DataContext = ReposBox.SelectedItem as Repository;
-        }
+        private void ReposBox_ItemSelected(object sender, SelectionChangedEventArgs e) => ReposPage.DataContext = ReposBox.SelectedItem as Repository;
 
 
-        private async void SaveButton_Clicked(object sender, RoutedEventArgs e)
-        {
-            await OnSavedClicked();
-        }
+        private async void SaveButton_Clicked(object sender, RoutedEventArgs e) => await OnSavedClicked();
 
-        private void GetReposButton_Clicked(object sender, RoutedEventArgs e)
-        {
-            OnGetReposClick();
-        }
+        private void GetReposButton_Clicked(object sender, RoutedEventArgs e) => OnGetReposClick();
         #endregion
     }
 }
+
+#pragma warning restore Uno0001 // Uno type or member is not implemented

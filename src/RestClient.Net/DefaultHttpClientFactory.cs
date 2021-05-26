@@ -2,54 +2,47 @@
 using System.Collections.Concurrent;
 using System.Net.Http;
 using System.Threading;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace RestClient.Net
 {
-    public class DefaultHttpClientFactory : IDisposable
+    public sealed class DefaultHttpClientFactory : IDisposable
     {
         #region Fields
         private bool disposed;
-        private readonly ConcurrentDictionary<string, Lazy<HttpClient>> _httpClients;
-        private readonly Func<string, Lazy<HttpClient>> _createClientFunc;
+        private readonly ConcurrentDictionary<string, Lazy<HttpClient>> httpClients;
+        private readonly Func<string, Lazy<HttpClient>> createClientFunc;
+        private readonly ILogger<DefaultHttpClientFactory> logger;
         #endregion
 
         #region Constructor
-        public DefaultHttpClientFactory() : this(null)
+        public DefaultHttpClientFactory(Func<string, Lazy<HttpClient>>? createClientFunc = null, ILogger<DefaultHttpClientFactory>? logger = null)
         {
-        }
+            httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();
+            this.logger = logger ?? NullLogger<DefaultHttpClientFactory>.Instance;
 
-        public DefaultHttpClientFactory(Func<string, Lazy<HttpClient>> createClientFunc)
-        {
-            _createClientFunc = createClientFunc;
-            _httpClients = new ConcurrentDictionary<string, Lazy<HttpClient>>();
-
-            if (_createClientFunc != null) return;
-            _createClientFunc = name =>
+            this.createClientFunc = createClientFunc ?? (name => new Lazy<HttpClient>(() =>
             {
-                return new Lazy<HttpClient>(() => new HttpClient(), LazyThreadSafetyMode.ExecutionAndPublication);
-            };
+                this.logger.LogInformation("Created HttpClient {name}", name);
+                return new HttpClient();
+            }, LazyThreadSafetyMode.ExecutionAndPublication));
+
         }
         #endregion
 
         #region Implementation
         public HttpClient CreateClient(string name)
-        {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            return _httpClients.GetOrAdd(name, _createClientFunc).Value;
-        }
+            => name == null ? throw new ArgumentNullException(nameof(name)) : httpClients.GetOrAdd(name, createClientFunc).Value;
 
         public void Dispose()
         {
             if (disposed) return;
             disposed = true;
 
-            foreach (var name in _httpClients.Keys)
+            foreach (var name in httpClients.Keys)
             {
-                _httpClients[name].Value.Dispose();
+                httpClients[name].Value.Dispose();
             }
         }
         #endregion

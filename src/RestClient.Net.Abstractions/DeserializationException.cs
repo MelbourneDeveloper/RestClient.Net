@@ -1,25 +1,16 @@
 ﻿using System;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     public class DeserializationException : Exception
     {
-        private readonly byte[] _responseData;
-        public IClient Client { get; }
+        private readonly byte[] responseData;
 
         public DeserializationException(
             string message,
             byte[] responseData,
-            IClient client,
-            Exception innerException) : base(message, innerException)
-        {
-            _responseData = responseData;
-            Client = client;
-        }
+            Exception? innerException) : base(message, innerException) => this.responseData = responseData;
 
-        public byte[] GetResponseData()
-        {
-            return _responseData;
-        }
+        public byte[] GetResponseData() => responseData;
     }
 }

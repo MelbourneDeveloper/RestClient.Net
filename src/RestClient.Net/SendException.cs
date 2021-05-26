@@ -1,16 +1,12 @@
-﻿using RestClient.Net.Abstractions;
-using System;
+﻿using System;
 
 namespace RestClient.Net
 {
     [Serializable]
-    public class SendException<TRequestBody> : Exception
+    public class SendException : Exception
     {
-        public Request<TRequestBody> Request { get; }
+        public IRequest Request { get; }
 
-        public SendException(string message, Request<TRequestBody> request, Exception innerException) : base(message, innerException)
-        {
-            Request = request;
-        }
+        public SendException(string message, IRequest request, Exception innerException) : base(message, innerException) => Request = request;
     }
 }

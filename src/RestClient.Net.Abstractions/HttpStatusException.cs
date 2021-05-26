@@ -1,16 +1,13 @@
 ﻿using System;
 
-namespace RestClient.Net.Abstractions
+namespace RestClient.Net
 {
     public class HttpStatusException : Exception
     {
-        public Response Response { get; }
-        public IClient Client { get; }
+        public IResponse Response { get; }
 
-        public HttpStatusException(string message, Response response, IClient client) : base(message)
-        {
-            Response = response;
-            Client = client;
-        }
+        public HttpStatusException(
+            string message,
+            IResponse response) : base(message) => Response = response;
     }
 }

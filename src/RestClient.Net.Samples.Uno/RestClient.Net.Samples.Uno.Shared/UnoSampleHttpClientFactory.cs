@@ -19,9 +19,6 @@ namespace RestClient.Net.Samples.Uno.Shared
 #endif
         }
 
-        public HttpClient CreateClient(string name)
-        {
-            return httpClient;
-        }
+        public HttpClient CreateClient(string name) => httpClient;
     }
 }

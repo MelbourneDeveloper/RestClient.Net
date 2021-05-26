@@ -5,12 +5,14 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
+#pragma warning disable Uno0001 // Uno type or member is not implemented
+
 namespace RestClient.Net.Samples.Uno
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App : Application
+    public sealed partial class App : Application
     {
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -18,8 +20,8 @@ namespace RestClient.Net.Samples.Uno
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
         }
 
         /// <summary>
@@ -29,17 +31,9 @@ namespace RestClient.Net.Samples.Uno
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-               // this.DebugSettings.EnableFrameRateCounter = true;
-            }
-#endif
-            Frame rootFrame = Windows.UI.Xaml.Window.Current.Content as Frame;
-
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (rootFrame == null)
+            if (!(Window.Current.Content is Frame rootFrame))
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
@@ -52,7 +46,7 @@ namespace RestClient.Net.Samples.Uno
                 }
 
                 // Place the frame in the current Window
-                Windows.UI.Xaml.Window.Current.Content = rootFrame;
+                Window.Current.Content = rootFrame;
             }
 
             if (e.PrelaunchActivated == false)
@@ -65,7 +59,7 @@ namespace RestClient.Net.Samples.Uno
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
                 // Ensure the current window is active
-                Windows.UI.Xaml.Window.Current.Activate();
+                Window.Current.Activate();
             }
         }
 
@@ -74,10 +68,7 @@ namespace RestClient.Net.Samples.Uno
         /// </summary>
         /// <param name="sender">The Frame which failed navigation</param>
         /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-        }
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e) => throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
 
         /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved
@@ -94,3 +85,5 @@ namespace RestClient.Net.Samples.Uno
         }
     }
 }
+
+#pragma warning restore Uno0001 // Uno type or member is not implemented

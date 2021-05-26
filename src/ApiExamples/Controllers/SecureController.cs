@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RestClientApiSamples;
 
+#pragma warning disable CA1062
+
 namespace ApiExamples.Controllers
 {
     [ApiController]
@@ -38,30 +40,21 @@ namespace ApiExamples.Controllers
             return Unauthorized(json);
         }
 
-        private bool ValidateBasic()
-        {
-            return Request.Headers["Authorization"] == "Basic Qm9iOkFOaWNlUGFzc3dvcmQ=";
-        }
+        private bool ValidateBasic() => Request.Headers["Authorization"] == "Basic Qm9iOkFOaWNlUGFzc3dvcmQ=";
 
-        private bool ValidateBearer()
-        {
-            return Request.Headers["Authorization"] == "Bearer 123";
-        }
+        private bool ValidateBearer() => Request.Headers["Authorization"] == "Bearer 123";
 
-        private static Person CreatePerson()
+        private static Person CreatePerson() => new()
         {
-            return new Person
+            FirstName = "Sam",
+            BillingAddress = new Address
             {
-                FirstName = "Sam",
-                BillingAddress = new Address
-                {
-                    StreeNumber = "100",
-                    Street = "Somewhere",
-                    Suburb = "Sometown"
-                },
-                Surname = "Smith"
-            };
-        }
+                StreeNumber = "100",
+                Street = "Somewhere",
+                Suburb = "Sometown"
+            },
+            Surname = "Smith"
+        };
 
         [HttpPost]
         [Route("authenticate")]
@@ -82,7 +75,7 @@ namespace ApiExamples.Controllers
         {
             if (ValidateBearer())
             {
-                return Ok(new Person { FirstName="Bear" });
+                return Ok(new Person { FirstName = "Bear" });
             }
 
             var json = JsonConvert.SerializeObject(new ApiResult { Errors = { ApiMessages.SecureControllerNotAuthorizedMessage } });

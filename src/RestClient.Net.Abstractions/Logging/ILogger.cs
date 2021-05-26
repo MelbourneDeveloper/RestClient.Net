@@ -1,12 +1,25 @@
-﻿using System;
+﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-namespace RestClient.Net.Abstractions.Logging
+using System;
+
+namespace Microsoft.Extensions.Logging
 {
     public interface ILogger
     {
-        void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter);
+        IDisposable BeginScope(string messageFormat, params object[] args);
+        void LogError(EventId eventId, Exception exception, string message, params object[] args);
+        void LogError(Exception exception, string message, params object[] args);
+        void LogInformation(string message, params object[] args);
+        void LogWarning(string message, params object[] args);
+        void LogDebug(string message, params object[] args);
+        void LogTrace(string message, params object[] args);
     }
 
+    public interface ILogger<T> : ILogger
+    {
 
-#pragma warning disable CA1815 // Override equals and operator equals on value types
+    }
 }
+
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

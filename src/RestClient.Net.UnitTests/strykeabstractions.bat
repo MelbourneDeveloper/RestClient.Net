@@ -1,0 +1,1 @@
+dotnet stryker --project-file=C:\Code\RestClient.Net\src\RestClient.Net.Abstractions\RestClient.Net.Abstractions.csproj --solution-path "..\RestClient.Net.sln"

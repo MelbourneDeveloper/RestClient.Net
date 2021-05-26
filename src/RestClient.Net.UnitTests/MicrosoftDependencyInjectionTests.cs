@@ -1,13 +1,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestClient.Net.Abstractions;
-using RestClient.Net.DependencyInjection;
-using RestClient.Net.UnitTests.Model;
+using Moq;
 using StructureMap;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using Urls;
 
 namespace RestClient.Net.UnitTests
 {
@@ -16,17 +15,18 @@ namespace RestClient.Net.UnitTests
     [TestClass]
     public class MicrosoftDependencyInjectionTests
     {
+        private readonly TimeSpan timeout = new(1, 0, 0);
+
         [TestMethod]
         public void TestDIMapping()
         {
             var serviceCollection = new ServiceCollection();
-            var baseUri = new Uri("http://www.test.com");
-            serviceCollection.AddHttpClient("test", (c) => { c.BaseAddress = baseUri; });
-            serviceCollection.AddDependencyInjectionMapping();
+            _ = serviceCollection.AddHttpClient("test", (c) => c.Timeout = timeout);
+            _ = serviceCollection.AddRestClient();
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            var httpClientFactory = serviceProvider.GetService<CreateHttpClient>();
+            var httpClientFactory = serviceProvider.GetRequiredService<CreateHttpClient>();
             var httpClient = httpClientFactory("test");
-            Assert.AreEqual(baseUri, httpClient.BaseAddress);
+            Assert.AreEqual(timeout, httpClient.Timeout);
         }
 
         [TestMethod]
@@ -36,27 +36,26 @@ namespace RestClient.Net.UnitTests
             {
                 const string clientName = "Test";
 
-                var baseUri = new Uri("http://www.test.com");
                 var serviceCollection = new ServiceCollection()
                     .AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
-                    .AddSingleton(typeof(ILogger), typeof(ConsoleLogger))
+                    .AddLogging()
                     .AddSingleton(typeof(IClient), typeof(Client))
-                    .AddDependencyInjectionMapping()
+                    .AddRestClient()
                     .AddTransient<TestHandler>()
                     //Make sure the HttpClient is named the same as the Rest Client
-                    .AddSingleton<IClient>(x => new Client(name: clientName, createHttpClient: x.GetRequiredService<CreateHttpClient>()));
+                    .AddSingleton<IClient>(x => new Client(new AbsoluteUrl("http://www.test.com"), name: clientName, createHttpClient: x.GetRequiredService<CreateHttpClient>()));
 
-                serviceCollection.AddHttpClient(clientName, (c) => { c.BaseAddress = baseUri; })
+                _ = serviceCollection.AddHttpClient(clientName)
                 .AddHttpMessageHandler<TestHandler>();
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
-                var client = serviceProvider.GetService<IClient>();
-                await client.GetAsync<object>();
-                serviceCollection.Configure<string>((s) => { });
+                var client = serviceProvider.GetRequiredService<IClient>();
+                _ = await client.GetAsync<object>();
+                _ = serviceCollection.Configure<string>((s) => { });
             }
-            catch (SendException<object> hse)
+            catch (SendException hse)
             {
-                Assert.AreEqual("Ouch", hse.InnerException.Message);
+                Assert.AreEqual("Ouch", hse.InnerException?.Message);
                 return;
             }
 
@@ -70,22 +69,21 @@ namespace RestClient.Net.UnitTests
             {
                 const string clientName = "Test";
                 var serviceCollection = new ServiceCollection();
-                var baseUri = new Uri("http://www.test.com");
-                serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
-                    .AddSingleton(typeof(ILogger), typeof(ConsoleLogger))
-                    .AddDependencyInjectionMapping()
+                _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
+                    .AddLogging()
+                    .AddRestClient()
                     .AddTransient<TestHandler>()
-                    .AddHttpClient(clientName, (c) => { c.BaseAddress = baseUri; })
+                    .AddHttpClient(clientName)
                     .AddHttpMessageHandler<TestHandler>();
 
                 var serviceProvider = serviceCollection.BuildServiceProvider();
-                var clientFactory = serviceProvider.GetService<CreateClient>();
-                var client = clientFactory(clientName);
-                await client.GetAsync<object>();
+                var clientFactory = serviceProvider.GetRequiredService<CreateClient>();
+                var client = clientFactory(clientName, (o) => o.BaseUrl = new("http://www.test.com"));
+                _ = await client.GetAsync<object>();
             }
-            catch (SendException<object> hse)
+            catch (SendException hse)
             {
-                Assert.AreEqual("Ouch", hse.InnerException.Message);
+                Assert.AreEqual("Ouch", hse.InnerException?.Message);
                 return;
             }
 
@@ -93,28 +91,25 @@ namespace RestClient.Net.UnitTests
         }
 
         [TestMethod]
-        public async Task TestFactoryWithNames()
+        public void TestFactoryWithNames()
         {
-            var baseUri = new Uri("https://restcountries.eu/rest/v2/");
             var serviceCollection = new ServiceCollection()
                 .AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
-                .AddSingleton(typeof(ILogger), typeof(ConsoleLogger))
+                .AddLogging()
                 .AddSingleton<MockAspController>()
-                .AddDependencyInjectionMapping();
+                .AddRestClient();
 
-            serviceCollection.AddHttpClient("test", (c) => { c.BaseAddress = baseUri; });
+            _ = serviceCollection.AddHttpClient("test");
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            var mockAspController = serviceProvider.GetService<MockAspController>();
-            var response = await mockAspController.Client.GetAsync<List<RestCountry>>();
-            Assert.AreEqual(250, response.Body.Count);
+            var mockAspController = serviceProvider.GetRequiredService<MockAspController>();
+            Assert.IsNotNull(mockAspController);
         }
 
-#pragma warning disable CA2000 
         [TestMethod]
         public void TestStructureMap()
         {
-            var container = new Container(c =>
+            using var container = new Container(c =>
             {
                 c.Scan(s =>
                 {
@@ -122,18 +117,84 @@ namespace RestClient.Net.UnitTests
                     _ = s.WithDefaultConventions();
                 });
 
-                c.For<CreateClient>().Use<CreateClient>(con => new ClientFactory(con.GetInstance<ISerializationAdapter>(), con.GetInstance<CreateHttpClient>(), null).CreateClient);
-                c.For<CreateHttpClient>().Use<CreateHttpClient>(con => new DefaultHttpClientFactory().CreateClient);
-                c.For<ILogger>().Use<ConsoleLogger>();
-                c.For<ISerializationAdapter>().Use<NewtonsoftSerializationAdapter>();
+                _ = c.For<CreateClient>().Use<CreateClient>(con => new ClientFactory(con.GetInstance<CreateHttpClient>(), null).CreateClient);
+                _ = c.For<CreateHttpClient>().Use<CreateHttpClient>(con => new DefaultHttpClientFactory(null, null).CreateClient);
+                _ = c.For<ISerializationAdapter>().Use<NewtonsoftSerializationAdapter>();
             });
 
             var clientFactory = container.GetInstance<CreateClient>();
             var client = clientFactory("Test");
             Assert.IsNotNull(client);
-            Assert.AreEqual("Test", client.Name);
+            Assert.AreEqual("Test", ((Client)client).Name);
         }
-#pragma warning restore CA2000
+
+
+        [TestMethod]
+        public void TestClientGetsCorrectHttpClient()
+        {
+            var serviceCollection = new ServiceCollection();
+            _ = serviceCollection.AddHttpClient("test", (c) => c.Timeout = timeout);
+            _ = serviceCollection.AddRestClient();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            var createClient = serviceProvider.GetRequiredService<CreateClient>();
+            var client = (Client)createClient("test");
+
+            Assert.AreEqual(timeout, client.lazyHttpClient.Value.Timeout);
+
+            Assert.IsFalse(ReferenceEquals(NullLogger.Instance, client.logger));
+        }
+
+        [TestMethod]
+        public void TestClientGetsUnnamedHttpClient()
+        {
+            var serviceCollection = new ServiceCollection();
+            _ = serviceCollection.AddHttpClient();
+            _ = serviceCollection.AddRestClient();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            var createClient = serviceProvider.GetRequiredService<CreateClient>();
+            var client = (Client)createClient("test");
+
+            Assert.IsNotNull(client.lazyHttpClient.Value.Timeout);
+        }
+
+        [TestMethod]
+        public void TestClientGetsCorrectLogger()
+        {
+            var loggerProviderMock = new Mock<ILoggerProvider>();
+            var loggerMock = new Mock<ILogger<Client>>();
+            _ = loggerProviderMock.Setup(p => p.CreateLogger(It.IsAny<string>())).Returns(loggerMock.Object);
+
+            var client = (Client)new ServiceCollection()
+            .AddLogging((builder) => builder.AddProvider(loggerProviderMock.Object))
+            .AddHttpClient()
+            .AddRestClient()
+            .BuildServiceProvider()
+            .GetRequiredService<CreateClient>()("test");
+
+            var logger = (ILogger<Client>)client.logger;
+
+            logger.LogInformation("Hi");
+
+            loggerMock.VerifyLog((state, t) =>
+            state.CheckValue("{OriginalFormat}", "Hi")
+            , LogLevel.Information, 1);
+        }
+
+        [TestMethod]
+        public void TestCanGetClient()
+        {
+            var testService = new ServiceCollection()
+            .AddHttpClient()
+            .AddRestClient()
+            .AddSingleton<ITestService, TestService>()
+            .BuildServiceProvider()
+            .GetRequiredService<ITestService>();
+
+            Assert.AreEqual(TestService.Uri, testService?.Client?.BaseUrl?.ToUri());
+        }
 
     }
+
 }

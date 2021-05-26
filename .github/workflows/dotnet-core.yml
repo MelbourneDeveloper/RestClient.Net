@@ -2,9 +2,9 @@ name: .NET Core
 
 on:
   push:
-    branches: [ main ]
+    branches: [ 5/develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ 5/develop ]
 
 jobs:
   build:
@@ -23,3 +23,4 @@ jobs:
       run: dotnet build src/RestClient.NET/RestClient.Net.csproj --configuration Release --no-restore --framework:netcoreapp3.0
     - name: Test
       run: dotnet test src/RestClient.NET/RestClient.Net.csproj --no-restore --verbosity normal --framework:netcoreapp3.1
+
