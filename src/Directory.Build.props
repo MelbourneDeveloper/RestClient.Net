@@ -28,7 +28,7 @@
 	    <PackageProjectUrl>www.rest-client.net</PackageProjectUrl>
 	    <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
 	    <PackageTags>RESTClient, Client, C#, UWP, REST, .Net Core, Task-based, async, JSON, SOAP, XML, http, Android, iOS, dependency injection, IHttpClientFactory</PackageTags>
-	    <PackageReleaseNotes>https://github.com/MelbourneDeveloper/RestClient.Net/projects/4</PackageReleaseNotes>
+	    <PackageReleaseNotes>Version 5 brings a Fluent API, better Url construction, more stability, and immutable types. There will be minor breaking changes from Version 4.</PackageReleaseNotes>
 	    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     </PropertyGroup>
 	<ItemGroup>

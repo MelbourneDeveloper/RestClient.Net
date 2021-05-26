@@ -4,14 +4,7 @@
 	  <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
 	  <DebugType>pdbonly</DebugType>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <Description>
-		  .NET REST Client Framework for all platforms
-
-		  www.rest-client.net
-
-		  This package contains dependency injection extensions for the Microsoft.Extensions.DependencyInjection framework
-	  </Description>
-
+	  <Description>.NET REST Client Framework for all platforms. This package contains ASP.NET Core DI infrastructure.</Description>
   </PropertyGroup>
 
   <ItemGroup>

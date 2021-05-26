@@ -4,13 +4,7 @@
 		<TargetFrameworks>netstandard2.0;net45;net5.0</TargetFrameworks>
 		<DebugType>pdbonly</DebugType>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Description>
-			.NET REST Client Framework for all platforms
-
-			www.rest-client.net
-
-			This package contains abstractions for dependency injection with no implementations
-		</Description>
+		<Description>.NET REST Client Framework for all platforms. This package contains abstractions for dependency injection and mocking with no implementations.</Description>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' != 'net5'">
