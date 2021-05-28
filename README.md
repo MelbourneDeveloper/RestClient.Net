@@ -2,7 +2,7 @@
 
 # .NET REST Client Framework for all platforms #
 
-The best .NET REST Client with task-based async, strong types, and dependency injection on all platforms. Consume your ASP .NET Core Web APIs or consume RESTful APIs over the internet in C#, F# or Visual Basic. Designed for functional style programming with F# in mind.
+The best .NET REST Client with task-based async, strong types, and dependency injection on all platforms. Consume your ASP .NET Core Web APIs or consume RESTful APIs over the internet in C#, F#, or Visual Basic. It's designed for functional-style programming with F# in mind.
 
 NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
 
@@ -22,7 +22,7 @@ NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
 * Designed for Dependency Injection. Mock your REST calls and add RestClient.Net to your IoC container with one line of code
 * Async friendly. All operations use async, await keywords
 * Automatic request/response body serialization to/from strong types (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers))
-  * The library is decoupled from Newtsonsoft so you can use any serialization method or version of Newtonsoft. This means that you can use it with any version of Azure Functions.
+  * The library is decoupled from Newtsonsoft so that you can use any serialization method or version of Newtonsoft. This means that you can use it with any version of Azure Functions.
 * Install from NuGet on any platform from .NET Framework 4.5 up to .NET 5. Supports Xamarin (Mono, iOS, Android), UWP, [WebAssembly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Web-Assembly-Support) and Unity with .NET Standard 2.0
 * Supports GET, POST, PUT, PATCH, DELETE with ability and custom methods
 * Tight code and complete test coverage means you can make a change if you need to
@@ -31,7 +31,7 @@ NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
 
 ## Examples
 
-For a full set of examples see these [unit tests](https://github.com/MelbourneDeveloper/RestClient.Net/blob/3574038f02a83a299f9536b71c7f839ae72e0e08/src/RestClient.Net.UnitTests/MainUnitTests.cs#L279).
+For a complete set of examples, see these [unit tests](https://github.com/MelbourneDeveloper/RestClient.Net/blob/3574038f02a83a299f9536b71c7f839ae72e0e08/src/RestClient.Net.UnitTests/MainUnitTests.cs#L279).
 
 #### POST an Object and get Response
 
@@ -93,7 +93,7 @@ public class GetString2 : IGetString
 #### Make Call and Construct Client
 
 ```cs
-//This constructs an AbsoluteUrl from the string, makes the GET call and deserializes the JSON to a strongly typed list
+//This constructs an AbsoluteUrl from the string, makes the GET call, and deserializes the JSON to a strongly typed list
 //The response also contains a Client with the base of the Url that you can reuse
 //Note: not available on .NET 4.5
 
@@ -157,6 +157,3 @@ member this.TestComposition () =
 | Ethereum       | [0x7ba0ea9975ac0efb5319886a287dcf5eecd3038e](https://etherdonation.com/d?to=0x7ba0ea9975ac0efb5319886a287dcf5eecd3038e) |
 
 ## [Contribution](https://github.com/MelbourneDeveloper/RestClient.Net/blob/master/CONTRIBUTING.md)
-
- 
-
