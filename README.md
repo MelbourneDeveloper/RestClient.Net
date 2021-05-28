@@ -14,9 +14,9 @@ The best .NET REST Client with task-based async, strong types and dependency inj
 
 The best .NET REST Client with task-based async, strong types, and dependency injection on all platforms. Consume your ASP .NET Core Web APIs or consume RESTful APIs over the internet in C# or Visual Basic.
 
-## 5.0.x [Beta Release](https://www.nuget.org/packages/RestClient.NET/5.0.0-alpha)
+## 5.0 Release
 
-This page represents documentation for the alpha release. Please include pre-release when adding the NuGet packages. See the main branch for 4.x. There will be some breaking changes until the actual release.
+5.0 brings a Fluent API, immutable types, lots of useful extension methods, and thorough unit testing. Check out [the tests](https://github.com/MelbourneDeveloper/RestClient.Net/blob/98560ee7f7470218f80e7416f2e8e9c60bfab759/src/RestClient.Net.UnitTests/MainUnitTests.cs#L290) for code examples.
 
 ### [Follow Me on Twitter for Updates](https://twitter.com/intent/follow?screen_name=cfdevelop&tw_p=followbutton) ##
 
