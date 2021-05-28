@@ -25,9 +25,8 @@ NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
   * The library is decoupled from Newtsonsoft so you can use any serialization method or version of Newtonsoft
 * Install from NuGet on any platform from .NET Framework 4.5 up to .NET 5. Supports Xamarin (Mono, iOS, Android), UWP, [WebAssembly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Web-Assembly-Support) and Unity with .NET Standard 2.0
 * Supports GET, POST, PUT, PATCH, DELETE with ability and custom methods
-* Tight code means you can make a change if you need to
-
-![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/main/src/Images/Rendered/CodeMetrics.png) 
+* Tight code and complete test coverage means you can make a change if you need to
+![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/main/src/Images/Rendered/Stats.png) 
 
 ## Examples
 
