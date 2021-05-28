@@ -22,6 +22,7 @@ NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
 * Designed for Dependency Injection. Mock your REST calls and add RestClient.Net to your IoC container with one line of code
 * Async friendly. All operations use async, await keywords
 * Automatic request/response body serialization to/from strong types (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers))
+  * The library is decoupled from Newtsonsoft so you can use any serialization method or version of Newtonsoft
 * Install from NuGet on any platform from .NET Framework 4.5 up to .NET 5. Supports Xamarin (Mono, iOS, Android), UWP, [WebAssembly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Web-Assembly-Support) and Unity with .NET Standard 2.0
 * Supports GET, POST, PUT, PATCH, DELETE with ability and custom methods
 * Tight code (around 350 lines) means you can make a change if you need to
