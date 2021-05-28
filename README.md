@@ -27,6 +27,7 @@ NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
 * Supports GET, POST, PUT, PATCH, DELETE with ability and custom methods
 * Tight code and complete test coverage means you can make a change if you need to
 ![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/main/src/Images/Rendered/Stats.png) 
+* Fluent API for construction, non-destructive mutation, and Url construction
 
 ## Examples
 
