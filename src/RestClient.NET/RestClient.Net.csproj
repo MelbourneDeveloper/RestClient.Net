@@ -6,6 +6,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Description>.NET REST Client Framework for all platforms</Description>
 		<NoWarn>CA2007</NoWarn>
+		<DocumentationFile>RestClient.Net.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

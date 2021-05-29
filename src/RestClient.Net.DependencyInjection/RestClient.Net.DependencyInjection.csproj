@@ -5,6 +5,7 @@
 	  <DebugType>pdbonly</DebugType>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <Description>.NET REST Client Framework for all platforms. This package contains ASP.NET Core DI infrastructure.</Description>
+	  <DocumentationFile>RestClient.Net.DependencyInjection.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

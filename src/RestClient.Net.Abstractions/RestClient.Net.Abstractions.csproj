@@ -5,6 +5,7 @@
 		<DebugType>pdbonly</DebugType>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Description>.NET REST Client Framework for all platforms. This package contains abstractions for dependency injection and mocking with no implementations.</Description>
+		<DocumentationFile>RestClient.Net.Abstractions.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' != 'net5'">
