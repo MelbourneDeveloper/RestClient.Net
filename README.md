@@ -2,7 +2,7 @@
 
 # .NET REST Client Framework for all platforms #
 
-The best .NET REST Client with task-based async, strong types, and dependency injection on all platforms. Consume your ASP .NET Core Web APIs or consume RESTful APIs over the internet in C#, F#, or Visual Basic. It's designed for functional-style programming with F# in mind.
+The best .NET REST API Client with task-based async, strong types, and dependency injection on all platforms. Consume your ASP .NET Core Web APIs or consume RESTful APIs over the internet in C#, F#, or Visual Basic. It's designed for functional-style programming with F# in mind.
 
 NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
 
