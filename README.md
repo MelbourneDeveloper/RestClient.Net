@@ -28,6 +28,7 @@ NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
 * Tight code and complete test coverage means you can make a change if you need to
 ![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/main/src/Images/Rendered/Stats.png) 
 * Fluent API for construction, non-destructive mutation, and Url construction
+* Uses [.NET Core Logging - `ILogger`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0) to allow logging of all aspects of HTTP calls
 
 ## Examples
 
