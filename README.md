@@ -138,15 +138,15 @@ namespace RestClient.Net
 [<TestMethod>]
 member this.TestComposition () =
 
-  let uri =
-    "host.com".ToHttpUriFromHost(5000)
-      .AddQueryParameter("fieldname1", "field<>Value1")
-      .WithCredentials("username", "password")
-      .AddQueryParameter("FieldName2", "field<>Value2")
-      .WithFragment("frag")
-      .WithPath("pathpart1", "pathpart2")
+    let uri =
+        "host.com".ToHttpUrlFromHost(5000)
+        .AddQueryParameter("fieldname1", "field<>Value1")
+        .WithCredentials("username", "password")
+        .AddQueryParameter("FieldName2", "field<>Value2")
+        .WithFragment("frag")
+        .WithPath("pathpart1", "pathpart2")
 
-      Assert.AreEqual("http://username:password@host.com:5000/pathpart1/pathpart2?fieldname1=field%3C%3EValue1&FieldName2=field%3C%3EValue2#frag",uri.ToString());
+    Assert.AreEqual("http://username:password@host.com:5000/pathpart1/pathpart2?fieldname1=field%3C%3EValue1&FieldName2=field%3C%3EValue2#frag",uri.ToString());
 ```
 
 ## Donate
