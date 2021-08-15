@@ -28,6 +28,7 @@ NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
 * Tight code and complete test coverage means you can make a change if you need to
 ![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/main/src/Images/Rendered/Stats.png) 
 * Fluent API for construction, non-destructive mutation, and Url construction
+* Uses [.NET Core Logging - `ILogger`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0) to allow logging of all aspects of HTTP calls
 
 ## Examples
 
@@ -138,15 +139,15 @@ namespace RestClient.Net
 [<TestMethod>]
 member this.TestComposition () =
 
-  let uri =
-    "host.com".ToHttpUriFromHost(5000)
-      .AddQueryParameter("fieldname1", "field<>Value1")
-      .WithCredentials("username", "password")
-      .AddQueryParameter("FieldName2", "field<>Value2")
-      .WithFragment("frag")
-      .WithPath("pathpart1", "pathpart2")
+    let uri =
+        "host.com".ToHttpUrlFromHost(5000)
+        .AddQueryParameter("fieldname1", "field<>Value1")
+        .WithCredentials("username", "password")
+        .AddQueryParameter("FieldName2", "field<>Value2")
+        .WithFragment("frag")
+        .WithPath("pathpart1", "pathpart2")
 
-      Assert.AreEqual("http://username:password@host.com:5000/pathpart1/pathpart2?fieldname1=field%3C%3EValue1&FieldName2=field%3C%3EValue2#frag",uri.ToString());
+    Assert.AreEqual("http://username:password@host.com:5000/pathpart1/pathpart2?fieldname1=field%3C%3EValue1&FieldName2=field%3C%3EValue2#frag",uri.ToString());
 ```
 
 
