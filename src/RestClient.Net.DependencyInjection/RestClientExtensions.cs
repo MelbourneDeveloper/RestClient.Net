@@ -7,9 +7,9 @@ namespace RestClient.Net
 {
     public static class RestClientExtensions
     {
-        private static IServiceCollection AddRestClient_Base(IServiceCollection serviceCollection)
+        private static IServiceCollection AddRestClient_Base(this IServiceCollection services)
         {
-            serviceCollection
+            return services
                 .AddSingleton<CreateHttpClient>((sp) =>
                 {
                     var microsoftHttpClientFactoryWrapper = new MicrosoftHttpClientFactoryWrapper(sp.GetRequiredService<IHttpClientFactory>());
@@ -23,24 +23,24 @@ namespace RestClient.Net
 
                     return clientFactory.CreateClient;
                 });
+        }
 
-            return serviceCollection;
-        } 
-        
-        public static IServiceCollection AddRestClient(this IServiceCollection serviceCollection, Action<CreateClientOptions>? configureClient = null)
+        public static IServiceCollection AddRestClient(this IServiceCollection services)
         {
-            AddRestClient_Base(serviceCollection);
-            serviceCollection.AddSingleton(sp => sp.GetRequiredService<CreateClient>()("RestClient", configureClient));
+            return AddRestClient_Base(services)
+                .AddSingleton(sp => sp.GetRequiredService<CreateClient>()("RestClient", null));
+        }
 
-            return serviceCollection;
-        }        
-        
-        public static IServiceCollection AddRestClient(this IServiceCollection serviceCollection, Action<CreateClientOptions, IServicesProvider>? configureClient = null)
+        public static IServiceCollection AddRestClient(this IServiceCollection services, Action<CreateClientOptions> configureClient)
         {
-            AddRestClient_Base(serviceCollection);
-            serviceCollection.AddSingleton(sp => sp.GetRequiredService<CreateClient>()("RestClient", options => configureClient(options, sp)));
+            return AddRestClient_Base(services)
+                .AddSingleton(sp => sp.GetRequiredService<CreateClient>()("RestClient", configureClient));
+        }
 
-            return serviceCollection;
+        public static IServiceCollection AddRestClient(this IServiceCollection services, Action<CreateClientOptions, IServiceProvider> configureClient)
+        {
+            return AddRestClient_Base(services)
+                .AddSingleton(sp => sp.GetRequiredService<CreateClient>()("RestClient", options => configureClient(options, sp)));
         }
     }
 }
