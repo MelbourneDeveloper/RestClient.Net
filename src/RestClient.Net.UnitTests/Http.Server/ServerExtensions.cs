@@ -11,7 +11,7 @@ namespace RestClient.Net.UnitTests.Http.Server
 {
     public static class ServerExtensions
     {
-        public static Task ServeAsync(this HttpServer listener, Func<HttpListenerContext, Task> func) 
+        public static Task ServeAsync(this HttpServer listener, Func<HttpListenerContext, Task> func)
             => Task.Run(async () => func(await listener.listener.GetContextAsync()));
 
         public static AbsoluteUrl GetLocalhostAddress()

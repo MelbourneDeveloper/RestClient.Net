@@ -3,7 +3,9 @@
 
 using System.Xml.Serialization;
 
+#pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace Xml2CSharp
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 {
     [XmlRoot(ElementName = "a")]
     public class A
