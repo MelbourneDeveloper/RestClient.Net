@@ -6,12 +6,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Polly;
 using Polly.Extensions.Http;
 using Polly.Retry;
-using RestClient.Net.UnitTests.Model;
 using RestClientApiSamples;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using Urls;
 
@@ -59,6 +58,10 @@ namespace RestClient.Net.UnitTests
     [TestClass]
     public class PollyTests
     {
+#pragma warning disable CS8601 // Possible null reference assignment.
+        private static readonly FieldInfo _httpClientHandlerField = typeof(HttpMessageInvoker).GetField("_handler", BindingFlags.Instance | BindingFlags.NonPublic);
+#pragma warning restore CS8601 // Possible null reference assignment.
+
         [TestMethod]
         public async Task TestPollyManualIncorrectUri()
         {
@@ -87,8 +90,10 @@ namespace RestClient.Net.UnitTests
 
 
         [TestMethod]
-        public async Task TestPollyWithDependencyInjection()
+        public void TestPollyWithDependencyInjection()
         {
+            const string httpClientName = "rc";
+
             //Configure a Polly policy
             var policy = HttpPolicyExtensions
                 .HandleTransientHttpError()
@@ -100,7 +105,7 @@ namespace RestClient.Net.UnitTests
             _ = serviceCollection.AddSingleton(typeof(ISerializationAdapter), typeof(NewtonsoftSerializationAdapter))
             .AddLogging()
             //Add the Polly policy to the named HttpClient instance
-            .AddHttpClient("rc").
+            .AddHttpClient(httpClientName).
                 SetHandlerLifetime(TimeSpan.FromMinutes(5)).
                 AddPolicyHandler(policy);
 
@@ -110,13 +115,19 @@ namespace RestClient.Net.UnitTests
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var clientFactory = serviceProvider.GetRequiredService<CreateClient>();
 
-            //Create a Rest Client that will get the HttpClient by the name of rc
-            var client = clientFactory("rc", (o) => o.BaseUrl = new("https://restcountries.eu/rest/v2/"));
+            //Get the client
+            var client = (Client)clientFactory(httpClientName);
 
-            //Make the call
-            _ = await client.GetAsync<List<RestCountry>>();
+            //Get the Http client from the Microsoft IHttpClientFactory implementation wihch will have the Polly handler
+            var expectedHttpClient = serviceProvider.GetRequiredService<IHttpClientFactory>().CreateClient(httpClientName);
 
-            //TODO: Implement this completely to ensure that the policy is being applied
+            //Get the actual HttpClient inside the Client
+            var actualHttpClient = client.lazyHttpClient.Value;
+
+            var handler1 = _httpClientHandlerField.GetValue(expectedHttpClient);
+            var handler2 = _httpClientHandlerField.GetValue(actualHttpClient);
+
+            Assert.IsTrue(ReferenceEquals(handler1, handler2));
         }
 
     }
