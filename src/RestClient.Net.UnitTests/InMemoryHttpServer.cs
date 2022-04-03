@@ -1,8 +1,8 @@
 ﻿#if !NET45
 
-using Http.Server;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using RestClient.Net.UnitTests.Http.Server;
 using System;
 using System.Net;
 using System.Text;

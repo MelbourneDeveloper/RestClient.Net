@@ -9,7 +9,6 @@ namespace RestClient.Net
 {
     public static class HeadersExtensions
     {
-
         #region Internal Fields
 
         internal const string Authorization = "Authorization";
@@ -163,6 +162,5 @@ namespace RestClient.Net
         public static IHeadersCollection JsonContentTypeHeaders { get; } = new HeadersCollection(ContentTypeHeaderName, JsonMediaType);
 
         #endregion Public Methods
-
     }
 }

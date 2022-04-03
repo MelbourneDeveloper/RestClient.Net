@@ -24,3 +24,5 @@ src/.idea/*
 src/RestClient.Net.Abstractions/RestClient.Net.Abstractions.xml
 
 src/RestClient.Net/RestClient.Net.xml
+
+.ionide/

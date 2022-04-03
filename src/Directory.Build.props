@@ -1,5 +1,6 @@
 <Project>
     <PropertyGroup>
+		<WarningsNotAsErrors>CA1848</WarningsNotAsErrors>
 		<Deterministic>true</Deterministic>
         <LangVersion>Latest</LangVersion>
         <DebugSymbols>true</DebugSymbols>
