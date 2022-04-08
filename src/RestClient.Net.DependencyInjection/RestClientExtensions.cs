@@ -7,7 +7,11 @@ namespace RestClient.Net
 {
     public static class RestClientExtensions
     {
-        public static IServiceCollection AddRestClient(this IServiceCollection serviceCollection, Action<CreateClientOptions>? configureClient = null)
+        public static IServiceCollection AddRestClient(
+            this IServiceCollection serviceCollection,
+            Action<CreateClientOptions>? configureClient = null,
+            Func<string, Action<CreateClientOptions>, IServiceProvider, IClient>? factoryCreateClient = null
+            )
         {
             _ = serviceCollection
             .AddSingleton<CreateHttpClient>((sp) =>
@@ -19,7 +23,10 @@ namespace RestClient.Net
             {
                 var clientFactory = new ClientFactory(
                     sp.GetRequiredService<CreateHttpClient>(),
-                    sp.GetService<ILoggerFactory>());
+                    sp.GetService<ILoggerFactory>(),
+                    factoryCreateClient != null ? (name, options) =>
+                    factoryCreateClient.Invoke(name, options, sp) : null
+                    );
 
                 return clientFactory.CreateClient;
             })

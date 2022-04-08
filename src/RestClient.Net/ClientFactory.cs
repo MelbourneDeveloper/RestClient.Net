@@ -3,15 +3,14 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Concurrent;
-using System.Threading;
 
 namespace RestClient.Net
 {
     public class ClientFactory
     {
         #region Fields
-        private readonly Func<string, Action<CreateClientOptions>?, Lazy<IClient>> createClientFunc;
-        private readonly ConcurrentDictionary<string, Lazy<IClient>> clients;
+        private readonly Func<string, Action<CreateClientOptions>, IClient> createClientFunc;
+        private readonly ConcurrentDictionary<string, IClient> clients;
         private readonly CreateHttpClient createHttpClient;
         private readonly ILoggerFactory loggerFactory;
         #endregion
@@ -19,21 +18,23 @@ namespace RestClient.Net
         #region Constructor
         public ClientFactory(
             CreateHttpClient createHttpClient,
-            ILoggerFactory? loggerFactory = null)
+            ILoggerFactory? loggerFactory = null,
+            Func<string, Action<CreateClientOptions>, IClient>? createClientFunc = null)
         {
 
             this.createHttpClient = createHttpClient;
             this.loggerFactory = loggerFactory ?? NullLoggerFactory.Instance;
 
-            clients = new ConcurrentDictionary<string, Lazy<IClient>>();
+            clients = new ConcurrentDictionary<string, IClient>();
 
-            createClientFunc = (name, baseUri) => new Lazy<IClient>(() => MintClient(name, baseUri), LazyThreadSafetyMode.ExecutionAndPublication);
+            this.createClientFunc = createClientFunc ?? new Func<string, Action<CreateClientOptions>, IClient>((name, baseUri) => MintClient(name, baseUri));
         }
         #endregion
 
         #region Implementation
         public IClient CreateClient(string name, Action<CreateClientOptions>? configureClient = null)
-            => name == null ? throw new ArgumentNullException(nameof(name)) : clients.GetOrAdd(name, createClientFunc(name, configureClient)).Value;
+            => name == null ? throw new ArgumentNullException(nameof(name)) :
+            clients.GetOrAdd(name, createClientFunc(name, configureClient ?? new Action<CreateClientOptions>((o) => { })));
         #endregion
 
         #region Private Methods
