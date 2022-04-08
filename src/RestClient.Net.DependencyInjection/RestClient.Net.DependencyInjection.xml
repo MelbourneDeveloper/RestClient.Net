@@ -4,5 +4,10 @@
         <name>RestClient.Net.DependencyInjection</name>
     </assembly>
     <members>
+        <member name="M:RestClient.Net.RestClientExtensions.AddRestClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.String,System.Action{RestClient.Net.CreateClientOptions},System.IServiceProvider,RestClient.Net.IClient})">
+            <summary>
+            Adds a CreateClient function to get or mint clients. Allows you to mint clients with createClient if you need to take control of construction
+            </summary>
+        </member>
     </members>
 </doc>

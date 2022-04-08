@@ -90,7 +90,8 @@ namespace RestClient.Net.UnitTests
                 .Verifiable();
 
             var serviceCollection = new ServiceCollection()
-                .AddRestClient(factoryCreateClient: (n, o, sp) => new Client(
+                .AddRestClient(createClient: (n, o, sp) =>
+                new Client(
                     new AbsoluteUrl(sp.GetRequiredService<IUrlProvider>().GetUrl()),
                     name: n))
                 .AddSingleton(urlProvider.Object);
@@ -109,8 +110,6 @@ namespace RestClient.Net.UnitTests
             }
 
             Assert.AreEqual("RestClient", client.Name);
-
-
 
             Assert.AreEqual(new AbsoluteUrl(testUrl), client.BaseUrl);
             urlProvider.VerifyAll();
