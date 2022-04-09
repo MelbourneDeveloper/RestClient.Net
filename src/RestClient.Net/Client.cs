@@ -44,7 +44,8 @@ namespace RestClient.Net
 
         internal readonly Lazy<HttpClient> lazyHttpClient;
 
-        private bool disposed;
+        //Set is for testing purposes only. A little nasty TBH
+        internal bool Disposed { get; set; }
 
         #endregion Private Fields
 
@@ -206,7 +207,7 @@ namespace RestClient.Net
         /// <summary>
         /// Specifies whether or not the client will throw an exception when non-successful status codes are returned in the http response. The default is true
         /// </summary>
-        public bool ThrowExceptionOnFailure { get; init; } = true;
+        public bool ThrowExceptionOnFailure { get; init; }
 
         #endregion Public Properties
 
@@ -214,9 +215,9 @@ namespace RestClient.Net
 
         public void Dispose()
         {
-            if (disposed) return;
+            if (Disposed) return;
 
-            disposed = true;
+            Disposed = true;
 
             lazyHttpClient.Value?.Dispose();
         }

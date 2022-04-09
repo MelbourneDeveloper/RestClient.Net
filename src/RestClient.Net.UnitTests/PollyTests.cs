@@ -8,7 +8,6 @@ using RestClientApiSamples;
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace RestClient.Net.UnitTests
@@ -17,10 +16,6 @@ namespace RestClient.Net.UnitTests
     [TestClass]
     public class PollyTests
     {
-#pragma warning disable CS8601 // Possible null reference assignment.
-        public static readonly FieldInfo HttpClientHandlerField = typeof(HttpMessageInvoker).GetField("_handler", BindingFlags.Instance | BindingFlags.NonPublic);
-#pragma warning restore CS8601 // Possible null reference assignment.
-
         [TestMethod]
         public async Task TestPollyManualIncorrectUri()
         {
@@ -83,8 +78,8 @@ namespace RestClient.Net.UnitTests
             //Get the actual HttpClient inside the Client
             var actualHttpClient = client.lazyHttpClient.Value;
 
-            var handler1 = HttpClientHandlerField.GetValue(expectedHttpClient);
-            var handler2 = HttpClientHandlerField.GetValue(actualHttpClient);
+            var handler1 = TestHelpers.HttpClientHandlerField.GetValue(expectedHttpClient);
+            var handler2 = TestHelpers.HttpClientHandlerField.GetValue(actualHttpClient);
 
             Assert.IsTrue(ReferenceEquals(handler1, handler2));
         }

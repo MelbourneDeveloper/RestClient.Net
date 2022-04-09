@@ -118,8 +118,8 @@ namespace RestClient.Net.UnitTests
 
             //Make sure the correct http client handler gets used in the Client
             Assert.IsTrue(ReferenceEquals(
-                PollyTests.HttpClientHandlerField.GetValue(expectedHttpClient),
-                PollyTests.HttpClientHandlerField.GetValue(client.lazyHttpClient.Value)));
+                TestHelpers.HttpClientHandlerField.GetValue(expectedHttpClient),
+                TestHelpers.HttpClientHandlerField.GetValue(client.lazyHttpClient.Value)));
 
             Assert.AreEqual(secondsTimeout, client.lazyHttpClient.Value.Timeout.TotalSeconds);
 
@@ -157,8 +157,8 @@ namespace RestClient.Net.UnitTests
 
             //Make sure the correct http client handler gets used in the Client
             Assert.IsTrue(ReferenceEquals(
-                PollyTests.HttpClientHandlerField.GetValue(expectedHttpClient),
-                PollyTests.HttpClientHandlerField.GetValue(client.lazyHttpClient.Value)));
+                TestHelpers.HttpClientHandlerField.GetValue(expectedHttpClient),
+                TestHelpers.HttpClientHandlerField.GetValue(client.lazyHttpClient.Value)));
 
             Assert.AreEqual(baseUrl, client.BaseUrl);
         }
