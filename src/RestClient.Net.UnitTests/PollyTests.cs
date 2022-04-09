@@ -1,65 +1,24 @@
 ﻿
 
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Polly;
 using Polly.Extensions.Http;
-using Polly.Retry;
 using RestClientApiSamples;
 using System;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
-using Urls;
 
 namespace RestClient.Net.UnitTests
 {
-    //It sucks that we have to create a class in this way. The old version was far less verbose. 
-    //TODO: Look in to another way to achieve this
-
-    public class PollySendHttpRequestMessage : ISendHttpRequestMessage
-    {
-        private readonly AsyncRetryPolicy<HttpResponseMessage> policy;
-
-        public PollySendHttpRequestMessage(AsyncRetryPolicy<HttpResponseMessage> policy) => this.policy = policy;
-
-        public int Tries { get; private set; }
-
-        public Task<HttpResponseMessage> SendHttpRequestMessage<TRequestBody>(
-            HttpClient httpClient,
-            IGetHttpRequestMessage httpRequestMessageFunc,
-            IRequest<TRequestBody> request,
-            ILogger logger,
-            ISerializationAdapter serializationAdapter) =>
-            policy.ExecuteAsync(() =>
-            {
-                if (httpRequestMessageFunc == null) throw new ArgumentNullException(nameof(httpRequestMessageFunc));
-                if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
-                if (request == null) throw new ArgumentNullException(nameof(request));
-
-                var httpRequestMessage = httpRequestMessageFunc.GetHttpRequestMessage(request, logger, serializationAdapter);
-
-                //On the third try change the Url to a the correct one
-                if (Tries == 2)
-                {
-                    httpRequestMessage.RequestUri =
-                    new AbsoluteUrl(MainUnitTests.LocalBaseUriString)
-                    .WithRelativeUrl(new RelativeUrl("Person"))
-                    .ToUri();
-                }
-
-                Tries++;
-                return httpClient.SendAsync(httpRequestMessage, request.CancellationToken);
-            });
-    }
 
     [TestClass]
     public class PollyTests
     {
 #pragma warning disable CS8601 // Possible null reference assignment.
-        private static readonly FieldInfo _httpClientHandlerField = typeof(HttpMessageInvoker).GetField("_handler", BindingFlags.Instance | BindingFlags.NonPublic);
+        public static readonly FieldInfo HttpClientHandlerField = typeof(HttpMessageInvoker).GetField("_handler", BindingFlags.Instance | BindingFlags.NonPublic);
 #pragma warning restore CS8601 // Possible null reference assignment.
 
         [TestMethod]
@@ -124,8 +83,8 @@ namespace RestClient.Net.UnitTests
             //Get the actual HttpClient inside the Client
             var actualHttpClient = client.lazyHttpClient.Value;
 
-            var handler1 = _httpClientHandlerField.GetValue(expectedHttpClient);
-            var handler2 = _httpClientHandlerField.GetValue(actualHttpClient);
+            var handler1 = HttpClientHandlerField.GetValue(expectedHttpClient);
+            var handler2 = HttpClientHandlerField.GetValue(actualHttpClient);
 
             Assert.IsTrue(ReferenceEquals(handler1, handler2));
         }

@@ -152,7 +152,7 @@ namespace RestClient.Net.UnitTests
 #if NET45
         NullLoggerFactory.Instance;
 
-        private const string LocalBaseUriString = "https://localhost:44337";
+        public const string LocalBaseUriString = "https://localhost:44337";
 #else
         LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
         private static readonly TestServer _testServer;
