@@ -1459,6 +1459,18 @@ namespace RestClient.Net.UnitTests
 
         #region Misc
         [TestMethod]
+        public void TestDisposeDisposesHttpClient()
+        {
+            using var client = new Client();
+            var httpClient = client.lazyHttpClient.Value;
+            client.Dispose();
+#pragma warning disable CS8605 // Unboxing a possibly null value.
+            var isHttpClientDisposed = (bool)PollyTests.HttpClientDisposedField.GetValue(httpClient);
+#pragma warning restore CS8605 // Unboxing a possibly null value.
+            Assert.AreEqual(true, isHttpClientDisposed);
+        }
+
+        [TestMethod]
         public void TestDefaultThrowExceptionOnFailure()
         {
             using var client = new Client();
