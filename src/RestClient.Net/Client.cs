@@ -44,7 +44,7 @@ namespace RestClient.Net
 
         internal readonly Lazy<HttpClient> lazyHttpClient;
 
-        private bool disposed;
+        internal bool disposed;
 
         #endregion Private Fields
 
