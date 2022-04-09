@@ -124,23 +124,26 @@ namespace RestClient.Net.UnitTests
             const string clientName = "tim";
 
             var serviceCollection = new ServiceCollection()
-                .AddHttpClient()
                 .AddSingleton(baseUrl)
                 .AddRestClient(createClient: (name, options, sp) =>
                 new Client(
-
+                    serializationAdapter: options.SerializationAdapter,
                     sp.GetRequiredService<AbsoluteUrl>(),
+                    createHttpClient: options.CreateHttpClient,
                     name: name));
 
-            //_ = serviceCollection.AddHttpClient(clientName);
+            _ = serviceCollection.AddHttpClient(clientName);
 
             var sp = serviceCollection.BuildServiceProvider();
+
+            var expectedHttpClient = sp.GetRequiredService<IHttpClientFactory>().CreateClient(clientName); ;
 
             var createClient = sp.GetRequiredService<CreateClient>();
 
             var client = (Client)createClient(clientName, (o) => { o.SerializationAdapter = newtonsoftSerializationAdapter; });
 
             Assert.IsTrue(ReferenceEquals(newtonsoftSerializationAdapter, client.SerializationAdapter));
+            Assert.IsTrue(ReferenceEquals(expectedHttpClient, client.lazyHttpClient.Value));
             Assert.AreEqual(baseUrl, client.BaseUrl);
         }
 
