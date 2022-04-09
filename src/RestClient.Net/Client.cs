@@ -206,7 +206,7 @@ namespace RestClient.Net
         /// <summary>
         /// Specifies whether or not the client will throw an exception when non-successful status codes are returned in the http response. The default is true
         /// </summary>
-        public bool ThrowExceptionOnFailure { get; init; } = true;
+        public bool ThrowExceptionOnFailure { get; init; }
 
         #endregion Public Properties
 

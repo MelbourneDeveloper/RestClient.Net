@@ -1459,6 +1459,13 @@ namespace RestClient.Net.UnitTests
 
         #region Misc
         [TestMethod]
+        public void TestDefaultThrowExceptionOnFailure()
+        {
+            using var client = new Client();
+            Assert.AreEqual(true, client.ThrowExceptionOnFailure);
+        }
+
+        [TestMethod]
         public void TestJsonHeaders()
         {
             var keyValuePair = HeadersExtensions.JsonContentTypeHeaders.First();
