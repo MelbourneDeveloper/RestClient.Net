@@ -143,7 +143,12 @@ namespace RestClient.Net.UnitTests
             var client = (Client)createClient(clientName, (o) => { o.SerializationAdapter = newtonsoftSerializationAdapter; });
 
             Assert.IsTrue(ReferenceEquals(newtonsoftSerializationAdapter, client.SerializationAdapter));
-            Assert.IsTrue(ReferenceEquals(expectedHttpClient, client.lazyHttpClient.Value));
+
+            //Make sure the correct http client handler gets used in the Client
+            Assert.IsTrue(ReferenceEquals(
+                PollyTests.HttpClientHandlerField.GetValue(expectedHttpClient),
+                PollyTests.HttpClientHandlerField.GetValue(client.lazyHttpClient.Value)));
+
             Assert.AreEqual(baseUrl, client.BaseUrl);
         }
 
