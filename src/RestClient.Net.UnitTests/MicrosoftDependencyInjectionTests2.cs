@@ -123,7 +123,6 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual(secondsTimeout, client.lazyHttpClient.Value.Timeout.TotalSeconds);
 
-
             urlProvider.VerifyAll();
         }
 

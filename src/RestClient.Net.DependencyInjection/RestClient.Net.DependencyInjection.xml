@@ -4,10 +4,22 @@
         <name>RestClient.Net.DependencyInjection</name>
     </assembly>
     <members>
-        <member name="M:RestClient.Net.RestClientExtensions.AddRestClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.String,RestClient.Net.CreateClientOptions,System.IServiceProvider,RestClient.Net.IClient})">
+        <member name="M:RestClient.Net.RestClientExtensions.AddRestClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{RestClient.Net.CreateClientOptions})">
             <summary>
-            Adds a CreateClient function to get or mint clients. Allows you to mint clients with createClient if you need to take control of construction
+            Adds CreateClient to the container so you can mint IClients. Use this overload if you need to configure a singleton IClient
             </summary>
+            <param name="serviceCollection"></param>
+            <param name="configureSingletonClient">Specify this to configure a singleton IClient</param>
+            <returns></returns>
+        </member>
+        <member name="M:RestClient.Net.RestClientExtensions.AddRestClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{RestClient.Net.CreateClientOptions},System.Func{System.String,RestClient.Net.CreateClientOptions,System.IServiceProvider,RestClient.Net.IClient})">
+            <summary>
+            Adds CreateClient to the container so you can mint IClients. Use this overload if you don't need to configure a singleton IClient (i.e. you will use CreateClient instead)
+            </summary>
+            <param name="serviceCollection"></param>
+            <param name="configureSingletonClient">Specify this if you need to configure a singleton IClient</param>
+            <param name="createClient">Specify this if you need to take control of construction</param>
+            <returns></returns>
         </member>
     </members>
 </doc>
