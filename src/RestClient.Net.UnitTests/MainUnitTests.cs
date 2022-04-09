@@ -1473,11 +1473,11 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestDisposeDisposesHttpClient()
         {
-            using var client = new Client();
+            using var client = new Client(new NewtonsoftSerializationAdapter());
             var httpClient = client.lazyHttpClient.Value;
             client.Dispose();
 #pragma warning disable CS8605 // Unboxing a possibly null value.
-            var isHttpClientDisposed = (bool)PollyTests.HttpClientDisposedField.GetValue(httpClient);
+            var isHttpClientDisposed = (bool)TestHelpers.HttpClientDisposedField.GetValue(httpClient);
 #pragma warning restore CS8605 // Unboxing a possibly null value.
             Assert.AreEqual(true, client.Disposed);
             Assert.AreEqual(true, isHttpClientDisposed);
@@ -1486,13 +1486,13 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestDisposeDoesntHappenTwice()
         {
-            using var client = new Client();
+            using var client = new Client(new NewtonsoftSerializationAdapter());
             //Trick the client in to thinking it has been disposed.
             client.Disposed = true;
             var httpClient = client.lazyHttpClient.Value;
             client.Dispose();
 #pragma warning disable CS8605 // Unboxing a possibly null value.
-            var isHttpClientDisposed = (bool)PollyTests.HttpClientDisposedField.GetValue(httpClient);
+            var isHttpClientDisposed = (bool)TestHelpers.HttpClientDisposedField.GetValue(httpClient);
 #pragma warning restore CS8605 // Unboxing a possibly null value.
             Assert.AreEqual(false, isHttpClientDisposed);
         }
@@ -1500,7 +1500,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void TestDefaultThrowExceptionOnFailure()
         {
-            using var client = new Client();
+            using var client = new Client(new NewtonsoftSerializationAdapter());
             Assert.AreEqual(true, client.ThrowExceptionOnFailure);
         }
 
