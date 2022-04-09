@@ -1467,8 +1467,22 @@ namespace RestClient.Net.UnitTests
 #pragma warning disable CS8605 // Unboxing a possibly null value.
             var isHttpClientDisposed = (bool)PollyTests.HttpClientDisposedField.GetValue(httpClient);
 #pragma warning restore CS8605 // Unboxing a possibly null value.
-            Assert.AreEqual(true, client.disposed);
+            Assert.AreEqual(true, client.Disposed);
             Assert.AreEqual(true, isHttpClientDisposed);
+        }
+
+        [TestMethod]
+        public void TestDisposeDoesntHappenTwice()
+        {
+            using var client = new Client();
+            //Trick the client in to thinking it has been disposed.
+            client.Disposed = true;
+            var httpClient = client.lazyHttpClient.Value;
+            client.Dispose();
+#pragma warning disable CS8605 // Unboxing a possibly null value.
+            var isHttpClientDisposed = (bool)PollyTests.HttpClientDisposedField.GetValue(httpClient);
+#pragma warning restore CS8605 // Unboxing a possibly null value.
+            Assert.AreEqual(false, isHttpClientDisposed);
         }
 
         [TestMethod]

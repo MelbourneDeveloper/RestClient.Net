@@ -44,7 +44,8 @@ namespace RestClient.Net
 
         internal readonly Lazy<HttpClient> lazyHttpClient;
 
-        internal bool disposed;
+        //Set is for testing purposes only. A little nasty TBH
+        internal bool Disposed { get; set; }
 
         #endregion Private Fields
 
@@ -214,9 +215,9 @@ namespace RestClient.Net
 
         public void Dispose()
         {
-            if (disposed) return;
+            if (Disposed) return;
 
-            disposed = true;
+            Disposed = true;
 
             lazyHttpClient.Value?.Dispose();
         }
