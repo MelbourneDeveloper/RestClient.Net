@@ -1459,6 +1459,18 @@ namespace RestClient.Net.UnitTests
 
         #region Misc
         [TestMethod]
+        public void TestHeadersCollectionKeyValueConstruction()
+        {
+            const string Key = "test";
+            const string Value = "test2";
+            var headersCollection = new HeadersCollection(Key, Value);
+            var keyValuePair = headersCollection.First();
+            Assert.AreEqual(1, keyValuePair.Value.Count());
+            Assert.AreEqual(Value, keyValuePair.Value.First());
+            Assert.AreEqual(Key, keyValuePair.Key);
+        }
+
+        [TestMethod]
         public void TestDisposeDisposesHttpClient()
         {
             using var client = new Client();
