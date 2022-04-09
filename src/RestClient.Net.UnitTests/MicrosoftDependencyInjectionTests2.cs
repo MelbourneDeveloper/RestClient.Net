@@ -163,6 +163,34 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(baseUrl, client.BaseUrl);
         }
 
+        [TestMethod]
+        public void TestSingletonClient()
+        {
+            var newtonsoftSerializationAdapter = new NewtonsoftSerializationAdapter();
+            var baseUrl = new AbsoluteUrl("http://www.di.com");
+
+            var serviceCollection = new ServiceCollection()
+                .AddSingleton(baseUrl)
+                .AddRestClient((o) => o.SerializationAdapter = newtonsoftSerializationAdapter);
+
+            const string clientName = "RestClient";
+
+            _ = serviceCollection.AddHttpClient(clientName);
+
+            var sp = serviceCollection.BuildServiceProvider();
+
+            using var expectedHttpClient = sp.GetRequiredService<IHttpClientFactory>().CreateClient(clientName);
+
+            var client = (Client)sp.GetRequiredService<IClient>();
+
+            Assert.IsTrue(ReferenceEquals(newtonsoftSerializationAdapter, client.SerializationAdapter));
+
+            //Make sure the correct http client handler gets used in the Client
+            Assert.IsTrue(ReferenceEquals(
+                TestHelpers.HttpClientHandlerField.GetValue(expectedHttpClient),
+                TestHelpers.HttpClientHandlerField.GetValue(client.lazyHttpClient.Value)));
+        }
+
     }
     public interface IUrlProvider
     {
