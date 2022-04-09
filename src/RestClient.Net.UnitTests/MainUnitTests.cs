@@ -152,7 +152,7 @@ namespace RestClient.Net.UnitTests
 #if NET45
         NullLoggerFactory.Instance;
 
-        private const string LocalBaseUriString = "https://localhost:44337";
+        public const string LocalBaseUriString = "https://localhost:44337";
 #else
         LoggerFactory.Create(builder => _ = builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
         private static readonly TestServer _testServer;
@@ -1458,6 +1458,52 @@ namespace RestClient.Net.UnitTests
         #endregion
 
         #region Misc
+        [TestMethod]
+        public void TestHeadersCollectionKeyValueConstruction()
+        {
+            const string Key = "test";
+            const string Value = "test2";
+            var headersCollection = new HeadersCollection(Key, Value);
+            var keyValuePair = headersCollection.First();
+            Assert.AreEqual(1, keyValuePair.Value.Count());
+            Assert.AreEqual(Value, keyValuePair.Value.First());
+            Assert.AreEqual(Key, keyValuePair.Key);
+        }
+
+        [TestMethod]
+        public void TestDisposeDisposesHttpClient()
+        {
+            using var client = new Client(new NewtonsoftSerializationAdapter());
+            var httpClient = client.lazyHttpClient.Value;
+            client.Dispose();
+#pragma warning disable CS8605 // Unboxing a possibly null value.
+            var isHttpClientDisposed = (bool)TestHelpers.HttpClientDisposedField.GetValue(httpClient);
+#pragma warning restore CS8605 // Unboxing a possibly null value.
+            Assert.AreEqual(true, client.Disposed);
+            Assert.AreEqual(true, isHttpClientDisposed);
+        }
+
+        [TestMethod]
+        public void TestDisposeDoesntHappenTwice()
+        {
+            using var client = new Client(new NewtonsoftSerializationAdapter());
+            //Trick the client in to thinking it has been disposed.
+            client.Disposed = true;
+            var httpClient = client.lazyHttpClient.Value;
+            client.Dispose();
+#pragma warning disable CS8605 // Unboxing a possibly null value.
+            var isHttpClientDisposed = (bool)TestHelpers.HttpClientDisposedField.GetValue(httpClient);
+#pragma warning restore CS8605 // Unboxing a possibly null value.
+            Assert.AreEqual(false, isHttpClientDisposed);
+        }
+
+        [TestMethod]
+        public void TestDefaultThrowExceptionOnFailure()
+        {
+            using var client = new Client(new NewtonsoftSerializationAdapter());
+            Assert.AreEqual(true, client.ThrowExceptionOnFailure);
+        }
+
         [TestMethod]
         public void TestJsonHeaders()
         {

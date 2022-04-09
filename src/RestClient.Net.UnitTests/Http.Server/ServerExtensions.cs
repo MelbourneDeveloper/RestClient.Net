@@ -7,18 +7,12 @@ using Urls;
 
 #pragma warning disable CA1835 // Prefer the 'Memory'-based overloads for 'ReadAsync' and 'WriteAsync'
 
-namespace Http.Server
+namespace RestClient.Net.UnitTests.Http.Server
 {
     public static class ServerExtensions
     {
         public static Task ServeAsync(this HttpServer listener, Func<HttpListenerContext, Task> func)
-        {
-            return Task.Run<Task>(() =>
-           {
-               var context = listener.listener.GetContext();
-               return func(context);
-           });
-        }
+            => Task.Run(async () => func(await listener.listener.GetContextAsync()));
 
         public static AbsoluteUrl GetLocalhostAddress()
         {

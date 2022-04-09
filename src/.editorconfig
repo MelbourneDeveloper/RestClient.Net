@@ -63,10 +63,13 @@ dotnet_diagnostic.CA1825.severity = none
 # CA1032: Implement standard exception constructors
 dotnet_diagnostic.CA1032.severity = None
 
-######################## Warnings #################
-
 # CS1591: Missing XML comment for publicly visible type or member
 dotnet_diagnostic.CS1591.severity = none
+
+
+######################## Warnings #################
+
+dotnet_diagnostic.CA1848.severity = warning
 
 #########################################
 dotnet_diagnostic.IDE0059.severity = error

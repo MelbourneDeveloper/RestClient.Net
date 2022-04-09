@@ -8,7 +8,7 @@ using Urls;
 
 //Thanks! https://gist.github.com/yetanotherchris/fb50071bced8bf0849ecd2cbbc3e9dce
 
-namespace Http.Server
+namespace RestClient.Net.UnitTests.Http.Server
 {
     public class HttpServer : IDisposable
     {
@@ -24,8 +24,7 @@ namespace Http.Server
             listener.Prefixes.Add(url.ToString() + "/");
             listener.Start();
 
-            _ = Task.Run(() =>
-               func(listener.GetContext()));
+            _ = Task.Run(async () => func(await listener.GetContextAsync()));
         }
 
         public void Dispose()

@@ -117,7 +117,7 @@ namespace RestClient.Net.UnitTests
                     _ = s.WithDefaultConventions();
                 });
 
-                _ = c.For<CreateClient>().Use<CreateClient>(con => new ClientFactory(con.GetInstance<CreateHttpClient>(), null).CreateClient);
+                _ = c.For<CreateClient>().Use<CreateClient>(con => new ClientFactory(con.GetInstance<CreateHttpClient>(), null, null).CreateClient);
                 _ = c.For<CreateHttpClient>().Use<CreateHttpClient>(con => new DefaultHttpClientFactory(null, null).CreateClient);
                 _ = c.For<ISerializationAdapter>().Use<NewtonsoftSerializationAdapter>();
             });

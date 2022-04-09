@@ -76,7 +76,7 @@ namespace RestClient.Net.UnitTests
         {
             var keyValuePairList = (IReadOnlyList<KeyValuePair<string, object>>)state;
 
-            var keyValuePair = keyValuePairList.FirstOrDefault(kvp => string.Compare(kvp.Key, key, StringComparison.Ordinal) == 0);
+            var keyValuePair = keyValuePairList.FirstOrDefault(kvp => string.Equals(kvp.Key, key, StringComparison.Ordinal));
 
             value = (T)keyValuePair.Value;
 
