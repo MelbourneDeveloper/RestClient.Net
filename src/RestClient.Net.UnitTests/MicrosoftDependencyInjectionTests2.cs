@@ -81,6 +81,7 @@ namespace RestClient.Net.UnitTests
         [TestMethod]
         public void DIConfigureWithInjectedService()
         {
+            const string clientName = "tim";
             const int secondsTimeout = 123;
             var testUrl = "http://example.org";
 
@@ -93,25 +94,36 @@ namespace RestClient.Net.UnitTests
                 .AddRestClient(createClient: (n, o, sp) =>
                 new Client(
                     new AbsoluteUrl(sp.GetRequiredService<IUrlProvider>().GetUrl()),
+                    createHttpClient: o.CreateHttpClient,
                     name: n))
                 .AddSingleton(urlProvider.Object);
 
-            _ = serviceCollection.AddHttpClient("Jim", new Action<HttpClient>((c) =>
+            _ = serviceCollection.AddHttpClient(clientName, new Action<HttpClient>((c) =>
                 c.Timeout = new TimeSpan(0, 0, secondsTimeout)
             ));
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
-            var c = serviceProvider.GetRequiredService<IClient>();
+            var createClient = serviceProvider.GetRequiredService<CreateClient>()(clientName);
 
-            if (c is not Client client)
+            var expectedHttpClient = serviceProvider.GetRequiredService<IHttpClientFactory>().CreateClient(clientName); ;
+
+            if (createClient is not Client client)
             {
                 throw new InvalidOperationException("Nah");
             }
 
-            Assert.AreEqual("RestClient", client.Name);
-
+            Assert.AreEqual(clientName, client.Name);
             Assert.AreEqual(new AbsoluteUrl(testUrl), client.BaseUrl);
+
+            //Make sure the correct http client handler gets used in the Client
+            Assert.IsTrue(ReferenceEquals(
+                PollyTests.HttpClientHandlerField.GetValue(expectedHttpClient),
+                PollyTests.HttpClientHandlerField.GetValue(client.lazyHttpClient.Value)));
+
+            Assert.AreEqual(secondsTimeout, client.lazyHttpClient.Value.Timeout.TotalSeconds);
+
+
             urlProvider.VerifyAll();
         }
 
