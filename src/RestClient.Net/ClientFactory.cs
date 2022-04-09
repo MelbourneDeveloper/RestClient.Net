@@ -9,7 +9,7 @@ namespace RestClient.Net
     public class ClientFactory
     {
         #region Fields
-        private readonly Func<string, Action<CreateClientOptions>, IClient> createClientFunc;
+        private readonly Func<string, CreateClientOptions, IClient> createClientFunc;
         private readonly ConcurrentDictionary<string, IClient> clients;
         private readonly CreateHttpClient createHttpClient;
         private readonly ILoggerFactory loggerFactory;
@@ -19,7 +19,7 @@ namespace RestClient.Net
         public ClientFactory(
             CreateHttpClient createHttpClient,
             ILoggerFactory? loggerFactory = null,
-            Func<string, Action<CreateClientOptions>, IClient>? createClientFunc = null)
+            Func<string, CreateClientOptions, IClient>? createClientFunc = null)
         {
 
             this.createHttpClient = createHttpClient;
@@ -27,22 +27,24 @@ namespace RestClient.Net
 
             clients = new ConcurrentDictionary<string, IClient>();
 
-            this.createClientFunc = createClientFunc ?? new Func<string, Action<CreateClientOptions>, IClient>((name, baseUri) => MintClient(name, baseUri));
+            this.createClientFunc = createClientFunc ?? new Func<string, CreateClientOptions, IClient>((name, options) => MintClient(name, options));
         }
         #endregion
 
         #region Implementation
         public IClient CreateClient(string name, Action<CreateClientOptions>? configureClient = null)
             => name == null ? throw new ArgumentNullException(nameof(name)) :
-            clients.GetOrAdd(name, createClientFunc(name, configureClient ?? new Action<CreateClientOptions>((o) => { })));
+            clients.GetOrAdd(name, (n) =>
+            {
+                var options = new CreateClientOptions(createHttpClient);
+                configureClient?.Invoke(options);
+                return createClientFunc(n, options);
+            });
         #endregion
 
         #region Private Methods
-        private IClient MintClient(string name, Action<CreateClientOptions>? configureClient = null)
+        private IClient MintClient(string name, CreateClientOptions createClientOptions)
         {
-            var createClientOptions = new CreateClientOptions(createHttpClient);
-
-            configureClient?.Invoke(createClientOptions);
 
 #if NET45
             if (createClientOptions.SerializationAdapter == null) throw new InvalidOperationException("You must specify a SerializationAdapter");

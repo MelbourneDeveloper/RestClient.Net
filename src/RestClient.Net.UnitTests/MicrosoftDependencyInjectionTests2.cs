@@ -115,6 +115,35 @@ namespace RestClient.Net.UnitTests
             urlProvider.VerifyAll();
         }
 
+
+        [TestMethod]
+        public void TestCreateClientFunc()
+        {
+            var newtonsoftSerializationAdapter = new NewtonsoftSerializationAdapter();
+            var baseUrl = new AbsoluteUrl("http://www.di.com");
+            const string clientName = "tim";
+
+            var serviceCollection = new ServiceCollection()
+                .AddHttpClient()
+                .AddSingleton(baseUrl)
+                .AddRestClient(createClient: (name, options, sp) =>
+                new Client(
+
+                    sp.GetRequiredService<AbsoluteUrl>(),
+                    name: name));
+
+            //_ = serviceCollection.AddHttpClient(clientName);
+
+            var sp = serviceCollection.BuildServiceProvider();
+
+            var createClient = sp.GetRequiredService<CreateClient>();
+
+            var client = (Client)createClient(clientName, (o) => { o.SerializationAdapter = newtonsoftSerializationAdapter; });
+
+            Assert.IsTrue(ReferenceEquals(newtonsoftSerializationAdapter, client.SerializationAdapter));
+            Assert.AreEqual(baseUrl, client.BaseUrl);
+        }
+
     }
     public interface IUrlProvider
     {

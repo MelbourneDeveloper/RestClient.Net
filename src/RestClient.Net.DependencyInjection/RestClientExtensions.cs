@@ -18,13 +18,13 @@ namespace RestClient.Net
         /// </summary>
         public static IServiceCollection AddRestClient(
             this IServiceCollection serviceCollection,
-            Func<string, Action<CreateClientOptions>, IServiceProvider, IClient>? createClient = null)
+            Func<string, CreateClientOptions, IServiceProvider, IClient>? createClient = null)
             => AddRestClient(serviceCollection, configureSingletonClient: null, createClient: createClient);
 
         private static IServiceCollection AddRestClient(
             this IServiceCollection serviceCollection,
             Action<CreateClientOptions>? configureSingletonClient = null,
-            Func<string, Action<CreateClientOptions>, IServiceProvider, IClient>? createClient = null
+            Func<string, CreateClientOptions, IServiceProvider, IClient>? createClient = null
             )
         {
             _ = serviceCollection
