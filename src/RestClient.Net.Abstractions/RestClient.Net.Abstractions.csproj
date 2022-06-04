@@ -8,13 +8,12 @@
 		<DocumentationFile>RestClient.Net.Abstractions.xml</DocumentationFile>
 	</PropertyGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<PackageReference Include="System.Text.Json" Version="4.7.2" />
+		<PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
+	</ItemGroup>
+
 	<Choose>
-		<When Condition="'$(TargetFramework)' == 'netstandard2.0'">
-			<ItemGroup>
-				<PackageReference Include="System.Text.Json" Version="4.7.2" />
-				<PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
-			</ItemGroup>
-		</When>
 		<When Condition="'$(TargetFramework)' == 'net45'">
 			<ItemGroup>
 				<PackageReference Include="System.Net.Http" Version="4.3.4" />
