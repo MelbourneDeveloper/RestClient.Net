@@ -2,9 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: [ "actionbuild" ]
+    branches: ["actionbuild"]
   pull_request:
-    branches: [ "actionbuild" ]
+    branches: ["actionbuild"]
 
 jobs:
   build:
@@ -16,15 +16,18 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 6.0.x
-        
+
       - name: Restore dependencies
-        run: dotnet restore
-      
+        run: dotnet restore src/RestClient.Net.sln
+
       - name: Build
-        run: dotnet build --no-restore
-      
+        run: dotnet build src/RestClient.Net.sln --no-restore
+
       - name: Test .NET Standard
         run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework netcoreapp3.1
 
-      - name: Test .NET Standard
+      - name: Test .NET 5
         run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework net5.0
+
+      - name: Test .NET 6
+        run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework net6.0
