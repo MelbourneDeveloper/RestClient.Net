@@ -1,37 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netcoreapp3.1;net5.0;net45</TargetFrameworks>
+		<TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net45</TargetFrameworks>
 		<NoWarn>CA2007</NoWarn>
 	</PropertyGroup>
 
 	<Choose>
-		<When Condition=" '$(TargetFramework)'=='netcoreapp3.1' ">
-			<ItemGroup>
-				<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.0" />
-				<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="3.1.0" />
-			</ItemGroup>
-		</When>
-		<When Condition=" '$(TargetFramework)'=='net5.0' ">
-			<ItemGroup>
-				<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.4" />
-				<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="5.0.1" />
-			</ItemGroup>
-		</When>
-		<Otherwise>
+		<When Condition=" '$(TargetFramework)'=='net45' ">
 			<ItemGroup>
 				<Compile Remove="PollyTests.cs" />
 				<Compile Remove="MicrosoftDependencyInjectionTests.cs" />
 				<Compile Remove="LogCheckExtensions.cs" />
 			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.0" />
+				<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="3.1.0" />
+				<PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+				<ProjectReference Include="..\RestClient.Net.DependencyInjection\RestClient.Net.DependencyInjection.csproj" />
+				<ProjectReference Include="..\ApiExamples\ApiExamples.csproj" />
+			</ItemGroup>
 		</Otherwise>
 	</Choose>
-
-	<ItemGroup Condition=" '$(TargetFramework)'!='net45' ">
-		<PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
-		<ProjectReference Include="..\RestClient.Net.DependencyInjection\RestClient.Net.DependencyInjection.csproj" />
-		<ProjectReference Include="..\ApiExamples\ApiExamples.csproj" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Include="..\RestClient.Net.Samples.Uno\RestClient.Net.Samples.Uno.Shared\NewtonsoftSerializationAdapter.cs" Link="SerializationAdapters\NewtonsoftSerializationAdapter.cs" />
@@ -48,7 +39,7 @@
 		</Content>
 		<None Remove="JSON\GeoPlugin.xml" />
 		<Content Include="JSON\GeoPlugin.xml">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
 		<PackageReference Include="Moq" Version="4.16.1" />

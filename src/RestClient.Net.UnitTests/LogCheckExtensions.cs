@@ -34,7 +34,7 @@ namespace RestClient.Net.UnitTests
                     //Confirm the exception type
                     It.IsAny<TException>(),
                     //Accept any valid Func here. The Func is specified by the extension methods
-                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()
+                    (Func<It.IsAnyType, Exception?, string>)It.IsAny<object>()
                 ),
                 //Make sure the message was logged the correct number of times
                 Times.Exactly(times)
