@@ -14,19 +14,17 @@ jobs:
       - uses: actions/checkout@v3
       - name: Setup dotnet
         uses: actions/setup-dotnet@v2
-        with: dotnet-version: | 
-              3.1.x
-              5.0.x
-              6.0.x      
+        with:
+          dotnet-version: 3.1.x
         
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore dependencies
+        run: dotnet restore
       
-    - name: Build
-      run: dotnet build --no-restore
+      - name: Build
+        run: dotnet build --no-restore
       
-    - name: Test .NET Standard
-      run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework netcoreapp3.1
+      - name: Test .NET Standard
+        run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework netcoreapp3.1
 
-    - name: Test .NET Standard
-      run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework net5.0
+      - name: Test .NET Standard
+        run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework net5.0
