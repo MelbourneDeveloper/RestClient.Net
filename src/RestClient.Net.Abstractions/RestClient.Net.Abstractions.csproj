@@ -1,28 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net45;net5.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net45;net5.0;net6.0</TargetFrameworks>
 		<DebugType>pdbonly</DebugType>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Description>.NET REST Client Framework for all platforms. This package contains abstractions for dependency injection and mocking with no implementations.</Description>
 		<DocumentationFile>RestClient.Net.Abstractions.xml</DocumentationFile>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' != 'net5'">
-		<PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-		<PackageReference Include="System.Text.Json" Version="4.7.2" />
-	</ItemGroup>
-
 	<Choose>
+		<When Condition="'$(TargetFramework)' == 'netstandard2.0'">
+			<ItemGroup>
+				<PackageReference Include="System.Text.Json" Version="4.7.2" />
+				<PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
+			</ItemGroup>
+		</When>
 		<When Condition="'$(TargetFramework)' == 'net45'">
 			<ItemGroup>
 				<PackageReference Include="System.Net.Http" Version="4.3.4" />
 				<PackageReference Include="System.Linq" Version="4.3.0" />
 				<PackageReference Include="System.Net.Http" Version="4.3.4" />
 				<Compile Remove="JsonSerializationAdapter.cs" />
+				<PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
 			</ItemGroup>
 		</When>
 		<Otherwise>
@@ -33,12 +32,12 @@
 				<None Remove="Logging\**" />
 			</ItemGroup>
 		</Otherwise>
-	</Choose> 
+	</Choose>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="3.9.0">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
 			<PrivateAssets>all</PrivateAssets>
