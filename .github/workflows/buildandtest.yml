@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ["3.1.x", "5.0.x", "6.0.x"]
+        dotnet-version: ["6.0.x"]
 
     steps:
       - uses: actions/checkout@v3
@@ -20,7 +20,7 @@ jobs:
         run: dotnet restore src/RestClient.Net.sln
 
       - name: Build
-        run: dotnet build src/RestClient.Net.sln --no-restore --framework net5.0
+        run: dotnet build src/RestClient.Net.sln --no-restore --framework net6.0
 
       - name: Test
-        run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework net5.0
+        run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework net6.0
