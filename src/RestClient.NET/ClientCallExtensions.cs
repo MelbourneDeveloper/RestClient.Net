@@ -12,7 +12,7 @@ namespace RestClient.Net
             this AbsoluteUrl url,
             IHeadersCollection? headersCollection = null,
             CancellationToken cancellationToken = default)
-        {
+        {dgdfgdfg
             if (url == null) throw new ArgumentNullException(nameof(url));
             var client = new Client(url.WithRelativeUrl(RelativeUrl.Empty));
             var response = await client.GetAsync<TResponseBody>(
