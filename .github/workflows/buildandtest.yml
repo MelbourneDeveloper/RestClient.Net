@@ -2,9 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "actionbuild" ]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "actionbuild" ]
 
 jobs:
   build:
@@ -24,5 +24,8 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
       
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: Test .NET Standard
+      run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework netcoreapp3.1
+
+    - name: Test .NET Standard
+      run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework net5.0
