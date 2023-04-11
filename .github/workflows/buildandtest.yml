@@ -1,7 +1,11 @@
-name: build and test
+name: buildandtest
 
-on: [push]
-
+on:
+  pull_request:
+    branches:    
+      - main
+      - develop
+ 
 jobs:
   build:
     runs-on: windows-latest
