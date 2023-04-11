@@ -15,7 +15,9 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xml2CSharp;
+#pragma warning disable CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
 using jsonperson = ApiExamples.Model.JsonModel.Person;
+#pragma warning restore CS8981 // The type name only contains lower-cased ascii characters. Such names may become reserved for the language.
 using RichardSzalay.MockHttp;
 using System.IO;
 using Microsoft.Extensions.Logging;
@@ -419,7 +421,7 @@ namespace RestClient.Net.UnitTests
 
             using var client = new Client(new NewtonsoftSerializationAdapter(), createHttpClient: factory.CreateClient, baseUrl: RestCountriesAllUri, logger: _logger.Object);
 
-            _ = await Assert.ThrowsExceptionAsync<HttpStatusException>(() => client.GetAsync<List<RestCountry>>(), Messages.GetErrorMessageNonSuccess((int)statusCode, RestCountriesAllUri));
+            _ = await Assert.ThrowsExceptionAsync<HttpStatusException>(client.GetAsync<List<RestCountry>>, Messages.GetErrorMessageNonSuccess((int)statusCode, RestCountriesAllUri));
         }
 
         [TestMethod]
@@ -1589,7 +1591,7 @@ namespace RestClient.Net.UnitTests
                 sendHttpRequest: sendHttpRequestMessage.Object,
                 name: "asd");
 
-            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => client.GetAsync<string>());
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(client.GetAsync<string>);
 
             Assert.AreEqual("httpResponseMessage", exception.ParamName);
 
@@ -1614,7 +1616,7 @@ namespace RestClient.Net.UnitTests
                 baseUrl: new(RestCountriesAllUriString),
                 createHttpClient: (n) => new HttpClient(mockHttpMessageHandler));
 
-            var dex = await Assert.ThrowsExceptionAsync<DeserializationException>(() => client.GetAsync<Person>());
+            var dex = await Assert.ThrowsExceptionAsync<DeserializationException>(client.GetAsync<Person>);
 #if !NET45
             _logger.VerifyLog<Client, DeserializationException>((state, t)
                 => state.CheckValue("{OriginalFormat}", Messages.ErrorMessageDeserialization), LogLevel.Error, 1);

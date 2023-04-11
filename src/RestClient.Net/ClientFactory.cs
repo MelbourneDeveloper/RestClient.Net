@@ -27,7 +27,7 @@ namespace RestClient.Net
 
             clients = new ConcurrentDictionary<string, IClient>();
 
-            this.createClientFunc = createClientFunc ?? new Func<string, CreateClientOptions, IClient>((name, options) => MintClient(name, options));
+            this.createClientFunc = createClientFunc ?? new Func<string, CreateClientOptions, IClient>(MintClient);
         }
         #endregion
 
