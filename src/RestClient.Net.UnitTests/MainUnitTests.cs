@@ -1138,9 +1138,8 @@ namespace RestClient.Net.UnitTests
                 new RelativeUrl("secure/authenticate")
                 );
 
-            var bearerToken = response.Body?.BearerToken;
 
-            if (bearerToken == null) throw new InvalidOperationException("No bearer token");
+            var bearerToken = (response.Body?.BearerToken) ?? throw new InvalidOperationException("No bearer token");
 
             using var client2 = new Client(
                 new NewtonsoftSerializationAdapter(),
@@ -1876,8 +1875,7 @@ namespace RestClient.Net.UnitTests
             //Act
             var response = await client.GetAsync<string>(client.BaseUrl.AppendPath("test"));
 
-            var requestUri = response?.RequestUri;
-            if (requestUri == null) throw new InvalidOperationException("No uri");
+            var requestUri = (response?.RequestUri) ?? throw new InvalidOperationException("No uri");
 
             //Assert
             Assert.AreEqual(expectedUri, requestUri);
