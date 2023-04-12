@@ -663,6 +663,37 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual("The media type header is missing. The request is missing the Content-Type header", missingHeaderException.Message);
         }
+
+        [TestMethod]
+        public async Task TestDotNet7ErrorHandlingNoResponseHeader()
+        {
+            using MockHttpMessageHandler mockHttpMessageHandler = new();
+
+            _ = mockHttpMessageHandler.
+          When(HttpMethod.Post, JsonPlaceholderBaseUriString + JsonPlaceholderPostsSlug).
+          With(request => request?.Content?.Headers?.ContentType?.MediaType == HeadersExtensions.JsonMediaType).
+          Respond(
+          HttpStatusCode.Created,
+          JsonPlaceholderPostHeaders,
+          null,
+          //This is the JSON that gets returned when the content type is empty
+          "{\r\n" +
+          "  \"id\": 101\r\n" +
+          "}"
+          );
+
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUrl: JsonPlaceholderBaseUri,
+                createHttpClient: (n) => mockHttpMessageHandler.ToHttpClient(),
+                defaultRequestHeaders: HeadersExtensions.FromJsonContentType(),
+                logger: consoleLoggerFactory.CreateLogger<Client>());
+
+            var missingHeaderException = await Assert.ThrowsExceptionAsync<MissingHeaderException>(async () =>
+             await client.PostAsync<PostUserResponse, UserPost>(_userRequestBody, JsonPlaceholderPostsSlug));
+
+            Assert.AreEqual("The media type header is missing. The request has the Content-Type header so perhaps the response doesn't include it", missingHeaderException.Message);
+        }
 #endif
 
         [TestMethod]
