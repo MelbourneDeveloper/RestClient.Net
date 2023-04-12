@@ -10,6 +10,8 @@ dotnet_diagnostic.CA1727.severity = None
 
 dotnet_diagnostic.CA2254.severity = None
 
+dotnet_diagnostic.CS8981.severity = None
+
 #Why doesn't this setting work?
 #csharp_style_expression_bodied_local_functions = true;
 dotnet_diagnostic.IDE0061.severity = none
