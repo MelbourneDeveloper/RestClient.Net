@@ -47,3 +47,6 @@ jobs:
 
       - name: Test on .NET 6
         run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework net6.0
+
+      - name: Test on .NET 7
+        run: dotnet test src/RestClient.Net.UnitTests --no-build --verbosity normal --framework net7.0        
