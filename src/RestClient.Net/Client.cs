@@ -155,7 +155,11 @@ namespace RestClient.Net
             {
                 //Use a shared instance for serialization. There should be no reason that this is not thread safe. Unless it's not.
                 SerializationAdapter = JsonSerializationAdapter.Instance;
-                DefaultRequestHeaders = DefaultRequestHeaders.WithJsonContentTypeHeader();
+
+                DefaultRequestHeaders =
+                    defaultRequestHeaders == null ? DefaultRequestHeaders.WithJsonContentTypeHeader() :
+                    defaultRequestHeaders.Contains(HeadersExtensions.ContentTypeHeaderName) ?
+                    defaultRequestHeaders : defaultRequestHeaders.WithJsonContentTypeHeader();
             }
             else
             {
