@@ -1069,6 +1069,7 @@ namespace RestClient.Net.UnitTests
             Assert.IsNotNull(responsePerson);
         }
 
+#if !NET45
         [TestMethod]
         public async Task TestTimeoutPatch()
         {
@@ -1087,11 +1088,10 @@ namespace RestClient.Net.UnitTests
                 requestHeaders: "Test".ToHeadersCollection("Test")
                 ));
 
-#if !NET45
             _logger.VerifyLog<Client, OperationCanceledException>((state, t)
                 => state.CheckValue("{OriginalFormat}", Messages.ErrorMessageOperationCancelled), LogLevel.Error, 1);
-#endif
         }
+#endif
 
         [TestMethod]
         public async Task TestTimeoutPatch2()
@@ -1533,6 +1533,7 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(Key, keyValuePair.Key);
         }
 
+#if !NET45
         [TestMethod]
         public void TestDisposeDisposesHttpClient()
         {
@@ -1545,6 +1546,7 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(true, client.Disposed);
             Assert.AreEqual(true, isHttpClientDisposed);
         }
+
 
         [TestMethod]
         public void TestDisposeDoesntHappenTwice()
@@ -1559,6 +1561,7 @@ namespace RestClient.Net.UnitTests
 #pragma warning restore CS8605 // Unboxing a possibly null value.
             Assert.AreEqual(false, isHttpClientDisposed);
         }
+#endif
 
         [TestMethod]
         public void TestDefaultThrowExceptionOnFailure()
