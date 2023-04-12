@@ -1,4 +1,6 @@
-﻿using RestClient.Net;
+﻿#pragma warning disable IDE0130 // Namespace does not match folder structure
+
+using RestClient.Net;
 using System;
 
 namespace Microsoft.Extensions.Logging.Abstractions

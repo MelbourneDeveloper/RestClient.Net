@@ -1,5 +1,5 @@
 ﻿#pragma warning disable CA1815 // Override equals and operator equals on value types
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable IDE0130 // Namespace does not match folder structure
 
 namespace Microsoft.Extensions.Logging
 {
@@ -16,5 +16,3 @@ namespace Microsoft.Extensions.Logging
     }
 }
 
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning restore CA1815 // Override equals and operator equals on value types
