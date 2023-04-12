@@ -12,9 +12,9 @@ NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
 
 [![.NET](https://github.com/MelbourneDeveloper/RestClient.Net/actions/workflows/dotnet.yml/badge.svg?branch=5%2Fdevelop)](https://github.com/MelbourneDeveloper/RestClient.Net/actions/workflows/dotnet.yml)
 
-## 5.0 Release
+## 6.0 Release
 
-5.0 brings a Fluent API, immutable types, lots of useful extension methods, and thorough unit testing. Check out [the tests](https://github.com/MelbourneDeveloper/RestClient.Net/blob/98560ee7f7470218f80e7416f2e8e9c60bfab759/src/RestClient.Net.UnitTests/MainUnitTests.cs#L290) for code examples.
+This version upgrades all dependencies and targets all the major versions: 4.5, 5, 6, 7.
 
 ### [Follow Me on Twitter for Updates](https://twitter.com/intent/follow?screen_name=cfdevelop&tw_p=followbutton) ##
 
@@ -31,6 +31,8 @@ NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
 ![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/main/src/Images/Rendered/Stats.png) 
 * Fluent API for construction, non-destructive mutation, and Url construction
 * Uses [.NET Core Logging - `ILogger`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0) to allow logging of all aspects of HTTP calls
+* Fluent API
+* Immutable client for thread safety
 
 ## Examples
 
