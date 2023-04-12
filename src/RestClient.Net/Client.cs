@@ -262,6 +262,11 @@ namespace RestClient.Net
                 logger.LogError(tce, Messages.ErrorTaskCancelled, request);
                 throw;
             }
+            catch (MissingHeaderException mhe)
+            {
+                logger.LogError(mhe, mhe.Message, request);
+                throw;
+            }
             catch (Exception ex)
             {
                 var exception = new SendException(Messages.ErrorSendException, request, ex);

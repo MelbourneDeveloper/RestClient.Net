@@ -29,11 +29,31 @@ namespace RestClient.Net
 
                 logger.LogTrace(Messages.InfoAttemptingToSend, request);
 
-                var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken).ConfigureAwait(false);
 
-                logger.LogInformation(Messages.InfoSendReturnedNoException);
+                try
+                {
+                    var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, request.CancellationToken).ConfigureAwait(false);
 
-                return httpResponseMessage;
+                    logger.LogInformation(Messages.InfoSendReturnedNoException);
+
+                    return httpResponseMessage;
+
+                }
+                catch (ArgumentException aex)
+                {
+                    if (aex.Message == "The value cannot be null or empty. (Parameter 'mediaType')")
+                    {
+                        var isRequest = httpRequestMessage.Content?.Headers.ContentType == null;
+                        var errorTypePart = isRequest ? $"The request is missing the {HeadersExtensions.ContentTypeHeaderName} header" :
+                            $"The request has the {HeadersExtensions.ContentTypeHeaderName} header so perhaps the response doesn't include it";
+                        throw
+                            new MissingHeaderException(
+                                $"The media type header is missing. {errorTypePart}",
+                                isRequest,
+                                aex); ;
+                    }
+                    throw;
+                }
             }
             catch (OperationCanceledException oce)
             {

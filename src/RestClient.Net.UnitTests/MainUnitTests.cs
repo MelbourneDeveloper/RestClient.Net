@@ -288,6 +288,12 @@ namespace RestClient.Net.UnitTests
         #region Tests
 
         #region External Api Tests
+
+#if !NET7_0_OR_GREATER
+
+        //TODO: Enable this for .NET 7 and up when the bugs get fixed
+
+
         [TestMethod]
         public async Task TestHead()
         {
@@ -309,6 +315,7 @@ namespace RestClient.Net.UnitTests
 
             Assert.AreEqual(GoogleHeadHeaders[CacheControlHeaderName], response.Headers[CacheControlHeaderName].Single());
         }
+#endif
 
 #if !NET45
 
@@ -617,10 +624,13 @@ namespace RestClient.Net.UnitTests
 #endif
         }
 
+#if !NET7_0_OR_GREATER
+
+        //TODO: Enable this for .NET 7 and up when the bugs get fixed
+
         [TestMethod]
         public async Task TestConsoleLogging()
         {
-            //var logger = new ConsoleLogger();
             using var client = new Client(
                 new NewtonsoftSerializationAdapter(),
                 baseUrl: JsonPlaceholderBaseUri,
@@ -633,6 +643,27 @@ namespace RestClient.Net.UnitTests
             Assert.AreEqual(101, response.Body?.Id);
             Assert.AreEqual(201, response.StatusCode);
         }
+#else
+        /// <summary>
+        /// This relates to this issue: https://github.com/dotnet/runtime/issues/81506
+        /// This should eventually get fixed but even if it doesn't this proves that RC Net at least
+        /// throws a meaningful exception
+        /// </summary>
+        [TestMethod]
+        public async Task TestDotNet7ErrorHandlingNoRequestHeader()
+        {
+            using var client = new Client(
+                new NewtonsoftSerializationAdapter(),
+                baseUrl: JsonPlaceholderBaseUri,
+                createHttpClient: GetCreateHttpClient(),
+                logger: consoleLoggerFactory.CreateLogger<Client>());
+
+            var missingHeaderException = await Assert.ThrowsExceptionAsync<MissingHeaderException>(async () =>
+            await client.PostAsync<PostUserResponse, UserPost>(_userRequestBody, JsonPlaceholderPostsSlug));
+
+            Assert.AreEqual("The media type header is missing. The request is missing the Content-Type header", missingHeaderException.Message);
+        }
+#endif
 
         [TestMethod]
         public async Task TestGetWithXmlSerialization()
