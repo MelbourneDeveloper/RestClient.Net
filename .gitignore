@@ -1,10 +1,11 @@
-*.Designer.cs
+	*.Designer.cs
 *.csproj.user
 /.vs/RESTClient .Net/v14/.suo/
 /NuGet/Exported/
 bin/
 obj/
 packages/
+src/.sonarqube/
 /.vs/restore.dg
 /RESTClientDotNet.Net/.vs
 /CF.RESTClientDotNet.Net/.vs/*.dg
