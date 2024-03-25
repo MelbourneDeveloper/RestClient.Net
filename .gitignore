@@ -5,7 +5,7 @@
 bin/
 obj/
 packages/
-src/.sonarqube/
+.sonarqube/
 /.vs/restore.dg
 /RESTClientDotNet.Net/.vs
 /CF.RESTClientDotNet.Net/.vs/*.dg
