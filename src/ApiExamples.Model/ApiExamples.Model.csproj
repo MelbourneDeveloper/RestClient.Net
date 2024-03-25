@@ -10,12 +10,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Google.Protobuf" Version="3.22.1" />
+		<PackageReference Include="Google.Protobuf" Version="3.26.0" />
 		<PackageReference Include="Grpc" Version="2.46.6" />
-		<PackageReference Include="Grpc.Tools" Version="2.53.0">
+		<PackageReference Include="Grpc.Tools" Version="2.62.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 </Project>

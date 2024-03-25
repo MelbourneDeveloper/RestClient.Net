@@ -1,0 +1,12 @@
+﻿C:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\ApiMessages.cs
+C:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\ApiResult.cs
+C:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\AuthenticationRequest.cs
+C:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\AuthenticationResult.cs
+C:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\JsonModel\Address.cs
+C:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\JsonModel\Person.cs
+C:\Users\PC\.nuget\packages\grpc.core\2.46.6\runtimes\win-x86\native\grpc_csharp_ext.x86.dll
+C:\Users\PC\.nuget\packages\grpc.core\2.46.6\runtimes\win-x64\native\grpc_csharp_ext.x64.dll
+C:\Users\PC\.nuget\packages\grpc.core\2.46.6\runtimes\linux-x64\native\libgrpc_csharp_ext.x64.so
+C:\Users\PC\.nuget\packages\grpc.core\2.46.6\runtimes\osx-x64\native\libgrpc_csharp_ext.x64.dylib
+C:\Users\PC\Documents\GitHub\RestClient.Net\src\Images\Rendered\Icon.png
+C:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\RestClientApiSamples.proto

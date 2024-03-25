@@ -1,0 +1,11 @@
+
+tC:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\obj\Debug\net6.0\ApiExamples.Model.AssemblyInfo.csutf-8y
+nC:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\obj\Debug\net6.0\RestClientApiSamplesGrpc.csutf-8u
+jC:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\obj\Debug\net6.0\RestClientApiSamples.csutf-8ç
+ÅC:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.csutf-8^
+UC:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\JsonModel\Person.csutf-8_
+VC:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\JsonModel\Address.csutf-8b
+YC:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\AuthenticationResult.csutf-8c
+ZC:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\AuthenticationRequest.csutf-8W
+NC:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\ApiResult.csutf-8Y
+PC:\Users\PC\Documents\GitHub\RestClient.Net\src\ApiExamples.Model\ApiMessages.csutf-8

@@ -1,0 +1,6 @@
+projectKey=PartsUnlimited2
+serverUrl=http://localhost:9000
+serverVersion=10.4.1.88267
+dashboardUrl=http://localhost:9000/dashboard?id=PartsUnlimited2
+ceTaskId=183068c7-75a1-405e-ad4b-b95d5c2da9f4
+ceTaskUrl=http://localhost:9000/api/ce/task?id=183068c7-75a1-405e-ad4b-b95d5c2da9f4

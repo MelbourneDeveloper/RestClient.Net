@@ -1,0 +1,1939 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Compilador de Microsoft (R) Visual C#",
+        "version": "4.9.0.0",
+        "fileVersion": "4.9.0-3.24081.11 (98911739)",
+        "semanticVersion": "4.9.0",
+        "language": "es-ES"
+      },
+      "results": [
+        {
+          "ruleId": "CS8618",
+          "level": "error",
+          "message": "El elemento propiedad \"SerializationAdapter\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declarar el elemento propiedad como que admite un valor NULL.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CreateClientOptions.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 16,
+                  "endLine": 8,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CreateClientOptions.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 38,
+                  "endLine": 14,
+                  "endColumn": 58
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "error",
+          "message": "El elemento propiedad \"SendHttpRequestMessage\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declarar el elemento propiedad como que admite un valor NULL.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CreateClientOptions.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 16,
+                  "endLine": 8,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CreateClientOptions.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 40,
+                  "endLine": 18,
+                  "endColumn": 62
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "error",
+          "message": "El elemento propiedad \"GetHttpRequestMessage\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declarar el elemento propiedad como que admite un valor NULL.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CreateClientOptions.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 16,
+                  "endLine": 8,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CreateClientOptions.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 39,
+                  "endLine": 19,
+                  "endColumn": 60
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "error",
+          "message": "El elemento propiedad \"DefaultRequestHeaders\" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declarar el elemento propiedad como que admite un valor NULL.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CreateClientOptions.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 16,
+                  "endLine": 8,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CreateClientOptions.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 35,
+                  "endLine": 20,
+                  "endColumn": 56
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "S1135",
+          "level": "warning",
+          "message": "Complete the task associated to this 'TODO' comment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CallExtensions.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 15,
+                  "endLine": 23,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CallExtensions.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 11,
+                  "endLine": 6,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CreateClient.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 11,
+                  "endLine": 3,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CreateClientOptions.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 11,
+                  "endLine": 3,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CreateHttpClient.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 11,
+                  "endLine": 3,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/DeserializationException.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 11,
+                  "endLine": 3,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/HeadersCollection.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 11,
+                  "endLine": 6,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/HeadersExtensions.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 11,
+                  "endLine": 8,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/HttpRequestMethod.cs",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 11,
+                  "endLine": 1,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/HttpStatusException.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 11,
+                  "endLine": 3,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/IClient.cs",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 11,
+                  "endLine": 4,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/IGetHttpRequestMessage.cs",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 11,
+                  "endLine": 4,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/IHeadersCollection.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 11,
+                  "endLine": 3,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/IRequest.cs",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 11,
+                  "endLine": 4,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/IResponse.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 11,
+                  "endLine": 3,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/ISendHttpRequestMessage.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 11,
+                  "endLine": 5,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/ISerializationAdapter.cs",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 11,
+                  "endLine": 1,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions.Logging\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/DummyDisposable.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 11,
+                  "endLine": 3,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions.Logging"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Messages.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 11,
+                  "endLine": 3,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/MissingHeaderException.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 11,
+                  "endLine": 3,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullHeadersCollection.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 11,
+                  "endLine": 8,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullKvpEnumerator.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 11,
+                  "endLine": 7,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Request.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 11,
+                  "endLine": 5,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Response.cs",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 11,
+                  "endLine": 4,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/ResponseOfTResponseBody.cs",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 11,
+                  "endLine": 4,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"RestClient.Net\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/TraceEvent.cs",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 11,
+                  "endLine": 1,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"Microsoft.Extensions.Logging\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions.Logging\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/EventId.cs",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 11,
+                  "endLine": 4,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions.Logging"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"Microsoft.Extensions.Logging\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions.Logging\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/ILogger.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 11,
+                  "endLine": 5,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions.Logging"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"Microsoft.Extensions.Logging\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions.Logging\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/ILoggerFactory.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 11,
+                  "endLine": 5,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions.Logging"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"Microsoft.Extensions.Logging.Abstractions\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions.Logging\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/LoggerFactoryExtensions.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 11,
+                  "endLine": 3,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions.Logging"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"Microsoft.Extensions.Logging\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions.Logging\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/LogLevel.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 11,
+                  "endLine": 3,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions.Logging"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"Microsoft.Extensions.Logging.Abstractions\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions.Logging\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/NullLogger.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 11,
+                  "endLine": 6,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions.Logging"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"Microsoft.Extensions.Logging.Abstractions\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions.Logging\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/NullLoggerFactory.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 11,
+                  "endLine": 5,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions.Logging"
+            }
+          }
+        },
+        {
+          "ruleId": "IDE0130",
+          "level": "error",
+          "message": "El espacio de nombres \"Microsoft.Extensions.Logging.Abstractions\" no coincide con la estructura de carpetas, se esperaba \"RestClient.Net.Abstractions.Logging\"",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/NullLoggerOfT.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 11,
+                  "endLine": 5,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "TargetNamespace": "RestClient.Net.Abstractions.Logging"
+            }
+          }
+        },
+        {
+          "ruleId": "S4136",
+          "level": "warning",
+          "message": "All 'ToHeadersCollection' method overloads should be adjacent.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/HeadersExtensions.cs",
+                "region": {
+                  "startLine": 113,
+                  "startColumn": 42,
+                  "endLine": 113,
+                  "endColumn": 61
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/HeadersExtensions.cs",
+                "region": {
+                  "startLine": 145,
+                  "startColumn": 42,
+                  "endLine": 145,
+                  "endColumn": 61
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Non-adjacent overload"
+            }
+          }
+        },
+        {
+          "ruleId": "S2223",
+          "level": "warning",
+          "message": "Change the visibility of 'ContentHeaderNames' or make it 'const' or 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/HeadersExtensions.cs",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 38,
+                  "endLine": 28,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3246",
+          "level": "warning",
+          "message": "Add the 'out' keyword to parameter 'TBody' to make it 'covariant'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/IRequest.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 31,
+                  "endLine": 15,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3246",
+          "level": "warning",
+          "message": "Add the 'out' keyword to parameter 'TResponseBody' to make it 'covariant'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/IResponse.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 32,
+                  "endLine": 15,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/DummyDisposable.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 20,
+                  "endLine": 5,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/DummyDisposable.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 20,
+                  "endLine": 5,
+                  "endColumn": 35
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/DummyDisposable.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 21,
+                  "endLine": 8,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'DummyDisposable' or mark the type as 'sealed'.",
+              "1": "'DummyDisposable.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "CA1063",
+          "level": "error",
+          "message": "Proporcione una implementación reemplazable de Dispose(bool) en \"NullKvpEnumerator\" o marque el tipo como sellado. Una llamada a Dispose(false) solo debería limpiar recursos nativos. Una llamada a Dispose(true) debería limpiar tanto recursos administrados como nativos.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullKvpEnumerator.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 18,
+                  "endLine": 9,
+                  "endColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullKvpEnumerator.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 18,
+                  "endLine": 9,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullKvpEnumerator.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 18,
+                  "endLine": 9,
+                  "endColumn": 35
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullKvpEnumerator.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 21,
+                  "endLine": 15,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'NullKvpEnumerator' or mark the type as 'sealed'.",
+              "1": "'NullKvpEnumerator.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "CA1063",
+          "level": "error",
+          "message": "Proporcione una implementación reemplazable de Dispose(bool) en \"NullHeadersCollection\" o marque el tipo como sellado. Una llamada a Dispose(false) solo debería limpiar recursos nativos. Una llamada a Dispose(true) debería limpiar tanto recursos administrados como nativos.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullHeadersCollection.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 18,
+                  "endLine": 10,
+                  "endColumn": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullHeadersCollection.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 18,
+                  "endLine": 10,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullHeadersCollection.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 18,
+                  "endLine": 10,
+                  "endColumn": 39
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullHeadersCollection.cs",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 21,
+                  "endLine": 29,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'NullHeadersCollection' or mark the type as 'sealed'.",
+              "1": "'NullHeadersCollection.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "CA1815",
+          "level": "error",
+          "message": "EventId debe reemplazar Equals.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/EventId.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 28,
+                  "endLine": 6,
+                  "endColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CA1815",
+          "level": "error",
+          "message": "EventId debe reemplazar los operadores de igualdad (==) y desigualdad (!=).",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/EventId.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 28,
+                  "endLine": 6,
+                  "endColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "S2326",
+          "level": "warning",
+          "message": "'T' is not used in the interface.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/ILogger.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 30,
+                  "endLine": 18,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1063",
+          "level": "error",
+          "message": "Proporcione una implementación reemplazable de Dispose(bool) en \"NullLoggerFactory\" o marque el tipo como sellado. Una llamada a Dispose(false) solo debería limpiar recursos nativos. Una llamada a Dispose(true) debería limpiar tanto recursos administrados como nativos.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/NullLoggerFactory.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 18,
+                  "endLine": 7,
+                  "endColumn": 35
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "S3881",
+          "level": "warning",
+          "message": "Fix this implementation of 'IDisposable' to conform to the dispose pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/NullLoggerFactory.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 18,
+                  "endLine": 7,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/NullLoggerFactory.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 18,
+                  "endLine": 7,
+                  "endColumn": 35
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/NullLoggerFactory.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 21,
+                  "endLine": 12,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Provide 'protected' overridable implementation of 'Dispose(bool)' on 'NullLoggerFactory' or mark the type as 'sealed'.",
+              "1": "'NullLoggerFactory.Dispose()' should call 'Dispose(true)' and 'GC.SuppressFinalize(this)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2223",
+          "level": "warning",
+          "message": "Change the visibility of 'Instance' or make it 'const' or 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/NullLoggerOfT.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 37,
+                  "endLine": 12,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2225",
+          "level": "error",
+          "message": "Proporcione un método con el nombre \"ToTResponseBody\" o \"FromResponse\" como texto alternativo para el operador op_Implicit.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/ResponseOfTResponseBody.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 41,
+                  "endLine": 27,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "customProperties": {
+              "DiagnosticKind": "AddAlternate"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1063",
+          "level": "error",
+          "message": "Modifique \"NullKvpEnumerator.Dispose\" de manera que llame a Dispose(true), seguidamente llame a GC.SuppressFinalize en la instancia actual del objeto (\"this\" o \"Me\" en Visual Basic) y finalmente devuelva un valor.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullKvpEnumerator.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 21,
+                  "endLine": 15,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CA1816",
+          "level": "error",
+          "message": "Cambie \"NullKvpEnumerator<T, T2>.Dispose()\" para llamar a GC.SuppressFinalize(object). Con esto se evitará que los tipos derivados que introducen un finalizador tengan que volver a implementar \"IDisposable\" para llamarlo.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullKvpEnumerator.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 21,
+                  "endLine": 15,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CA1063",
+          "level": "error",
+          "message": "Modifique \"NullLoggerFactory.Dispose\" de manera que llame a Dispose(true), seguidamente llame a GC.SuppressFinalize en la instancia actual del objeto (\"this\" o \"Me\" en Visual Basic) y finalmente devuelva un valor.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/NullLoggerFactory.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 21,
+                  "endLine": 12,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CA1816",
+          "level": "error",
+          "message": "Cambie \"NullLoggerFactory.Dispose()\" para llamar a GC.SuppressFinalize(object). Con esto se evitará que los tipos derivados que introducen un finalizador tengan que volver a implementar \"IDisposable\" para llamarlo.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/Logging/NullLoggerFactory.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 21,
+                  "endLine": 12,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CA1063",
+          "level": "error",
+          "message": "Modifique \"NullHeadersCollection.Dispose\" de manera que llame a Dispose(true), seguidamente llame a GC.SuppressFinalize en la instancia actual del objeto (\"this\" o \"Me\" en Visual Basic) y finalmente devuelva un valor.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullHeadersCollection.cs",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 21,
+                  "endLine": 29,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CA1816",
+          "level": "error",
+          "message": "Cambie \"NullHeadersCollection.Dispose()\" para llamar a GC.SuppressFinalize(object). Con esto se evitará que los tipos derivados que introducen un finalizador tengan que volver a implementar \"IDisposable\" para llamarlo.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/NullHeadersCollection.cs",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 21,
+                  "endLine": 29,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "S3427",
+          "level": "warning",
+          "message": "This method signature overlaps the one defined on line 43, the default parameter value can only be used with named arguments.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CallExtensions.cs",
+                "region": {
+                  "startLine": 52,
+                  "startColumn": 13,
+                  "endLine": 52,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3358",
+          "level": "warning",
+          "message": "Extract this nested ternary operation into an independent statement.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CallExtensions.cs",
+                "region": {
+                  "startLine": 58,
+                  "startColumn": 22,
+                  "endLine": 59,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3358",
+          "level": "warning",
+          "message": "Extract this nested ternary operation into an independent statement.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CallExtensions.cs",
+                "region": {
+                  "startLine": 259,
+                  "startColumn": 34,
+                  "endLine": 260,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3358",
+          "level": "warning",
+          "message": "Extract this nested ternary operation into an independent statement.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/PC/Documents/GitHub/RestClient.Net/src/RestClient.Net.Abstractions/CallExtensions.cs",
+                "region": {
+                  "startLine": 271,
+                  "startColumn": 80,
+                  "endLine": 271,
+                  "endColumn": 203
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CA1063": {
+          "id": "CA1063",
+          "shortDescription": "Implementar IDisposable correctamente",
+          "fullDescription": "Todos los tipos IDisposable deben implementar el patrón Dispose correctamente.",
+          "defaultLevel": "warning",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1063",
+          "properties": {
+            "category": "Design",
+            "isEnabledByDefault": false,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1815": {
+          "id": "CA1815",
+          "shortDescription": "Reemplazar Equals y el operador Equals en los tipos de valor",
+          "fullDescription": "Para los tipos de valor, la implementación heredada de Equals usa la biblioteca de reflexiones y compara el contenido de todos los campos. El proceso de reflexión requiere un uso elevado de los recursos y puede que no sea necesario comparar cada campo para comprobar si hay igualdad. Si espera que los usuarios comparen las instancias o las ordenen, o bien que las usen como claves de tabla hash, el tipo de valor debe implementar Equals.",
+          "defaultLevel": "warning",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1815",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": false,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1816": {
+          "id": "CA1816",
+          "shortDescription": "Los métodos Dispose deberían llamar a SuppressFinalize",
+          "fullDescription": "Un método que es una implementación de Dispose no llama a GC.SuppressFinalize, o un método que no es una implementación de Dispose llama a GC.SuppressFinalize, o un método llama a GC.SuppressFinalize y pasa algo distinto de \"this\" (Me en Visual Basic).",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1816",
+          "properties": {
+            "category": "Usage",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA2225": {
+          "id": "CA2225",
+          "shortDescription": "Las sobrecargas del operador tienen alternativas con nombre",
+          "fullDescription": "Se detectó una sobrecarga del operador y no se encontró el método alternativo con nombre esperado. El miembro alternativo con nombre proporciona acceso a la misma funcionalidad que el operador. Esto se ofrece para los desarrolladores que programan en lenguajes que no admiten operadores sobrecargados.",
+          "defaultLevel": "warning",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2225",
+          "properties": {
+            "category": "Usage",
+            "isEnabledByDefault": false,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CS8618": {
+          "id": "CS8618",
+          "shortDescription": "Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declararlo como que admite un valor NULL.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8618)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "IDE0130": {
+          "id": "IDE0130",
+          "shortDescription": "El espacio de nombres no coincide con la estructura de carpetas",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/ide0130",
+          "properties": {
+            "category": "Style",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnforceOnBuild_Recommended"
+            ]
+          }
+        },
+        "S1135": {
+          "id": "S1135",
+          "shortDescription": "Track uses of \"TODO\" tags",
+          "fullDescription": "Developers often use TODO tags to mark areas in the code where additional work or improvements are needed but are not implemented immediately. However, these TODO tags sometimes get overlooked or forgotten, leading to incomplete or unfinished code. This code smell class aims to identify and address such unattended TODO tags to ensure a clean and maintainable codebase. This description will explore why this is a problem and how it can be fixed to improve the overall code quality.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1135",
+          "properties": {
+            "category": "Info Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2223": {
+          "id": "S2223",
+          "shortDescription": "Non-constant static fields should not be visible",
+          "fullDescription": "Unlike instance fields, which can only be accessed by code having a hold on the instance, static fields can be accessed by any code having visibility of the field and its type.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2223",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2326": {
+          "id": "S2326",
+          "shortDescription": "Unused type parameters should be removed",
+          "fullDescription": "Type parameters that aren’t used are dead code, which can only distract and possibly confuse developers during maintenance. Therefore, unused type parameters should be removed.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2326",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S3246": {
+          "id": "S3246",
+          "shortDescription": "Generic type parameters should be co/contravariant when possible",
+          "fullDescription": "In the interests of making code as usable as possible, interfaces and delegates with generic parameters should use the out and in modifiers when possible to make the interfaces and delegates covariant and contravariant, respectively.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3246",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S3358": {
+          "id": "S3358",
+          "shortDescription": "Ternary operators should not be nested",
+          "fullDescription": "Nested ternaries are hard to read and can make the order of operations complex to understand.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3358",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S3427": {
+          "id": "S3427",
+          "shortDescription": "Method overloads with default parameter values should not overlap",
+          "fullDescription": "The rules for method resolution can be complex and may not be fully understood by all developers. The situation becomes even more challenging when dealing with method overloads that have optional parameter values.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3427",
+          "properties": {
+            "category": "Blocker Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S3881": {
+          "id": "S3881",
+          "shortDescription": "\"IDisposable\" should be implemented correctly",
+          "fullDescription": "The IDisposable interface is a mechanism to release unmanaged resources, if not implemented correctly this could result in resource leaks or more severe bugs.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3881",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S4136": {
+          "id": "S4136",
+          "shortDescription": "Method overloads should be grouped together",
+          "fullDescription": "For clarity, all overloads of the same method should be grouped together. That lets both users and maintainers quickly understand all the current available options.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-4136",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

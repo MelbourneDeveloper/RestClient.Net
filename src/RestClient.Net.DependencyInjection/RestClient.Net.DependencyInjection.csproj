@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <ProjectReference Include="..\RestClient.Net.Abstractions\RestClient.Net.Abstractions.csproj" />
     <ProjectReference Include="..\RestClient.Net\RestClient.Net.csproj" />
   </ItemGroup>
