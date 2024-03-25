@@ -1,5 +1,0 @@
-﻿C:\Users\PC\Documents\GitHub\RestClient.Net\src\RestClient.Net.DependencyInjection\GlobalSuppressions.cs
-C:\Users\PC\Documents\GitHub\RestClient.Net\src\RestClient.Net.DependencyInjection\MicrosoftHttpClientFactoryWrapper.cs
-C:\Users\PC\Documents\GitHub\RestClient.Net\src\RestClient.Net.DependencyInjection\RestClientExtensions.cs
-C:\Users\PC\Documents\GitHub\RestClient.Net\src\Images\Rendered\Icon.png
-C:\Users\PC\Documents\GitHub\RestClient.Net\src\RestClient.Net.DependencyInjection\RestClient.Net.DependencyInjection.xml
