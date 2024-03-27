@@ -50,6 +50,20 @@
 - Falta de organización en los controladores donde las acciones no estan agrupadas por funcionalidad [Get, Post, Get?]
 - Se detectó mucho código que no se esta utilizando en el proyecto. 
 
+## Resultados de Snyk.io (Vulnerabilidades)
+- **RestClient.Net.Samples.Uno.Droid.csproj .NetFramework Version 8**: Alto 6, Medio 1
+- **RestClient.Net.Samples.Uno.Wasm.csproj netstandard2.0**: Alto 6, Medio 1
+- **RestClient.Net.Samples.UnitTests.csproj net45**: Alto 5, Medio 1
+- **RestClient.Net.UnitTests.csproj net6.0**: Alto 5, Medio 1
+- **RestClient.Net.UnitTests.csproj netcoreapp3.1**: Alto 5, Medio 1
+- **RestClient.Net.UnitTests.csproj net5.0**: Alto 5, Medio 1
+- **RestClient.Net.UnitTests.csproj net7.0**: Alto 5, Medio 1
+- **RestClient.Net.PerformanceTests.csproj netcoreapp3.1**: Alto 2, Medio 1
+- **Code Analysis**: Alto 1, Low 16
+- **RestClient.Net.Samples.csproj netstandard2.0**: Alto 1
+- **RestClient.Net.CoreSample.csproj net6.0**: Alto 1
+- **ApiExamples.csproj netcoreapp3.1**: Alto 1
+
 ## Resultados de Pruebas Manuales
 
 - La instalación del proyecto presenta gran complejidad.
@@ -86,4 +100,4 @@
 - **Eliminación de código no utilizado**: Eliminar el código que no se esta utilizando en el proyecto o que no esté referenciado por otros componentes.
 - **Descontinuar soporte de versiones antiguas**: Eliminar soporte para versiones de .NET Core descontinuadas y migrar a versiones más recientes para aprovechar mejoras y correcciones de errores ademas de limpiar el proyecto.
 - **Agrupacion de codigo**: Organizar el código en carpetas y agrupar por funcionalidad para facilitar la lectura y mantenimiento del código.
-- **Pruebas unitarias**: Asegurarse de que las pruebas unitarias se ejecuten correctamente y que la cobertura de pruebas sea adecuada para garantizar la calidad del código.
+- **Pruebas unitarias**: Asegurarse de que las pruebas unitarias se puedan ejecutar correctamente pues no importa si hay cobertura del 100% si no se pueden ejecutar.
