@@ -101,3 +101,4 @@
 - **Descontinuar soporte de versiones antiguas**: Eliminar soporte para versiones de .NET Core descontinuadas y migrar a versiones más recientes para aprovechar mejoras y correcciones de errores ademas de limpiar el proyecto.
 - **Agrupacion de codigo**: Organizar el código en carpetas y agrupar por funcionalidad para facilitar la lectura y mantenimiento del código.
 - **Pruebas unitarias**: Asegurarse de que las pruebas unitarias se puedan ejecutar correctamente pues no importa si hay cobertura del 100% si no se pueden ejecutar.
+

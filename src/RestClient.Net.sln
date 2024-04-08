@@ -24,10 +24,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		..\.gitignore = ..\.gitignore
 		..\.github\workflows\buildandtest.yml = ..\.github\workflows\buildandtest.yml
+		..\CSDT-2024.md = ..\CSDT-2024.md
 		..\CSDT_PrimeraEntrega2024.md = ..\CSDT_PrimeraEntrega2024.md
 		Directory.Build.props = Directory.Build.props
 		..\README.md = ..\README.md
 		..\SPACE_DevEX.md = ..\SPACE_DevEX.md
+		..\TestingDebt.md = ..\TestingDebt.md
 	EndProjectSection
 EndProject
 Global
