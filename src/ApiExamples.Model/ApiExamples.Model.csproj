@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;net45;net5.0;net6.0</TargetFrameworks>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<Nullable>disable</Nullable>
 	</PropertyGroup>
 
