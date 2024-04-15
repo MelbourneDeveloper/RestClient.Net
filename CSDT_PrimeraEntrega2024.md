@@ -1,3 +1,4 @@
+
 # Análisis de Calidad del Código y Recomendaciones
 
 ## Resultados de SonarQube
@@ -18,7 +19,6 @@
   - **Mayores**: 39
   - **Menores**: 4
   - **Informativos**: 3
-	- 
 ## Resultados de las pruebas unitarias presentes en el proyecto
 - **Pruebas unitarias**: 669
 - **Pruebas fallidas**: 0
@@ -28,13 +28,13 @@
 
 
 ## Resultados de Github Copilot Chat
-	- Se detectó uso Excesivo de desactivación de advertencias relacionadas con diferentes code smells
+- Se detectó uso Excesivo de desactivación de advertencias relacionadas con diferentes code smells
 	- Las categorias mas desactivadas son:
 		- **Nombramiento de variables**: Se relacionan con la nomenclatura de las variables.
 		- **Inicialización de variables**: Se relacionan con la no inicialización de las variables no nulas.
 		- **Correcto uso de los tipos de datos**: Se relacionan con el uso correcto de los tipos.
-	- Se detectó caso omiso deliveradamente a las advertencias del IDE, incluso cuando estas estan marcadas como errores.
-	- Se detectó una clase Dios, la cual tiene una cantidad excesiva de métodos y atributos, alrededor de 350 lineas de código para la clase principal.
+- Se detectó caso omiso deliveradamente a las advertencias del IDE, incluso cuando estas estan marcadas como errores.
+- Se detectó una clase Dios, la cual tiene una cantidad excesiva de métodos y atributos, alrededor de 350 lineas de código para la clase principal.
 
 
 ## Resultados de Visual Studio

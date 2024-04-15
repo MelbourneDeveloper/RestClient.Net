@@ -30,12 +30,9 @@ El Framework de space fue creado dado que la productividada es multidimensional 
 	-  No hay suficiente informacion para determinar la eficiencia y flujo del proyecto a partir de la informacion disponible.
 
 ## Conclusiones: 
-	- El proyecto tiene un gran impacto pero la calidad del codigo y la documentacion es baja.
-	- La comunicacion y colaboracion es pobre y esta parece ser la dimension que mas afecta el proyecto.
-	- Se puede concluir que la satisfaccion del desarrollador es baja y se puede ver que el proyecto esta abandonado.
-	- Se recomienda que el desarrollador busque ayuda para mantener el proyecto o que lo archive si no puede mantenerlo.
-	- Tambien se recomienda volver el proyecto verdaderamente open source para poder mejorar la comunicacion, colaboracion y posiblemente conseguir algun sponsor.
-	- Para poder lograr un mejor analisis segun el framework de SPACE se recomienda medir las exeriencias subjetivas de los colaboradores y usuarios del proyecto pues puede proveer mejor informacion sobre la satisfaccion y bienestar del desarrollador y la calidad del trabajo.
-
-
-
+- El proyecto tiene un gran impacto pero la calidad del codigo y la documentacion es baja.
+- La comunicacion y colaboracion es pobre y esta parece ser la dimension que mas afecta el proyecto.
+- Se puede concluir que la satisfaccion del desarrollador es baja y se puede ver que el proyecto esta abandonado.
+- Se recomienda que el desarrollador busque ayuda para mantener el proyecto o que lo archive si no puede mantenerlo.
+- Tambien se recomienda volver el proyecto verdaderamente open source para poder mejorar la comunicacion, colaboracion y posiblemente conseguir algun sponsor.
+- Para poder lograr un mejor analisis segun el framework de SPACE se recomienda medir las exeriencias subjetivas de los colaboradores y usuarios del proyecto pues puede proveer mejor informacion sobre la satisfaccion y bienestar del desarrollador y la calidad del trabajo.
