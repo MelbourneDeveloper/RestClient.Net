@@ -1,6 +1,6 @@
 # RestClient.Net
 
-![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/main/Images/Rendered/Logo.jpg) 
+![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/main/Images/Logo.jpg) 
 
 **The safest way to make REST calls in C#**
 
