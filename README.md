@@ -1,156 +1,235 @@
+# RestClient.Net
+
 ![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/main/src/Images/Rendered/Logo.jpg) 
 
-# .NET REST Client Framework for all platforms #
+**The safest way to make REST calls in C#**
 
-[![buildandtest](https://github.com/MelbourneDeveloper/RestClient.Net/actions/workflows/buildandtest.yml/badge.svg)](https://github.com/MelbourneDeveloper/RestClient.Net/actions/workflows/buildandtest.yml)
+Built from the ground up with functional programming, type safety, and modern .NET patterns. Successor to the [original RestClient.Net](https://github.com/MelbourneDeveloper/RestClient.Net).
 
-RestClient.Net is a powerful .NET REST API client that features task-based async, strong types, and dependency injection support for all platforms. Use it to consume ASP.NET Core Web APIs or interact with RESTful APIs over the internet in C#, F#, or Visual Basic. It's designed with functional-style programming and F# in mind.
+## What Makes It Different
 
-NuGet: [RestClient.Net](https://www.nuget.org/packages/RestClient.Net)
+This library is uncompromising in its approach to type safety and functional design:
+- **HttpClient extensions** - Works with [HttpClient lifecycle management](https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/http/httpclient-guidelines#recommended-use) via `IHttpClientFactory.CreateClient()`
+- **Result types** - Explicit error handling without exceptions
+- **Exhaustiveness checking** - Compile-time guarantees via [Exhaustion](https://github.com/MelbourneDeveloper/Exhaustion)
+- **Functional composition** - Delegate factories, pure functions, no OOP ceremony
 
-### [Follow Me on Twitter for Updates](https://twitter.com/intent/follow?screen_name=cfdevelop&tw_p=followbutton) ##
+## Features
 
-[![.NET](https://github.com/MelbourneDeveloper/RestClient.Net/actions/workflows/dotnet.yml/badge.svg?branch=5%2Fdevelop)](https://github.com/MelbourneDeveloper/RestClient.Net/actions/workflows/dotnet.yml)
+- **Result Types** - Returns `Result<TSuccess, HttpError<TError>>` with closed hierarchy types for compile-time safety (Outcome package)
+- **Zero Exceptions** - No exception throwing for predictable error handling
+- **Progress Reporting** - Built-in download/upload progress tracking
+- **Polly Integration** - Support for convention-based [retry policies and resilience patterns](https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/http/httpclient-guidelines#resilience-with-static-clients)
+- **Async/Await Only** - Modern async patterns throughout
+- **HttpClient Extensions** - Works with `IHttpClientFactory.CreateClient()` for proper [pooled connections](https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/http/httpclient-guidelines#pooled-connections) and [DNS behavior](https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/http/httpclient-guidelines#dns-behavior) handling
+- **Exhaustiveness Checking** - Uses [Exhaustion](https://github.com/MelbourneDeveloper/Exhaustion) for compile-time completeness guarantees (stopgap until C# adds discriminated unions)
 
-## 6.0 Release
+The design focuses on [discriminated unions](https://github.com/dotnet/csharplang/issues/8928) for results, and adding the [Exhaustion analyzer](https://www.nuget.org/packages/Exhaustion) package gives you exhaustive pattern matching on type in C#. RestClient.Net is well ahead of the game. You can use discriminated unions with exhaustiveness checks in C# right now.
 
-This release updates all dependencies and targets major versions of .NET: 4.5, 5, 6, and 7.
+## Installation
 
-### [Follow Me on Twitter for Updates](https://twitter.com/intent/follow?screen_name=cfdevelop&tw_p=followbutton) ##
-
-
-### Key Features
-
-* **First-class URLs**: Utilizes [Urls](https://github.com/MelbourneDeveloper/Urls) to treat URLs as immutable [records](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/records) with a fluent API for construction.
-* **Dependency Injection Support**: Easily mock REST calls and add RestClient.Net to your IoC container with a single line of code.
-* **Async-Friendly**: All operations use async and await keywords.
-* **Automatic Serialization**: Automatically serializes request/response bodies to/from strong types (JSON, Binary, SOAP, [Google Protocol Buffers](https://developers.google.com/protocol-buffers)). The library is decoupled from Newtonsoft, allowing you to use any serialization method or version of Newtonsoft. This means compatibility with any version of Azure Functions.
-* **Cross-Platform Compatibility**: Install from NuGet on any platform from .NET Framework 4.5 up to .NET 5. Supports Xamarin (Mono, iOS, Android), UWP, [WebAssembly](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Web-Assembly-Support), and Unity with .NET Standard 2.0.
-* **HTTP Methods**: Supports GET, POST, PUT, PATCH, DELETE, and custom methods.
-* **Fluent API**: Provides a fluent API for construction, non-destructive mutation, and URL construction.
-* **Logging**: Uses .NET Core Logging - [`ILogger`](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0) for logging all aspects of HTTP calls.
-* **Thread Safety**: Immutable client for thread safety.
-* **High-Quality Code**: Tight code and complete test coverage allow you to make changes if needed.
-
-![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/main/src/Images/Rendered/Stats.png) 
-## Examples
-
-For a complete set of examples, see these [unit tests](https://github.com/MelbourneDeveloper/RestClient.Net/blob/3574038f02a83a299f9536b71c7f839ae72e0e08/src/RestClient.Net.UnitTests/MainUnitTests.cs#L279).
-
-#### POST an Object and get Response
-
-```cs
-using var client =
-    //Build the Url from the host name
-    new Client("jsonplaceholder.typicode.com".ToHttpsUriFromHost());
-
-UserPost userPost = await client.PostAsync<UserPost, UserPost>(
-    //POST the UserPost to the server
-    new UserPost { title = "Title" }, "posts"
-    );
+```bash
+dotnet add package RestClient.Net
 ```
 
-### Dependency Injection ([RestClient.Net.DependencyInjection](https://www.nuget.org/packages/RestClient.Net.DependencyInjection) NuGet Package)
+## Usage
 
-#### Wiring it up
-```cs
-var serviceCollection = new ServiceCollection()
-    //Add a service which has an IClient dependency
-    .AddSingleton<IGetString, GetString1>()
-    //Add RestClient.Net with a default Base Url of http://www.test.com
-    .AddRestClient((o) => o.BaseUrl = "http://www.test.com".ToAbsoluteUrl());
+### Basic GET Request
 
-//Use HttpClient dependency injection
-_ = serviceCollection.AddHttpClient();
-```
+The simplest way to make a GET request to JSONPlaceholder:
 
-#### Getting a Global IClient in a Service
+```csharp
+using System.Net.Http.Json;
+using RestClient.Net;
 
-```cs
-public class GetString1 : IGetString
+// Define a simple User model
+public record User(int Id, string Name, string Email);
+
+// Get HttpClient from IHttpClientFactory
+var httpClient = httpClientFactory.CreateClient();
+
+// Make a direct GET request
+var result = await httpClient.GetAsync<User, string>(
+    url: "https://jsonplaceholder.typicode.com/users/1".ToAbsoluteUrl(),
+    deserializeSuccess: (response, ct) => response.Content.ReadFromJsonAsync<User>(ct),
+    deserializeError: (response, ct) => response.Content.ReadAsStringAsync(ct)
+);
+
+switch (result)
 {
-    public IClient Client { get; }
-
-    public GetString1(IClient client) => Client = client;
-
-    public async Task<string> GetStringAsync() => await Client.GetAsync<string>();
+    case OkUser(var user):
+        Console.WriteLine($"Success: {user.Name}");
+        break;
+    case ErrorUser(var error):
+        Console.WriteLine($"Failed: {error.StatusCode} - {error.Body}");
+        break;
 }
 ```
 
-#### Getting a IClient Using a Factory
+### Result Type and Type Aliases
+
+C# doesn't officially support discriminated unions, but you can achieve closed type hierarchies with the [sealed modifer](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/sealed). The [Outcome package](https://www.nuget.org/packages/Outcome/) gives you a set of Result types designed for exhaustiveness checks. Until C# gains full discriminated union support, you need to add type aliases like this. If you use the generator, it will generate the type aliases for you.
 
 ```cs
-public class GetString2 : IGetString
+// Type aliases for concise pattern matching
+using OkUser = Result<User, HttpError<string>>.Ok<User, HttpError<string>>;
+using ErrorUser = Result<User, HttpError<string>>.Error<User, HttpError<string>>;
+```
+
+### OpenAPI Code Generation
+
+Generate type-safe extension methods from OpenAPI specs:
+
+```csharp
+using JSONPlaceholder.Generated;
+
+// Get HttpClient from factory
+var httpClient = factory.CreateClient();
+
+// GET all todos
+var todos = await httpClient.GetTodos(ct);
+
+// GET todo by ID
+var todo = await httpClient.GetTodoById(1, ct);
+switch (todo)
 {
-    public IClient Client { get; }
-
-    public GetString2(CreateClient createClient)
-    {
-        //Use the options to set the BaseUrl or other properties on the Client
-        Client = createClient("test", (o) => { o.BaseUrl = o.BaseUrl with { Host = "www.test.com" }; });
-    }
-
-    public async Task<string> GetStringAsync() => await Client.GetAsync<string>();
+    case OkTodo(var success):
+        Console.WriteLine($"Todo: {success.Title}");
+        break;
+    case ErrorTodo(var error):
+        Console.WriteLine($"Error: {error.StatusCode} - {error.Body}");
+        break;
 }
+
+// POST - create a new todo
+var newTodo = new TodoInput { Title = "New Task", UserId = 1, Completed = false };
+var created = await httpClient.CreateTodo(newTodo, ct);
+
+// PUT - update with path param and body
+var updated = await httpClient.UpdateTodo((Params: 1, Body: newTodo), ct);
+
+// DELETE - returns Unit
+var deleted = await httpClient.DeleteTodo(1, ct);
 ```
 
-#### Make Call and Construct Client
-
-```cs
-//This constructs an AbsoluteUrl from the string, makes the GET call, and deserializes the JSON to a strongly typed list
-//The response also contains a Client with the base of the Url that you can reuse
-//Note: not available on .NET 4.5
-
-var response = await "https://restcountries.eu/rest/v2"
-    .ToAbsoluteUrl()
-    .GetAsync<List<RestCountry>>();
+```bash
+dotnet add package RestClient.Net.OpenApiGenerator
 ```
 
-#### Query Github Issues with GraphQL (You must authorize GraphQL Github App)
-
-```cs
-using RestClient.Net.Abstractions.Extensions;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Urls;
-
-namespace RestClient.Net
-{
-    public static class GitHubGraphQLMethods
-    {
-        public static async Task<T> GetIssues<T>(string repo, string accessToken)
-        => (await "https://api.github.com/graphql"
-            .ToAbsoluteUrl()
-            .PostAsync<QueryResponse<T>, QueryRequest>(
-                new QueryRequest("{ search(query: \"repo:" + repo + "\", type: ISSUE, first: 100) {nodes {... on Issue { number title body } } }}")
-                , HeadersExtensions.FromBearerToken(accessToken)
-            .Append("User-Agent", "RestClient.Net"))).Response.Body.data.search;
-    }
-
-    public record QueryRequest(string query);
-    public record Issue(int? number, string title, string body);
-    public record Issues(List<Issue> nodes);
-    public record Data<T>(T search);
-    public record QueryResponse<T>(Data<T> data);
-
-}
+Define your schema (OpenAPI 3.x):
+```yaml
+openapi: 3.0.0
+paths:
+  /users/{id}:
+    get:
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /users:
+    post:
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
 ```
 
-#### Url Construction with F#
+The generator creates:
+1. **Extension methods** - Strongly-typed methods on `HttpClient`
+2. **Model classes** - DTOs from schema definitions
+3. **Result type aliases** - Convenient `OkUser` and `ErrorUser` types
 
-```fs
-[<TestMethod>]
-member this.TestComposition () =
+Generated usage:
+```csharp
+// Get HttpClient from factory
+var httpClient = factory.CreateClient();
 
-    let uri =
-        "host.com".ToHttpUrlFromHost(5000)
-        .AddQueryParameter("fieldname1", "field<>Value1")
-        .WithCredentials("username", "password")
-        .AddQueryParameter("FieldName2", "field<>Value2")
-        .WithFragment("frag")
-        .WithPath("pathpart1", "pathpart2")
+// GET with path parameter
+var user = await httpClient.GetUserById("123", ct);
 
-    Assert.AreEqual("http://username:password@host.com:5000/pathpart1/pathpart2?fieldname1=field%3C%3EValue1&FieldName2=field%3C%3EValue2#frag",uri.ToString());
+// POST with body
+var created = await httpClient.CreateUser(newUser, ct);
+
+// PUT with path param and body
+var updated = await httpClient.UpdateUser((Params: "123", Body: user), ct);
+
+// DELETE returns Unit
+var deleted = await httpClient.DeleteUser("123", ct);
 ```
 
-## [Contribution](https://github.com/MelbourneDeveloper/RestClient.Net/blob/master/CONTRIBUTING.md)
+All generated methods:
+- Create extension methods on `HttpClient` (use with `IHttpClientFactory.CreateClient()`)
+- Return `Result<TSuccess, HttpError<TError>>` for functional error handling
+- Bundle URL/body/headers into `HttpRequestParts` via `buildRequest`
+- Support progress reporting through `ProgressReportingHttpContent`
+
+### Progress Reporting
+
+You can track upload progress with `ProgressReportingHttpContent`. This example writes to the console when there is a progress report.
+
+```csharp
+var fileBytes = await File.ReadAllBytesAsync("document.pdf");
+
+using var content = new ProgressReportingHttpContent(
+    fileBytes,
+    progress: (current, total) =>
+        Console.WriteLine($"Progress: {current}/{total} bytes ({current * 100 / total}%)")
+);
+
+var httpClient = httpClientFactory.CreateClient();
+var result = await httpClient.PostAsync<UploadResponse, string>(
+    url: "https://api.example.com/upload".ToAbsoluteUrl(),
+    requestBody: content,
+    deserializeSuccess: (r, ct) => r.Content.ReadFromJsonAsync<UploadResponse>(ct),
+    deserializeError: (r, ct) => r.Content.ReadAsStringAsync(ct)
+);
+```
+
+## Upgrading from RestClient.Net 6.x
+
+You can continue to use the V6 `IClient` interface with RestClient .Net 7. RestClient.Net 7 is a complete rewrite with a functional architecture. For existing v6 users, **RestClient.Net.Original** provides a polyfill that implements the v6 `IClient` interface using v7 under the hood.
+
+### Using the Polyfill
+
+Install both packages:
+```bash
+dotnet add package RestClient.Net.Original
+dotnet add package RestClient.Net.Abstractions --version 6.0.0
+```
+
+Use `Client` to maintain v6 compatibility while benefiting from v7's improvements:
+```csharp
+using RestClient.Net;
+
+var client = new Client(
+    httpClientFactory,
+    baseUrl: "https://api.example.com".ToAbsoluteUrl(),
+    defaultRequestHeaders: new HeadersCollection(),
+    throwExceptionOnFailure: true
+);
+
+// Continue using your existing v6 IClient extension methods
+var user = await client.GetAsync<User>("users/123");
+var created = await client.PostAsync<User, CreateUserRequest>(newUser, "users");
+var updated = await client.PutAsync<User, UpdateUserRequest>(updateUser, "users/123");
+var deleted = await client.DeleteAsync("users/123");
+```
+
+This approach allows gradual migration. You can keep your existing implementations working while incrementally adopting v7's functional patterns.

@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <NoWarn>CS1591;CA1501;CA1515;IDE0005;IDE0021;IDE0022;SA1615;SA1601;SA1600;SA1611;SA1122;SA1513;SA1400;SA1114;SA1005</NoWarn>
+        <WarningsNotAsErrors>CS1591;CA1501;CA1515;SA1615;SA1601;SA1600;SA1611;SA1122;SA1513;SA1400;SA1114;SA1005</WarningsNotAsErrors>
+    </PropertyGroup>
+    <ItemGroup>
+        <Folder Include="Models\" />
+        <AvaloniaResource Include="Assets\**" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.3.3" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.3.3" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.3" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.3" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.3.3">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.9" />
+        <PackageReference Include="System.Text.Json" Version="9.0.9" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="../../RestClient.Net/RestClient.Net.csproj" />
+        <ProjectReference Include="../RestClient.OpenApiGenerator.Sample.JSONPlaceholder/RestClient.OpenApiGenerator.Sample.JSONPlaceholder.csproj" />
+    </ItemGroup>
+</Project>

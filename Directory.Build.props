@@ -1,0 +1,29 @@
+  <Project>
+    <PropertyGroup>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <AnalysisMode>All</AnalysisMode>
+        <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <WarningsAsErrors>$(WarningsAsErrors);IDE0022;CA1054;EXHAUSTION001;SA1411</WarningsAsErrors>
+        <WarningsNotAsErrors>$(WarningsNotAsErrors);CA2234;IDE0290;SA1513;SA1010;SA1400;SA1122;SA1124;SA1516;SA1114;SA1005;SA1124</WarningsNotAsErrors>
+        <NoWarn>$(NoWarn);CA2234;IDE0290;SA1513;SA1010;SA1400;SA1122;SA1124;SA1516;SA1114;SA1005;SA1124</NoWarn>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Exhaustion" Version="1.0.0" Condition="'$(MSBuildProjectName)' != 'Exhaustion' AND '$(MSBuildProjectName)' != 'Exhaustion.Tests'">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+  </Project>

@@ -1,0 +1,56 @@
+name: Publish Outcome to NuGet
+
+on:
+  push:
+    tags:
+      - 'outcome-v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., 1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore Results/Results.csproj
+
+      - name: Build
+        run: dotnet build Results/Results.csproj --configuration Release --no-restore
+
+      - name: Set version from tag
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/outcome-v}
+          echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Set version from input
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "PACKAGE_VERSION=${{ vars.RESULTS_PACKAGE_VERSION }}" >> $GITHUB_ENV
+
+      - name: Pack
+        run: dotnet pack Results/Results.csproj --configuration Release --no-build --output ./packages /p:Version=${{ env.PACKAGE_VERSION }}
+
+      - name: Publish to NuGet
+        run: dotnet nuget push ./packages/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: outcome-nuget-package
+          path: ./packages/*.nupkg

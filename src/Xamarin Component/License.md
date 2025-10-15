@@ -1,1 +1,0 @@
-# RESTClient.Net license

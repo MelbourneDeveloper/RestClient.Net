@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);CA2234,CA2201,CS1591;CA1506;CA1515;IDE0007;IDE0200;IDE0039;IDE0022;SA1600</NoWarn>
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);CS1591;CA1506;CA1515;SA1600</WarningsNotAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
+    <PackageReference Include="RestClient.Net.Abstractions" Version="6.0.0" />
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+    <ProjectReference Include="../RestClient.Net.CsTest/RestClient.Net.CsTest.csproj" />
+    <ProjectReference Include="../RestClient.Net.Original/RestClient.Net.Original.csproj" />
+  </ItemGroup>
+</Project>

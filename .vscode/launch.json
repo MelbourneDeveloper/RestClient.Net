@@ -1,0 +1,49 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Generator: JSONPlaceholder",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/RestClient.Net.Generator/bin/Debug/net9.0/RestClient.Net.Generator.dll",
+            "args": [
+                "-u",
+                "${workspaceFolder}/Samples/RestClient.OpenApiGenerator.Sample/jsonplaceholder-openapi.json",
+                "-o",
+                "${workspaceFolder}/Samples/RestClient.OpenApiGenerator.Sample.JSONPlaceholder/Generated",
+                "-n",
+                "JSONPlaceholder.Generated",
+                "-c",
+                "JSONPlaceholderApiExtensions",
+                "-b",
+                "https://jsonplaceholder.typicode.com"
+            ],
+            "cwd": "${workspaceFolder}/RestClient.Net.Generator",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Generator: NucliaDB (Local YAML)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/RestClient.Net.Generator/bin/Debug/net9.0/RestClient.Net.Generator.dll",
+            "args": [
+                "-u",
+                "${workspaceFolder}/Samples/NucliaDbClient/api.yaml",
+                "-o",
+                "${workspaceFolder}/Samples/RestClient.OpenApiGenerator.Sample.NucliaDB/Generated",
+                "-n",
+                "NucliaDB.Generated",
+                "-c",
+                "NucliaDBApiExtensions",
+                "-v",
+                "3.0.2"
+            ],
+            "cwd": "${workspaceFolder}/RestClient.Net.Generator",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        }
+    ]
+}

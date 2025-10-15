@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>library</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\RestClient.Net\RestClient.Net.csproj" />
+    <ProjectReference Include="..\..\RestClient.Net.OpenApiGenerator.Cli\RestClient.Net.OpenApiGenerator.Cli.csproj" ReferenceOutputAssembly="false" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
+    <PackageReference Include="Urls" Version="1.0.0" />
+  </ItemGroup>
+  <Target Name="GenerateOpenApiCode" BeforeTargets="BeforeBuild">
+    <Exec Command="dotnet run --project $(MSBuildThisFileDirectory)../../RestClient.Net.OpenApiGenerator.Cli/RestClient.Net.OpenApiGenerator.Cli.csproj -- -u $(MSBuildThisFileDirectory)jsonplaceholder-openapi.json -o $(MSBuildThisFileDirectory)Generated -n JSONPlaceholder.Generated -c JSONPlaceholderApiExtensions -b https://jsonplaceholder.typicode.com" />
+  </Target>
+</Project>

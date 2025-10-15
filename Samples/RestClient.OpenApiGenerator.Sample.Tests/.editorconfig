@@ -1,0 +1,7 @@
+# EditorConfig for test project
+root = false
+
+[*.cs]
+# JSON002: Probable JSON string detected
+# Disabled for test files where inline JSON test data is the standard practice
+dotnet_diagnostic.JSON002.severity = none

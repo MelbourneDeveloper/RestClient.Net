@@ -1,28 +1,16 @@
-*.Designer.cs
-*.csproj.user
-/.vs/RESTClient .Net/v14/.suo/
-/NuGet/Exported/
 bin/
 obj/
-packages/
-/.vs/restore.dg
-/RESTClientDotNet.Net/.vs
-/CF.RESTClientDotNet.Net/.vs/*.dg
-*.suo
-.vs
-*.pdb
-*.dll
-project.fragment.lock.json
-project.lock.json
-*.CodeAnalysisLog.xml
-*.lastcodeanalysissucceeded
+.DS_Store
 
-src/.idea/*
+.idea/.idea.RestClient/.idea/
 
-*.user
+RestClient.sln.DotSettings.user
 
-src/RestClient.Net.Abstractions/RestClient.Net.Abstractions.xml
+RestClient.Net.CsTest/TestResults/
 
-src/RestClient.Net/RestClient.Net.xml
+coverage/
+coverage.cobertura.xml
 
-.ionide/
+
+final-check/
+test-output-final

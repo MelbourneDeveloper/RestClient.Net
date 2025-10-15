@@ -1,0 +1,265 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:RestClient.AvaloniaUI.Sample.ViewModels"
+        xmlns:models="using:JSONPlaceholder.Generated"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="700"
+        x:Class="RestClient.AvaloniaUI.Sample.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="RestClient.Net HTTP Demo"
+        Width="1200" Height="700"
+        Background="#343d46">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Window.Styles>
+        <Style Selector="Border.section">
+            <Setter Property="Background" Value="#4f5b66"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="BorderBrush" Value="#65737e"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#005b96"/>
+            <Setter Property="Foreground" Value="#b3cde0"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="MinHeight" Value="44"/>
+        </Style>
+
+        <Style Selector="Button.primary:pointerover">
+            <Setter Property="Background" Value="#011f4b"/>
+        </Style>
+
+        <Style Selector="Button.danger">
+            <Setter Property="Background" Value="#8B0000"/>
+            <Setter Property="Foreground" Value="#c0c5ce"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="MinHeight" Value="44"/>
+        </Style>
+
+        <Style Selector="Button.danger:pointerover">
+            <Setter Property="Background" Value="#660000"/>
+        </Style>
+
+        <Style Selector="Button.success">
+            <Setter Property="Background" Value="#2d7a3e"/>
+            <Setter Property="Foreground" Value="#c0c5ce"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="MinHeight" Value="44"/>
+        </Style>
+
+        <Style Selector="Button.success:pointerover">
+            <Setter Property="Background" Value="#1f5c2e"/>
+        </Style>
+
+        <Style Selector="TextBox">
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="MinHeight" Value="44"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Background" Value="#343d46"/>
+            <Setter Property="Foreground" Value="#c0c5ce"/>
+            <Setter Property="BorderBrush" Value="#65737e"/>
+        </Style>
+
+        <Style Selector="ListBox">
+            <Setter Property="Background" Value="#343d46"/>
+            <Setter Property="BorderBrush" Value="#65737e"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+
+        <Style Selector="ListBoxItem">
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Foreground" Value="#c0c5ce"/>
+        </Style>
+
+        <Style Selector="ListBoxItem:selected">
+            <Setter Property="Background" Value="#4f5b66"/>
+        </Style>
+
+        <Style Selector="TextBlock.sectionTitle">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="Foreground" Value="#b3cde0"/>
+        </Style>
+
+        <Style Selector="TextBlock.subsectionTitle">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="Foreground" Value="#a7adba"/>
+        </Style>
+
+        <Style Selector="TabControl">
+            <Setter Property="Background" Value="#343d46"/>
+        </Style>
+
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#7f8e9e"/>
+            <Setter Property="Padding" Value="20,12"/>
+        </Style>
+
+        <Style Selector="TabItem:selected">
+            <Setter Property="Foreground" Value="#b3cde0"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- Header -->
+        <Border Grid.Row="0"
+                Background="#011f4b"
+                Padding="24,20">
+            <StackPanel>
+                <TextBlock Text="RestClient.Net HTTP Demo"
+                          FontSize="28"
+                          FontWeight="Bold"
+                          Foreground="#b3cde0"/>
+                <TextBlock Text="Showcasing GET, POST, PUT, PATCH, and DELETE operations with JSONPlaceholder API"
+                          FontSize="13"
+                          Foreground="#6497b1"
+                          Margin="0,6,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content -->
+        <TabControl Grid.Row="1" Background="#343d46" Margin="0">
+            <!-- Posts Tab -->
+            <TabItem Header="Posts">
+                <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="20">
+                    <!-- Create Post Section -->
+                    <Border Grid.Row="0" Classes="section">
+                        <StackPanel>
+                            <TextBlock Text="Create New Post (POST)"
+                                      Classes="subsectionTitle"/>
+                            <TextBox Text="{Binding NewPostTitle}"
+                                    Watermark="Enter post title..."/>
+                            <TextBox Text="{Binding NewPostBody}"
+                                    Watermark="Enter post body..."
+                                    Height="80"
+                                    AcceptsReturn="True"
+                                    TextWrapping="Wrap"
+                                    VerticalContentAlignment="Top"/>
+                            <Button Command="{Binding CreatePostCommand}"
+                                   Classes="success"
+                                   HorizontalAlignment="Stretch">
+                                Create Post
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Load Posts Button -->
+                    <Button Grid.Row="1"
+                           Command="{Binding LoadPostsCommand}"
+                           Classes="primary"
+                           HorizontalAlignment="Stretch"
+                           Margin="0,0,0,16">
+                        Load Posts (GET)
+                    </Button>
+
+                    <!-- Scrollable Posts List -->
+                    <ScrollViewer Grid.Row="2">
+                        <ItemsControl ItemsSource="{Binding Posts}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="models:Post">
+                                    <Border Padding="16"
+                                           Margin="0,0,0,12"
+                                           Background="#4f5b66"
+                                           CornerRadius="8"
+                                           BorderBrush="#65737e"
+                                           BorderThickness="1">
+                                        <Grid ColumnDefinitions="30,*,Auto,Auto">
+                                            <TextBlock Grid.Column="0"
+                                                      Text="📄"
+                                                      FontSize="20"
+                                                      Foreground="#6497b1"
+                                                      VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                            <StackPanel Grid.Column="1" Spacing="4" VerticalAlignment="Center" Margin="12,0,16,0">
+                                                <TextBlock Text="{Binding Title}"
+                                                          FontWeight="SemiBold"
+                                                          FontSize="15"
+                                                          Foreground="#c0c5ce"
+                                                          TextWrapping="Wrap"/>
+                                                <TextBlock Text="{Binding Id, StringFormat='ID: {0}'}"
+                                                          FontSize="12"
+                                                          Foreground="#7f8e9e"/>
+                                            </StackPanel>
+                                            <Button Grid.Column="2"
+                                                   Content="Update"
+                                                   Classes="primary"
+                                                   Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).UpdatePostCommand}"
+                                                   CommandParameter="{Binding}"
+                                                   Padding="16,8"
+                                                   MinHeight="36"
+                                                   Margin="0,0,8,0"/>
+                                            <Button Grid.Column="3"
+                                                   Content="Delete"
+                                                   Classes="danger"
+                                                   Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).DeletePostCommand}"
+                                                   CommandParameter="{Binding}"
+                                                   Padding="16,8"
+                                                   MinHeight="36"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <!-- Post Count -->
+                    <TextBlock Grid.Row="3"
+                              Text="{Binding Posts.Count, StringFormat='Loaded {0} posts'}"
+                              Foreground="#7f8e9e"
+                              FontSize="12"
+                              Margin="0,12,0,0"
+                              HorizontalAlignment="Right"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="2"
+               Background="#011f4b"
+               Padding="16,12"
+               BorderBrush="#005b96"
+               BorderThickness="0,1,0,0">
+            <Grid ColumnDefinitions="Auto,*">
+                <ProgressBar Grid.Column="0"
+                            Width="120"
+                            Height="4"
+                            IsIndeterminate="{Binding IsLoading}"
+                            IsVisible="{Binding IsLoading}"
+                            Margin="0,0,16,0"
+                            VerticalAlignment="Center"
+                            Foreground="#6497b1"/>
+                <TextBlock Grid.Column="1"
+                          Text="{Binding StatusMessage}"
+                          FontSize="13"
+                          Foreground="#b3cde0"
+                          VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

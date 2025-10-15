@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    <IsRoslynComponent>true</IsRoslynComponent>
+    <NoWarn>$(NoWarn);CS1591;RS2008;IDE0300;IDE0028</NoWarn>
+
+    <!-- NuGet Package Metadata -->
+    <PackageId>Exhaustion</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>RestClient.Net Contributors</Authors>
+    <Company>RestClient.Net</Company>
+    <Description>Roslyn analyzer that enforces exhaustive pattern matching for closed type hierarchies in C#</Description>
+    <PackageTags>roslyn;analyzer;pattern-matching;exhaustiveness</PackageTags>
+    <PackageProjectUrl>https://github.com/MelbourneDeveloper/RestClient.Net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MelbourneDeveloper/RestClient.Net</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <!-- Analyzer Package Settings -->
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.8.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
+    <!-- Include the analyzer DLL in the package -->
+    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <!-- Expose internal types to test project -->
+    <InternalsVisibleTo Include="Exhaustion.Tests" />
+  </ItemGroup>
+
+</Project>

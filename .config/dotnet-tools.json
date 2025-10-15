@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "fantomas": {
+      "version": "6.3.15",
+      "commands": [
+        "fantomas"
+      ],
+      "rollForward": false
+    },
+    "dotnet-stryker": {
+      "version": "4.8.1",
+      "commands": [
+        "dotnet-stryker"
+      ],
+      "rollForward": false
+    }
+  }
+}
