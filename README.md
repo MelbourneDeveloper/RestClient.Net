@@ -1,6 +1,6 @@
 # RestClient.Net
 
-![diagram](https://github.com/MelbourneDeveloper/Restclient.Net/blob/main/Images/Logo.jpg) 
+![diagram](Images/Logo.jpg) 
 
 **The safest way to make REST calls in C#**
 
@@ -136,6 +136,8 @@ error EXHAUSTION001: Switch on Result is not exhaustive;
 Matched: Ok<Post, HttpError<ErrorResponse>>, Error<Post, HttpError<ErrorResponse>> with ErrorResponseError<ErrorResponse>
 Missing: Error<Post, HttpError<ErrorResponse>> with ExceptionError<ErrorResponse>
 ```
+
+![diagram](Images/Exhaustion.png) 
 
 Your build fails until you handle all cases. This is the difference between **runtime crashes** and **compile-time safety**.
 
@@ -278,6 +280,43 @@ var result = await httpClient.PostAsync<UploadResponse, string>(
     deserializeError: (r, ct) => r.Content.ReadAsStringAsync(ct)
 );
 ```
+
+## Testing with Mock HttpClient
+
+Mock `HttpClient` by creating a fake `IHttpClientFactory` with pattern-matched responses:
+
+```csharp
+var factory = FakeHttpClientFactory.CreateMockHttpClientFactory(
+    response: null, // Use pattern matching for dynamic responses
+    onRequestSent: request =>
+    {
+        // Assert request properties
+        Assert.Equal("Bearer token", request.Headers.Authorization?.Parameter);
+    }
+);
+
+// The handler returns responses based on method + URI patterns:
+// GET /posts -> 200 OK with post JSON
+// POST /posts -> 201 Created
+// PUT /posts/1 -> 200 OK
+// DELETE /posts/1 -> 200 OK
+// * -> 404 Not Found
+
+var httpClient = factory.CreateClient();
+var result = await httpClient.GetAsync<Post, ErrorResponse>(/* ... */);
+
+// Test with exceptions
+var exFactory = FakeHttpClientFactory.CreateMockHttpClientFactory(
+    exceptionToThrow: new HttpRequestException("Network error")
+);
+
+// Test with simulated delays
+var delayFactory = FakeHttpClientFactory.CreateMockHttpClientFactory(
+    simulatedDelay: TimeSpan.FromMilliseconds(500)
+);
+```
+
+The fake handler uses a switch expression on `(HttpMethod, Uri)` tuples—extend it for your test scenarios.
 
 ## Upgrading from RestClient.Net 6.x
 
