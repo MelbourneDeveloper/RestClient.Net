@@ -68,25 +68,17 @@ public static class HttpClientExtensions
                         .SendAsync(requestMessage, cancellationToken)
                         .ConfigureAwait(false);
 
-            if (response.IsSuccessStatusCode)
-            {
-                var successResult = await deserializeSuccess(response, cancellationToken)
-                    .ConfigureAwait(false);
-                return new Result<TSuccess, HttpError<TError>>.Ok<TSuccess, HttpError<TError>>(
-                    successResult
-                );
-            }
-
-            var errorBody = await deserializeError(response, cancellationToken)
-                .ConfigureAwait(false);
-
-            return Result<TSuccess, HttpError<TError>>.Failure(
-                HttpError<TError>.FromErrorResponse(
-                    errorBody,
-                    response.StatusCode,
-                    response.Headers
+            return response.IsSuccessStatusCode
+                ? new Result<TSuccess, HttpError<TError>>.Ok<TSuccess, HttpError<TError>>(
+                    await deserializeSuccess(response, cancellationToken).ConfigureAwait(false)
                 )
-            );
+                : Result<TSuccess, HttpError<TError>>.Failure(
+                    HttpError<TError>.FromErrorResponse(
+                        await deserializeError(response, cancellationToken).ConfigureAwait(false),
+                        response.StatusCode,
+                        response.Headers
+                    )
+                );
         }
         catch (Exception ex)
         {

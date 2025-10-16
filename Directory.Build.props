@@ -21,7 +21,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Exhaustion" Version="1.0.0" Condition="'$(MSBuildProjectName)' != 'Exhaustion' AND '$(MSBuildProjectName)' != 'Exhaustion.Tests' AND '$(MSBuildProjectName)' != 'RestClient.Net'">
+      <PackageReference Include="Exhaustion" Version="1.0.0" Condition="'$(MSBuildProjectName)' != 'Exhaustion' AND '$(MSBuildProjectName)' != 'Exhaustion.Tests' AND '$(MSBuildProjectName)' != 'RestClient.Net' AND '$(MSBuildProjectName)' != 'Buh'">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       </PackageReference>

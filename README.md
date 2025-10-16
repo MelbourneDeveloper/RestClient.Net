@@ -4,15 +4,15 @@
 
 **The safest way to make REST calls in C#**
 
-Built from the ground up with functional programming, type safety, and modern .NET patterns. Successor to the [original RestClient.Net](https://github.com/MelbourneDeveloper/RestClient.Net).
+Built from the ground up with functional programming, type safety, and modern .NET patterns. Successor to the [original RestClient.Net](https://www.nuget.org/packages/RestClient.Net.Abstractions).
 
 ## What Makes It Different
 
 This library is uncompromising in its approach to type safety and functional design:
 - **HttpClient extensions** - Works with [HttpClient lifecycle management](https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/http/httpclient-guidelines#recommended-use) via `IHttpClientFactory.CreateClient()`
 - **Result types** - Explicit error handling without exceptions
-- **Exhaustiveness checking** - Compile-time guarantees via [Exhaustion](https://github.com/MelbourneDeveloper/Exhaustion)
-- **Functional composition** - Delegate factories, pure functions, no OOP ceremony
+- **Exhaustiveness checking** - Compile-time guarantees via [Exhaustion](https://www.nuget.org/packages/Exhaustion)
+- **Functional composition** - Pure functions with no interfaces
 
 ## Features
 
@@ -28,53 +28,130 @@ The design focuses on [discriminated unions](https://github.com/dotnet/csharplan
 
 ## Installation
 
+Install the core package:
 ```bash
 dotnet add package RestClient.Net
 ```
+
+RestClient.Net installs the Exhaustion analyzer. Is is a Roslyn analyzer that provides compile-time exhaustiveness checking for pattern matching. Without it, you lose one of RestClient.Net's core safety guarantees.
 
 ## Usage
 
 ### Basic GET Request
 
-The simplest way to make a GET request to JSONPlaceholder:
+A complete example making a GET request to JSONPlaceholder:
 
 ```csharp
-using System.Net.Http.Json;
+using System.Text.Json;
 using RestClient.Net;
+using Urls;
 
-// Define a simple User model
-public record User(int Id, string Name, string Email);
+// Define models
+internal sealed record Post(int UserId, int Id, string Title, string Body);
+internal sealed record ErrorResponse(string Message);
 
-// Get HttpClient from IHttpClientFactory
-var httpClient = httpClientFactory.CreateClient();
+// Create HttpClient (use IHttpClientFactory in production)
+using var httpClient = new HttpClient();
 
-// Make a direct GET request
-var result = await httpClient.GetAsync<User, string>(
-    url: "https://jsonplaceholder.typicode.com/users/1".ToAbsoluteUrl(),
-    deserializeSuccess: (response, ct) => response.Content.ReadFromJsonAsync<User>(ct),
-    deserializeError: (response, ct) => response.Content.ReadAsStringAsync(ct)
-);
+// Make the GET call
+var result = await httpClient
+    .GetAsync(
+        url: "https://jsonplaceholder.typicode.com/posts/1".ToAbsoluteUrl(),
+        deserializeSuccess: DeserializePost,
+        deserializeError: DeserializeError
+    )
+    .ConfigureAwait(false);
 
-switch (result)
+// Pattern match on the result - MUST handle all cases
+var output = result switch
 {
-    case OkUser(var user):
-        Console.WriteLine($"Success: {user.Name}");
-        break;
-    case ErrorUser(var error):
-        Console.WriteLine($"Failed: {error.StatusCode} - {error.Body}");
-        break;
-}
+    OkPost(var post) =>
+        $"Success: {post.Title} by user {post.UserId}",
+    ErrorPost(ResponseErrorPost(var errorBody, var statusCode, _)) =>
+        $"Error {statusCode}: {errorBody.Message}",
+    ErrorPost(ExceptionErrorPost(var exception)) =>
+        $"Exception: {exception.Message}",
+};
+
+Console.WriteLine(output);
+
+async Task<Post?> DeserializePost(HttpResponseMessage response, CancellationToken ct) =>
+    await JsonSerializer
+        .DeserializeAsync<Post>(
+            await response.Content.ReadAsStreamAsync(ct).ConfigureAwait(false),
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true },
+            cancellationToken: ct
+        )
+        .ConfigureAwait(false);
+
+async Task<ErrorResponse?> DeserializeError(HttpResponseMessage response, CancellationToken ct) =>
+    await JsonSerializer
+        .DeserializeAsync<ErrorResponse>(
+            await response.Content.ReadAsStreamAsync(ct).ConfigureAwait(false),
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true },
+            cancellationToken: ct
+        )
+        .ConfigureAwait(false);
 ```
 
 ### Result Type and Type Aliases
 
-C# doesn't officially support discriminated unions, but you can achieve closed type hierarchies with the [sealed modifer](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/sealed). The [Outcome package](https://www.nuget.org/packages/Outcome/) gives you a set of Result types designed for exhaustiveness checks. Until C# gains full discriminated union support, you need to add type aliases like this. If you use the generator, it will generate the type aliases for you.
+C# doesn't officially support discriminated unions, but you can achieve closed type hierarchies with the [sealed modifier](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/sealed). The [Outcome package](https://www.nuget.org/packages/Outcome/) gives you a set of Result types designed for exhaustiveness checks. Until C# gains full discriminated union support, you need to add type aliases like this:
 
 ```cs
-// Type aliases for concise pattern matching
-using OkUser = Result<User, HttpError<string>>.Ok<User, HttpError<string>>;
-using ErrorUser = Result<User, HttpError<string>>.Error<User, HttpError<string>>;
+// Type aliases for concise pattern matching (usually in GlobalUsings.cs)
+global using OkPost = Outcome.Result<Post, Outcome.HttpError<ErrorResponse>>.Ok<Post, Outcome.HttpError<ErrorResponse>>;
+global using ErrorPost = Outcome.Result<Post, Outcome.HttpError<ErrorResponse>>.Error<Post, Outcome.HttpError<ErrorResponse>>;
+global using ResponseErrorPost = Outcome.HttpError<ErrorResponse>.ErrorResponseError;
+global using ExceptionErrorPost = Outcome.HttpError<ErrorResponse>.ExceptionError;
 ```
+
+If you use the OpenAPI generator, it will generate these type aliases for you automatically.
+
+## Exhaustiveness Checking with Exhaustion
+
+**Exhaustion is integral to RestClient.Net's safety guarantees.** It's a Roslyn analyzer that ensures you handle every possible case when pattern matching on Result types.
+
+### What Happens Without Exhaustion
+
+If you remove a switch arm and don't have Exhaustion installed, the code compiles but may crash at runtime:
+
+```csharp
+// DANGEROUS - compiles but may throw at runtime
+var output = result switch
+{
+    OkPost(var post) => $"Success: {post.Title}",
+    ErrorPost(ResponseErrorPost(var errorBody, var statusCode, _)) =>
+        $"Error {statusCode}: {errorBody.Message}",
+    // Missing ExceptionErrorPost case - will throw at runtime if an exception occurs!
+};
+```
+
+### What Happens With Exhaustion
+
+With Exhaustion installed, the compiler **catches this at build time**:
+
+```
+error EXHAUSTION001: Switch on Result is not exhaustive;
+Matched: Ok<Post, HttpError<ErrorResponse>>, Error<Post, HttpError<ErrorResponse>> with ErrorResponseError<ErrorResponse>
+Missing: Error<Post, HttpError<ErrorResponse>> with ExceptionError<ErrorResponse>
+```
+
+Your build fails until you handle all cases. This is the difference between **runtime crashes** and **compile-time safety**.
+
+### Installing Exhaustion Without RestClient.Net
+
+Add it to your project:
+```bash
+dotnet add package Exhaustion
+```
+
+Exhaustion works by analyzing sealed type hierarchies in switch expressions and statements. When you match on a `Result<TSuccess, HttpError<TError>>`, it knows there are exactly three possible cases:
+- `Ok<TSuccess, HttpError<TError>>` - Success case
+- `Error<TSuccess, HttpError<TError>>` with `ErrorResponseError<TError>` - HTTP error response
+- `Error<TSuccess, HttpError<TError>>` with `ExceptionError<TError>` - Exception during request
+
+If you don't handle all three, your code won't compile.
 
 ### OpenAPI Code Generation
 
