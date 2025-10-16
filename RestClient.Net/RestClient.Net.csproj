@@ -19,7 +19,10 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
     <PackageReference Include="System.Text.Json" Version="8.0.5" Condition="'$(TargetFramework)' == 'netstandard2.1'" />
     <PackageReference Include="Urls" Version="1.0.0" />
-    <PackageReference Include="Exhaustion" Version="1.0.0" />
+    <PackageReference Update="Exhaustion">
+      <PrivateAssets></PrivateAssets>
+      <IncludeAssets>all</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Outcome" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
