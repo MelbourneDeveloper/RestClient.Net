@@ -281,42 +281,50 @@ var result = await httpClient.PostAsync<UploadResponse, string>(
 );
 ```
 
-## Testing with Mock HttpClient
+## Mocking with Delegating Handlers for Tests
 
-Mock `HttpClient` by creating a fake `IHttpClientFactory` with pattern-matched responses:
+Mock HTTP calls by inheriting from `DelegatingHandler` and overriding `SendAsync` ([see Microsoft docs](https://learn.microsoft.com/en-us/aspnet/web-api/overview/advanced/httpclient-message-handlers)):
 
 ```csharp
-var factory = FakeHttpClientFactory.CreateMockHttpClientFactory(
-    response: null, // Use pattern matching for dynamic responses
-    onRequestSent: request =>
+class MockHandler : DelegatingHandler
+{
+    protected override Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        // Assert request properties
-        Assert.Equal("Bearer token", request.Headers.Authorization?.Parameter);
+        var response = (request.Method.Method, request.RequestUri?.PathAndQuery) switch
+        {
+            ("GET", "/posts/1") => new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = JsonContent.Create(new Post(1, 1, "Title", "Body"))
+            },
+            ("POST", "/posts") => new HttpResponseMessage(HttpStatusCode.Created)
+            {
+                Content = JsonContent.Create(new { Id = 101 })
+            },
+            _ => new HttpResponseMessage(HttpStatusCode.NotFound)
+        };
+
+        return Task.FromResult(response);
     }
+}
+
+// Create HttpClient with mock handler
+var httpClient = new HttpClient(new MockHandler());
+
+// Make calls - they hit the mock handler
+var result = await httpClient.GetAsync(
+    url: "https://api.example.com/posts/1".ToAbsoluteUrl(),
+    deserializeSuccess: DeserializePost,
+    deserializeError: DeserializeError
 );
 
-// The handler returns responses based on method + URI patterns:
-// GET /posts -> 200 OK with post JSON
-// POST /posts -> 201 Created
-// PUT /posts/1 -> 200 OK
-// DELETE /posts/1 -> 200 OK
-// * -> 404 Not Found
-
-var httpClient = factory.CreateClient();
-var result = await httpClient.GetAsync<Post, ErrorResponse>(/* ... */);
-
-// Test with exceptions
-var exFactory = FakeHttpClientFactory.CreateMockHttpClientFactory(
-    exceptionToThrow: new HttpRequestException("Network error")
-);
-
-// Test with simulated delays
-var delayFactory = FakeHttpClientFactory.CreateMockHttpClientFactory(
-    simulatedDelay: TimeSpan.FromMilliseconds(500)
-);
+// Result contains mocked data
+result switch
+{
+    OkPost(var post) => Console.WriteLine($"Got mocked post: {post.Title}"),
+    ErrorPost(var error) => Console.WriteLine($"Error: {error.StatusCode}")
+};
 ```
-
-The fake handler uses a switch expression on `(HttpMethod, Uri)` tuples—extend it for your test scenarios.
 
 ## Upgrading from RestClient.Net 6.x
 
