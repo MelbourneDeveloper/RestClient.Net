@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/RestClient.Net.Generator/bin/Debug/net9.0/RestClient.Net.Generator.dll",
+            "program": "${workspaceFolder}/RestClient.Net.OpenApiGenerator.Cli/bin/Debug/net9.0/RestClient.Net.OpenApiGenerator.Cli.dll",
             "args": [
                 "-u",
                 "${workspaceFolder}/Samples/RestClient.OpenApiGenerator.Sample/jsonplaceholder-openapi.json",
@@ -19,7 +19,7 @@
                 "-b",
                 "https://jsonplaceholder.typicode.com"
             ],
-            "cwd": "${workspaceFolder}/RestClient.Net.Generator",
+            "cwd": "${workspaceFolder}/RestClient.Net.OpenApiGenerator.Cli",
             "console": "internalConsole",
             "stopAtEntry": false
         },
@@ -28,7 +28,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/RestClient.Net.Generator/bin/Debug/net9.0/RestClient.Net.Generator.dll",
+            "program": "${workspaceFolder}/RestClient.Net.OpenApiGenerator.Cli/bin/Debug/net9.0/RestClient.Net.OpenApiGenerator.Cli.dll",
             "args": [
                 "-u",
                 "${workspaceFolder}/Samples/NucliaDbClient/api.yaml",
@@ -41,7 +41,7 @@
                 "-v",
                 "3.0.2"
             ],
-            "cwd": "${workspaceFolder}/RestClient.Net.Generator",
+            "cwd": "${workspaceFolder}/RestClient.Net.OpenApiGenerator.Cli",
             "console": "internalConsole",
             "stopAtEntry": false
         }

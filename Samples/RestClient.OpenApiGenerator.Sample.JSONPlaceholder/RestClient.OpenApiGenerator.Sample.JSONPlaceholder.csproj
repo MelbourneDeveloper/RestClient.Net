@@ -10,6 +10,6 @@
     <PackageReference Include="Urls" Version="1.0.0" />
   </ItemGroup>
   <Target Name="GenerateOpenApiCode" BeforeTargets="BeforeBuild">
-    <Exec Command="dotnet run --project $(MSBuildThisFileDirectory)../../RestClient.Net.OpenApiGenerator.Cli/RestClient.Net.OpenApiGenerator.Cli.csproj -- -u $(MSBuildThisFileDirectory)jsonplaceholder-openapi.json -o $(MSBuildThisFileDirectory)Generated -n JSONPlaceholder.Generated -c JSONPlaceholderApiExtensions -b https://jsonplaceholder.typicode.com" />
+    <Exec Command="dotnet run --project $(MSBuildThisFileDirectory)../../RestClient.Net.OpenApiGenerator.Cli/RestClient.Net.OpenApiGenerator.Cli.csproj -- -u $(MSBuildThisFileDirectory)../RestClient.OpenApiGenerator.Sample/jsonplaceholder-openapi.json -o $(MSBuildThisFileDirectory)Generated -n JSONPlaceholder.Generated -c JSONPlaceholderApiExtensions -b https://jsonplaceholder.typicode.com" />
   </Target>
 </Project>
