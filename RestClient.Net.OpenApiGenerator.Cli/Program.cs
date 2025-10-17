@@ -6,6 +6,14 @@ using ErrorString = Outcome.Result<string, Outcome.HttpError<string>>.Error<
     Outcome.HttpError<string>
 >;
 using ExceptionErrorString = Outcome.HttpError<string>.ExceptionError;
+using GeneratorError = Outcome.Result<
+    RestClient.Net.OpenApiGenerator.GeneratorResult,
+    string
+>.Error<RestClient.Net.OpenApiGenerator.GeneratorResult, string>;
+using GeneratorOk = Outcome.Result<RestClient.Net.OpenApiGenerator.GeneratorResult, string>.Ok<
+    RestClient.Net.OpenApiGenerator.GeneratorResult,
+    string
+>;
 using OkString = Outcome.Result<string, Outcome.HttpError<string>>.Ok<
     string,
     Outcome.HttpError<string>
@@ -186,7 +194,7 @@ static async Task GenerateCode(Config config)
     Console.WriteLine($"Downloaded {openApiSpec.Length} characters\n");
     Console.WriteLine("Generating C# code from OpenAPI spec...");
 
-    var generatorResult = OpenApiCodeGenerator.Generate(
+    var result = OpenApiCodeGenerator.Generate(
         openApiSpec,
         @namespace: config.Namespace,
         className: config.ClassName,
@@ -194,21 +202,26 @@ static async Task GenerateCode(Config config)
         baseUrlOverride: config.BaseUrl
     );
 
-    Console.WriteLine(
-        $"Generated {generatorResult.ExtensionMethodsCode.Length} "
-            + "characters of extension methods"
-    );
-    Console.WriteLine($"Generated {generatorResult.ModelsCode.Length} " + "characters of models");
-
-    if (generatorResult.ExtensionMethodsCode.StartsWith("//", StringComparison.Ordinal))
+#pragma warning disable IDE0010
+    switch (result)
+#pragma warning restore IDE0010
     {
-        Console.WriteLine("\nError in generated code:");
-        Console.WriteLine(generatorResult.ExtensionMethodsCode);
-        return;
+        case GeneratorOk(var generatorResult):
+            Console.WriteLine(
+                $"Generated {generatorResult.ExtensionMethodsCode.Length} "
+                    + "characters of extension methods"
+            );
+            Console.WriteLine(
+                $"Generated {generatorResult.ModelsCode.Length} " + "characters of models"
+            );
+            Console.WriteLine($"\nSaved files to: {config.OutputPath}");
+            Console.WriteLine("\nGeneration completed successfully!");
+            break;
+        case GeneratorError(var error):
+            Console.WriteLine("\nCode generation failed:");
+            Console.WriteLine(error);
+            break;
     }
-
-    Console.WriteLine($"\nSaved files to: {config.OutputPath}");
-    Console.WriteLine("\nGeneration completed successfully!");
 }
 
 static string HandleDownloadError(string message)

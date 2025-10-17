@@ -1,7 +1,17 @@
 using Microsoft.OpenApi.Readers;
 using Microsoft.OpenApi.Validations;
 using ErrorUrl = Outcome.Result<(string, string), string>.Error<(string, string), string>;
+using GeneratorError = Outcome.Result<
+    RestClient.Net.OpenApiGenerator.GeneratorResult,
+    string
+>.Error<RestClient.Net.OpenApiGenerator.GeneratorResult, string>;
+using GeneratorOk = Outcome.Result<RestClient.Net.OpenApiGenerator.GeneratorResult, string>.Ok<
+    RestClient.Net.OpenApiGenerator.GeneratorResult,
+    string
+>;
 using OkUrl = Outcome.Result<(string, string), string>.Ok<(string, string), string>;
+
+#pragma warning disable CS8509
 
 namespace RestClient.Net.OpenApiGenerator;
 
@@ -14,9 +24,9 @@ public static class OpenApiCodeGenerator
     /// <param name="className">The class name for extension methods.</param>
     /// <param name="outputPath">The directory path where generated files will be saved.</param>
     /// <param name="baseUrlOverride">Optional base URL override. Use this when the OpenAPI spec has a relative server URL.</param>
-    /// <returns>The generated code result.</returns>
+    /// <returns>A Result containing either the generated code or an error message with exception details.</returns>
 #pragma warning disable CA1054
-    public static GeneratorResult Generate(
+    public static Outcome.Result<GeneratorResult, string> Generate(
         string openApiContent,
         string @namespace,
         string className,
@@ -25,44 +35,51 @@ public static class OpenApiCodeGenerator
     )
 #pragma warning restore CA1054
     {
-        var document = new OpenApiStringReader(
-            new OpenApiReaderSettings
+        try
+        {
+            var document = new OpenApiStringReader(
+                new OpenApiReaderSettings
+                {
+                    ReferenceResolution = ReferenceResolutionSetting.ResolveLocalReferences,
+                    RuleSet = ValidationRuleSet.GetDefaultRuleSet(),
+                }
+            ).Read(openApiContent, out var diagnostic);
+
+            if (diagnostic.Errors.Count > 0)
             {
-                ReferenceResolution = ReferenceResolutionSetting.ResolveLocalReferences,
-                RuleSet = ValidationRuleSet.GetDefaultRuleSet(),
+                var errors = string.Join(", ", diagnostic.Errors.Select(e => e.Message));
+                return new GeneratorError($"Error parsing OpenAPI: {errors}");
             }
-        ).Read(openApiContent, out var diagnostic);
 
-        if (diagnostic.Errors.Count > 0)
-        {
-            var errors = string.Join(", ", diagnostic.Errors.Select(e => e.Message));
-            return new GeneratorResult($"// Error parsing OpenAPI: {errors}", string.Empty);
+            if (document == null)
+            {
+                return new GeneratorError("Error parsing OpenAPI: Document is null");
+            }
+
+            var urlResult = UrlParser.GetBaseUrlAndPath(document, baseUrlOverride);
+
+            return urlResult switch
+            {
+                OkUrl(var (baseUrl, basePath)) => GenerateCodeFiles(
+                    document,
+                    @namespace,
+                    className,
+                    outputPath,
+                    baseUrl,
+                    basePath
+                ),
+                ErrorUrl(var error) => new GeneratorError($"Error: {error}"),
+            };
         }
-
-        if (document == null)
+        catch (Exception ex)
         {
-            return new GeneratorResult("// Error parsing OpenAPI: Document is null", string.Empty);
+            return new GeneratorError(
+                $"Exception during code generation: {ex.GetType().Name}: {ex.Message}\n{ex.StackTrace}"
+            );
         }
-
-        var urlResult = UrlParser.GetBaseUrlAndPath(document, baseUrlOverride);
-
-#pragma warning disable CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
-        return urlResult switch
-        {
-            OkUrl(var (baseUrl, basePath)) => GenerateCodeFiles(
-                document,
-                @namespace,
-                className,
-                outputPath,
-                baseUrl,
-                basePath
-            ),
-            ErrorUrl(var error) => new GeneratorResult($"// Error: {error}", string.Empty),
-        };
-#pragma warning restore CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
     }
 
-    private static GeneratorResult GenerateCodeFiles(
+    private static GeneratorOk GenerateCodeFiles(
         Microsoft.OpenApi.Models.OpenApiDocument document,
         string @namespace,
         string className,
@@ -93,6 +110,6 @@ public static class OpenApiCodeGenerator
         File.WriteAllText(modelsFile, models);
         File.WriteAllText(typeAliasesFile, typeAliases);
 
-        return new GeneratorResult(extensionMethods, models);
+        return new GeneratorOk(new GeneratorResult(extensionMethods, models));
     }
 }
