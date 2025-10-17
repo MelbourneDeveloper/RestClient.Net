@@ -33,7 +33,7 @@
                 "-u",
                 "${workspaceFolder}/Samples/NucliaDbClient/api.yaml",
                 "-o",
-                "${workspaceFolder}/Samples/RestClient.OpenApiGenerator.Sample.NucliaDB/Generated",
+                "${workspaceFolder}/Samples/NucliaDbClient/Generated",
                 "-n",
                 "NucliaDB.Generated",
                 "-c",

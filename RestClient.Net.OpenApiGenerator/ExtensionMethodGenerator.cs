@@ -1,4 +1,4 @@
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace RestClient.Net.OpenApiGenerator;
 
@@ -26,10 +26,15 @@ internal static class ExtensionMethodGenerator
 
         foreach (var path in document.Paths)
         {
+            if (path.Value?.Operations == null)
+            {
+                continue;
+            }
+
             foreach (var operation in path.Value.Operations)
             {
                 var responseType = GetResponseType(operation.Value);
-                var isDelete = operation.Key == OperationType.Delete;
+                var isDelete = operation.Key == HttpMethod.Delete;
                 var resultResponseType = isDelete ? "Unit" : responseType;
                 _ = responseTypes.Add(resultResponseType);
 
@@ -123,7 +128,7 @@ internal static class ExtensionMethodGenerator
 
     private static (string Method, List<string> PrivateFunctions) GenerateMethod(
         string path,
-        OperationType operationType,
+        HttpMethod operationType,
         OpenApiOperation operation,
         string basePath
     )
@@ -148,7 +153,7 @@ internal static class ExtensionMethodGenerator
 
 #pragma warning disable CA1502 // Avoid excessive complexity - code generator method is inherently complex
     private static (string Method, List<string> PrivateFunctions) GenerateHttpMethod(
-        OperationType operationType,
+        HttpMethod operationType,
         string methodName,
         string path,
         List<(string Name, string Type, bool IsPath)> parameters,
@@ -159,8 +164,10 @@ internal static class ExtensionMethodGenerator
 #pragma warning restore CA1502
     {
         var hasBody =
-            operationType is OperationType.Post or OperationType.Put or OperationType.Patch;
-        var isDelete = operationType == OperationType.Delete;
+            operationType == HttpMethod.Post
+            || operationType == HttpMethod.Put
+            || operationType == HttpMethod.Patch;
+        var isDelete = operationType == HttpMethod.Delete;
         var hasPathParams = parameters.Any(p => p.IsPath);
         var queryParams = parameters.Where(p => !p.IsPath).ToList();
         var hasQueryParams = queryParams.Count > 0;
@@ -175,7 +182,12 @@ internal static class ExtensionMethodGenerator
             ? "?" + string.Join("&", queryParams.Select(q => $"{q.Name}={{{q.Name}}}"))
             : string.Empty;
 
-        var verb = operationType.ToString();
+        var verb = operationType == HttpMethod.Get ? "Get"
+            : operationType == HttpMethod.Post ? "Post"
+            : operationType == HttpMethod.Put ? "Put"
+            : operationType == HttpMethod.Delete ? "Delete"
+            : operationType == HttpMethod.Patch ? "Patch"
+            : operationType.Method;
         var createMethod = $"Create{verb}";
         var delegateType = $"{verb}Async";
 
@@ -369,7 +381,7 @@ internal static class ExtensionMethodGenerator
 
     private static string GetMethodName(
         OpenApiOperation operation,
-        OperationType operationType,
+        HttpMethod operationType,
         string path
     )
     {
@@ -382,15 +394,15 @@ internal static class ExtensionMethodGenerator
             path.Split('/').LastOrDefault(p => !string.IsNullOrEmpty(p) && !p.StartsWith('{'))
             ?? "Resource";
 
-        return operationType switch
-        {
-            OperationType.Get => $"Get{CodeGenerationHelpers.ToPascalCase(pathPart)}",
-            OperationType.Post => $"Create{CodeGenerationHelpers.ToPascalCase(pathPart)}",
-            OperationType.Put => $"Update{CodeGenerationHelpers.ToPascalCase(pathPart)}",
-            OperationType.Delete => $"Delete{CodeGenerationHelpers.ToPascalCase(pathPart)}",
-            OperationType.Patch => $"Patch{CodeGenerationHelpers.ToPascalCase(pathPart)}",
-            _ => $"{operationType}{CodeGenerationHelpers.ToPascalCase(pathPart)}",
-        };
+        var methodName =
+            operationType == HttpMethod.Get ? "Get"
+            : operationType == HttpMethod.Post ? "Create"
+            : operationType == HttpMethod.Put ? "Update"
+            : operationType == HttpMethod.Delete ? "Delete"
+            : operationType == HttpMethod.Patch ? "Patch"
+            : operationType.Method;
+
+        return $"{methodName}{CodeGenerationHelpers.ToPascalCase(pathPart)}";
     }
 
     private static List<(string Name, string Type, bool IsPath)> GetParameters(
@@ -399,8 +411,18 @@ internal static class ExtensionMethodGenerator
     {
         var parameters = new List<(string Name, string Type, bool IsPath)>();
 
+        if (operation.Parameters == null)
+        {
+            return parameters;
+        }
+
         foreach (var param in operation.Parameters)
         {
+            if (param.Name == null)
+            {
+                continue;
+            }
+
             var isPath = param.In == ParameterLocation.Path;
             var type = ModelGenerator.MapOpenApiType(param.Schema);
             parameters.Add((param.Name, type, isPath));
@@ -409,11 +431,18 @@ internal static class ExtensionMethodGenerator
         return parameters;
     }
 
-    private static string? GetRequestBodyType(OpenApiOperation operation) =>
-        operation.RequestBody == null ? null
-        : operation.RequestBody.Content.FirstOrDefault().Value?.Schema?.Reference != null
-            ? operation.RequestBody.Content.FirstOrDefault().Value.Schema.Reference.Id
-        : "object";
+    private static string? GetRequestBodyType(OpenApiOperation operation)
+    {
+        if (operation.RequestBody?.Content == null)
+        {
+            return null;
+        }
+
+        var firstContent = operation.RequestBody.Content.FirstOrDefault();
+        return firstContent.Value?.Schema is OpenApiSchemaReference schemaRef
+            ? schemaRef.Reference.Id ?? "object"
+            : "object";
+    }
 
     private static string GenerateTypeAliasesFile(HashSet<string> responseTypes, string @namespace)
     {
@@ -488,20 +517,22 @@ internal static class ExtensionMethodGenerator
 
     private static string GetResponseType(OpenApiOperation operation)
     {
-        var successResponse = operation.Responses.FirstOrDefault(r =>
+        var successResponse = operation.Responses?.FirstOrDefault(r =>
             r.Key.StartsWith('2') || r.Key == "default"
         );
 
-        if (successResponse.Value == null)
+        if (successResponse?.Value?.Content == null)
         {
             return "object";
         }
 
-        var content = successResponse.Value.Content.FirstOrDefault();
-        return content.Value?.Schema?.Reference != null ? content.Value.Schema.Reference.Id
-            : content.Value?.Schema?.Type == "array"
-            && content.Value.Schema.Items?.Reference != null
-                ? $"List<{content.Value.Schema.Items.Reference.Id}>"
+        var content = successResponse.Value.Value.Content.FirstOrDefault();
+        return content.Value?.Schema is OpenApiSchemaReference schemaRef
+                ? schemaRef.Reference.Id ?? "object"
+            : content.Value?.Schema is OpenApiSchema schema
+            && schema.Type == JsonSchemaType.Array
+            && schema.Items is OpenApiSchemaReference itemsRef
+                ? $"List<{itemsRef.Reference.Id ?? "object"}>"
             : ModelGenerator.MapOpenApiType(content.Value?.Schema);
     }
 }

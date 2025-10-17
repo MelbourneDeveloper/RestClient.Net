@@ -340,8 +340,8 @@ Test coverage includes:
 
 ## Dependencies
 
-- Microsoft.OpenApi.Readers (1.6.22) - OpenAPI parsing
 - Microsoft.CodeAnalysis.CSharp (4.11.0) - Code generation
+- https://github.com/microsoft/OpenAPI.NET
 
 ## License
 

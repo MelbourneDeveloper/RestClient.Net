@@ -1,4 +1,4 @@
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Outcome;
 
 namespace RestClient.Net.OpenApiGenerator;
@@ -15,7 +15,7 @@ internal static class UrlParser
         string? baseUrlOverride
     )
     {
-        var server = document.Servers.FirstOrDefault();
+        var server = document.Servers?.FirstOrDefault();
 
         if (server == null || string.IsNullOrWhiteSpace(server.Url))
         {

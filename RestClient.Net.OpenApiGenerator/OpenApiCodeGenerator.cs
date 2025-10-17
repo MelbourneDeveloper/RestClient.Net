@@ -1,5 +1,5 @@
-using Microsoft.OpenApi.Readers;
-using Microsoft.OpenApi.Validations;
+using Microsoft.OpenApi;
+using Microsoft.OpenApi.Reader;
 using ErrorUrl = Outcome.Result<(string, string), string>.Error<(string, string), string>;
 using GeneratorError = Outcome.Result<
     RestClient.Net.OpenApiGenerator.GeneratorResult,
@@ -15,7 +15,10 @@ using OkUrl = Outcome.Result<(string, string), string>.Ok<(string, string), stri
 
 namespace RestClient.Net.OpenApiGenerator;
 
-/// <summary>Generates C# extension methods from OpenAPI specifications.</summary>
+/// <summary>Generates C# extension methods from OpenAPI specifications.
+/// This uses the Microsoft.OpenApi library to parse OpenAPI documents and generate code https://github.com/microsoft/OpenAPI.NET.
+/// See the tests here https://github.com/microsoft/OpenAPI.NET/tree/main/test/Microsoft.OpenApi.Tests to see how the API works.
+/// </summary>
 public static class OpenApiCodeGenerator
 {
     /// <summary>Generates code from an OpenAPI document.</summary>
@@ -37,24 +40,23 @@ public static class OpenApiCodeGenerator
     {
         try
         {
-            var document = new OpenApiStringReader(
-                new OpenApiReaderSettings
-                {
-                    ReferenceResolution = ReferenceResolutionSetting.ResolveLocalReferences,
-                    RuleSet = ValidationRuleSet.GetDefaultRuleSet(),
-                }
-            ).Read(openApiContent, out var diagnostic);
+            var settings = new OpenApiReaderSettings();
+            settings.AddYamlReader();
 
-            if (diagnostic.Errors.Count > 0)
+            var readResult = OpenApiDocument.Parse(openApiContent, settings: settings);
+
+            if (readResult.Diagnostic?.Errors.Count > 0)
             {
-                var errors = string.Join(", ", diagnostic.Errors.Select(e => e.Message));
+                var errors = string.Join(", ", readResult.Diagnostic.Errors.Select(e => e.Message));
                 return new GeneratorError($"Error parsing OpenAPI: {errors}");
             }
 
-            if (document == null)
+            if (readResult.Document == null)
             {
                 return new GeneratorError("Error parsing OpenAPI: Document is null");
             }
+
+            var document = readResult.Document;
 
             var urlResult = UrlParser.GetBaseUrlAndPath(document, baseUrlOverride);
 
@@ -80,7 +82,7 @@ public static class OpenApiCodeGenerator
     }
 
     private static GeneratorOk GenerateCodeFiles(
-        Microsoft.OpenApi.Models.OpenApiDocument document,
+        OpenApiDocument document,
         string @namespace,
         string className,
         string outputPath,

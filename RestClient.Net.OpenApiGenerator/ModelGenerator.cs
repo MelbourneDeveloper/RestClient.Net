@@ -1,4 +1,4 @@
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace RestClient.Net.OpenApiGenerator;
 
@@ -13,12 +13,16 @@ internal static class ModelGenerator
     {
         var models = new List<string>();
 
-        foreach (
-            var schema in document.Components?.Schemas ?? new Dictionary<string, OpenApiSchema>()
-        )
+        if (document.Components?.Schemas != null)
         {
-            var model = GenerateModel(schema.Key, schema.Value);
-            models.Add(model);
+            foreach (var schema in document.Components.Schemas)
+            {
+                if (schema.Value is OpenApiSchema schemaObj)
+                {
+                    var model = GenerateModel(schema.Key, schemaObj);
+                    models.Add(model);
+                }
+            }
         }
 
         var modelsCode = string.Join("\n\n", models);
@@ -36,12 +40,12 @@ internal static class ModelGenerator
     /// <returns>The generated model code.</returns>
     private static string GenerateModel(string name, OpenApiSchema schema)
     {
-        var properties = schema
-            .Properties.Select(p =>
+        var properties = (schema.Properties ?? new Dictionary<string, IOpenApiSchema>())
+            .Select(p =>
             {
                 var propName = CodeGenerationHelpers.ToPascalCase(p.Key);
                 var propType = MapOpenApiType(p.Value);
-                var propDesc = p.Value.Description ?? propName;
+                var propDesc = (p.Value as OpenApiSchema)?.Description ?? propName;
                 return $"    /// <summary>{propDesc}</summary>\n    public {propType} {propName} {{ get; set; }}";
             })
             .ToList();
@@ -60,7 +64,7 @@ internal static class ModelGenerator
     /// <summary>Maps an OpenAPI schema to a C# type.</summary>
     /// <param name="schema">The OpenAPI schema.</param>
     /// <returns>The C# type name.</returns>
-    public static string MapOpenApiType(OpenApiSchema? schema)
+    public static string MapOpenApiType(IOpenApiSchema? schema)
     {
         if (schema == null)
         {
@@ -68,28 +72,39 @@ internal static class ModelGenerator
         }
 
         // Check for schema reference first
-        if (schema.Reference != null)
+        if (schema is OpenApiSchemaReference schemaRef)
         {
-            return schema.Reference.Id;
+            return schemaRef.Reference.Id ?? "object";
+        }
+
+        if (schema is not OpenApiSchema schemaObj)
+        {
+            return "object";
         }
 
         // Handle arrays
-        if (schema.Type == "array")
+        if (schemaObj.Type == JsonSchemaType.Array)
         {
-            return schema.Items?.Reference != null ? $"List<{schema.Items.Reference.Id}>"
-                : schema.Items?.Type == "string" ? "List<string>"
-                : schema.Items?.Type == "integer" ? "List<int>"
-                : schema.Items?.Type == "number" ? "List<double>"
+            return schemaObj.Items is OpenApiSchemaReference itemsRef
+                    ? $"List<{itemsRef.Reference.Id ?? "object"}>"
+                : schemaObj.Items is OpenApiSchema items
+                    ? items.Type switch
+                    {
+                        JsonSchemaType.String => "List<string>",
+                        JsonSchemaType.Integer => "List<int>",
+                        JsonSchemaType.Number => "List<double>",
+                        _ => "List<object>",
+                    }
                 : "List<object>";
         }
 
         // Handle primitive types
-        return schema.Type switch
+        return schemaObj.Type switch
         {
-            "integer" => schema.Format == "int64" ? "long" : "int",
-            "number" => schema.Format == "double" ? "double" : "float",
-            "string" => "string",
-            "boolean" => "bool",
+            JsonSchemaType.Integer => schemaObj.Format == "int64" ? "long" : "int",
+            JsonSchemaType.Number => schemaObj.Format == "double" ? "double" : "float",
+            JsonSchemaType.String => "string",
+            JsonSchemaType.Boolean => "bool",
             _ => "object",
         };
     }
