@@ -191,8 +191,7 @@ static async Task GenerateCode(Config config)
         @namespace: config.Namespace,
         className: config.ClassName,
         outputPath: config.OutputPath,
-        baseUrlOverride: config.BaseUrl,
-        versionOverride: config.Version
+        baseUrlOverride: config.BaseUrl
     );
 
     Console.WriteLine(

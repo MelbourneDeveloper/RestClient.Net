@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Readers;
+using Microsoft.OpenApi.Validations;
 using ErrorUrl = Outcome.Result<(string, string), string>.Error<(string, string), string>;
 using OkUrl = Outcome.Result<(string, string), string>.Ok<(string, string), string>;
 
@@ -13,7 +14,6 @@ public static class OpenApiCodeGenerator
     /// <param name="className">The class name for extension methods.</param>
     /// <param name="outputPath">The directory path where generated files will be saved.</param>
     /// <param name="baseUrlOverride">Optional base URL override. Use this when the OpenAPI spec has a relative server URL.</param>
-    /// <param name="versionOverride">Optional OpenAPI version override (e.g., "3.0.2"). Use this when the spec declares the wrong version.</param>
     /// <returns>The generated code result.</returns>
 #pragma warning disable CA1054
     public static GeneratorResult Generate(
@@ -21,26 +21,17 @@ public static class OpenApiCodeGenerator
         string @namespace,
         string className,
         string outputPath,
-        string? baseUrlOverride = null,
-        string? versionOverride = null
+        string? baseUrlOverride = null
     )
 #pragma warning restore CA1054
     {
-        // Apply version override if specified
-        if (!string.IsNullOrEmpty(versionOverride))
-        {
-#pragma warning disable SYSLIB1045
-            openApiContent = System.Text.RegularExpressions.Regex.Replace(
-                openApiContent,
-                @"^openapi:\s*[\d\.]+",
-                $"openapi: {versionOverride}",
-                System.Text.RegularExpressions.RegexOptions.Multiline
-            );
-#pragma warning restore SYSLIB1045
-        }
-
-        var reader = new OpenApiStringReader();
-        var document = reader.Read(openApiContent, out var diagnostic);
+        var document = new OpenApiStringReader(
+            new OpenApiReaderSettings
+            {
+                ReferenceResolution = ReferenceResolutionSetting.ResolveLocalReferences,
+                RuleSet = ValidationRuleSet.GetDefaultRuleSet(),
+            }
+        ).Read(openApiContent, out var diagnostic);
 
         if (diagnostic.Errors.Count > 0)
         {
