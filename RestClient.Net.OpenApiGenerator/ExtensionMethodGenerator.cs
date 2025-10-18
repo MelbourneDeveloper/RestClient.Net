@@ -67,8 +67,10 @@ internal static class ExtensionMethodGenerator
         var namingPolicyCode = jsonNamingPolicy switch
         {
             var s when s.Equals("PascalCase", StringComparison.OrdinalIgnoreCase) => "null",
-            var s when s.Equals("snake_case", StringComparison.OrdinalIgnoreCase)
-                    || s.Equals("snakecase", StringComparison.OrdinalIgnoreCase) => "JsonNamingPolicy.SnakeCaseLower",
+            var s
+                when s.Equals("snake_case", StringComparison.OrdinalIgnoreCase)
+                    || s.Equals("snakecase", StringComparison.OrdinalIgnoreCase) =>
+                "JsonNamingPolicy.SnakeCaseLower",
             _ => "JsonNamingPolicy.CamelCase",
         };
 
@@ -217,7 +219,7 @@ internal static class ExtensionMethodGenerator
         HttpMethod operationType,
         string methodName,
         string path,
-        List<(string Name, string Type, bool IsPath)> parameters,
+        List<(string Name, string Type, bool IsPath, string OriginalName)> parameters,
         string? requestBodyType,
         string responseType,
         string summary
@@ -240,7 +242,7 @@ internal static class ExtensionMethodGenerator
         var deserializer =
             responseType == "string" ? "DeserializeString" : $"DeserializeJson<{responseType}>";
         var queryString = hasQueryParams
-            ? "?" + string.Join("&", queryParams.Select(q => $"{q.Name}={{{q.Name}}}"))
+            ? "?" + string.Join("&", queryParams.Select(q => $"{q.OriginalName}={{{q.Name}}}"))
             : string.Empty;
 
         var verb =
@@ -320,8 +322,12 @@ internal static class ExtensionMethodGenerator
             var paramInvocation = isSingleParam ? queryParamsNames : $"({queryParamsNames})";
             var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
             var queryStringWithParam = isSingleParam
-                ? "?" + string.Join("&", queryParams.Select(q => $"{q.Name}={{param}}"))
-                : "?" + string.Join("&", queryParams.Select(q => $"{q.Name}={{param.{q.Name}}}"));
+                ? "?" + string.Join("&", queryParams.Select(q => $"{q.OriginalName}={{param}}"))
+                : "?"
+                    + string.Join(
+                        "&",
+                        queryParams.Select(q => $"{q.OriginalName}={{param.{q.Name}}}")
+                    );
 
             var privateDelegate = $$"""
                 private static {{delegateType}}<{{resultResponseType}}, string, {{queryParamsType}}> {{privateFunctionName}} { get; } =
@@ -369,9 +375,12 @@ internal static class ExtensionMethodGenerator
             var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
             var queryStringWithParam =
                 isSingleParam && queryParams.Count == 1
-                    ? "?" + string.Join("&", queryParams.Select(q => $"{q.Name}={{param}}"))
+                    ? "?" + string.Join("&", queryParams.Select(q => $"{q.OriginalName}={{param}}"))
                     : "?"
-                        + string.Join("&", queryParams.Select(q => $"{q.Name}={{param.{q.Name}}}"));
+                        + string.Join(
+                            "&",
+                            queryParams.Select(q => $"{q.OriginalName}={{param.{q.Name}}}")
+                        );
             var pathWithParam =
                 isSingleParam && hasPathParams
                     ? pathExpression.Replace(
@@ -484,11 +493,11 @@ internal static class ExtensionMethodGenerator
         return $"{methodName}{CodeGenerationHelpers.ToPascalCase(pathPart)}";
     }
 
-    private static List<(string Name, string Type, bool IsPath)> GetParameters(
+    private static List<(string Name, string Type, bool IsPath, string OriginalName)> GetParameters(
         OpenApiOperation operation
     )
     {
-        var parameters = new List<(string Name, string Type, bool IsPath)>();
+        var parameters = new List<(string Name, string Type, bool IsPath, string OriginalName)>();
 
         if (operation.Parameters == null)
         {
@@ -505,7 +514,7 @@ internal static class ExtensionMethodGenerator
             var isPath = param.In == ParameterLocation.Path;
             var type = ModelGenerator.MapOpenApiType(param.Schema);
             var sanitizedName = CodeGenerationHelpers.ToCamelCase(param.Name);
-            parameters.Add((sanitizedName, type, isPath));
+            parameters.Add((sanitizedName, type, isPath, param.Name));
         }
 
         return parameters;

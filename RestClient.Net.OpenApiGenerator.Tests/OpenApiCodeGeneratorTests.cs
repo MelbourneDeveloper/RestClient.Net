@@ -263,10 +263,10 @@ public class OpenApiCodeGeneratorTests
         );
 
         Assert.IsTrue(
-            result.ExtensionMethodsCode.Contains("string api_key")
+            result.ExtensionMethodsCode.Contains("string apiKey")
                 && result.ExtensionMethodsCode.Contains("long petId")
         );
-        Assert.IsTrue(result.ExtensionMethodsCode.Contains("?api_key={param.api_key}"));
+        Assert.IsTrue(result.ExtensionMethodsCode.Contains("?api_key={param.apiKey}"));
     }
 
     [TestMethod]
