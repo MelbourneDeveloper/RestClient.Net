@@ -45,12 +45,6 @@ public static class OpenApiCodeGenerator
 
             var readResult = OpenApiDocument.Parse(openApiContent, settings: settings);
 
-            if (readResult.Diagnostic?.Errors.Count > 0)
-            {
-                var errors = string.Join(", ", readResult.Diagnostic.Errors.Select(e => e.Message));
-                return new GeneratorError($"Error parsing OpenAPI: {errors}");
-            }
-
             if (readResult.Document == null)
             {
                 return new GeneratorError("Error parsing OpenAPI: Document is null");

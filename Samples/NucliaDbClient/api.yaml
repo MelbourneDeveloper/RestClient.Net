@@ -3,7 +3,7 @@ info:
   description: API reference for the NucliaDB, covering all the endpoints related
     to pushing or searching contents.
   version: v1
-openapi: 3.0.2
+openapi: 3.1.0
 servers:
 - url: https://{region-x}.stashify.cloud/api/v1
   description: Development server

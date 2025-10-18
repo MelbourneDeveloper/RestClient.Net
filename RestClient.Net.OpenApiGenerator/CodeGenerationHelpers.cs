@@ -19,6 +19,20 @@ internal static partial class CodeGenerationHelpers
         return string.Join(string.Empty, parts.Select(p => char.ToUpperInvariant(p[0]) + p[1..]));
     }
 
+    /// <summary>Converts a string to camelCase.</summary>
+    /// <param name="text">The text to convert.</param>
+    /// <returns>The camelCase version of the text.</returns>
+    public static string ToCamelCase(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return text;
+        }
+
+        var pascal = ToPascalCase(text);
+        return char.ToLowerInvariant(pascal[0]) + pascal[1..];
+    }
+
     /// <summary>Indents text by the specified number of levels.</summary>
     /// <param name="text">The text to indent.</param>
     /// <param name="level">The indentation level (1 level = 4 spaces).</param>

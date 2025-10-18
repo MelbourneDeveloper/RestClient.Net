@@ -19,7 +19,8 @@ internal static class ModelGenerator
             {
                 if (schema.Value is OpenApiSchema schemaObj)
                 {
-                    var model = GenerateModel(schema.Key, schemaObj);
+                    var className = CodeGenerationHelpers.ToPascalCase(schema.Key);
+                    var model = GenerateModel(className, schemaObj);
                     models.Add(model);
                 }
             }
@@ -45,21 +46,32 @@ internal static class ModelGenerator
             {
                 var propName = CodeGenerationHelpers.ToPascalCase(p.Key);
                 var propType = MapOpenApiType(p.Value);
-                var propDesc = (p.Value as OpenApiSchema)?.Description ?? propName;
+                var propDesc = SanitizeDescription((p.Value as OpenApiSchema)?.Description ?? propName);
                 return $"    /// <summary>{propDesc}</summary>\n    public {propType} {propName} {{ get; set; }}";
             })
             .ToList();
 
         var propertiesCode = string.Join("\n\n", properties);
+        var classDesc = SanitizeDescription(schema.Description ?? name);
 
         return $$"""
-            /// <summary>{{schema.Description ?? name}}</summary>
+            /// <summary>{{classDesc}}</summary>
             public class {{name}}
             {
             {{propertiesCode}}
             }
             """;
     }
+
+    /// <summary>Sanitizes a description for use in XML comments.</summary>
+    /// <param name="description">The description to sanitize.</param>
+    /// <returns>A single-line description safe for XML comments.</returns>
+    private static string SanitizeDescription(string description) =>
+        description
+            .Replace("\r\n", " ", StringComparison.Ordinal)
+            .Replace("\n", " ", StringComparison.Ordinal)
+            .Replace("\r", " ", StringComparison.Ordinal)
+            .Trim();
 
     /// <summary>Maps an OpenAPI schema to a C# type.</summary>
     /// <param name="schema">The OpenAPI schema.</param>
@@ -74,7 +86,9 @@ internal static class ModelGenerator
         // Check for schema reference first
         if (schema is OpenApiSchemaReference schemaRef)
         {
-            return schemaRef.Reference.Id ?? "object";
+            return schemaRef.Reference.Id != null
+                ? CodeGenerationHelpers.ToPascalCase(schemaRef.Reference.Id)
+                : "object";
         }
 
         if (schema is not OpenApiSchema schemaObj)
@@ -86,7 +100,7 @@ internal static class ModelGenerator
         if (schemaObj.Type == JsonSchemaType.Array)
         {
             return schemaObj.Items is OpenApiSchemaReference itemsRef
-                    ? $"List<{itemsRef.Reference.Id ?? "object"}>"
+                    ? $"List<{(itemsRef.Reference.Id != null ? CodeGenerationHelpers.ToPascalCase(itemsRef.Reference.Id) : "object")}>"
                 : schemaObj.Items is OpenApiSchema items
                     ? items.Type switch
                     {

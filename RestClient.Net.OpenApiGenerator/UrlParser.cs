@@ -1,11 +1,15 @@
+using System.Text.RegularExpressions;
 using Microsoft.OpenApi;
 using Outcome;
 
 namespace RestClient.Net.OpenApiGenerator;
 
 /// <summary>Parses base URLs and paths from OpenAPI documents.</summary>
-internal static class UrlParser
+internal static partial class UrlParser
 {
+    [GeneratedRegex(@"\{[^}]+\}")]
+    private static partial Regex TemplateVariableRegex();
+
     /// <summary>Gets the base URL and path from an OpenAPI document.</summary>
     /// <param name="document">The OpenAPI document.</param>
     /// <param name="baseUrlOverride">Optional base URL override.</param>
@@ -41,13 +45,28 @@ internal static class UrlParser
                 );
         }
 
-        // Parse the URL to separate base URL (protocol + host) from base path
-        if (!Uri.TryCreate(fullUrl, UriKind.Absolute, out var uri))
+        // Handle URLs with template variables (e.g., https://{region}.example.com)
+        var urlForParsing = fullUrl;
+        var hasTemplateVariables = fullUrl.Contains('{', StringComparison.Ordinal);
+        if (hasTemplateVariables)
         {
-            return Result<(string, string), string>.Failure(
-                $"Server URL '{fullUrl}' is not a valid absolute URL. "
-                    + "URL must include protocol and host (e.g., https://api.example.com)."
-            );
+            // Replace template variables with placeholder for parsing
+            urlForParsing = TemplateVariableRegex().Replace(fullUrl, "placeholder");
+        }
+
+        // Parse the URL to separate base URL (protocol + host) from base path
+        if (!Uri.TryCreate(urlForParsing, UriKind.Absolute, out var uri))
+        {
+            // If URL is invalid but override is provided, use override
+            return !string.IsNullOrWhiteSpace(baseUrlOverride)
+                ? new Result<(string, string), string>.Ok<(string, string), string>(
+                    (baseUrlOverride!, string.Empty)
+                )
+                : Result<(string, string), string>.Failure(
+                    $"Server URL '{fullUrl}' is not a valid absolute URL. "
+                        + "URL must include protocol and host (e.g., https://api.example.com), "
+                        + "or you must provide a baseUrlOverride parameter when calling Generate()."
+                );
         }
 
         // Check if it's a valid http/https URL (not file://)
@@ -59,10 +78,24 @@ internal static class UrlParser
             );
         }
 
+        // If there are template variables and no override, use the full URL as base
+        if (hasTemplateVariables && string.IsNullOrWhiteSpace(baseUrlOverride))
+        {
+            // Extract path from parsed URL, but use original fullUrl for base
+            var basePath = uri.AbsolutePath.TrimEnd('/');
+            return new Result<(string, string), string>.Ok<(string, string), string>(
+                (
+                    fullUrl.Replace(uri.AbsolutePath, string.Empty, StringComparison.Ordinal)
+                        .TrimEnd('/'),
+                    basePath
+                )
+            );
+        }
+
         var baseUrl = baseUrlOverride ?? $"{uri.Scheme}://{uri.Authority}";
-        var basePath = uri.AbsolutePath.TrimEnd('/');
+        var basePath2 = uri.AbsolutePath.TrimEnd('/');
         return new Result<(string, string), string>.Ok<(string, string), string>(
-            (baseUrl, basePath)
+            (baseUrl, basePath2)
         );
     }
 }

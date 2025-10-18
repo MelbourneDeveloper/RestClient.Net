@@ -38,9 +38,7 @@ public class NERModel
 
 }
 
-/// <summary>Model to map in a generic way what we really store on the db, without valdations.
-As enum values containing the versions change from time to time, and we don't keep
-historics, we cannot use the model enums here, as it will fail with older values</summary>
+/// <summary>Model to map in a generic way what we really store on the db, without valdations. As enum values containing the versions change from time to time, and we don't keep historics, we cannot use the model enums here, as it will fail with older values</summary>
 public class StoredLearningConfiguration
 {
     /// <summary>SemanticModel</summary>
@@ -91,40 +89,40 @@ public class AgentsFilter
     public List<string> TaskNames { get; set; }
 }
 
-/// <summary>And_FieldFilterExpression_</summary>
-public class And_FieldFilterExpression_
+/// <summary>AndFieldFilterExpression</summary>
+public class AndFieldFilterExpression
 {
 
 }
 
-/// <summary>And_GraphNodesQuery_</summary>
-public class And_GraphNodesQuery_
-{
-    /// <summary>Operands</summary>
-    public List<object> Operands { get; set; }
-}
-
-/// <summary>And_GraphPathQuery_</summary>
-public class And_GraphPathQuery_
-{
-
-}
-
-/// <summary>And_GraphRelationsQuery_</summary>
-public class And_GraphRelationsQuery_
+/// <summary>AndGraphNodesQuery</summary>
+public class AndGraphNodesQuery
 {
     /// <summary>Operands</summary>
     public List<object> Operands { get; set; }
 }
 
-/// <summary>And_ParagraphFilterExpression_</summary>
-public class And_ParagraphFilterExpression_
+/// <summary>AndGraphPathQuery</summary>
+public class AndGraphPathQuery
 {
 
 }
 
-/// <summary>And_ResourceFilterExpression_</summary>
-public class And_ResourceFilterExpression_
+/// <summary>AndGraphRelationsQuery</summary>
+public class AndGraphRelationsQuery
+{
+    /// <summary>Operands</summary>
+    public List<object> Operands { get; set; }
+}
+
+/// <summary>AndParagraphFilterExpression</summary>
+public class AndParagraphFilterExpression
+{
+
+}
+
+/// <summary>AndResourceFilterExpression</summary>
+public class AndResourceFilterExpression
 {
     /// <summary>Operands</summary>
     public List<object> Operands { get; set; }
@@ -190,7 +188,7 @@ public class AskRequest
     /// <summary>Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</summary>
     public object FilterExpression { get; set; }
 
-    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field. </summary>
+    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</summary>
     public List<string> Fields { get; set; }
 
     /// <summary>The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
@@ -235,12 +233,10 @@ public class AskRequest
     /// <summary>Use to rephrase the new LLM query by taking into account the chat conversation history. This will be passed to the LLM so that it is aware of the previous conversation.</summary>
     public object ChatHistory { get; set; }
 
-    /// <summary>Additional context that is added to the retrieval context sent to the LLM.
-        It allows extending the chat feature with content that may not be in the Knowledge Box.</summary>
+    /// <summary>Additional context that is added to the retrieval context sent to the LLM.         It allows extending the chat feature with content that may not be in the Knowledge Box.</summary>
     public object ExtraContext { get; set; }
 
-    /// <summary>Additional images added to the retrieval context sent to the LLM."
-        It allows extending the chat feature with content that may not be in the Knowledge Box.</summary>
+    /// <summary>Additional images added to the retrieval context sent to the LLM."         It allows extending the chat feature with content that may not be in the Knowledge Box.</summary>
     public object ExtraContextImages { get; set; }
 
     /// <summary>Image that will be used together with the query text for retrieval and then sent to the LLM as part of the context. If a query image is provided, the `extra_context_images` and `rag_images_strategies` will be disabled.</summary>
@@ -276,23 +272,10 @@ public class AskRequest
     /// <summary>If set to false (default), excludes hidden resources from search</summary>
     public bool ShowHidden { get; set; }
 
-    /// <summary>Options for tweaking how the context for the LLM model is crafted:
-- `full_resource` will add the full text of the matching resources to the context. This strategy cannot be combined with `hierarchy`, `neighbouring_paragraphs`, or `field_extension`.
-- `field_extension` will add the text of the matching resource's specified fields to the context.
-- `hierarchy` will add the title and summary text of the parent resource to the context for each matching paragraph.
-- `neighbouring_paragraphs` will add the sorrounding paragraphs to the context for each matching paragraph.
-- `metadata_extension` will add the metadata of the matching paragraphs or its resources to the context.
-- `prequeries` allows to run multiple retrieval queries before the main query and add the results to the context. The results of specific queries can be boosted by the specifying weights.
-
-If empty, the default strategy is used, which simply adds the text of the matching paragraphs to the context.
-</summary>
+    /// <summary>Options for tweaking how the context for the LLM model is crafted: - `full_resource` will add the full text of the matching resources to the context. This strategy cannot be combined with `hierarchy`, `neighbouring_paragraphs`, or `field_extension`. - `field_extension` will add the text of the matching resource's specified fields to the context. - `hierarchy` will add the title and summary text of the parent resource to the context for each matching paragraph. - `neighbouring_paragraphs` will add the sorrounding paragraphs to the context for each matching paragraph. - `metadata_extension` will add the metadata of the matching paragraphs or its resources to the context. - `prequeries` allows to run multiple retrieval queries before the main query and add the results to the context. The results of specific queries can be boosted by the specifying weights.  If empty, the default strategy is used, which simply adds the text of the matching paragraphs to the context.</summary>
     public List<object> RagStrategies { get; set; }
 
-    /// <summary>Options for tweaking how the image based context for the LLM model is crafted:
-- `page_image` will add the full page image of the matching resources to the context.
-- `tables` will send the table images for the paragraphs that contain tables and matched the retrieval query.
-- `paragraph_image` will add the images of the paragraphs that contain images (images for tables are not included).
-No image strategy is used by default. Note that this is only available for LLM models that support visual inputs. If the model does not support visual inputs, the image strategies will be ignored.</summary>
+    /// <summary>Options for tweaking how the image based context for the LLM model is crafted: - `page_image` will add the full page image of the matching resources to the context. - `tables` will send the table images for the paragraphs that contain tables and matched the retrieval query. - `paragraph_image` will add the images of the paragraphs that contain images (images for tables are not included). No image strategy is used by default. Note that this is only available for LLM models that support visual inputs. If the model does not support visual inputs, the image strategies will be ignored.</summary>
     public List<object> RagImagesStrategies { get; set; }
 
     /// <summary>If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</summary>
@@ -316,11 +299,7 @@ No image strategy is used by default. Note that this is only available for LLM m
     /// <summary>If set to true, the response will be in markdown format</summary>
     public bool PreferMarkdown { get; set; }
 
-    /// <summary>Desired JSON schema for the LLM answer.
-This schema is passed to the LLM so that it answers in a scructured format following the schema. If not provided, textual response is returned.
-Note that when using this parameter, the answer in the generative response will not be returned in chunks, the whole response text will be returned instead.
-Using this feature also disables the `citations` parameter. For maximal accuracy, please include a `description` for each field of the schema.
-</summary>
+    /// <summary>Desired JSON schema for the LLM answer. This schema is passed to the LLM so that it answers in a scructured format following the schema. If not provided, textual response is returned. Note that when using this parameter, the answer in the generative response will not be returned in chunks, the whole response text will be returned instead. Using this feature also disables the `citations` parameter. For maximal accuracy, please include a `description` for each field of the schema.</summary>
     public object AnswerJsonSchema { get; set; }
 
     /// <summary>Whether to generate an answer using the generative model. If set to false, the response will only contain the retrieval results.</summary>
@@ -420,11 +399,7 @@ public class Author
 
 }
 
-/// <summary>Returns only documents that match this filter expression.
-Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters
-
-This allows building complex filtering expressions and replaces the following parameters:
-`filters`, `range_*`, `with_status`.</summary>
+/// <summary>Returns only documents that match this filter expression. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters  This allows building complex filtering expressions and replaces the following parameters: `filters`, `range_*`, `with_status`.</summary>
 public class CatalogFilterExpression
 {
     /// <summary>Filter to apply to resources</summary>
@@ -547,8 +522,7 @@ public class CloudLink
     public object Md5 { get; set; }
 }
 
-/// <summary>The purpose of this field is to show a cherry-picked set of fields from computed metadata
-without having to load the whole computed metadata field.</summary>
+/// <summary>The purpose of this field is to show a cherry-picked set of fields from computed metadata without having to load the whole computed metadata field.</summary>
 public class ComputedMetadata
 {
     /// <summary>FieldClassifications</summary>
@@ -631,8 +605,7 @@ public class CustomPrompt
     /// <summary>User prompt given to the generative model responsible of generating the answer. Use the words {context} and {question} in brackets where you want those fields to be placed, in case you want them in your prompt. Context will be the data returned by the retrieval step and question will be the user's query.</summary>
     public object User { get; set; }
 
-    /// <summary>Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request.
-If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</summary>
+    /// <summary>Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request. If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</summary>
     public object Rephrase { get; set; }
 }
 
@@ -710,7 +683,7 @@ public class DirectionalRelation
 }
 
 /// <summary>Matches fields that contains a detected entity</summary>
-public class Entity-Input
+public class EntityInput
 {
     /// <summary>Prop</summary>
     public string Prop { get; set; }
@@ -722,8 +695,8 @@ public class Entity-Input
     public object Value { get; set; }
 }
 
-/// <summary>Entity-Output</summary>
-public class Entity-Output
+/// <summary>EntityOutput</summary>
+public class EntityOutput
 {
     /// <summary>Token</summary>
     public object Token { get; set; }
@@ -848,10 +821,7 @@ public class FieldComputedMetadata
     public object DeletedSplits { get; set; }
 }
 
-/// <summary>This is a metadata representation of a conversation about how many pages
-of messages and total of messages we have.
-
-This class is used mainly when exposing a conversation in the resource level</summary>
+/// <summary>This is a metadata representation of a conversation about how many pages of messages and total of messages we have.  This class is used mainly when exposing a conversation in the resource level</summary>
 public class FieldConversation
 {
     /// <summary>Pages</summary>
@@ -1082,9 +1052,7 @@ public class FieldType
 
 }
 
-/// <summary>This map assumes that both values and extracted data field containers
-use the same names for its fields. See models.ResourceFieldValues and
-models.ResourceFieldExtractedData</summary>
+/// <summary>This map assumes that both values and extracted data field containers use the same names for its fields. See models.ResourceFieldValues and models.ResourceFieldExtractedData</summary>
 public class FieldTypeName
 {
 
@@ -1203,11 +1171,7 @@ public class Filter
     public object NotAll { get; set; }
 }
 
-/// <summary>Returns only documents that match this filter expression.
-Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters
-
-This allows building complex filtering expressions and replaces the following parameters:
-`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</summary>
+/// <summary>Returns only documents that match this filter expression. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters  This allows building complex filtering expressions and replaces the following parameters: `fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</summary>
 public class FilterExpression
 {
     /// <summary>Filter to apply to fields</summary>
@@ -1240,7 +1204,7 @@ public class FindParagraph
     public float Score { get; set; }
 
     /// <summary>ScoreType</summary>
-    public SCORE_TYPE ScoreType { get; set; }
+    public SCORETYPE ScoreType { get; set; }
 
     /// <summary>Order</summary>
     public int Order { get; set; }
@@ -1285,7 +1249,7 @@ public class FindRequest
     /// <summary>Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</summary>
     public object FilterExpression { get; set; }
 
-    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field. </summary>
+    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</summary>
     public List<string> Fields { get; set; }
 
     /// <summary>The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
@@ -1351,8 +1315,7 @@ public class FindRequest
     /// <summary>Rephrase the query for a more efficient retrieval. This will consume LLM tokens and make the request slower.</summary>
     public bool Rephrase { get; set; }
 
-    /// <summary>Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request.
-If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</summary>
+    /// <summary>Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request. If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</summary>
     public object RephrasePrompt { get; set; }
 
     /// <summary>Image that will be used together with the query text for retrieval.</summary>
@@ -1498,16 +1461,15 @@ public class GenericFieldData
     public object Errors { get; set; }
 }
 
-/// <summary>Returns only relations from documents that match this filter expression.
-Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
+/// <summary>Returns only relations from documents that match this filter expression. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
 public class GraphFilterExpression
 {
     /// <summary>Filter to apply to fields</summary>
     public object Field { get; set; }
 }
 
-/// <summary>GraphNode-Input</summary>
-public class GraphNode-Input
+/// <summary>GraphNodeInput</summary>
+public class GraphNodeInput
 {
     /// <summary>Value</summary>
     public object Value { get; set; }
@@ -1522,8 +1484,8 @@ public class GraphNode-Input
     public object Group { get; set; }
 }
 
-/// <summary>GraphNode-Output</summary>
-public class GraphNode-Output
+/// <summary>GraphNodeOutput</summary>
+public class GraphNodeOutput
 {
     /// <summary>Value</summary>
     public string Value { get; set; }
@@ -1541,7 +1503,7 @@ public class GraphNodesSearchRequest
     /// <summary>TopK</summary>
     public int TopK { get; set; }
 
-    /// <summary>Returns only relations from documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters </summary>
+    /// <summary>Returns only relations from documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
     public object FilterExpression { get; set; }
 
     /// <summary>Security metadata for the request. If not provided, the search request is done without the security lookup phase.</summary>
@@ -1558,11 +1520,11 @@ public class GraphNodesSearchRequest
 public class GraphNodesSearchResponse
 {
     /// <summary>Nodes</summary>
-    public List<GraphNode-Output> Nodes { get; set; }
+    public List<GraphNodeOutput> Nodes { get; set; }
 }
 
-/// <summary>GraphPath-Input</summary>
-public class GraphPath-Input
+/// <summary>GraphPathInput</summary>
+public class GraphPathInput
 {
     /// <summary>Prop</summary>
     public string Prop { get; set; }
@@ -1580,21 +1542,21 @@ public class GraphPath-Input
     public bool Undirected { get; set; }
 }
 
-/// <summary>GraphPath-Output</summary>
-public class GraphPath-Output
+/// <summary>GraphPathOutput</summary>
+public class GraphPathOutput
 {
     /// <summary>Source</summary>
-    public GraphNode-Output Source { get; set; }
+    public GraphNodeOutput Source { get; set; }
 
     /// <summary>Relation</summary>
-    public GraphRelation-Output Relation { get; set; }
+    public GraphRelationOutput Relation { get; set; }
 
     /// <summary>Destination</summary>
-    public GraphNode-Output Destination { get; set; }
+    public GraphNodeOutput Destination { get; set; }
 }
 
-/// <summary>GraphRelation-Input</summary>
-public class GraphRelation-Input
+/// <summary>GraphRelationInput</summary>
+public class GraphRelationInput
 {
     /// <summary>Label</summary>
     public object Label { get; set; }
@@ -1603,8 +1565,8 @@ public class GraphRelation-Input
     public object Type { get; set; }
 }
 
-/// <summary>GraphRelation-Output</summary>
-public class GraphRelation-Output
+/// <summary>GraphRelationOutput</summary>
+public class GraphRelationOutput
 {
     /// <summary>Label</summary>
     public string Label { get; set; }
@@ -1619,7 +1581,7 @@ public class GraphRelationsSearchRequest
     /// <summary>TopK</summary>
     public int TopK { get; set; }
 
-    /// <summary>Returns only relations from documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters </summary>
+    /// <summary>Returns only relations from documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
     public object FilterExpression { get; set; }
 
     /// <summary>Security metadata for the request. If not provided, the search request is done without the security lookup phase.</summary>
@@ -1636,7 +1598,7 @@ public class GraphRelationsSearchRequest
 public class GraphRelationsSearchResponse
 {
     /// <summary>Relations</summary>
-    public List<GraphRelation-Output> Relations { get; set; }
+    public List<GraphRelationOutput> Relations { get; set; }
 }
 
 /// <summary>GraphSearchRequest</summary>
@@ -1645,7 +1607,7 @@ public class GraphSearchRequest
     /// <summary>TopK</summary>
     public int TopK { get; set; }
 
-    /// <summary>Returns only relations from documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters </summary>
+    /// <summary>Returns only relations from documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
     public object FilterExpression { get; set; }
 
     /// <summary>Security metadata for the request. If not provided, the search request is done without the security lookup phase.</summary>
@@ -1662,22 +1624,16 @@ public class GraphSearchRequest
 public class GraphSearchResponse
 {
     /// <summary>Paths</summary>
-    public List<GraphPath-Output> Paths { get; set; }
+    public List<GraphPathOutput> Paths { get; set; }
 }
 
-/// <summary>This strategy retrieves context pieces by exploring the Knowledge Graph, starting from the entities present in the query.
-It works best if the Knowledge Box has a user-defined Graph Extraction agent enabled.</summary>
+/// <summary>This strategy retrieves context pieces by exploring the Knowledge Graph, starting from the entities present in the query. It works best if the Knowledge Box has a user-defined Graph Extraction agent enabled.</summary>
 public class GraphStrategy
 {
     /// <summary>Name</summary>
     public string Name { get; set; }
 
-    /// <summary>Number of hops to take when exploring the graph for relevant context.
-For example,
-- hops=1 will explore the neighbors of the starting entities.
-- hops=2 will explore the neighbors of the neighbors of the starting entities.
-And so on.
-Bigger values will discover more intricate relationships but will also take more time to compute.</summary>
+    /// <summary>Number of hops to take when exploring the graph for relevant context. For example, - hops=1 will explore the neighbors of the starting entities. - hops=2 will explore the neighbors of the neighbors of the starting entities. And so on. Bigger values will discover more intricate relationships but will also take more time to compute.</summary>
     public int Hops { get; set; }
 
     /// <summary>Number of relationships to keep after each hop after ranking them by relevance to the query. This number correlates to more paragraphs being sent as context. If not set, this number will be set to 30 if `relation_text_as_paragraphs` is set to false or 200 if `relation_text_as_paragraphs` is set to true.</summary>
@@ -1994,22 +1950,13 @@ public class Metadata
     public ResourceProcessingStatus Status { get; set; }
 }
 
-/// <summary>RAG strategy to enrich the context with metadata of the matching paragraphs or its resources.
-This strategy can be combined with any of the other strategies.</summary>
+/// <summary>RAG strategy to enrich the context with metadata of the matching paragraphs or its resources. This strategy can be combined with any of the other strategies.</summary>
 public class MetadataExtensionStrategy
 {
     /// <summary>Name</summary>
     public string Name { get; set; }
 
-    /// <summary>
-List of resource metadata types to add to the context.
-  - 'origin': origin metadata of the resource.
-  - 'classification_labels': classification labels of the resource.
-  - 'ner': Named Entity Recognition entities detected for the resource.
-  - 'extra_metadata': extra metadata of the resource.
-
-Types for which the metadata is not found at the resource are ignored and not added to the context.
-</summary>
+    /// <summary>List of resource metadata types to add to the context.   - 'origin': origin metadata of the resource.   - 'classification_labels': classification labels of the resource.   - 'ner': Named Entity Recognition entities detected for the resource.   - 'extra_metadata': extra metadata of the resource.  Types for which the metadata is not found at the resource are ignored and not added to the context.</summary>
     public List<MetadataExtensionType> Types { get; set; }
 }
 
@@ -2078,40 +2025,40 @@ public class NodeMatchKindName
 
 }
 
-/// <summary>Not_FieldFilterExpression_</summary>
-public class Not_FieldFilterExpression_
+/// <summary>NotFieldFilterExpression</summary>
+public class NotFieldFilterExpression
 {
 
 }
 
-/// <summary>Not_GraphNodesQuery_</summary>
-public class Not_GraphNodesQuery_
-{
-    /// <summary>Operand</summary>
-    public object Operand { get; set; }
-}
-
-/// <summary>Not_GraphPathQuery_</summary>
-public class Not_GraphPathQuery_
-{
-
-}
-
-/// <summary>Not_GraphRelationsQuery_</summary>
-public class Not_GraphRelationsQuery_
+/// <summary>NotGraphNodesQuery</summary>
+public class NotGraphNodesQuery
 {
     /// <summary>Operand</summary>
     public object Operand { get; set; }
 }
 
-/// <summary>Not_ParagraphFilterExpression_</summary>
-public class Not_ParagraphFilterExpression_
+/// <summary>NotGraphPathQuery</summary>
+public class NotGraphPathQuery
 {
 
 }
 
-/// <summary>Not_ResourceFilterExpression_</summary>
-public class Not_ResourceFilterExpression_
+/// <summary>NotGraphRelationsQuery</summary>
+public class NotGraphRelationsQuery
+{
+    /// <summary>Operand</summary>
+    public object Operand { get; set; }
+}
+
+/// <summary>NotParagraphFilterExpression</summary>
+public class NotParagraphFilterExpression
+{
+
+}
+
+/// <summary>NotResourceFilterExpression</summary>
+public class NotResourceFilterExpression
 {
     /// <summary>Operand</summary>
     public object Operand { get; set; }
@@ -2129,40 +2076,40 @@ public class Operator
 
 }
 
-/// <summary>Or_FieldFilterExpression_</summary>
-public class Or_FieldFilterExpression_
+/// <summary>OrFieldFilterExpression</summary>
+public class OrFieldFilterExpression
 {
 
 }
 
-/// <summary>Or_GraphNodesQuery_</summary>
-public class Or_GraphNodesQuery_
-{
-    /// <summary>Operands</summary>
-    public List<object> Operands { get; set; }
-}
-
-/// <summary>Or_GraphPathQuery_</summary>
-public class Or_GraphPathQuery_
-{
-
-}
-
-/// <summary>Or_GraphRelationsQuery_</summary>
-public class Or_GraphRelationsQuery_
+/// <summary>OrGraphNodesQuery</summary>
+public class OrGraphNodesQuery
 {
     /// <summary>Operands</summary>
     public List<object> Operands { get; set; }
 }
 
-/// <summary>Or_ParagraphFilterExpression_</summary>
-public class Or_ParagraphFilterExpression_
+/// <summary>OrGraphPathQuery</summary>
+public class OrGraphPathQuery
 {
 
 }
 
-/// <summary>Or_ResourceFilterExpression_</summary>
-public class Or_ResourceFilterExpression_
+/// <summary>OrGraphRelationsQuery</summary>
+public class OrGraphRelationsQuery
+{
+    /// <summary>Operands</summary>
+    public List<object> Operands { get; set; }
+}
+
+/// <summary>OrParagraphFilterExpression</summary>
+public class OrParagraphFilterExpression
+{
+
+}
+
+/// <summary>OrResourceFilterExpression</summary>
+public class OrResourceFilterExpression
 {
     /// <summary>Operands</summary>
     public List<object> Operands { get; set; }
@@ -2364,7 +2311,7 @@ public class ParagraphRelations
 public class Paragraphs
 {
     /// <summary>Results</summary>
-    public List<nucliadb_models__search__Paragraph> Results { get; set; }
+    public List<NucliadbModelsSearchParagraph> Results { get; set; }
 
     /// <summary>Facets</summary>
     public object Facets { get; set; }
@@ -2408,9 +2355,7 @@ public class Positions
     public string Entity { get; set; }
 }
 
-/// <summary>This strategy allows to run a set of queries before the main query and add the results to the context.
-It allows to give more importance to some queries over others by setting the weight of each query.
-The weight of the main query can also be set with the `main_query_weight` parameter.</summary>
+/// <summary>This strategy allows to run a set of queries before the main query and add the results to the context. It allows to give more importance to some queries over others by setting the weight of each query. The weight of the main query can also be set with the `main_query_weight` parameter.</summary>
 public class PreQueriesStrategy
 {
     /// <summary>Name</summary>
@@ -2572,8 +2517,8 @@ public class RelatedEntity
     public string Value { get; set; }
 }
 
-/// <summary>Relation-Input</summary>
-public class Relation-Input
+/// <summary>RelationInput</summary>
+public class RelationInput
 {
     /// <summary>Prop</summary>
     public string Prop { get; set; }
@@ -2585,8 +2530,8 @@ public class Relation-Input
     public object Type { get; set; }
 }
 
-/// <summary>Relation-Output</summary>
-public class Relation-Output
+/// <summary>RelationOutput</summary>
+public class RelationOutput
 {
     /// <summary>Relation</summary>
     public RelationType Relation { get; set; }
@@ -2683,27 +2628,18 @@ public class Representation
 /// <summary>Security metadata for the search request</summary>
 public class RequestSecurity
 {
-    /// <summary>List of group ids to do the request with. </summary>
+    /// <summary>List of group ids to do the request with.</summary>
     public List<string> Groups { get; set; }
 }
 
-/// <summary>Rerankers
-
-- Predict reranker: after retrieval, send the results to Predict API to
-  rerank it. This method uses a reranker model, so one can expect better
-  results at the expense of more latency.
-
-  This will be the new default
-
-- No-operation (noop) reranker: maintain order and do not rerank the results
-  after retrieval</summary>
+/// <summary>Rerankers  - Predict reranker: after retrieval, send the results to Predict API to   rerank it. This method uses a reranker model, so one can expect better   results at the expense of more latency.    This will be the new default  - No-operation (noop) reranker: maintain order and do not rerank the results   after retrieval</summary>
 public class RerankerName
 {
 
 }
 
 /// <summary>Matches all fields of a resource given its id or slug</summary>
-public class Resource-Input
+public class ResourceInput
 {
     /// <summary>Prop</summary>
     public string Prop { get; set; }
@@ -2715,8 +2651,8 @@ public class Resource-Input
     public object Slug { get; set; }
 }
 
-/// <summary>Resource-Output</summary>
-public class Resource-Output
+/// <summary>ResourceOutput</summary>
+public class ResourceOutput
 {
     /// <summary>Id</summary>
     public string Id { get; set; }
@@ -2818,10 +2754,7 @@ public class ResourceData
     public object Generics { get; set; }
 }
 
-/// <summary>Matches resources with a mimetype.
-
-The mimetype of a resource can be assigned independently of the mimetype of its fields.
-In resources with multiple fields, you may prefer to use `field_mimetype`</summary>
+/// <summary>Matches resources with a mimetype.  The mimetype of a resource can be assigned independently of the mimetype of its fields. In resources with multiple fields, you may prefer to use `field_mimetype`</summary>
 public class ResourceMimetype
 {
     /// <summary>Prop</summary>
@@ -2933,8 +2866,8 @@ public class RowsPreview
     public object Sheets { get; set; }
 }
 
-/// <summary>SCORE_TYPE</summary>
-public class SCORE_TYPE
+/// <summary>SCORETYPE</summary>
+public class SCORETYPE
 {
 
 }
@@ -2957,7 +2890,7 @@ public class SearchRequest
     /// <summary>Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</summary>
     public object FilterExpression { get; set; }
 
-    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field. </summary>
+    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</summary>
     public List<string> Fields { get; set; }
 
     /// <summary>The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
@@ -3023,8 +2956,7 @@ public class SearchRequest
     /// <summary>Rephrase the query for a more efficient retrieval. This will consume LLM tokens and make the request slower.</summary>
     public bool Rephrase { get; set; }
 
-    /// <summary>Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request.
-If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</summary>
+    /// <summary>Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request. If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</summary>
     public object RephrasePrompt { get; set; }
 
     /// <summary>Image that will be used together with the query text for retrieval.</summary>
@@ -3044,7 +2976,7 @@ If not specified, Nuclia's default prompt is used. It must include the {question
 public class Sentences
 {
     /// <summary>Results</summary>
-    public List<nucliadb_models__search__Sentence> Results { get; set; }
+    public List<NucliadbModelsSearchSentence> Results { get; set; }
 
     /// <summary>Facets</summary>
     public object Facets { get; set; }
@@ -3369,7 +3301,7 @@ public class UserMetadata
     public List<UserClassification> Classifications { get; set; }
 
     /// <summary>Relations</summary>
-    public List<nucliadb_models__metadata__Relation> Relations { get; set; }
+    public List<NucliadbModelsMetadataRelation> Relations { get; set; }
 }
 
 /// <summary>Vector</summary>
@@ -3411,8 +3343,8 @@ public class Vectors
     public object Vectors { get; set; }
 }
 
-/// <summary>nucliadb_models__common__Paragraph</summary>
-public class nucliadb_models__common__Paragraph
+/// <summary>NucliadbModelsCommonParagraph</summary>
+public class NucliadbModelsCommonParagraph
 {
     /// <summary>Start</summary>
     public object Start { get; set; }
@@ -3448,8 +3380,8 @@ public class nucliadb_models__common__Paragraph
     public object Relations { get; set; }
 }
 
-/// <summary>nucliadb_models__common__Sentence</summary>
-public class nucliadb_models__common__Sentence
+/// <summary>NucliadbModelsCommonSentence</summary>
+public class NucliadbModelsCommonSentence
 {
     /// <summary>Start</summary>
     public object Start { get; set; }
@@ -3462,7 +3394,7 @@ public class nucliadb_models__common__Sentence
 }
 
 /// <summary>Matches if the field was generated by the given source</summary>
-public class nucliadb_models__filters__Generated
+public class NucliadbModelsFiltersGenerated
 {
     /// <summary>Prop</summary>
     public string Prop { get; set; }
@@ -3475,7 +3407,7 @@ public class nucliadb_models__filters__Generated
 }
 
 /// <summary>Matches if the relation was generated by the given source</summary>
-public class nucliadb_models__graph__requests__Generated
+public class NucliadbModelsGraphRequestsGenerated
 {
     /// <summary>Prop</summary>
     public string Prop { get; set; }
@@ -3487,8 +3419,8 @@ public class nucliadb_models__graph__requests__Generated
     public object DaTask { get; set; }
 }
 
-/// <summary>nucliadb_models__search__Paragraph</summary>
-public class nucliadb_models__search__Paragraph
+/// <summary>NucliadbModelsSearchParagraph</summary>
+public class NucliadbModelsSearchParagraph
 {
     /// <summary>Score</summary>
     public float Score { get; set; }
@@ -3521,8 +3453,8 @@ public class nucliadb_models__search__Paragraph
     public bool FuzzyResult { get; set; }
 }
 
-/// <summary>nucliadb_models__search__Sentence</summary>
-public class nucliadb_models__search__Sentence
+/// <summary>NucliadbModelsSearchSentence</summary>
+public class NucliadbModelsSearchSentence
 {
     /// <summary>Score</summary>
     public float Score { get; set; }
@@ -3572,7 +3504,7 @@ public class AskConfig
     /// <summary>Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</summary>
     public object FilterExpression { get; set; }
 
-    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field. </summary>
+    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</summary>
     public List<string> Fields { get; set; }
 
     /// <summary>The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
@@ -3617,12 +3549,10 @@ public class AskConfig
     /// <summary>Use to rephrase the new LLM query by taking into account the chat conversation history. This will be passed to the LLM so that it is aware of the previous conversation.</summary>
     public object ChatHistory { get; set; }
 
-    /// <summary>Additional context that is added to the retrieval context sent to the LLM.
-        It allows extending the chat feature with content that may not be in the Knowledge Box.</summary>
+    /// <summary>Additional context that is added to the retrieval context sent to the LLM.         It allows extending the chat feature with content that may not be in the Knowledge Box.</summary>
     public object ExtraContext { get; set; }
 
-    /// <summary>Additional images added to the retrieval context sent to the LLM."
-        It allows extending the chat feature with content that may not be in the Knowledge Box.</summary>
+    /// <summary>Additional images added to the retrieval context sent to the LLM."         It allows extending the chat feature with content that may not be in the Knowledge Box.</summary>
     public object ExtraContextImages { get; set; }
 
     /// <summary>Image that will be used together with the query text for retrieval and then sent to the LLM as part of the context. If a query image is provided, the `extra_context_images` and `rag_images_strategies` will be disabled.</summary>
@@ -3658,23 +3588,10 @@ public class AskConfig
     /// <summary>If set to false (default), excludes hidden resources from search</summary>
     public bool ShowHidden { get; set; }
 
-    /// <summary>Options for tweaking how the context for the LLM model is crafted:
-- `full_resource` will add the full text of the matching resources to the context. This strategy cannot be combined with `hierarchy`, `neighbouring_paragraphs`, or `field_extension`.
-- `field_extension` will add the text of the matching resource's specified fields to the context.
-- `hierarchy` will add the title and summary text of the parent resource to the context for each matching paragraph.
-- `neighbouring_paragraphs` will add the sorrounding paragraphs to the context for each matching paragraph.
-- `metadata_extension` will add the metadata of the matching paragraphs or its resources to the context.
-- `prequeries` allows to run multiple retrieval queries before the main query and add the results to the context. The results of specific queries can be boosted by the specifying weights.
-
-If empty, the default strategy is used, which simply adds the text of the matching paragraphs to the context.
-</summary>
+    /// <summary>Options for tweaking how the context for the LLM model is crafted: - `full_resource` will add the full text of the matching resources to the context. This strategy cannot be combined with `hierarchy`, `neighbouring_paragraphs`, or `field_extension`. - `field_extension` will add the text of the matching resource's specified fields to the context. - `hierarchy` will add the title and summary text of the parent resource to the context for each matching paragraph. - `neighbouring_paragraphs` will add the sorrounding paragraphs to the context for each matching paragraph. - `metadata_extension` will add the metadata of the matching paragraphs or its resources to the context. - `prequeries` allows to run multiple retrieval queries before the main query and add the results to the context. The results of specific queries can be boosted by the specifying weights.  If empty, the default strategy is used, which simply adds the text of the matching paragraphs to the context.</summary>
     public List<object> RagStrategies { get; set; }
 
-    /// <summary>Options for tweaking how the image based context for the LLM model is crafted:
-- `page_image` will add the full page image of the matching resources to the context.
-- `tables` will send the table images for the paragraphs that contain tables and matched the retrieval query.
-- `paragraph_image` will add the images of the paragraphs that contain images (images for tables are not included).
-No image strategy is used by default. Note that this is only available for LLM models that support visual inputs. If the model does not support visual inputs, the image strategies will be ignored.</summary>
+    /// <summary>Options for tweaking how the image based context for the LLM model is crafted: - `page_image` will add the full page image of the matching resources to the context. - `tables` will send the table images for the paragraphs that contain tables and matched the retrieval query. - `paragraph_image` will add the images of the paragraphs that contain images (images for tables are not included). No image strategy is used by default. Note that this is only available for LLM models that support visual inputs. If the model does not support visual inputs, the image strategies will be ignored.</summary>
     public List<object> RagImagesStrategies { get; set; }
 
     /// <summary>If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</summary>
@@ -3698,11 +3615,7 @@ No image strategy is used by default. Note that this is only available for LLM m
     /// <summary>If set to true, the response will be in markdown format</summary>
     public bool PreferMarkdown { get; set; }
 
-    /// <summary>Desired JSON schema for the LLM answer.
-This schema is passed to the LLM so that it answers in a scructured format following the schema. If not provided, textual response is returned.
-Note that when using this parameter, the answer in the generative response will not be returned in chunks, the whole response text will be returned instead.
-Using this feature also disables the `citations` parameter. For maximal accuracy, please include a `description` for each field of the schema.
-</summary>
+    /// <summary>Desired JSON schema for the LLM answer. This schema is passed to the LLM so that it answers in a scructured format following the schema. If not provided, textual response is returned. Note that when using this parameter, the answer in the generative response will not be returned in chunks, the whole response text will be returned instead. Using this feature also disables the `citations` parameter. For maximal accuracy, please include a `description` for each field of the schema.</summary>
     public object AnswerJsonSchema { get; set; }
 
     /// <summary>Whether to generate an answer using the generative model. If set to false, the response will only contain the retrieval results.</summary>
@@ -3842,8 +3755,7 @@ public class CustomSplitStrategy
 
 }
 
-/// <summary>Enum for the different external index providers.
-For now only Pinecone is supported, but we may add more in the future.</summary>
+/// <summary>Enum for the different external index providers. For now only Pinecone is supported, but we may add more in the future.</summary>
 public class ExternalIndexProviderType
 {
 
@@ -3947,7 +3859,7 @@ public class FindConfig
     /// <summary>Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</summary>
     public object FilterExpression { get; set; }
 
-    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field. </summary>
+    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</summary>
     public List<string> Fields { get; set; }
 
     /// <summary>The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
@@ -4013,8 +3925,7 @@ public class FindConfig
     /// <summary>Rephrase the query for a more efficient retrieval. This will consume LLM tokens and make the request slower.</summary>
     public bool Rephrase { get; set; }
 
-    /// <summary>Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request.
-If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</summary>
+    /// <summary>Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request. If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</summary>
     public object RephrasePrompt { get; set; }
 
     /// <summary>Image that will be used together with the query text for retrieval.</summary>
@@ -4094,15 +4005,7 @@ public class GraphRelation
     public object Type { get; set; }
 }
 
-/// <summary>     Some models require a specific template (including prefix) to work correctly in each task
-For example Snowflake's Arctic-embed requires a specific prefix to work correctly.
-In that case, the query prompt will be
-```
-passage_prompt: ""
-query_prompt: "Represent this sentence for searching relevant passages: {}"
-````
-where {} will be replaced by the actual sentence.
-`passage_prompt` is empty because the model does not require alterations to the sentence to embed is as a passage.</summary>
+/// <summary>Some models require a specific template (including prefix) to work correctly in each task For example Snowflake's Arctic-embed requires a specific prefix to work correctly. In that case, the query prompt will be ``` passage_prompt: "" query_prompt: "Represent this sentence for searching relevant passages: {}" ```` where {} will be replaced by the actual sentence. `passage_prompt` is empty because the model does not require alterations to the sentence to embed is as a passage.</summary>
 public class HFEmbeddingKey
 {
     /// <summary>Url</summary>
@@ -4241,8 +4144,8 @@ public class InputOrigin
     public object Path { get; set; }
 }
 
-/// <summary>KnowledgeBoxConfig-Input</summary>
-public class KnowledgeBoxConfig-Input
+/// <summary>KnowledgeBoxConfigInput</summary>
+public class KnowledgeBoxConfigInput
 {
     /// <summary>Slug for the Knowledge Box.</summary>
     public object Slug { get; set; }
@@ -4272,8 +4175,8 @@ public class KnowledgeBoxConfig-Input
     public bool HiddenResourcesHideOnCreation { get; set; }
 }
 
-/// <summary>KnowledgeBoxConfig-Output</summary>
-public class KnowledgeBoxConfig-Output
+/// <summary>KnowledgeBoxConfigOutput</summary>
+public class KnowledgeBoxConfigOutput
 {
     /// <summary>Slug for the Knowledge Box.</summary>
     public object Slug { get; set; }
@@ -4375,7 +4278,7 @@ public class LabelSet
     public List<LabelSetKind> Kind { get; set; }
 
     /// <summary>Labels</summary>
-    public List<nucliadb_models__labels__Label> Labels { get; set; }
+    public List<NucliadbModelsLabelsLabel> Labels { get; set; }
 }
 
 /// <summary>LabelSetKind</summary>
@@ -4598,9 +4501,7 @@ public class SplitConfiguration
 /// <summary>TextField</summary>
 public class TextField
 {
-    /// <summary>The text body. The format of the text should be specified in the format field.
-The sum of all text fields in the request may not exceed 2MB.
-If you need to store more text, consider using a file field instead or splitting into multiple requests for each text field.</summary>
+    /// <summary>The text body. The format of the text should be specified in the format field. The sum of all text fields in the request may not exceed 2MB. If you need to store more text, consider using a file field instead or splitting into multiple requests for each text field.</summary>
     public string Body { get; set; }
 
     /// <summary>Format</summary>
@@ -4741,8 +4642,8 @@ public class VectorSimilarity
 
 }
 
-/// <summary>nucliadb_models__entities__Entity</summary>
-public class nucliadb_models__entities__Entity
+/// <summary>NucliadbModelsEntitiesEntity</summary>
+public class NucliadbModelsEntitiesEntity
 {
     /// <summary>Value</summary>
     public string Value { get; set; }
@@ -4755,7 +4656,7 @@ public class nucliadb_models__entities__Entity
 }
 
 /// <summary>Matches fields that contains a detected entity</summary>
-public class nucliadb_models__filters__Entity
+public class NucliadbModelsFiltersEntity
 {
     /// <summary>Prop</summary>
     public string Prop { get; set; }
@@ -4768,7 +4669,7 @@ public class nucliadb_models__filters__Entity
 }
 
 /// <summary>Matches fields/paragraphs with a label (or labelset)</summary>
-public class nucliadb_models__filters__Label
+public class NucliadbModelsFiltersLabel
 {
     /// <summary>Prop</summary>
     public string Prop { get; set; }
@@ -4780,8 +4681,8 @@ public class nucliadb_models__filters__Label
     public object Label { get; set; }
 }
 
-/// <summary>nucliadb_models__graph__requests__Relation</summary>
-public class nucliadb_models__graph__requests__Relation
+/// <summary>NucliadbModelsGraphRequestsRelation</summary>
+public class NucliadbModelsGraphRequestsRelation
 {
     /// <summary>Prop</summary>
     public string Prop { get; set; }
@@ -4793,8 +4694,8 @@ public class nucliadb_models__graph__requests__Relation
     public object Type { get; set; }
 }
 
-/// <summary>nucliadb_models__labels__Label</summary>
-public class nucliadb_models__labels__Label
+/// <summary>NucliadbModelsLabelsLabel</summary>
+public class NucliadbModelsLabelsLabel
 {
     /// <summary>Title</summary>
     public string Title { get; set; }
@@ -4809,8 +4710,8 @@ public class nucliadb_models__labels__Label
     public object Uri { get; set; }
 }
 
-/// <summary>nucliadb_models__metadata__Relation</summary>
-public class nucliadb_models__metadata__Relation
+/// <summary>NucliadbModelsMetadataRelation</summary>
+public class NucliadbModelsMetadataRelation
 {
     /// <summary>Relation</summary>
     public RelationType Relation { get; set; }
@@ -5039,7 +4940,7 @@ public class ResourceFieldProperties
 public class ResourceList
 {
     /// <summary>Resources</summary>
-    public List<nucliadb_models__resource__Resource> Resources { get; set; }
+    public List<NucliadbModelsResourceResource> Resources { get; set; }
 
     /// <summary>Pagination</summary>
     public ResourcePagination Pagination { get; set; }
@@ -5087,8 +4988,8 @@ public class StatusResponse
     public int Retries { get; set; }
 }
 
-/// <summary>nucliadb_models__extracted__Entity</summary>
-public class nucliadb_models__extracted__Entity
+/// <summary>NucliadbModelsExtractedEntity</summary>
+public class NucliadbModelsExtractedEntity
 {
     /// <summary>Token</summary>
     public object Token { get; set; }
@@ -5101,7 +5002,7 @@ public class nucliadb_models__extracted__Entity
 }
 
 /// <summary>Matches all fields of a resource given its id or slug</summary>
-public class nucliadb_models__filters__Resource
+public class NucliadbModelsFiltersResource
 {
     /// <summary>Prop</summary>
     public string Prop { get; set; }
@@ -5113,8 +5014,8 @@ public class nucliadb_models__filters__Resource
     public object Slug { get; set; }
 }
 
-/// <summary>nucliadb_models__resource__Resource</summary>
-public class nucliadb_models__resource__Resource
+/// <summary>NucliadbModelsResourceResource</summary>
+public class NucliadbModelsResourceResource
 {
     /// <summary>Id</summary>
     public string Id { get; set; }

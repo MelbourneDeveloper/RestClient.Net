@@ -20,8 +20,8 @@ internal static class ExtensionMethodGenerator
         string basePath
     )
     {
-        var methods = new List<string>();
-        var privateFunctions = new List<string>();
+        var publicMethods = new List<string>();
+        var privateDelegates = new List<string>();
         var responseTypes = new HashSet<string>();
 
         foreach (var path in document.Paths)
@@ -38,22 +38,22 @@ internal static class ExtensionMethodGenerator
                 var resultResponseType = isDelete ? "Unit" : responseType;
                 _ = responseTypes.Add(resultResponseType);
 
-                var (method, functions) = GenerateMethod(
+                var (publicMethod, privateDelegate) = GenerateMethod(
                     path.Key,
                     operation.Key,
                     operation.Value,
                     basePath
                 );
-                if (!string.IsNullOrEmpty(method))
+                if (!string.IsNullOrEmpty(publicMethod))
                 {
-                    methods.Add(method);
-                    privateFunctions.AddRange(functions);
+                    publicMethods.Add(publicMethod);
+                    privateDelegates.Add(privateDelegate);
                 }
             }
         }
 
-        var functionsCode = string.Join("\n\n", privateFunctions);
-        var methodsCode = string.Join("\n\n", methods);
+        var publicMethodsCode = string.Join("\n\n", publicMethods);
+        var privateDelegatesCode = string.Join("\n\n", privateDelegates);
         var typeAliases = GenerateTypeAliasesFile(responseTypes, @namespace);
 
         var extensionMethodsCode = $$"""
@@ -82,11 +82,18 @@ internal static class ExtensionMethodGenerator
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 };
 
-                private static readonly Deserialize<Unit> _deserializeUnit = static (_, _) => Task.FromResult(Unit.Value);
+                #region Public Extension Methods
 
-            {{CodeGenerationHelpers.Indent(functionsCode, 1)}}
+            {{CodeGenerationHelpers.Indent(publicMethodsCode, 1)}}
 
-            {{CodeGenerationHelpers.Indent(methodsCode, 1)}}
+                #endregion
+
+                #region Private Members
+
+                private static readonly Deserialize<Unit> _deserializeUnit = static (_, _) =>
+                    Task.FromResult(Unit.Value);
+
+            {{CodeGenerationHelpers.Indent(privateDelegatesCode, 1)}}
 
                 private static ProgressReportingHttpContent CreateJsonContent<T>(T data)
                 {
@@ -120,13 +127,15 @@ internal static class ExtensionMethodGenerator
                     var content = await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
                     return string.IsNullOrEmpty(content) ? "Unknown error" : content;
                 }
+
+                #endregion
             }
             """;
 
         return (extensionMethodsCode, typeAliases);
     }
 
-    private static (string Method, List<string> PrivateFunctions) GenerateMethod(
+    private static (string PublicMethod, string PrivateDelegate) GenerateMethod(
         string path,
         HttpMethod operationType,
         OpenApiOperation operation,
@@ -152,7 +161,7 @@ internal static class ExtensionMethodGenerator
     }
 
 #pragma warning disable CA1502 // Avoid excessive complexity - code generator method is inherently complex
-    private static (string Method, List<string> PrivateFunctions) GenerateHttpMethod(
+    private static (string PublicMethod, string PrivateDelegate) GenerateHttpMethod(
         HttpMethod operationType,
         string methodName,
         string path,
@@ -182,7 +191,8 @@ internal static class ExtensionMethodGenerator
             ? "?" + string.Join("&", queryParams.Select(q => $"{q.Name}={{{q.Name}}}"))
             : string.Empty;
 
-        var verb = operationType == HttpMethod.Get ? "Get"
+        var verb =
+            operationType == HttpMethod.Get ? "Get"
             : operationType == HttpMethod.Post ? "Post"
             : operationType == HttpMethod.Put ? "Put"
             : operationType == HttpMethod.Delete ? "Delete"
@@ -192,7 +202,6 @@ internal static class ExtensionMethodGenerator
         var delegateType = $"{verb}Async";
 
         var privateFunctionName = $"_{char.ToLowerInvariant(methodName[0])}{methodName[1..]}";
-        var privateFunctions = new List<string>();
 
         // GET with no parameters OR body verbs with no path params
         if ((!hasPathParams && !hasQueryParams && !hasBody) || (!hasPathParams && hasBody))
@@ -201,44 +210,50 @@ internal static class ExtensionMethodGenerator
             {
                 var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
 
-                var method = $$"""
-                        private static {{delegateType}}<{{resultResponseType}}, string, Unit> {{privateFunctionName}} { get; } =
-                            RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, Unit>(
-                                url: BaseUrl,
-                                buildRequest: static _ => new HttpRequestParts(new RelativeUrl("{{path}}"), null, null),
-                                deserializeSuccess: {{deserializeMethod}},
-                                deserializeError: DeserializeError
-                            );
-
-                        /// <summary>{{summary}}</summary>
-                        public static Task<{{resultType}}> {{methodName}}(
-                            this HttpClient httpClient,
-                            CancellationToken ct = default
-                        ) => {{privateFunctionName}}(httpClient, Unit.Value, ct);
+                var privateDelegate = $$"""
+                    private static {{delegateType}}<{{resultResponseType}}, string, Unit> {{privateFunctionName}} { get; } =
+                        RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, Unit>(
+                            url: BaseUrl,
+                            buildRequest: static _ => new HttpRequestParts(new RelativeUrl("{{path}}"), null, null),
+                            deserializeSuccess: {{deserializeMethod}},
+                            deserializeError: DeserializeError
+                        );
                     """;
-                return (method, privateFunctions);
+
+                var publicMethod = $$"""
+                    /// <summary>{{summary}}</summary>
+                    public static Task<{{resultType}}> {{methodName}}(
+                        this HttpClient httpClient,
+                        CancellationToken ct = default
+                    ) => {{privateFunctionName}}(httpClient, Unit.Value, ct);
+                    """;
+
+                return (publicMethod, privateDelegate);
             }
             else
             {
                 var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
 
-                var method = $$"""
-                        private static {{delegateType}}<{{resultResponseType}}, string, {{bodyType}}> {{privateFunctionName}} { get; } =
-                            RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{bodyType}}>(
-                                url: BaseUrl,
-                                buildRequest: static body => new HttpRequestParts(new RelativeUrl("{{path}}"), CreateJsonContent(body), null),
-                                deserializeSuccess: {{deserializeMethod}},
-                                deserializeError: DeserializeError
-                            );
-
-                        /// <summary>{{summary}}</summary>
-                        public static Task<{{resultType}}> {{methodName}}(
-                            this HttpClient httpClient,
-                            {{bodyType}} body,
-                            CancellationToken ct = default
-                        ) => {{privateFunctionName}}(httpClient, body, ct);
+                var privateDelegate = $$"""
+                    private static {{delegateType}}<{{resultResponseType}}, string, {{bodyType}}> {{privateFunctionName}} { get; } =
+                        RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{bodyType}}>(
+                            url: BaseUrl,
+                            buildRequest: static body => new HttpRequestParts(new RelativeUrl("{{path}}"), CreateJsonContent(body), null),
+                            deserializeSuccess: {{deserializeMethod}},
+                            deserializeError: DeserializeError
+                        );
                     """;
-                return (method, privateFunctions);
+
+                var publicMethod = $$"""
+                    /// <summary>{{summary}}</summary>
+                    public static Task<{{resultType}}> {{methodName}}(
+                        this HttpClient httpClient,
+                        {{bodyType}} body,
+                        CancellationToken ct = default
+                    ) => {{privateFunctionName}}(httpClient, body, ct);
+                    """;
+
+                return (publicMethod, privateDelegate);
             }
         }
 
@@ -256,35 +271,38 @@ internal static class ExtensionMethodGenerator
                 ? "?" + string.Join("&", queryParams.Select(q => $"{q.Name}={{param}}"))
                 : "?" + string.Join("&", queryParams.Select(q => $"{q.Name}={{param.{q.Name}}}"));
 
-            var method = $$"""
-                    private static {{delegateType}}<{{resultResponseType}}, string, {{queryParamsType}}> {{privateFunctionName}} { get; } =
-                        RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{queryParamsType}}>(
-                            url: BaseUrl,
-                            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"{{path}}{{queryStringWithParam}}"), null, null),
-                            deserializeSuccess: {{deserializeMethod}},
-                            deserializeError: DeserializeError
-                        );
-
-                    /// <summary>{{summary}}</summary>
-                    public static Task<{{resultType}}> {{methodName}}(
-                        this HttpClient httpClient,
-                        {{string.Join(", ", queryParams.Select(q => $"{q.Type} {q.Name}"))}},
-                        CancellationToken ct = default
-                    ) => {{privateFunctionName}}(httpClient, {{paramInvocation}}, ct);
+            var privateDelegate = $$"""
+                private static {{delegateType}}<{{resultResponseType}}, string, {{queryParamsType}}> {{privateFunctionName}} { get; } =
+                    RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{queryParamsType}}>(
+                        url: BaseUrl,
+                        buildRequest: static param => new HttpRequestParts(new RelativeUrl($"{{path}}{{queryStringWithParam}}"), null, null),
+                        deserializeSuccess: {{deserializeMethod}},
+                        deserializeError: DeserializeError
+                    );
                 """;
-            return (method, privateFunctions);
+
+            var publicMethod = $$"""
+                /// <summary>{{summary}}</summary>
+                public static Task<{{resultType}}> {{methodName}}(
+                    this HttpClient httpClient,
+                    {{string.Join(", ", queryParams.Select(q => $"{q.Type} {q.Name}"))}},
+                    CancellationToken ct = default
+                ) => {{privateFunctionName}}(httpClient, {{paramInvocation}}, ct);
+                """;
+
+            return (publicMethod, privateDelegate);
         }
 
         // Has path parameters (with or without body/query)
-        var pathParamsType = string.Join(", ", parameters.Where(p => p.IsPath).Select(p => p.Type));
-        var pathParamsNames = string.Join(
-            ", ",
-            parameters.Where(p => p.IsPath).Select(p => p.Name)
-        );
-        var lambda =
-            parameters.Count(p => p.IsPath) == 1
-                ? parameters.First(p => p.IsPath).Name
-                : $"({pathParamsNames})";
+        var pathParams = parameters.Where(p => p.IsPath).ToList();
+        var isSinglePathParam = pathParams.Count == 1;
+        var pathParamsType = isSinglePathParam
+            ? pathParams[0].Type
+            : $"({string.Join(", ", pathParams.Select(p => $"{p.Type} {p.Name}"))})";
+        var pathParamsNames = string.Join(", ", pathParams.Select(p => p.Name));
+        var lambda = isSinglePathParam ? pathParams[0].Name : $"({pathParamsNames})";
+        var publicMethodParams = string.Join(", ", pathParams.Select(p => $"{p.Type} {p.Name}"));
+        var publicMethodInvocation = isSinglePathParam ? pathParamsNames : $"({pathParamsNames})";
 
         // If we have query params along with path params and no body, we need to handle them specially
         if (!hasBody && hasQueryParams)
@@ -311,46 +329,52 @@ internal static class ExtensionMethodGenerator
                     )
                     : pathExpression.Replace("{", "{param.", StringComparison.Ordinal);
 
-            var method = $$"""
-                    private static {{delegateType}}<{{resultResponseType}}, string, {{allParamsType}}> {{privateFunctionName}} { get; } =
-                        RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{allParamsType}}>(
-                            url: BaseUrl,
-                            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"{{pathWithParam}}{{queryStringWithParam}}"), null, null),
-                            deserializeSuccess: {{deserializeMethod}},
-                            deserializeError: DeserializeError
-                        );
-
-                    /// <summary>{{summary}}</summary>
-                    public static Task<{{resultType}}> {{methodName}}(
-                        this HttpClient httpClient,
-                        {{string.Join(", ", allParamsList)}},
-                        CancellationToken ct = default
-                    ) => {{privateFunctionName}}(httpClient, {{paramInvocation}}, ct);
+            var privateDelegate = $$"""
+                private static {{delegateType}}<{{resultResponseType}}, string, {{allParamsType}}> {{privateFunctionName}} { get; } =
+                    RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{allParamsType}}>(
+                        url: BaseUrl,
+                        buildRequest: static param => new HttpRequestParts(new RelativeUrl($"{{pathWithParam}}{{queryStringWithParam}}"), null, null),
+                        deserializeSuccess: {{deserializeMethod}},
+                        deserializeError: DeserializeError
+                    );
                 """;
-            return (method, privateFunctions);
+
+            var publicMethod = $$"""
+                /// <summary>{{summary}}</summary>
+                public static Task<{{resultType}}> {{methodName}}(
+                    this HttpClient httpClient,
+                    {{string.Join(", ", allParamsList)}},
+                    CancellationToken ct = default
+                ) => {{privateFunctionName}}(httpClient, {{paramInvocation}}, ct);
+                """;
+
+            return (publicMethod, privateDelegate);
         }
 
         if (!hasBody)
         {
             var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
 
-            var method = $$"""
-                    private static {{delegateType}}<{{resultResponseType}}, string, {{pathParamsType}}> {{privateFunctionName}} { get; } =
-                        RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{pathParamsType}}>(
-                            url: BaseUrl,
-                            buildRequest: static {{lambda}} => new HttpRequestParts(new RelativeUrl($"{{pathExpression}}"), null, null),
-                            deserializeSuccess: {{deserializeMethod}},
-                            deserializeError: DeserializeError
-                        );
-
-                    /// <summary>{{summary}}</summary>
-                    public static Task<{{resultType}}> {{methodName}}(
-                        this HttpClient httpClient,
-                        {{pathParamsType}} {{lambda}},
-                        CancellationToken ct = default
-                    ) => {{privateFunctionName}}(httpClient, {{lambda}}, ct);
+            var privateDelegate = $$"""
+                private static {{delegateType}}<{{resultResponseType}}, string, {{pathParamsType}}> {{privateFunctionName}} { get; } =
+                    RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{pathParamsType}}>(
+                        url: BaseUrl,
+                        buildRequest: static {{lambda}} => new HttpRequestParts(new RelativeUrl($"{{pathExpression}}"), null, null),
+                        deserializeSuccess: {{deserializeMethod}},
+                        deserializeError: DeserializeError
+                    );
                 """;
-            return (method, privateFunctions);
+
+            var publicMethod = $$"""
+                /// <summary>{{summary}}</summary>
+                public static Task<{{resultType}}> {{methodName}}(
+                    this HttpClient httpClient,
+                    {{publicMethodParams}},
+                    CancellationToken ct = default
+                ) => {{privateFunctionName}}(httpClient, {{publicMethodInvocation}}, ct);
+                """;
+
+            return (publicMethod, privateDelegate);
         }
         else
         {
@@ -359,23 +383,26 @@ internal static class ExtensionMethodGenerator
                 .PathParameterRegex()
                 .Replace(pathExpression, "{param.Params}");
 
-            var method = $$"""
-                    private static {{delegateType}}<{{resultResponseType}}, string, {{compositeType}}> {{privateFunctionName}} { get; } =
-                        RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{compositeType}}>(
-                            url: BaseUrl,
-                            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"{{pathWithParamInterpolation}}"), CreateJsonContent(param.Body), null),
-                            deserializeSuccess: DeserializeJson<{{resultResponseType}}>,
-                            deserializeError: DeserializeError
-                        );
-
-                    /// <summary>{{summary}}</summary>
-                    public static Task<{{resultType}}> {{methodName}}(
-                        this HttpClient httpClient,
-                        {{compositeType}} param,
-                        CancellationToken ct = default
-                    ) => {{privateFunctionName}}(httpClient, param, ct);
+            var privateDelegate = $$"""
+                private static {{delegateType}}<{{resultResponseType}}, string, {{compositeType}}> {{privateFunctionName}} { get; } =
+                    RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{compositeType}}>(
+                        url: BaseUrl,
+                        buildRequest: static param => new HttpRequestParts(new RelativeUrl($"{{pathWithParamInterpolation}}"), CreateJsonContent(param.Body), null),
+                        deserializeSuccess: DeserializeJson<{{resultResponseType}}>,
+                        deserializeError: DeserializeError
+                    );
                 """;
-            return (method, privateFunctions);
+
+            var publicMethod = $$"""
+                /// <summary>{{summary}}</summary>
+                public static Task<{{resultType}}> {{methodName}}(
+                    this HttpClient httpClient,
+                    {{compositeType}} param,
+                    CancellationToken ct = default
+                ) => {{privateFunctionName}}(httpClient, param, ct);
+                """;
+
+            return (publicMethod, privateDelegate);
         }
     }
 
@@ -425,7 +452,8 @@ internal static class ExtensionMethodGenerator
 
             var isPath = param.In == ParameterLocation.Path;
             var type = ModelGenerator.MapOpenApiType(param.Schema);
-            parameters.Add((param.Name, type, isPath));
+            var sanitizedName = CodeGenerationHelpers.ToCamelCase(param.Name);
+            parameters.Add((sanitizedName, type, isPath));
         }
 
         return parameters;
@@ -440,7 +468,9 @@ internal static class ExtensionMethodGenerator
 
         var firstContent = operation.RequestBody.Content.FirstOrDefault();
         return firstContent.Value?.Schema is OpenApiSchemaReference schemaRef
-            ? schemaRef.Reference.Id ?? "object"
+            ? schemaRef.Reference.Id != null
+                ? CodeGenerationHelpers.ToPascalCase(schemaRef.Reference.Id)
+                : "object"
             : "object";
     }
 
@@ -528,11 +558,13 @@ internal static class ExtensionMethodGenerator
 
         var content = successResponse.Value.Value.Content.FirstOrDefault();
         return content.Value?.Schema is OpenApiSchemaReference schemaRef
-                ? schemaRef.Reference.Id ?? "object"
+            ? schemaRef.Reference.Id != null
+                ? CodeGenerationHelpers.ToPascalCase(schemaRef.Reference.Id)
+                : "object"
             : content.Value?.Schema is OpenApiSchema schema
             && schema.Type == JsonSchemaType.Array
             && schema.Items is OpenApiSchemaReference itemsRef
-                ? $"List<{itemsRef.Reference.Id ?? "object"}>"
-            : ModelGenerator.MapOpenApiType(content.Value?.Schema);
+                ? $"List<{(itemsRef.Reference.Id != null ? CodeGenerationHelpers.ToPascalCase(itemsRef.Reference.Id) : "object")}>"
+                : ModelGenerator.MapOpenApiType(content.Value?.Schema);
     }
 }
