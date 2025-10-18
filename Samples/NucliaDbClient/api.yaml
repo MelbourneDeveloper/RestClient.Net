@@ -121,6 +121,13 @@ paths:
         schema:
           type: string
           title: Kbid
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: READER
+          title: X-NUCLIADB-ROLES
       responses:
         '200':
           description: Successful Response
@@ -4476,6 +4483,13 @@ paths:
           default: 20
           title: Size
         description: Page size
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: READER
+          title: X-NUCLIADB-ROLES
       responses:
         '200':
           description: Successful Response

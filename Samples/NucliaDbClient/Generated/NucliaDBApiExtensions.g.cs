@@ -43,9 +43,9 @@ public static class NucliaDBApiExtensions
     /// <summary>Get Knowledge Box</summary>
     public static Task<Result<KnowledgeBoxObj, HttpError<string>>> GetKbKbKbidGet(
         this HttpClient httpClient,
-        string kbid,
+        string kbid, string xNUCLIADBROLES,
         CancellationToken cancellationToken = default
-    ) => _getKbKbKbidGet(httpClient, kbid, cancellationToken);
+    ) => _getKbKbKbidGet(httpClient, (kbid, xNUCLIADBROLES), cancellationToken);
     
     /// <summary>Ask Knowledge Box</summary>
     public static Task<Result<SyncAskResponse, HttpError<string>>> AskKnowledgeboxEndpointKbKbidAskPost(
@@ -505,9 +505,9 @@ public static class NucliaDBApiExtensions
     /// <summary>List Resources</summary>
     public static Task<Result<ResourceList, HttpError<string>>> ListResourcesKbKbidResourcesGet(
         this HttpClient httpClient,
-        string kbid, int page, int size,
+        string kbid, int page, int size, string xNUCLIADBROLES,
         CancellationToken cancellationToken = default
-    ) => _listResourcesKbKbidResourcesGet(httpClient, (kbid, page, size), cancellationToken);
+    ) => _listResourcesKbKbidResourcesGet(httpClient, (kbid, page, size, xNUCLIADBROLES), cancellationToken);
     
     /// <summary>Learning configuration schema</summary>
     public static Task<Result<object, HttpError<string>>> GetSchemaForConfigurationUpdatesKbKbidSchemaGet(
@@ -810,10 +810,10 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<KnowledgeBoxObj, string, string> _getKbKbKbidGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeBoxObj, string, string>(
+    private static GetAsync<KnowledgeBoxObj, string, (string kbid, string xNUCLIADBROLES)> _getKbKbKbidGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeBoxObj, string, (string kbid, string xNUCLIADBROLES)>(
             url: BaseUrl,
-            buildRequest: static kbid => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{kbid}"), null, null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}"), null, new Dictionary<string, string> { ["X-NUCLIADB-ROLES"] = param.xNUCLIADBROLES.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<KnowledgeBoxObj>,
             deserializeError: DeserializeError
         );
@@ -1338,10 +1338,10 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<ResourceList, string, (string kbid, int page, int size)> _listResourcesKbKbidResourcesGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceList, string, (string kbid, int page, int size)>(
+    private static GetAsync<ResourceList, string, (string kbid, int page, int size, string xNUCLIADBROLES)> _listResourcesKbKbidResourcesGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceList, string, (string kbid, int page, int size, string xNUCLIADBROLES)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resources?page={param.page}&size={param.size}"), null, null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resources?page={param.page}&size={param.size}"), null, new Dictionary<string, string> { ["X-NUCLIADB-ROLES"] = param.xNUCLIADBROLES.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceList>,
             deserializeError: DeserializeError
         );
