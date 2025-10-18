@@ -116,7 +116,9 @@ public sealed class LiveJsonPlaceholderTests
     public async Task DeleteTodo_Succeeds()
     {
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.DeleteTodo(1, CancellationToken.None).ConfigureAwait(false);
+        var result = await httpClient
+            .DeleteTodo(id: 1, cancellationToken: CancellationToken.None)
+            .ConfigureAwait(false);
 
         Assert.IsTrue(result.IsOk);
     }

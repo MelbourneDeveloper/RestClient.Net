@@ -37,757 +37,757 @@ public static class NucliaDBApiExtensions
     public static Task<Result<KnowledgeBoxObj, HttpError<string>>> GetKbBySlugKbSSlugGet(
         this HttpClient httpClient,
         string slug,
-        CancellationToken ct = default
-    ) => _getKbBySlugKbSSlugGet(httpClient, slug, ct);
+        CancellationToken cancellationToken = default
+    ) => _getKbBySlugKbSSlugGet(httpClient, slug, cancellationToken);
     
     /// <summary>Get Knowledge Box</summary>
     public static Task<Result<KnowledgeBoxObj, HttpError<string>>> GetKbKbKbidGet(
         this HttpClient httpClient,
         string kbid,
-        CancellationToken ct = default
-    ) => _getKbKbKbidGet(httpClient, kbid, ct);
+        CancellationToken cancellationToken = default
+    ) => _getKbKbKbidGet(httpClient, kbid, cancellationToken);
     
     /// <summary>Ask Knowledge Box</summary>
     public static Task<Result<SyncAskResponse, HttpError<string>>> AskKnowledgeboxEndpointKbKbidAskPost(
         this HttpClient httpClient,
         string kbid, NucliaDBClientType xNdbClient, bool xShowConsumption, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest body,
-        CancellationToken ct = default
-    ) => _askKnowledgeboxEndpointKbKbidAskPost(httpClient, (kbid, xNdbClient, xShowConsumption, xNucliadbUser, xForwardedFor, xSynchronous, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _askKnowledgeboxEndpointKbKbidAskPost(httpClient, (kbid, xNdbClient, xShowConsumption, xNucliadbUser, xForwardedFor, xSynchronous, body), cancellationToken);
     
     /// <summary>List resources of a Knowledge Box</summary>
     public static Task<Result<KnowledgeboxSearchResults, HttpError<string>>> CatalogGetKbKbidCatalogGet(
         this HttpClient httpClient,
         string kbid, string query, object filterExpression, List<string> filters, List<string> faceted, SortField sortField, object sortLimit, SortOrder sortOrder, int pageNumber, int pageSize, object withStatus, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, object hidden, List<ResourceProperties> show,
-        CancellationToken ct = default
-    ) => _catalogGetKbKbidCatalogGet(httpClient, (kbid, query, filterExpression, filters, faceted, sortField, sortLimit, sortOrder, pageNumber, pageSize, withStatus, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, hidden, show), ct);
+        CancellationToken cancellationToken = default
+    ) => _catalogGetKbKbidCatalogGet(httpClient, (kbid, query, filterExpression, filters, faceted, sortField, sortLimit, sortOrder, pageNumber, pageSize, withStatus, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, hidden, show), cancellationToken);
     
     /// <summary>List resources of a Knowledge Box</summary>
     public static Task<Result<KnowledgeboxSearchResults, HttpError<string>>> CatalogPostKbKbidCatalogPost(
         this HttpClient httpClient,
         string kbid, CatalogRequest body,
-        CancellationToken ct = default
-    ) => _catalogPostKbKbidCatalogPost(httpClient, (kbid, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _catalogPostKbKbidCatalogPost(httpClient, (kbid, body), cancellationToken);
     
     /// <summary>Get Knowledge Box models configuration</summary>
     public static Task<Result<object, HttpError<string>>> GetConfigurationKbKbidConfigurationGet(
         this HttpClient httpClient,
         string kbid,
-        CancellationToken ct = default
-    ) => _getConfigurationKbKbidConfigurationGet(httpClient, kbid, ct);
+        CancellationToken cancellationToken = default
+    ) => _getConfigurationKbKbidConfigurationGet(httpClient, kbid, cancellationToken);
     
     /// <summary>Update Knowledge Box models configuration</summary>
     public static Task<Result<object, HttpError<string>>> PatchConfigurationKbKbidConfigurationPatch(
         this HttpClient httpClient,
         string kbid, object body,
-        CancellationToken ct = default
-    ) => _patchConfigurationKbKbidConfigurationPatch(httpClient, (kbid, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _patchConfigurationKbKbidConfigurationPatch(httpClient, (kbid, body), cancellationToken);
     
     /// <summary>Create Knowledge Box models configuration</summary>
     public static Task<Result<object, HttpError<string>>> SetConfigurationKbKbidConfigurationPost(
         this HttpClient httpClient,
         string kbid, object body,
-        CancellationToken ct = default
-    ) => _setConfigurationKbKbidConfigurationPost(httpClient, (kbid, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _setConfigurationKbKbidConfigurationPost(httpClient, (kbid, body), cancellationToken);
     
     /// <summary>Knowledgebox Counters</summary>
     public static Task<Result<KnowledgeboxCounters, HttpError<string>>> KnowledgeboxCountersKbKbidCountersGet(
         this HttpClient httpClient,
         string kbid, bool debug,
-        CancellationToken ct = default
-    ) => _knowledgeboxCountersKbKbidCountersGet(httpClient, (kbid, debug), ct);
+        CancellationToken cancellationToken = default
+    ) => _knowledgeboxCountersKbKbidCountersGet(httpClient, (kbid, debug), cancellationToken);
     
     /// <summary>Set Knowledge Box Custom Synonyms</summary>
     public static Task<Result<object, HttpError<string>>> SetCustomSynonymsKbKbidCustomSynonymsPut(
         this HttpClient httpClient,
         string kbid, KnowledgeBoxSynonyms body,
-        CancellationToken ct = default
-    ) => _setCustomSynonymsKbKbidCustomSynonymsPut(httpClient, (kbid, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _setCustomSynonymsKbKbidCustomSynonymsPut(httpClient, (kbid, body), cancellationToken);
     
     /// <summary>Delete Knowledge Box Custom Synonyms</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteCustomSynonymsKbKbidCustomSynonymsDelete(
         this HttpClient httpClient,
         string kbid,
-        CancellationToken ct = default
-    ) => _deleteCustomSynonymsKbKbidCustomSynonymsDelete(httpClient, kbid, ct);
+        CancellationToken cancellationToken = default
+    ) => _deleteCustomSynonymsKbKbidCustomSynonymsDelete(httpClient, kbid, cancellationToken);
     
     /// <summary>Get Knowledge Box Custom Synonyms</summary>
     public static Task<Result<KnowledgeBoxSynonyms, HttpError<string>>> GetCustomSynonymsKbKbidCustomSynonymsGet(
         this HttpClient httpClient,
         string kbid,
-        CancellationToken ct = default
-    ) => _getCustomSynonymsKbKbidCustomSynonymsGet(httpClient, kbid, ct);
+        CancellationToken cancellationToken = default
+    ) => _getCustomSynonymsKbKbidCustomSynonymsGet(httpClient, kbid, cancellationToken);
     
     /// <summary>Update Knowledge Box Entities Group</summary>
     public static Task<Result<object, HttpError<string>>> UpdateEntitiesGroupKbKbidEntitiesgroupGroupPatch(
         this HttpClient httpClient,
         string kbid, string group, UpdateEntitiesGroupPayload body,
-        CancellationToken ct = default
-    ) => _updateEntitiesGroupKbKbidEntitiesgroupGroupPatch(httpClient, ((kbid, group), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _updateEntitiesGroupKbKbidEntitiesgroupGroupPatch(httpClient, ((kbid, group), body), cancellationToken);
     
     /// <summary>Delete Knowledge Box Entities</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteEntitiesKbKbidEntitiesgroupGroupDelete(
         this HttpClient httpClient,
         string kbid, string group,
-        CancellationToken ct = default
-    ) => _deleteEntitiesKbKbidEntitiesgroupGroupDelete(httpClient, (kbid, group), ct);
+        CancellationToken cancellationToken = default
+    ) => _deleteEntitiesKbKbidEntitiesgroupGroupDelete(httpClient, (kbid, group), cancellationToken);
     
     /// <summary>Get a Knowledge Box Entities Group</summary>
     public static Task<Result<EntitiesGroup, HttpError<string>>> GetEntityKbKbidEntitiesgroupGroupGet(
         this HttpClient httpClient,
         string kbid, string group,
-        CancellationToken ct = default
-    ) => _getEntityKbKbidEntitiesgroupGroupGet(httpClient, (kbid, group), ct);
+        CancellationToken cancellationToken = default
+    ) => _getEntityKbKbidEntitiesgroupGroupGet(httpClient, (kbid, group), cancellationToken);
     
     /// <summary>Create Knowledge Box Entities Group</summary>
     public static Task<Result<object, HttpError<string>>> CreateEntitiesGroupKbKbidEntitiesgroupsPost(
         this HttpClient httpClient,
         string kbid, CreateEntitiesGroupPayload body,
-        CancellationToken ct = default
-    ) => _createEntitiesGroupKbKbidEntitiesgroupsPost(httpClient, (kbid, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _createEntitiesGroupKbKbidEntitiesgroupsPost(httpClient, (kbid, body), cancellationToken);
     
     /// <summary>Get Knowledge Box Entities</summary>
     public static Task<Result<KnowledgeBoxEntities, HttpError<string>>> GetEntitiesKbKbidEntitiesgroupsGet(
         this HttpClient httpClient,
         string kbid, bool showEntities,
-        CancellationToken ct = default
-    ) => _getEntitiesKbKbidEntitiesgroupsGet(httpClient, (kbid, showEntities), ct);
+        CancellationToken cancellationToken = default
+    ) => _getEntitiesKbKbidEntitiesgroupsGet(httpClient, (kbid, showEntities), cancellationToken);
     
     /// <summary>Start an export of a Knowledge Box</summary>
     public static Task<Result<CreateExportResponse, HttpError<string>>> StartKbExportEndpointKbKbidExportPost(
         this HttpClient httpClient,
         string kbid, object body,
-        CancellationToken ct = default
-    ) => _startKbExportEndpointKbKbidExportPost(httpClient, (kbid, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _startKbExportEndpointKbKbidExportPost(httpClient, (kbid, body), cancellationToken);
     
     /// <summary>Download a Knowledge Box export</summary>
     public static Task<Result<object, HttpError<string>>> DownloadExportKbEndpointKbKbidExportExportIdGet(
         this HttpClient httpClient,
         string kbid, string exportId,
-        CancellationToken ct = default
-    ) => _downloadExportKbEndpointKbKbidExportExportIdGet(httpClient, (kbid, exportId), ct);
+        CancellationToken cancellationToken = default
+    ) => _downloadExportKbEndpointKbKbidExportExportIdGet(httpClient, (kbid, exportId), cancellationToken);
     
     /// <summary>Get the status of a Knowledge Box Export</summary>
     public static Task<Result<StatusResponse, HttpError<string>>> GetExportStatusEndpointKbKbidExportExportIdStatusGet(
         this HttpClient httpClient,
         string kbid, string exportId,
-        CancellationToken ct = default
-    ) => _getExportStatusEndpointKbKbidExportExportIdStatusGet(httpClient, (kbid, exportId), ct);
+        CancellationToken cancellationToken = default
+    ) => _getExportStatusEndpointKbKbidExportExportIdStatusGet(httpClient, (kbid, exportId), cancellationToken);
     
     /// <summary>Add a extract strategy to a KB</summary>
     public static Task<Result<string, HttpError<string>>> AddStrategyKbKbidExtractStrategiesPost(
         this HttpClient httpClient,
         string kbid, ExtractConfig body,
-        CancellationToken ct = default
-    ) => _addStrategyKbKbidExtractStrategiesPost(httpClient, (kbid, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _addStrategyKbKbidExtractStrategiesPost(httpClient, (kbid, body), cancellationToken);
     
     /// <summary>Learning extract strategies</summary>
     public static Task<Result<object, HttpError<string>>> GetExtractStrategiesKbKbidExtractStrategiesGet(
         this HttpClient httpClient,
         string kbid,
-        CancellationToken ct = default
-    ) => _getExtractStrategiesKbKbidExtractStrategiesGet(httpClient, kbid, ct);
+        CancellationToken cancellationToken = default
+    ) => _getExtractStrategiesKbKbidExtractStrategiesGet(httpClient, kbid, cancellationToken);
     
     /// <summary>Remove a extract strategy from a KB</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteStrategyKbKbidExtractStrategiesStrategyStrategyIdDelete(
         this HttpClient httpClient,
         string kbid, string strategyId,
-        CancellationToken ct = default
-    ) => _deleteStrategyKbKbidExtractStrategiesStrategyStrategyIdDelete(httpClient, (kbid, strategyId), ct);
+        CancellationToken cancellationToken = default
+    ) => _deleteStrategyKbKbidExtractStrategiesStrategyStrategyIdDelete(httpClient, (kbid, strategyId), cancellationToken);
     
     /// <summary>Extract strategy configuration</summary>
     public static Task<Result<object, HttpError<string>>> GetExtractStrategyFromIdKbKbidExtractStrategiesStrategyStrategyIdGet(
         this HttpClient httpClient,
         string kbid, string strategyId,
-        CancellationToken ct = default
-    ) => _getExtractStrategyFromIdKbKbidExtractStrategiesStrategyStrategyIdGet(httpClient, (kbid, strategyId), ct);
+        CancellationToken cancellationToken = default
+    ) => _getExtractStrategyFromIdKbKbidExtractStrategiesStrategyStrategyIdGet(httpClient, (kbid, strategyId), cancellationToken);
     
     /// <summary>Send Feedback</summary>
     public static Task<Result<object, HttpError<string>>> SendFeedbackEndpointKbKbidFeedbackPost(
         this HttpClient httpClient,
         string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, FeedbackRequest body,
-        CancellationToken ct = default
-    ) => _sendFeedbackEndpointKbKbidFeedbackPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _sendFeedbackEndpointKbKbidFeedbackPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), cancellationToken);
     
     /// <summary>Find Knowledge Box</summary>
     public static Task<Result<KnowledgeboxFindResults, HttpError<string>>> FindKnowledgeboxKbKbidFindGet(
         this HttpClient httpClient,
         string kbid, string query, object filterExpression, List<string> fields, List<string> filters, object topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<FindOptions> features, bool debug, bool highlight, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, RankFusionName rankFusion, object reranker, object searchConfiguration, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor,
-        CancellationToken ct = default
-    ) => _findKnowledgeboxKbKbidFindGet(httpClient, (kbid, query, filterExpression, fields, filters, topK, minScore, minScoreSemantic, minScoreBm25, vectorset, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, debug, highlight, show, fieldType, extracted, withDuplicates, withSynonyms, autofilter, securityGroups, showHidden, rankFusion, reranker, searchConfiguration, xNdbClient, xNucliadbUser, xForwardedFor), ct);
+        CancellationToken cancellationToken = default
+    ) => _findKnowledgeboxKbKbidFindGet(httpClient, (kbid, query, filterExpression, fields, filters, topK, minScore, minScoreSemantic, minScoreBm25, vectorset, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, debug, highlight, show, fieldType, extracted, withDuplicates, withSynonyms, autofilter, securityGroups, showHidden, rankFusion, reranker, searchConfiguration, xNdbClient, xNucliadbUser, xForwardedFor), cancellationToken);
     
     /// <summary>Find Knowledge Box</summary>
     public static Task<Result<KnowledgeboxFindResults, HttpError<string>>> FindPostKnowledgeboxKbKbidFindPost(
         this HttpClient httpClient,
         string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, FindRequest body,
-        CancellationToken ct = default
-    ) => _findPostKnowledgeboxKbKbidFindPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _findPostKnowledgeboxKbKbidFindPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), cancellationToken);
     
     /// <summary>Search Knowledge Box graph</summary>
     public static Task<Result<GraphSearchResponse, HttpError<string>>> GraphSearchKnowledgeboxKbKbidGraphPost(
         this HttpClient httpClient,
         string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, GraphSearchRequest body,
-        CancellationToken ct = default
-    ) => _graphSearchKnowledgeboxKbKbidGraphPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _graphSearchKnowledgeboxKbKbidGraphPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), cancellationToken);
     
     /// <summary>Search Knowledge Box graph nodes</summary>
     public static Task<Result<GraphNodesSearchResponse, HttpError<string>>> GraphNodesSearchKnowledgeboxKbKbidGraphNodesPost(
         this HttpClient httpClient,
         string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, GraphNodesSearchRequest body,
-        CancellationToken ct = default
-    ) => _graphNodesSearchKnowledgeboxKbKbidGraphNodesPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _graphNodesSearchKnowledgeboxKbKbidGraphNodesPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), cancellationToken);
     
     /// <summary>Search Knowledge Box graph relations</summary>
     public static Task<Result<GraphRelationsSearchResponse, HttpError<string>>> GraphRelationsSearchKnowledgeboxKbKbidGraphRelationsPost(
         this HttpClient httpClient,
         string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, GraphRelationsSearchRequest body,
-        CancellationToken ct = default
-    ) => _graphRelationsSearchKnowledgeboxKbKbidGraphRelationsPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _graphRelationsSearchKnowledgeboxKbKbidGraphRelationsPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), cancellationToken);
     
     /// <summary>Start an import to a Knowledge Box</summary>
     public static Task<Result<CreateImportResponse, HttpError<string>>> StartKbImportEndpointKbKbidImportPost(
         this HttpClient httpClient,
         string kbid, object body,
-        CancellationToken ct = default
-    ) => _startKbImportEndpointKbKbidImportPost(httpClient, (kbid, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _startKbImportEndpointKbKbidImportPost(httpClient, (kbid, body), cancellationToken);
     
     /// <summary>Get the status of a Knowledge Box Import</summary>
     public static Task<Result<StatusResponse, HttpError<string>>> GetImportStatusEndpointKbKbidImportImportIdStatusGet(
         this HttpClient httpClient,
         string kbid, string importId,
-        CancellationToken ct = default
-    ) => _getImportStatusEndpointKbKbidImportImportIdStatusGet(httpClient, (kbid, importId), ct);
+        CancellationToken cancellationToken = default
+    ) => _getImportStatusEndpointKbKbidImportImportIdStatusGet(httpClient, (kbid, importId), cancellationToken);
     
     /// <summary>Set Knowledge Box Labels</summary>
     public static Task<Result<object, HttpError<string>>> SetLabelsetEndpointKbKbidLabelsetLabelsetPost(
         this HttpClient httpClient,
         string kbid, string labelset, LabelSet body,
-        CancellationToken ct = default
-    ) => _setLabelsetEndpointKbKbidLabelsetLabelsetPost(httpClient, ((kbid, labelset), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _setLabelsetEndpointKbKbidLabelsetLabelsetPost(httpClient, ((kbid, labelset), body), cancellationToken);
     
     /// <summary>Delete Knowledge Box Label</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteLabelsetEndpointKbKbidLabelsetLabelsetDelete(
         this HttpClient httpClient,
         string kbid, string labelset,
-        CancellationToken ct = default
-    ) => _deleteLabelsetEndpointKbKbidLabelsetLabelsetDelete(httpClient, (kbid, labelset), ct);
+        CancellationToken cancellationToken = default
+    ) => _deleteLabelsetEndpointKbKbidLabelsetLabelsetDelete(httpClient, (kbid, labelset), cancellationToken);
     
     /// <summary>Get a Knowledge Box Label Set</summary>
     public static Task<Result<LabelSet, HttpError<string>>> GetLabelsetEndpointKbKbidLabelsetLabelsetGet(
         this HttpClient httpClient,
         string kbid, string labelset,
-        CancellationToken ct = default
-    ) => _getLabelsetEndpointKbKbidLabelsetLabelsetGet(httpClient, (kbid, labelset), ct);
+        CancellationToken cancellationToken = default
+    ) => _getLabelsetEndpointKbKbidLabelsetLabelsetGet(httpClient, (kbid, labelset), cancellationToken);
     
     /// <summary>Get Knowledge Box Label Sets</summary>
     public static Task<Result<KnowledgeBoxLabels, HttpError<string>>> GetLabelsetsEndointKbKbidLabelsetsGet(
         this HttpClient httpClient,
         string kbid,
-        CancellationToken ct = default
-    ) => _getLabelsetsEndointKbKbidLabelsetsGet(httpClient, kbid, ct);
+        CancellationToken cancellationToken = default
+    ) => _getLabelsetsEndointKbKbidLabelsetsGet(httpClient, kbid, cancellationToken);
     
     /// <summary>Get model metadata</summary>
     public static Task<Result<object, HttpError<string>>> GetModelKbKbidModelModelIdGet(
         this HttpClient httpClient,
         string kbid, string modelId,
-        CancellationToken ct = default
-    ) => _getModelKbKbidModelModelIdGet(httpClient, (kbid, modelId), ct);
+        CancellationToken cancellationToken = default
+    ) => _getModelKbKbidModelModelIdGet(httpClient, (kbid, modelId), cancellationToken);
     
     /// <summary>Get available models</summary>
     public static Task<Result<object, HttpError<string>>> GetModelsKbKbidModelsGet(
         this HttpClient httpClient,
         string kbid,
-        CancellationToken ct = default
-    ) => _getModelsKbKbidModelsGet(httpClient, kbid, ct);
+        CancellationToken cancellationToken = default
+    ) => _getModelsKbKbidModelsGet(httpClient, kbid, cancellationToken);
     
     /// <summary>Download the Knowledege Box model</summary>
     public static Task<Result<object, HttpError<string>>> DownloadModelKbKbidModelsModelIdFilenameGet(
         this HttpClient httpClient,
         string kbid, string modelId, string filename,
-        CancellationToken ct = default
-    ) => _downloadModelKbKbidModelsModelIdFilenameGet(httpClient, (kbid, modelId, filename), ct);
+        CancellationToken cancellationToken = default
+    ) => _downloadModelKbKbidModelsModelIdFilenameGet(httpClient, (kbid, modelId, filename), cancellationToken);
     
     /// <summary>Knowledge Box Notifications Stream</summary>
     public static Task<Result<object, HttpError<string>>> NotificationsEndpointKbKbidNotificationsGet(
         this HttpClient httpClient,
         string kbid,
-        CancellationToken ct = default
-    ) => _notificationsEndpointKbKbidNotificationsGet(httpClient, kbid, ct);
+        CancellationToken cancellationToken = default
+    ) => _notificationsEndpointKbKbidNotificationsGet(httpClient, kbid, cancellationToken);
     
     /// <summary>Predict API Proxy</summary>
     public static Task<Result<object, HttpError<string>>> PredictProxyEndpointKbKbidPredictEndpointPost(
         this HttpClient httpClient,
         string kbid, PredictProxiedEndpoints endpoint, string xNucliadbUser, NucliaDBClientType xNdbClient, string xForwardedFor, object body,
-        CancellationToken ct = default
-    ) => _predictProxyEndpointKbKbidPredictEndpointPost(httpClient, (kbid, endpoint, xNucliadbUser, xNdbClient, xForwardedFor, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _predictProxyEndpointKbKbidPredictEndpointPost(httpClient, (kbid, endpoint, xNucliadbUser, xNdbClient, xForwardedFor, body), cancellationToken);
     
     /// <summary>Predict API Proxy</summary>
     public static Task<Result<object, HttpError<string>>> PredictProxyEndpointKbKbidPredictEndpointGet(
         this HttpClient httpClient,
         string kbid, PredictProxiedEndpoints endpoint, string xNucliadbUser, NucliaDBClientType xNdbClient, string xForwardedFor,
-        CancellationToken ct = default
-    ) => _predictProxyEndpointKbKbidPredictEndpointGet(httpClient, (kbid, endpoint, xNucliadbUser, xNdbClient, xForwardedFor), ct);
+        CancellationToken cancellationToken = default
+    ) => _predictProxyEndpointKbKbidPredictEndpointGet(httpClient, (kbid, endpoint, xNucliadbUser, xNdbClient, xForwardedFor), cancellationToken);
     
     /// <summary>Knowledge Box Processing Status</summary>
     public static Task<Result<RequestsResults, HttpError<string>>> ProcessingStatusKbKbidProcessingStatusGet(
         this HttpClient httpClient,
         string kbid, object cursor, object scheduled, int limit,
-        CancellationToken ct = default
-    ) => _processingStatusKbKbidProcessingStatusGet(httpClient, (kbid, cursor, scheduled, limit), ct);
+        CancellationToken cancellationToken = default
+    ) => _processingStatusKbKbidProcessingStatusGet(httpClient, (kbid, cursor, scheduled, limit), cancellationToken);
     
     /// <summary>Create new upload on a Resource (by id)</summary>
     public static Task<Result<object, HttpError<string>>> TusPostRidPrefixKbKbidResourcePathRidFileFieldTusuploadPost(
         this HttpClient httpClient,
         string kbid, string pathRid, string field, object xExtractStrategy, object xSplitStrategy, object body,
-        CancellationToken ct = default
-    ) => _tusPostRidPrefixKbKbidResourcePathRidFileFieldTusuploadPost(httpClient, (kbid, pathRid, field, xExtractStrategy, xSplitStrategy, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _tusPostRidPrefixKbKbidResourcePathRidFileFieldTusuploadPost(httpClient, (kbid, pathRid, field, xExtractStrategy, xSplitStrategy, body), cancellationToken);
     
     /// <summary>Upload information</summary>
     public static Task<Result<object, HttpError<string>>> UploadInformationKbKbidResourcePathRidFileFieldTusuploadUploadIdHead(
         this HttpClient httpClient,
         string kbid, string pathRid, string field, string uploadId,
-        CancellationToken ct = default
-    ) => _uploadInformationKbKbidResourcePathRidFileFieldTusuploadUploadIdHead(httpClient, (kbid, pathRid, field, uploadId), ct);
+        CancellationToken cancellationToken = default
+    ) => _uploadInformationKbKbidResourcePathRidFileFieldTusuploadUploadIdHead(httpClient, (kbid, pathRid, field, uploadId), cancellationToken);
     
     /// <summary>Upload binary file on a Resource (by id)</summary>
     public static Task<Result<ResourceFileUploaded, HttpError<string>>> UploadRidPrefixKbKbidResourcePathRidFileFieldUploadPost(
         this HttpClient httpClient,
         string kbid, string pathRid, string field, object xFilename, object xPassword, object xLanguage, object xMd5, object xExtractStrategy, object xSplitStrategy, object body,
-        CancellationToken ct = default
-    ) => _uploadRidPrefixKbKbidResourcePathRidFileFieldUploadPost(httpClient, (kbid, pathRid, field, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _uploadRidPrefixKbKbidResourcePathRidFileFieldUploadPost(httpClient, (kbid, pathRid, field, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, body), cancellationToken);
     
     /// <summary>Modify Resource (by id)</summary>
     public static Task<Result<ResourceUpdated, HttpError<string>>> ModifyResourceRidPrefixKbKbidResourceRidPatch(
         this HttpClient httpClient,
         string kbid, string rid, string xNucliadbUser, bool xSkipStore, UpdateResourcePayload body,
-        CancellationToken ct = default
-    ) => _modifyResourceRidPrefixKbKbidResourceRidPatch(httpClient, (kbid, rid, xNucliadbUser, xSkipStore, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _modifyResourceRidPrefixKbKbidResourceRidPatch(httpClient, (kbid, rid, xNucliadbUser, xSkipStore, body), cancellationToken);
     
     /// <summary>Delete Resource (by id)</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteResourceRidPrefixKbKbidResourceRidDelete(
         this HttpClient httpClient,
         string kbid, string rid,
-        CancellationToken ct = default
-    ) => _deleteResourceRidPrefixKbKbidResourceRidDelete(httpClient, (kbid, rid), ct);
+        CancellationToken cancellationToken = default
+    ) => _deleteResourceRidPrefixKbKbidResourceRidDelete(httpClient, (kbid, rid), cancellationToken);
     
     /// <summary>Get Resource (by id)</summary>
     public static Task<Result<NucliadbModelsResourceResource, HttpError<string>>> GetResourceByUuidKbKbidResourceRidGet(
         this HttpClient httpClient,
         string kbid, string rid, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, string xNucliadbUser, string xForwardedFor,
-        CancellationToken ct = default
-    ) => _getResourceByUuidKbKbidResourceRidGet(httpClient, (kbid, rid, show, fieldType, extracted, xNucliadbUser, xForwardedFor), ct);
+        CancellationToken cancellationToken = default
+    ) => _getResourceByUuidKbKbidResourceRidGet(httpClient, (kbid, rid, show, fieldType, extracted, xNucliadbUser, xForwardedFor), cancellationToken);
     
     /// <summary>Ask a resource (by id)</summary>
     public static Task<Result<SyncAskResponse, HttpError<string>>> ResourceAskEndpointByUuidKbKbidResourceRidAskPost(
         this HttpClient httpClient,
         string kbid, string rid, bool xShowConsumption, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest body,
-        CancellationToken ct = default
-    ) => _resourceAskEndpointByUuidKbKbidResourceRidAskPost(httpClient, (kbid, rid, xShowConsumption, xNdbClient, xNucliadbUser, xForwardedFor, xSynchronous, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _resourceAskEndpointByUuidKbKbidResourceRidAskPost(httpClient, (kbid, rid, xShowConsumption, xNdbClient, xNucliadbUser, xForwardedFor, xSynchronous, body), cancellationToken);
     
     /// <summary>Add resource conversation field (by id)</summary>
     public static Task<Result<ResourceFieldAdded, HttpError<string>>> AddResourceFieldConversationRidPrefixKbKbidResourceRidConversationFieldIdPut(
         this HttpClient httpClient,
         string kbid, string rid, string fieldId, InputConversationField body,
-        CancellationToken ct = default
-    ) => _addResourceFieldConversationRidPrefixKbKbidResourceRidConversationFieldIdPut(httpClient, ((kbid, rid, fieldId), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _addResourceFieldConversationRidPrefixKbKbidResourceRidConversationFieldIdPut(httpClient, ((kbid, rid, fieldId), body), cancellationToken);
     
     /// <summary>Download conversation binary field (by id)</summary>
     public static Task<Result<object, HttpError<string>>> DownloadFieldConversationAttachmentRidPrefixKbKbidResourceRidConversationFieldIdDownloadFieldMessageIdFileNumGet(
         this HttpClient httpClient,
         string kbid, string rid, string fieldId, string messageId, int fileNum,
-        CancellationToken ct = default
-    ) => _downloadFieldConversationAttachmentRidPrefixKbKbidResourceRidConversationFieldIdDownloadFieldMessageIdFileNumGet(httpClient, (kbid, rid, fieldId, messageId, fileNum), ct);
+        CancellationToken cancellationToken = default
+    ) => _downloadFieldConversationAttachmentRidPrefixKbKbidResourceRidConversationFieldIdDownloadFieldMessageIdFileNumGet(httpClient, (kbid, rid, fieldId, messageId, fileNum), cancellationToken);
     
     /// <summary>Append messages to conversation field (by id)</summary>
     public static Task<Result<ResourceFieldAdded, HttpError<string>>> AppendMessagesToConversationFieldRidPrefixKbKbidResourceRidConversationFieldIdMessagesPut(
         this HttpClient httpClient,
         string kbid, string rid, string fieldId, object body,
-        CancellationToken ct = default
-    ) => _appendMessagesToConversationFieldRidPrefixKbKbidResourceRidConversationFieldIdMessagesPut(httpClient, ((kbid, rid, fieldId), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _appendMessagesToConversationFieldRidPrefixKbKbidResourceRidConversationFieldIdMessagesPut(httpClient, ((kbid, rid, fieldId), body), cancellationToken);
     
     /// <summary>Add resource file field (by id)</summary>
     public static Task<Result<ResourceFieldAdded, HttpError<string>>> AddResourceFieldFileRidPrefixKbKbidResourceRidFileFieldIdPut(
         this HttpClient httpClient,
         string kbid, string rid, string fieldId, bool xSkipStore, FileField body,
-        CancellationToken ct = default
-    ) => _addResourceFieldFileRidPrefixKbKbidResourceRidFileFieldIdPut(httpClient, (kbid, rid, fieldId, xSkipStore, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _addResourceFieldFileRidPrefixKbKbidResourceRidFileFieldIdPut(httpClient, (kbid, rid, fieldId, xSkipStore, body), cancellationToken);
     
     /// <summary>Download field binary field (by id)</summary>
     public static Task<Result<object, HttpError<string>>> DownloadFieldFileRidPrefixKbKbidResourceRidFileFieldIdDownloadFieldGet(
         this HttpClient httpClient,
         string kbid, string rid, string fieldId, bool inline,
-        CancellationToken ct = default
-    ) => _downloadFieldFileRidPrefixKbKbidResourceRidFileFieldIdDownloadFieldGet(httpClient, (kbid, rid, fieldId, inline), ct);
+        CancellationToken cancellationToken = default
+    ) => _downloadFieldFileRidPrefixKbKbidResourceRidFileFieldIdDownloadFieldGet(httpClient, (kbid, rid, fieldId, inline), cancellationToken);
     
     /// <summary>Reprocess file field (by id)</summary>
     public static Task<Result<ResourceUpdated, HttpError<string>>> ReprocessFileFieldKbKbidResourceRidFileFieldIdReprocessPost(
         this HttpClient httpClient,
         string kbid, string rid, string fieldId, bool resetTitle, string xNucliadbUser, object xFilePassword, object body,
-        CancellationToken ct = default
-    ) => _reprocessFileFieldKbKbidResourceRidFileFieldIdReprocessPost(httpClient, (kbid, rid, fieldId, resetTitle, xNucliadbUser, xFilePassword, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _reprocessFileFieldKbKbidResourceRidFileFieldIdReprocessPost(httpClient, (kbid, rid, fieldId, resetTitle, xNucliadbUser, xFilePassword, body), cancellationToken);
     
     /// <summary>Upload data on a Resource (by id)</summary>
     public static Task<Result<object, HttpError<string>>> TusPatchRidPrefixKbKbidResourceRidFileFieldTusuploadUploadIdPatch(
         this HttpClient httpClient,
         string kbid, string rid, string field, string uploadId, object body,
-        CancellationToken ct = default
-    ) => _tusPatchRidPrefixKbKbidResourceRidFileFieldTusuploadUploadIdPatch(httpClient, ((kbid, rid, field, uploadId), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _tusPatchRidPrefixKbKbidResourceRidFileFieldTusuploadUploadIdPatch(httpClient, ((kbid, rid, field, uploadId), body), cancellationToken);
     
     /// <summary>Add resource link field (by id)</summary>
     public static Task<Result<ResourceFieldAdded, HttpError<string>>> AddResourceFieldLinkRidPrefixKbKbidResourceRidLinkFieldIdPut(
         this HttpClient httpClient,
         string kbid, string rid, string fieldId, LinkField body,
-        CancellationToken ct = default
-    ) => _addResourceFieldLinkRidPrefixKbKbidResourceRidLinkFieldIdPut(httpClient, ((kbid, rid, fieldId), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _addResourceFieldLinkRidPrefixKbKbidResourceRidLinkFieldIdPut(httpClient, ((kbid, rid, fieldId), body), cancellationToken);
     
     /// <summary>Reindex Resource (by id)</summary>
     public static Task<Result<object, HttpError<string>>> ReindexResourceRidPrefixKbKbidResourceRidReindexPost(
         this HttpClient httpClient,
         string kbid, string rid, bool reindexVectors, object body,
-        CancellationToken ct = default
-    ) => _reindexResourceRidPrefixKbKbidResourceRidReindexPost(httpClient, (kbid, rid, reindexVectors, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _reindexResourceRidPrefixKbKbidResourceRidReindexPost(httpClient, (kbid, rid, reindexVectors, body), cancellationToken);
     
     /// <summary>Reprocess resource (by id)</summary>
     public static Task<Result<ResourceUpdated, HttpError<string>>> ReprocessResourceRidPrefixKbKbidResourceRidReprocessPost(
         this HttpClient httpClient,
         string kbid, string rid, bool resetTitle, string xNucliadbUser, object body,
-        CancellationToken ct = default
-    ) => _reprocessResourceRidPrefixKbKbidResourceRidReprocessPost(httpClient, (kbid, rid, resetTitle, xNucliadbUser, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _reprocessResourceRidPrefixKbKbidResourceRidReprocessPost(httpClient, (kbid, rid, resetTitle, xNucliadbUser, body), cancellationToken);
     
     /// <summary>Run Agents on Resource</summary>
     public static Task<Result<ResourceAgentsResponse, HttpError<string>>> RunAgentsByUuidKbKbidResourceRidRunAgentsPost(
         this HttpClient httpClient,
         string kbid, string rid, string xNucliadbUser, ResourceAgentsRequest body,
-        CancellationToken ct = default
-    ) => _runAgentsByUuidKbKbidResourceRidRunAgentsPost(httpClient, (kbid, rid, xNucliadbUser, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _runAgentsByUuidKbKbidResourceRidRunAgentsPost(httpClient, (kbid, rid, xNucliadbUser, body), cancellationToken);
     
     /// <summary>Search on Resource</summary>
     public static Task<Result<ResourceSearchResults, HttpError<string>>> ResourceSearchKbKbidResourceRidSearchGet(
         this HttpClient httpClient,
         string kbid, string rid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, object sortField, SortOrder sortOrder, object topK, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, bool highlight, bool debug, NucliaDBClientType xNdbClient,
-        CancellationToken ct = default
-    ) => _resourceSearchKbKbidResourceRidSearchGet(httpClient, (kbid, rid, query, filterExpression, fields, filters, faceted, sortField, sortOrder, topK, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, highlight, debug, xNdbClient), ct);
+        CancellationToken cancellationToken = default
+    ) => _resourceSearchKbKbidResourceRidSearchGet(httpClient, (kbid, rid, query, filterExpression, fields, filters, faceted, sortField, sortOrder, topK, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, highlight, debug, xNdbClient), cancellationToken);
     
     /// <summary>Add resource text field (by id)</summary>
     public static Task<Result<ResourceFieldAdded, HttpError<string>>> AddResourceFieldTextRidPrefixKbKbidResourceRidTextFieldIdPut(
         this HttpClient httpClient,
         string kbid, string rid, string fieldId, TextField body,
-        CancellationToken ct = default
-    ) => _addResourceFieldTextRidPrefixKbKbidResourceRidTextFieldIdPut(httpClient, ((kbid, rid, fieldId), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _addResourceFieldTextRidPrefixKbKbidResourceRidTextFieldIdPut(httpClient, ((kbid, rid, fieldId), body), cancellationToken);
     
     /// <summary>Delete Resource field (by id)</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdDelete(
         this HttpClient httpClient,
         string kbid, string rid, FieldTypeName fieldType, string fieldId,
-        CancellationToken ct = default
-    ) => _deleteResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdDelete(httpClient, (kbid, rid, fieldType, fieldId), ct);
+        CancellationToken cancellationToken = default
+    ) => _deleteResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdDelete(httpClient, (kbid, rid, fieldType, fieldId), cancellationToken);
     
     /// <summary>Get Resource field (by id)</summary>
     public static Task<Result<ResourceField, HttpError<string>>> GetResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdGet(
         this HttpClient httpClient,
         string kbid, string rid, FieldTypeName fieldType, string fieldId, List<ResourceFieldProperties> show, List<ExtractedDataTypeName> extracted, object page,
-        CancellationToken ct = default
-    ) => _getResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdGet(httpClient, (kbid, rid, fieldType, fieldId, show, extracted, page), ct);
+        CancellationToken cancellationToken = default
+    ) => _getResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdGet(httpClient, (kbid, rid, fieldType, fieldId, show, extracted, page), cancellationToken);
     
     /// <summary>Download extracted binary file (by id)</summary>
     public static Task<Result<object, HttpError<string>>> DownloadExtractFileRidPrefixKbKbidResourceRidFieldTypeFieldIdDownloadExtractedDownloadFieldGet(
         this HttpClient httpClient,
         string kbid, string rid, FieldTypeName fieldType, string fieldId, string downloadField,
-        CancellationToken ct = default
-    ) => _downloadExtractFileRidPrefixKbKbidResourceRidFieldTypeFieldIdDownloadExtractedDownloadFieldGet(httpClient, (kbid, rid, fieldType, fieldId, downloadField), ct);
+        CancellationToken cancellationToken = default
+    ) => _downloadExtractFileRidPrefixKbKbidResourceRidFieldTypeFieldIdDownloadExtractedDownloadFieldGet(httpClient, (kbid, rid, fieldType, fieldId, downloadField), cancellationToken);
     
     /// <summary>Create Resource</summary>
     public static Task<Result<ResourceCreated, HttpError<string>>> CreateResourceKbKbidResourcesPost(
         this HttpClient httpClient,
         string kbid, bool xSkipStore, string xNucliadbUser, CreateResourcePayload body,
-        CancellationToken ct = default
-    ) => _createResourceKbKbidResourcesPost(httpClient, (kbid, xSkipStore, xNucliadbUser, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _createResourceKbKbidResourcesPost(httpClient, (kbid, xSkipStore, xNucliadbUser, body), cancellationToken);
     
     /// <summary>List Resources</summary>
     public static Task<Result<ResourceList, HttpError<string>>> ListResourcesKbKbidResourcesGet(
         this HttpClient httpClient,
         string kbid, int page, int size,
-        CancellationToken ct = default
-    ) => _listResourcesKbKbidResourcesGet(httpClient, (kbid, page, size), ct);
+        CancellationToken cancellationToken = default
+    ) => _listResourcesKbKbidResourcesGet(httpClient, (kbid, page, size), cancellationToken);
     
     /// <summary>Learning configuration schema</summary>
     public static Task<Result<object, HttpError<string>>> GetSchemaForConfigurationUpdatesKbKbidSchemaGet(
         this HttpClient httpClient,
         string kbid,
-        CancellationToken ct = default
-    ) => _getSchemaForConfigurationUpdatesKbKbidSchemaGet(httpClient, kbid, ct);
+        CancellationToken cancellationToken = default
+    ) => _getSchemaForConfigurationUpdatesKbKbidSchemaGet(httpClient, kbid, cancellationToken);
     
     /// <summary>Search Knowledge Box</summary>
     public static Task<Result<KnowledgeboxSearchResults, HttpError<string>>> SearchKnowledgeboxKbKbidSearchGet(
         this HttpClient httpClient,
         string kbid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, SortField sortField, object sortLimit, SortOrder sortOrder, int topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<SearchOptions> features, bool debug, bool highlight, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor,
-        CancellationToken ct = default
-    ) => _searchKnowledgeboxKbKbidSearchGet(httpClient, (kbid, query, filterExpression, fields, filters, faceted, sortField, sortLimit, sortOrder, topK, minScore, minScoreSemantic, minScoreBm25, vectorset, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, debug, highlight, show, fieldType, extracted, withDuplicates, withSynonyms, autofilter, securityGroups, showHidden, xNdbClient, xNucliadbUser, xForwardedFor), ct);
+        CancellationToken cancellationToken = default
+    ) => _searchKnowledgeboxKbKbidSearchGet(httpClient, (kbid, query, filterExpression, fields, filters, faceted, sortField, sortLimit, sortOrder, topK, minScore, minScoreSemantic, minScoreBm25, vectorset, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, debug, highlight, show, fieldType, extracted, withDuplicates, withSynonyms, autofilter, securityGroups, showHidden, xNdbClient, xNucliadbUser, xForwardedFor), cancellationToken);
     
     /// <summary>Search Knowledge Box</summary>
     public static Task<Result<KnowledgeboxSearchResults, HttpError<string>>> SearchPostKnowledgeboxKbKbidSearchPost(
         this HttpClient httpClient,
         string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, SearchRequest body,
-        CancellationToken ct = default
-    ) => _searchPostKnowledgeboxKbKbidSearchPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _searchPostKnowledgeboxKbKbidSearchPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), cancellationToken);
     
     /// <summary>List search configurations</summary>
     public static Task<Result<object, HttpError<string>>> ListSearchConfigurationsKbKbidSearchConfigurationsGet(
         this HttpClient httpClient,
         string kbid,
-        CancellationToken ct = default
-    ) => _listSearchConfigurationsKbKbidSearchConfigurationsGet(httpClient, kbid, ct);
+        CancellationToken cancellationToken = default
+    ) => _listSearchConfigurationsKbKbidSearchConfigurationsGet(httpClient, kbid, cancellationToken);
     
     /// <summary>Create search configuration</summary>
     public static Task<Result<object, HttpError<string>>> CreateSearchConfigurationKbKbidSearchConfigurationsConfigNamePost(
         this HttpClient httpClient,
         string kbid, string configName, object body,
-        CancellationToken ct = default
-    ) => _createSearchConfigurationKbKbidSearchConfigurationsConfigNamePost(httpClient, ((kbid, configName), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _createSearchConfigurationKbKbidSearchConfigurationsConfigNamePost(httpClient, ((kbid, configName), body), cancellationToken);
     
     /// <summary>Update search configuration</summary>
     public static Task<Result<object, HttpError<string>>> UpdateSearchConfigurationKbKbidSearchConfigurationsConfigNamePatch(
         this HttpClient httpClient,
         string kbid, string configName, object body,
-        CancellationToken ct = default
-    ) => _updateSearchConfigurationKbKbidSearchConfigurationsConfigNamePatch(httpClient, ((kbid, configName), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _updateSearchConfigurationKbKbidSearchConfigurationsConfigNamePatch(httpClient, ((kbid, configName), body), cancellationToken);
     
     /// <summary>Delete search configuration</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteSearchConfigurationKbKbidSearchConfigurationsConfigNameDelete(
         this HttpClient httpClient,
         string kbid, string configName,
-        CancellationToken ct = default
-    ) => _deleteSearchConfigurationKbKbidSearchConfigurationsConfigNameDelete(httpClient, (kbid, configName), ct);
+        CancellationToken cancellationToken = default
+    ) => _deleteSearchConfigurationKbKbidSearchConfigurationsConfigNameDelete(httpClient, (kbid, configName), cancellationToken);
     
     /// <summary>Get search configuration</summary>
     public static Task<Result<object, HttpError<string>>> GetSearchConfigurationKbKbidSearchConfigurationsConfigNameGet(
         this HttpClient httpClient,
         string kbid, string configName,
-        CancellationToken ct = default
-    ) => _getSearchConfigurationKbKbidSearchConfigurationsConfigNameGet(httpClient, (kbid, configName), ct);
+        CancellationToken cancellationToken = default
+    ) => _getSearchConfigurationKbKbidSearchConfigurationsConfigNameGet(httpClient, (kbid, configName), cancellationToken);
     
     /// <summary>Modify Resource (by slug)</summary>
     public static Task<Result<ResourceUpdated, HttpError<string>>> ModifyResourceRslugPrefixKbKbidSlugRslugPatch(
         this HttpClient httpClient,
         string kbid, string rslug, bool xSkipStore, string xNucliadbUser, UpdateResourcePayload body,
-        CancellationToken ct = default
-    ) => _modifyResourceRslugPrefixKbKbidSlugRslugPatch(httpClient, (kbid, rslug, xSkipStore, xNucliadbUser, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _modifyResourceRslugPrefixKbKbidSlugRslugPatch(httpClient, (kbid, rslug, xSkipStore, xNucliadbUser, body), cancellationToken);
     
     /// <summary>Delete Resource (by slug)</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteResourceRslugPrefixKbKbidSlugRslugDelete(
         this HttpClient httpClient,
         string kbid, string rslug,
-        CancellationToken ct = default
-    ) => _deleteResourceRslugPrefixKbKbidSlugRslugDelete(httpClient, (kbid, rslug), ct);
+        CancellationToken cancellationToken = default
+    ) => _deleteResourceRslugPrefixKbKbidSlugRslugDelete(httpClient, (kbid, rslug), cancellationToken);
     
     /// <summary>Get Resource (by slug)</summary>
     public static Task<Result<NucliadbModelsResourceResource, HttpError<string>>> GetResourceBySlugKbKbidSlugRslugGet(
         this HttpClient httpClient,
         string kbid, string rslug, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, string xNucliadbUser, string xForwardedFor,
-        CancellationToken ct = default
-    ) => _getResourceBySlugKbKbidSlugRslugGet(httpClient, (kbid, rslug, show, fieldType, extracted, xNucliadbUser, xForwardedFor), ct);
+        CancellationToken cancellationToken = default
+    ) => _getResourceBySlugKbKbidSlugRslugGet(httpClient, (kbid, rslug, show, fieldType, extracted, xNucliadbUser, xForwardedFor), cancellationToken);
     
     /// <summary>Add resource conversation field (by slug)</summary>
     public static Task<Result<ResourceFieldAdded, HttpError<string>>> AddResourceFieldConversationRslugPrefixKbKbidSlugRslugConversationFieldIdPut(
         this HttpClient httpClient,
         string kbid, string rslug, string fieldId, InputConversationField body,
-        CancellationToken ct = default
-    ) => _addResourceFieldConversationRslugPrefixKbKbidSlugRslugConversationFieldIdPut(httpClient, ((kbid, rslug, fieldId), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _addResourceFieldConversationRslugPrefixKbKbidSlugRslugConversationFieldIdPut(httpClient, ((kbid, rslug, fieldId), body), cancellationToken);
     
     /// <summary>Download conversation binary field (by slug)</summary>
     public static Task<Result<object, HttpError<string>>> DownloadFieldConversationRslugPrefixKbKbidSlugRslugConversationFieldIdDownloadFieldMessageIdFileNumGet(
         this HttpClient httpClient,
         string kbid, string rslug, string fieldId, string messageId, int fileNum,
-        CancellationToken ct = default
-    ) => _downloadFieldConversationRslugPrefixKbKbidSlugRslugConversationFieldIdDownloadFieldMessageIdFileNumGet(httpClient, (kbid, rslug, fieldId, messageId, fileNum), ct);
+        CancellationToken cancellationToken = default
+    ) => _downloadFieldConversationRslugPrefixKbKbidSlugRslugConversationFieldIdDownloadFieldMessageIdFileNumGet(httpClient, (kbid, rslug, fieldId, messageId, fileNum), cancellationToken);
     
     /// <summary>Append messages to conversation field (by slug)</summary>
     public static Task<Result<ResourceFieldAdded, HttpError<string>>> AppendMessagesToConversationFieldRslugPrefixKbKbidSlugRslugConversationFieldIdMessagesPut(
         this HttpClient httpClient,
         string kbid, string rslug, string fieldId, object body,
-        CancellationToken ct = default
-    ) => _appendMessagesToConversationFieldRslugPrefixKbKbidSlugRslugConversationFieldIdMessagesPut(httpClient, ((kbid, rslug, fieldId), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _appendMessagesToConversationFieldRslugPrefixKbKbidSlugRslugConversationFieldIdMessagesPut(httpClient, ((kbid, rslug, fieldId), body), cancellationToken);
     
     /// <summary>Add resource file field (by slug)</summary>
     public static Task<Result<ResourceFieldAdded, HttpError<string>>> AddResourceFieldFileRslugPrefixKbKbidSlugRslugFileFieldIdPut(
         this HttpClient httpClient,
         string kbid, string rslug, string fieldId, bool xSkipStore, FileField body,
-        CancellationToken ct = default
-    ) => _addResourceFieldFileRslugPrefixKbKbidSlugRslugFileFieldIdPut(httpClient, (kbid, rslug, fieldId, xSkipStore, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _addResourceFieldFileRslugPrefixKbKbidSlugRslugFileFieldIdPut(httpClient, (kbid, rslug, fieldId, xSkipStore, body), cancellationToken);
     
     /// <summary>Download field binary field (by slug)</summary>
     public static Task<Result<object, HttpError<string>>> DownloadFieldFileRslugPrefixKbKbidSlugRslugFileFieldIdDownloadFieldGet(
         this HttpClient httpClient,
         string kbid, string rslug, string fieldId, bool inline,
-        CancellationToken ct = default
-    ) => _downloadFieldFileRslugPrefixKbKbidSlugRslugFileFieldIdDownloadFieldGet(httpClient, (kbid, rslug, fieldId, inline), ct);
+        CancellationToken cancellationToken = default
+    ) => _downloadFieldFileRslugPrefixKbKbidSlugRslugFileFieldIdDownloadFieldGet(httpClient, (kbid, rslug, fieldId, inline), cancellationToken);
     
     /// <summary>Create new upload on a Resource (by slug)</summary>
     public static Task<Result<object, HttpError<string>>> TusPostRslugPrefixKbKbidSlugRslugFileFieldTusuploadPost(
         this HttpClient httpClient,
         string kbid, string rslug, string field, object xExtractStrategy, object xSplitStrategy, object body,
-        CancellationToken ct = default
-    ) => _tusPostRslugPrefixKbKbidSlugRslugFileFieldTusuploadPost(httpClient, (kbid, rslug, field, xExtractStrategy, xSplitStrategy, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _tusPostRslugPrefixKbKbidSlugRslugFileFieldTusuploadPost(httpClient, (kbid, rslug, field, xExtractStrategy, xSplitStrategy, body), cancellationToken);
     
     /// <summary>Upload data on a Resource (by slug)</summary>
     public static Task<Result<object, HttpError<string>>> TusPatchRslugPrefixKbKbidSlugRslugFileFieldTusuploadUploadIdPatch(
         this HttpClient httpClient,
         string kbid, string rslug, string field, string uploadId, object body,
-        CancellationToken ct = default
-    ) => _tusPatchRslugPrefixKbKbidSlugRslugFileFieldTusuploadUploadIdPatch(httpClient, ((kbid, rslug, field, uploadId), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _tusPatchRslugPrefixKbKbidSlugRslugFileFieldTusuploadUploadIdPatch(httpClient, ((kbid, rslug, field, uploadId), body), cancellationToken);
     
     /// <summary>Upload information</summary>
     public static Task<Result<object, HttpError<string>>> UploadInformationKbKbidSlugRslugFileFieldTusuploadUploadIdHead(
         this HttpClient httpClient,
         string kbid, string rslug, string field, string uploadId,
-        CancellationToken ct = default
-    ) => _uploadInformationKbKbidSlugRslugFileFieldTusuploadUploadIdHead(httpClient, (kbid, rslug, field, uploadId), ct);
+        CancellationToken cancellationToken = default
+    ) => _uploadInformationKbKbidSlugRslugFileFieldTusuploadUploadIdHead(httpClient, (kbid, rslug, field, uploadId), cancellationToken);
     
     /// <summary>Upload binary file on a Resource (by slug)</summary>
     public static Task<Result<ResourceFileUploaded, HttpError<string>>> UploadRslugPrefixKbKbidSlugRslugFileFieldUploadPost(
         this HttpClient httpClient,
         string kbid, string rslug, string field, object xFilename, object xPassword, object xLanguage, object xMd5, object xExtractStrategy, object xSplitStrategy, object body,
-        CancellationToken ct = default
-    ) => _uploadRslugPrefixKbKbidSlugRslugFileFieldUploadPost(httpClient, (kbid, rslug, field, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _uploadRslugPrefixKbKbidSlugRslugFileFieldUploadPost(httpClient, (kbid, rslug, field, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, body), cancellationToken);
     
     /// <summary>Add resource link field (by slug)</summary>
     public static Task<Result<ResourceFieldAdded, HttpError<string>>> AddResourceFieldLinkRslugPrefixKbKbidSlugRslugLinkFieldIdPut(
         this HttpClient httpClient,
         string kbid, string rslug, string fieldId, LinkField body,
-        CancellationToken ct = default
-    ) => _addResourceFieldLinkRslugPrefixKbKbidSlugRslugLinkFieldIdPut(httpClient, ((kbid, rslug, fieldId), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _addResourceFieldLinkRslugPrefixKbKbidSlugRslugLinkFieldIdPut(httpClient, ((kbid, rslug, fieldId), body), cancellationToken);
     
     /// <summary>Reindex Resource (by slug)</summary>
     public static Task<Result<object, HttpError<string>>> ReindexResourceRslugPrefixKbKbidSlugRslugReindexPost(
         this HttpClient httpClient,
         string kbid, string rslug, bool reindexVectors, object body,
-        CancellationToken ct = default
-    ) => _reindexResourceRslugPrefixKbKbidSlugRslugReindexPost(httpClient, (kbid, rslug, reindexVectors, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _reindexResourceRslugPrefixKbKbidSlugRslugReindexPost(httpClient, (kbid, rslug, reindexVectors, body), cancellationToken);
     
     /// <summary>Reprocess resource (by slug)</summary>
     public static Task<Result<ResourceUpdated, HttpError<string>>> ReprocessResourceRslugPrefixKbKbidSlugRslugReprocessPost(
         this HttpClient httpClient,
         string kbid, string rslug, bool resetTitle, string xNucliadbUser, object body,
-        CancellationToken ct = default
-    ) => _reprocessResourceRslugPrefixKbKbidSlugRslugReprocessPost(httpClient, (kbid, rslug, resetTitle, xNucliadbUser, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _reprocessResourceRslugPrefixKbKbidSlugRslugReprocessPost(httpClient, (kbid, rslug, resetTitle, xNucliadbUser, body), cancellationToken);
     
     /// <summary>Add resource text field (by slug)</summary>
     public static Task<Result<ResourceFieldAdded, HttpError<string>>> AddResourceFieldTextRslugPrefixKbKbidSlugRslugTextFieldIdPut(
         this HttpClient httpClient,
         string kbid, string rslug, string fieldId, TextField body,
-        CancellationToken ct = default
-    ) => _addResourceFieldTextRslugPrefixKbKbidSlugRslugTextFieldIdPut(httpClient, ((kbid, rslug, fieldId), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _addResourceFieldTextRslugPrefixKbKbidSlugRslugTextFieldIdPut(httpClient, ((kbid, rslug, fieldId), body), cancellationToken);
     
     /// <summary>Delete Resource field (by slug)</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDelete(
         this HttpClient httpClient,
         string kbid, string rslug, FieldTypeName fieldType, string fieldId,
-        CancellationToken ct = default
-    ) => _deleteResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDelete(httpClient, (kbid, rslug, fieldType, fieldId), ct);
+        CancellationToken cancellationToken = default
+    ) => _deleteResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDelete(httpClient, (kbid, rslug, fieldType, fieldId), cancellationToken);
     
     /// <summary>Get Resource field (by slug)</summary>
     public static Task<Result<ResourceField, HttpError<string>>> GetResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdGet(
         this HttpClient httpClient,
         string kbid, string rslug, FieldTypeName fieldType, string fieldId, List<ResourceFieldProperties> show, List<ExtractedDataTypeName> extracted, object page,
-        CancellationToken ct = default
-    ) => _getResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdGet(httpClient, (kbid, rslug, fieldType, fieldId, show, extracted, page), ct);
+        CancellationToken cancellationToken = default
+    ) => _getResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdGet(httpClient, (kbid, rslug, fieldType, fieldId, show, extracted, page), cancellationToken);
     
     /// <summary>Download extracted binary file (by slug)</summary>
     public static Task<Result<object, HttpError<string>>> DownloadExtractFileRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDownloadExtractedDownloadFieldGet(
         this HttpClient httpClient,
         string kbid, string rslug, FieldTypeName fieldType, string fieldId, string downloadField,
-        CancellationToken ct = default
-    ) => _downloadExtractFileRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDownloadExtractedDownloadFieldGet(httpClient, (kbid, rslug, fieldType, fieldId, downloadField), ct);
+        CancellationToken cancellationToken = default
+    ) => _downloadExtractFileRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDownloadExtractedDownloadFieldGet(httpClient, (kbid, rslug, fieldType, fieldId, downloadField), cancellationToken);
     
     /// <summary>Ask a resource (by slug)</summary>
     public static Task<Result<SyncAskResponse, HttpError<string>>> ResourceAskEndpointBySlugKbKbidSlugSlugAskPost(
         this HttpClient httpClient,
         string kbid, string slug, bool xShowConsumption, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest body,
-        CancellationToken ct = default
-    ) => _resourceAskEndpointBySlugKbKbidSlugSlugAskPost(httpClient, (kbid, slug, xShowConsumption, xNdbClient, xNucliadbUser, xForwardedFor, xSynchronous, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _resourceAskEndpointBySlugKbKbidSlugSlugAskPost(httpClient, (kbid, slug, xShowConsumption, xNdbClient, xNucliadbUser, xForwardedFor, xSynchronous, body), cancellationToken);
     
     /// <summary>Run Agents on Resource (by slug)</summary>
     public static Task<Result<ResourceAgentsResponse, HttpError<string>>> RunAgentsBySlugKbKbidSlugSlugRunAgentsPost(
         this HttpClient httpClient,
         string kbid, string slug, string xNucliadbUser, ResourceAgentsRequest body,
-        CancellationToken ct = default
-    ) => _runAgentsBySlugKbKbidSlugSlugRunAgentsPost(httpClient, (kbid, slug, xNucliadbUser, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _runAgentsBySlugKbKbidSlugSlugRunAgentsPost(httpClient, (kbid, slug, xNucliadbUser, body), cancellationToken);
     
     /// <summary>Add a split strategy to a KB</summary>
     public static Task<Result<string, HttpError<string>>> AddSplitStrategyKbKbidSplitStrategiesPost(
         this HttpClient httpClient,
         string kbid, SplitConfiguration body,
-        CancellationToken ct = default
-    ) => _addSplitStrategyKbKbidSplitStrategiesPost(httpClient, (kbid, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _addSplitStrategyKbKbidSplitStrategiesPost(httpClient, (kbid, body), cancellationToken);
     
     /// <summary>Learning split strategies</summary>
     public static Task<Result<object, HttpError<string>>> GetSplitStrategiesKbKbidSplitStrategiesGet(
         this HttpClient httpClient,
         string kbid,
-        CancellationToken ct = default
-    ) => _getSplitStrategiesKbKbidSplitStrategiesGet(httpClient, kbid, ct);
+        CancellationToken cancellationToken = default
+    ) => _getSplitStrategiesKbKbidSplitStrategiesGet(httpClient, kbid, cancellationToken);
     
     /// <summary>Remove a split strategy from a KB</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteSplitStrategyKbKbidSplitStrategiesStrategyStrategyIdDelete(
         this HttpClient httpClient,
         string kbid, string strategyId,
-        CancellationToken ct = default
-    ) => _deleteSplitStrategyKbKbidSplitStrategiesStrategyStrategyIdDelete(httpClient, (kbid, strategyId), ct);
+        CancellationToken cancellationToken = default
+    ) => _deleteSplitStrategyKbKbidSplitStrategiesStrategyStrategyIdDelete(httpClient, (kbid, strategyId), cancellationToken);
     
     /// <summary>Extract split configuration</summary>
     public static Task<Result<object, HttpError<string>>> GetSplitStrategyFromIdKbKbidSplitStrategiesStrategyStrategyIdGet(
         this HttpClient httpClient,
         string kbid, string strategyId,
-        CancellationToken ct = default
-    ) => _getSplitStrategyFromIdKbKbidSplitStrategiesStrategyStrategyIdGet(httpClient, (kbid, strategyId), ct);
+        CancellationToken cancellationToken = default
+    ) => _getSplitStrategyFromIdKbKbidSplitStrategiesStrategyStrategyIdGet(httpClient, (kbid, strategyId), cancellationToken);
     
     /// <summary>Suggest on a knowledge box</summary>
     public static Task<Result<KnowledgeboxSuggestResults, HttpError<string>>> SuggestKnowledgeboxKbKbidSuggestGet(
         this HttpClient httpClient,
         string kbid, string query, List<string> fields, List<string> filters, List<string> faceted, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<SuggestOptions> features, List<ResourceProperties> show, List<FieldTypeName> fieldType, bool debug, bool highlight, bool showHidden, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor,
-        CancellationToken ct = default
-    ) => _suggestKnowledgeboxKbKbidSuggestGet(httpClient, (kbid, query, fields, filters, faceted, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, show, fieldType, debug, highlight, showHidden, xNdbClient, xNucliadbUser, xForwardedFor), ct);
+        CancellationToken cancellationToken = default
+    ) => _suggestKnowledgeboxKbKbidSuggestGet(httpClient, (kbid, query, fields, filters, faceted, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, show, fieldType, debug, highlight, showHidden, xNdbClient, xNucliadbUser, xForwardedFor), cancellationToken);
     
     /// <summary>Summarize your documents</summary>
     public static Task<Result<SummarizedResponse, HttpError<string>>> SummarizeEndpointKbKbidSummarizePost(
         this HttpClient httpClient,
         string kbid, bool xShowConsumption, SummarizeRequest body,
-        CancellationToken ct = default
-    ) => _summarizeEndpointKbKbidSummarizePost(httpClient, (kbid, xShowConsumption, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _summarizeEndpointKbKbidSummarizePost(httpClient, (kbid, xShowConsumption, body), cancellationToken);
     
     /// <summary>Create new upload on a Knowledge Box</summary>
     public static Task<Result<object, HttpError<string>>> TusPostKbKbidTusuploadPost(
         this HttpClient httpClient,
         string kbid, object xExtractStrategy, object xSplitStrategy, object body,
-        CancellationToken ct = default
-    ) => _tusPostKbKbidTusuploadPost(httpClient, (kbid, xExtractStrategy, xSplitStrategy, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _tusPostKbKbidTusuploadPost(httpClient, (kbid, xExtractStrategy, xSplitStrategy, body), cancellationToken);
     
     /// <summary>TUS Server information</summary>
     public static Task<Result<object, HttpError<string>>> TusOptionsKbKbidTusuploadOptions(
         this HttpClient httpClient,
         string kbid, object rid, object rslug, object uploadId, object field,
-        CancellationToken ct = default
-    ) => _tusOptionsKbKbidTusuploadOptions(httpClient, (kbid, rid, rslug, uploadId, field), ct);
+        CancellationToken cancellationToken = default
+    ) => _tusOptionsKbKbidTusuploadOptions(httpClient, (kbid, rid, rslug, uploadId, field), cancellationToken);
     
     /// <summary>Upload data on a Knowledge Box</summary>
     public static Task<Result<object, HttpError<string>>> PatchKbKbidTusuploadUploadIdPatch(
         this HttpClient httpClient,
         string kbid, string uploadId, object body,
-        CancellationToken ct = default
-    ) => _patchKbKbidTusuploadUploadIdPatch(httpClient, ((kbid, uploadId), body), ct);
+        CancellationToken cancellationToken = default
+    ) => _patchKbKbidTusuploadUploadIdPatch(httpClient, ((kbid, uploadId), body), cancellationToken);
     
     /// <summary>Upload information</summary>
     public static Task<Result<object, HttpError<string>>> UploadInformationKbKbidTusuploadUploadIdHead(
         this HttpClient httpClient,
         string kbid, string uploadId,
-        CancellationToken ct = default
-    ) => _uploadInformationKbKbidTusuploadUploadIdHead(httpClient, (kbid, uploadId), ct);
+        CancellationToken cancellationToken = default
+    ) => _uploadInformationKbKbidTusuploadUploadIdHead(httpClient, (kbid, uploadId), cancellationToken);
     
     /// <summary>Upload binary file on a Knowledge Box</summary>
     public static Task<Result<ResourceFileUploaded, HttpError<string>>> UploadKbKbidUploadPost(
         this HttpClient httpClient,
         string kbid, object xFilename, object xPassword, object xLanguage, object xMd5, object xExtractStrategy, object xSplitStrategy, object body,
-        CancellationToken ct = default
-    ) => _uploadKbKbidUploadPost(httpClient, (kbid, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _uploadKbKbidUploadPost(httpClient, (kbid, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, body), cancellationToken);
 
     #endregion
 
@@ -797,8 +797,8 @@ public static class NucliaDBApiExtensions
     public static Task<Result<object, HttpError<string>>> LearningConfigurationSchemaLearningConfigurationSchemaGet(
         this HttpClient httpClient,
         
-        CancellationToken ct = default
-    ) => _learningConfigurationSchemaLearningConfigurationSchemaGet(httpClient, Unit.Value, ct);
+        CancellationToken cancellationToken = default
+    ) => _learningConfigurationSchemaLearningConfigurationSchemaGet(httpClient, Unit.Value, cancellationToken);
 
     #endregion
 

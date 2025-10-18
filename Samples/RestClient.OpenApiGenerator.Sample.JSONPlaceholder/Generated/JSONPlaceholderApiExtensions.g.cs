@@ -37,36 +37,36 @@ public static class JSONPlaceholderApiExtensions
     public static Task<Result<List<Post>, HttpError<string>>> GetPosts(
         this HttpClient httpClient,
         
-        CancellationToken ct = default
-    ) => _getPosts(httpClient, Unit.Value, ct);
+        CancellationToken cancellationToken = default
+    ) => _getPosts(httpClient, Unit.Value, cancellationToken);
     
     /// <summary>Create a new post</summary>
     public static Task<Result<Post, HttpError<string>>> CreatePost(
         this HttpClient httpClient,
         PostInput body,
-        CancellationToken ct = default
-    ) => _createPost(httpClient, body, ct);
+        CancellationToken cancellationToken = default
+    ) => _createPost(httpClient, body, cancellationToken);
     
     /// <summary>Get a post by ID</summary>
     public static Task<Result<Post, HttpError<string>>> GetPostById(
         this HttpClient httpClient,
         long id,
-        CancellationToken ct = default
-    ) => _getPostById(httpClient, id, ct);
+        CancellationToken cancellationToken = default
+    ) => _getPostById(httpClient, id, cancellationToken);
     
     /// <summary>Update a post</summary>
     public static Task<Result<Post, HttpError<string>>> UpdatePost(
         this HttpClient httpClient,
         long id, PostInput body,
-        CancellationToken ct = default
-    ) => _updatePost(httpClient, (id, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _updatePost(httpClient, (id, body), cancellationToken);
     
     /// <summary>Delete a post</summary>
     public static Task<Result<Unit, HttpError<string>>> DeletePost(
         this HttpClient httpClient,
         long id,
-        CancellationToken ct = default
-    ) => _deletePost(httpClient, id, ct);
+        CancellationToken cancellationToken = default
+    ) => _deletePost(httpClient, id, cancellationToken);
 
     #endregion
 
@@ -76,36 +76,36 @@ public static class JSONPlaceholderApiExtensions
     public static Task<Result<List<Todo>, HttpError<string>>> GetTodos(
         this HttpClient httpClient,
         
-        CancellationToken ct = default
-    ) => _getTodos(httpClient, Unit.Value, ct);
+        CancellationToken cancellationToken = default
+    ) => _getTodos(httpClient, Unit.Value, cancellationToken);
     
     /// <summary>Create a new todo</summary>
     public static Task<Result<Todo, HttpError<string>>> CreateTodo(
         this HttpClient httpClient,
         TodoInput body,
-        CancellationToken ct = default
-    ) => _createTodo(httpClient, body, ct);
+        CancellationToken cancellationToken = default
+    ) => _createTodo(httpClient, body, cancellationToken);
     
     /// <summary>Get a todo by ID</summary>
     public static Task<Result<Todo, HttpError<string>>> GetTodoById(
         this HttpClient httpClient,
         long id,
-        CancellationToken ct = default
-    ) => _getTodoById(httpClient, id, ct);
+        CancellationToken cancellationToken = default
+    ) => _getTodoById(httpClient, id, cancellationToken);
     
     /// <summary>Update a todo</summary>
     public static Task<Result<Todo, HttpError<string>>> UpdateTodo(
         this HttpClient httpClient,
         long id, TodoInput body,
-        CancellationToken ct = default
-    ) => _updateTodo(httpClient, (id, body), ct);
+        CancellationToken cancellationToken = default
+    ) => _updateTodo(httpClient, (id, body), cancellationToken);
     
     /// <summary>Delete a todo</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteTodo(
         this HttpClient httpClient,
         long id,
-        CancellationToken ct = default
-    ) => _deleteTodo(httpClient, id, ct);
+        CancellationToken cancellationToken = default
+    ) => _deleteTodo(httpClient, id, cancellationToken);
 
     #endregion
 
@@ -115,8 +115,8 @@ public static class JSONPlaceholderApiExtensions
     public static Task<Result<User, HttpError<string>>> GetUserById(
         this HttpClient httpClient,
         long id,
-        CancellationToken ct = default
-    ) => _getUserById(httpClient, id, ct);
+        CancellationToken cancellationToken = default
+    ) => _getUserById(httpClient, id, cancellationToken);
 
     #endregion
 

@@ -281,7 +281,6 @@ internal static class ExtensionMethodGenerator
 
                 return BuildMethod(
                     methodName,
-                    delegateType,
                     createMethod,
                     resultType,
                     resultResponseType,
@@ -302,7 +301,6 @@ internal static class ExtensionMethodGenerator
 
                 return BuildMethod(
                     methodName,
-                    delegateType,
                     createMethod,
                     resultType,
                     resultResponseType,
@@ -352,7 +350,6 @@ internal static class ExtensionMethodGenerator
 
             return BuildMethod(
                 methodName,
-                delegateType,
                 createMethod,
                 resultType,
                 resultResponseType,
@@ -428,7 +425,6 @@ internal static class ExtensionMethodGenerator
 
             return BuildMethod(
                 methodName,
-                delegateType,
                 createMethod,
                 resultType,
                 resultResponseType,
@@ -464,7 +460,6 @@ internal static class ExtensionMethodGenerator
 
             return BuildMethod(
                 methodName,
-                delegateType,
                 createMethod,
                 resultType,
                 resultResponseType,
@@ -539,7 +534,6 @@ internal static class ExtensionMethodGenerator
 
             return BuildMethod(
                 methodName,
-                delegateType,
                 createMethod,
                 resultType,
                 resultResponseType,
@@ -695,7 +689,6 @@ internal static class ExtensionMethodGenerator
 
     private static (string PublicMethod, string PrivateDelegate) BuildMethod(
         string methodName,
-        string delegateType,
         string createMethod,
         string resultType,
         string resultResponseType,
@@ -712,6 +705,9 @@ internal static class ExtensionMethodGenerator
             ? string.Empty
             : $"{publicParams},";
 
+        // Derive delegate type name: CreatePost → PostAsync, CreateGet → GetAsync, etc.
+        var delegateType = createMethod.Replace("Create", string.Empty, StringComparison.Ordinal) + "Async";
+
         var privateDelegate = $$"""
             private static {{delegateType}}<{{resultResponseType}}, string, {{paramType}}> {{privateFunctionName}} { get; } =
                 RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{paramType}}>(
@@ -727,8 +723,8 @@ internal static class ExtensionMethodGenerator
             public static Task<{{resultType}}> {{methodName}}(
                 this HttpClient httpClient,
                 {{paramsWithComma}}
-                CancellationToken ct = default
-            ) => {{privateFunctionName}}(httpClient, {{paramInvocation}}, ct);
+                CancellationToken cancellationToken = default
+            ) => {{privateFunctionName}}(httpClient, {{paramInvocation}}, cancellationToken);
             """;
 
         return (publicMethod, privateDelegate);
