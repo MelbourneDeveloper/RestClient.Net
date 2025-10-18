@@ -34,7 +34,7 @@ public static class JSONPlaceholderApiExtensions
     public static Task<Result<List<Post>, HttpError<string>>> GetPosts(
         this HttpClient httpClient,
         CancellationToken ct = default
-    ) => _getPosts()(httpClient, Unit.Value, ct);
+    ) => _getPosts(httpClient, Unit.Value, ct);
     
     /// <summary>Create a new post</summary>
     public static Task<Result<Post, HttpError<string>>> CreatePost(
@@ -72,7 +72,7 @@ public static class JSONPlaceholderApiExtensions
     public static Task<Result<List<Todo>, HttpError<string>>> GetTodos(
         this HttpClient httpClient,
         CancellationToken ct = default
-    ) => _getTodos()(httpClient, Unit.Value, ct);
+    ) => _getTodos(httpClient, Unit.Value, ct);
     
     /// <summary>Create a new todo</summary>
     public static Task<Result<Todo, HttpError<string>>> CreateTodo(
@@ -120,7 +120,7 @@ public static class JSONPlaceholderApiExtensions
 
     #region Posts Operations
 
-    private static GetAsync<List<Post>, string, Unit> _getPosts() =>
+    private static GetAsync<List<Post>, string, Unit> _getPosts { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<List<Post>, string, Unit>(
             url: BaseUrl,
             buildRequest: static _ => new HttpRequestParts(new RelativeUrl("/posts"), null, null),
@@ -164,7 +164,7 @@ public static class JSONPlaceholderApiExtensions
 
     #region Todos Operations
 
-    private static GetAsync<List<Todo>, string, Unit> _getTodos() =>
+    private static GetAsync<List<Todo>, string, Unit> _getTodos { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<List<Todo>, string, Unit>(
             url: BaseUrl,
             buildRequest: static _ => new HttpRequestParts(new RelativeUrl("/todos"), null, null),

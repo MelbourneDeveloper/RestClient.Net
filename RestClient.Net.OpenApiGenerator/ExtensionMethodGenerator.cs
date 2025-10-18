@@ -270,7 +270,7 @@ internal static class ExtensionMethodGenerator
                 var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
 
                 var privateDelegate = $$"""
-                    private static {{delegateType}}<{{resultResponseType}}, string, Unit> {{privateFunctionName}}() =>
+                    private static {{delegateType}}<{{resultResponseType}}, string, Unit> {{privateFunctionName}} { get; } =
                         RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, Unit>(
                             url: BaseUrl,
                             buildRequest: static _ => new HttpRequestParts(new RelativeUrl("{{path}}"), null, null),

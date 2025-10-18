@@ -1671,7 +1671,7 @@ public static class NucliaDBApiExtensions
 
     #region Learning Operations
 
-    private static GetAsync<object, string, Unit> _learningConfigurationSchemaLearningConfigurationSchemaGet() =>
+    private static GetAsync<object, string, Unit> _learningConfigurationSchemaLearningConfigurationSchemaGet { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, string, Unit>(
             url: BaseUrl,
             buildRequest: static _ => new HttpRequestParts(new RelativeUrl("/api/v1/learning/configuration/schema"), null, null),
