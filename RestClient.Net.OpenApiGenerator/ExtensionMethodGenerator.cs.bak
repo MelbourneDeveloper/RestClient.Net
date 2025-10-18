@@ -32,7 +32,7 @@ internal static class ExtensionMethodGenerator
     )
 #pragma warning restore IDE0060 // Remove unused parameter
     {
-        var groupedMethods = new Dictionary<string, List<(string PublicMethod, string PrivateDelegate)>>();
+        var groupedMethods = new Dictionary<string, List<string>>();
         var responseTypes = new HashSet<string>();
 
         foreach (var path in document.Paths)
@@ -51,7 +51,7 @@ internal static class ExtensionMethodGenerator
                 var resultResponseType = isDelete ? "Unit" : responseType;
                 _ = responseTypes.Add(resultResponseType);
 
-                var (publicMethod, privateDelegate) = GenerateMethod(
+                var publicMethod = GenerateMethod(
                     path.Key,
                     operation.Key,
                     operation.Value,
@@ -64,7 +64,7 @@ internal static class ExtensionMethodGenerator
                         methods = [];
                         groupedMethods[resourceName] = methods;
                     }
-                    methods.Add((publicMethod, privateDelegate));
+                    methods.Add(publicMethod);
                 }
             }
         }
@@ -170,14 +170,13 @@ internal static class ExtensionMethodGenerator
         return CodeGenerationHelpers.ToPascalCase(resourceSegment);
     }
 
-    private static string GenerateGroupedCode(Dictionary<string, List<(string PublicMethod, string PrivateDelegate)>> groupedMethods)
+    private static string GenerateGroupedCode(Dictionary<string, List<string>> groupedMethods)
     {
         var sections = new List<string>();
 
         foreach (var group in groupedMethods.OrderBy(g => g.Key))
         {
-            var methodPairs = group.Value.Select(m => $"{m.PrivateDelegate}\n\n{m.PublicMethod}");
-            var methodsCode = string.Join("\n\n", methodPairs);
+            var methodsCode = string.Join("\n\n", group.Value);
             var indentedContent = CodeGenerationHelpers.Indent(methodsCode, 1);
             var regionName = $"{group.Key} Operations";
 
@@ -422,6 +421,8 @@ internal static class ExtensionMethodGenerator
                 methodName,
                 delegateType,
                 createMethod,
+                methodName,
+                createMethod,
                 resultType,
                 resultResponseType,
                 allParamsType,
@@ -457,6 +458,8 @@ internal static class ExtensionMethodGenerator
             return BuildMethod(
                 methodName,
                 delegateType,
+                createMethod,
+                methodName,
                 createMethod,
                 resultType,
                 resultResponseType,
@@ -527,7 +530,6 @@ internal static class ExtensionMethodGenerator
 
             return BuildMethod(
                 methodName,
-                delegateType,
                 createMethod,
                 resultType,
                 resultResponseType,

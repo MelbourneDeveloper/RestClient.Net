@@ -54,10 +54,7 @@ internal static partial class CodeGenerationHelpers
     /// <param name="path">The path template with original parameter names.</param>
     /// <param name="parameters">List of parameters with original and sanitized names.</param>
     /// <returns>The path with sanitized parameter names.</returns>
-    public static string SanitizePathParameters(
-        string path,
-        List<(string Name, string Type, bool IsPath, string OriginalName)> parameters
-    )
+    public static string SanitizePathParameters(string path, List<ParameterInfo> parameters)
     {
         var result = path;
         foreach (var param in parameters.Where(p => p.IsPath))

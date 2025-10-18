@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Code Rules
 
-- NO DUPLICATION - EVER!!!!
+- NO DUPLICATION - EVER!!!! REMOVING DUPLICATION is the absolute HIGHEST PRIORITY!!!
 - Reduce the AMOUNT of code wherever possible
 - No throwing exceptions, except for in tests
 - FP style code. Pure functions with immutable types.
@@ -16,6 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Ccode analysis warnings are always errors
 - Nullable reference types are enabled
 - NEVER copy files. Only MOVE files
+- Do not back files up
 
 ## Build, Test, and Development Commands
 
