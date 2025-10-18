@@ -119,7 +119,7 @@ public partial class MainWindowViewModel(IHttpClientFactory httpClientFactory) :
 
         using var httpClient = httpClientFactory.CreateClient();
         var result = await httpClient
-            .UpdatePost((post.Id, updatedPost), default)
+            .UpdatePost(post.Id, updatedPost, default)
             .ConfigureAwait(false);
 
         switch (result)

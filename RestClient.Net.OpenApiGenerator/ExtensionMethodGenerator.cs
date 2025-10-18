@@ -69,7 +69,7 @@ internal static class ExtensionMethodGenerator
             }
         }
 
-        var publicMethodsCode = GenerateGroupedCode(groupedMethods);
+        var (publicMethodsCode, privateDelegatesCode) = GenerateGroupedCode(groupedMethods);
         var typeAliases = GenerateTypeAliasesFile(responseTypes, @namespace);
 
         var namingPolicyCode = jsonNamingPolicy switch
@@ -113,12 +113,14 @@ internal static class ExtensionMethodGenerator
                     PropertyNamingPolicy = {{namingPolicyCode}}
                 };
 
+                private static readonly Deserialize<Unit> _deserializeUnit = static (_, _) =>
+                    Task.FromResult(Unit.Value);
+
                 #endregion
 
             {{publicMethodsCode}}
 
-                private static readonly Deserialize<Unit> _deserializeUnit = static (_, _) =>
-                    Task.FromResult(Unit.Value);
+            {{privateDelegatesCode}}
 
                 private static ProgressReportingHttpContent CreateJsonContent<T>(T data)
                 {
@@ -170,24 +172,30 @@ internal static class ExtensionMethodGenerator
         return CodeGenerationHelpers.ToPascalCase(resourceSegment);
     }
 
-    private static string GenerateGroupedCode(Dictionary<string, List<(string PublicMethod, string PrivateDelegate)>> groupedMethods)
+    private static (string PublicMethods, string PrivateDelegates) GenerateGroupedCode(Dictionary<string, List<(string PublicMethod, string PrivateDelegate)>> groupedMethods)
     {
-        var sections = new List<string>();
+        var publicSections = new List<string>();
+        var allPrivateDelegates = new List<string>();
 
         foreach (var group in groupedMethods.OrderBy(g => g.Key))
         {
-            var methodPairs = group.Value.Select(m => $"{m.PrivateDelegate}\n\n{m.PublicMethod}");
-            var methodsCode = string.Join("\n\n", methodPairs);
-            var indentedContent = CodeGenerationHelpers.Indent(methodsCode, 1);
+            var publicMethods = group.Value.Select(m => m.PublicMethod);
+            var privateDelegates = group.Value.Select(m => m.PrivateDelegate);
+
+            var publicMethodsCode = string.Join("\n\n", publicMethods);
+            var indentedContent = CodeGenerationHelpers.Indent(publicMethodsCode, 1);
             var regionName = $"{group.Key} Operations";
 
             // #region markers at column 0, content indented by 4 spaces
             var section = $"    #region {regionName}\n\n{indentedContent}\n\n    #endregion";
 
-            sections.Add(section);
+            publicSections.Add(section);
+            allPrivateDelegates.AddRange(privateDelegates);
         }
 
-        return string.Join("\n\n", sections);
+        var privateDelegatesCode = string.Join("\n\n", allPrivateDelegates.Select(d => CodeGenerationHelpers.Indent(d, 1)));
+
+        return (string.Join("\n\n", publicSections), privateDelegatesCode);
     }
 
     private static (string PublicMethod, string PrivateDelegate) GenerateMethod(
@@ -516,14 +524,18 @@ internal static class ExtensionMethodGenerator
             var buildRequestBody =
                 $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParamInterpolation}{queryString}\"), CreateJsonContent(param.Body), {headersExpression})";
 
+            // Public methods ALWAYS have individual parameters, never tuples
             var publicMethodParams = hasNonPathNonBodyParams
                 ? string.Join(", ", parameters.Select(p => $"{p.Type} {p.Name}"))
                     + $", {bodyType} body"
-                : $"{compositeType} param";
+                : string.Join(", ", pathParams.Select(p => $"{p.Type} {p.Name}"))
+                    + $", {bodyType} body";
 
             var publicMethodInvocation = hasNonPathNonBodyParams
                 ? $"({string.Join(", ", parameters.Select(p => p.Name))}, body)"
-                : "param";
+                : isSinglePathParam
+                    ? $"({pathParamsNames}, body)"
+                    : $"(({pathParamsNames}), body)";
 
             return BuildMethod(
                 methodName,

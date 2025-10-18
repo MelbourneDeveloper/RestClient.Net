@@ -91,7 +91,7 @@ public sealed class LiveJsonPlaceholderTests
 
         using var httpClient = _httpClientFactory.CreateClient();
         var result = await httpClient
-            .UpdateTodo((1, updatedTodo), CancellationToken.None)
+            .UpdateTodo(1, updatedTodo, CancellationToken.None)
             .ConfigureAwait(false);
 
         var todo = result switch
@@ -190,7 +190,7 @@ public sealed class LiveJsonPlaceholderTests
 
         using var httpClient = _httpClientFactory.CreateClient();
         var result = await httpClient
-            .UpdatePost((1, updatedPost), CancellationToken.None)
+            .UpdatePost(1, updatedPost, CancellationToken.None)
             .ConfigureAwait(false);
 
         var post = result switch
@@ -348,7 +348,7 @@ public sealed class LiveJsonPlaceholderTests
         };
 
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.UpdateTodo((1, updatedTodo), cts.Token).ConfigureAwait(false);
+        var result = await httpClient.UpdateTodo(1, updatedTodo, cts.Token).ConfigureAwait(false);
 
         var exception = result switch
         {
