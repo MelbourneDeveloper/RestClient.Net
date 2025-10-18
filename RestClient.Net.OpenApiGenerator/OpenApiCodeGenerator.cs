@@ -1,16 +1,3 @@
-using Microsoft.OpenApi;
-using Microsoft.OpenApi.Reader;
-using ErrorUrl = Outcome.Result<(string, string), string>.Error<(string, string), string>;
-using GeneratorError = Outcome.Result<
-    RestClient.Net.OpenApiGenerator.GeneratorResult,
-    string
->.Error<RestClient.Net.OpenApiGenerator.GeneratorResult, string>;
-using GeneratorOk = Outcome.Result<RestClient.Net.OpenApiGenerator.GeneratorResult, string>.Ok<
-    RestClient.Net.OpenApiGenerator.GeneratorResult,
-    string
->;
-using OkUrl = Outcome.Result<(string, string), string>.Ok<(string, string), string>;
-
 #pragma warning disable CS8509
 
 namespace RestClient.Net.OpenApiGenerator;
@@ -27,6 +14,8 @@ public static class OpenApiCodeGenerator
     /// <param name="className">The class name for extension methods.</param>
     /// <param name="outputPath">The directory path where generated files will be saved.</param>
     /// <param name="baseUrlOverride">Optional base URL override. Use this when the OpenAPI spec has a relative server URL.</param>
+    /// <param name="jsonNamingPolicy">JSON naming policy (camelCase, PascalCase, snake_case).</param>
+    /// <param name="caseInsensitive">Enable case-insensitive JSON deserialization.</param>
     /// <returns>A Result containing either the generated code or an error message with exception details.</returns>
 #pragma warning disable CA1054
     public static Outcome.Result<GeneratorResult, string> Generate(
@@ -34,7 +23,9 @@ public static class OpenApiCodeGenerator
         string @namespace,
         string className,
         string outputPath,
-        string? baseUrlOverride = null
+        string? baseUrlOverride = null,
+        string jsonNamingPolicy = "camelCase",
+        bool caseInsensitive = true
     )
 #pragma warning restore CA1054
     {
@@ -62,7 +53,9 @@ public static class OpenApiCodeGenerator
                     className,
                     outputPath,
                     baseUrl,
-                    basePath
+                    basePath,
+                    jsonNamingPolicy,
+                    caseInsensitive
                 ),
                 ErrorUrl(var error) => new GeneratorError($"Error: {error}"),
             };
@@ -81,7 +74,9 @@ public static class OpenApiCodeGenerator
         string className,
         string outputPath,
         string baseUrl,
-        string basePath
+        string basePath,
+        string jsonNamingPolicy,
+        bool caseInsensitive
     )
     {
         var (extensionMethods, typeAliases) = ExtensionMethodGenerator.GenerateExtensionMethods(
@@ -89,7 +84,9 @@ public static class OpenApiCodeGenerator
             @namespace,
             className,
             baseUrl,
-            basePath
+            basePath,
+            jsonNamingPolicy,
+            caseInsensitive
         );
         var models = ModelGenerator.GenerateModels(document, @namespace);
 

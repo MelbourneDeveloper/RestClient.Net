@@ -1,5 +1,3 @@
-using Microsoft.OpenApi;
-
 namespace RestClient.Net.OpenApiGenerator;
 
 /// <summary>Generates C# extension methods from OpenAPI operations.</summary>
@@ -11,17 +9,21 @@ internal static class ExtensionMethodGenerator
     /// <param name="className">The class name for extension methods.</param>
     /// <param name="baseUrl">The base URL for API requests.</param>
     /// <param name="basePath">The base path for API requests.</param>
+    /// <param name="jsonNamingPolicy">JSON naming policy (camelCase, PascalCase, snake_case).</param>
+    /// <param name="caseInsensitive">Enable case-insensitive JSON deserialization.</param>
     /// <returns>Tuple containing the extension methods code and type aliases code.</returns>
     public static (string ExtensionMethods, string TypeAliases) GenerateExtensionMethods(
         OpenApiDocument document,
         string @namespace,
         string className,
         string baseUrl,
-        string basePath
+        string basePath,
+        string jsonNamingPolicy = "camelCase",
+        bool caseInsensitive = true
     )
     {
-        var publicMethods = new List<string>();
-        var privateDelegates = new List<string>();
+        var groupedMethods =
+            new Dictionary<string, List<(string PublicMethod, string PrivateDelegate)>>();
         var responseTypes = new HashSet<string>();
 
         foreach (var path in document.Paths)
@@ -30,6 +32,8 @@ internal static class ExtensionMethodGenerator
             {
                 continue;
             }
+
+            var resourceName = GetResourceNameFromPath(path.Key);
 
             foreach (var operation in path.Value.Operations)
             {
@@ -46,15 +50,29 @@ internal static class ExtensionMethodGenerator
                 );
                 if (!string.IsNullOrEmpty(publicMethod))
                 {
-                    publicMethods.Add(publicMethod);
-                    privateDelegates.Add(privateDelegate);
+                    if (!groupedMethods.TryGetValue(resourceName, out var methods))
+                    {
+                        methods = [];
+                        groupedMethods[resourceName] = methods;
+                    }
+                    methods.Add((publicMethod, privateDelegate));
                 }
             }
         }
 
-        var publicMethodsCode = string.Join("\n\n", publicMethods);
-        var privateDelegatesCode = string.Join("\n\n", privateDelegates);
+        var publicMethodsCode = GenerateGroupedCode(groupedMethods, isPublic: true);
+        var privateDelegatesCode = GenerateGroupedCode(groupedMethods, isPublic: false);
         var typeAliases = GenerateTypeAliasesFile(responseTypes, @namespace);
+
+        var namingPolicyCode = jsonNamingPolicy switch
+        {
+            var s when s.Equals("PascalCase", StringComparison.OrdinalIgnoreCase) => "null",
+            var s when s.Equals("snake_case", StringComparison.OrdinalIgnoreCase)
+                    || s.Equals("snakecase", StringComparison.OrdinalIgnoreCase) => "JsonNamingPolicy.SnakeCaseLower",
+            _ => "JsonNamingPolicy.CamelCase",
+        };
+
+        var caseInsensitiveCode = caseInsensitive ? "true" : "false";
 
         var extensionMethodsCode = $$"""
             using System;
@@ -74,26 +92,24 @@ internal static class ExtensionMethodGenerator
             /// <summary>Extension methods for API operations.</summary>
             public static class {{className}}
             {
+                #region Configuration
+
                 private static readonly AbsoluteUrl BaseUrl = "{{baseUrl}}".ToAbsoluteUrl();
 
                 private static readonly JsonSerializerOptions JsonOptions = new()
                 {
-                    PropertyNameCaseInsensitive = true,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    PropertyNameCaseInsensitive = {{caseInsensitiveCode}},
+                    PropertyNamingPolicy = {{namingPolicyCode}}
                 };
-
-                #region Public Extension Methods
-
-            {{CodeGenerationHelpers.Indent(publicMethodsCode, 1)}}
 
                 #endregion
 
-                #region Private Members
+            {{publicMethodsCode}}
 
                 private static readonly Deserialize<Unit> _deserializeUnit = static (_, _) =>
                     Task.FromResult(Unit.Value);
 
-            {{CodeGenerationHelpers.Indent(privateDelegatesCode, 1)}}
+            {{privateDelegatesCode}}
 
                 private static ProgressReportingHttpContent CreateJsonContent<T>(T data)
                 {
@@ -127,12 +143,48 @@ internal static class ExtensionMethodGenerator
                     var content = await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
                     return string.IsNullOrEmpty(content) ? "Unknown error" : content;
                 }
-
-                #endregion
             }
             """;
 
         return (extensionMethodsCode, typeAliases);
+    }
+
+    private static string GetResourceNameFromPath(string path)
+    {
+        var segments = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+        if (segments.Length == 0)
+        {
+            return "General";
+        }
+
+        var resourceSegment = segments[0];
+        return CodeGenerationHelpers.ToPascalCase(resourceSegment);
+    }
+
+    private static string GenerateGroupedCode(
+        Dictionary<string, List<(string PublicMethod, string PrivateDelegate)>> groupedMethods,
+        bool isPublic
+    )
+    {
+        var sections = new List<string>();
+
+        foreach (var group in groupedMethods.OrderBy(g => g.Key))
+        {
+            var methods = isPublic
+                ? group.Value.Select(m => m.PublicMethod)
+                : group.Value.Select(m => m.PrivateDelegate);
+
+            var methodsCode = string.Join("\n\n", methods);
+            var indentedContent = CodeGenerationHelpers.Indent(methodsCode, 1);
+            var regionName = $"{group.Key} Operations";
+
+            // #region markers at column 0, content indented by 4 spaces
+            var section = $"    #region {regionName}\n\n{indentedContent}\n\n    #endregion";
+
+            sections.Add(section);
+        }
+
+        return string.Join("\n\n", sections);
     }
 
     private static (string PublicMethod, string PrivateDelegate) GenerateMethod(

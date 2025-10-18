@@ -1,5 +1,3 @@
-using Microsoft.OpenApi;
-
 namespace RestClient.Net.OpenApiGenerator;
 
 /// <summary>Generates C# model classes from OpenAPI schemas.</summary>
@@ -46,7 +44,9 @@ internal static class ModelGenerator
             {
                 var propName = CodeGenerationHelpers.ToPascalCase(p.Key);
                 var propType = MapOpenApiType(p.Value);
-                var propDesc = SanitizeDescription((p.Value as OpenApiSchema)?.Description ?? propName);
+                var propDesc = SanitizeDescription(
+                    (p.Value as OpenApiSchema)?.Description ?? propName
+                );
                 return $"    /// <summary>{propDesc}</summary>\n    public {propType} {propName} {{ get; set; }}";
             })
             .ToList();

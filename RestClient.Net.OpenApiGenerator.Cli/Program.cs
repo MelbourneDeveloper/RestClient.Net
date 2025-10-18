@@ -1,3 +1,5 @@
+#pragma warning disable CA1502 // Cyclomatic complexity - TODO: Refactor Program.cs
+
 using Microsoft.Extensions.DependencyInjection;
 using RestClient.Net;
 using RestClient.Net.OpenApiGenerator;
@@ -6,14 +8,6 @@ using ErrorString = Outcome.Result<string, Outcome.HttpError<string>>.Error<
     Outcome.HttpError<string>
 >;
 using ExceptionErrorString = Outcome.HttpError<string>.ExceptionError;
-using GeneratorError = Outcome.Result<
-    RestClient.Net.OpenApiGenerator.GeneratorResult,
-    string
->.Error<RestClient.Net.OpenApiGenerator.GeneratorResult, string>;
-using GeneratorOk = Outcome.Result<RestClient.Net.OpenApiGenerator.GeneratorResult, string>.Ok<
-    RestClient.Net.OpenApiGenerator.GeneratorResult,
-    string
->;
 using OkString = Outcome.Result<string, Outcome.HttpError<string>>.Ok<
     string,
     Outcome.HttpError<string>
@@ -52,6 +46,12 @@ static void PrintUsage()
     Console.WriteLine("  -c, --class-name <name>       The class name (default: 'ApiExtensions')");
     Console.WriteLine("  -b, --base-url <url>          Optional base URL override");
     Console.WriteLine("  -v, --version <version>       OpenAPI version override (e.g., '3.1.0')");
+    Console.WriteLine(
+        "  --json-naming <policy>        JSON naming policy: camelCase, PascalCase, snake_case (default: camelCase)"
+    );
+    Console.WriteLine(
+        "  --case-insensitive <bool>     Enable case-insensitive JSON deserialization (default: true)"
+    );
     Console.WriteLine("  -h, --help                    Show this help message");
 }
 
@@ -63,6 +63,8 @@ static Config? ParseArgs(string[] args)
     var className = "ApiExtensions";
     string? baseUrl = null;
     string? version = null;
+    var jsonNamingPolicy = "camelCase";
+    var caseInsensitive = true;
 
     for (var i = 0; i < args.Length; i++)
     {
@@ -92,6 +94,19 @@ static Config? ParseArgs(string[] args)
             or "--version":
                 version = GetNextArg(args, i++, "version");
                 break;
+            case "--json-naming":
+                jsonNamingPolicy = GetNextArg(args, i++, "json-naming") ?? jsonNamingPolicy;
+                break;
+            case "--case-insensitive":
+                var caseInsensitiveValue = GetNextArg(args, i++, "case-insensitive");
+                if (
+                    caseInsensitiveValue != null
+                    && bool.TryParse(caseInsensitiveValue, out var parsed)
+                )
+                {
+                    caseInsensitive = parsed;
+                }
+                break;
             default:
                 break;
         }
@@ -111,7 +126,16 @@ static Config? ParseArgs(string[] args)
         return null;
     }
 
-    return new Config(openApiUrl, outputPath, namespaceName, className, baseUrl, version);
+    return new Config(
+        openApiUrl,
+        outputPath,
+        namespaceName,
+        className,
+        baseUrl,
+        version,
+        jsonNamingPolicy,
+        caseInsensitive
+    );
 }
 
 static string? GetNextArg(string[] args, int currentIndex, string optionName)
@@ -199,7 +223,9 @@ static async Task GenerateCode(Config config)
         @namespace: config.Namespace,
         className: config.ClassName,
         outputPath: config.OutputPath,
-        baseUrlOverride: config.BaseUrl
+        baseUrlOverride: config.BaseUrl,
+        jsonNamingPolicy: config.JsonNamingPolicy,
+        caseInsensitive: config.CaseInsensitive
     );
 
 #pragma warning disable IDE0010
@@ -236,5 +262,7 @@ internal sealed record Config(
     string Namespace,
     string ClassName,
     string? BaseUrl,
-    string? Version
+    string? Version,
+    string JsonNamingPolicy,
+    bool CaseInsensitive
 );

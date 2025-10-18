@@ -1,5 +1,4 @@
 using System.Text.RegularExpressions;
-using Microsoft.OpenApi;
 using Outcome;
 
 namespace RestClient.Net.OpenApiGenerator;
@@ -40,9 +39,7 @@ internal static partial class UrlParser
                         + "OpenAPI server URL must be an absolute URL with protocol and host (e.g., https://api.example.com/api/v3), "
                         + "or you must provide a baseUrlOverride parameter when calling Generate()."
                 )
-                : new Result<(string, string), string>.Ok<(string, string), string>(
-                    (baseUrlOverride!, fullUrl.TrimEnd('/'))
-                );
+                : new OkUrl((baseUrlOverride!, fullUrl.TrimEnd('/')));
         }
 
         // Handle URLs with template variables (e.g., https://{region}.example.com)
@@ -59,9 +56,7 @@ internal static partial class UrlParser
         {
             // If URL is invalid but override is provided, use override
             return !string.IsNullOrWhiteSpace(baseUrlOverride)
-                ? new Result<(string, string), string>.Ok<(string, string), string>(
-                    (baseUrlOverride!, string.Empty)
-                )
+                ? new OkUrl((baseUrlOverride!, string.Empty))
                 : Result<(string, string), string>.Failure(
                     $"Server URL '{fullUrl}' is not a valid absolute URL. "
                         + "URL must include protocol and host (e.g., https://api.example.com), "
@@ -83,9 +78,10 @@ internal static partial class UrlParser
         {
             // Extract path from parsed URL, but use original fullUrl for base
             var basePath = uri.AbsolutePath.TrimEnd('/');
-            return new Result<(string, string), string>.Ok<(string, string), string>(
+            return new OkUrl(
                 (
-                    fullUrl.Replace(uri.AbsolutePath, string.Empty, StringComparison.Ordinal)
+                    fullUrl
+                        .Replace(uri.AbsolutePath, string.Empty, StringComparison.Ordinal)
                         .TrimEnd('/'),
                     basePath
                 )
@@ -94,8 +90,6 @@ internal static partial class UrlParser
 
         var baseUrl = baseUrlOverride ?? $"{uri.Scheme}://{uri.Authority}";
         var basePath2 = uri.AbsolutePath.TrimEnd('/');
-        return new Result<(string, string), string>.Ok<(string, string), string>(
-            (baseUrl, basePath2)
-        );
+        return new OkUrl((baseUrl, basePath2));
     }
 }
