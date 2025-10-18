@@ -32,7 +32,8 @@ internal static class ExtensionMethodGenerator
     )
 #pragma warning restore IDE0060 // Remove unused parameter
     {
-        var groupedMethods = new Dictionary<string, List<(string PublicMethod, string PrivateDelegate)>>();
+        var groupedMethods =
+            new Dictionary<string, List<(string PublicMethod, string PrivateDelegate)>>();
         var responseTypes = new HashSet<string>();
 
         foreach (var path in document.Paths)
@@ -172,7 +173,9 @@ internal static class ExtensionMethodGenerator
         return CodeGenerationHelpers.ToPascalCase(resourceSegment);
     }
 
-    private static (string PublicMethods, string PrivateDelegates) GenerateGroupedCode(Dictionary<string, List<(string PublicMethod, string PrivateDelegate)>> groupedMethods)
+    private static (string PublicMethods, string PrivateDelegates) GenerateGroupedCode(
+        Dictionary<string, List<(string PublicMethod, string PrivateDelegate)>> groupedMethods
+    )
     {
         var publicSections = new List<string>();
         var allPrivateDelegates = new List<string>();
@@ -193,7 +196,10 @@ internal static class ExtensionMethodGenerator
             allPrivateDelegates.AddRange(privateDelegates);
         }
 
-        var privateDelegatesCode = string.Join("\n\n", allPrivateDelegates.Select(d => CodeGenerationHelpers.Indent(d, 1)));
+        var privateDelegatesCode = string.Join(
+            "\n\n",
+            allPrivateDelegates.Select(d => CodeGenerationHelpers.Indent(d, 1))
+        );
 
         return (string.Join("\n\n", publicSections), privateDelegatesCode);
     }
@@ -342,7 +348,7 @@ internal static class ExtensionMethodGenerator
                 : string.Empty;
 
             var headersExpression = hasHeaderParams
-                ? BuildHeadersDictionaryExpression(headerParams, "param")
+                ? BuildHeadersDictionaryExpression(headerParams, "param", isSingleParam)
                 : "null";
 
             var buildRequestBody =
@@ -400,11 +406,7 @@ internal static class ExtensionMethodGenerator
                 : string.Empty;
 
             var headersExpression = hasHeaderParams
-                ? (
-                    isSingleParam && headerParams.Count == 1
-                        ? BuildHeadersDictionaryExpression(headerParams, "param")
-                        : BuildHeadersDictionaryExpression(headerParams, "param")
-                )
+                ? BuildHeadersDictionaryExpression(headerParams, "param", isSingleParam)
                 : "null";
 
             var sanitizedPath = CodeGenerationHelpers.SanitizePathParameters(
@@ -513,7 +515,7 @@ internal static class ExtensionMethodGenerator
                 : string.Empty;
 
             var headersExpression = hasHeaderParams
-                ? BuildHeadersDictionaryExpression(headerParams, "param")
+                ? BuildHeadersDictionaryExpression(headerParams, "param", false)
                 : "null";
 
             var buildRequestBody =
@@ -526,11 +528,11 @@ internal static class ExtensionMethodGenerator
                 : string.Join(", ", pathParams.Select(p => $"{p.Type} {p.Name}"))
                     + $", {bodyType} body";
 
-            var publicMethodInvocation = hasNonPathNonBodyParams
-                ? $"({string.Join(", ", parameters.Select(p => p.Name))}, body)"
-                : isSinglePathParam
-                    ? $"({pathParamsNames}, body)"
-                    : $"(({pathParamsNames}), body)";
+            var publicMethodInvocation =
+                hasNonPathNonBodyParams
+                    ? $"({string.Join(", ", parameters.Select(p => p.Name))}, body)"
+                : isSinglePathParam ? $"({pathParamsNames}, body)"
+                : $"(({pathParamsNames}), body)";
 
             return BuildMethod(
                 methodName,
@@ -706,7 +708,8 @@ internal static class ExtensionMethodGenerator
             : $"{publicParams},";
 
         // Derive delegate type name: CreatePost → PostAsync, CreateGet → GetAsync, etc.
-        var delegateType = createMethod.Replace("Create", string.Empty, StringComparison.Ordinal) + "Async";
+        var delegateType =
+            createMethod.Replace("Create", string.Empty, StringComparison.Ordinal) + "Async";
 
         var privateDelegate = $$"""
             private static {{delegateType}}<{{resultResponseType}}, string, {{paramType}}> {{privateFunctionName}} { get; } =
@@ -732,7 +735,8 @@ internal static class ExtensionMethodGenerator
 
     private static string BuildHeadersDictionaryExpression(
         List<ParameterInfo> headerParams,
-        string paramPrefix = "param"
+        string paramPrefix = "param",
+        bool isSingleOverallParam = false
     )
     {
         if (headerParams.Count == 0)
@@ -740,12 +744,14 @@ internal static class ExtensionMethodGenerator
             return "null";
         }
 
-        if (headerParams.Count == 1)
+        // Only use param.ToString() directly if we have a single overall parameter that IS the header
+        if (headerParams.Count == 1 && isSingleOverallParam)
         {
             var h = headerParams[0];
             return $"new Dictionary<string, string> {{ [\"{h.OriginalName}\"] = {paramPrefix}.ToString() ?? string.Empty }}";
         }
 
+        // Otherwise, we have a tuple and need to access param.{headerName}
         var entries = string.Join(
             ", ",
             headerParams.Select(h =>
