@@ -294,7 +294,7 @@ internal static class ExtensionMethodGenerator
                 var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
 
                 var privateDelegate = $$"""
-                    private static {{delegateType}}<{{resultResponseType}}, string, {{bodyType}}> {{privateFunctionName}}() =>
+                    private static {{delegateType}}<{{resultResponseType}}, string, {{bodyType}}> {{privateFunctionName}} =
                         RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{bodyType}}>(
                             url: BaseUrl,
                             buildRequest: static body => new HttpRequestParts(new RelativeUrl("{{path}}"), CreateJsonContent(body), null),
@@ -309,7 +309,7 @@ internal static class ExtensionMethodGenerator
                         this HttpClient httpClient,
                         {{bodyType}} body,
                         CancellationToken ct = default
-                    ) => {{privateFunctionName}}()(httpClient, body, ct);
+                    ) => {{privateFunctionName}}(httpClient, body, ct);
                     """;
 
                 return (publicMethod, privateDelegate);
@@ -335,7 +335,7 @@ internal static class ExtensionMethodGenerator
                     );
 
             var privateDelegate = $$"""
-                private static {{delegateType}}<{{resultResponseType}}, string, {{queryParamsType}}> {{privateFunctionName}}() =>
+                private static {{delegateType}}<{{resultResponseType}}, string, {{queryParamsType}}> {{privateFunctionName}} =>
                     RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{queryParamsType}}>(
                         url: BaseUrl,
                         buildRequest: static param => new HttpRequestParts(new RelativeUrl($"{{path}}{{queryStringWithParam}}"), null, null),
@@ -350,7 +350,7 @@ internal static class ExtensionMethodGenerator
                     this HttpClient httpClient,
                     {{string.Join(", ", queryParams.Select(q => $"{q.Type} {q.Name}"))}},
                     CancellationToken ct = default
-                ) => {{privateFunctionName}}()(httpClient, {{paramInvocation}}, ct);
+                ) => {{privateFunctionName}}(httpClient, {{paramInvocation}}, ct);
                 """;
 
             return (publicMethod, privateDelegate);
@@ -433,7 +433,7 @@ internal static class ExtensionMethodGenerator
                 : sanitizedPath.Replace("{", "{param.", StringComparison.Ordinal);
 
             var privateDelegate = $$"""
-                private static {{delegateType}}<{{resultResponseType}}, string, {{pathParamsType}}> {{privateFunctionName}}() =>
+                private static {{delegateType}}<{{resultResponseType}}, string, {{pathParamsType}}> {{privateFunctionName}} =>
                     RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{pathParamsType}}>(
                         url: BaseUrl,
                         buildRequest: static {{lambda}} => new HttpRequestParts(new RelativeUrl($"{{pathWithParam}}"), null, null),
@@ -448,7 +448,7 @@ internal static class ExtensionMethodGenerator
                     this HttpClient httpClient,
                     {{publicMethodParams}},
                     CancellationToken ct = default
-                ) => {{privateFunctionName}}()(httpClient, {{publicMethodInvocation}}, ct);
+                ) => {{privateFunctionName}}(httpClient, {{publicMethodInvocation}}, ct);
                 """;
 
             return (publicMethod, privateDelegate);
@@ -469,7 +469,7 @@ internal static class ExtensionMethodGenerator
                 : sanitizedPath.Replace("{", "{param.Params.", StringComparison.Ordinal);
 
             var privateDelegate = $$"""
-                private static {{delegateType}}<{{resultResponseType}}, string, {{compositeType}}> {{privateFunctionName}}() =>
+                private static {{delegateType}}<{{resultResponseType}}, string, {{compositeType}}> {{privateFunctionName}} =>
                     RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{compositeType}}>(
                         url: BaseUrl,
                         buildRequest: static param => new HttpRequestParts(new RelativeUrl($"{{pathWithParamInterpolation}}"), CreateJsonContent(param.Body), null),
@@ -484,7 +484,7 @@ internal static class ExtensionMethodGenerator
                     this HttpClient httpClient,
                     {{compositeType}} param,
                     CancellationToken ct = default
-                ) => {{privateFunctionName}}()(httpClient, param, ct);
+                ) => {{privateFunctionName}}(httpClient, param, ct);
                 """;
 
             return (publicMethod, privateDelegate);
