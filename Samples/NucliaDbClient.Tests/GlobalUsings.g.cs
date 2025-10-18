@@ -1,4 +1,4 @@
-#pragma warning disable IDE0005 // Using directive is unnecessary.
+#pragma warning disable IDE0005 // global using directive is unnecessary.
 global using OkCreateExportResponse = Outcome.Result<NucliaDB.Generated.CreateExportResponse, Outcome.HttpError<string>>.Ok<NucliaDB.Generated.CreateExportResponse, Outcome.HttpError<string>>;
 global using ErrorCreateExportResponse = Outcome.Result<NucliaDB.Generated.CreateExportResponse, Outcome.HttpError<string>>.Error<NucliaDB.Generated.CreateExportResponse, Outcome.HttpError<string>>;
 global using OkCreateImportResponse = Outcome.Result<NucliaDB.Generated.CreateImportResponse, Outcome.HttpError<string>>.Ok<NucliaDB.Generated.CreateImportResponse, Outcome.HttpError<string>>;

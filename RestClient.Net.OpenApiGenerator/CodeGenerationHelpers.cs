@@ -48,6 +48,29 @@ internal static partial class CodeGenerationHelpers
     /// <returns>The path expression.</returns>
     public static string BuildPathExpression(string path) => path;
 
+    /// <summary>
+    /// Replaces path parameter names with their sanitized C# equivalents.
+    /// </summary>
+    /// <param name="path">The path template with original parameter names.</param>
+    /// <param name="parameters">List of parameters with original and sanitized names.</param>
+    /// <returns>The path with sanitized parameter names.</returns>
+    public static string SanitizePathParameters(
+        string path,
+        List<(string Name, string Type, bool IsPath, string OriginalName)> parameters
+    )
+    {
+        var result = path;
+        foreach (var param in parameters.Where(p => p.IsPath))
+        {
+            result = result.Replace(
+                "{" + param.OriginalName + "}",
+                "{" + param.Name + "}",
+                StringComparison.Ordinal
+            );
+        }
+        return result;
+    }
+
     /// <summary>Regular expression for matching path parameters.</summary>
     [GeneratedRegex(@"\{[^}]+\}")]
     public static partial Regex PathParameterRegex();

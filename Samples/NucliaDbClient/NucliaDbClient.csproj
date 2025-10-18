@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>library</OutputType>
     <TargetFramework>net9.0</TargetFramework>
+    <NoWarn>CA1303;CA2000;EXHAUSTION001</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\RestClient.Net\RestClient.Net.csproj" />

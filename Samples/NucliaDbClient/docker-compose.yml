@@ -1,0 +1,15 @@
+services:
+  nucliadb:
+    image: nuclia/nucliadb:5.2.7
+    container_name: nucliadb-local
+    ports:
+      - "8080:8080"
+      - "8060:8060"
+      - "8040:8040"
+    environment:
+      - LOG=INFO
+    volumes:
+      - nucliadb-data:/data
+
+volumes:
+  nucliadb-data:

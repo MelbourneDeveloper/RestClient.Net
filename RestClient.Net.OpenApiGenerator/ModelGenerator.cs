@@ -43,6 +43,13 @@ internal static class ModelGenerator
             .Select(p =>
             {
                 var propName = CodeGenerationHelpers.ToPascalCase(p.Key);
+
+                // Avoid property name conflict with class name
+                if (propName.Equals(name, StringComparison.Ordinal))
+                {
+                    propName += "Value";
+                }
+
                 var propType = MapOpenApiType(p.Value);
                 var propDesc = SanitizeDescription(
                     (p.Value as OpenApiSchema)?.Description ?? propName

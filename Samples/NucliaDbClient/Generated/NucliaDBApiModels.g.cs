@@ -1691,8 +1691,8 @@ public class Kind
     /// <summary>Prop</summary>
     public string Prop { get; set; }
 
-    /// <summary>Kind</summary>
-    public TypeParagraph Kind { get; set; }
+    /// <summary>KindValue</summary>
+    public TypeParagraph KindValue { get; set; }
 }
 
 /// <summary>KnowledgeboxCounters</summary>
@@ -1814,7 +1814,7 @@ public class Label
     public string Labelset { get; set; }
 
     /// <summary>The label to match. If blank, matches all labels in the given labelset</summary>
-    public object Label { get; set; }
+    public object LabelValue { get; set; }
 }
 
 /// <summary>Matches the language of the field</summary>
@@ -1827,7 +1827,7 @@ public class Language
     public bool OnlyPrimary { get; set; }
 
     /// <summary>The code of the language to match, e.g: en</summary>
-    public string Language { get; set; }
+    public string LanguageValue { get; set; }
 }
 
 /// <summary>LargeComputedMetadata</summary>
@@ -1937,8 +1937,8 @@ public class MaxTokens
 /// <summary>Metadata</summary>
 public class Metadata
 {
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
+    /// <summary>MetadataValue</summary>
+    public object MetadataValue { get; set; }
 
     /// <summary>Language</summary>
     public object Language { get; set; }
@@ -3319,8 +3319,8 @@ public class Vector
     /// <summary>EndParagraph</summary>
     public object EndParagraph { get; set; }
 
-    /// <summary>Vector</summary>
-    public object Vector { get; set; }
+    /// <summary>VectorValue</summary>
+    public object VectorValue { get; set; }
 }
 
 /// <summary>VectorObject</summary>
@@ -3339,8 +3339,8 @@ public class VectorObject
 /// <summary>Vectors</summary>
 public class Vectors
 {
-    /// <summary>Vectors</summary>
-    public object Vectors { get; set; }
+    /// <summary>VectorsValue</summary>
+    public object VectorsValue { get; set; }
 }
 
 /// <summary>NucliadbModelsCommonParagraph</summary>

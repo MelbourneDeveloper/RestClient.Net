@@ -7,11 +7,12 @@ internal static class ExtensionMethodGenerator
     /// <param name="document">The OpenAPI document.</param>
     /// <param name="namespace">The namespace for generated code.</param>
     /// <param name="className">The class name for extension methods.</param>
-    /// <param name="baseUrl">The base URL for API requests.</param>
+    /// <param name="baseUrl">The base URL for API requests (not used, kept for API compatibility).</param>
     /// <param name="basePath">The base path for API requests.</param>
     /// <param name="jsonNamingPolicy">JSON naming policy (camelCase, PascalCase, snake_case).</param>
     /// <param name="caseInsensitive">Enable case-insensitive JSON deserialization.</param>
     /// <returns>Tuple containing the extension methods code and type aliases code.</returns>
+#pragma warning disable IDE0060 // Remove unused parameter
     public static (string ExtensionMethods, string TypeAliases) GenerateExtensionMethods(
         OpenApiDocument document,
         string @namespace,
@@ -21,6 +22,7 @@ internal static class ExtensionMethodGenerator
         string jsonNamingPolicy = "camelCase",
         bool caseInsensitive = true
     )
+#pragma warning restore IDE0060 // Remove unused parameter
     {
         var groupedMethods =
             new Dictionary<string, List<(string PublicMethod, string PrivateDelegate)>>();
@@ -77,6 +79,7 @@ internal static class ExtensionMethodGenerator
         var caseInsensitiveCode = caseInsensitive ? "true" : "false";
 
         var extensionMethodsCode = $$"""
+            #nullable enable
             using System;
             using System.Collections.Generic;
             using System.Net.Http;
@@ -251,6 +254,8 @@ internal static class ExtensionMethodGenerator
             : operationType == HttpMethod.Put ? "Put"
             : operationType == HttpMethod.Delete ? "Delete"
             : operationType == HttpMethod.Patch ? "Patch"
+            : operationType == HttpMethod.Head ? "Head"
+            : operationType == HttpMethod.Options ? "Options"
             : operationType.Method;
         var createMethod = $"Create{verb}";
         var delegateType = $"{verb}Async";
@@ -265,7 +270,7 @@ internal static class ExtensionMethodGenerator
                 var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
 
                 var privateDelegate = $$"""
-                    private static {{delegateType}}<{{resultResponseType}}, string, Unit> {{privateFunctionName}} { get; } =
+                    private static {{delegateType}}<{{resultResponseType}}, string, Unit> {{privateFunctionName}}() =>
                         RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, Unit>(
                             url: BaseUrl,
                             buildRequest: static _ => new HttpRequestParts(new RelativeUrl("{{path}}"), null, null),
@@ -289,7 +294,7 @@ internal static class ExtensionMethodGenerator
                 var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
 
                 var privateDelegate = $$"""
-                    private static {{delegateType}}<{{resultResponseType}}, string, {{bodyType}}> {{privateFunctionName}} { get; } =
+                    private static {{delegateType}}<{{resultResponseType}}, string, {{bodyType}}> {{privateFunctionName}}() =>
                         RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{bodyType}}>(
                             url: BaseUrl,
                             buildRequest: static body => new HttpRequestParts(new RelativeUrl("{{path}}"), CreateJsonContent(body), null),
@@ -304,7 +309,7 @@ internal static class ExtensionMethodGenerator
                         this HttpClient httpClient,
                         {{bodyType}} body,
                         CancellationToken ct = default
-                    ) => {{privateFunctionName}}(httpClient, body, ct);
+                    ) => {{privateFunctionName}}()(httpClient, body, ct);
                     """;
 
                 return (publicMethod, privateDelegate);
@@ -330,7 +335,7 @@ internal static class ExtensionMethodGenerator
                     );
 
             var privateDelegate = $$"""
-                private static {{delegateType}}<{{resultResponseType}}, string, {{queryParamsType}}> {{privateFunctionName}} { get; } =
+                private static {{delegateType}}<{{resultResponseType}}, string, {{queryParamsType}}> {{privateFunctionName}}() =>
                     RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{queryParamsType}}>(
                         url: BaseUrl,
                         buildRequest: static param => new HttpRequestParts(new RelativeUrl($"{{path}}{{queryStringWithParam}}"), null, null),
@@ -345,7 +350,7 @@ internal static class ExtensionMethodGenerator
                     this HttpClient httpClient,
                     {{string.Join(", ", queryParams.Select(q => $"{q.Type} {q.Name}"))}},
                     CancellationToken ct = default
-                ) => {{privateFunctionName}}(httpClient, {{paramInvocation}}, ct);
+                ) => {{privateFunctionName}}()(httpClient, {{paramInvocation}}, ct);
                 """;
 
             return (publicMethod, privateDelegate);
@@ -358,7 +363,7 @@ internal static class ExtensionMethodGenerator
             ? pathParams[0].Type
             : $"({string.Join(", ", pathParams.Select(p => $"{p.Type} {p.Name}"))})";
         var pathParamsNames = string.Join(", ", pathParams.Select(p => p.Name));
-        var lambda = isSinglePathParam ? pathParams[0].Name : $"({pathParamsNames})";
+        var lambda = isSinglePathParam ? pathParams[0].Name : "param";
         var publicMethodParams = string.Join(", ", pathParams.Select(p => $"{p.Type} {p.Name}"));
         var publicMethodInvocation = isSinglePathParam ? pathParamsNames : $"({pathParamsNames})";
 
@@ -381,17 +386,21 @@ internal static class ExtensionMethodGenerator
                             "&",
                             queryParams.Select(q => $"{q.OriginalName}={{param.{q.Name}}}")
                         );
+            var sanitizedPath = CodeGenerationHelpers.SanitizePathParameters(
+                pathExpression,
+                parameters
+            );
             var pathWithParam =
                 isSingleParam && hasPathParams
-                    ? pathExpression.Replace(
+                    ? sanitizedPath.Replace(
                         "{" + parameters.First(p => p.IsPath).Name + "}",
                         "{param}",
                         StringComparison.Ordinal
                     )
-                    : pathExpression.Replace("{", "{param.", StringComparison.Ordinal);
+                    : sanitizedPath.Replace("{", "{param.", StringComparison.Ordinal);
 
             var privateDelegate = $$"""
-                private static {{delegateType}}<{{resultResponseType}}, string, {{allParamsType}}> {{privateFunctionName}} { get; } =
+                private static {{delegateType}}<{{resultResponseType}}, string, {{allParamsType}}> {{privateFunctionName}} =>
                     RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{allParamsType}}>(
                         url: BaseUrl,
                         buildRequest: static param => new HttpRequestParts(new RelativeUrl($"{{pathWithParam}}{{queryStringWithParam}}"), null, null),
@@ -415,12 +424,19 @@ internal static class ExtensionMethodGenerator
         if (!hasBody)
         {
             var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
+            var sanitizedPath = CodeGenerationHelpers.SanitizePathParameters(
+                pathExpression,
+                parameters
+            );
+            var pathWithParam = isSinglePathParam
+                ? sanitizedPath
+                : sanitizedPath.Replace("{", "{param.", StringComparison.Ordinal);
 
             var privateDelegate = $$"""
-                private static {{delegateType}}<{{resultResponseType}}, string, {{pathParamsType}}> {{privateFunctionName}} { get; } =
+                private static {{delegateType}}<{{resultResponseType}}, string, {{pathParamsType}}> {{privateFunctionName}}() =>
                     RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{pathParamsType}}>(
                         url: BaseUrl,
-                        buildRequest: static {{lambda}} => new HttpRequestParts(new RelativeUrl($"{{pathExpression}}"), null, null),
+                        buildRequest: static {{lambda}} => new HttpRequestParts(new RelativeUrl($"{{pathWithParam}}"), null, null),
                         deserializeSuccess: {{deserializeMethod}},
                         deserializeError: DeserializeError
                     );
@@ -432,7 +448,7 @@ internal static class ExtensionMethodGenerator
                     this HttpClient httpClient,
                     {{publicMethodParams}},
                     CancellationToken ct = default
-                ) => {{privateFunctionName}}(httpClient, {{publicMethodInvocation}}, ct);
+                ) => {{privateFunctionName}}()(httpClient, {{publicMethodInvocation}}, ct);
                 """;
 
             return (publicMethod, privateDelegate);
@@ -440,12 +456,20 @@ internal static class ExtensionMethodGenerator
         else
         {
             var compositeType = $"({pathParamsType} Params, {bodyType} Body)";
-            var pathWithParamInterpolation = CodeGenerationHelpers
-                .PathParameterRegex()
-                .Replace(pathExpression, "{param.Params}");
+            var sanitizedPath = CodeGenerationHelpers.SanitizePathParameters(
+                pathExpression,
+                parameters
+            );
+            var pathWithParamInterpolation = isSinglePathParam
+                ? sanitizedPath.Replace(
+                    "{" + pathParams[0].Name + "}",
+                    "{param.Params}",
+                    StringComparison.Ordinal
+                )
+                : sanitizedPath.Replace("{", "{param.Params.", StringComparison.Ordinal);
 
             var privateDelegate = $$"""
-                private static {{delegateType}}<{{resultResponseType}}, string, {{compositeType}}> {{privateFunctionName}} { get; } =
+                private static {{delegateType}}<{{resultResponseType}}, string, {{compositeType}}> {{privateFunctionName}}() =>
                     RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{compositeType}}>(
                         url: BaseUrl,
                         buildRequest: static param => new HttpRequestParts(new RelativeUrl($"{{pathWithParamInterpolation}}"), CreateJsonContent(param.Body), null),
@@ -460,7 +484,7 @@ internal static class ExtensionMethodGenerator
                     this HttpClient httpClient,
                     {{compositeType}} param,
                     CancellationToken ct = default
-                ) => {{privateFunctionName}}(httpClient, param, ct);
+                ) => {{privateFunctionName}}()(httpClient, param, ct);
                 """;
 
             return (publicMethod, privateDelegate);
@@ -488,6 +512,8 @@ internal static class ExtensionMethodGenerator
             : operationType == HttpMethod.Put ? "Update"
             : operationType == HttpMethod.Delete ? "Delete"
             : operationType == HttpMethod.Patch ? "Patch"
+            : operationType == HttpMethod.Head ? "Head"
+            : operationType == HttpMethod.Options ? "Options"
             : operationType.Method;
 
         return $"{methodName}{CodeGenerationHelpers.ToPascalCase(pathPart)}";
@@ -591,14 +617,14 @@ internal static class ExtensionMethodGenerator
             // Generate Ok alias
             aliases.Add(
                 $$"""
-                using Ok{{aliasName}} = Outcome.Result<{{qualifiedType}}, Outcome.HttpError<string>>.Ok<{{qualifiedType}}, Outcome.HttpError<string>>;
+                global using Ok{{aliasName}} = Outcome.Result<{{qualifiedType}}, Outcome.HttpError<string>>.Ok<{{qualifiedType}}, Outcome.HttpError<string>>;
                 """
             );
 
             // Generate Error alias
             aliases.Add(
                 $$"""
-                using Error{{aliasName}} = Outcome.Result<{{qualifiedType}}, Outcome.HttpError<string>>.Error<{{qualifiedType}}, Outcome.HttpError<string>>;
+                global using Error{{aliasName}} = Outcome.Result<{{qualifiedType}}, Outcome.HttpError<string>>.Error<{{qualifiedType}}, Outcome.HttpError<string>>;
                 """
             );
         }
