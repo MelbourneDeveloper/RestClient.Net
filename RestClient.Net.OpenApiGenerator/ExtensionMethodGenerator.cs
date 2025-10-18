@@ -56,7 +56,8 @@ internal static class ExtensionMethodGenerator
                     path.Key,
                     operation.Key,
                     operation.Value,
-                    basePath
+                    basePath,
+                    document.Components?.Schemas
                 );
                 if (!string.IsNullOrEmpty(publicMethod))
                 {
@@ -155,6 +156,34 @@ internal static class ExtensionMethodGenerator
                     var content = await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
                     return string.IsNullOrEmpty(content) ? "Unknown error" : content;
                 }
+
+                private static string BuildQueryString(params (string Key, object? Value)[] parameters)
+                {
+                    var parts = new List<string>();
+                    foreach (var (key, value) in parameters)
+                    {
+                        if (value == null)
+                        {
+                            continue;
+                        }
+
+                        if (value is System.Collections.IEnumerable enumerable and not string)
+                        {
+                            foreach (var item in enumerable)
+                            {
+                                if (item != null)
+                                {
+                                    parts.Add($"{key}={Uri.EscapeDataString(item.ToString() ?? string.Empty)}");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            parts.Add($"{key}={Uri.EscapeDataString(value.ToString() ?? string.Empty)}");
+                        }
+                    }
+                    return parts.Count > 0 ? "?" + string.Join("&", parts) : string.Empty;
+                }
             }
             """;
 
@@ -208,11 +237,12 @@ internal static class ExtensionMethodGenerator
         string path,
         HttpMethod operationType,
         OpenApiOperation operation,
-        string basePath
+        string basePath,
+        IDictionary<string, IOpenApiSchema>? schemas = null
     )
     {
         var methodName = GetMethodName(operation, operationType, path);
-        var parameters = GetParameters(operation);
+        var parameters = GetParameters(operation, schemas);
         var requestBodyType = GetRequestBodyType(operation);
         var responseType = GetResponseType(operation);
         var fullPath = $"{basePath}{path}";
@@ -331,28 +361,20 @@ internal static class ExtensionMethodGenerator
             var paramInvocation = isSingleParam ? nonPathParamsNames : $"({nonPathParamsNames})";
             var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
 
-            var queryString = hasQueryParams
+            var queryStringExpression = hasQueryParams
                 ? (
                     isSingleParam && queryParams.Count == 1
-                        ? "?"
-                            + string.Join(
-                                "&",
-                                queryParams.Select(q => $"{q.OriginalName}={{param}}")
-                            )
-                        : "?"
-                            + string.Join(
-                                "&",
-                                queryParams.Select(q => $"{q.OriginalName}={{param.{q.Name}}}")
-                            )
+                        ? $"BuildQueryString((\"{queryParams[0].OriginalName}\", param))"
+                        : $"BuildQueryString({string.Join(", ", queryParams.Select(q => $"(\"{q.OriginalName}\", param.{q.Name})"))})"
                 )
-                : string.Empty;
+                : "string.Empty";
 
             var headersExpression = hasHeaderParams
                 ? BuildHeadersDictionaryExpression(headerParams, "param", isSingleParam)
                 : "null";
 
             var buildRequestBody =
-                $"static param => new HttpRequestParts(new RelativeUrl($\"{path}{queryString}\"), null, {headersExpression})";
+                $"static param => new HttpRequestParts(new RelativeUrl($\"{path}{{{queryStringExpression}}}\"), null, {headersExpression})";
 
             return BuildMethod(
                 methodName,
@@ -389,21 +411,13 @@ internal static class ExtensionMethodGenerator
             var paramInvocation = isSingleParam ? allParamsNames : $"({allParamsNames})";
             var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
 
-            var queryString = hasQueryParams
+            var queryStringExpression = hasQueryParams
                 ? (
                     isSingleParam && queryParams.Count == 1
-                        ? "?"
-                            + string.Join(
-                                "&",
-                                queryParams.Select(q => $"{q.OriginalName}={{param}}")
-                            )
-                        : "?"
-                            + string.Join(
-                                "&",
-                                queryParams.Select(q => $"{q.OriginalName}={{param.{q.Name}}}")
-                            )
+                        ? $"BuildQueryString((\"{queryParams[0].OriginalName}\", param))"
+                        : $"BuildQueryString({string.Join(", ", queryParams.Select(q => $"(\"{q.OriginalName}\", param.{q.Name})"))})"
                 )
-                : string.Empty;
+                : "string.Empty";
 
             var headersExpression = hasHeaderParams
                 ? BuildHeadersDictionaryExpression(headerParams, "param", isSingleParam)
@@ -423,7 +437,7 @@ internal static class ExtensionMethodGenerator
                     : sanitizedPath.Replace("{", "{param.", StringComparison.Ordinal);
 
             var buildRequestBody =
-                $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParam}{queryString}\"), null, {headersExpression})";
+                $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParam}{{{queryStringExpression}}}\"), null, {headersExpression})";
 
             return BuildMethod(
                 methodName,
@@ -506,20 +520,16 @@ internal static class ExtensionMethodGenerator
                         : sanitizedPath.Replace("{", "{param.Params.", StringComparison.Ordinal)
                 );
 
-            var queryString = hasQueryParams
-                ? "?"
-                    + string.Join(
-                        "&",
-                        queryParams.Select(q => $"{q.OriginalName}={{param.{q.Name}}}")
-                    )
-                : string.Empty;
+            var queryStringExpression = hasQueryParams
+                ? $"BuildQueryString({string.Join(", ", queryParams.Select(q => $"(\"{q.OriginalName}\", param.{q.Name})"))})"
+                : "string.Empty";
 
             var headersExpression = hasHeaderParams
                 ? BuildHeadersDictionaryExpression(headerParams, "param", false)
                 : "null";
 
             var buildRequestBody =
-                $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParamInterpolation}{queryString}\"), CreateJsonContent(param.Body), {headersExpression})";
+                $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParamInterpolation}{{{queryStringExpression}}}\"), CreateJsonContent(param.Body), {headersExpression})";
 
             // Public methods ALWAYS have individual parameters, never tuples
             var publicMethodParams = hasNonPathNonBodyParams
@@ -577,7 +587,10 @@ internal static class ExtensionMethodGenerator
         return $"{methodName}{CodeGenerationHelpers.ToPascalCase(pathPart)}";
     }
 
-    private static List<ParameterInfo> GetParameters(OpenApiOperation operation)
+    private static List<ParameterInfo> GetParameters(
+        OpenApiOperation operation,
+        IDictionary<string, IOpenApiSchema>? schemas = null
+    )
     {
         var parameters = new List<ParameterInfo>();
 
@@ -595,7 +608,7 @@ internal static class ExtensionMethodGenerator
 
             var isPath = param.In == ParameterLocation.Path;
             var isHeader = param.In == ParameterLocation.Header;
-            var type = ModelGenerator.MapOpenApiType(param.Schema);
+            var type = ModelGenerator.MapOpenApiType(param.Schema, schemas);
             var sanitizedName = CodeGenerationHelpers.ToCamelCase(param.Name);
             parameters.Add(new ParameterInfo(sanitizedName, type, isPath, isHeader, param.Name));
         }

@@ -649,6 +649,13 @@ paths:
           default: false
         description: If set, the response will include some extra metadata for debugging
           purposes, like the list of queried nodes.
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: READER
+          title: X-NUCLIADB-ROLES
       responses:
         '200':
           description: Successful Response
@@ -2995,6 +3002,13 @@ paths:
           title: X-Skip-Store
         description: If set to true, file fields will not be saved in the blob storage.
           They will only be sent to process.
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: WRITER
+          title: X-NUCLIADB-ROLES
       requestBody:
         required: true
         content:
@@ -3044,6 +3058,13 @@ paths:
         schema:
           type: string
           title: Rid
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: WRITER
+          title: X-NUCLIADB-ROLES
       responses:
         '204':
           description: Successful Response
@@ -3134,6 +3155,13 @@ paths:
           type: string
           default: ''
           title: X-Forwarded-For
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: READER
+          title: X-NUCLIADB-ROLES
       responses:
         '200':
           description: Successful Response
@@ -4162,6 +4190,13 @@ paths:
           type: string
           pattern: ^[a-zA-Z0-9:_-]+$
           title: Field Id
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: WRITER
+          title: X-NUCLIADB-ROLES
       requestBody:
         required: true
         content:
@@ -4422,6 +4457,13 @@ paths:
           type: string
           default: ''
           title: X-Nucliadb-User
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: WRITER
+          title: X-NUCLIADB-ROLES
       requestBody:
         required: true
         content:

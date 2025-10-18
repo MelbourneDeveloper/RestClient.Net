@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <NoWarn>CA1303;CA2000;EXHAUSTION001</NoWarn>
+    <NoWarn>CA1303;CA2000</NoWarn>
     <NucliaBaseUrl Condition="'$(NucliaBaseUrl)' == ''">http://localhost:8080/api/v1</NucliaBaseUrl>
   </PropertyGroup>
   <ItemGroup>

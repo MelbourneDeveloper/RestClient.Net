@@ -240,4 +240,32 @@ public static class JSONPlaceholderApiExtensions
         var content = await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
         return string.IsNullOrEmpty(content) ? "Unknown error" : content;
     }
+
+    private static string BuildQueryString(params (string Key, object? Value)[] parameters)
+    {
+        var parts = new List<string>();
+        foreach (var (key, value) in parameters)
+        {
+            if (value == null)
+            {
+                continue;
+            }
+
+            if (value is System.Collections.IEnumerable enumerable and not string)
+            {
+                foreach (var item in enumerable)
+                {
+                    if (item != null)
+                    {
+                        parts.Add($"{key}={Uri.EscapeDataString(item.ToString() ?? string.Empty)}");
+                    }
+                }
+            }
+            else
+            {
+                parts.Add($"{key}={Uri.EscapeDataString(value.ToString() ?? string.Empty)}");
+            }
+        }
+        return parts.Count > 0 ? "?" + string.Join("&", parts) : string.Empty;
+    }
 }

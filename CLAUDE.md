@@ -13,6 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - NEVER copy files. Only MOVE files
 - Don't use Git unless I explicitly ask you to
 - Promote code analysis warnings to errors
+- EXHAUSTION001 is a critical error and must be turned on everywhere
 - Nullable reference types are enabled and MUST be obeyed
 - Do not back files up
 - Aggressively pursue these aims, even when it means taking more time on a task

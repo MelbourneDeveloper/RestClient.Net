@@ -1,17 +1,5 @@
 namespace NucliaDB.Generated;
 
-/// <summary>An enumeration.</summary>
-public class AnonimizationModel
-{
-
-}
-
-/// <summary>An enumeration.</summary>
-public class GenerativeModel
-{
-
-}
-
 /// <summary>HTTPValidationError</summary>
 public class HTTPValidationError
 {
@@ -30,12 +18,6 @@ public class LearningConfigurationUpdate
 
     /// <summary>NerModel</summary>
     public object NerModel { get; set; }
-}
-
-/// <summary>An enumeration.</summary>
-public class NERModel
-{
-
 }
 
 /// <summary>Model to map in a generic way what we really store on the db, without valdations. As enum values containing the versions change from time to time, and we don't keep historics, we cannot use the model enums here, as it will fail with older values</summary>
@@ -73,17 +55,11 @@ public class ValidationError
     public string Type { get; set; }
 }
 
-/// <summary>AgentType</summary>
-public class AgentType
-{
-
-}
-
 /// <summary>AgentsFilter</summary>
 public class AgentsFilter
 {
     /// <summary>Type</summary>
-    public AgentType Type { get; set; }
+    public string Type { get; set; }
 
     /// <summary>list of task names. If None or empty, all tasks for that operation are applied.</summary>
     public List<string> TaskNames { get; set; }
@@ -151,7 +127,7 @@ public class AnyNode
     public object Value { get; set; }
 
     /// <summary>Match</summary>
-    public NodeMatchKindName Match { get; set; }
+    public string Match { get; set; }
 
     /// <summary>Type</summary>
     public object Type { get; set; }
@@ -204,7 +180,7 @@ public class AskRequest
     public object MinScore { get; set; }
 
     /// <summary>Features enabled for the chat endpoint. Semantic search is done if `semantic` is included. If `keyword` is included, the results will include matching paragraphs from the bm25 index. If `relations` is included, a graph of entities related to the answer is returned. `paragraphs` and `vectors` are deprecated, please use `keyword` and `semantic` instead</summary>
-    public List<ChatOptions> Features { get; set; }
+    public List<string> Features { get; set; }
 
     /// <summary>Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
     public object RangeCreationStart { get; set; }
@@ -219,13 +195,13 @@ public class AskRequest
     public object RangeModificationEnd { get; set; }
 
     /// <summary>Controls which types of metadata are serialized on resources of search results</summary>
-    public List<ResourceProperties> Show { get; set; }
+    public List<string> Show { get; set; }
 
     /// <summary>Define which field types are serialized on resources of search results</summary>
-    public List<FieldTypeName> FieldTypeFilter { get; set; }
+    public List<string> FieldTypeFilter { get; set; }
 
     /// <summary>[Deprecated] Please use GET resource endpoint instead to get extracted metadata</summary>
-    public List<ExtractedDataTypeName> Extracted { get; set; }
+    public List<string> Extracted { get; set; }
 
     /// <summary>DEPRECATED! Please, use `chat_history` instead.</summary>
     public object Context { get; set; }
@@ -390,13 +366,7 @@ public class AugmentedTextBlock
     public object Parent { get; set; }
 
     /// <summary>AugmentationType</summary>
-    public TextBlockAugmentationType AugmentationType { get; set; }
-}
-
-/// <summary>Author</summary>
-public class Author
-{
-
+    public string AugmentationType { get; set; }
 }
 
 /// <summary>Returns only documents that match this filter expression. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters  This allows building complex filtering expressions and replaces the following parameters: `filters`, `range_*`, `with_status`.</summary>
@@ -410,25 +380,13 @@ public class CatalogFilterExpression
 public class CatalogQuery
 {
     /// <summary>Field</summary>
-    public CatalogQueryField Field { get; set; }
+    public string Field { get; set; }
 
     /// <summary>Match</summary>
-    public CatalogQueryMatch Match { get; set; }
+    public string Match { get; set; }
 
     /// <summary>Text to search for</summary>
     public string Query { get; set; }
-}
-
-/// <summary>CatalogQueryField</summary>
-public class CatalogQueryField
-{
-
-}
-
-/// <summary>CatalogQueryMatch</summary>
-public class CatalogQueryMatch
-{
-
 }
 
 /// <summary>CatalogRequest</summary>
@@ -456,7 +414,7 @@ public class CatalogRequest
     public object Hidden { get; set; }
 
     /// <summary>Controls which types of metadata are serialized on resources of search results</summary>
-    public List<ResourceProperties> Show { get; set; }
+    public List<string> Show { get; set; }
 
     /// <summary>The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
     public object Filters { get; set; }
@@ -481,16 +439,10 @@ public class CatalogRequest
 public class ChatContextMessage
 {
     /// <summary>Author</summary>
-    public Author Author { get; set; }
+    public string Author { get; set; }
 
     /// <summary>Text</summary>
     public string Text { get; set; }
-}
-
-/// <summary>ChatOptions</summary>
-public class ChatOptions
-{
-
 }
 
 /// <summary>Classification</summary>
@@ -645,7 +597,7 @@ public class DestinationNode
     public object Value { get; set; }
 
     /// <summary>Match</summary>
-    public NodeMatchKindName Match { get; set; }
+    public string Match { get; set; }
 
     /// <summary>Type</summary>
     public object Type { get; set; }
@@ -661,19 +613,19 @@ public class DirectionalRelation
     public string Entity { get; set; }
 
     /// <summary>EntityType</summary>
-    public RelationNodeType EntityType { get; set; }
+    public string EntityType { get; set; }
 
     /// <summary>EntitySubtype</summary>
     public string EntitySubtype { get; set; }
 
     /// <summary>Relation</summary>
-    public RelationType Relation { get; set; }
+    public string Relation { get; set; }
 
     /// <summary>RelationLabel</summary>
     public string RelationLabel { get; set; }
 
     /// <summary>Direction</summary>
-    public RelationDirection Direction { get; set; }
+    public string Direction { get; set; }
 
     /// <summary>Metadata</summary>
     public object Metadata { get; set; }
@@ -741,12 +693,6 @@ public class Extra
     public object Metadata { get; set; }
 }
 
-/// <summary>ExtractedDataTypeName</summary>
-public class ExtractedDataTypeName
-{
-
-}
-
 /// <summary>ExtractedText</summary>
 public class ExtractedText
 {
@@ -770,19 +716,13 @@ public class FeedbackRequest
     public bool Good { get; set; }
 
     /// <summary>Task</summary>
-    public FeedbackTasks Task { get; set; }
+    public string Task { get; set; }
 
     /// <summary>Feedback text</summary>
     public object Feedback { get; set; }
 
     /// <summary>Text block id</summary>
     public object TextBlockId { get; set; }
-}
-
-/// <summary>FeedbackTasks</summary>
-public class FeedbackTasks
-{
-
 }
 
 /// <summary>Matches a field or set of fields</summary>
@@ -792,7 +732,7 @@ public class Field
     public string Prop { get; set; }
 
     /// <summary>Type</summary>
-    public FieldTypeName Type { get; set; }
+    public string Type { get; set; }
 
     /// <summary>Name of the field to match. If blank, matches all fields of the given type</summary>
     public object Name { get; set; }
@@ -899,7 +839,7 @@ public class FieldFile
 public class FieldID
 {
     /// <summary>FieldType</summary>
-    public FieldType FieldType { get; set; }
+    public string FieldType { get; set; }
 
     /// <summary>Field</summary>
     public string Field { get; set; }
@@ -1046,18 +986,6 @@ public class FieldText
     public object SplitStrategy { get; set; }
 }
 
-/// <summary>FieldType</summary>
-public class FieldType
-{
-
-}
-
-/// <summary>This map assumes that both values and extracted data field containers use the same names for its fields. See models.ResourceFieldValues and models.ResourceFieldExtractedData</summary>
-public class FieldTypeName
-{
-
-}
-
 /// <summary>FileExtractedData</summary>
 public class FileExtractedData
 {
@@ -1181,7 +1109,7 @@ public class FilterExpression
     public object Paragraph { get; set; }
 
     /// <summary>Operator</summary>
-    public Operator Operator { get; set; }
+    public string Operator { get; set; }
 }
 
 /// <summary>FindField</summary>
@@ -1191,12 +1119,6 @@ public class FindField
     public object Paragraphs { get; set; }
 }
 
-/// <summary>FindOptions</summary>
-public class FindOptions
-{
-
-}
-
 /// <summary>FindParagraph</summary>
 public class FindParagraph
 {
@@ -1204,7 +1126,7 @@ public class FindParagraph
     public float Score { get; set; }
 
     /// <summary>ScoreType</summary>
-    public SCORETYPE ScoreType { get; set; }
+    public string ScoreType { get; set; }
 
     /// <summary>Order</summary>
     public int Order { get; set; }
@@ -1280,13 +1202,13 @@ public class FindRequest
     public bool Highlight { get; set; }
 
     /// <summary>Controls which types of metadata are serialized on resources of search results</summary>
-    public List<ResourceProperties> Show { get; set; }
+    public List<string> Show { get; set; }
 
     /// <summary>Define which field types are serialized on resources of search results</summary>
-    public List<FieldTypeName> FieldTypeFilter { get; set; }
+    public List<string> FieldTypeFilter { get; set; }
 
     /// <summary>[Deprecated] Please use GET resource endpoint instead to get extracted metadata</summary>
-    public List<ExtractedDataTypeName> Extracted { get; set; }
+    public List<string> Extracted { get; set; }
 
     /// <summary>The vector to perform the search with. If not provided, NucliaDB will use Nuclia Predict API to create the vector off from the query.</summary>
     public object Vector { get; set; }
@@ -1325,7 +1247,7 @@ public class FindRequest
     public object GraphQuery { get; set; }
 
     /// <summary>List of search features to use. Each value corresponds to a lookup into on of the different indexes</summary>
-    public List<FindOptions> Features { get; set; }
+    public List<string> Features { get; set; }
 
     /// <summary>Rank fusion algorithm to use to merge results from multiple retrievers (keyword, semantic)</summary>
     public object RankFusion { get; set; }
@@ -1436,12 +1358,6 @@ public class FullResourceStrategy
     public object ApplyTo { get; set; }
 }
 
-/// <summary>Generator</summary>
-public class Generator
-{
-
-}
-
 /// <summary>GenericFieldData</summary>
 public class GenericFieldData
 {
@@ -1475,7 +1391,7 @@ public class GraphNodeInput
     public object Value { get; set; }
 
     /// <summary>Match</summary>
-    public NodeMatchKindName Match { get; set; }
+    public string Match { get; set; }
 
     /// <summary>Type</summary>
     public object Type { get; set; }
@@ -1491,7 +1407,7 @@ public class GraphNodeOutput
     public string Value { get; set; }
 
     /// <summary>Type</summary>
-    public RelationNodeType Type { get; set; }
+    public string Type { get; set; }
 
     /// <summary>Group</summary>
     public string Group { get; set; }
@@ -1572,7 +1488,7 @@ public class GraphRelationOutput
     public string Label { get; set; }
 
     /// <summary>Type</summary>
-    public RelationType Type { get; set; }
+    public string Type { get; set; }
 }
 
 /// <summary>GraphRelationsSearchRequest</summary>
@@ -1646,10 +1562,10 @@ public class GraphStrategy
     public bool RelationTextAsParagraphs { get; set; }
 
     /// <summary>RelationRanking</summary>
-    public RelationRanking RelationRanking { get; set; }
+    public string RelationRanking { get; set; }
 
     /// <summary>QueryEntityDetection</summary>
-    public QueryEntityDetection QueryEntityDetection { get; set; }
+    public string QueryEntityDetection { get; set; }
 
     /// <summary>Weight of the graph strategy in the context. The weight is used to scale the results of the strategy before adding them to the context.The weight should be a positive number.</summary>
     public float Weight { get; set; }
@@ -1692,7 +1608,7 @@ public class Kind
     public string Prop { get; set; }
 
     /// <summary>KindValue</summary>
-    public TypeParagraph KindValue { get; set; }
+    public string KindValue { get; set; }
 }
 
 /// <summary>KnowledgeboxCounters</summary>
@@ -1947,7 +1863,7 @@ public class Metadata
     public object Languages { get; set; }
 
     /// <summary>Status</summary>
-    public ResourceProcessingStatus Status { get; set; }
+    public string Status { get; set; }
 }
 
 /// <summary>RAG strategy to enrich the context with metadata of the matching paragraphs or its resources. This strategy can be combined with any of the other strategies.</summary>
@@ -1957,13 +1873,7 @@ public class MetadataExtensionStrategy
     public string Name { get; set; }
 
     /// <summary>List of resource metadata types to add to the context.   - 'origin': origin metadata of the resource.   - 'classification_labels': classification labels of the resource.   - 'ner': Named Entity Recognition entities detected for the resource.   - 'extra_metadata': extra metadata of the resource.  Types for which the metadata is not found at the resource are ignored and not added to the context.</summary>
-    public List<MetadataExtensionType> Types { get; set; }
-}
-
-/// <summary>MetadataExtensionType</summary>
-public class MetadataExtensionType
-{
-
+    public List<string> Types { get; set; }
 }
 
 /// <summary>MinScore</summary>
@@ -2019,12 +1929,6 @@ public class NewTextField
     public string Destination { get; set; }
 }
 
-/// <summary>NodeMatchKindName</summary>
-public class NodeMatchKindName
-{
-
-}
-
 /// <summary>NotFieldFilterExpression</summary>
 public class NotFieldFilterExpression
 {
@@ -2062,18 +1966,6 @@ public class NotResourceFilterExpression
 {
     /// <summary>Operand</summary>
     public object Operand { get; set; }
-}
-
-/// <summary>NucliaDBClientType</summary>
-public class NucliaDBClientType
-{
-
-}
-
-/// <summary>Operator</summary>
-public class Operator
-{
-
 }
 
 /// <summary>OrFieldFilterExpression</summary>
@@ -2384,12 +2276,6 @@ public class PreQuery
     public bool Prefilter { get; set; }
 }
 
-/// <summary>Enum for the different endpoints that are proxied to the Predict API</summary>
-public class PredictProxiedEndpoints
-{
-
-}
-
 /// <summary>PredictReranker</summary>
 public class PredictReranker
 {
@@ -2398,12 +2284,6 @@ public class PredictReranker
 
     /// <summary>Number of elements reranker will use. Window must be greater or equal to top_k. Greater values will improve results at cost of retrieval and reranking time. By default, this reranker uses a default of 2 times top_k</summary>
     public object Window { get; set; }
-}
-
-/// <summary>QueryEntityDetection</summary>
-public class QueryEntityDetection
-{
-
 }
 
 /// <summary>Question</summary>
@@ -2444,18 +2324,6 @@ public class QuestionAnswers
 {
     /// <summary>QuestionAnswer</summary>
     public List<QuestionAnswer> QuestionAnswer { get; set; }
-}
-
-/// <summary>QueueType</summary>
-public class QueueType
-{
-
-}
-
-/// <summary>RankFusionName</summary>
-public class RankFusionName
-{
-
 }
 
 /// <summary>Reasoning</summary>
@@ -2534,7 +2402,7 @@ public class RelationInput
 public class RelationOutput
 {
     /// <summary>Relation</summary>
-    public RelationType Relation { get; set; }
+    public string Relation { get; set; }
 
     /// <summary>Label</summary>
     public object Label { get; set; }
@@ -2549,12 +2417,6 @@ public class RelationOutput
     public RelationEntity To { get; set; }
 }
 
-/// <summary>RelationDirection</summary>
-public class RelationDirection
-{
-
-}
-
 /// <summary>RelationEntity</summary>
 public class RelationEntity
 {
@@ -2562,7 +2424,7 @@ public class RelationEntity
     public string Value { get; set; }
 
     /// <summary>Type</summary>
-    public RelationNodeType Type { get; set; }
+    public string Type { get; set; }
 
     /// <summary>Group</summary>
     public object Group { get; set; }
@@ -2590,24 +2452,6 @@ public class RelationMetadata
     public object DataAugmentationTaskId { get; set; }
 }
 
-/// <summary>RelationNodeType</summary>
-public class RelationNodeType
-{
-
-}
-
-/// <summary>RelationRanking</summary>
-public class RelationRanking
-{
-
-}
-
-/// <summary>RelationType</summary>
-public class RelationType
-{
-
-}
-
 /// <summary>Relations</summary>
 public class Relations
 {
@@ -2630,12 +2474,6 @@ public class RequestSecurity
 {
     /// <summary>List of group ids to do the request with.</summary>
     public List<string> Groups { get; set; }
-}
-
-/// <summary>Rerankers  - Predict reranker: after retrieval, send the results to Predict API to   rerank it. This method uses a reranker model, so one can expect better   results at the expense of more latency.    This will be the new default  - No-operation (noop) reranker: maintain order and do not rerank the results   after retrieval</summary>
-public class RerankerName
-{
-
 }
 
 /// <summary>Matches all fields of a resource given its id or slug</summary>
@@ -2767,18 +2605,6 @@ public class ResourceMimetype
     public object Subtype { get; set; }
 }
 
-/// <summary>ResourceProcessingStatus</summary>
-public class ResourceProcessingStatus
-{
-
-}
-
-/// <summary>ResourceProperties</summary>
-public class ResourceProperties
-{
-
-}
-
 /// <summary>ResourceResult</summary>
 public class ResourceResult
 {
@@ -2866,18 +2692,6 @@ public class RowsPreview
     public object Sheets { get; set; }
 }
 
-/// <summary>SCORETYPE</summary>
-public class SCORETYPE
-{
-
-}
-
-/// <summary>SearchOptions</summary>
-public class SearchOptions
-{
-
-}
-
 /// <summary>SearchRequest</summary>
 public class SearchRequest
 {
@@ -2921,13 +2735,13 @@ public class SearchRequest
     public bool Highlight { get; set; }
 
     /// <summary>Controls which types of metadata are serialized on resources of search results</summary>
-    public List<ResourceProperties> Show { get; set; }
+    public List<string> Show { get; set; }
 
     /// <summary>Define which field types are serialized on resources of search results</summary>
-    public List<FieldTypeName> FieldTypeFilter { get; set; }
+    public List<string> FieldTypeFilter { get; set; }
 
     /// <summary>[Deprecated] Please use GET resource endpoint instead to get extracted metadata</summary>
-    public List<ExtractedDataTypeName> Extracted { get; set; }
+    public List<string> Extracted { get; set; }
 
     /// <summary>The vector to perform the search with. If not provided, NucliaDB will use Nuclia Predict API to create the vector off from the query.</summary>
     public object Vector { get; set; }
@@ -2963,7 +2777,7 @@ public class SearchRequest
     public object QueryImage { get; set; }
 
     /// <summary>List of search features to use. Each value corresponds to a lookup into on of the different indexes</summary>
-    public List<SearchOptions> Features { get; set; }
+    public List<string> Features { get; set; }
 
     /// <summary>The list of facets to calculate. The facets follow the same syntax as filters: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
     public List<string> Faceted { get; set; }
@@ -2998,35 +2812,17 @@ public class Sheet
     public object Rows { get; set; }
 }
 
-/// <summary>SortField</summary>
-public class SortField
-{
-
-}
-
 /// <summary>SortOptions</summary>
 public class SortOptions
 {
     /// <summary>Field</summary>
-    public SortField Field { get; set; }
+    public string Field { get; set; }
 
     /// <summary>Limit</summary>
     public object Limit { get; set; }
 
     /// <summary>Order</summary>
-    public SortOrder Order { get; set; }
-}
-
-/// <summary>SortOrder</summary>
-public class SortOrder
-{
-
-}
-
-/// <summary>Source</summary>
-public class Source
-{
-
+    public string Order { get; set; }
 }
 
 /// <summary>SourceNode</summary>
@@ -3039,25 +2835,13 @@ public class SourceNode
     public object Value { get; set; }
 
     /// <summary>Match</summary>
-    public NodeMatchKindName Match { get; set; }
+    public string Match { get; set; }
 
     /// <summary>Type</summary>
     public object Type { get; set; }
 
     /// <summary>Group</summary>
     public object Group { get; set; }
-}
-
-/// <summary>Status</summary>
-public class Status
-{
-
-}
-
-/// <summary>SuggestOptions</summary>
-public class SuggestOptions
-{
-
 }
 
 /// <summary>Model for the request payload of the summarize endpoint</summary>
@@ -3073,7 +2857,7 @@ public class SummarizeRequest
     public List<string> Resources { get; set; }
 
     /// <summary>SummaryKind</summary>
-    public SummaryKind SummaryKind { get; set; }
+    public string SummaryKind { get; set; }
 }
 
 /// <summary>SummarizedResource</summary>
@@ -3097,12 +2881,6 @@ public class SummarizedResponse
 
     /// <summary>Consumption</summary>
     public object Consumption { get; set; }
-}
-
-/// <summary>SummaryKind</summary>
-public class SummaryKind
-{
-
 }
 
 /// <summary>SyncAskMetadata</summary>
@@ -3177,12 +2955,6 @@ public class TableImageStrategy
     public string Name { get; set; }
 }
 
-/// <summary>TextBlockAugmentationType</summary>
-public class TextBlockAugmentationType
-{
-
-}
-
 /// <summary>TextFieldData</summary>
 public class TextFieldData
 {
@@ -3221,12 +2993,6 @@ public class TextFieldExtractedData
     public object QuestionAnswers { get; set; }
 }
 
-/// <summary>TextFormat</summary>
-public class TextFormat
-{
-
-}
-
 /// <summary>TextPosition</summary>
 public class TextPosition
 {
@@ -3260,12 +3026,6 @@ public class TokensDetail
 
     /// <summary>Image</summary>
     public float Image { get; set; }
-}
-
-/// <summary>TypeParagraph</summary>
-public class TypeParagraph
-{
-
 }
 
 /// <summary>UserClassification</summary>
@@ -3413,7 +3173,7 @@ public class NucliadbModelsGraphRequestsGenerated
     public string Prop { get; set; }
 
     /// <summary>By</summary>
-    public Generator By { get; set; }
+    public string By { get; set; }
 
     /// <summary>Matches relations generated by an specific DA task, given its prefix</summary>
     public object DaTask { get; set; }
@@ -3520,7 +3280,7 @@ public class AskConfig
     public object MinScore { get; set; }
 
     /// <summary>Features enabled for the chat endpoint. Semantic search is done if `semantic` is included. If `keyword` is included, the results will include matching paragraphs from the bm25 index. If `relations` is included, a graph of entities related to the answer is returned. `paragraphs` and `vectors` are deprecated, please use `keyword` and `semantic` instead</summary>
-    public List<ChatOptions> Features { get; set; }
+    public List<string> Features { get; set; }
 
     /// <summary>Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
     public object RangeCreationStart { get; set; }
@@ -3535,13 +3295,13 @@ public class AskConfig
     public object RangeModificationEnd { get; set; }
 
     /// <summary>Controls which types of metadata are serialized on resources of search results</summary>
-    public List<ResourceProperties> Show { get; set; }
+    public List<string> Show { get; set; }
 
     /// <summary>Define which field types are serialized on resources of search results</summary>
-    public List<FieldTypeName> FieldTypeFilter { get; set; }
+    public List<string> FieldTypeFilter { get; set; }
 
     /// <summary>[Deprecated] Please use GET resource endpoint instead to get extracted metadata</summary>
-    public List<ExtractedDataTypeName> Extracted { get; set; }
+    public List<string> Extracted { get; set; }
 
     /// <summary>DEPRECATED! Please, use `chat_history` instead.</summary>
     public object Context { get; set; }
@@ -3755,12 +3515,6 @@ public class CustomSplitStrategy
 
 }
 
-/// <summary>Enum for the different external index providers. For now only Pinecone is supported, but we may add more in the future.</summary>
-public class ExternalIndexProviderType
-{
-
-}
-
 /// <summary>ExtractConfig</summary>
 public class ExtractConfig
 {
@@ -3781,7 +3535,7 @@ public class ExtractConfig
 public class FieldRef
 {
     /// <summary>FieldType</summary>
-    public FieldTypeName FieldType { get; set; }
+    public string FieldType { get; set; }
 
     /// <summary>FieldId</summary>
     public string FieldId { get; set; }
@@ -3890,13 +3644,13 @@ public class FindConfig
     public bool Highlight { get; set; }
 
     /// <summary>Controls which types of metadata are serialized on resources of search results</summary>
-    public List<ResourceProperties> Show { get; set; }
+    public List<string> Show { get; set; }
 
     /// <summary>Define which field types are serialized on resources of search results</summary>
-    public List<FieldTypeName> FieldTypeFilter { get; set; }
+    public List<string> FieldTypeFilter { get; set; }
 
     /// <summary>[Deprecated] Please use GET resource endpoint instead to get extracted metadata</summary>
-    public List<ExtractedDataTypeName> Extracted { get; set; }
+    public List<string> Extracted { get; set; }
 
     /// <summary>The vector to perform the search with. If not provided, NucliaDB will use Nuclia Predict API to create the vector off from the query.</summary>
     public object Vector { get; set; }
@@ -3935,7 +3689,7 @@ public class FindConfig
     public object GraphQuery { get; set; }
 
     /// <summary>List of search features to use. Each value corresponds to a lookup into on of the different indexes</summary>
-    public List<FindOptions> Features { get; set; }
+    public List<string> Features { get; set; }
 
     /// <summary>Rank fusion algorithm to use to merge results from multiple retrievers (keyword, semantic)</summary>
     public object RankFusion { get; set; }
@@ -3967,7 +3721,7 @@ public class GraphNode
     public object Value { get; set; }
 
     /// <summary>Match</summary>
-    public NodeMatchKindName Match { get; set; }
+    public string Match { get; set; }
 
     /// <summary>Type</summary>
     public object Type { get; set; }
@@ -4088,7 +3842,7 @@ public class InputMessageContent
     public string Text { get; set; }
 
     /// <summary>Format</summary>
-    public MessageFormat Format { get; set; }
+    public string Format { get; set; }
 
     /// <summary>Attachments</summary>
     public List<FileB64> Attachments { get; set; }
@@ -4275,16 +4029,10 @@ public class LabelSet
     public bool Multiple { get; set; }
 
     /// <summary>Kind</summary>
-    public List<LabelSetKind> Kind { get; set; }
+    public List<string> Kind { get; set; }
 
     /// <summary>Labels</summary>
     public List<NucliadbModelsLabelsLabel> Labels { get; set; }
-}
-
-/// <summary>LabelSetKind</summary>
-public class LabelSetKind
-{
-
 }
 
 /// <summary>LinkField</summary>
@@ -4323,18 +4071,6 @@ public class ManualSplitConfig
 {
     /// <summary>Splitter</summary>
     public string Splitter { get; set; }
-}
-
-/// <summary>MessageFormat</summary>
-public class MessageFormat
-{
-
-}
-
-/// <summary>MessageType</summary>
-public class MessageType
-{
-
 }
 
 /// <summary>MistralKey</summary>
@@ -4384,19 +4120,13 @@ public class PalmKey
 public class PineconeIndexProvider
 {
     /// <summary>Type</summary>
-    public ExternalIndexProviderType Type { get; set; }
+    public string Type { get; set; }
 
     /// <summary>ApiKey</summary>
     public string ApiKey { get; set; }
 
     /// <summary>ServerlessCloud</summary>
-    public PineconeServerlessCloud ServerlessCloud { get; set; }
-}
-
-/// <summary>List of cloud providers supported by Pinecone serverless vector database.</summary>
-public class PineconeServerlessCloud
-{
-
+    public string ServerlessCloud { get; set; }
 }
 
 /// <summary>PushProcessingOptions</summary>
@@ -4463,7 +4193,7 @@ public class ResourceUpdated
 public class SemanticModelMetadata
 {
     /// <summary>SimilarityFunction</summary>
-    public VectorSimilarity SimilarityFunction { get; set; }
+    public string SimilarityFunction { get; set; }
 
     /// <summary>Dimension of the indexed vectors/embeddings</summary>
     public object VectorDimension { get; set; }
@@ -4505,7 +4235,7 @@ public class TextField
     public string Body { get; set; }
 
     /// <summary>Format</summary>
-    public TextFormat Format { get; set; }
+    public string Format { get; set; }
 
     /// <summary>Id of the Nuclia extract strategy to use at processing time. If not set, the default strategy will be used. Extract strategies are defined at the learning configuration api.</summary>
     public object ExtractStrategy { get; set; }
@@ -4636,12 +4366,6 @@ public class VLLMExtractionConfig
     public object Llm { get; set; }
 }
 
-/// <summary>VectorSimilarity</summary>
-public class VectorSimilarity
-{
-
-}
-
 /// <summary>NucliadbModelsEntitiesEntity</summary>
 public class NucliadbModelsEntitiesEntity
 {
@@ -4714,7 +4438,7 @@ public class NucliadbModelsLabelsLabel
 public class NucliadbModelsMetadataRelation
 {
     /// <summary>Relation</summary>
-    public RelationType Relation { get; set; }
+    public string Relation { get; set; }
 
     /// <summary>Label</summary>
     public object Label { get; set; }
@@ -4909,7 +4633,7 @@ public class RequestsResults
 public class ResourceField
 {
     /// <summary>FieldType</summary>
-    public FieldTypeName FieldType { get; set; }
+    public string FieldType { get; set; }
 
     /// <summary>FieldId</summary>
     public string FieldId { get; set; }
@@ -4928,12 +4652,6 @@ public class ResourceField
 
     /// <summary>Errors</summary>
     public object Errors { get; set; }
-}
-
-/// <summary>ResourceFieldProperties</summary>
-public class ResourceFieldProperties
-{
-
 }
 
 /// <summary>ResourceList</summary>
@@ -4976,7 +4694,7 @@ public class Sentence
 public class StatusResponse
 {
     /// <summary>Status</summary>
-    public Status Status { get; set; }
+    public string Status { get; set; }
 
     /// <summary>Total</summary>
     public int Total { get; set; }

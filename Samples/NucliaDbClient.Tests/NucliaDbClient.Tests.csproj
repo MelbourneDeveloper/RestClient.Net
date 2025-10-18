@@ -3,7 +3,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <NoWarn>CA1303;CA2000;EXHAUSTION001;SA1600;IDE0058;xUnit1030;CS1591;CA2007;CA1515</NoWarn>
+    <NoWarn>CA1303;CA2000;SA1600;IDE0058;xUnit1030;CS1591;CA2007;CA1515</NoWarn>
 
   </PropertyGroup>
   <ItemGroup>
@@ -17,5 +17,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NucliaDbClient\NucliaDbClient.csproj" />
+    <ProjectReference Include="..\..\Exhaustion\Exhaustion.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 </Project>

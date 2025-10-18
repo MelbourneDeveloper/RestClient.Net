@@ -50,14 +50,14 @@ public static class NucliaDBApiExtensions
     /// <summary>Ask Knowledge Box</summary>
     public static Task<Result<SyncAskResponse, HttpError<string>>> AskKnowledgeboxEndpointKbKbidAskPost(
         this HttpClient httpClient,
-        string kbid, NucliaDBClientType xNdbClient, bool xShowConsumption, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest body,
+        string kbid, string xNdbClient, bool xShowConsumption, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest body,
         CancellationToken cancellationToken = default
     ) => _askKnowledgeboxEndpointKbKbidAskPost(httpClient, (kbid, xNdbClient, xShowConsumption, xNucliadbUser, xForwardedFor, xSynchronous, body), cancellationToken);
     
     /// <summary>List resources of a Knowledge Box</summary>
     public static Task<Result<KnowledgeboxSearchResults, HttpError<string>>> CatalogGetKbKbidCatalogGet(
         this HttpClient httpClient,
-        string kbid, string query, object filterExpression, List<string> filters, List<string> faceted, SortField sortField, object sortLimit, SortOrder sortOrder, int pageNumber, int pageSize, object withStatus, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, object hidden, List<ResourceProperties> show,
+        string kbid, string query, object filterExpression, List<string> filters, List<string> faceted, string sortField, object sortLimit, string sortOrder, int pageNumber, int pageSize, object withStatus, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, object hidden, List<string> show,
         CancellationToken cancellationToken = default
     ) => _catalogGetKbKbidCatalogGet(httpClient, (kbid, query, filterExpression, filters, faceted, sortField, sortLimit, sortOrder, pageNumber, pageSize, withStatus, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, hidden, show), cancellationToken);
     
@@ -92,9 +92,9 @@ public static class NucliaDBApiExtensions
     /// <summary>Knowledgebox Counters</summary>
     public static Task<Result<KnowledgeboxCounters, HttpError<string>>> KnowledgeboxCountersKbKbidCountersGet(
         this HttpClient httpClient,
-        string kbid, bool debug,
+        string kbid, bool debug, string xNUCLIADBROLES,
         CancellationToken cancellationToken = default
-    ) => _knowledgeboxCountersKbKbidCountersGet(httpClient, (kbid, debug), cancellationToken);
+    ) => _knowledgeboxCountersKbKbidCountersGet(httpClient, (kbid, debug, xNUCLIADBROLES), cancellationToken);
     
     /// <summary>Set Knowledge Box Custom Synonyms</summary>
     public static Task<Result<object, HttpError<string>>> SetCustomSynonymsKbKbidCustomSynonymsPut(
@@ -204,42 +204,42 @@ public static class NucliaDBApiExtensions
     /// <summary>Send Feedback</summary>
     public static Task<Result<object, HttpError<string>>> SendFeedbackEndpointKbKbidFeedbackPost(
         this HttpClient httpClient,
-        string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, FeedbackRequest body,
+        string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, FeedbackRequest body,
         CancellationToken cancellationToken = default
     ) => _sendFeedbackEndpointKbKbidFeedbackPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), cancellationToken);
     
     /// <summary>Find Knowledge Box</summary>
     public static Task<Result<KnowledgeboxFindResults, HttpError<string>>> FindKnowledgeboxKbKbidFindGet(
         this HttpClient httpClient,
-        string kbid, string query, object filterExpression, List<string> fields, List<string> filters, object topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<FindOptions> features, bool debug, bool highlight, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, RankFusionName rankFusion, object reranker, object searchConfiguration, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor,
+        string kbid, string query, object filterExpression, List<string> fields, List<string> filters, object topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<string> features, bool debug, bool highlight, List<string> show, List<string> fieldType, List<string> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, string rankFusion, object reranker, object searchConfiguration, string xNdbClient, string xNucliadbUser, string xForwardedFor,
         CancellationToken cancellationToken = default
     ) => _findKnowledgeboxKbKbidFindGet(httpClient, (kbid, query, filterExpression, fields, filters, topK, minScore, minScoreSemantic, minScoreBm25, vectorset, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, debug, highlight, show, fieldType, extracted, withDuplicates, withSynonyms, autofilter, securityGroups, showHidden, rankFusion, reranker, searchConfiguration, xNdbClient, xNucliadbUser, xForwardedFor), cancellationToken);
     
     /// <summary>Find Knowledge Box</summary>
     public static Task<Result<KnowledgeboxFindResults, HttpError<string>>> FindPostKnowledgeboxKbKbidFindPost(
         this HttpClient httpClient,
-        string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, FindRequest body,
+        string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, FindRequest body,
         CancellationToken cancellationToken = default
     ) => _findPostKnowledgeboxKbKbidFindPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), cancellationToken);
     
     /// <summary>Search Knowledge Box graph</summary>
     public static Task<Result<GraphSearchResponse, HttpError<string>>> GraphSearchKnowledgeboxKbKbidGraphPost(
         this HttpClient httpClient,
-        string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, GraphSearchRequest body,
+        string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, GraphSearchRequest body,
         CancellationToken cancellationToken = default
     ) => _graphSearchKnowledgeboxKbKbidGraphPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), cancellationToken);
     
     /// <summary>Search Knowledge Box graph nodes</summary>
     public static Task<Result<GraphNodesSearchResponse, HttpError<string>>> GraphNodesSearchKnowledgeboxKbKbidGraphNodesPost(
         this HttpClient httpClient,
-        string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, GraphNodesSearchRequest body,
+        string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, GraphNodesSearchRequest body,
         CancellationToken cancellationToken = default
     ) => _graphNodesSearchKnowledgeboxKbKbidGraphNodesPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), cancellationToken);
     
     /// <summary>Search Knowledge Box graph relations</summary>
     public static Task<Result<GraphRelationsSearchResponse, HttpError<string>>> GraphRelationsSearchKnowledgeboxKbKbidGraphRelationsPost(
         this HttpClient httpClient,
-        string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, GraphRelationsSearchRequest body,
+        string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, GraphRelationsSearchRequest body,
         CancellationToken cancellationToken = default
     ) => _graphRelationsSearchKnowledgeboxKbKbidGraphRelationsPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), cancellationToken);
     
@@ -316,14 +316,14 @@ public static class NucliaDBApiExtensions
     /// <summary>Predict API Proxy</summary>
     public static Task<Result<object, HttpError<string>>> PredictProxyEndpointKbKbidPredictEndpointPost(
         this HttpClient httpClient,
-        string kbid, PredictProxiedEndpoints endpoint, string xNucliadbUser, NucliaDBClientType xNdbClient, string xForwardedFor, object body,
+        string kbid, string endpoint, string xNucliadbUser, string xNdbClient, string xForwardedFor, object body,
         CancellationToken cancellationToken = default
     ) => _predictProxyEndpointKbKbidPredictEndpointPost(httpClient, (kbid, endpoint, xNucliadbUser, xNdbClient, xForwardedFor, body), cancellationToken);
     
     /// <summary>Predict API Proxy</summary>
     public static Task<Result<object, HttpError<string>>> PredictProxyEndpointKbKbidPredictEndpointGet(
         this HttpClient httpClient,
-        string kbid, PredictProxiedEndpoints endpoint, string xNucliadbUser, NucliaDBClientType xNdbClient, string xForwardedFor,
+        string kbid, string endpoint, string xNucliadbUser, string xNdbClient, string xForwardedFor,
         CancellationToken cancellationToken = default
     ) => _predictProxyEndpointKbKbidPredictEndpointGet(httpClient, (kbid, endpoint, xNucliadbUser, xNdbClient, xForwardedFor), cancellationToken);
     
@@ -358,28 +358,28 @@ public static class NucliaDBApiExtensions
     /// <summary>Modify Resource (by id)</summary>
     public static Task<Result<ResourceUpdated, HttpError<string>>> ModifyResourceRidPrefixKbKbidResourceRidPatch(
         this HttpClient httpClient,
-        string kbid, string rid, string xNucliadbUser, bool xSkipStore, UpdateResourcePayload body,
+        string kbid, string rid, string xNucliadbUser, bool xSkipStore, string xNUCLIADBROLES, UpdateResourcePayload body,
         CancellationToken cancellationToken = default
-    ) => _modifyResourceRidPrefixKbKbidResourceRidPatch(httpClient, (kbid, rid, xNucliadbUser, xSkipStore, body), cancellationToken);
+    ) => _modifyResourceRidPrefixKbKbidResourceRidPatch(httpClient, (kbid, rid, xNucliadbUser, xSkipStore, xNUCLIADBROLES, body), cancellationToken);
     
     /// <summary>Delete Resource (by id)</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteResourceRidPrefixKbKbidResourceRidDelete(
         this HttpClient httpClient,
-        string kbid, string rid,
+        string kbid, string rid, string xNUCLIADBROLES,
         CancellationToken cancellationToken = default
-    ) => _deleteResourceRidPrefixKbKbidResourceRidDelete(httpClient, (kbid, rid), cancellationToken);
+    ) => _deleteResourceRidPrefixKbKbidResourceRidDelete(httpClient, (kbid, rid, xNUCLIADBROLES), cancellationToken);
     
     /// <summary>Get Resource (by id)</summary>
     public static Task<Result<NucliadbModelsResourceResource, HttpError<string>>> GetResourceByUuidKbKbidResourceRidGet(
         this HttpClient httpClient,
-        string kbid, string rid, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, string xNucliadbUser, string xForwardedFor,
+        string kbid, string rid, List<string> show, List<string> fieldType, List<string> extracted, string xNucliadbUser, string xForwardedFor, string xNUCLIADBROLES,
         CancellationToken cancellationToken = default
-    ) => _getResourceByUuidKbKbidResourceRidGet(httpClient, (kbid, rid, show, fieldType, extracted, xNucliadbUser, xForwardedFor), cancellationToken);
+    ) => _getResourceByUuidKbKbidResourceRidGet(httpClient, (kbid, rid, show, fieldType, extracted, xNucliadbUser, xForwardedFor, xNUCLIADBROLES), cancellationToken);
     
     /// <summary>Ask a resource (by id)</summary>
     public static Task<Result<SyncAskResponse, HttpError<string>>> ResourceAskEndpointByUuidKbKbidResourceRidAskPost(
         this HttpClient httpClient,
-        string kbid, string rid, bool xShowConsumption, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest body,
+        string kbid, string rid, bool xShowConsumption, string xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest body,
         CancellationToken cancellationToken = default
     ) => _resourceAskEndpointByUuidKbKbidResourceRidAskPost(httpClient, (kbid, rid, xShowConsumption, xNdbClient, xNucliadbUser, xForwardedFor, xSynchronous, body), cancellationToken);
     
@@ -463,44 +463,44 @@ public static class NucliaDBApiExtensions
     /// <summary>Search on Resource</summary>
     public static Task<Result<ResourceSearchResults, HttpError<string>>> ResourceSearchKbKbidResourceRidSearchGet(
         this HttpClient httpClient,
-        string kbid, string rid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, object sortField, SortOrder sortOrder, object topK, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, bool highlight, bool debug, NucliaDBClientType xNdbClient,
+        string kbid, string rid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, object sortField, string sortOrder, object topK, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, bool highlight, bool debug, string xNdbClient,
         CancellationToken cancellationToken = default
     ) => _resourceSearchKbKbidResourceRidSearchGet(httpClient, (kbid, rid, query, filterExpression, fields, filters, faceted, sortField, sortOrder, topK, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, highlight, debug, xNdbClient), cancellationToken);
     
     /// <summary>Add resource text field (by id)</summary>
     public static Task<Result<ResourceFieldAdded, HttpError<string>>> AddResourceFieldTextRidPrefixKbKbidResourceRidTextFieldIdPut(
         this HttpClient httpClient,
-        string kbid, string rid, string fieldId, TextField body,
+        string kbid, string rid, string fieldId, string xNUCLIADBROLES, TextField body,
         CancellationToken cancellationToken = default
-    ) => _addResourceFieldTextRidPrefixKbKbidResourceRidTextFieldIdPut(httpClient, ((kbid, rid, fieldId), body), cancellationToken);
+    ) => _addResourceFieldTextRidPrefixKbKbidResourceRidTextFieldIdPut(httpClient, (kbid, rid, fieldId, xNUCLIADBROLES, body), cancellationToken);
     
     /// <summary>Delete Resource field (by id)</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdDelete(
         this HttpClient httpClient,
-        string kbid, string rid, FieldTypeName fieldType, string fieldId,
+        string kbid, string rid, string fieldType, string fieldId,
         CancellationToken cancellationToken = default
     ) => _deleteResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdDelete(httpClient, (kbid, rid, fieldType, fieldId), cancellationToken);
     
     /// <summary>Get Resource field (by id)</summary>
     public static Task<Result<ResourceField, HttpError<string>>> GetResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdGet(
         this HttpClient httpClient,
-        string kbid, string rid, FieldTypeName fieldType, string fieldId, List<ResourceFieldProperties> show, List<ExtractedDataTypeName> extracted, object page,
+        string kbid, string rid, string fieldType, string fieldId, List<string> show, List<string> extracted, object page,
         CancellationToken cancellationToken = default
     ) => _getResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdGet(httpClient, (kbid, rid, fieldType, fieldId, show, extracted, page), cancellationToken);
     
     /// <summary>Download extracted binary file (by id)</summary>
     public static Task<Result<object, HttpError<string>>> DownloadExtractFileRidPrefixKbKbidResourceRidFieldTypeFieldIdDownloadExtractedDownloadFieldGet(
         this HttpClient httpClient,
-        string kbid, string rid, FieldTypeName fieldType, string fieldId, string downloadField,
+        string kbid, string rid, string fieldType, string fieldId, string downloadField,
         CancellationToken cancellationToken = default
     ) => _downloadExtractFileRidPrefixKbKbidResourceRidFieldTypeFieldIdDownloadExtractedDownloadFieldGet(httpClient, (kbid, rid, fieldType, fieldId, downloadField), cancellationToken);
     
     /// <summary>Create Resource</summary>
     public static Task<Result<ResourceCreated, HttpError<string>>> CreateResourceKbKbidResourcesPost(
         this HttpClient httpClient,
-        string kbid, bool xSkipStore, string xNucliadbUser, CreateResourcePayload body,
+        string kbid, bool xSkipStore, string xNucliadbUser, string xNUCLIADBROLES, CreateResourcePayload body,
         CancellationToken cancellationToken = default
-    ) => _createResourceKbKbidResourcesPost(httpClient, (kbid, xSkipStore, xNucliadbUser, body), cancellationToken);
+    ) => _createResourceKbKbidResourcesPost(httpClient, (kbid, xSkipStore, xNucliadbUser, xNUCLIADBROLES, body), cancellationToken);
     
     /// <summary>List Resources</summary>
     public static Task<Result<ResourceList, HttpError<string>>> ListResourcesKbKbidResourcesGet(
@@ -519,14 +519,14 @@ public static class NucliaDBApiExtensions
     /// <summary>Search Knowledge Box</summary>
     public static Task<Result<KnowledgeboxSearchResults, HttpError<string>>> SearchKnowledgeboxKbKbidSearchGet(
         this HttpClient httpClient,
-        string kbid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, SortField sortField, object sortLimit, SortOrder sortOrder, int topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<SearchOptions> features, bool debug, bool highlight, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor,
+        string kbid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, string sortField, object sortLimit, string sortOrder, int topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<string> features, bool debug, bool highlight, List<string> show, List<string> fieldType, List<string> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, string xNdbClient, string xNucliadbUser, string xForwardedFor,
         CancellationToken cancellationToken = default
     ) => _searchKnowledgeboxKbKbidSearchGet(httpClient, (kbid, query, filterExpression, fields, filters, faceted, sortField, sortLimit, sortOrder, topK, minScore, minScoreSemantic, minScoreBm25, vectorset, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, debug, highlight, show, fieldType, extracted, withDuplicates, withSynonyms, autofilter, securityGroups, showHidden, xNdbClient, xNucliadbUser, xForwardedFor), cancellationToken);
     
     /// <summary>Search Knowledge Box</summary>
     public static Task<Result<KnowledgeboxSearchResults, HttpError<string>>> SearchPostKnowledgeboxKbKbidSearchPost(
         this HttpClient httpClient,
-        string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, SearchRequest body,
+        string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, SearchRequest body,
         CancellationToken cancellationToken = default
     ) => _searchPostKnowledgeboxKbKbidSearchPost(httpClient, (kbid, xNdbClient, xNucliadbUser, xForwardedFor, body), cancellationToken);
     
@@ -582,7 +582,7 @@ public static class NucliaDBApiExtensions
     /// <summary>Get Resource (by slug)</summary>
     public static Task<Result<NucliadbModelsResourceResource, HttpError<string>>> GetResourceBySlugKbKbidSlugRslugGet(
         this HttpClient httpClient,
-        string kbid, string rslug, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, string xNucliadbUser, string xForwardedFor,
+        string kbid, string rslug, List<string> show, List<string> fieldType, List<string> extracted, string xNucliadbUser, string xForwardedFor,
         CancellationToken cancellationToken = default
     ) => _getResourceBySlugKbKbidSlugRslugGet(httpClient, (kbid, rslug, show, fieldType, extracted, xNucliadbUser, xForwardedFor), cancellationToken);
     
@@ -680,28 +680,28 @@ public static class NucliaDBApiExtensions
     /// <summary>Delete Resource field (by slug)</summary>
     public static Task<Result<Unit, HttpError<string>>> DeleteResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDelete(
         this HttpClient httpClient,
-        string kbid, string rslug, FieldTypeName fieldType, string fieldId,
+        string kbid, string rslug, string fieldType, string fieldId,
         CancellationToken cancellationToken = default
     ) => _deleteResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDelete(httpClient, (kbid, rslug, fieldType, fieldId), cancellationToken);
     
     /// <summary>Get Resource field (by slug)</summary>
     public static Task<Result<ResourceField, HttpError<string>>> GetResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdGet(
         this HttpClient httpClient,
-        string kbid, string rslug, FieldTypeName fieldType, string fieldId, List<ResourceFieldProperties> show, List<ExtractedDataTypeName> extracted, object page,
+        string kbid, string rslug, string fieldType, string fieldId, List<string> show, List<string> extracted, object page,
         CancellationToken cancellationToken = default
     ) => _getResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdGet(httpClient, (kbid, rslug, fieldType, fieldId, show, extracted, page), cancellationToken);
     
     /// <summary>Download extracted binary file (by slug)</summary>
     public static Task<Result<object, HttpError<string>>> DownloadExtractFileRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDownloadExtractedDownloadFieldGet(
         this HttpClient httpClient,
-        string kbid, string rslug, FieldTypeName fieldType, string fieldId, string downloadField,
+        string kbid, string rslug, string fieldType, string fieldId, string downloadField,
         CancellationToken cancellationToken = default
     ) => _downloadExtractFileRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDownloadExtractedDownloadFieldGet(httpClient, (kbid, rslug, fieldType, fieldId, downloadField), cancellationToken);
     
     /// <summary>Ask a resource (by slug)</summary>
     public static Task<Result<SyncAskResponse, HttpError<string>>> ResourceAskEndpointBySlugKbKbidSlugSlugAskPost(
         this HttpClient httpClient,
-        string kbid, string slug, bool xShowConsumption, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest body,
+        string kbid, string slug, bool xShowConsumption, string xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest body,
         CancellationToken cancellationToken = default
     ) => _resourceAskEndpointBySlugKbKbidSlugSlugAskPost(httpClient, (kbid, slug, xShowConsumption, xNdbClient, xNucliadbUser, xForwardedFor, xSynchronous, body), cancellationToken);
     
@@ -743,7 +743,7 @@ public static class NucliaDBApiExtensions
     /// <summary>Suggest on a knowledge box</summary>
     public static Task<Result<KnowledgeboxSuggestResults, HttpError<string>>> SuggestKnowledgeboxKbKbidSuggestGet(
         this HttpClient httpClient,
-        string kbid, string query, List<string> fields, List<string> filters, List<string> faceted, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<SuggestOptions> features, List<ResourceProperties> show, List<FieldTypeName> fieldType, bool debug, bool highlight, bool showHidden, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor,
+        string kbid, string query, List<string> fields, List<string> filters, List<string> faceted, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<string> features, List<string> show, List<string> fieldType, bool debug, bool highlight, bool showHidden, string xNdbClient, string xNucliadbUser, string xForwardedFor,
         CancellationToken cancellationToken = default
     ) => _suggestKnowledgeboxKbKbidSuggestGet(httpClient, (kbid, query, fields, filters, faceted, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, show, fieldType, debug, highlight, showHidden, xNdbClient, xNucliadbUser, xForwardedFor), cancellationToken);
     
@@ -813,23 +813,23 @@ public static class NucliaDBApiExtensions
     private static GetAsync<KnowledgeBoxObj, string, (string kbid, string xNUCLIADBROLES)> _getKbKbKbidGet { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeBoxObj, string, (string kbid, string xNUCLIADBROLES)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}"), null, new Dictionary<string, string> { ["X-NUCLIADB-ROLES"] = param.xNUCLIADBROLES.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}{string.Empty}"), null, new Dictionary<string, string> { ["X-NUCLIADB-ROLES"] = param.xNUCLIADBROLES.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<KnowledgeBoxObj>,
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<SyncAskResponse, string, (string kbid, NucliaDBClientType xNdbClient, bool xShowConsumption, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest Body)> _askKnowledgeboxEndpointKbKbidAskPost { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<SyncAskResponse, string, (string kbid, NucliaDBClientType xNdbClient, bool xShowConsumption, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest Body)>(
+    private static PostAsync<SyncAskResponse, string, (string kbid, string xNdbClient, bool xShowConsumption, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest Body)> _askKnowledgeboxEndpointKbKbidAskPost { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<SyncAskResponse, string, (string kbid, string xNdbClient, bool xShowConsumption, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/ask"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-show-consumption"] = param.xShowConsumption.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty, ["x-synchronous"] = param.xSynchronous.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/ask{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-show-consumption"] = param.xShowConsumption.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty, ["x-synchronous"] = param.xSynchronous.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<SyncAskResponse>,
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<KnowledgeboxSearchResults, string, (string kbid, string query, object filterExpression, List<string> filters, List<string> faceted, SortField sortField, object sortLimit, SortOrder sortOrder, int pageNumber, int pageSize, object withStatus, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, object hidden, List<ResourceProperties> show)> _catalogGetKbKbidCatalogGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxSearchResults, string, (string kbid, string query, object filterExpression, List<string> filters, List<string> faceted, SortField sortField, object sortLimit, SortOrder sortOrder, int pageNumber, int pageSize, object withStatus, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, object hidden, List<ResourceProperties> show)>(
+    private static GetAsync<KnowledgeboxSearchResults, string, (string kbid, string query, object filterExpression, List<string> filters, List<string> faceted, string sortField, object sortLimit, string sortOrder, int pageNumber, int pageSize, object withStatus, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, object hidden, List<string> show)> _catalogGetKbKbidCatalogGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxSearchResults, string, (string kbid, string query, object filterExpression, List<string> filters, List<string> faceted, string sortField, object sortLimit, string sortOrder, int pageNumber, int pageSize, object withStatus, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, object hidden, List<string> show)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/catalog?query={param.query}&filter_expression={param.filterExpression}&filters={param.filters}&faceted={param.faceted}&sort_field={param.sortField}&sort_limit={param.sortLimit}&sort_order={param.sortOrder}&page_number={param.pageNumber}&page_size={param.pageSize}&with_status={param.withStatus}&range_creation_start={param.rangeCreationStart}&range_creation_end={param.rangeCreationEnd}&range_modification_start={param.rangeModificationStart}&range_modification_end={param.rangeModificationEnd}&hidden={param.hidden}&show={param.show}"), null, null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/catalog{BuildQueryString(("query", param.query), ("filter_expression", param.filterExpression), ("filters", param.filters), ("faceted", param.faceted), ("sort_field", param.sortField), ("sort_limit", param.sortLimit), ("sort_order", param.sortOrder), ("page_number", param.pageNumber), ("page_size", param.pageSize), ("with_status", param.withStatus), ("range_creation_start", param.rangeCreationStart), ("range_creation_end", param.rangeCreationEnd), ("range_modification_start", param.rangeModificationStart), ("range_modification_end", param.rangeModificationEnd), ("hidden", param.hidden), ("show", param.show))}"), null, null),
             deserializeSuccess: DeserializeJson<KnowledgeboxSearchResults>,
             deserializeError: DeserializeError
         );
@@ -837,7 +837,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<KnowledgeboxSearchResults, string, (string Params, CatalogRequest Body)> _catalogPostKbKbidCatalogPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<KnowledgeboxSearchResults, string, (string Params, CatalogRequest Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/catalog"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/catalog{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<KnowledgeboxSearchResults>,
             deserializeError: DeserializeError
         );
@@ -853,7 +853,7 @@ public static class NucliaDBApiExtensions
     private static PatchAsync<object, string, (string Params, object Body)> _patchConfigurationKbKbidConfigurationPatch { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePatch<object, string, (string Params, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/configuration"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/configuration{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -861,15 +861,15 @@ public static class NucliaDBApiExtensions
     private static PostAsync<object, string, (string Params, object Body)> _setConfigurationKbKbidConfigurationPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, string, (string Params, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/configuration"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/configuration{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<KnowledgeboxCounters, string, (string kbid, bool debug)> _knowledgeboxCountersKbKbidCountersGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxCounters, string, (string kbid, bool debug)>(
+    private static GetAsync<KnowledgeboxCounters, string, (string kbid, bool debug, string xNUCLIADBROLES)> _knowledgeboxCountersKbKbidCountersGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxCounters, string, (string kbid, bool debug, string xNUCLIADBROLES)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/counters?debug={param.debug}"), null, null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/counters{BuildQueryString(("debug", param.debug))}"), null, new Dictionary<string, string> { ["X-NUCLIADB-ROLES"] = param.xNUCLIADBROLES.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<KnowledgeboxCounters>,
             deserializeError: DeserializeError
         );
@@ -877,7 +877,7 @@ public static class NucliaDBApiExtensions
     private static PutAsync<object, string, (string Params, KnowledgeBoxSynonyms Body)> _setCustomSynonymsKbKbidCustomSynonymsPut { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePut<object, string, (string Params, KnowledgeBoxSynonyms Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/custom-synonyms"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/custom-synonyms{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -901,7 +901,7 @@ public static class NucliaDBApiExtensions
     private static PatchAsync<object, string, ((string kbid, string group) Params, UpdateEntitiesGroupPayload Body)> _updateEntitiesGroupKbKbidEntitiesgroupGroupPatch { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePatch<object, string, ((string kbid, string group) Params, UpdateEntitiesGroupPayload Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/entitiesgroup/{param.Params.group}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/entitiesgroup/{param.Params.group}{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -925,7 +925,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<object, string, (string Params, CreateEntitiesGroupPayload Body)> _createEntitiesGroupKbKbidEntitiesgroupsPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, string, (string Params, CreateEntitiesGroupPayload Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/entitiesgroups"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/entitiesgroups{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -933,7 +933,7 @@ public static class NucliaDBApiExtensions
     private static GetAsync<KnowledgeBoxEntities, string, (string kbid, bool showEntities)> _getEntitiesKbKbidEntitiesgroupsGet { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeBoxEntities, string, (string kbid, bool showEntities)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/entitiesgroups?show_entities={param.showEntities}"), null, null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/entitiesgroups{BuildQueryString(("show_entities", param.showEntities))}"), null, null),
             deserializeSuccess: DeserializeJson<KnowledgeBoxEntities>,
             deserializeError: DeserializeError
         );
@@ -941,7 +941,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<CreateExportResponse, string, (string Params, object Body)> _startKbExportEndpointKbKbidExportPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<CreateExportResponse, string, (string Params, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/export"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/export{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<CreateExportResponse>,
             deserializeError: DeserializeError
         );
@@ -965,7 +965,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<string, string, (string Params, ExtractConfig Body)> _addStrategyKbKbidExtractStrategiesPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<string, string, (string Params, ExtractConfig Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/extract_strategies"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/extract_strategies{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<string>,
             deserializeError: DeserializeError
         );
@@ -994,50 +994,50 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<object, string, (string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, FeedbackRequest Body)> _sendFeedbackEndpointKbKbidFeedbackPost { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, string, (string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, FeedbackRequest Body)>(
+    private static PostAsync<object, string, (string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, FeedbackRequest Body)> _sendFeedbackEndpointKbKbidFeedbackPost { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, string, (string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, FeedbackRequest Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/feedback"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/feedback{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<KnowledgeboxFindResults, string, (string kbid, string query, object filterExpression, List<string> fields, List<string> filters, object topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<FindOptions> features, bool debug, bool highlight, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, RankFusionName rankFusion, object reranker, object searchConfiguration, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor)> _findKnowledgeboxKbKbidFindGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxFindResults, string, (string kbid, string query, object filterExpression, List<string> fields, List<string> filters, object topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<FindOptions> features, bool debug, bool highlight, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, RankFusionName rankFusion, object reranker, object searchConfiguration, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor)>(
+    private static GetAsync<KnowledgeboxFindResults, string, (string kbid, string query, object filterExpression, List<string> fields, List<string> filters, object topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<string> features, bool debug, bool highlight, List<string> show, List<string> fieldType, List<string> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, string rankFusion, object reranker, object searchConfiguration, string xNdbClient, string xNucliadbUser, string xForwardedFor)> _findKnowledgeboxKbKbidFindGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxFindResults, string, (string kbid, string query, object filterExpression, List<string> fields, List<string> filters, object topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<string> features, bool debug, bool highlight, List<string> show, List<string> fieldType, List<string> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, string rankFusion, object reranker, object searchConfiguration, string xNdbClient, string xNucliadbUser, string xForwardedFor)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/find?query={param.query}&filter_expression={param.filterExpression}&fields={param.fields}&filters={param.filters}&top_k={param.topK}&min_score={param.minScore}&min_score_semantic={param.minScoreSemantic}&min_score_bm25={param.minScoreBm25}&vectorset={param.vectorset}&range_creation_start={param.rangeCreationStart}&range_creation_end={param.rangeCreationEnd}&range_modification_start={param.rangeModificationStart}&range_modification_end={param.rangeModificationEnd}&features={param.features}&debug={param.debug}&highlight={param.highlight}&show={param.show}&field_type={param.fieldType}&extracted={param.extracted}&with_duplicates={param.withDuplicates}&with_synonyms={param.withSynonyms}&autofilter={param.autofilter}&security_groups={param.securityGroups}&show_hidden={param.showHidden}&rank_fusion={param.rankFusion}&reranker={param.reranker}&search_configuration={param.searchConfiguration}"), null, new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/find{BuildQueryString(("query", param.query), ("filter_expression", param.filterExpression), ("fields", param.fields), ("filters", param.filters), ("top_k", param.topK), ("min_score", param.minScore), ("min_score_semantic", param.minScoreSemantic), ("min_score_bm25", param.minScoreBm25), ("vectorset", param.vectorset), ("range_creation_start", param.rangeCreationStart), ("range_creation_end", param.rangeCreationEnd), ("range_modification_start", param.rangeModificationStart), ("range_modification_end", param.rangeModificationEnd), ("features", param.features), ("debug", param.debug), ("highlight", param.highlight), ("show", param.show), ("field_type", param.fieldType), ("extracted", param.extracted), ("with_duplicates", param.withDuplicates), ("with_synonyms", param.withSynonyms), ("autofilter", param.autofilter), ("security_groups", param.securityGroups), ("show_hidden", param.showHidden), ("rank_fusion", param.rankFusion), ("reranker", param.reranker), ("search_configuration", param.searchConfiguration))}"), null, new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<KnowledgeboxFindResults>,
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<KnowledgeboxFindResults, string, (string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, FindRequest Body)> _findPostKnowledgeboxKbKbidFindPost { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<KnowledgeboxFindResults, string, (string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, FindRequest Body)>(
+    private static PostAsync<KnowledgeboxFindResults, string, (string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, FindRequest Body)> _findPostKnowledgeboxKbKbidFindPost { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<KnowledgeboxFindResults, string, (string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, FindRequest Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/find"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/find{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<KnowledgeboxFindResults>,
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<GraphSearchResponse, string, (string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, GraphSearchRequest Body)> _graphSearchKnowledgeboxKbKbidGraphPost { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<GraphSearchResponse, string, (string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, GraphSearchRequest Body)>(
+    private static PostAsync<GraphSearchResponse, string, (string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, GraphSearchRequest Body)> _graphSearchKnowledgeboxKbKbidGraphPost { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<GraphSearchResponse, string, (string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, GraphSearchRequest Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/graph"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/graph{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<GraphSearchResponse>,
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<GraphNodesSearchResponse, string, (string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, GraphNodesSearchRequest Body)> _graphNodesSearchKnowledgeboxKbKbidGraphNodesPost { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<GraphNodesSearchResponse, string, (string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, GraphNodesSearchRequest Body)>(
+    private static PostAsync<GraphNodesSearchResponse, string, (string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, GraphNodesSearchRequest Body)> _graphNodesSearchKnowledgeboxKbKbidGraphNodesPost { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<GraphNodesSearchResponse, string, (string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, GraphNodesSearchRequest Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/graph/nodes"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/graph/nodes{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<GraphNodesSearchResponse>,
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<GraphRelationsSearchResponse, string, (string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, GraphRelationsSearchRequest Body)> _graphRelationsSearchKnowledgeboxKbKbidGraphRelationsPost { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<GraphRelationsSearchResponse, string, (string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, GraphRelationsSearchRequest Body)>(
+    private static PostAsync<GraphRelationsSearchResponse, string, (string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, GraphRelationsSearchRequest Body)> _graphRelationsSearchKnowledgeboxKbKbidGraphRelationsPost { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<GraphRelationsSearchResponse, string, (string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, GraphRelationsSearchRequest Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/graph/relations"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/graph/relations{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<GraphRelationsSearchResponse>,
             deserializeError: DeserializeError
         );
@@ -1045,7 +1045,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<CreateImportResponse, string, (string Params, object Body)> _startKbImportEndpointKbKbidImportPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<CreateImportResponse, string, (string Params, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/import"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/import{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<CreateImportResponse>,
             deserializeError: DeserializeError
         );
@@ -1061,7 +1061,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<object, string, ((string kbid, string labelset) Params, LabelSet Body)> _setLabelsetEndpointKbKbidLabelsetLabelsetPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, string, ((string kbid, string labelset) Params, LabelSet Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/labelset/{param.Params.labelset}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/labelset/{param.Params.labelset}{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1122,18 +1122,18 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<object, string, (string kbid, PredictProxiedEndpoints endpoint, string xNucliadbUser, NucliaDBClientType xNdbClient, string xForwardedFor, object Body)> _predictProxyEndpointKbKbidPredictEndpointPost { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, string, (string kbid, PredictProxiedEndpoints endpoint, string xNucliadbUser, NucliaDBClientType xNdbClient, string xForwardedFor, object Body)>(
+    private static PostAsync<object, string, (string kbid, string endpoint, string xNucliadbUser, string xNdbClient, string xForwardedFor, object Body)> _predictProxyEndpointKbKbidPredictEndpointPost { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, string, (string kbid, string endpoint, string xNucliadbUser, string xNdbClient, string xForwardedFor, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/predict/{param.endpoint}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/predict/{param.endpoint}{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<object, string, (string kbid, PredictProxiedEndpoints endpoint, string xNucliadbUser, NucliaDBClientType xNdbClient, string xForwardedFor)> _predictProxyEndpointKbKbidPredictEndpointGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, string, (string kbid, PredictProxiedEndpoints endpoint, string xNucliadbUser, NucliaDBClientType xNdbClient, string xForwardedFor)>(
+    private static GetAsync<object, string, (string kbid, string endpoint, string xNucliadbUser, string xNdbClient, string xForwardedFor)> _predictProxyEndpointKbKbidPredictEndpointGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, string, (string kbid, string endpoint, string xNucliadbUser, string xNdbClient, string xForwardedFor)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/predict/{param.endpoint}"), null, new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/predict/{param.endpoint}{string.Empty}"), null, new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1141,7 +1141,7 @@ public static class NucliaDBApiExtensions
     private static GetAsync<RequestsResults, string, (string kbid, object cursor, object scheduled, int limit)> _processingStatusKbKbidProcessingStatusGet { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<RequestsResults, string, (string kbid, object cursor, object scheduled, int limit)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/processing-status?cursor={param.cursor}&scheduled={param.scheduled}&limit={param.limit}"), null, null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/processing-status{BuildQueryString(("cursor", param.cursor), ("scheduled", param.scheduled), ("limit", param.limit))}"), null, null),
             deserializeSuccess: DeserializeJson<RequestsResults>,
             deserializeError: DeserializeError
         );
@@ -1149,7 +1149,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<object, string, (string kbid, string pathRid, string field, object xExtractStrategy, object xSplitStrategy, object Body)> _tusPostRidPrefixKbKbidResourcePathRidFileFieldTusuploadPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, string, (string kbid, string pathRid, string field, object xExtractStrategy, object xSplitStrategy, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.pathRid}/file/{param.field}/tusupload"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-extract-strategy"] = param.xExtractStrategy.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.pathRid}/file/{param.field}/tusupload{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-extract-strategy"] = param.xExtractStrategy.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1165,39 +1165,39 @@ public static class NucliaDBApiExtensions
     private static PostAsync<ResourceFileUploaded, string, (string kbid, string pathRid, string field, object xFilename, object xPassword, object xLanguage, object xMd5, object xExtractStrategy, object xSplitStrategy, object Body)> _uploadRidPrefixKbKbidResourcePathRidFileFieldUploadPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceFileUploaded, string, (string kbid, string pathRid, string field, object xFilename, object xPassword, object xLanguage, object xMd5, object xExtractStrategy, object xSplitStrategy, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.pathRid}/file/{param.field}/upload"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-filename"] = param.xFilename.ToString() ?? string.Empty, ["x-password"] = param.xPassword.ToString() ?? string.Empty, ["x-language"] = param.xLanguage.ToString() ?? string.Empty, ["x-md5"] = param.xMd5.ToString() ?? string.Empty, ["x-extract-strategy"] = param.xExtractStrategy.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.pathRid}/file/{param.field}/upload{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-filename"] = param.xFilename.ToString() ?? string.Empty, ["x-password"] = param.xPassword.ToString() ?? string.Empty, ["x-language"] = param.xLanguage.ToString() ?? string.Empty, ["x-md5"] = param.xMd5.ToString() ?? string.Empty, ["x-extract-strategy"] = param.xExtractStrategy.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceFileUploaded>,
             deserializeError: DeserializeError
         );
 
-    private static PatchAsync<ResourceUpdated, string, (string kbid, string rid, string xNucliadbUser, bool xSkipStore, UpdateResourcePayload Body)> _modifyResourceRidPrefixKbKbidResourceRidPatch { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePatch<ResourceUpdated, string, (string kbid, string rid, string xNucliadbUser, bool xSkipStore, UpdateResourcePayload Body)>(
+    private static PatchAsync<ResourceUpdated, string, (string kbid, string rid, string xNucliadbUser, bool xSkipStore, string xNUCLIADBROLES, UpdateResourcePayload Body)> _modifyResourceRidPrefixKbKbidResourceRidPatch { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePatch<ResourceUpdated, string, (string kbid, string rid, string xNucliadbUser, bool xSkipStore, string xNUCLIADBROLES, UpdateResourcePayload Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-skip-store"] = param.xSkipStore.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-skip-store"] = param.xSkipStore.ToString() ?? string.Empty, ["X-NUCLIADB-ROLES"] = param.xNUCLIADBROLES.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceUpdated>,
             deserializeError: DeserializeError
         );
 
-    private static DeleteAsync<Unit, string, (string kbid, string rid)> _deleteResourceRidPrefixKbKbidResourceRidDelete { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateDelete<Unit, string, (string kbid, string rid)>(
+    private static DeleteAsync<Unit, string, (string kbid, string rid, string xNUCLIADBROLES)> _deleteResourceRidPrefixKbKbidResourceRidDelete { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateDelete<Unit, string, (string kbid, string rid, string xNUCLIADBROLES)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}"), null, null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}{string.Empty}"), null, new Dictionary<string, string> { ["X-NUCLIADB-ROLES"] = param.xNUCLIADBROLES.ToString() ?? string.Empty }),
             deserializeSuccess: _deserializeUnit,
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<NucliadbModelsResourceResource, string, (string kbid, string rid, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, string xNucliadbUser, string xForwardedFor)> _getResourceByUuidKbKbidResourceRidGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<NucliadbModelsResourceResource, string, (string kbid, string rid, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, string xNucliadbUser, string xForwardedFor)>(
+    private static GetAsync<NucliadbModelsResourceResource, string, (string kbid, string rid, List<string> show, List<string> fieldType, List<string> extracted, string xNucliadbUser, string xForwardedFor, string xNUCLIADBROLES)> _getResourceByUuidKbKbidResourceRidGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<NucliadbModelsResourceResource, string, (string kbid, string rid, List<string> show, List<string> fieldType, List<string> extracted, string xNucliadbUser, string xForwardedFor, string xNUCLIADBROLES)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}?show={param.show}&field_type={param.fieldType}&extracted={param.extracted}"), null, new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}{BuildQueryString(("show", param.show), ("field_type", param.fieldType), ("extracted", param.extracted))}"), null, new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty, ["X-NUCLIADB-ROLES"] = param.xNUCLIADBROLES.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<NucliadbModelsResourceResource>,
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<SyncAskResponse, string, (string kbid, string rid, bool xShowConsumption, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest Body)> _resourceAskEndpointByUuidKbKbidResourceRidAskPost { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<SyncAskResponse, string, (string kbid, string rid, bool xShowConsumption, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest Body)>(
+    private static PostAsync<SyncAskResponse, string, (string kbid, string rid, bool xShowConsumption, string xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest Body)> _resourceAskEndpointByUuidKbKbidResourceRidAskPost { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<SyncAskResponse, string, (string kbid, string rid, bool xShowConsumption, string xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/ask"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-show-consumption"] = param.xShowConsumption.ToString() ?? string.Empty, ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty, ["x-synchronous"] = param.xSynchronous.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/ask{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-show-consumption"] = param.xShowConsumption.ToString() ?? string.Empty, ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty, ["x-synchronous"] = param.xSynchronous.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<SyncAskResponse>,
             deserializeError: DeserializeError
         );
@@ -1205,7 +1205,7 @@ public static class NucliaDBApiExtensions
     private static PutAsync<ResourceFieldAdded, string, ((string kbid, string rid, string fieldId) Params, InputConversationField Body)> _addResourceFieldConversationRidPrefixKbKbidResourceRidConversationFieldIdPut { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePut<ResourceFieldAdded, string, ((string kbid, string rid, string fieldId) Params, InputConversationField Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/resource/{param.Params.rid}/conversation/{param.Params.fieldId}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/resource/{param.Params.rid}/conversation/{param.Params.fieldId}{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<ResourceFieldAdded>,
             deserializeError: DeserializeError
         );
@@ -1221,7 +1221,7 @@ public static class NucliaDBApiExtensions
     private static PutAsync<ResourceFieldAdded, string, ((string kbid, string rid, string fieldId) Params, object Body)> _appendMessagesToConversationFieldRidPrefixKbKbidResourceRidConversationFieldIdMessagesPut { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePut<ResourceFieldAdded, string, ((string kbid, string rid, string fieldId) Params, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/resource/{param.Params.rid}/conversation/{param.Params.fieldId}/messages"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/resource/{param.Params.rid}/conversation/{param.Params.fieldId}/messages{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<ResourceFieldAdded>,
             deserializeError: DeserializeError
         );
@@ -1229,7 +1229,7 @@ public static class NucliaDBApiExtensions
     private static PutAsync<ResourceFieldAdded, string, (string kbid, string rid, string fieldId, bool xSkipStore, FileField Body)> _addResourceFieldFileRidPrefixKbKbidResourceRidFileFieldIdPut { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePut<ResourceFieldAdded, string, (string kbid, string rid, string fieldId, bool xSkipStore, FileField Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/file/{param.fieldId}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-skip-store"] = param.xSkipStore.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/file/{param.fieldId}{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-skip-store"] = param.xSkipStore.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceFieldAdded>,
             deserializeError: DeserializeError
         );
@@ -1237,7 +1237,7 @@ public static class NucliaDBApiExtensions
     private static GetAsync<object, string, (string kbid, string rid, string fieldId, bool inline)> _downloadFieldFileRidPrefixKbKbidResourceRidFileFieldIdDownloadFieldGet { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, string, (string kbid, string rid, string fieldId, bool inline)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/file/{param.fieldId}/download/field?inline={param.inline}"), null, null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/file/{param.fieldId}/download/field{BuildQueryString(("inline", param.inline))}"), null, null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1245,7 +1245,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<ResourceUpdated, string, (string kbid, string rid, string fieldId, bool resetTitle, string xNucliadbUser, object xFilePassword, object Body)> _reprocessFileFieldKbKbidResourceRidFileFieldIdReprocessPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceUpdated, string, (string kbid, string rid, string fieldId, bool resetTitle, string xNucliadbUser, object xFilePassword, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/file/{param.fieldId}/reprocess?reset_title={param.resetTitle}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-file-password"] = param.xFilePassword.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/file/{param.fieldId}/reprocess{BuildQueryString(("reset_title", param.resetTitle))}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-file-password"] = param.xFilePassword.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceUpdated>,
             deserializeError: DeserializeError
         );
@@ -1253,7 +1253,7 @@ public static class NucliaDBApiExtensions
     private static PatchAsync<object, string, ((string kbid, string rid, string field, string uploadId) Params, object Body)> _tusPatchRidPrefixKbKbidResourceRidFileFieldTusuploadUploadIdPatch { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePatch<object, string, ((string kbid, string rid, string field, string uploadId) Params, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/resource/{param.Params.rid}/file/{param.Params.field}/tusupload/{param.Params.uploadId}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/resource/{param.Params.rid}/file/{param.Params.field}/tusupload/{param.Params.uploadId}{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1261,7 +1261,7 @@ public static class NucliaDBApiExtensions
     private static PutAsync<ResourceFieldAdded, string, ((string kbid, string rid, string fieldId) Params, LinkField Body)> _addResourceFieldLinkRidPrefixKbKbidResourceRidLinkFieldIdPut { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePut<ResourceFieldAdded, string, ((string kbid, string rid, string fieldId) Params, LinkField Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/resource/{param.Params.rid}/link/{param.Params.fieldId}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/resource/{param.Params.rid}/link/{param.Params.fieldId}{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<ResourceFieldAdded>,
             deserializeError: DeserializeError
         );
@@ -1269,7 +1269,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<object, string, (string kbid, string rid, bool reindexVectors, object Body)> _reindexResourceRidPrefixKbKbidResourceRidReindexPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, string, (string kbid, string rid, bool reindexVectors, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/reindex?reindex_vectors={param.reindexVectors}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/reindex{BuildQueryString(("reindex_vectors", param.reindexVectors))}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1277,7 +1277,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<ResourceUpdated, string, (string kbid, string rid, bool resetTitle, string xNucliadbUser, object Body)> _reprocessResourceRidPrefixKbKbidResourceRidReprocessPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceUpdated, string, (string kbid, string rid, bool resetTitle, string xNucliadbUser, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/reprocess?reset_title={param.resetTitle}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/reprocess{BuildQueryString(("reset_title", param.resetTitle))}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceUpdated>,
             deserializeError: DeserializeError
         );
@@ -1285,55 +1285,55 @@ public static class NucliaDBApiExtensions
     private static PostAsync<ResourceAgentsResponse, string, (string kbid, string rid, string xNucliadbUser, ResourceAgentsRequest Body)> _runAgentsByUuidKbKbidResourceRidRunAgentsPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceAgentsResponse, string, (string kbid, string rid, string xNucliadbUser, ResourceAgentsRequest Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/run-agents"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/run-agents{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceAgentsResponse>,
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<ResourceSearchResults, string, (string kbid, string rid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, object sortField, SortOrder sortOrder, object topK, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, bool highlight, bool debug, NucliaDBClientType xNdbClient)> _resourceSearchKbKbidResourceRidSearchGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceSearchResults, string, (string kbid, string rid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, object sortField, SortOrder sortOrder, object topK, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, bool highlight, bool debug, NucliaDBClientType xNdbClient)>(
+    private static GetAsync<ResourceSearchResults, string, (string kbid, string rid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, object sortField, string sortOrder, object topK, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, bool highlight, bool debug, string xNdbClient)> _resourceSearchKbKbidResourceRidSearchGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceSearchResults, string, (string kbid, string rid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, object sortField, string sortOrder, object topK, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, bool highlight, bool debug, string xNdbClient)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/search?query={param.query}&filter_expression={param.filterExpression}&fields={param.fields}&filters={param.filters}&faceted={param.faceted}&sort_field={param.sortField}&sort_order={param.sortOrder}&top_k={param.topK}&range_creation_start={param.rangeCreationStart}&range_creation_end={param.rangeCreationEnd}&range_modification_start={param.rangeModificationStart}&range_modification_end={param.rangeModificationEnd}&highlight={param.highlight}&debug={param.debug}"), null, new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/search{BuildQueryString(("query", param.query), ("filter_expression", param.filterExpression), ("fields", param.fields), ("filters", param.filters), ("faceted", param.faceted), ("sort_field", param.sortField), ("sort_order", param.sortOrder), ("top_k", param.topK), ("range_creation_start", param.rangeCreationStart), ("range_creation_end", param.rangeCreationEnd), ("range_modification_start", param.rangeModificationStart), ("range_modification_end", param.rangeModificationEnd), ("highlight", param.highlight), ("debug", param.debug))}"), null, new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceSearchResults>,
             deserializeError: DeserializeError
         );
 
-    private static PutAsync<ResourceFieldAdded, string, ((string kbid, string rid, string fieldId) Params, TextField Body)> _addResourceFieldTextRidPrefixKbKbidResourceRidTextFieldIdPut { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePut<ResourceFieldAdded, string, ((string kbid, string rid, string fieldId) Params, TextField Body)>(
+    private static PutAsync<ResourceFieldAdded, string, (string kbid, string rid, string fieldId, string xNUCLIADBROLES, TextField Body)> _addResourceFieldTextRidPrefixKbKbidResourceRidTextFieldIdPut { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePut<ResourceFieldAdded, string, (string kbid, string rid, string fieldId, string xNUCLIADBROLES, TextField Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/resource/{param.Params.rid}/text/{param.Params.fieldId}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/text/{param.fieldId}{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["X-NUCLIADB-ROLES"] = param.xNUCLIADBROLES.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceFieldAdded>,
             deserializeError: DeserializeError
         );
 
-    private static DeleteAsync<Unit, string, (string kbid, string rid, FieldTypeName fieldType, string fieldId)> _deleteResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdDelete { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateDelete<Unit, string, (string kbid, string rid, FieldTypeName fieldType, string fieldId)>(
+    private static DeleteAsync<Unit, string, (string kbid, string rid, string fieldType, string fieldId)> _deleteResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdDelete { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateDelete<Unit, string, (string kbid, string rid, string fieldType, string fieldId)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/{param.fieldType}/{param.fieldId}"), null, null),
             deserializeSuccess: _deserializeUnit,
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<ResourceField, string, (string kbid, string rid, FieldTypeName fieldType, string fieldId, List<ResourceFieldProperties> show, List<ExtractedDataTypeName> extracted, object page)> _getResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceField, string, (string kbid, string rid, FieldTypeName fieldType, string fieldId, List<ResourceFieldProperties> show, List<ExtractedDataTypeName> extracted, object page)>(
+    private static GetAsync<ResourceField, string, (string kbid, string rid, string fieldType, string fieldId, List<string> show, List<string> extracted, object page)> _getResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceField, string, (string kbid, string rid, string fieldType, string fieldId, List<string> show, List<string> extracted, object page)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/{param.fieldType}/{param.fieldId}?show={param.show}&extracted={param.extracted}&page={param.page}"), null, null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/{param.fieldType}/{param.fieldId}{BuildQueryString(("show", param.show), ("extracted", param.extracted), ("page", param.page))}"), null, null),
             deserializeSuccess: DeserializeJson<ResourceField>,
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<object, string, (string kbid, string rid, FieldTypeName fieldType, string fieldId, string downloadField)> _downloadExtractFileRidPrefixKbKbidResourceRidFieldTypeFieldIdDownloadExtractedDownloadFieldGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, string, (string kbid, string rid, FieldTypeName fieldType, string fieldId, string downloadField)>(
+    private static GetAsync<object, string, (string kbid, string rid, string fieldType, string fieldId, string downloadField)> _downloadExtractFileRidPrefixKbKbidResourceRidFieldTypeFieldIdDownloadExtractedDownloadFieldGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, string, (string kbid, string rid, string fieldType, string fieldId, string downloadField)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/{param.fieldType}/{param.fieldId}/download/extracted/{param.downloadField}"), null, null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<ResourceCreated, string, (string kbid, bool xSkipStore, string xNucliadbUser, CreateResourcePayload Body)> _createResourceKbKbidResourcesPost { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceCreated, string, (string kbid, bool xSkipStore, string xNucliadbUser, CreateResourcePayload Body)>(
+    private static PostAsync<ResourceCreated, string, (string kbid, bool xSkipStore, string xNucliadbUser, string xNUCLIADBROLES, CreateResourcePayload Body)> _createResourceKbKbidResourcesPost { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceCreated, string, (string kbid, bool xSkipStore, string xNucliadbUser, string xNUCLIADBROLES, CreateResourcePayload Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resources"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-skip-store"] = param.xSkipStore.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resources{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-skip-store"] = param.xSkipStore.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["X-NUCLIADB-ROLES"] = param.xNUCLIADBROLES.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceCreated>,
             deserializeError: DeserializeError
         );
@@ -1341,7 +1341,7 @@ public static class NucliaDBApiExtensions
     private static GetAsync<ResourceList, string, (string kbid, int page, int size, string xNUCLIADBROLES)> _listResourcesKbKbidResourcesGet { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceList, string, (string kbid, int page, int size, string xNUCLIADBROLES)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resources?page={param.page}&size={param.size}"), null, new Dictionary<string, string> { ["X-NUCLIADB-ROLES"] = param.xNUCLIADBROLES.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resources{BuildQueryString(("page", param.page), ("size", param.size))}"), null, new Dictionary<string, string> { ["X-NUCLIADB-ROLES"] = param.xNUCLIADBROLES.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceList>,
             deserializeError: DeserializeError
         );
@@ -1354,18 +1354,18 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<KnowledgeboxSearchResults, string, (string kbid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, SortField sortField, object sortLimit, SortOrder sortOrder, int topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<SearchOptions> features, bool debug, bool highlight, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor)> _searchKnowledgeboxKbKbidSearchGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxSearchResults, string, (string kbid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, SortField sortField, object sortLimit, SortOrder sortOrder, int topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<SearchOptions> features, bool debug, bool highlight, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor)>(
+    private static GetAsync<KnowledgeboxSearchResults, string, (string kbid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, string sortField, object sortLimit, string sortOrder, int topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<string> features, bool debug, bool highlight, List<string> show, List<string> fieldType, List<string> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, string xNdbClient, string xNucliadbUser, string xForwardedFor)> _searchKnowledgeboxKbKbidSearchGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxSearchResults, string, (string kbid, string query, object filterExpression, List<string> fields, List<string> filters, List<string> faceted, string sortField, object sortLimit, string sortOrder, int topK, object minScore, object minScoreSemantic, float minScoreBm25, object vectorset, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<string> features, bool debug, bool highlight, List<string> show, List<string> fieldType, List<string> extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string> securityGroups, bool showHidden, string xNdbClient, string xNucliadbUser, string xForwardedFor)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/search?query={param.query}&filter_expression={param.filterExpression}&fields={param.fields}&filters={param.filters}&faceted={param.faceted}&sort_field={param.sortField}&sort_limit={param.sortLimit}&sort_order={param.sortOrder}&top_k={param.topK}&min_score={param.minScore}&min_score_semantic={param.minScoreSemantic}&min_score_bm25={param.minScoreBm25}&vectorset={param.vectorset}&range_creation_start={param.rangeCreationStart}&range_creation_end={param.rangeCreationEnd}&range_modification_start={param.rangeModificationStart}&range_modification_end={param.rangeModificationEnd}&features={param.features}&debug={param.debug}&highlight={param.highlight}&show={param.show}&field_type={param.fieldType}&extracted={param.extracted}&with_duplicates={param.withDuplicates}&with_synonyms={param.withSynonyms}&autofilter={param.autofilter}&security_groups={param.securityGroups}&show_hidden={param.showHidden}"), null, new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/search{BuildQueryString(("query", param.query), ("filter_expression", param.filterExpression), ("fields", param.fields), ("filters", param.filters), ("faceted", param.faceted), ("sort_field", param.sortField), ("sort_limit", param.sortLimit), ("sort_order", param.sortOrder), ("top_k", param.topK), ("min_score", param.minScore), ("min_score_semantic", param.minScoreSemantic), ("min_score_bm25", param.minScoreBm25), ("vectorset", param.vectorset), ("range_creation_start", param.rangeCreationStart), ("range_creation_end", param.rangeCreationEnd), ("range_modification_start", param.rangeModificationStart), ("range_modification_end", param.rangeModificationEnd), ("features", param.features), ("debug", param.debug), ("highlight", param.highlight), ("show", param.show), ("field_type", param.fieldType), ("extracted", param.extracted), ("with_duplicates", param.withDuplicates), ("with_synonyms", param.withSynonyms), ("autofilter", param.autofilter), ("security_groups", param.securityGroups), ("show_hidden", param.showHidden))}"), null, new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<KnowledgeboxSearchResults>,
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<KnowledgeboxSearchResults, string, (string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, SearchRequest Body)> _searchPostKnowledgeboxKbKbidSearchPost { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<KnowledgeboxSearchResults, string, (string kbid, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, SearchRequest Body)>(
+    private static PostAsync<KnowledgeboxSearchResults, string, (string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, SearchRequest Body)> _searchPostKnowledgeboxKbKbidSearchPost { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<KnowledgeboxSearchResults, string, (string kbid, string xNdbClient, string xNucliadbUser, string xForwardedFor, SearchRequest Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/search"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/search{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<KnowledgeboxSearchResults>,
             deserializeError: DeserializeError
         );
@@ -1381,7 +1381,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<object, string, ((string kbid, string configName) Params, object Body)> _createSearchConfigurationKbKbidSearchConfigurationsConfigNamePost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, string, ((string kbid, string configName) Params, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/search_configurations/{param.Params.configName}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/search_configurations/{param.Params.configName}{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1389,7 +1389,7 @@ public static class NucliaDBApiExtensions
     private static PatchAsync<object, string, ((string kbid, string configName) Params, object Body)> _updateSearchConfigurationKbKbidSearchConfigurationsConfigNamePatch { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePatch<object, string, ((string kbid, string configName) Params, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/search_configurations/{param.Params.configName}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/search_configurations/{param.Params.configName}{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1413,7 +1413,7 @@ public static class NucliaDBApiExtensions
     private static PatchAsync<ResourceUpdated, string, (string kbid, string rslug, bool xSkipStore, string xNucliadbUser, UpdateResourcePayload Body)> _modifyResourceRslugPrefixKbKbidSlugRslugPatch { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePatch<ResourceUpdated, string, (string kbid, string rslug, bool xSkipStore, string xNucliadbUser, UpdateResourcePayload Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-skip-store"] = param.xSkipStore.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-skip-store"] = param.xSkipStore.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceUpdated>,
             deserializeError: DeserializeError
         );
@@ -1426,10 +1426,10 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<NucliadbModelsResourceResource, string, (string kbid, string rslug, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, string xNucliadbUser, string xForwardedFor)> _getResourceBySlugKbKbidSlugRslugGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<NucliadbModelsResourceResource, string, (string kbid, string rslug, List<ResourceProperties> show, List<FieldTypeName> fieldType, List<ExtractedDataTypeName> extracted, string xNucliadbUser, string xForwardedFor)>(
+    private static GetAsync<NucliadbModelsResourceResource, string, (string kbid, string rslug, List<string> show, List<string> fieldType, List<string> extracted, string xNucliadbUser, string xForwardedFor)> _getResourceBySlugKbKbidSlugRslugGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<NucliadbModelsResourceResource, string, (string kbid, string rslug, List<string> show, List<string> fieldType, List<string> extracted, string xNucliadbUser, string xForwardedFor)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}?show={param.show}&field_type={param.fieldType}&extracted={param.extracted}"), null, new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}{BuildQueryString(("show", param.show), ("field_type", param.fieldType), ("extracted", param.extracted))}"), null, new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<NucliadbModelsResourceResource>,
             deserializeError: DeserializeError
         );
@@ -1437,7 +1437,7 @@ public static class NucliaDBApiExtensions
     private static PutAsync<ResourceFieldAdded, string, ((string kbid, string rslug, string fieldId) Params, InputConversationField Body)> _addResourceFieldConversationRslugPrefixKbKbidSlugRslugConversationFieldIdPut { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePut<ResourceFieldAdded, string, ((string kbid, string rslug, string fieldId) Params, InputConversationField Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/slug/{param.Params.rslug}/conversation/{param.Params.fieldId}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/slug/{param.Params.rslug}/conversation/{param.Params.fieldId}{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<ResourceFieldAdded>,
             deserializeError: DeserializeError
         );
@@ -1453,7 +1453,7 @@ public static class NucliaDBApiExtensions
     private static PutAsync<ResourceFieldAdded, string, ((string kbid, string rslug, string fieldId) Params, object Body)> _appendMessagesToConversationFieldRslugPrefixKbKbidSlugRslugConversationFieldIdMessagesPut { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePut<ResourceFieldAdded, string, ((string kbid, string rslug, string fieldId) Params, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/slug/{param.Params.rslug}/conversation/{param.Params.fieldId}/messages"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/slug/{param.Params.rslug}/conversation/{param.Params.fieldId}/messages{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<ResourceFieldAdded>,
             deserializeError: DeserializeError
         );
@@ -1461,7 +1461,7 @@ public static class NucliaDBApiExtensions
     private static PutAsync<ResourceFieldAdded, string, (string kbid, string rslug, string fieldId, bool xSkipStore, FileField Body)> _addResourceFieldFileRslugPrefixKbKbidSlugRslugFileFieldIdPut { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePut<ResourceFieldAdded, string, (string kbid, string rslug, string fieldId, bool xSkipStore, FileField Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/file/{param.fieldId}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-skip-store"] = param.xSkipStore.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/file/{param.fieldId}{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-skip-store"] = param.xSkipStore.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceFieldAdded>,
             deserializeError: DeserializeError
         );
@@ -1469,7 +1469,7 @@ public static class NucliaDBApiExtensions
     private static GetAsync<object, string, (string kbid, string rslug, string fieldId, bool inline)> _downloadFieldFileRslugPrefixKbKbidSlugRslugFileFieldIdDownloadFieldGet { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, string, (string kbid, string rslug, string fieldId, bool inline)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/file/{param.fieldId}/download/field?inline={param.inline}"), null, null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/file/{param.fieldId}/download/field{BuildQueryString(("inline", param.inline))}"), null, null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1477,7 +1477,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<object, string, (string kbid, string rslug, string field, object xExtractStrategy, object xSplitStrategy, object Body)> _tusPostRslugPrefixKbKbidSlugRslugFileFieldTusuploadPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, string, (string kbid, string rslug, string field, object xExtractStrategy, object xSplitStrategy, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/file/{param.field}/tusupload"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-extract-strategy"] = param.xExtractStrategy.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/file/{param.field}/tusupload{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-extract-strategy"] = param.xExtractStrategy.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1485,7 +1485,7 @@ public static class NucliaDBApiExtensions
     private static PatchAsync<object, string, ((string kbid, string rslug, string field, string uploadId) Params, object Body)> _tusPatchRslugPrefixKbKbidSlugRslugFileFieldTusuploadUploadIdPatch { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePatch<object, string, ((string kbid, string rslug, string field, string uploadId) Params, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/slug/{param.Params.rslug}/file/{param.Params.field}/tusupload/{param.Params.uploadId}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/slug/{param.Params.rslug}/file/{param.Params.field}/tusupload/{param.Params.uploadId}{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1501,7 +1501,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<ResourceFileUploaded, string, (string kbid, string rslug, string field, object xFilename, object xPassword, object xLanguage, object xMd5, object xExtractStrategy, object xSplitStrategy, object Body)> _uploadRslugPrefixKbKbidSlugRslugFileFieldUploadPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceFileUploaded, string, (string kbid, string rslug, string field, object xFilename, object xPassword, object xLanguage, object xMd5, object xExtractStrategy, object xSplitStrategy, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/file/{param.field}/upload"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-filename"] = param.xFilename.ToString() ?? string.Empty, ["x-password"] = param.xPassword.ToString() ?? string.Empty, ["x-language"] = param.xLanguage.ToString() ?? string.Empty, ["x-md5"] = param.xMd5.ToString() ?? string.Empty, ["x-extract-strategy"] = param.xExtractStrategy.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/file/{param.field}/upload{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-filename"] = param.xFilename.ToString() ?? string.Empty, ["x-password"] = param.xPassword.ToString() ?? string.Empty, ["x-language"] = param.xLanguage.ToString() ?? string.Empty, ["x-md5"] = param.xMd5.ToString() ?? string.Empty, ["x-extract-strategy"] = param.xExtractStrategy.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceFileUploaded>,
             deserializeError: DeserializeError
         );
@@ -1509,7 +1509,7 @@ public static class NucliaDBApiExtensions
     private static PutAsync<ResourceFieldAdded, string, ((string kbid, string rslug, string fieldId) Params, LinkField Body)> _addResourceFieldLinkRslugPrefixKbKbidSlugRslugLinkFieldIdPut { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePut<ResourceFieldAdded, string, ((string kbid, string rslug, string fieldId) Params, LinkField Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/slug/{param.Params.rslug}/link/{param.Params.fieldId}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/slug/{param.Params.rslug}/link/{param.Params.fieldId}{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<ResourceFieldAdded>,
             deserializeError: DeserializeError
         );
@@ -1517,7 +1517,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<object, string, (string kbid, string rslug, bool reindexVectors, object Body)> _reindexResourceRslugPrefixKbKbidSlugRslugReindexPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, string, (string kbid, string rslug, bool reindexVectors, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/reindex?reindex_vectors={param.reindexVectors}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/reindex{BuildQueryString(("reindex_vectors", param.reindexVectors))}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1525,7 +1525,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<ResourceUpdated, string, (string kbid, string rslug, bool resetTitle, string xNucliadbUser, object Body)> _reprocessResourceRslugPrefixKbKbidSlugRslugReprocessPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceUpdated, string, (string kbid, string rslug, bool resetTitle, string xNucliadbUser, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/reprocess?reset_title={param.resetTitle}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/reprocess{BuildQueryString(("reset_title", param.resetTitle))}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceUpdated>,
             deserializeError: DeserializeError
         );
@@ -1533,39 +1533,39 @@ public static class NucliaDBApiExtensions
     private static PutAsync<ResourceFieldAdded, string, ((string kbid, string rslug, string fieldId) Params, TextField Body)> _addResourceFieldTextRslugPrefixKbKbidSlugRslugTextFieldIdPut { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePut<ResourceFieldAdded, string, ((string kbid, string rslug, string fieldId) Params, TextField Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/slug/{param.Params.rslug}/text/{param.Params.fieldId}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/slug/{param.Params.rslug}/text/{param.Params.fieldId}{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<ResourceFieldAdded>,
             deserializeError: DeserializeError
         );
 
-    private static DeleteAsync<Unit, string, (string kbid, string rslug, FieldTypeName fieldType, string fieldId)> _deleteResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDelete { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateDelete<Unit, string, (string kbid, string rslug, FieldTypeName fieldType, string fieldId)>(
+    private static DeleteAsync<Unit, string, (string kbid, string rslug, string fieldType, string fieldId)> _deleteResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDelete { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateDelete<Unit, string, (string kbid, string rslug, string fieldType, string fieldId)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/{param.fieldType}/{param.fieldId}"), null, null),
             deserializeSuccess: _deserializeUnit,
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<ResourceField, string, (string kbid, string rslug, FieldTypeName fieldType, string fieldId, List<ResourceFieldProperties> show, List<ExtractedDataTypeName> extracted, object page)> _getResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceField, string, (string kbid, string rslug, FieldTypeName fieldType, string fieldId, List<ResourceFieldProperties> show, List<ExtractedDataTypeName> extracted, object page)>(
+    private static GetAsync<ResourceField, string, (string kbid, string rslug, string fieldType, string fieldId, List<string> show, List<string> extracted, object page)> _getResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceField, string, (string kbid, string rslug, string fieldType, string fieldId, List<string> show, List<string> extracted, object page)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/{param.fieldType}/{param.fieldId}?show={param.show}&extracted={param.extracted}&page={param.page}"), null, null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/{param.fieldType}/{param.fieldId}{BuildQueryString(("show", param.show), ("extracted", param.extracted), ("page", param.page))}"), null, null),
             deserializeSuccess: DeserializeJson<ResourceField>,
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<object, string, (string kbid, string rslug, FieldTypeName fieldType, string fieldId, string downloadField)> _downloadExtractFileRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDownloadExtractedDownloadFieldGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, string, (string kbid, string rslug, FieldTypeName fieldType, string fieldId, string downloadField)>(
+    private static GetAsync<object, string, (string kbid, string rslug, string fieldType, string fieldId, string downloadField)> _downloadExtractFileRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDownloadExtractedDownloadFieldGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, string, (string kbid, string rslug, string fieldType, string fieldId, string downloadField)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/{param.fieldType}/{param.fieldId}/download/extracted/{param.downloadField}"), null, null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<SyncAskResponse, string, (string kbid, string slug, bool xShowConsumption, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest Body)> _resourceAskEndpointBySlugKbKbidSlugSlugAskPost { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<SyncAskResponse, string, (string kbid, string slug, bool xShowConsumption, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest Body)>(
+    private static PostAsync<SyncAskResponse, string, (string kbid, string slug, bool xShowConsumption, string xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest Body)> _resourceAskEndpointBySlugKbKbidSlugSlugAskPost { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<SyncAskResponse, string, (string kbid, string slug, bool xShowConsumption, string xNdbClient, string xNucliadbUser, string xForwardedFor, bool xSynchronous, AskRequest Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.slug}/ask"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-show-consumption"] = param.xShowConsumption.ToString() ?? string.Empty, ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty, ["x-synchronous"] = param.xSynchronous.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.slug}/ask{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-show-consumption"] = param.xShowConsumption.ToString() ?? string.Empty, ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty, ["x-synchronous"] = param.xSynchronous.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<SyncAskResponse>,
             deserializeError: DeserializeError
         );
@@ -1573,7 +1573,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<ResourceAgentsResponse, string, (string kbid, string slug, string xNucliadbUser, ResourceAgentsRequest Body)> _runAgentsBySlugKbKbidSlugSlugRunAgentsPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceAgentsResponse, string, (string kbid, string slug, string xNucliadbUser, ResourceAgentsRequest Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.slug}/run-agents"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.slug}/run-agents{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceAgentsResponse>,
             deserializeError: DeserializeError
         );
@@ -1581,7 +1581,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<string, string, (string Params, SplitConfiguration Body)> _addSplitStrategyKbKbidSplitStrategiesPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<string, string, (string Params, SplitConfiguration Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/split_strategies"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/split_strategies{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<string>,
             deserializeError: DeserializeError
         );
@@ -1610,10 +1610,10 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<KnowledgeboxSuggestResults, string, (string kbid, string query, List<string> fields, List<string> filters, List<string> faceted, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<SuggestOptions> features, List<ResourceProperties> show, List<FieldTypeName> fieldType, bool debug, bool highlight, bool showHidden, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor)> _suggestKnowledgeboxKbKbidSuggestGet { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxSuggestResults, string, (string kbid, string query, List<string> fields, List<string> filters, List<string> faceted, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<SuggestOptions> features, List<ResourceProperties> show, List<FieldTypeName> fieldType, bool debug, bool highlight, bool showHidden, NucliaDBClientType xNdbClient, string xNucliadbUser, string xForwardedFor)>(
+    private static GetAsync<KnowledgeboxSuggestResults, string, (string kbid, string query, List<string> fields, List<string> filters, List<string> faceted, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<string> features, List<string> show, List<string> fieldType, bool debug, bool highlight, bool showHidden, string xNdbClient, string xNucliadbUser, string xForwardedFor)> _suggestKnowledgeboxKbKbidSuggestGet { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxSuggestResults, string, (string kbid, string query, List<string> fields, List<string> filters, List<string> faceted, object rangeCreationStart, object rangeCreationEnd, object rangeModificationStart, object rangeModificationEnd, List<string> features, List<string> show, List<string> fieldType, bool debug, bool highlight, bool showHidden, string xNdbClient, string xNucliadbUser, string xForwardedFor)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/suggest?query={param.query}&fields={param.fields}&filters={param.filters}&faceted={param.faceted}&range_creation_start={param.rangeCreationStart}&range_creation_end={param.rangeCreationEnd}&range_modification_start={param.rangeModificationStart}&range_modification_end={param.rangeModificationEnd}&features={param.features}&show={param.show}&field_type={param.fieldType}&debug={param.debug}&highlight={param.highlight}&show_hidden={param.showHidden}"), null, new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/suggest{BuildQueryString(("query", param.query), ("fields", param.fields), ("filters", param.filters), ("faceted", param.faceted), ("range_creation_start", param.rangeCreationStart), ("range_creation_end", param.rangeCreationEnd), ("range_modification_start", param.rangeModificationStart), ("range_modification_end", param.rangeModificationEnd), ("features", param.features), ("show", param.show), ("field_type", param.fieldType), ("debug", param.debug), ("highlight", param.highlight), ("show_hidden", param.showHidden))}"), null, new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() ?? string.Empty, ["x-nucliadb-user"] = param.xNucliadbUser.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<KnowledgeboxSuggestResults>,
             deserializeError: DeserializeError
         );
@@ -1621,7 +1621,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<SummarizedResponse, string, (string kbid, bool xShowConsumption, SummarizeRequest Body)> _summarizeEndpointKbKbidSummarizePost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<SummarizedResponse, string, (string kbid, bool xShowConsumption, SummarizeRequest Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/summarize"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-show-consumption"] = param.xShowConsumption.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/summarize{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-show-consumption"] = param.xShowConsumption.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<SummarizedResponse>,
             deserializeError: DeserializeError
         );
@@ -1629,7 +1629,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<object, string, (string kbid, object xExtractStrategy, object xSplitStrategy, object Body)> _tusPostKbKbidTusuploadPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, string, (string kbid, object xExtractStrategy, object xSplitStrategy, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/tusupload"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-extract-strategy"] = param.xExtractStrategy.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/tusupload{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-extract-strategy"] = param.xExtractStrategy.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1637,7 +1637,7 @@ public static class NucliaDBApiExtensions
     private static OptionsAsync<object, string, (string kbid, object rid, object rslug, object uploadId, object field)> _tusOptionsKbKbidTusuploadOptions { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateOptions<object, string, (string kbid, object rid, object rslug, object uploadId, object field)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/tusupload?rid={param.rid}&rslug={param.rslug}&upload_id={param.uploadId}&field={param.field}"), null, null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/tusupload{BuildQueryString(("rid", param.rid), ("rslug", param.rslug), ("upload_id", param.uploadId), ("field", param.field))}"), null, null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1645,7 +1645,7 @@ public static class NucliaDBApiExtensions
     private static PatchAsync<object, string, ((string kbid, string uploadId) Params, object Body)> _patchKbKbidTusuploadUploadIdPatch { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePatch<object, string, ((string kbid, string uploadId) Params, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/tusupload/{param.Params.uploadId}"), CreateJsonContent(param.Body), null),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params.kbid}/tusupload/{param.Params.uploadId}{string.Empty}"), CreateJsonContent(param.Body), null),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeError
         );
@@ -1661,7 +1661,7 @@ public static class NucliaDBApiExtensions
     private static PostAsync<ResourceFileUploaded, string, (string kbid, object xFilename, object xPassword, object xLanguage, object xMd5, object xExtractStrategy, object xSplitStrategy, object Body)> _uploadKbKbidUploadPost { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceFileUploaded, string, (string kbid, object xFilename, object xPassword, object xLanguage, object xMd5, object xExtractStrategy, object xSplitStrategy, object Body)>(
             url: BaseUrl,
-            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/upload"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-filename"] = param.xFilename.ToString() ?? string.Empty, ["x-password"] = param.xPassword.ToString() ?? string.Empty, ["x-language"] = param.xLanguage.ToString() ?? string.Empty, ["x-md5"] = param.xMd5.ToString() ?? string.Empty, ["x-extract-strategy"] = param.xExtractStrategy.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy.ToString() ?? string.Empty }),
+            buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/upload{string.Empty}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-filename"] = param.xFilename.ToString() ?? string.Empty, ["x-password"] = param.xPassword.ToString() ?? string.Empty, ["x-language"] = param.xLanguage.ToString() ?? string.Empty, ["x-md5"] = param.xMd5.ToString() ?? string.Empty, ["x-extract-strategy"] = param.xExtractStrategy.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceFileUploaded>,
             deserializeError: DeserializeError
         );
@@ -1705,5 +1705,33 @@ public static class NucliaDBApiExtensions
     {
         var content = await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
         return string.IsNullOrEmpty(content) ? "Unknown error" : content;
+    }
+
+    private static string BuildQueryString(params (string Key, object? Value)[] parameters)
+    {
+        var parts = new List<string>();
+        foreach (var (key, value) in parameters)
+        {
+            if (value == null)
+            {
+                continue;
+            }
+
+            if (value is System.Collections.IEnumerable enumerable and not string)
+            {
+                foreach (var item in enumerable)
+                {
+                    if (item != null)
+                    {
+                        parts.Add($"{key}={Uri.EscapeDataString(item.ToString() ?? string.Empty)}");
+                    }
+                }
+            }
+            else
+            {
+                parts.Add($"{key}={Uri.EscapeDataString(value.ToString() ?? string.Empty)}");
+            }
+        }
+        return parts.Count > 0 ? "?" + string.Join("&", parts) : string.Empty;
     }
 }
