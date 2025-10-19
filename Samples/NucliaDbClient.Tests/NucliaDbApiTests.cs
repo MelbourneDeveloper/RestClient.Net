@@ -2,12 +2,9 @@ using Microsoft.Extensions.DependencyInjection;
 using NucliaDB.Generated;
 using Outcome;
 using Xunit;
-using Xunit.Abstractions;
-using Xunit.Sdk;
 
 #pragma warning disable CS8509 // C# compiler doesn't understand nested discriminated unions - use EXHAUSTION001 instead
 #pragma warning disable SA1512 // Single-line comments should not be followed by blank line
-
 
 namespace NucliaDbClient.Tests;
 
@@ -15,12 +12,14 @@ namespace NucliaDbClient.Tests;
 [TestCaseOrderer("NucliaDbClient.Tests.PriorityOrderer", "NucliaDbClient.Tests")]
 public class NucliaDbApiTests
 {
+    #region Setup
     private readonly IHttpClientFactory _httpClientFactory;
     private static string? _createdResourceId;
     private static string? _knowledgeBoxId;
 
-    public NucliaDbApiTests()
+    public NucliaDbApiTests(NucliaDbFixture fixture)
     {
+        _ = fixture; // Ensure fixture is initialized
         var services = new ServiceCollection();
         services.AddHttpClient();
         var serviceProvider = services.BuildServiceProvider();
@@ -71,6 +70,10 @@ public class NucliaDbApiTests
         _createdResourceId = created.Uuid!;
         return _createdResourceId;
     }
+
+    #endregion
+
+    #region Tests
 
     [Fact]
     [TestPriority(-1)]
@@ -234,7 +237,6 @@ public class NucliaDbApiTests
         Assert.NotNull(resource.Id);
     }
 
-#pragma warning disable xUnit1004
     [Fact]
     [TestPriority(5)]
     public async Task ModifyResource_ReturnsResourceUpdated()
@@ -278,7 +280,6 @@ public class NucliaDbApiTests
         Assert.NotNull(updated.Seqid);
     }
 
-#pragma warning disable xUnit1004
     [Fact]
     [TestPriority(6)]
     public async Task GetKnowledgeBoxCounters_ReturnsCounters()
@@ -307,7 +308,6 @@ public class NucliaDbApiTests
         Assert.True(counters.Resources >= 1, "Should have at least 1 resource");
     }
 
-#pragma warning disable xUnit1004
     [Fact]
     [TestPriority(9)]
     public async Task AddTextFieldToResource_ReturnsResourceFieldAdded()
@@ -342,7 +342,6 @@ public class NucliaDbApiTests
         Assert.NotNull(fieldAdded.Seqid);
     }
 
-#pragma warning disable xUnit1004
     [Fact]
     [TestPriority(10)]
     public async Task DeleteResource_ReturnsUnit()
@@ -373,25 +372,5 @@ public class NucliaDbApiTests
         // Clear the resource ID since it's been deleted
         _createdResourceId = null;
     }
-}
-
-[AttributeUsage(AttributeTargets.Method)]
-public sealed class TestPriorityAttribute : Attribute
-{
-    public int Priority { get; }
-
-    public TestPriorityAttribute(int priority) => Priority = priority;
-}
-
-public class PriorityOrderer : ITestCaseOrderer
-{
-    public IEnumerable<TTestCase> OrderTestCases<TTestCase>(IEnumerable<TTestCase> testCases)
-        where TTestCase : ITestCase =>
-        testCases.OrderBy(tc =>
-            tc.TestMethod.Method.GetCustomAttributes(
-                    typeof(TestPriorityAttribute).AssemblyQualifiedName!
-                )
-                .FirstOrDefault()
-                ?.GetNamedArgument<int>("Priority") ?? 0
-        );
+    #endregion
 }
