@@ -35,15 +35,25 @@ public class NucliaDbApiTests
             return _createdResourceId;
         }
 
-        var payload = new CreateResourcePayload
-        {
-            Slug = $"test-resource-{Guid.NewGuid()}",
-            Title = "Test Resource",
-            Texts = new Dictionary<string, TextField>(),
-            Files = new Dictionary<string, FileField>(),
-            Links = new Dictionary<string, LinkField>(),
-            Conversations = new Dictionary<string, InputConversationField>(),
-        };
+        var payload = new CreateResourcePayload(
+            Title: "Test Resource",
+            Summary: null,
+            Slug: $"test-resource-{Guid.NewGuid()}",
+            Icon: null,
+            Thumbnail: null,
+            Metadata: null,
+            Usermetadata: null,
+            Fieldmetadata: null,
+            Origin: null,
+            Extra: null,
+            Hidden: null,
+            Files: new Dictionary<string, FileField>(),
+            Links: new Dictionary<string, LinkField>(),
+            Texts: new Dictionary<string, TextField>(),
+            Conversations: new Dictionary<string, InputConversationField>(),
+            ProcessingOptions: null,
+            Security: null
+        );
 
         var result = await CreateHttpClient()
             .CreateResourceKbKbidResourcesAsync(
@@ -107,15 +117,25 @@ public class NucliaDbApiTests
     [TestPriority(0)]
     public async Task CreateResource_ReturnsResourceCreated_WithoutAuthentication()
     {
-        var payload = new CreateResourcePayload
-        {
-            Slug = $"test-resource-{Guid.NewGuid()}",
-            Title = "Test Resource",
-            Texts = new Dictionary<string, TextField>(),
-            Files = new Dictionary<string, FileField>(),
-            Links = new Dictionary<string, LinkField>(),
-            Conversations = new Dictionary<string, InputConversationField>(),
-        };
+        var payload = new CreateResourcePayload(
+            Title: "Test Resource",
+            Summary: null,
+            Slug: $"test-resource-{Guid.NewGuid()}",
+            Icon: null,
+            Thumbnail: null,
+            Metadata: null,
+            Usermetadata: null,
+            Fieldmetadata: null,
+            Origin: null,
+            Extra: null,
+            Hidden: null,
+            Files: new Dictionary<string, FileField>(),
+            Links: new Dictionary<string, LinkField>(),
+            Texts: new Dictionary<string, TextField>(),
+            Conversations: new Dictionary<string, InputConversationField>(),
+            ProcessingOptions: null,
+            Security: null
+        );
 
         var result = await CreateHttpClient()
             .CreateResourceKbKbidResourcesAsync(
@@ -245,14 +265,24 @@ public class NucliaDbApiTests
         var resourceId = await EnsureResourceExists();
 
         // Act
-        var updatePayload = new UpdateResourcePayload
-        {
-            Title = "Updated Title",
-            Texts = new Dictionary<string, TextField>(),
-            Files = new Dictionary<string, FileField>(),
-            Links = new Dictionary<string, LinkField>(),
-            Conversations = new Dictionary<string, InputConversationField>(),
-        };
+        var updatePayload = new UpdateResourcePayload(
+            Title: "Updated Title",
+            Summary: null,
+            Slug: null,
+            Thumbnail: null,
+            Metadata: null,
+            Usermetadata: null,
+            Fieldmetadata: null,
+            Origin: null,
+            Extra: null,
+            Files: new Dictionary<string, FileField>(),
+            Links: new Dictionary<string, LinkField>(),
+            Texts: new Dictionary<string, TextField>(),
+            Conversations: new Dictionary<string, InputConversationField>(),
+            ProcessingOptions: null,
+            Security: null,
+            Hidden: null
+        );
 
         var result = await CreateHttpClient()
             .ModifyResourceRidPrefixKbKbidResourceRidAsync(
@@ -316,7 +346,7 @@ public class NucliaDbApiTests
         var resourceId = await EnsureResourceExists();
 
         // Act
-        var textField = new TextField { Body = "This is test text content", Format = "PLAIN" };
+        var textField = new TextField(Body: "This is test text content", Format: "PLAIN", ExtractStrategy: null, SplitStrategy: null);
         var result = await CreateHttpClient()
             .AddResourceFieldTextRidPrefixKbKbidResourceRidTextFieldIdAsync(
                 kbid: _knowledgeBoxId!,

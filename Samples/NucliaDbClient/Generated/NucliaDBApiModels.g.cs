@@ -1,4800 +1,2066 @@
 namespace NucliaDB.Generated;
 
 /// <summary>HTTPValidationError</summary>
-public class HTTPValidationError
-{
-    /// <summary>Detail</summary>
-    public List<ValidationError> Detail { get; set; }
-}
+/// <param name="Detail">Detail</param>
+public record HTTPValidationError(List<ValidationError> Detail);
 
 /// <summary>LearningConfigurationUpdate</summary>
-public class LearningConfigurationUpdate
-{
-    /// <summary>AnonymizationModel</summary>
-    public object AnonymizationModel { get; set; }
-
-    /// <summary>GenerativeModel</summary>
-    public object GenerativeModel { get; set; }
-
-    /// <summary>NerModel</summary>
-    public object NerModel { get; set; }
-}
+/// <param name="AnonymizationModel">AnonymizationModel</param>
+/// <param name="GenerativeModel">GenerativeModel</param>
+/// <param name="NerModel">NerModel</param>
+public record LearningConfigurationUpdate(object AnonymizationModel, object GenerativeModel, object NerModel);
 
 /// <summary>Model to map in a generic way what we really store on the db, without valdations. As enum values containing the versions change from time to time, and we don't keep historics, we cannot use the model enums here, as it will fail with older values</summary>
-public class StoredLearningConfiguration
-{
-    /// <summary>SemanticModel</summary>
-    public string SemanticModel { get; set; }
-
-    /// <summary>AnonymizationModel</summary>
-    public string AnonymizationModel { get; set; }
-
-    /// <summary>GenerativeModel</summary>
-    public string GenerativeModel { get; set; }
-
-    /// <summary>NerModel</summary>
-    public string NerModel { get; set; }
-
-    /// <summary>SemanticVectorSimilarity</summary>
-    public string SemanticVectorSimilarity { get; set; }
-
-    /// <summary>SemanticVectorSize</summary>
-    public int SemanticVectorSize { get; set; }
-}
+/// <param name="SemanticModel">SemanticModel</param>
+/// <param name="AnonymizationModel">AnonymizationModel</param>
+/// <param name="GenerativeModel">GenerativeModel</param>
+/// <param name="NerModel">NerModel</param>
+/// <param name="SemanticVectorSimilarity">SemanticVectorSimilarity</param>
+/// <param name="SemanticVectorSize">SemanticVectorSize</param>
+public record StoredLearningConfiguration(string SemanticModel, string AnonymizationModel, string GenerativeModel, string NerModel, string SemanticVectorSimilarity, int SemanticVectorSize);
 
 /// <summary>ValidationError</summary>
-public class ValidationError
-{
-    /// <summary>Loc</summary>
-    public List<object> Loc { get; set; }
-
-    /// <summary>Msg</summary>
-    public string Msg { get; set; }
-
-    /// <summary>Type</summary>
-    public string Type { get; set; }
-}
+/// <param name="Loc">Loc</param>
+/// <param name="Msg">Msg</param>
+/// <param name="Type">Type</param>
+public record ValidationError(List<object> Loc, string Msg, string Type);
 
 /// <summary>AgentsFilter</summary>
-public class AgentsFilter
-{
-    /// <summary>Type</summary>
-    public string Type { get; set; }
-
-    /// <summary>list of task names. If None or empty, all tasks for that operation are applied.</summary>
-    public List<string> TaskNames { get; set; }
-}
+/// <param name="Type">Type</param>
+/// <param name="TaskNames">list of task names. If None or empty, all tasks for that operation are applied.</param>
+public record AgentsFilter(string Type, List<string> TaskNames);
 
 /// <summary>AndFieldFilterExpression</summary>
-public class AndFieldFilterExpression
-{
 
-}
+public record AndFieldFilterExpression();
 
 /// <summary>AndGraphNodesQuery</summary>
-public class AndGraphNodesQuery
-{
-    /// <summary>Operands</summary>
-    public List<object> Operands { get; set; }
-}
+/// <param name="Operands">Operands</param>
+public record AndGraphNodesQuery(List<object> Operands);
 
 /// <summary>AndGraphPathQuery</summary>
-public class AndGraphPathQuery
-{
 
-}
+public record AndGraphPathQuery();
 
 /// <summary>AndGraphRelationsQuery</summary>
-public class AndGraphRelationsQuery
-{
-    /// <summary>Operands</summary>
-    public List<object> Operands { get; set; }
-}
+/// <param name="Operands">Operands</param>
+public record AndGraphRelationsQuery(List<object> Operands);
 
 /// <summary>AndParagraphFilterExpression</summary>
-public class AndParagraphFilterExpression
-{
 
-}
+public record AndParagraphFilterExpression();
 
 /// <summary>AndResourceFilterExpression</summary>
-public class AndResourceFilterExpression
-{
-    /// <summary>Operands</summary>
-    public List<object> Operands { get; set; }
-}
+/// <param name="Operands">Operands</param>
+public record AndResourceFilterExpression(List<object> Operands);
 
 /// <summary>Answer</summary>
-public class Answer
-{
-    /// <summary>Text</summary>
-    public string Text { get; set; }
-
-    /// <summary>Language</summary>
-    public object Language { get; set; }
-
-    /// <summary>IdsParagraphs</summary>
-    public List<string> IdsParagraphs { get; set; }
-}
+/// <param name="Text">Text</param>
+/// <param name="Language">Language</param>
+/// <param name="IdsParagraphs">IdsParagraphs</param>
+public record Answer(string Text, object Language, List<string> IdsParagraphs);
 
 /// <summary>AnyNode</summary>
-public class AnyNode
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Value</summary>
-    public object Value { get; set; }
-
-    /// <summary>Match</summary>
-    public string Match { get; set; }
-
-    /// <summary>Type</summary>
-    public object Type { get; set; }
-
-    /// <summary>Group</summary>
-    public object Group { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Value">Value</param>
+/// <param name="Match">Match</param>
+/// <param name="Type">Type</param>
+/// <param name="Group">Group</param>
+public record AnyNode(string Prop, object Value, string Match, object Type, object Group);
 
 /// <summary>AppliedDataAugmentation</summary>
-public class AppliedDataAugmentation
-{
-    /// <summary>Question and answers generated by the Question Answers agent</summary>
-    public object Qas { get; set; }
-
-    /// <summary>New text fields. Only generated by the Generator agent as of now.</summary>
-    public List<NewTextField> NewTextFields { get; set; }
-
-    /// <summary>Indicates if the FieldMetadata was changed by the agents</summary>
-    public bool Changed { get; set; }
-}
+/// <param name="Qas">Question and answers generated by the Question Answers agent</param>
+/// <param name="NewTextFields">New text fields. Only generated by the Generator agent as of now.</param>
+/// <param name="Changed">Indicates if the FieldMetadata was changed by the agents</param>
+public record AppliedDataAugmentation(object Qas, List<NewTextField> NewTextFields, bool Changed);
 
 /// <summary>AskRequest</summary>
-public class AskRequest
-{
-    /// <summary>A dictionary containing optional audit-specific metadata, such as user_id, environment, or other contextual information. This metadata can be leveraged for filtering and analyzing activity logs in future operations. Each key-value pair represents a piece of metadata relevant to the user's request.</summary>
-    public object AuditMetadata { get; set; }
-
-    /// <summary>The query to get a generative answer for</summary>
-    public string Query { get; set; }
-
-    /// <summary>The top most relevant results to fetch at the retrieval step. The maximum number of results allowed is 200.</summary>
-    public int TopK { get; set; }
-
-    /// <summary>Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</summary>
-    public object FilterExpression { get; set; }
-
-    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</summary>
-    public List<string> Fields { get; set; }
-
-    /// <summary>The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public object Filters { get; set; }
-
-    /// <summary>List of keyword filter expressions to apply to the retrieval step. The text block search will only be performed on the documents that contain the specified keywords. The filters are case-insensitive, and only alphanumeric characters and spaces are allowed. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public object KeywordFilters { get; set; }
-
-    /// <summary>Vectors index to perform the search in. If not provided, NucliaDB will use the default one</summary>
-    public object Vectorset { get; set; }
-
-    /// <summary>Minimum score to filter search results. Results with a lower score will be ignored. Accepts either a float or a dictionary with the minimum scores for the bm25 and vector indexes. If a float is provided, it is interpreted as the minimum score for vector index search.</summary>
-    public object MinScore { get; set; }
-
-    /// <summary>Features enabled for the chat endpoint. Semantic search is done if `semantic` is included. If `keyword` is included, the results will include matching paragraphs from the bm25 index. If `relations` is included, a graph of entities related to the answer is returned. `paragraphs` and `vectors` are deprecated, please use `keyword` and `semantic` instead</summary>
-    public List<string> Features { get; set; }
-
-    /// <summary>Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeCreationStart { get; set; }
-
-    /// <summary>Resources created after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeCreationEnd { get; set; }
-
-    /// <summary>Resources modified before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeModificationStart { get; set; }
-
-    /// <summary>Resources modified after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeModificationEnd { get; set; }
-
-    /// <summary>Controls which types of metadata are serialized on resources of search results</summary>
-    public List<string> Show { get; set; }
-
-    /// <summary>Define which field types are serialized on resources of search results</summary>
-    public List<string> FieldTypeFilter { get; set; }
-
-    /// <summary>[Deprecated] Please use GET resource endpoint instead to get extracted metadata</summary>
-    public List<string> Extracted { get; set; }
-
-    /// <summary>DEPRECATED! Please, use `chat_history` instead.</summary>
-    public object Context { get; set; }
-
-    /// <summary>Use to rephrase the new LLM query by taking into account the chat conversation history. This will be passed to the LLM so that it is aware of the previous conversation.</summary>
-    public object ChatHistory { get; set; }
-
-    /// <summary>Additional context that is added to the retrieval context sent to the LLM.         It allows extending the chat feature with content that may not be in the Knowledge Box.</summary>
-    public object ExtraContext { get; set; }
-
-    /// <summary>Additional images added to the retrieval context sent to the LLM."         It allows extending the chat feature with content that may not be in the Knowledge Box.</summary>
-    public object ExtraContextImages { get; set; }
-
-    /// <summary>Image that will be used together with the query text for retrieval and then sent to the LLM as part of the context. If a query image is provided, the `extra_context_images` and `rag_images_strategies` will be disabled.</summary>
-    public object QueryImage { get; set; }
-
-    /// <summary>If set to true, the search will automatically add filters to the query. For example, it will filter results containing the entities detected in the query</summary>
-    public bool Autofilter { get; set; }
-
-    /// <summary>If set to true, the query terms will be highlighted in the results between <mark>...</mark> tags</summary>
-    public bool Highlight { get; set; }
-
-    /// <summary>List of resource ids to filter search results for. Only paragraphs from the specified resources will be returned.</summary>
-    public List<string> ResourceFilters { get; set; }
-
-    /// <summary>Use to customize the prompts given to the generative model. Both system and user prompts can be customized. If a string is provided, it is interpreted as the user prompt.</summary>
-    public object Prompt { get; set; }
-
-    /// <summary>Rank fusion algorithm to use to merge results from multiple retrievers (keyword, semantic)</summary>
-    public object RankFusion { get; set; }
-
-    /// <summary>Reranker let you specify which method you want to use to rerank your results at the end of retrieval</summary>
-    public object Reranker { get; set; }
-
-    /// <summary>Whether to include the citations for the answer in the response</summary>
-    public bool Citations { get; set; }
-
-    /// <summary>If citations is True, this sets the similarity threshold (0 to 1) for paragraphs to be included as citations. Lower values result in more citations. If not provided, Nuclia's default threshold is used.</summary>
-    public object CitationThreshold { get; set; }
-
-    /// <summary>Security metadata for the request. If not provided, the search request is done without the security lookup phase.</summary>
-    public object Security { get; set; }
-
-    /// <summary>If set to false (default), excludes hidden resources from search</summary>
-    public bool ShowHidden { get; set; }
-
-    /// <summary>Options for tweaking how the context for the LLM model is crafted: - `full_resource` will add the full text of the matching resources to the context. This strategy cannot be combined with `hierarchy`, `neighbouring_paragraphs`, or `field_extension`. - `field_extension` will add the text of the matching resource's specified fields to the context. - `hierarchy` will add the title and summary text of the parent resource to the context for each matching paragraph. - `neighbouring_paragraphs` will add the sorrounding paragraphs to the context for each matching paragraph. - `metadata_extension` will add the metadata of the matching paragraphs or its resources to the context. - `prequeries` allows to run multiple retrieval queries before the main query and add the results to the context. The results of specific queries can be boosted by the specifying weights.  If empty, the default strategy is used, which simply adds the text of the matching paragraphs to the context.</summary>
-    public List<object> RagStrategies { get; set; }
-
-    /// <summary>Options for tweaking how the image based context for the LLM model is crafted: - `page_image` will add the full page image of the matching resources to the context. - `tables` will send the table images for the paragraphs that contain tables and matched the retrieval query. - `paragraph_image` will add the images of the paragraphs that contain images (images for tables are not included). No image strategy is used by default. Note that this is only available for LLM models that support visual inputs. If the model does not support visual inputs, the image strategies will be ignored.</summary>
-    public List<object> RagImagesStrategies { get; set; }
-
-    /// <summary>If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</summary>
-    public bool Debug { get; set; }
-
-    /// <summary>The generative model to use for the chat endpoint. If not provided, the model configured for the Knowledge Box is used.</summary>
-    public object GenerativeModel { get; set; }
-
-    /// <summary>The seed to use for the generative model for deterministic generation. Only supported by some models.</summary>
-    public object GenerativeModelSeed { get; set; }
-
-    /// <summary>Use to limit the amount of tokens used in the LLM context and/or for generating the answer. If not provided, the default maximum tokens of the generative model will be used. If an integer is provided, it is interpreted as the maximum tokens for the answer.</summary>
-    public object MaxTokens { get; set; }
-
-    /// <summary>Rephrase the query for a more efficient retrieval. This will consume LLM tokens and make the request slower.</summary>
-    public bool Rephrase { get; set; }
-
-    /// <summary>Threshold to determine if the past chat history is relevant to rephrase the user's question. 0 - Always treat previous messages as relevant (always rephrase).1 - Always treat previous messages as irrelevant (never rephrase).Values in between adjust the sensitivity.</summary>
-    public object ChatHistoryRelevanceThreshold { get; set; }
-
-    /// <summary>If set to true, the response will be in markdown format</summary>
-    public bool PreferMarkdown { get; set; }
-
-    /// <summary>Desired JSON schema for the LLM answer. This schema is passed to the LLM so that it answers in a scructured format following the schema. If not provided, textual response is returned. Note that when using this parameter, the answer in the generative response will not be returned in chunks, the whole response text will be returned instead. Using this feature also disables the `citations` parameter. For maximal accuracy, please include a `description` for each field of the schema.</summary>
-    public object AnswerJsonSchema { get; set; }
-
-    /// <summary>Whether to generate an answer using the generative model. If set to false, the response will only contain the retrieval results.</summary>
-    public bool GenerateAnswer { get; set; }
-
-    /// <summary>Load ask parameters from this configuration. Parameters in the request override parameters from the configuration.</summary>
-    public object SearchConfiguration { get; set; }
-
-    /// <summary>Reasoning options for the generative model. Set to True to enable default reasoning, False to disable, or provide a Reasoning object for custom options.</summary>
-    public object Reasoning { get; set; }
-}
+/// <param name="AuditMetadata">A dictionary containing optional audit-specific metadata, such as user_id, environment, or other contextual information. This metadata can be leveraged for filtering and analyzing activity logs in future operations. Each key-value pair represents a piece of metadata relevant to the user's request.</param>
+/// <param name="Query">The query to get a generative answer for</param>
+/// <param name="TopK">The top most relevant results to fetch at the retrieval step. The maximum number of results allowed is 200.</param>
+/// <param name="FilterExpression">Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</param>
+/// <param name="Fields">The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</param>
+/// <param name="Filters">The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="KeywordFilters">List of keyword filter expressions to apply to the retrieval step. The text block search will only be performed on the documents that contain the specified keywords. The filters are case-insensitive, and only alphanumeric characters and spaces are allowed. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="Vectorset">Vectors index to perform the search in. If not provided, NucliaDB will use the default one</param>
+/// <param name="MinScore">Minimum score to filter search results. Results with a lower score will be ignored. Accepts either a float or a dictionary with the minimum scores for the bm25 and vector indexes. If a float is provided, it is interpreted as the minimum score for vector index search.</param>
+/// <param name="Features">Features enabled for the chat endpoint. Semantic search is done if `semantic` is included. If `keyword` is included, the results will include matching paragraphs from the bm25 index. If `relations` is included, a graph of entities related to the answer is returned. `paragraphs` and `vectors` are deprecated, please use `keyword` and `semantic` instead</param>
+/// <param name="RangeCreationStart">Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeCreationEnd">Resources created after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeModificationStart">Resources modified before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeModificationEnd">Resources modified after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="Show">Controls which types of metadata are serialized on resources of search results</param>
+/// <param name="FieldTypeFilter">Define which field types are serialized on resources of search results</param>
+/// <param name="Extracted">[Deprecated] Please use GET resource endpoint instead to get extracted metadata</param>
+/// <param name="Context">DEPRECATED! Please, use `chat_history` instead.</param>
+/// <param name="ChatHistory">Use to rephrase the new LLM query by taking into account the chat conversation history. This will be passed to the LLM so that it is aware of the previous conversation.</param>
+/// <param name="ExtraContext">Additional context that is added to the retrieval context sent to the LLM.         It allows extending the chat feature with content that may not be in the Knowledge Box.</param>
+/// <param name="ExtraContextImages">Additional images added to the retrieval context sent to the LLM."         It allows extending the chat feature with content that may not be in the Knowledge Box.</param>
+/// <param name="QueryImage">Image that will be used together with the query text for retrieval and then sent to the LLM as part of the context. If a query image is provided, the `extra_context_images` and `rag_images_strategies` will be disabled.</param>
+/// <param name="Autofilter">If set to true, the search will automatically add filters to the query. For example, it will filter results containing the entities detected in the query</param>
+/// <param name="Highlight">If set to true, the query terms will be highlighted in the results between <mark>...</mark> tags</param>
+/// <param name="ResourceFilters">List of resource ids to filter search results for. Only paragraphs from the specified resources will be returned.</param>
+/// <param name="Prompt">Use to customize the prompts given to the generative model. Both system and user prompts can be customized. If a string is provided, it is interpreted as the user prompt.</param>
+/// <param name="RankFusion">Rank fusion algorithm to use to merge results from multiple retrievers (keyword, semantic)</param>
+/// <param name="Reranker">Reranker let you specify which method you want to use to rerank your results at the end of retrieval</param>
+/// <param name="Citations">Whether to include the citations for the answer in the response</param>
+/// <param name="CitationThreshold">If citations is True, this sets the similarity threshold (0 to 1) for paragraphs to be included as citations. Lower values result in more citations. If not provided, Nuclia's default threshold is used.</param>
+/// <param name="Security">Security metadata for the request. If not provided, the search request is done without the security lookup phase.</param>
+/// <param name="ShowHidden">If set to false (default), excludes hidden resources from search</param>
+/// <param name="RagStrategies">Options for tweaking how the context for the LLM model is crafted: - `full_resource` will add the full text of the matching resources to the context. This strategy cannot be combined with `hierarchy`, `neighbouring_paragraphs`, or `field_extension`. - `field_extension` will add the text of the matching resource's specified fields to the context. - `hierarchy` will add the title and summary text of the parent resource to the context for each matching paragraph. - `neighbouring_paragraphs` will add the sorrounding paragraphs to the context for each matching paragraph. - `metadata_extension` will add the metadata of the matching paragraphs or its resources to the context. - `prequeries` allows to run multiple retrieval queries before the main query and add the results to the context. The results of specific queries can be boosted by the specifying weights.  If empty, the default strategy is used, which simply adds the text of the matching paragraphs to the context.</param>
+/// <param name="RagImagesStrategies">Options for tweaking how the image based context for the LLM model is crafted: - `page_image` will add the full page image of the matching resources to the context. - `tables` will send the table images for the paragraphs that contain tables and matched the retrieval query. - `paragraph_image` will add the images of the paragraphs that contain images (images for tables are not included). No image strategy is used by default. Note that this is only available for LLM models that support visual inputs. If the model does not support visual inputs, the image strategies will be ignored.</param>
+/// <param name="Debug">If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</param>
+/// <param name="GenerativeModel">The generative model to use for the chat endpoint. If not provided, the model configured for the Knowledge Box is used.</param>
+/// <param name="GenerativeModelSeed">The seed to use for the generative model for deterministic generation. Only supported by some models.</param>
+/// <param name="MaxTokens">Use to limit the amount of tokens used in the LLM context and/or for generating the answer. If not provided, the default maximum tokens of the generative model will be used. If an integer is provided, it is interpreted as the maximum tokens for the answer.</param>
+/// <param name="Rephrase">Rephrase the query for a more efficient retrieval. This will consume LLM tokens and make the request slower.</param>
+/// <param name="ChatHistoryRelevanceThreshold">Threshold to determine if the past chat history is relevant to rephrase the user's question. 0 - Always treat previous messages as relevant (always rephrase).1 - Always treat previous messages as irrelevant (never rephrase).Values in between adjust the sensitivity.</param>
+/// <param name="PreferMarkdown">If set to true, the response will be in markdown format</param>
+/// <param name="AnswerJsonSchema">Desired JSON schema for the LLM answer. This schema is passed to the LLM so that it answers in a scructured format following the schema. If not provided, textual response is returned. Note that when using this parameter, the answer in the generative response will not be returned in chunks, the whole response text will be returned instead. Using this feature also disables the `citations` parameter. For maximal accuracy, please include a `description` for each field of the schema.</param>
+/// <param name="GenerateAnswer">Whether to generate an answer using the generative model. If set to false, the response will only contain the retrieval results.</param>
+/// <param name="SearchConfiguration">Load ask parameters from this configuration. Parameters in the request override parameters from the configuration.</param>
+/// <param name="Reasoning">Reasoning options for the generative model. Set to True to enable default reasoning, False to disable, or provide a Reasoning object for custom options.</param>
+public record AskRequest(object AuditMetadata, string Query, int TopK, object FilterExpression, List<string> Fields, object Filters, object KeywordFilters, object Vectorset, object MinScore, List<string> Features, object RangeCreationStart, object RangeCreationEnd, object RangeModificationStart, object RangeModificationEnd, List<string> Show, List<string> FieldTypeFilter, List<string> Extracted, object Context, object ChatHistory, object ExtraContext, object ExtraContextImages, object QueryImage, bool Autofilter, bool Highlight, List<string> ResourceFilters, object Prompt, object RankFusion, object Reranker, bool Citations, object CitationThreshold, object Security, bool ShowHidden, List<object> RagStrategies, List<object> RagImagesStrategies, bool Debug, object GenerativeModel, object GenerativeModelSeed, object MaxTokens, bool Rephrase, object ChatHistoryRelevanceThreshold, bool PreferMarkdown, object AnswerJsonSchema, bool GenerateAnswer, object SearchConfiguration, object Reasoning);
 
 /// <summary>AskRetrievalMatch</summary>
-public class AskRetrievalMatch
-{
-    /// <summary>Id of the matching text block</summary>
-    public string Id { get; set; }
-}
+/// <param name="Id">Id of the matching text block</param>
+public record AskRetrievalMatch(string Id);
 
 /// <summary>AskTimings</summary>
-public class AskTimings
-{
-    /// <summary>Time the LLM took to generate the first chunk of the answer</summary>
-    public object GenerativeFirstChunk { get; set; }
-
-    /// <summary>Total time the LLM took to generate the answer</summary>
-    public object GenerativeTotal { get; set; }
-}
+/// <param name="GenerativeFirstChunk">Time the LLM took to generate the first chunk of the answer</param>
+/// <param name="GenerativeTotal">Total time the LLM took to generate the answer</param>
+public record AskTimings(object GenerativeFirstChunk, object GenerativeTotal);
 
 /// <summary>AskTokens</summary>
-public class AskTokens
-{
-    /// <summary>Number of LLM tokens used for the context in the query</summary>
-    public int Input { get; set; }
-
-    /// <summary>Number of LLM tokens used for the answer</summary>
-    public int Output { get; set; }
-
-    /// <summary>Number of Nuclia LLM tokens used for the context in the query</summary>
-    public object InputNuclia { get; set; }
-
-    /// <summary>Number of Nuclia LLM tokens used for the answer</summary>
-    public object OutputNuclia { get; set; }
-}
+/// <param name="Input">Number of LLM tokens used for the context in the query</param>
+/// <param name="Output">Number of LLM tokens used for the answer</param>
+/// <param name="InputNuclia">Number of Nuclia LLM tokens used for the context in the query</param>
+/// <param name="OutputNuclia">Number of Nuclia LLM tokens used for the answer</param>
+public record AskTokens(int Input, int Output, object InputNuclia, object OutputNuclia);
 
 /// <summary>AugmentedContext</summary>
-public class AugmentedContext
-{
-    /// <summary>Paragraphs added to the context as a result of using the `rag_strategies` parameter, typically the neighbouring_paragraphs or the conversation strategies</summary>
-    public object Paragraphs { get; set; }
-
-    /// <summary>Field extracted texts added to the context as a result of using the `rag_strategies` parameter, typically the hierarcy or full_resource strategies.</summary>
-    public object Fields { get; set; }
-}
+/// <param name="Paragraphs">Paragraphs added to the context as a result of using the `rag_strategies` parameter, typically the neighbouring_paragraphs or the conversation strategies</param>
+/// <param name="Fields">Field extracted texts added to the context as a result of using the `rag_strategies` parameter, typically the hierarcy or full_resource strategies.</param>
+public record AugmentedContext(object Paragraphs, object Fields);
 
 /// <summary>AugmentedField</summary>
-public class AugmentedField
-{
-    /// <summary>Metadata</summary>
-    public FieldMetadata Metadata { get; set; }
-
-    /// <summary>AppliedDataAugmentation</summary>
-    public AppliedDataAugmentation AppliedDataAugmentation { get; set; }
-
-    /// <summary>InputNucliaTokens</summary>
-    public float InputNucliaTokens { get; set; }
-
-    /// <summary>OutputNucliaTokens</summary>
-    public float OutputNucliaTokens { get; set; }
-
-    /// <summary>Time</summary>
-    public float Time { get; set; }
-}
+/// <param name="Metadata">Metadata</param>
+/// <param name="AppliedDataAugmentation">AppliedDataAugmentation</param>
+/// <param name="InputNucliaTokens">InputNucliaTokens</param>
+/// <param name="OutputNucliaTokens">OutputNucliaTokens</param>
+/// <param name="Time">Time</param>
+public record AugmentedField(FieldMetadata Metadata, AppliedDataAugmentation AppliedDataAugmentation, float InputNucliaTokens, float OutputNucliaTokens, float Time);
 
 /// <summary>AugmentedTextBlock</summary>
-public class AugmentedTextBlock
-{
-    /// <summary>The id of the augmented text bloc. It can be a paragraph id or a field id.</summary>
-    public string Id { get; set; }
-
-    /// <summary>The text of the augmented text block. It may include additional metadata to enrich the context</summary>
-    public string Text { get; set; }
-
-    /// <summary>Metadata about the position of the text block in the original document.</summary>
-    public object Position { get; set; }
-
-    /// <summary>The parent text block that was augmented for.</summary>
-    public object Parent { get; set; }
-
-    /// <summary>AugmentationType</summary>
-    public string AugmentationType { get; set; }
-}
+/// <param name="Id">The id of the augmented text bloc. It can be a paragraph id or a field id.</param>
+/// <param name="Text">The text of the augmented text block. It may include additional metadata to enrich the context</param>
+/// <param name="Position">Metadata about the position of the text block in the original document.</param>
+/// <param name="Parent">The parent text block that was augmented for.</param>
+/// <param name="AugmentationType">AugmentationType</param>
+public record AugmentedTextBlock(string Id, string Text, object Position, object Parent, string AugmentationType);
 
 /// <summary>Returns only documents that match this filter expression. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters  This allows building complex filtering expressions and replaces the following parameters: `filters`, `range_*`, `with_status`.</summary>
-public class CatalogFilterExpression
-{
-    /// <summary>Filter to apply to resources</summary>
-    public object Resource { get; set; }
-}
+/// <param name="Resource">Filter to apply to resources</param>
+public record CatalogFilterExpression(object Resource);
 
 /// <summary>CatalogQuery</summary>
-public class CatalogQuery
-{
-    /// <summary>Field</summary>
-    public string Field { get; set; }
-
-    /// <summary>Match</summary>
-    public string Match { get; set; }
-
-    /// <summary>Text to search for</summary>
-    public string Query { get; set; }
-}
+/// <param name="Field">Field</param>
+/// <param name="Match">Match</param>
+/// <param name="Query">Text to search for</param>
+public record CatalogQuery(string Field, string Match, string Query);
 
 /// <summary>CatalogRequest</summary>
-public class CatalogRequest
-{
-    /// <summary>The query to search for</summary>
-    public object Query { get; set; }
-
-    /// <summary>Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`filters`, `range_*`, `with_status`.</summary>
-    public object FilterExpression { get; set; }
-
-    /// <summary>The list of facets to calculate. The facets follow the same syntax as filters: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public List<string> Faceted { get; set; }
-
-    /// <summary>Options for results sorting</summary>
-    public object Sort { get; set; }
-
-    /// <summary>The page number of the results to return</summary>
-    public int PageNumber { get; set; }
-
-    /// <summary>The number of results to return per page. The maximum number of results per page allowed is 200.</summary>
-    public int PageSize { get; set; }
-
-    /// <summary>Set to filter only hidden or only non-hidden resources. Default is to return everything</summary>
-    public object Hidden { get; set; }
-
-    /// <summary>Controls which types of metadata are serialized on resources of search results</summary>
-    public List<string> Show { get; set; }
-
-    /// <summary>The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public object Filters { get; set; }
-
-    /// <summary>Filter results by resource processing status</summary>
-    public object WithStatus { get; set; }
-
-    /// <summary>Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeCreationStart { get; set; }
-
-    /// <summary>Resources created after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeCreationEnd { get; set; }
-
-    /// <summary>Resources modified before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeModificationStart { get; set; }
-
-    /// <summary>Resources modified after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeModificationEnd { get; set; }
-}
+/// <param name="Query">The query to search for</param>
+/// <param name="FilterExpression">Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`filters`, `range_*`, `with_status`.</param>
+/// <param name="Faceted">The list of facets to calculate. The facets follow the same syntax as filters: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="Sort">Options for results sorting</param>
+/// <param name="PageNumber">The page number of the results to return</param>
+/// <param name="PageSize">The number of results to return per page. The maximum number of results per page allowed is 200.</param>
+/// <param name="Hidden">Set to filter only hidden or only non-hidden resources. Default is to return everything</param>
+/// <param name="Show">Controls which types of metadata are serialized on resources of search results</param>
+/// <param name="Filters">The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="WithStatus">Filter results by resource processing status</param>
+/// <param name="RangeCreationStart">Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeCreationEnd">Resources created after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeModificationStart">Resources modified before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeModificationEnd">Resources modified after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+public record CatalogRequest(object Query, object FilterExpression, List<string> Faceted, object Sort, int PageNumber, int PageSize, object Hidden, List<string> Show, object Filters, object WithStatus, object RangeCreationStart, object RangeCreationEnd, object RangeModificationStart, object RangeModificationEnd);
 
 /// <summary>ChatContextMessage</summary>
-public class ChatContextMessage
-{
-    /// <summary>Author</summary>
-    public string Author { get; set; }
-
-    /// <summary>Text</summary>
-    public string Text { get; set; }
-}
+/// <param name="Author">Author</param>
+/// <param name="Text">Text</param>
+public record ChatContextMessage(string Author, string Text);
 
 /// <summary>Classification</summary>
-public class Classification
-{
-    /// <summary>Labelset</summary>
-    public string Labelset { get; set; }
-
-    /// <summary>Label</summary>
-    public string Label { get; set; }
-}
+/// <param name="Labelset">Labelset</param>
+/// <param name="Label">Label</param>
+public record Classification(string Labelset, string Label);
 
 /// <summary>CloudLink</summary>
-public class CloudLink
-{
-    /// <summary>Uri</summary>
-    public object Uri { get; set; }
-
-    /// <summary>Size</summary>
-    public object Size { get; set; }
-
-    /// <summary>ContentType</summary>
-    public object ContentType { get; set; }
-
-    /// <summary>Filename</summary>
-    public object Filename { get; set; }
-
-    /// <summary>Md5</summary>
-    public object Md5 { get; set; }
-}
+/// <param name="Uri">Uri</param>
+/// <param name="Size">Size</param>
+/// <param name="ContentType">ContentType</param>
+/// <param name="Filename">Filename</param>
+/// <param name="Md5">Md5</param>
+public record CloudLink(object Uri, object Size, object ContentType, object Filename, object Md5);
 
 /// <summary>The purpose of this field is to show a cherry-picked set of fields from computed metadata without having to load the whole computed metadata field.</summary>
-public class ComputedMetadata
-{
-    /// <summary>FieldClassifications</summary>
-    public List<FieldClassification> FieldClassifications { get; set; }
-}
+/// <param name="FieldClassifications">FieldClassifications</param>
+public record ComputedMetadata(List<FieldClassification> FieldClassifications);
 
 /// <summary>Consumption</summary>
-public class Consumption
-{
-    /// <summary>NormalizedTokens</summary>
-    public TokensDetail NormalizedTokens { get; set; }
-
-    /// <summary>CustomerKeyTokens</summary>
-    public TokensDetail CustomerKeyTokens { get; set; }
-}
+/// <param name="NormalizedTokens">NormalizedTokens</param>
+/// <param name="CustomerKeyTokens">CustomerKeyTokens</param>
+public record Consumption(TokensDetail NormalizedTokens, TokensDetail CustomerKeyTokens);
 
 /// <summary>ConversationFieldData</summary>
-public class ConversationFieldData
-{
-    /// <summary>Value</summary>
-    public object Value { get; set; }
-
-    /// <summary>Extracted</summary>
-    public object Extracted { get; set; }
-
-    /// <summary>Error</summary>
-    public object Error { get; set; }
-
-    /// <summary>Status</summary>
-    public object Status { get; set; }
-
-    /// <summary>Errors</summary>
-    public object Errors { get; set; }
-}
+/// <param name="Value">Value</param>
+/// <param name="Extracted">Extracted</param>
+/// <param name="Error">Error</param>
+/// <param name="Status">Status</param>
+/// <param name="Errors">Errors</param>
+public record ConversationFieldData(object Value, object Extracted, object Error, object Status, object Errors);
 
 /// <summary>ConversationFieldExtractedData</summary>
-public class ConversationFieldExtractedData
-{
-    /// <summary>Text</summary>
-    public object Text { get; set; }
-
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>LargeMetadata</summary>
-    public object LargeMetadata { get; set; }
-
-    /// <summary>Vectors</summary>
-    public object Vectors { get; set; }
-
-    /// <summary>QuestionAnswers</summary>
-    public object QuestionAnswers { get; set; }
-}
+/// <param name="Text">Text</param>
+/// <param name="Metadata">Metadata</param>
+/// <param name="LargeMetadata">LargeMetadata</param>
+/// <param name="Vectors">Vectors</param>
+/// <param name="QuestionAnswers">QuestionAnswers</param>
+public record ConversationFieldExtractedData(object Text, object Metadata, object LargeMetadata, object Vectors, object QuestionAnswers);
 
 /// <summary>ConversationalStrategy</summary>
-public class ConversationalStrategy
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>Add attachments on context retrieved on conversation</summary>
-    public bool AttachmentsText { get; set; }
-
-    /// <summary>Add attachments images on context retrieved on conversation if they are mime type image and using a visual LLM</summary>
-    public bool AttachmentsImages { get; set; }
-
-    /// <summary>Add all conversation fields on matched blocks</summary>
-    public bool Full { get; set; }
-
-    /// <summary>Max messages to append in case its not full field</summary>
-    public int MaxMessages { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="AttachmentsText">Add attachments on context retrieved on conversation</param>
+/// <param name="AttachmentsImages">Add attachments images on context retrieved on conversation if they are mime type image and using a visual LLM</param>
+/// <param name="Full">Add all conversation fields on matched blocks</param>
+/// <param name="MaxMessages">Max messages to append in case its not full field</param>
+public record ConversationalStrategy(string Name, bool AttachmentsText, bool AttachmentsImages, bool Full, int MaxMessages);
 
 /// <summary>CustomPrompt</summary>
-public class CustomPrompt
-{
-    /// <summary>System prompt given to the generative model responsible of generating the answer. This can help customize the behavior of the model when generating the answer. If not specified, the default model provider's prompt is used.</summary>
-    public object System { get; set; }
-
-    /// <summary>User prompt given to the generative model responsible of generating the answer. Use the words {context} and {question} in brackets where you want those fields to be placed, in case you want them in your prompt. Context will be the data returned by the retrieval step and question will be the user's query.</summary>
-    public object User { get; set; }
-
-    /// <summary>Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request. If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</summary>
-    public object Rephrase { get; set; }
-}
+/// <param name="System">System prompt given to the generative model responsible of generating the answer. This can help customize the behavior of the model when generating the answer. If not specified, the default model provider's prompt is used.</param>
+/// <param name="User">User prompt given to the generative model responsible of generating the answer. Use the words {context} and {question} in brackets where you want those fields to be placed, in case you want them in your prompt. Context will be the data returned by the retrieval step and question will be the user's query.</param>
+/// <param name="Rephrase">Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request. If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</param>
+public record CustomPrompt(object System, object User, object Rephrase);
 
 /// <summary>Matches all fields created in a date range</summary>
-public class DateCreated
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Start of the date range. Leave blank for unbounded</summary>
-    public object Since { get; set; }
-
-    /// <summary>End of the date range. Leave blank for unbounded</summary>
-    public object Until { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Since">Start of the date range. Leave blank for unbounded</param>
+/// <param name="Until">End of the date range. Leave blank for unbounded</param>
+public record DateCreated(string Prop, object Since, object Until);
 
 /// <summary>Matches all fields modified in a date range</summary>
-public class DateModified
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Start of the date range. Leave blank for unbounded</summary>
-    public object Since { get; set; }
-
-    /// <summary>End of the date range. Leave blank for unbounded</summary>
-    public object Until { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Since">Start of the date range. Leave blank for unbounded</param>
+/// <param name="Until">End of the date range. Leave blank for unbounded</param>
+public record DateModified(string Prop, object Since, object Until);
 
 /// <summary>DestinationNode</summary>
-public class DestinationNode
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Value</summary>
-    public object Value { get; set; }
-
-    /// <summary>Match</summary>
-    public string Match { get; set; }
-
-    /// <summary>Type</summary>
-    public object Type { get; set; }
-
-    /// <summary>Group</summary>
-    public object Group { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Value">Value</param>
+/// <param name="Match">Match</param>
+/// <param name="Type">Type</param>
+/// <param name="Group">Group</param>
+public record DestinationNode(string Prop, object Value, string Match, object Type, object Group);
 
 /// <summary>DirectionalRelation</summary>
-public class DirectionalRelation
-{
-    /// <summary>Entity</summary>
-    public string Entity { get; set; }
-
-    /// <summary>EntityType</summary>
-    public string EntityType { get; set; }
-
-    /// <summary>EntitySubtype</summary>
-    public string EntitySubtype { get; set; }
-
-    /// <summary>Relation</summary>
-    public string Relation { get; set; }
-
-    /// <summary>RelationLabel</summary>
-    public string RelationLabel { get; set; }
-
-    /// <summary>Direction</summary>
-    public string Direction { get; set; }
-
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>ResourceId</summary>
-    public string ResourceId { get; set; }
-}
+/// <param name="Entity">Entity</param>
+/// <param name="EntityType">EntityType</param>
+/// <param name="EntitySubtype">EntitySubtype</param>
+/// <param name="Relation">Relation</param>
+/// <param name="RelationLabel">RelationLabel</param>
+/// <param name="Direction">Direction</param>
+/// <param name="Metadata">Metadata</param>
+/// <param name="ResourceId">ResourceId</param>
+public record DirectionalRelation(string Entity, string EntityType, string EntitySubtype, string Relation, string RelationLabel, string Direction, object Metadata, string ResourceId);
 
 /// <summary>Matches fields that contains a detected entity</summary>
-public class EntityInput
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Type of the entity. e.g: PERSON</summary>
-    public string Subtype { get; set; }
-
-    /// <summary>Value of the entity. e.g: Anna. If blank, matches any entity of the given type</summary>
-    public object Value { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Subtype">Type of the entity. e.g: PERSON</param>
+/// <param name="Value">Value of the entity. e.g: Anna. If blank, matches any entity of the given type</param>
+public record EntityInput(string Prop, string Subtype, object Value);
 
 /// <summary>EntityOutput</summary>
-public class EntityOutput
-{
-    /// <summary>Token</summary>
-    public object Token { get; set; }
-
-    /// <summary>Root</summary>
-    public object Root { get; set; }
-
-    /// <summary>Type</summary>
-    public object Type { get; set; }
-}
+/// <param name="Token">Token</param>
+/// <param name="Root">Root</param>
+/// <param name="Type">Type</param>
+public record EntityOutput(object Token, object Root, object Type);
 
 /// <summary>EntitySubgraph</summary>
-public class EntitySubgraph
-{
-    /// <summary>RelatedTo</summary>
-    public List<DirectionalRelation> RelatedTo { get; set; }
-}
+/// <param name="RelatedTo">RelatedTo</param>
+public record EntitySubgraph(List<DirectionalRelation> RelatedTo);
 
 /// <summary>Error</summary>
-public class Error
-{
-    /// <summary>Body</summary>
-    public string Body { get; set; }
-
-    /// <summary>Code</summary>
-    public int Code { get; set; }
-
-    /// <summary>CodeStr</summary>
-    public string CodeStr { get; set; }
-
-    /// <summary>Created</summary>
-    public object Created { get; set; }
-
-    /// <summary>Severity</summary>
-    public string Severity { get; set; }
-}
+/// <param name="Body">Body</param>
+/// <param name="Code">Code</param>
+/// <param name="CodeStr">CodeStr</param>
+/// <param name="Created">Created</param>
+/// <param name="Severity">Severity</param>
+public record Error(string Body, int Code, string CodeStr, object Created, string Severity);
 
 /// <summary>Extra</summary>
-public class Extra
-{
-    /// <summary>Arbitrary JSON metadata provided by the user that is not meant to be searchable, but can be serialized on results.</summary>
-    public object Metadata { get; set; }
-}
+/// <param name="Metadata">Arbitrary JSON metadata provided by the user that is not meant to be searchable, but can be serialized on results.</param>
+public record Extra(object Metadata);
 
 /// <summary>ExtractedText</summary>
-public class ExtractedText
-{
-    /// <summary>Text</summary>
-    public object Text { get; set; }
-
-    /// <summary>SplitText</summary>
-    public object SplitText { get; set; }
-
-    /// <summary>DeletedSplits</summary>
-    public object DeletedSplits { get; set; }
-}
+/// <param name="Text">Text</param>
+/// <param name="SplitText">SplitText</param>
+/// <param name="DeletedSplits">DeletedSplits</param>
+public record ExtractedText(object Text, object SplitText, object DeletedSplits);
 
 /// <summary>FeedbackRequest</summary>
-public class FeedbackRequest
-{
-    /// <summary>Id of the request to provide feedback for. This id is returned in the response header `Nuclia-Learning-Id` of the chat endpoint.</summary>
-    public string Ident { get; set; }
-
-    /// <summary>Whether the result was good or not</summary>
-    public bool Good { get; set; }
-
-    /// <summary>Task</summary>
-    public string Task { get; set; }
-
-    /// <summary>Feedback text</summary>
-    public object Feedback { get; set; }
-
-    /// <summary>Text block id</summary>
-    public object TextBlockId { get; set; }
-}
+/// <param name="Ident">Id of the request to provide feedback for. This id is returned in the response header `Nuclia-Learning-Id` of the chat endpoint.</param>
+/// <param name="Good">Whether the result was good or not</param>
+/// <param name="Task">Task</param>
+/// <param name="Feedback">Feedback text</param>
+/// <param name="TextBlockId">Text block id</param>
+public record FeedbackRequest(string Ident, bool Good, string Task, object Feedback, object TextBlockId);
 
 /// <summary>Matches a field or set of fields</summary>
-public class Field
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Type</summary>
-    public string Type { get; set; }
-
-    /// <summary>Name of the field to match. If blank, matches all fields of the given type</summary>
-    public object Name { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Type">Type</param>
+/// <param name="Name">Name of the field to match. If blank, matches all fields of the given type</param>
+public record Field(string Prop, string Type, object Name);
 
 /// <summary>FieldClassification</summary>
-public class FieldClassification
-{
-    /// <summary>Field</summary>
-    public FieldID Field { get; set; }
-
-    /// <summary>Classifications</summary>
-    public List<Classification> Classifications { get; set; }
-}
+/// <param name="Field">Field</param>
+/// <param name="Classifications">Classifications</param>
+public record FieldClassification(FieldID Field, List<Classification> Classifications);
 
 /// <summary>FieldComputedMetadata</summary>
-public class FieldComputedMetadata
-{
-    /// <summary>Metadata</summary>
-    public FieldMetadata Metadata { get; set; }
-
-    /// <summary>SplitMetadata</summary>
-    public object SplitMetadata { get; set; }
-
-    /// <summary>DeletedSplits</summary>
-    public object DeletedSplits { get; set; }
-}
+/// <param name="Metadata">Metadata</param>
+/// <param name="SplitMetadata">SplitMetadata</param>
+/// <param name="DeletedSplits">DeletedSplits</param>
+public record FieldComputedMetadata(FieldMetadata Metadata, object SplitMetadata, object DeletedSplits);
 
 /// <summary>This is a metadata representation of a conversation about how many pages of messages and total of messages we have.  This class is used mainly when exposing a conversation in the resource level</summary>
-public class FieldConversation
-{
-    /// <summary>Pages</summary>
-    public object Pages { get; set; }
-
-    /// <summary>Size</summary>
-    public object Size { get; set; }
-
-    /// <summary>Total</summary>
-    public object Total { get; set; }
-
-    /// <summary>ExtractStrategy</summary>
-    public object ExtractStrategy { get; set; }
-
-    /// <summary>SplitStrategy</summary>
-    public object SplitStrategy { get; set; }
-}
+/// <param name="Pages">Pages</param>
+/// <param name="Size">Size</param>
+/// <param name="Total">Total</param>
+/// <param name="ExtractStrategy">ExtractStrategy</param>
+/// <param name="SplitStrategy">SplitStrategy</param>
+public record FieldConversation(object Pages, object Size, object Total, object ExtractStrategy, object SplitStrategy);
 
 /// <summary>Wrapper for the entities extracted from a field (required because protobuf doesn't support lists of lists)</summary>
-public class FieldEntities
-{
-    /// <summary>Entities</summary>
-    public List<FieldEntity> Entities { get; set; }
-}
+/// <param name="Entities">Entities</param>
+public record FieldEntities(List<FieldEntity> Entities);
 
 /// <summary>FieldEntity</summary>
-public class FieldEntity
-{
-    /// <summary>Text</summary>
-    public string Text { get; set; }
-
-    /// <summary>Label</summary>
-    public string Label { get; set; }
-
-    /// <summary>Positions</summary>
-    public List<Position> Positions { get; set; }
-}
+/// <param name="Text">Text</param>
+/// <param name="Label">Label</param>
+/// <param name="Positions">Positions</param>
+public record FieldEntity(string Text, string Label, List<Position> Positions);
 
 /// <summary>FieldExtensionStrategy</summary>
-public class FieldExtensionStrategy
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>List of field ids to extend the context with. It will try to extend the retrieval context with the specified fields in the matching resources. The field ids have to be in the format `{field_type}/{field_name}`, like 'a/title', 'a/summary' for title and summary fields or 't/amend' for a text field named 'amend'.</summary>
-    public List<string> Fields { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="Fields">List of field ids to extend the context with. It will try to extend the retrieval context with the specified fields in the matching resources. The field ids have to be in the format `{field_type}/{field_name}`, like 'a/title', 'a/summary' for title and summary fields or 't/amend' for a text field named 'amend'.</param>
+public record FieldExtensionStrategy(string Name, List<string> Fields);
 
 /// <summary>FieldFile</summary>
-public class FieldFile
-{
-    /// <summary>Added</summary>
-    public object Added { get; set; }
-
-    /// <summary>File</summary>
-    public object File { get; set; }
-
-    /// <summary>Language</summary>
-    public object Language { get; set; }
-
-    /// <summary>Password</summary>
-    public object Password { get; set; }
-
-    /// <summary>External</summary>
-    public bool External { get; set; }
-
-    /// <summary>Id of the Nuclia extract strategy used at processing time. If not set, the default strategy was used. Extract strategies are defined at the learning configuration api.</summary>
-    public object ExtractStrategy { get; set; }
-
-    /// <summary>Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</summary>
-    public object SplitStrategy { get; set; }
-}
+/// <param name="Added">Added</param>
+/// <param name="File">File</param>
+/// <param name="Language">Language</param>
+/// <param name="Password">Password</param>
+/// <param name="External">External</param>
+/// <param name="ExtractStrategy">Id of the Nuclia extract strategy used at processing time. If not set, the default strategy was used. Extract strategies are defined at the learning configuration api.</param>
+/// <param name="SplitStrategy">Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</param>
+public record FieldFile(object Added, object File, object Language, object Password, bool External, object ExtractStrategy, object SplitStrategy);
 
 /// <summary>FieldID</summary>
-public class FieldID
-{
-    /// <summary>FieldType</summary>
-    public string FieldType { get; set; }
-
-    /// <summary>Field</summary>
-    public string Field { get; set; }
-}
+/// <param name="FieldType">FieldType</param>
+/// <param name="Field">Field</param>
+public record FieldID(string FieldType, string Field);
 
 /// <summary>FieldLargeMetadata</summary>
-public class FieldLargeMetadata
-{
-    /// <summary>Entities</summary>
-    public object Entities { get; set; }
-
-    /// <summary>Tokens</summary>
-    public object Tokens { get; set; }
-}
+/// <param name="Entities">Entities</param>
+/// <param name="Tokens">Tokens</param>
+public record FieldLargeMetadata(object Entities, object Tokens);
 
 /// <summary>FieldLink</summary>
-public class FieldLink
-{
-    /// <summary>Added</summary>
-    public object Added { get; set; }
-
-    /// <summary>Headers</summary>
-    public object Headers { get; set; }
-
-    /// <summary>Cookies</summary>
-    public object Cookies { get; set; }
-
-    /// <summary>Uri</summary>
-    public object Uri { get; set; }
-
-    /// <summary>Language</summary>
-    public object Language { get; set; }
-
-    /// <summary>Localstorage</summary>
-    public object Localstorage { get; set; }
-
-    /// <summary>CssSelector</summary>
-    public object CssSelector { get; set; }
-
-    /// <summary>Xpath</summary>
-    public object Xpath { get; set; }
-
-    /// <summary>Id of the Nuclia extract strategy used at processing time. If not set, the default strategy was used. Extract strategies are defined at the learning configuration api.</summary>
-    public object ExtractStrategy { get; set; }
-
-    /// <summary>Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</summary>
-    public object SplitStrategy { get; set; }
-}
+/// <param name="Added">Added</param>
+/// <param name="Headers">Headers</param>
+/// <param name="Cookies">Cookies</param>
+/// <param name="Uri">Uri</param>
+/// <param name="Language">Language</param>
+/// <param name="Localstorage">Localstorage</param>
+/// <param name="CssSelector">CssSelector</param>
+/// <param name="Xpath">Xpath</param>
+/// <param name="ExtractStrategy">Id of the Nuclia extract strategy used at processing time. If not set, the default strategy was used. Extract strategies are defined at the learning configuration api.</param>
+/// <param name="SplitStrategy">Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</param>
+public record FieldLink(object Added, object Headers, object Cookies, object Uri, object Language, object Localstorage, object CssSelector, object Xpath, object ExtractStrategy, object SplitStrategy);
 
 /// <summary>FieldMetadata</summary>
-public class FieldMetadata
-{
-    /// <summary>Links</summary>
-    public List<string> Links { get; set; }
-
-    /// <summary>Paragraphs</summary>
-    public List<Paragraph> Paragraphs { get; set; }
-
-    /// <summary>Ner</summary>
-    public object Ner { get; set; }
-
-    /// <summary>Entities</summary>
-    public object Entities { get; set; }
-
-    /// <summary>Classifications</summary>
-    public List<Classification> Classifications { get; set; }
-
-    /// <summary>LastIndex</summary>
-    public object LastIndex { get; set; }
-
-    /// <summary>LastUnderstanding</summary>
-    public object LastUnderstanding { get; set; }
-
-    /// <summary>LastExtract</summary>
-    public object LastExtract { get; set; }
-
-    /// <summary>LastSummary</summary>
-    public object LastSummary { get; set; }
-
-    /// <summary>LastProcessingStart</summary>
-    public object LastProcessingStart { get; set; }
-
-    /// <summary>Thumbnail</summary>
-    public object Thumbnail { get; set; }
-
-    /// <summary>Language</summary>
-    public object Language { get; set; }
-
-    /// <summary>Summary</summary>
-    public object Summary { get; set; }
-
-    /// <summary>Positions</summary>
-    public object Positions { get; set; }
-
-    /// <summary>Relations</summary>
-    public object Relations { get; set; }
-
-    /// <summary>MimeType</summary>
-    public object MimeType { get; set; }
-}
+/// <param name="Links">Links</param>
+/// <param name="Paragraphs">Paragraphs</param>
+/// <param name="Ner">Ner</param>
+/// <param name="Entities">Entities</param>
+/// <param name="Classifications">Classifications</param>
+/// <param name="LastIndex">LastIndex</param>
+/// <param name="LastUnderstanding">LastUnderstanding</param>
+/// <param name="LastExtract">LastExtract</param>
+/// <param name="LastSummary">LastSummary</param>
+/// <param name="LastProcessingStart">LastProcessingStart</param>
+/// <param name="Thumbnail">Thumbnail</param>
+/// <param name="Language">Language</param>
+/// <param name="Summary">Summary</param>
+/// <param name="Positions">Positions</param>
+/// <param name="Relations">Relations</param>
+/// <param name="MimeType">MimeType</param>
+public record FieldMetadata(List<string> Links, List<Paragraph> Paragraphs, object Ner, object Entities, List<Classification> Classifications, object LastIndex, object LastUnderstanding, object LastExtract, object LastSummary, object LastProcessingStart, object Thumbnail, object Language, object Summary, object Positions, object Relations, object MimeType);
 
 /// <summary>Matches fields with a mimetype</summary>
-public class FieldMimetype
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Type of the mimetype to match. e.g: In image/jpeg, type is image</summary>
-    public string Type { get; set; }
-
-    /// <summary>Type of the mimetype to match. e.g: In image/jpeg, subtype is jpeg.Leave blank to match all mimetype of the type</summary>
-    public object Subtype { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Type">Type of the mimetype to match. e.g: In image/jpeg, type is image</param>
+/// <param name="Subtype">Type of the mimetype to match. e.g: In image/jpeg, subtype is jpeg.Leave blank to match all mimetype of the type</param>
+public record FieldMimetype(string Prop, string Type, object Subtype);
 
 /// <summary>FieldQuestionAnswers</summary>
-public class FieldQuestionAnswers
-{
-    /// <summary>QuestionAnswers</summary>
-    public QuestionAnswers QuestionAnswers { get; set; }
-
-    /// <summary>SplitQuestionAnswers</summary>
-    public object SplitQuestionAnswers { get; set; }
-
-    /// <summary>DeletedSplits</summary>
-    public object DeletedSplits { get; set; }
-}
+/// <param name="QuestionAnswers">QuestionAnswers</param>
+/// <param name="SplitQuestionAnswers">SplitQuestionAnswers</param>
+/// <param name="DeletedSplits">DeletedSplits</param>
+public record FieldQuestionAnswers(QuestionAnswers QuestionAnswers, object SplitQuestionAnswers, object DeletedSplits);
 
 /// <summary>FieldText</summary>
-public class FieldText
-{
-    /// <summary>Body</summary>
-    public object Body { get; set; }
-
-    /// <summary>Format</summary>
-    public object Format { get; set; }
-
-    /// <summary>Md5</summary>
-    public object Md5 { get; set; }
-
-    /// <summary>Id of the Nuclia extract strategy used at processing time. If not set, the default strategy was used. Extract strategies are defined at the learning configuration api.</summary>
-    public object ExtractStrategy { get; set; }
-
-    /// <summary>Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</summary>
-    public object SplitStrategy { get; set; }
-}
+/// <param name="Body">Body</param>
+/// <param name="Format">Format</param>
+/// <param name="Md5">Md5</param>
+/// <param name="ExtractStrategy">Id of the Nuclia extract strategy used at processing time. If not set, the default strategy was used. Extract strategies are defined at the learning configuration api.</param>
+/// <param name="SplitStrategy">Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</param>
+public record FieldText(object Body, object Format, object Md5, object ExtractStrategy, object SplitStrategy);
 
 /// <summary>FileExtractedData</summary>
-public class FileExtractedData
-{
-    /// <summary>Language</summary>
-    public object Language { get; set; }
-
-    /// <summary>Md5</summary>
-    public object Md5 { get; set; }
-
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>Nested</summary>
-    public object Nested { get; set; }
-
-    /// <summary>FileGenerated</summary>
-    public object FileGenerated { get; set; }
-
-    /// <summary>FileRowsPreviews</summary>
-    public object FileRowsPreviews { get; set; }
-
-    /// <summary>FilePreview</summary>
-    public object FilePreview { get; set; }
-
-    /// <summary>FilePagesPreviews</summary>
-    public object FilePagesPreviews { get; set; }
-
-    /// <summary>FileThumbnail</summary>
-    public object FileThumbnail { get; set; }
-
-    /// <summary>Field</summary>
-    public object Field { get; set; }
-
-    /// <summary>Icon</summary>
-    public object Icon { get; set; }
-
-    /// <summary>NestedPosition</summary>
-    public object NestedPosition { get; set; }
-
-    /// <summary>NestedListPosition</summary>
-    public object NestedListPosition { get; set; }
-}
+/// <param name="Language">Language</param>
+/// <param name="Md5">Md5</param>
+/// <param name="Metadata">Metadata</param>
+/// <param name="Nested">Nested</param>
+/// <param name="FileGenerated">FileGenerated</param>
+/// <param name="FileRowsPreviews">FileRowsPreviews</param>
+/// <param name="FilePreview">FilePreview</param>
+/// <param name="FilePagesPreviews">FilePagesPreviews</param>
+/// <param name="FileThumbnail">FileThumbnail</param>
+/// <param name="Field">Field</param>
+/// <param name="Icon">Icon</param>
+/// <param name="NestedPosition">NestedPosition</param>
+/// <param name="NestedListPosition">NestedListPosition</param>
+public record FileExtractedData(object Language, object Md5, object Metadata, object Nested, object FileGenerated, object FileRowsPreviews, object FilePreview, object FilePagesPreviews, object FileThumbnail, object Field, object Icon, object NestedPosition, object NestedListPosition);
 
 /// <summary>FileFieldData</summary>
-public class FileFieldData
-{
-    /// <summary>Value</summary>
-    public object Value { get; set; }
-
-    /// <summary>Extracted</summary>
-    public object Extracted { get; set; }
-
-    /// <summary>Error</summary>
-    public object Error { get; set; }
-
-    /// <summary>Status</summary>
-    public object Status { get; set; }
-
-    /// <summary>Errors</summary>
-    public object Errors { get; set; }
-}
+/// <param name="Value">Value</param>
+/// <param name="Extracted">Extracted</param>
+/// <param name="Error">Error</param>
+/// <param name="Status">Status</param>
+/// <param name="Errors">Errors</param>
+public record FileFieldData(object Value, object Extracted, object Error, object Status, object Errors);
 
 /// <summary>FileFieldExtractedData</summary>
-public class FileFieldExtractedData
-{
-    /// <summary>Text</summary>
-    public object Text { get; set; }
-
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>LargeMetadata</summary>
-    public object LargeMetadata { get; set; }
-
-    /// <summary>Vectors</summary>
-    public object Vectors { get; set; }
-
-    /// <summary>QuestionAnswers</summary>
-    public object QuestionAnswers { get; set; }
-
-    /// <summary>File</summary>
-    public object File { get; set; }
-}
+/// <param name="Text">Text</param>
+/// <param name="Metadata">Metadata</param>
+/// <param name="LargeMetadata">LargeMetadata</param>
+/// <param name="Vectors">Vectors</param>
+/// <param name="QuestionAnswers">QuestionAnswers</param>
+/// <param name="File">File</param>
+public record FileFieldExtractedData(object Text, object Metadata, object LargeMetadata, object Vectors, object QuestionAnswers, object File);
 
 /// <summary>FilePages</summary>
-public class FilePages
-{
-    /// <summary>Pages</summary>
-    public object Pages { get; set; }
-
-    /// <summary>Positions</summary>
-    public object Positions { get; set; }
-
-    /// <summary>Structures</summary>
-    public object Structures { get; set; }
-}
+/// <param name="Pages">Pages</param>
+/// <param name="Positions">Positions</param>
+/// <param name="Structures">Structures</param>
+public record FilePages(object Pages, object Positions, object Structures);
 
 /// <summary>Filter</summary>
-public class Filter
-{
-    /// <summary>All</summary>
-    public object All { get; set; }
-
-    /// <summary>Any</summary>
-    public object Any { get; set; }
-
-    /// <summary>None</summary>
-    public object None { get; set; }
-
-    /// <summary>NotAll</summary>
-    public object NotAll { get; set; }
-}
+/// <param name="All">All</param>
+/// <param name="Any">Any</param>
+/// <param name="None">None</param>
+/// <param name="NotAll">NotAll</param>
+public record Filter(object All, object Any, object None, object NotAll);
 
 /// <summary>Returns only documents that match this filter expression. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters  This allows building complex filtering expressions and replaces the following parameters: `fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</summary>
-public class FilterExpression
-{
-    /// <summary>Filter to apply to fields</summary>
-    public object Field { get; set; }
-
-    /// <summary>Filter to apply to each text block</summary>
-    public object Paragraph { get; set; }
-
-    /// <summary>Operator</summary>
-    public string Operator { get; set; }
-}
+/// <param name="Field">Filter to apply to fields</param>
+/// <param name="Paragraph">Filter to apply to each text block</param>
+/// <param name="Operator">Operator</param>
+public record FilterExpression(object Field, object Paragraph, string Operator);
 
 /// <summary>FindField</summary>
-public class FindField
-{
-    /// <summary>Paragraphs</summary>
-    public object Paragraphs { get; set; }
-}
+/// <param name="Paragraphs">Paragraphs</param>
+public record FindField(object Paragraphs);
 
 /// <summary>FindParagraph</summary>
-public class FindParagraph
-{
-    /// <summary>Score</summary>
-    public float Score { get; set; }
-
-    /// <summary>ScoreType</summary>
-    public string ScoreType { get; set; }
-
-    /// <summary>Order</summary>
-    public int Order { get; set; }
-
-    /// <summary>Text</summary>
-    public string Text { get; set; }
-
-    /// <summary>Id</summary>
-    public string Id { get; set; }
-
-    /// <summary>Labels</summary>
-    public object Labels { get; set; }
-
-    /// <summary>Position</summary>
-    public object Position { get; set; }
-
-    /// <summary>FuzzyResult</summary>
-    public bool FuzzyResult { get; set; }
-
-    /// <summary>This flag informs if the page may have information that has not been extracted</summary>
-    public bool PageWithVisual { get; set; }
-
-    /// <summary>Reference to the extracted image that represents this paragraph</summary>
-    public object Reference { get; set; }
-
-    /// <summary>The referenced image of the paragraph is a table</summary>
-    public bool IsATable { get; set; }
-
-    /// <summary>Relevant relations from which the paragraph was found, will only be filled if using the Graph RAG Strategy</summary>
-    public object RelevantRelations { get; set; }
-}
+/// <param name="Score">Score</param>
+/// <param name="ScoreType">ScoreType</param>
+/// <param name="Order">Order</param>
+/// <param name="Text">Text</param>
+/// <param name="Id">Id</param>
+/// <param name="Labels">Labels</param>
+/// <param name="Position">Position</param>
+/// <param name="FuzzyResult">FuzzyResult</param>
+/// <param name="PageWithVisual">This flag informs if the page may have information that has not been extracted</param>
+/// <param name="Reference">Reference to the extracted image that represents this paragraph</param>
+/// <param name="IsATable">The referenced image of the paragraph is a table</param>
+/// <param name="RelevantRelations">Relevant relations from which the paragraph was found, will only be filled if using the Graph RAG Strategy</param>
+public record FindParagraph(float Score, string ScoreType, int Order, string Text, string Id, object Labels, object Position, bool FuzzyResult, bool PageWithVisual, object Reference, bool IsATable, object RelevantRelations);
 
 /// <summary>FindRequest</summary>
-public class FindRequest
-{
-    /// <summary>A dictionary containing optional audit-specific metadata, such as user_id, environment, or other contextual information. This metadata can be leveraged for filtering and analyzing activity logs in future operations. Each key-value pair represents a piece of metadata relevant to the user's request.</summary>
-    public object AuditMetadata { get; set; }
-
-    /// <summary>The query to search for</summary>
-    public string Query { get; set; }
-
-    /// <summary>Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</summary>
-    public object FilterExpression { get; set; }
-
-    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</summary>
-    public List<string> Fields { get; set; }
-
-    /// <summary>The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public object Filters { get; set; }
-
-    /// <summary>The number of results search should return. The maximum number of results allowed is 200.</summary>
-    public int TopK { get; set; }
-
-    /// <summary>Minimum score to filter search results. Results with a lower score will be ignored. Accepts either a float or a dictionary with the minimum scores for the bm25 and vector indexes. If a float is provided, it is interpreted as the minimum score for vector index search.</summary>
-    public object MinScore { get; set; }
-
-    /// <summary>Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeCreationStart { get; set; }
-
-    /// <summary>Resources created after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeCreationEnd { get; set; }
-
-    /// <summary>Resources modified before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeModificationStart { get; set; }
-
-    /// <summary>Resources modified after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeModificationEnd { get; set; }
-
-    /// <summary>If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</summary>
-    public bool Debug { get; set; }
-
-    /// <summary>If set to true, the query terms will be highlighted in the results between <mark>...</mark> tags</summary>
-    public bool Highlight { get; set; }
-
-    /// <summary>Controls which types of metadata are serialized on resources of search results</summary>
-    public List<string> Show { get; set; }
-
-    /// <summary>Define which field types are serialized on resources of search results</summary>
-    public List<string> FieldTypeFilter { get; set; }
-
-    /// <summary>[Deprecated] Please use GET resource endpoint instead to get extracted metadata</summary>
-    public List<string> Extracted { get; set; }
-
-    /// <summary>The vector to perform the search with. If not provided, NucliaDB will use Nuclia Predict API to create the vector off from the query.</summary>
-    public object Vector { get; set; }
-
-    /// <summary>Vectors index to perform the search in. If not provided, NucliaDB will use the default one</summary>
-    public object Vectorset { get; set; }
-
-    /// <summary>Whether to return duplicate paragraphs on the same document</summary>
-    public bool WithDuplicates { get; set; }
-
-    /// <summary>Whether to return matches for custom knowledge box synonyms of the query terms. Note: only supported for `keyword` and `fulltext` search options.</summary>
-    public bool WithSynonyms { get; set; }
-
-    /// <summary>If set to true, the search will automatically add filters to the query. For example, it will filter results containing the entities detected in the query</summary>
-    public bool Autofilter { get; set; }
-
-    /// <summary>List of resource ids to filter search results for. Only paragraphs from the specified resources will be returned.</summary>
-    public List<string> ResourceFilters { get; set; }
-
-    /// <summary>Security metadata for the request. If not provided, the search request is done without the security lookup phase.</summary>
-    public object Security { get; set; }
-
-    /// <summary>If set to false (default), excludes hidden resources from search</summary>
-    public bool ShowHidden { get; set; }
-
-    /// <summary>Rephrase the query for a more efficient retrieval. This will consume LLM tokens and make the request slower.</summary>
-    public bool Rephrase { get; set; }
-
-    /// <summary>Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request. If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</summary>
-    public object RephrasePrompt { get; set; }
-
-    /// <summary>Image that will be used together with the query text for retrieval.</summary>
-    public object QueryImage { get; set; }
-
-    /// <summary>Query for the knowledge graph. Paths (node-relation-node) extracted from a paragraph_id will be used to extend the results</summary>
-    public object GraphQuery { get; set; }
-
-    /// <summary>List of search features to use. Each value corresponds to a lookup into on of the different indexes</summary>
-    public List<string> Features { get; set; }
-
-    /// <summary>Rank fusion algorithm to use to merge results from multiple retrievers (keyword, semantic)</summary>
-    public object RankFusion { get; set; }
-
-    /// <summary>Reranker let you specify which method you want to use to rerank your results at the end of retrieval</summary>
-    public object Reranker { get; set; }
-
-    /// <summary>List of keyword filter expressions to apply to the retrieval step. The text block search will only be performed on the documents that contain the specified keywords. The filters are case-insensitive, and only alphanumeric characters and spaces are allowed. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public object KeywordFilters { get; set; }
-
-    /// <summary>Load find parameters from this configuration. Parameters in the request override parameters from the configuration.</summary>
-    public object SearchConfiguration { get; set; }
-
-    /// <summary>The generative model used to rephrase the query. If not provided, the model configured for the Knowledge Box is used.</summary>
-    public object GenerativeModel { get; set; }
-}
+/// <param name="AuditMetadata">A dictionary containing optional audit-specific metadata, such as user_id, environment, or other contextual information. This metadata can be leveraged for filtering and analyzing activity logs in future operations. Each key-value pair represents a piece of metadata relevant to the user's request.</param>
+/// <param name="Query">The query to search for</param>
+/// <param name="FilterExpression">Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</param>
+/// <param name="Fields">The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</param>
+/// <param name="Filters">The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="TopK">The number of results search should return. The maximum number of results allowed is 200.</param>
+/// <param name="MinScore">Minimum score to filter search results. Results with a lower score will be ignored. Accepts either a float or a dictionary with the minimum scores for the bm25 and vector indexes. If a float is provided, it is interpreted as the minimum score for vector index search.</param>
+/// <param name="RangeCreationStart">Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeCreationEnd">Resources created after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeModificationStart">Resources modified before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeModificationEnd">Resources modified after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="Debug">If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</param>
+/// <param name="Highlight">If set to true, the query terms will be highlighted in the results between <mark>...</mark> tags</param>
+/// <param name="Show">Controls which types of metadata are serialized on resources of search results</param>
+/// <param name="FieldTypeFilter">Define which field types are serialized on resources of search results</param>
+/// <param name="Extracted">[Deprecated] Please use GET resource endpoint instead to get extracted metadata</param>
+/// <param name="Vector">The vector to perform the search with. If not provided, NucliaDB will use Nuclia Predict API to create the vector off from the query.</param>
+/// <param name="Vectorset">Vectors index to perform the search in. If not provided, NucliaDB will use the default one</param>
+/// <param name="WithDuplicates">Whether to return duplicate paragraphs on the same document</param>
+/// <param name="WithSynonyms">Whether to return matches for custom knowledge box synonyms of the query terms. Note: only supported for `keyword` and `fulltext` search options.</param>
+/// <param name="Autofilter">If set to true, the search will automatically add filters to the query. For example, it will filter results containing the entities detected in the query</param>
+/// <param name="ResourceFilters">List of resource ids to filter search results for. Only paragraphs from the specified resources will be returned.</param>
+/// <param name="Security">Security metadata for the request. If not provided, the search request is done without the security lookup phase.</param>
+/// <param name="ShowHidden">If set to false (default), excludes hidden resources from search</param>
+/// <param name="Rephrase">Rephrase the query for a more efficient retrieval. This will consume LLM tokens and make the request slower.</param>
+/// <param name="RephrasePrompt">Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request. If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</param>
+/// <param name="QueryImage">Image that will be used together with the query text for retrieval.</param>
+/// <param name="GraphQuery">Query for the knowledge graph. Paths (node-relation-node) extracted from a paragraph_id will be used to extend the results</param>
+/// <param name="Features">List of search features to use. Each value corresponds to a lookup into on of the different indexes</param>
+/// <param name="RankFusion">Rank fusion algorithm to use to merge results from multiple retrievers (keyword, semantic)</param>
+/// <param name="Reranker">Reranker let you specify which method you want to use to rerank your results at the end of retrieval</param>
+/// <param name="KeywordFilters">List of keyword filter expressions to apply to the retrieval step. The text block search will only be performed on the documents that contain the specified keywords. The filters are case-insensitive, and only alphanumeric characters and spaces are allowed. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="SearchConfiguration">Load find parameters from this configuration. Parameters in the request override parameters from the configuration.</param>
+/// <param name="GenerativeModel">The generative model used to rephrase the query. If not provided, the model configured for the Knowledge Box is used.</param>
+public record FindRequest(object AuditMetadata, string Query, object FilterExpression, List<string> Fields, object Filters, int TopK, object MinScore, object RangeCreationStart, object RangeCreationEnd, object RangeModificationStart, object RangeModificationEnd, bool Debug, bool Highlight, List<string> Show, List<string> FieldTypeFilter, List<string> Extracted, object Vector, object Vectorset, bool WithDuplicates, bool WithSynonyms, bool Autofilter, List<string> ResourceFilters, object Security, bool ShowHidden, bool Rephrase, object RephrasePrompt, object QueryImage, object GraphQuery, List<string> Features, object RankFusion, object Reranker, object KeywordFilters, object SearchConfiguration, object GenerativeModel);
 
 /// <summary>FindResource</summary>
-public class FindResource
-{
-    /// <summary>Id</summary>
-    public string Id { get; set; }
-
-    /// <summary>Slug</summary>
-    public object Slug { get; set; }
-
-    /// <summary>Title</summary>
-    public object Title { get; set; }
-
-    /// <summary>Summary</summary>
-    public object Summary { get; set; }
-
-    /// <summary>Icon</summary>
-    public object Icon { get; set; }
-
-    /// <summary>Thumbnail</summary>
-    public object Thumbnail { get; set; }
-
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>Usermetadata</summary>
-    public object Usermetadata { get; set; }
-
-    /// <summary>Fieldmetadata</summary>
-    public object Fieldmetadata { get; set; }
-
-    /// <summary>Computedmetadata</summary>
-    public object Computedmetadata { get; set; }
-
-    /// <summary>Created</summary>
-    public object Created { get; set; }
-
-    /// <summary>Modified</summary>
-    public object Modified { get; set; }
-
-    /// <summary>LastSeqid</summary>
-    public object LastSeqid { get; set; }
-
-    /// <summary>LastAccountSeq</summary>
-    public object LastAccountSeq { get; set; }
-
-    /// <summary>Queue</summary>
-    public object Queue { get; set; }
-
-    /// <summary>Hidden</summary>
-    public object Hidden { get; set; }
-
-    /// <summary>Origin</summary>
-    public object Origin { get; set; }
-
-    /// <summary>Extra</summary>
-    public object Extra { get; set; }
-
-    /// <summary>Relations</summary>
-    public object Relations { get; set; }
-
-    /// <summary>Data</summary>
-    public object Data { get; set; }
-
-    /// <summary>Resource security metadata</summary>
-    public object Security { get; set; }
-
-    /// <summary>Fields</summary>
-    public object Fields { get; set; }
-}
+/// <param name="Id">Id</param>
+/// <param name="Slug">Slug</param>
+/// <param name="Title">Title</param>
+/// <param name="Summary">Summary</param>
+/// <param name="Icon">Icon</param>
+/// <param name="Thumbnail">Thumbnail</param>
+/// <param name="Metadata">Metadata</param>
+/// <param name="Usermetadata">Usermetadata</param>
+/// <param name="Fieldmetadata">Fieldmetadata</param>
+/// <param name="Computedmetadata">Computedmetadata</param>
+/// <param name="Created">Created</param>
+/// <param name="Modified">Modified</param>
+/// <param name="LastSeqid">LastSeqid</param>
+/// <param name="LastAccountSeq">LastAccountSeq</param>
+/// <param name="Queue">Queue</param>
+/// <param name="Hidden">Hidden</param>
+/// <param name="Origin">Origin</param>
+/// <param name="Extra">Extra</param>
+/// <param name="Relations">Relations</param>
+/// <param name="Data">Data</param>
+/// <param name="Security">Resource security metadata</param>
+/// <param name="Fields">Fields</param>
+public record FindResource(string Id, object Slug, object Title, object Summary, object Icon, object Thumbnail, object Metadata, object Usermetadata, object Fieldmetadata, object Computedmetadata, object Created, object Modified, object LastSeqid, object LastAccountSeq, object Queue, object Hidden, object Origin, object Extra, object Relations, object Data, object Security, object Fields);
 
 /// <summary>FullResourceApplyTo</summary>
-public class FullResourceApplyTo
-{
-    /// <summary>Resources from matches containing any of these labels won't expand to the full resource. This may be useful to exclude long and not interesting resources and expend less tokens</summary>
-    public List<string> Exclude { get; set; }
-}
+/// <param name="Exclude">Resources from matches containing any of these labels won't expand to the full resource. This may be useful to exclude long and not interesting resources and expend less tokens</param>
+public record FullResourceApplyTo(List<string> Exclude);
 
 /// <summary>FullResourceStrategy</summary>
-public class FullResourceStrategy
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>Maximum number of full documents to retrieve. If not specified, all matching documents are retrieved.</summary>
-    public object Count { get; set; }
-
-    /// <summary>Whether to include the remaining text blocks after the maximum number of resources has been reached.</summary>
-    public bool IncludeRemainingTextBlocks { get; set; }
-
-    /// <summary>Define which resources to exclude from serialization</summary>
-    public object ApplyTo { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="Count">Maximum number of full documents to retrieve. If not specified, all matching documents are retrieved.</param>
+/// <param name="IncludeRemainingTextBlocks">Whether to include the remaining text blocks after the maximum number of resources has been reached.</param>
+/// <param name="ApplyTo">Define which resources to exclude from serialization</param>
+public record FullResourceStrategy(string Name, object Count, bool IncludeRemainingTextBlocks, object ApplyTo);
 
 /// <summary>GenericFieldData</summary>
-public class GenericFieldData
-{
-    /// <summary>Value</summary>
-    public object Value { get; set; }
-
-    /// <summary>Extracted</summary>
-    public object Extracted { get; set; }
-
-    /// <summary>Error</summary>
-    public object Error { get; set; }
-
-    /// <summary>Status</summary>
-    public object Status { get; set; }
-
-    /// <summary>Errors</summary>
-    public object Errors { get; set; }
-}
+/// <param name="Value">Value</param>
+/// <param name="Extracted">Extracted</param>
+/// <param name="Error">Error</param>
+/// <param name="Status">Status</param>
+/// <param name="Errors">Errors</param>
+public record GenericFieldData(object Value, object Extracted, object Error, object Status, object Errors);
 
 /// <summary>Returns only relations from documents that match this filter expression. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-public class GraphFilterExpression
-{
-    /// <summary>Filter to apply to fields</summary>
-    public object Field { get; set; }
-}
+/// <param name="Field">Filter to apply to fields</param>
+public record GraphFilterExpression(object Field);
 
 /// <summary>GraphNodeInput</summary>
-public class GraphNodeInput
-{
-    /// <summary>Value</summary>
-    public object Value { get; set; }
-
-    /// <summary>Match</summary>
-    public string Match { get; set; }
-
-    /// <summary>Type</summary>
-    public object Type { get; set; }
-
-    /// <summary>Group</summary>
-    public object Group { get; set; }
-}
+/// <param name="Value">Value</param>
+/// <param name="Match">Match</param>
+/// <param name="Type">Type</param>
+/// <param name="Group">Group</param>
+public record GraphNodeInput(object Value, string Match, object Type, object Group);
 
 /// <summary>GraphNodeOutput</summary>
-public class GraphNodeOutput
-{
-    /// <summary>Value</summary>
-    public string Value { get; set; }
-
-    /// <summary>Type</summary>
-    public string Type { get; set; }
-
-    /// <summary>Group</summary>
-    public string Group { get; set; }
-}
+/// <param name="Value">Value</param>
+/// <param name="Type">Type</param>
+/// <param name="Group">Group</param>
+public record GraphNodeOutput(string Value, string Type, string Group);
 
 /// <summary>GraphNodesSearchRequest</summary>
-public class GraphNodesSearchRequest
-{
-    /// <summary>TopK</summary>
-    public int TopK { get; set; }
-
-    /// <summary>Returns only relations from documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public object FilterExpression { get; set; }
-
-    /// <summary>Security metadata for the request. If not provided, the search request is done without the security lookup phase.</summary>
-    public object Security { get; set; }
-
-    /// <summary>If set to false (default), excludes hidden resources from search</summary>
-    public bool ShowHidden { get; set; }
-
-    /// <summary>Query</summary>
-    public object Query { get; set; }
-}
+/// <param name="TopK">TopK</param>
+/// <param name="FilterExpression">Returns only relations from documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="Security">Security metadata for the request. If not provided, the search request is done without the security lookup phase.</param>
+/// <param name="ShowHidden">If set to false (default), excludes hidden resources from search</param>
+/// <param name="Query">Query</param>
+public record GraphNodesSearchRequest(int TopK, object FilterExpression, object Security, bool ShowHidden, object Query);
 
 /// <summary>GraphNodesSearchResponse</summary>
-public class GraphNodesSearchResponse
-{
-    /// <summary>Nodes</summary>
-    public List<GraphNodeOutput> Nodes { get; set; }
-}
+/// <param name="Nodes">Nodes</param>
+public record GraphNodesSearchResponse(List<GraphNodeOutput> Nodes);
 
 /// <summary>GraphPathInput</summary>
-public class GraphPathInput
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Source</summary>
-    public object Source { get; set; }
-
-    /// <summary>Relation</summary>
-    public object Relation { get; set; }
-
-    /// <summary>Destination</summary>
-    public object Destination { get; set; }
-
-    /// <summary>Undirected</summary>
-    public bool Undirected { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Source">Source</param>
+/// <param name="Relation">Relation</param>
+/// <param name="Destination">Destination</param>
+/// <param name="Undirected">Undirected</param>
+public record GraphPathInput(string Prop, object Source, object Relation, object Destination, bool Undirected);
 
 /// <summary>GraphPathOutput</summary>
-public class GraphPathOutput
-{
-    /// <summary>Source</summary>
-    public GraphNodeOutput Source { get; set; }
-
-    /// <summary>Relation</summary>
-    public GraphRelationOutput Relation { get; set; }
-
-    /// <summary>Destination</summary>
-    public GraphNodeOutput Destination { get; set; }
-}
+/// <param name="Source">Source</param>
+/// <param name="Relation">Relation</param>
+/// <param name="Destination">Destination</param>
+public record GraphPathOutput(GraphNodeOutput Source, GraphRelationOutput Relation, GraphNodeOutput Destination);
 
 /// <summary>GraphRelationInput</summary>
-public class GraphRelationInput
-{
-    /// <summary>Label</summary>
-    public object Label { get; set; }
-
-    /// <summary>Type</summary>
-    public object Type { get; set; }
-}
+/// <param name="Label">Label</param>
+/// <param name="Type">Type</param>
+public record GraphRelationInput(object Label, object Type);
 
 /// <summary>GraphRelationOutput</summary>
-public class GraphRelationOutput
-{
-    /// <summary>Label</summary>
-    public string Label { get; set; }
-
-    /// <summary>Type</summary>
-    public string Type { get; set; }
-}
+/// <param name="Label">Label</param>
+/// <param name="Type">Type</param>
+public record GraphRelationOutput(string Label, string Type);
 
 /// <summary>GraphRelationsSearchRequest</summary>
-public class GraphRelationsSearchRequest
-{
-    /// <summary>TopK</summary>
-    public int TopK { get; set; }
-
-    /// <summary>Returns only relations from documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public object FilterExpression { get; set; }
-
-    /// <summary>Security metadata for the request. If not provided, the search request is done without the security lookup phase.</summary>
-    public object Security { get; set; }
-
-    /// <summary>If set to false (default), excludes hidden resources from search</summary>
-    public bool ShowHidden { get; set; }
-
-    /// <summary>Query</summary>
-    public object Query { get; set; }
-}
+/// <param name="TopK">TopK</param>
+/// <param name="FilterExpression">Returns only relations from documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="Security">Security metadata for the request. If not provided, the search request is done without the security lookup phase.</param>
+/// <param name="ShowHidden">If set to false (default), excludes hidden resources from search</param>
+/// <param name="Query">Query</param>
+public record GraphRelationsSearchRequest(int TopK, object FilterExpression, object Security, bool ShowHidden, object Query);
 
 /// <summary>GraphRelationsSearchResponse</summary>
-public class GraphRelationsSearchResponse
-{
-    /// <summary>Relations</summary>
-    public List<GraphRelationOutput> Relations { get; set; }
-}
+/// <param name="Relations">Relations</param>
+public record GraphRelationsSearchResponse(List<GraphRelationOutput> Relations);
 
 /// <summary>GraphSearchRequest</summary>
-public class GraphSearchRequest
-{
-    /// <summary>TopK</summary>
-    public int TopK { get; set; }
-
-    /// <summary>Returns only relations from documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public object FilterExpression { get; set; }
-
-    /// <summary>Security metadata for the request. If not provided, the search request is done without the security lookup phase.</summary>
-    public object Security { get; set; }
-
-    /// <summary>If set to false (default), excludes hidden resources from search</summary>
-    public bool ShowHidden { get; set; }
-
-    /// <summary>Query</summary>
-    public object Query { get; set; }
-}
+/// <param name="TopK">TopK</param>
+/// <param name="FilterExpression">Returns only relations from documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="Security">Security metadata for the request. If not provided, the search request is done without the security lookup phase.</param>
+/// <param name="ShowHidden">If set to false (default), excludes hidden resources from search</param>
+/// <param name="Query">Query</param>
+public record GraphSearchRequest(int TopK, object FilterExpression, object Security, bool ShowHidden, object Query);
 
 /// <summary>GraphSearchResponse</summary>
-public class GraphSearchResponse
-{
-    /// <summary>Paths</summary>
-    public List<GraphPathOutput> Paths { get; set; }
-}
+/// <param name="Paths">Paths</param>
+public record GraphSearchResponse(List<GraphPathOutput> Paths);
 
 /// <summary>This strategy retrieves context pieces by exploring the Knowledge Graph, starting from the entities present in the query. It works best if the Knowledge Box has a user-defined Graph Extraction agent enabled.</summary>
-public class GraphStrategy
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>Number of hops to take when exploring the graph for relevant context. For example, - hops=1 will explore the neighbors of the starting entities. - hops=2 will explore the neighbors of the neighbors of the starting entities. And so on. Bigger values will discover more intricate relationships but will also take more time to compute.</summary>
-    public int Hops { get; set; }
-
-    /// <summary>Number of relationships to keep after each hop after ranking them by relevance to the query. This number correlates to more paragraphs being sent as context. If not set, this number will be set to 30 if `relation_text_as_paragraphs` is set to false or 200 if `relation_text_as_paragraphs` is set to true.</summary>
-    public int TopK { get; set; }
-
-    /// <summary>If set to true, only relationships extracted from a graph extraction agent are considered for context expansion.</summary>
-    public bool ExcludeProcessorRelations { get; set; }
-
-    /// <summary>If set to true, the text of the relationships is to create context paragraphs, this enables to use bigger top K values without running into the generative model's context limits. If set to false, the paragraphs that contain the relationships are used as context.</summary>
-    public bool RelationTextAsParagraphs { get; set; }
-
-    /// <summary>RelationRanking</summary>
-    public string RelationRanking { get; set; }
-
-    /// <summary>QueryEntityDetection</summary>
-    public string QueryEntityDetection { get; set; }
-
-    /// <summary>Weight of the graph strategy in the context. The weight is used to scale the results of the strategy before adding them to the context.The weight should be a positive number.</summary>
-    public float Weight { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="Hops">Number of hops to take when exploring the graph for relevant context. For example, - hops=1 will explore the neighbors of the starting entities. - hops=2 will explore the neighbors of the neighbors of the starting entities. And so on. Bigger values will discover more intricate relationships but will also take more time to compute.</param>
+/// <param name="TopK">Number of relationships to keep after each hop after ranking them by relevance to the query. This number correlates to more paragraphs being sent as context. If not set, this number will be set to 30 if `relation_text_as_paragraphs` is set to false or 200 if `relation_text_as_paragraphs` is set to true.</param>
+/// <param name="ExcludeProcessorRelations">If set to true, only relationships extracted from a graph extraction agent are considered for context expansion.</param>
+/// <param name="RelationTextAsParagraphs">If set to true, the text of the relationships is to create context paragraphs, this enables to use bigger top K values without running into the generative model's context limits. If set to false, the paragraphs that contain the relationships are used as context.</param>
+/// <param name="RelationRanking">RelationRanking</param>
+/// <param name="QueryEntityDetection">QueryEntityDetection</param>
+/// <param name="Weight">Weight of the graph strategy in the context. The weight is used to scale the results of the strategy before adding them to the context.The weight should be a positive number.</param>
+public record GraphStrategy(string Name, int Hops, int TopK, bool ExcludeProcessorRelations, bool RelationTextAsParagraphs, string RelationRanking, string QueryEntityDetection, float Weight);
 
 /// <summary>HierarchyResourceStrategy</summary>
-public class HierarchyResourceStrategy
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>Number of extra characters that are added to each matching paragraph when adding to the context.</summary>
-    public int Count { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="Count">Number of extra characters that are added to each matching paragraph when adding to the context.</param>
+public record HierarchyResourceStrategy(string Name, int Count);
 
 /// <summary>Image</summary>
-public class Image
-{
-    /// <summary>ContentType</summary>
-    public string ContentType { get; set; }
-
-    /// <summary>B64encoded</summary>
-    public string B64encoded { get; set; }
-}
+/// <param name="ContentType">ContentType</param>
+/// <param name="B64encoded">B64encoded</param>
+public record Image(string ContentType, string B64encoded);
 
 /// <summary>Matches all fields that contain a keyword</summary>
-public class Keyword
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Keyword to find</summary>
-    public string Word { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Word">Keyword to find</param>
+public record Keyword(string Prop, string Word);
 
 /// <summary>Matches paragraphs of a certain kind</summary>
-public class Kind
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>KindValue</summary>
-    public string KindValue { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="KindValue">KindValue</param>
+public record Kind(string Prop, string KindValue);
 
 /// <summary>KnowledgeboxCounters</summary>
-public class KnowledgeboxCounters
-{
-    /// <summary>Resources</summary>
-    public int Resources { get; set; }
-
-    /// <summary>Paragraphs</summary>
-    public int Paragraphs { get; set; }
-
-    /// <summary>Fields</summary>
-    public int Fields { get; set; }
-
-    /// <summary>Sentences</summary>
-    public int Sentences { get; set; }
-
-    /// <summary>Shards</summary>
-    public object Shards { get; set; }
-
-    /// <summary>IndexSize</summary>
-    public float IndexSize { get; set; }
-}
+/// <param name="Resources">Resources</param>
+/// <param name="Paragraphs">Paragraphs</param>
+/// <param name="Fields">Fields</param>
+/// <param name="Sentences">Sentences</param>
+/// <param name="Shards">Shards</param>
+/// <param name="IndexSize">IndexSize</param>
+public record KnowledgeboxCounters(int Resources, int Paragraphs, int Fields, int Sentences, object Shards, float IndexSize);
 
 /// <summary>Find on knowledgebox results</summary>
-public class KnowledgeboxFindResults
-{
-    /// <summary>Resources</summary>
-    public object Resources { get; set; }
-
-    /// <summary>Relations</summary>
-    public object Relations { get; set; }
-
-    /// <summary>Query</summary>
-    public object Query { get; set; }
-
-    /// <summary>RephrasedQuery</summary>
-    public object RephrasedQuery { get; set; }
-
-    /// <summary>Total</summary>
-    public int Total { get; set; }
-
-    /// <summary>Pagination will be deprecated, please, refer to `top_k` in the request</summary>
-    public int PageNumber { get; set; }
-
-    /// <summary>Pagination will be deprecated, please, refer to `top_k` in the request</summary>
-    public int PageSize { get; set; }
-
-    /// <summary>Pagination will be deprecated, please, refer to `top_k` in the request</summary>
-    public bool NextPage { get; set; }
-
-    /// <summary>List of nodes queried in the search</summary>
-    public object Nodes { get; set; }
-
-    /// <summary>The list of shard replica ids used for the search.</summary>
-    public object Shards { get; set; }
-
-    /// <summary>List of filters automatically applied to the search query</summary>
-    public List<string> Autofilters { get; set; }
-
-    /// <summary>The minimum scores that have been used for the search operation.</summary>
-    public object MinScore { get; set; }
-
-    /// <summary>List of ids of best matching paragraphs. The list is sorted by decreasing relevance (most relevant first).</summary>
-    public List<string> BestMatches { get; set; }
-
-    /// <summary>Metrics information about the search operation. The metadata included in this field is subject to change and should not be used in production. This is only available if the `debug` parameter is set to true in the request.</summary>
-    public object Metrics { get; set; }
-}
+/// <param name="Resources">Resources</param>
+/// <param name="Relations">Relations</param>
+/// <param name="Query">Query</param>
+/// <param name="RephrasedQuery">RephrasedQuery</param>
+/// <param name="Total">Total</param>
+/// <param name="PageNumber">Pagination will be deprecated, please, refer to `top_k` in the request</param>
+/// <param name="PageSize">Pagination will be deprecated, please, refer to `top_k` in the request</param>
+/// <param name="NextPage">Pagination will be deprecated, please, refer to `top_k` in the request</param>
+/// <param name="Nodes">List of nodes queried in the search</param>
+/// <param name="Shards">The list of shard replica ids used for the search.</param>
+/// <param name="Autofilters">List of filters automatically applied to the search query</param>
+/// <param name="MinScore">The minimum scores that have been used for the search operation.</param>
+/// <param name="BestMatches">List of ids of best matching paragraphs. The list is sorted by decreasing relevance (most relevant first).</param>
+/// <param name="Metrics">Metrics information about the search operation. The metadata included in this field is subject to change and should not be used in production. This is only available if the `debug` parameter is set to true in the request.</param>
+public record KnowledgeboxFindResults(object Resources, object Relations, object Query, object RephrasedQuery, int Total, int PageNumber, int PageSize, bool NextPage, object Nodes, object Shards, List<string> Autofilters, object MinScore, List<string> BestMatches, object Metrics);
 
 /// <summary>Search on knowledgebox results</summary>
-public class KnowledgeboxSearchResults
-{
-    /// <summary>Resources</summary>
-    public object Resources { get; set; }
-
-    /// <summary>Sentences</summary>
-    public object Sentences { get; set; }
-
-    /// <summary>Paragraphs</summary>
-    public object Paragraphs { get; set; }
-
-    /// <summary>Fulltext</summary>
-    public object Fulltext { get; set; }
-
-    /// <summary>Relations</summary>
-    public object Relations { get; set; }
-
-    /// <summary>Nodes</summary>
-    public object Nodes { get; set; }
-
-    /// <summary>Shards</summary>
-    public object Shards { get; set; }
-
-    /// <summary>List of filters automatically applied to the search query</summary>
-    public List<string> Autofilters { get; set; }
-}
+/// <param name="Resources">Resources</param>
+/// <param name="Sentences">Sentences</param>
+/// <param name="Paragraphs">Paragraphs</param>
+/// <param name="Fulltext">Fulltext</param>
+/// <param name="Relations">Relations</param>
+/// <param name="Nodes">Nodes</param>
+/// <param name="Shards">Shards</param>
+/// <param name="Autofilters">List of filters automatically applied to the search query</param>
+public record KnowledgeboxSearchResults(object Resources, object Sentences, object Paragraphs, object Fulltext, object Relations, object Nodes, object Shards, List<string> Autofilters);
 
 /// <summary>Suggest on resource results</summary>
-public class KnowledgeboxSuggestResults
-{
-    /// <summary>Paragraphs</summary>
-    public object Paragraphs { get; set; }
-
-    /// <summary>Entities</summary>
-    public object Entities { get; set; }
-
-    /// <summary>Shards</summary>
-    public object Shards { get; set; }
-}
+/// <param name="Paragraphs">Paragraphs</param>
+/// <param name="Entities">Entities</param>
+/// <param name="Shards">Shards</param>
+public record KnowledgeboxSuggestResults(object Paragraphs, object Entities, object Shards);
 
 /// <summary>Matches fields/paragraphs with a label (or labelset)</summary>
-public class Label
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>The labelset to match</summary>
-    public string Labelset { get; set; }
-
-    /// <summary>The label to match. If blank, matches all labels in the given labelset</summary>
-    public object LabelValue { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Labelset">The labelset to match</param>
+/// <param name="LabelValue">The label to match. If blank, matches all labels in the given labelset</param>
+public record Label(string Prop, string Labelset, object LabelValue);
 
 /// <summary>Matches the language of the field</summary>
-public class Language
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Match only the primary language of the document. By default, matches any language that appears in the document</summary>
-    public bool OnlyPrimary { get; set; }
-
-    /// <summary>The code of the language to match, e.g: en</summary>
-    public string LanguageValue { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="OnlyPrimary">Match only the primary language of the document. By default, matches any language that appears in the document</param>
+/// <param name="LanguageValue">The code of the language to match, e.g: en</param>
+public record Language(string Prop, bool OnlyPrimary, string LanguageValue);
 
 /// <summary>LargeComputedMetadata</summary>
-public class LargeComputedMetadata
-{
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>SplitMetadata</summary>
-    public object SplitMetadata { get; set; }
-
-    /// <summary>DeletedSplits</summary>
-    public object DeletedSplits { get; set; }
-}
+/// <param name="Metadata">Metadata</param>
+/// <param name="SplitMetadata">SplitMetadata</param>
+/// <param name="DeletedSplits">DeletedSplits</param>
+public record LargeComputedMetadata(object Metadata, object SplitMetadata, object DeletedSplits);
 
 /// <summary>LinkExtractedData</summary>
-public class LinkExtractedData
-{
-    /// <summary>Date</summary>
-    public object Date { get; set; }
-
-    /// <summary>Language</summary>
-    public object Language { get; set; }
-
-    /// <summary>Title</summary>
-    public object Title { get; set; }
-
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>LinkThumbnail</summary>
-    public object LinkThumbnail { get; set; }
-
-    /// <summary>LinkPreview</summary>
-    public object LinkPreview { get; set; }
-
-    /// <summary>Field</summary>
-    public object Field { get; set; }
-
-    /// <summary>LinkImage</summary>
-    public object LinkImage { get; set; }
-
-    /// <summary>Description</summary>
-    public object Description { get; set; }
-
-    /// <summary>Type</summary>
-    public object Type { get; set; }
-
-    /// <summary>Embed</summary>
-    public object Embed { get; set; }
-
-    /// <summary>FileGenerated</summary>
-    public object FileGenerated { get; set; }
-}
+/// <param name="Date">Date</param>
+/// <param name="Language">Language</param>
+/// <param name="Title">Title</param>
+/// <param name="Metadata">Metadata</param>
+/// <param name="LinkThumbnail">LinkThumbnail</param>
+/// <param name="LinkPreview">LinkPreview</param>
+/// <param name="Field">Field</param>
+/// <param name="LinkImage">LinkImage</param>
+/// <param name="Description">Description</param>
+/// <param name="Type">Type</param>
+/// <param name="Embed">Embed</param>
+/// <param name="FileGenerated">FileGenerated</param>
+public record LinkExtractedData(object Date, object Language, object Title, object Metadata, object LinkThumbnail, object LinkPreview, object Field, object LinkImage, object Description, object Type, object Embed, object FileGenerated);
 
 /// <summary>LinkFieldData</summary>
-public class LinkFieldData
-{
-    /// <summary>Value</summary>
-    public object Value { get; set; }
-
-    /// <summary>Extracted</summary>
-    public object Extracted { get; set; }
-
-    /// <summary>Error</summary>
-    public object Error { get; set; }
-
-    /// <summary>Status</summary>
-    public object Status { get; set; }
-
-    /// <summary>Errors</summary>
-    public object Errors { get; set; }
-}
+/// <param name="Value">Value</param>
+/// <param name="Extracted">Extracted</param>
+/// <param name="Error">Error</param>
+/// <param name="Status">Status</param>
+/// <param name="Errors">Errors</param>
+public record LinkFieldData(object Value, object Extracted, object Error, object Status, object Errors);
 
 /// <summary>LinkFieldExtractedData</summary>
-public class LinkFieldExtractedData
-{
-    /// <summary>Text</summary>
-    public object Text { get; set; }
-
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>LargeMetadata</summary>
-    public object LargeMetadata { get; set; }
-
-    /// <summary>Vectors</summary>
-    public object Vectors { get; set; }
-
-    /// <summary>QuestionAnswers</summary>
-    public object QuestionAnswers { get; set; }
-
-    /// <summary>Link</summary>
-    public object Link { get; set; }
-}
+/// <param name="Text">Text</param>
+/// <param name="Metadata">Metadata</param>
+/// <param name="LargeMetadata">LargeMetadata</param>
+/// <param name="Vectors">Vectors</param>
+/// <param name="QuestionAnswers">QuestionAnswers</param>
+/// <param name="Link">Link</param>
+public record LinkFieldExtractedData(object Text, object Metadata, object LargeMetadata, object Vectors, object QuestionAnswers, object Link);
 
 /// <summary>MaxTokens</summary>
-public class MaxTokens
-{
-    /// <summary>Use to limit the amount of tokens used in the LLM context</summary>
-    public object Context { get; set; }
-
-    /// <summary>Use to limit the amount of tokens used in the LLM answer</summary>
-    public object Answer { get; set; }
-}
+/// <param name="Context">Use to limit the amount of tokens used in the LLM context</param>
+/// <param name="Answer">Use to limit the amount of tokens used in the LLM answer</param>
+public record MaxTokens(object Context, object Answer);
 
 /// <summary>Metadata</summary>
-public class Metadata
-{
-    /// <summary>MetadataValue</summary>
-    public object MetadataValue { get; set; }
-
-    /// <summary>Language</summary>
-    public object Language { get; set; }
-
-    /// <summary>Languages</summary>
-    public object Languages { get; set; }
-
-    /// <summary>Status</summary>
-    public string Status { get; set; }
-}
+/// <param name="MetadataValue">MetadataValue</param>
+/// <param name="Language">Language</param>
+/// <param name="Languages">Languages</param>
+/// <param name="Status">Status</param>
+public record Metadata(object MetadataValue, object Language, object Languages, string Status);
 
 /// <summary>RAG strategy to enrich the context with metadata of the matching paragraphs or its resources. This strategy can be combined with any of the other strategies.</summary>
-public class MetadataExtensionStrategy
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>List of resource metadata types to add to the context.   - 'origin': origin metadata of the resource.   - 'classification_labels': classification labels of the resource.   - 'ner': Named Entity Recognition entities detected for the resource.   - 'extra_metadata': extra metadata of the resource.  Types for which the metadata is not found at the resource are ignored and not added to the context.</summary>
-    public List<string> Types { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="Types">List of resource metadata types to add to the context.   - 'origin': origin metadata of the resource.   - 'classification_labels': classification labels of the resource.   - 'ner': Named Entity Recognition entities detected for the resource.   - 'extra_metadata': extra metadata of the resource.  Types for which the metadata is not found at the resource are ignored and not added to the context.</param>
+public record MetadataExtensionStrategy(string Name, List<string> Types);
 
 /// <summary>MinScore</summary>
-public class MinScore
-{
-    /// <summary>Minimum semantic similarity score used to filter vector index search. If not specified, the default minimum score of the semantic model associated to the Knowledge Box will be used. Check out the documentation for more information on how to use this parameter: https://docs.nuclia.dev/docs/rag/advanced/search#minimum-score</summary>
-    public object Semantic { get; set; }
-
-    /// <summary>Minimum score used to filter bm25 index search. Check out the documentation for more information on how to use this parameter: https://docs.nuclia.dev/docs/rag/advanced/search#minimum-score</summary>
-    public float Bm25 { get; set; }
-}
+/// <param name="Semantic">Minimum semantic similarity score used to filter vector index search. If not specified, the default minimum score of the semantic model associated to the Knowledge Box will be used. Check out the documentation for more information on how to use this parameter: https://docs.nuclia.dev/docs/rag/advanced/search#minimum-score</param>
+/// <param name="Bm25">Minimum score used to filter bm25 index search. Check out the documentation for more information on how to use this parameter: https://docs.nuclia.dev/docs/rag/advanced/search#minimum-score</param>
+public record MinScore(object Semantic, float Bm25);
 
 /// <summary>NeighbouringParagraphsStrategy</summary>
-public class NeighbouringParagraphsStrategy
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>Number of previous neighbouring paragraphs to add to the context, for each matching paragraph in the retrieval step.</summary>
-    public int Before { get; set; }
-
-    /// <summary>Number of following neighbouring paragraphs to add to the context, for each matching paragraph in the retrieval step.</summary>
-    public int After { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="Before">Number of previous neighbouring paragraphs to add to the context, for each matching paragraph in the retrieval step.</param>
+/// <param name="After">Number of following neighbouring paragraphs to add to the context, for each matching paragraph in the retrieval step.</param>
+public record NeighbouringParagraphsStrategy(string Name, int Before, int After);
 
 /// <summary>NestedListPosition</summary>
-public class NestedListPosition
-{
-    /// <summary>Positions</summary>
-    public List<NestedPosition> Positions { get; set; }
-}
+/// <param name="Positions">Positions</param>
+public record NestedListPosition(List<NestedPosition> Positions);
 
 /// <summary>NestedPosition</summary>
-public class NestedPosition
-{
-    /// <summary>Start</summary>
-    public object Start { get; set; }
-
-    /// <summary>End</summary>
-    public object End { get; set; }
-
-    /// <summary>Page</summary>
-    public object Page { get; set; }
-}
+/// <param name="Start">Start</param>
+/// <param name="End">End</param>
+/// <param name="Page">Page</param>
+public record NestedPosition(object Start, object End, object Page);
 
 /// <summary>NewTextField</summary>
-public class NewTextField
-{
-    /// <summary>TextField</summary>
-    public FieldText TextField { get; set; }
-
-    /// <summary>Destination</summary>
-    public string Destination { get; set; }
-}
+/// <param name="TextField">TextField</param>
+/// <param name="Destination">Destination</param>
+public record NewTextField(FieldText TextField, string Destination);
 
 /// <summary>NotFieldFilterExpression</summary>
-public class NotFieldFilterExpression
-{
 
-}
+public record NotFieldFilterExpression();
 
 /// <summary>NotGraphNodesQuery</summary>
-public class NotGraphNodesQuery
-{
-    /// <summary>Operand</summary>
-    public object Operand { get; set; }
-}
+/// <param name="Operand">Operand</param>
+public record NotGraphNodesQuery(object Operand);
 
 /// <summary>NotGraphPathQuery</summary>
-public class NotGraphPathQuery
-{
 
-}
+public record NotGraphPathQuery();
 
 /// <summary>NotGraphRelationsQuery</summary>
-public class NotGraphRelationsQuery
-{
-    /// <summary>Operand</summary>
-    public object Operand { get; set; }
-}
+/// <param name="Operand">Operand</param>
+public record NotGraphRelationsQuery(object Operand);
 
 /// <summary>NotParagraphFilterExpression</summary>
-public class NotParagraphFilterExpression
-{
 
-}
+public record NotParagraphFilterExpression();
 
 /// <summary>NotResourceFilterExpression</summary>
-public class NotResourceFilterExpression
-{
-    /// <summary>Operand</summary>
-    public object Operand { get; set; }
-}
+/// <param name="Operand">Operand</param>
+public record NotResourceFilterExpression(object Operand);
 
 /// <summary>OrFieldFilterExpression</summary>
-public class OrFieldFilterExpression
-{
 
-}
+public record OrFieldFilterExpression();
 
 /// <summary>OrGraphNodesQuery</summary>
-public class OrGraphNodesQuery
-{
-    /// <summary>Operands</summary>
-    public List<object> Operands { get; set; }
-}
+/// <param name="Operands">Operands</param>
+public record OrGraphNodesQuery(List<object> Operands);
 
 /// <summary>OrGraphPathQuery</summary>
-public class OrGraphPathQuery
-{
 
-}
+public record OrGraphPathQuery();
 
 /// <summary>OrGraphRelationsQuery</summary>
-public class OrGraphRelationsQuery
-{
-    /// <summary>Operands</summary>
-    public List<object> Operands { get; set; }
-}
+/// <param name="Operands">Operands</param>
+public record OrGraphRelationsQuery(List<object> Operands);
 
 /// <summary>OrParagraphFilterExpression</summary>
-public class OrParagraphFilterExpression
-{
 
-}
+public record OrParagraphFilterExpression();
 
 /// <summary>OrResourceFilterExpression</summary>
-public class OrResourceFilterExpression
-{
-    /// <summary>Operands</summary>
-    public List<object> Operands { get; set; }
-}
+/// <param name="Operands">Operands</param>
+public record OrResourceFilterExpression(List<object> Operands);
 
 /// <summary>Origin</summary>
-public class Origin
-{
-    /// <summary>SourceId</summary>
-    public object SourceId { get; set; }
-
-    /// <summary>Url</summary>
-    public object Url { get; set; }
-
-    /// <summary>Created</summary>
-    public object Created { get; set; }
-
-    /// <summary>Modified</summary>
-    public object Modified { get; set; }
-
-    /// <summary>Generic metadata from the resource at the origin system. It can later be used for filtering on search endpoints with '/origin.metadata/{key}/{value}'</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>Resource tags about the origin system. It can later be used for filtering on search endpoints with '/origin.tags/{tag}'</summary>
-    public List<string> Tags { get; set; }
-
-    /// <summary>Collaborators</summary>
-    public List<string> Collaborators { get; set; }
-
-    /// <summary>Filename</summary>
-    public object Filename { get; set; }
-
-    /// <summary>Related</summary>
-    public List<string> Related { get; set; }
-
-    /// <summary>Path of the original resource. Typically used to store folder structure information of the resource at the origin system. It can be later used for filtering on search endpoints with '/origin.path/{path}'</summary>
-    public object Path { get; set; }
-
-    /// <summary>Source</summary>
-    public object Source { get; set; }
-}
+/// <param name="SourceId">SourceId</param>
+/// <param name="Url">Url</param>
+/// <param name="Created">Created</param>
+/// <param name="Modified">Modified</param>
+/// <param name="Metadata">Generic metadata from the resource at the origin system. It can later be used for filtering on search endpoints with '/origin.metadata/{key}/{value}'</param>
+/// <param name="Tags">Resource tags about the origin system. It can later be used for filtering on search endpoints with '/origin.tags/{tag}'</param>
+/// <param name="Collaborators">Collaborators</param>
+/// <param name="Filename">Filename</param>
+/// <param name="Related">Related</param>
+/// <param name="Path">Path of the original resource. Typically used to store folder structure information of the resource at the origin system. It can be later used for filtering on search endpoints with '/origin.path/{path}'</param>
+/// <param name="Source">Source</param>
+public record Origin(object SourceId, object Url, object Created, object Modified, object Metadata, List<string> Tags, List<string> Collaborators, object Filename, List<string> Related, object Path, object Source);
 
 /// <summary>Matches the origin collaborators</summary>
-public class OriginCollaborator
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Collaborator</summary>
-    public string Collaborator { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Collaborator">Collaborator</param>
+public record OriginCollaborator(string Prop, string Collaborator);
 
 /// <summary>Matches metadata from the origin</summary>
-public class OriginMetadata
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Metadata field</summary>
-    public string Field { get; set; }
-
-    /// <summary>Value of the metadata field. If blank, matches any document with the given metadata field set (to any value)</summary>
-    public object Value { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Field">Metadata field</param>
+/// <param name="Value">Value of the metadata field. If blank, matches any document with the given metadata field set (to any value)</param>
+public record OriginMetadata(string Prop, string Field, object Value);
 
 /// <summary>Matches the origin path</summary>
-public class OriginPath
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Prefix of the path, matches all paths under this prefixe.g: `prefix=/dir/` matches `/dir` and `/dir/a/b` but not `/dirrrr`</summary>
-    public object Prefix { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Prefix">Prefix of the path, matches all paths under this prefixe.g: `prefix=/dir/` matches `/dir` and `/dir/a/b` but not `/dirrrr`</param>
+public record OriginPath(string Prop, object Prefix);
 
 /// <summary>Matches the origin source id</summary>
-public class OriginSource
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Source ID</summary>
-    public object Id { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Id">Source ID</param>
+public record OriginSource(string Prop, object Id);
 
 /// <summary>Matches all fields with a given origin tag</summary>
-public class OriginTag
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>The tag to match</summary>
-    public string Tag { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Tag">The tag to match</param>
+public record OriginTag(string Prop, string Tag);
 
 /// <summary>PageImageStrategy</summary>
-public class PageImageStrategy
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>Maximum number of images to retrieve from the page. By default, at most 5 images are retrieved.</summary>
-    public object Count { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="Count">Maximum number of images to retrieve from the page. By default, at most 5 images are retrieved.</param>
+public record PageImageStrategy(string Name, object Count);
 
 /// <summary>PageInformation</summary>
-public class PageInformation
-{
-    /// <summary>Page</summary>
-    public object Page { get; set; }
-
-    /// <summary>PageWithVisual</summary>
-    public object PageWithVisual { get; set; }
-}
+/// <param name="Page">Page</param>
+/// <param name="PageWithVisual">PageWithVisual</param>
+public record PageInformation(object Page, object PageWithVisual);
 
 /// <summary>PagePositions</summary>
-public class PagePositions
-{
-    /// <summary>Start</summary>
-    public object Start { get; set; }
-
-    /// <summary>End</summary>
-    public object End { get; set; }
-}
+/// <param name="Start">Start</param>
+/// <param name="End">End</param>
+public record PagePositions(object Start, object End);
 
 /// <summary>PageStructure</summary>
-public class PageStructure
-{
-    /// <summary>Page</summary>
-    public PageStructurePage Page { get; set; }
-
-    /// <summary>Tokens</summary>
-    public List<PageStructureToken> Tokens { get; set; }
-}
+/// <param name="Page">Page</param>
+/// <param name="Tokens">Tokens</param>
+public record PageStructure(PageStructurePage Page, List<PageStructureToken> Tokens);
 
 /// <summary>PageStructurePage</summary>
-public class PageStructurePage
-{
-    /// <summary>Width</summary>
-    public int Width { get; set; }
-
-    /// <summary>Height</summary>
-    public int Height { get; set; }
-}
+/// <param name="Width">Width</param>
+/// <param name="Height">Height</param>
+public record PageStructurePage(int Width, int Height);
 
 /// <summary>PageStructureToken</summary>
-public class PageStructureToken
-{
-    /// <summary>X</summary>
-    public float X { get; set; }
-
-    /// <summary>Y</summary>
-    public float Y { get; set; }
-
-    /// <summary>Width</summary>
-    public float Width { get; set; }
-
-    /// <summary>Height</summary>
-    public float Height { get; set; }
-
-    /// <summary>Text</summary>
-    public string Text { get; set; }
-
-    /// <summary>Line</summary>
-    public float Line { get; set; }
-}
+/// <param name="X">X</param>
+/// <param name="Y">Y</param>
+/// <param name="Width">Width</param>
+/// <param name="Height">Height</param>
+/// <param name="Text">Text</param>
+/// <param name="Line">Line</param>
+public record PageStructureToken(float X, float Y, float Width, float Height, string Text, float Line);
 
 /// <summary>ParagraphAnnotation</summary>
-public class ParagraphAnnotation
-{
-    /// <summary>Classifications</summary>
-    public List<UserClassification> Classifications { get; set; }
-
-    /// <summary>Key</summary>
-    public string Key { get; set; }
-}
+/// <param name="Classifications">Classifications</param>
+/// <param name="Key">Key</param>
+public record ParagraphAnnotation(List<UserClassification> Classifications, string Key);
 
 /// <summary>ParagraphImageStrategy</summary>
-public class ParagraphImageStrategy
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-}
+/// <param name="Name">Name</param>
+public record ParagraphImageStrategy(string Name);
 
 /// <summary>ParagraphRelations</summary>
-public class ParagraphRelations
-{
-    /// <summary>Parents</summary>
-    public List<string> Parents { get; set; }
-
-    /// <summary>Siblings</summary>
-    public List<string> Siblings { get; set; }
-
-    /// <summary>Replacements</summary>
-    public List<string> Replacements { get; set; }
-}
+/// <param name="Parents">Parents</param>
+/// <param name="Siblings">Siblings</param>
+/// <param name="Replacements">Replacements</param>
+public record ParagraphRelations(List<string> Parents, List<string> Siblings, List<string> Replacements);
 
 /// <summary>Paragraphs</summary>
-public class Paragraphs
-{
-    /// <summary>Results</summary>
-    public List<NucliadbModelsSearchParagraph> Results { get; set; }
-
-    /// <summary>Facets</summary>
-    public object Facets { get; set; }
-
-    /// <summary>Query</summary>
-    public object Query { get; set; }
-
-    /// <summary>Total</summary>
-    public int Total { get; set; }
-
-    /// <summary>PageNumber</summary>
-    public int PageNumber { get; set; }
-
-    /// <summary>PageSize</summary>
-    public int PageSize { get; set; }
-
-    /// <summary>NextPage</summary>
-    public bool NextPage { get; set; }
-
-    /// <summary>Minimum bm25 score used to filter bm25 index search. Results with a lower score have been ignored.</summary>
-    public float MinScore { get; set; }
-}
+/// <param name="Results">Results</param>
+/// <param name="Facets">Facets</param>
+/// <param name="Query">Query</param>
+/// <param name="Total">Total</param>
+/// <param name="PageNumber">PageNumber</param>
+/// <param name="PageSize">PageSize</param>
+/// <param name="NextPage">NextPage</param>
+/// <param name="MinScore">Minimum bm25 score used to filter bm25 index search. Results with a lower score have been ignored.</param>
+public record Paragraphs(List<NucliadbModelsSearchParagraph> Results, object Facets, object Query, int Total, int PageNumber, int PageSize, bool NextPage, float MinScore);
 
 /// <summary>Position</summary>
-public class Position
-{
-    /// <summary>Start</summary>
-    public int Start { get; set; }
-
-    /// <summary>End</summary>
-    public int End { get; set; }
-}
+/// <param name="Start">Start</param>
+/// <param name="End">End</param>
+public record Position(int Start, int End);
 
 /// <summary>Positions</summary>
-public class Positions
-{
-    /// <summary>Position</summary>
-    public List<Position> Position { get; set; }
-
-    /// <summary>Entity</summary>
-    public string Entity { get; set; }
-}
+/// <param name="Position">Position</param>
+/// <param name="Entity">Entity</param>
+public record Positions(List<Position> Position, string Entity);
 
 /// <summary>This strategy allows to run a set of queries before the main query and add the results to the context. It allows to give more importance to some queries over others by setting the weight of each query. The weight of the main query can also be set with the `main_query_weight` parameter.</summary>
-public class PreQueriesStrategy
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>List of queries to run before the main query. The results are added to the context with the specified weights for each query. There is a limit of 10 prequeries per request.</summary>
-    public List<PreQuery> Queries { get; set; }
-
-    /// <summary>Weight of the main query in the context. Use this to control the importance of the main query in the context.</summary>
-    public float MainQueryWeight { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="Queries">List of queries to run before the main query. The results are added to the context with the specified weights for each query. There is a limit of 10 prequeries per request.</param>
+/// <param name="MainQueryWeight">Weight of the main query in the context. Use this to control the importance of the main query in the context.</param>
+public record PreQueriesStrategy(string Name, List<PreQuery> Queries, float MainQueryWeight);
 
 /// <summary>PreQuery</summary>
-public class PreQuery
-{
-    /// <summary>Request</summary>
-    public FindRequest Request { get; set; }
-
-    /// <summary>Weight of the prequery in the context. The weight is used to scale the results of the prequery before adding them to the context.The weight should be a positive number, and they are normalized so that the sum of all weights for all prequeries is 1.</summary>
-    public float Weight { get; set; }
-
-    /// <summary>Identifier of the prequery. If not specified, it is autogenerated based on the index of the prequery in the list (prequery_0, prequery_1, ...).</summary>
-    public object Id { get; set; }
-
-    /// <summary>If set to true, the prequery results are used to filter the scope of the remaining queries. The resources of the most relevant paragraphs of the prefilter queries are used as resource filters for the main query and other prequeries with the prefilter flag set to false.</summary>
-    public bool Prefilter { get; set; }
-}
+/// <param name="Request">Request</param>
+/// <param name="Weight">Weight of the prequery in the context. The weight is used to scale the results of the prequery before adding them to the context.The weight should be a positive number, and they are normalized so that the sum of all weights for all prequeries is 1.</param>
+/// <param name="Id">Identifier of the prequery. If not specified, it is autogenerated based on the index of the prequery in the list (prequery_0, prequery_1, ...).</param>
+/// <param name="Prefilter">If set to true, the prequery results are used to filter the scope of the remaining queries. The resources of the most relevant paragraphs of the prefilter queries are used as resource filters for the main query and other prequeries with the prefilter flag set to false.</param>
+public record PreQuery(FindRequest Request, float Weight, object Id, bool Prefilter);
 
 /// <summary>PredictReranker</summary>
-public class PredictReranker
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>Number of elements reranker will use. Window must be greater or equal to top_k. Greater values will improve results at cost of retrieval and reranking time. By default, this reranker uses a default of 2 times top_k</summary>
-    public object Window { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="Window">Number of elements reranker will use. Window must be greater or equal to top_k. Greater values will improve results at cost of retrieval and reranking time. By default, this reranker uses a default of 2 times top_k</param>
+public record PredictReranker(string Name, object Window);
 
 /// <summary>Question</summary>
-public class Question
-{
-    /// <summary>Text</summary>
-    public string Text { get; set; }
-
-    /// <summary>Language</summary>
-    public object Language { get; set; }
-
-    /// <summary>IdsParagraphs</summary>
-    public List<string> IdsParagraphs { get; set; }
-}
+/// <param name="Text">Text</param>
+/// <param name="Language">Language</param>
+/// <param name="IdsParagraphs">IdsParagraphs</param>
+public record Question(string Text, object Language, List<string> IdsParagraphs);
 
 /// <summary>QuestionAnswer</summary>
-public class QuestionAnswer
-{
-    /// <summary>Question</summary>
-    public Question Question { get; set; }
-
-    /// <summary>Answers</summary>
-    public List<Answer> Answers { get; set; }
-}
+/// <param name="Question">Question</param>
+/// <param name="Answers">Answers</param>
+public record QuestionAnswer(Question Question, List<Answer> Answers);
 
 /// <summary>QuestionAnswerAnnotation</summary>
-public class QuestionAnswerAnnotation
-{
-    /// <summary>QuestionAnswer</summary>
-    public QuestionAnswer QuestionAnswer { get; set; }
-
-    /// <summary>CancelledByUser</summary>
-    public bool CancelledByUser { get; set; }
-}
+/// <param name="QuestionAnswer">QuestionAnswer</param>
+/// <param name="CancelledByUser">CancelledByUser</param>
+public record QuestionAnswerAnnotation(QuestionAnswer QuestionAnswer, bool CancelledByUser);
 
 /// <summary>QuestionAnswers</summary>
-public class QuestionAnswers
-{
-    /// <summary>QuestionAnswer</summary>
-    public List<QuestionAnswer> QuestionAnswer { get; set; }
-}
+/// <param name="QuestionAnswer">QuestionAnswer</param>
+public record QuestionAnswers(List<QuestionAnswer> QuestionAnswer);
 
 /// <summary>Reasoning</summary>
-public class Reasoning
-{
-    /// <summary>Whether to display the reasoning steps in the response.</summary>
-    public bool Display { get; set; }
-
-    /// <summary>Level of reasoning effort. Used by OpenAI models to control the depth of reasoning. This parameter will be automatically mapped to budget_tokens if the chosen model does not support effort.</summary>
-    public string Effort { get; set; }
-
-    /// <summary>Token budget for reasoning. Used by Anthropic or Google models to limit the number of tokens used for reasoning. This parameter will be automatically mapped to effort if the chosen model does not support budget_tokens.</summary>
-    public int BudgetTokens { get; set; }
-}
+/// <param name="Display">Whether to display the reasoning steps in the response.</param>
+/// <param name="Effort">Level of reasoning effort. Used by OpenAI models to control the depth of reasoning. This parameter will be automatically mapped to budget_tokens if the chosen model does not support effort.</param>
+/// <param name="BudgetTokens">Token budget for reasoning. Used by Anthropic or Google models to limit the number of tokens used for reasoning. This parameter will be automatically mapped to effort if the chosen model does not support budget_tokens.</param>
+public record Reasoning(bool Display, string Effort, int BudgetTokens);
 
 /// <summary>ReciprocalRankFusion</summary>
-public class ReciprocalRankFusion
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>k parameter changes the influence top-ranked and lower-ranked elements have. Research has shown that 60 is a performant value across datasets</summary>
-    public float K { get; set; }
-
-    /// <summary>Number of elements for retrieval to do RRF. Window must be greater or equal to top_k. Greater values will increase probability of multi match at cost of retrieval time</summary>
-    public object Window { get; set; }
-
-    /// <summary>Boosting</summary>
-    public ReciprocalRankFusionWeights Boosting { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="K">k parameter changes the influence top-ranked and lower-ranked elements have. Research has shown that 60 is a performant value across datasets</param>
+/// <param name="Window">Number of elements for retrieval to do RRF. Window must be greater or equal to top_k. Greater values will increase probability of multi match at cost of retrieval time</param>
+/// <param name="Boosting">Boosting</param>
+public record ReciprocalRankFusion(string Name, float K, object Window, ReciprocalRankFusionWeights Boosting);
 
 /// <summary>ReciprocalRankFusionWeights</summary>
-public class ReciprocalRankFusionWeights
-{
-    /// <summary>Keyword</summary>
-    public float Keyword { get; set; }
-
-    /// <summary>Semantic</summary>
-    public float Semantic { get; set; }
-}
+/// <param name="Keyword">Keyword</param>
+/// <param name="Semantic">Semantic</param>
+public record ReciprocalRankFusionWeights(float Keyword, float Semantic);
 
 /// <summary>RelatedEntities</summary>
-public class RelatedEntities
-{
-    /// <summary>Total</summary>
-    public int Total { get; set; }
-
-    /// <summary>Entities</summary>
-    public List<RelatedEntity> Entities { get; set; }
-}
+/// <param name="Total">Total</param>
+/// <param name="Entities">Entities</param>
+public record RelatedEntities(int Total, List<RelatedEntity> Entities);
 
 /// <summary>RelatedEntity</summary>
-public class RelatedEntity
-{
-    /// <summary>Family</summary>
-    public string Family { get; set; }
-
-    /// <summary>Value</summary>
-    public string Value { get; set; }
-}
+/// <param name="Family">Family</param>
+/// <param name="Value">Value</param>
+public record RelatedEntity(string Family, string Value);
 
 /// <summary>RelationInput</summary>
-public class RelationInput
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Label</summary>
-    public object Label { get; set; }
-
-    /// <summary>Type</summary>
-    public object Type { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Label">Label</param>
+/// <param name="Type">Type</param>
+public record RelationInput(string Prop, object Label, object Type);
 
 /// <summary>RelationOutput</summary>
-public class RelationOutput
-{
-    /// <summary>Relation</summary>
-    public string Relation { get; set; }
-
-    /// <summary>Label</summary>
-    public object Label { get; set; }
-
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>From</summary>
-    public object From { get; set; }
-
-    /// <summary>To</summary>
-    public RelationEntity To { get; set; }
-}
+/// <param name="Relation">Relation</param>
+/// <param name="Label">Label</param>
+/// <param name="Metadata">Metadata</param>
+/// <param name="From">From</param>
+/// <param name="To">To</param>
+public record RelationOutput(string Relation, object Label, object Metadata, object From, RelationEntity To);
 
 /// <summary>RelationEntity</summary>
-public class RelationEntity
-{
-    /// <summary>Value</summary>
-    public string Value { get; set; }
-
-    /// <summary>Type</summary>
-    public string Type { get; set; }
-
-    /// <summary>Group</summary>
-    public object Group { get; set; }
-}
+/// <param name="Value">Value</param>
+/// <param name="Type">Type</param>
+/// <param name="Group">Group</param>
+public record RelationEntity(string Value, string Type, object Group);
 
 /// <summary>RelationMetadata</summary>
-public class RelationMetadata
-{
-    /// <summary>ParagraphId</summary>
-    public object ParagraphId { get; set; }
-
-    /// <summary>SourceStart</summary>
-    public object SourceStart { get; set; }
-
-    /// <summary>SourceEnd</summary>
-    public object SourceEnd { get; set; }
-
-    /// <summary>ToStart</summary>
-    public object ToStart { get; set; }
-
-    /// <summary>ToEnd</summary>
-    public object ToEnd { get; set; }
-
-    /// <summary>DataAugmentationTaskId</summary>
-    public object DataAugmentationTaskId { get; set; }
-}
+/// <param name="ParagraphId">ParagraphId</param>
+/// <param name="SourceStart">SourceStart</param>
+/// <param name="SourceEnd">SourceEnd</param>
+/// <param name="ToStart">ToStart</param>
+/// <param name="ToEnd">ToEnd</param>
+/// <param name="DataAugmentationTaskId">DataAugmentationTaskId</param>
+public record RelationMetadata(object ParagraphId, object SourceStart, object SourceEnd, object ToStart, object ToEnd, object DataAugmentationTaskId);
 
 /// <summary>Relations</summary>
-public class Relations
-{
-    /// <summary>Entities</summary>
-    public object Entities { get; set; }
-}
+/// <param name="Entities">Entities</param>
+public record Relations(object Entities);
 
 /// <summary>Representation</summary>
-public class Representation
-{
-    /// <summary>IsATable</summary>
-    public object IsATable { get; set; }
-
-    /// <summary>ReferenceFile</summary>
-    public object ReferenceFile { get; set; }
-}
+/// <param name="IsATable">IsATable</param>
+/// <param name="ReferenceFile">ReferenceFile</param>
+public record Representation(object IsATable, object ReferenceFile);
 
 /// <summary>Security metadata for the search request</summary>
-public class RequestSecurity
-{
-    /// <summary>List of group ids to do the request with.</summary>
-    public List<string> Groups { get; set; }
-}
+/// <param name="Groups">List of group ids to do the request with.</param>
+public record RequestSecurity(List<string> Groups);
 
 /// <summary>Matches all fields of a resource given its id or slug</summary>
-public class ResourceInput
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>UUID of the resource to match</summary>
-    public object Id { get; set; }
-
-    /// <summary>Slug of the resource to match</summary>
-    public object Slug { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Id">UUID of the resource to match</param>
+/// <param name="Slug">Slug of the resource to match</param>
+public record ResourceInput(string Prop, object Id, object Slug);
 
 /// <summary>ResourceOutput</summary>
-public class ResourceOutput
-{
-    /// <summary>Id</summary>
-    public string Id { get; set; }
-
-    /// <summary>Slug</summary>
-    public object Slug { get; set; }
-
-    /// <summary>Title</summary>
-    public object Title { get; set; }
-
-    /// <summary>Summary</summary>
-    public object Summary { get; set; }
-
-    /// <summary>Icon</summary>
-    public object Icon { get; set; }
-
-    /// <summary>Thumbnail</summary>
-    public object Thumbnail { get; set; }
-
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>Usermetadata</summary>
-    public object Usermetadata { get; set; }
-
-    /// <summary>Fieldmetadata</summary>
-    public object Fieldmetadata { get; set; }
-
-    /// <summary>Computedmetadata</summary>
-    public object Computedmetadata { get; set; }
-
-    /// <summary>Created</summary>
-    public object Created { get; set; }
-
-    /// <summary>Modified</summary>
-    public object Modified { get; set; }
-
-    /// <summary>LastSeqid</summary>
-    public object LastSeqid { get; set; }
-
-    /// <summary>LastAccountSeq</summary>
-    public object LastAccountSeq { get; set; }
-
-    /// <summary>Queue</summary>
-    public object Queue { get; set; }
-
-    /// <summary>Hidden</summary>
-    public object Hidden { get; set; }
-
-    /// <summary>Origin</summary>
-    public object Origin { get; set; }
-
-    /// <summary>Extra</summary>
-    public object Extra { get; set; }
-
-    /// <summary>Relations</summary>
-    public object Relations { get; set; }
-
-    /// <summary>Data</summary>
-    public object Data { get; set; }
-
-    /// <summary>Resource security metadata</summary>
-    public object Security { get; set; }
-}
+/// <param name="Id">Id</param>
+/// <param name="Slug">Slug</param>
+/// <param name="Title">Title</param>
+/// <param name="Summary">Summary</param>
+/// <param name="Icon">Icon</param>
+/// <param name="Thumbnail">Thumbnail</param>
+/// <param name="Metadata">Metadata</param>
+/// <param name="Usermetadata">Usermetadata</param>
+/// <param name="Fieldmetadata">Fieldmetadata</param>
+/// <param name="Computedmetadata">Computedmetadata</param>
+/// <param name="Created">Created</param>
+/// <param name="Modified">Modified</param>
+/// <param name="LastSeqid">LastSeqid</param>
+/// <param name="LastAccountSeq">LastAccountSeq</param>
+/// <param name="Queue">Queue</param>
+/// <param name="Hidden">Hidden</param>
+/// <param name="Origin">Origin</param>
+/// <param name="Extra">Extra</param>
+/// <param name="Relations">Relations</param>
+/// <param name="Data">Data</param>
+/// <param name="Security">Resource security metadata</param>
+public record ResourceOutput(string Id, object Slug, object Title, object Summary, object Icon, object Thumbnail, object Metadata, object Usermetadata, object Fieldmetadata, object Computedmetadata, object Created, object Modified, object LastSeqid, object LastAccountSeq, object Queue, object Hidden, object Origin, object Extra, object Relations, object Data, object Security);
 
 /// <summary>ResourceAgentsRequest</summary>
-public class ResourceAgentsRequest
-{
-    /// <summary>Filters to apply to the agents. If None, all curently configured agents are applied.</summary>
-    public object Filters { get; set; }
-
-    /// <summary>AgentIds</summary>
-    public object AgentIds { get; set; }
-}
+/// <param name="Filters">Filters to apply to the agents. If None, all curently configured agents are applied.</param>
+/// <param name="AgentIds">AgentIds</param>
+public record ResourceAgentsRequest(object Filters, object AgentIds);
 
 /// <summary>ResourceAgentsResponse</summary>
-public class ResourceAgentsResponse
-{
-    /// <summary>Results</summary>
-    public object Results { get; set; }
-}
+/// <param name="Results">Results</param>
+public record ResourceAgentsResponse(object Results);
 
 /// <summary>ResourceData</summary>
-public class ResourceData
-{
-    /// <summary>Texts</summary>
-    public object Texts { get; set; }
-
-    /// <summary>Files</summary>
-    public object Files { get; set; }
-
-    /// <summary>Links</summary>
-    public object Links { get; set; }
-
-    /// <summary>Conversations</summary>
-    public object Conversations { get; set; }
-
-    /// <summary>Generics</summary>
-    public object Generics { get; set; }
-}
+/// <param name="Texts">Texts</param>
+/// <param name="Files">Files</param>
+/// <param name="Links">Links</param>
+/// <param name="Conversations">Conversations</param>
+/// <param name="Generics">Generics</param>
+public record ResourceData(object Texts, object Files, object Links, object Conversations, object Generics);
 
 /// <summary>Matches resources with a mimetype.  The mimetype of a resource can be assigned independently of the mimetype of its fields. In resources with multiple fields, you may prefer to use `field_mimetype`</summary>
-public class ResourceMimetype
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Type of the mimetype to match. e.g: In image/jpeg, type is image</summary>
-    public string Type { get; set; }
-
-    /// <summary>Type of the mimetype to match. e.g: In image/jpeg, subtype is jpeg.Leave blank to match all mimetype of the type</summary>
-    public object Subtype { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Type">Type of the mimetype to match. e.g: In image/jpeg, type is image</param>
+/// <param name="Subtype">Type of the mimetype to match. e.g: In image/jpeg, subtype is jpeg.Leave blank to match all mimetype of the type</param>
+public record ResourceMimetype(string Prop, string Type, object Subtype);
 
 /// <summary>ResourceResult</summary>
-public class ResourceResult
-{
-    /// <summary>Score</summary>
-    public object Score { get; set; }
-
-    /// <summary>Rid</summary>
-    public string Rid { get; set; }
-
-    /// <summary>FieldType</summary>
-    public string FieldType { get; set; }
-
-    /// <summary>Field</summary>
-    public string Field { get; set; }
-
-    /// <summary>Labels</summary>
-    public object Labels { get; set; }
-}
+/// <param name="Score">Score</param>
+/// <param name="Rid">Rid</param>
+/// <param name="FieldType">FieldType</param>
+/// <param name="Field">Field</param>
+/// <param name="Labels">Labels</param>
+public record ResourceResult(object Score, string Rid, string FieldType, string Field, object Labels);
 
 /// <summary>Search on resource results</summary>
-public class ResourceSearchResults
-{
-    /// <summary>Sentences</summary>
-    public object Sentences { get; set; }
-
-    /// <summary>Paragraphs</summary>
-    public object Paragraphs { get; set; }
-
-    /// <summary>Relations</summary>
-    public object Relations { get; set; }
-
-    /// <summary>Nodes</summary>
-    public object Nodes { get; set; }
-
-    /// <summary>Shards</summary>
-    public object Shards { get; set; }
-}
+/// <param name="Sentences">Sentences</param>
+/// <param name="Paragraphs">Paragraphs</param>
+/// <param name="Relations">Relations</param>
+/// <param name="Nodes">Nodes</param>
+/// <param name="Shards">Shards</param>
+public record ResourceSearchResults(object Sentences, object Paragraphs, object Relations, object Nodes, object Shards);
 
 /// <summary>Security metadata for the resource</summary>
-public class ResourceSecurity
-{
-    /// <summary>List of group ids that can access the resource.</summary>
-    public List<string> AccessGroups { get; set; }
-}
+/// <param name="AccessGroups">List of group ids that can access the resource.</param>
+public record ResourceSecurity(List<string> AccessGroups);
 
 /// <summary>Resources</summary>
-public class Resources
-{
-    /// <summary>Results</summary>
-    public List<ResourceResult> Results { get; set; }
-
-    /// <summary>Facets</summary>
-    public object Facets { get; set; }
-
-    /// <summary>Query</summary>
-    public object Query { get; set; }
-
-    /// <summary>Total</summary>
-    public int Total { get; set; }
-
-    /// <summary>PageNumber</summary>
-    public int PageNumber { get; set; }
-
-    /// <summary>PageSize</summary>
-    public int PageSize { get; set; }
-
-    /// <summary>NextPage</summary>
-    public bool NextPage { get; set; }
-
-    /// <summary>Minimum bm25 score used to filter bm25 index search. Results with a lower score have been ignored.</summary>
-    public float MinScore { get; set; }
-}
+/// <param name="Results">Results</param>
+/// <param name="Facets">Facets</param>
+/// <param name="Query">Query</param>
+/// <param name="Total">Total</param>
+/// <param name="PageNumber">PageNumber</param>
+/// <param name="PageSize">PageSize</param>
+/// <param name="NextPage">NextPage</param>
+/// <param name="MinScore">Minimum bm25 score used to filter bm25 index search. Results with a lower score have been ignored.</param>
+public record Resources(List<ResourceResult> Results, object Facets, object Query, int Total, int PageNumber, int PageSize, bool NextPage, float MinScore);
 
 /// <summary>Row</summary>
-public class Row
-{
-    /// <summary>Cell</summary>
-    public object Cell { get; set; }
-}
+/// <param name="Cell">Cell</param>
+public record Row(object Cell);
 
 /// <summary>RowsPreview</summary>
-public class RowsPreview
-{
-    /// <summary>Sheets</summary>
-    public object Sheets { get; set; }
-}
+/// <param name="Sheets">Sheets</param>
+public record RowsPreview(object Sheets);
 
 /// <summary>SearchRequest</summary>
-public class SearchRequest
-{
-    /// <summary>A dictionary containing optional audit-specific metadata, such as user_id, environment, or other contextual information. This metadata can be leveraged for filtering and analyzing activity logs in future operations. Each key-value pair represents a piece of metadata relevant to the user's request.</summary>
-    public object AuditMetadata { get; set; }
-
-    /// <summary>The query to search for</summary>
-    public string Query { get; set; }
-
-    /// <summary>Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</summary>
-    public object FilterExpression { get; set; }
-
-    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</summary>
-    public List<string> Fields { get; set; }
-
-    /// <summary>The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public object Filters { get; set; }
-
-    /// <summary>The number of results search should return. The maximum number of results allowed is 200.</summary>
-    public int TopK { get; set; }
-
-    /// <summary>Minimum score to filter search results. Results with a lower score will be ignored. Accepts either a float or a dictionary with the minimum scores for the bm25 and vector indexes. If a float is provided, it is interpreted as the minimum score for vector index search.</summary>
-    public object MinScore { get; set; }
-
-    /// <summary>Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeCreationStart { get; set; }
-
-    /// <summary>Resources created after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeCreationEnd { get; set; }
-
-    /// <summary>Resources modified before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeModificationStart { get; set; }
-
-    /// <summary>Resources modified after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeModificationEnd { get; set; }
-
-    /// <summary>If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</summary>
-    public bool Debug { get; set; }
-
-    /// <summary>If set to true, the query terms will be highlighted in the results between <mark>...</mark> tags</summary>
-    public bool Highlight { get; set; }
-
-    /// <summary>Controls which types of metadata are serialized on resources of search results</summary>
-    public List<string> Show { get; set; }
-
-    /// <summary>Define which field types are serialized on resources of search results</summary>
-    public List<string> FieldTypeFilter { get; set; }
-
-    /// <summary>[Deprecated] Please use GET resource endpoint instead to get extracted metadata</summary>
-    public List<string> Extracted { get; set; }
-
-    /// <summary>The vector to perform the search with. If not provided, NucliaDB will use Nuclia Predict API to create the vector off from the query.</summary>
-    public object Vector { get; set; }
-
-    /// <summary>Vectors index to perform the search in. If not provided, NucliaDB will use the default one</summary>
-    public object Vectorset { get; set; }
-
-    /// <summary>Whether to return duplicate paragraphs on the same document</summary>
-    public bool WithDuplicates { get; set; }
-
-    /// <summary>Whether to return matches for custom knowledge box synonyms of the query terms. Note: only supported for `keyword` and `fulltext` search options.</summary>
-    public bool WithSynonyms { get; set; }
-
-    /// <summary>If set to true, the search will automatically add filters to the query. For example, it will filter results containing the entities detected in the query</summary>
-    public bool Autofilter { get; set; }
-
-    /// <summary>List of resource ids to filter search results for. Only paragraphs from the specified resources will be returned.</summary>
-    public List<string> ResourceFilters { get; set; }
-
-    /// <summary>Security metadata for the request. If not provided, the search request is done without the security lookup phase.</summary>
-    public object Security { get; set; }
-
-    /// <summary>If set to false (default), excludes hidden resources from search</summary>
-    public bool ShowHidden { get; set; }
-
-    /// <summary>Rephrase the query for a more efficient retrieval. This will consume LLM tokens and make the request slower.</summary>
-    public bool Rephrase { get; set; }
-
-    /// <summary>Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request. If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</summary>
-    public object RephrasePrompt { get; set; }
-
-    /// <summary>Image that will be used together with the query text for retrieval.</summary>
-    public object QueryImage { get; set; }
-
-    /// <summary>List of search features to use. Each value corresponds to a lookup into on of the different indexes</summary>
-    public List<string> Features { get; set; }
-
-    /// <summary>The list of facets to calculate. The facets follow the same syntax as filters: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public List<string> Faceted { get; set; }
-
-    /// <summary>Options for results sorting</summary>
-    public object Sort { get; set; }
-}
+/// <param name="AuditMetadata">A dictionary containing optional audit-specific metadata, such as user_id, environment, or other contextual information. This metadata can be leveraged for filtering and analyzing activity logs in future operations. Each key-value pair represents a piece of metadata relevant to the user's request.</param>
+/// <param name="Query">The query to search for</param>
+/// <param name="FilterExpression">Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</param>
+/// <param name="Fields">The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</param>
+/// <param name="Filters">The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="TopK">The number of results search should return. The maximum number of results allowed is 200.</param>
+/// <param name="MinScore">Minimum score to filter search results. Results with a lower score will be ignored. Accepts either a float or a dictionary with the minimum scores for the bm25 and vector indexes. If a float is provided, it is interpreted as the minimum score for vector index search.</param>
+/// <param name="RangeCreationStart">Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeCreationEnd">Resources created after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeModificationStart">Resources modified before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeModificationEnd">Resources modified after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="Debug">If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</param>
+/// <param name="Highlight">If set to true, the query terms will be highlighted in the results between <mark>...</mark> tags</param>
+/// <param name="Show">Controls which types of metadata are serialized on resources of search results</param>
+/// <param name="FieldTypeFilter">Define which field types are serialized on resources of search results</param>
+/// <param name="Extracted">[Deprecated] Please use GET resource endpoint instead to get extracted metadata</param>
+/// <param name="Vector">The vector to perform the search with. If not provided, NucliaDB will use Nuclia Predict API to create the vector off from the query.</param>
+/// <param name="Vectorset">Vectors index to perform the search in. If not provided, NucliaDB will use the default one</param>
+/// <param name="WithDuplicates">Whether to return duplicate paragraphs on the same document</param>
+/// <param name="WithSynonyms">Whether to return matches for custom knowledge box synonyms of the query terms. Note: only supported for `keyword` and `fulltext` search options.</param>
+/// <param name="Autofilter">If set to true, the search will automatically add filters to the query. For example, it will filter results containing the entities detected in the query</param>
+/// <param name="ResourceFilters">List of resource ids to filter search results for. Only paragraphs from the specified resources will be returned.</param>
+/// <param name="Security">Security metadata for the request. If not provided, the search request is done without the security lookup phase.</param>
+/// <param name="ShowHidden">If set to false (default), excludes hidden resources from search</param>
+/// <param name="Rephrase">Rephrase the query for a more efficient retrieval. This will consume LLM tokens and make the request slower.</param>
+/// <param name="RephrasePrompt">Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request. If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</param>
+/// <param name="QueryImage">Image that will be used together with the query text for retrieval.</param>
+/// <param name="Features">List of search features to use. Each value corresponds to a lookup into on of the different indexes</param>
+/// <param name="Faceted">The list of facets to calculate. The facets follow the same syntax as filters: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="Sort">Options for results sorting</param>
+public record SearchRequest(object AuditMetadata, string Query, object FilterExpression, List<string> Fields, object Filters, int TopK, object MinScore, object RangeCreationStart, object RangeCreationEnd, object RangeModificationStart, object RangeModificationEnd, bool Debug, bool Highlight, List<string> Show, List<string> FieldTypeFilter, List<string> Extracted, object Vector, object Vectorset, bool WithDuplicates, bool WithSynonyms, bool Autofilter, List<string> ResourceFilters, object Security, bool ShowHidden, bool Rephrase, object RephrasePrompt, object QueryImage, List<string> Features, List<string> Faceted, object Sort);
 
 /// <summary>Sentences</summary>
-public class Sentences
-{
-    /// <summary>Results</summary>
-    public List<NucliadbModelsSearchSentence> Results { get; set; }
-
-    /// <summary>Facets</summary>
-    public object Facets { get; set; }
-
-    /// <summary>PageNumber</summary>
-    public int PageNumber { get; set; }
-
-    /// <summary>PageSize</summary>
-    public int PageSize { get; set; }
-
-    /// <summary>Minimum similarity score used to filter vector index search. Results with a lower score have been ignored.</summary>
-    public float MinScore { get; set; }
-}
+/// <param name="Results">Results</param>
+/// <param name="Facets">Facets</param>
+/// <param name="PageNumber">PageNumber</param>
+/// <param name="PageSize">PageSize</param>
+/// <param name="MinScore">Minimum similarity score used to filter vector index search. Results with a lower score have been ignored.</param>
+public record Sentences(List<NucliadbModelsSearchSentence> Results, object Facets, int PageNumber, int PageSize, float MinScore);
 
 /// <summary>Sheet</summary>
-public class Sheet
-{
-    /// <summary>Rows</summary>
-    public object Rows { get; set; }
-}
+/// <param name="Rows">Rows</param>
+public record Sheet(object Rows);
 
 /// <summary>SortOptions</summary>
-public class SortOptions
-{
-    /// <summary>Field</summary>
-    public string Field { get; set; }
-
-    /// <summary>Limit</summary>
-    public object Limit { get; set; }
-
-    /// <summary>Order</summary>
-    public string Order { get; set; }
-}
+/// <param name="Field">Field</param>
+/// <param name="Limit">Limit</param>
+/// <param name="Order">Order</param>
+public record SortOptions(string Field, object Limit, string Order);
 
 /// <summary>SourceNode</summary>
-public class SourceNode
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Value</summary>
-    public object Value { get; set; }
-
-    /// <summary>Match</summary>
-    public string Match { get; set; }
-
-    /// <summary>Type</summary>
-    public object Type { get; set; }
-
-    /// <summary>Group</summary>
-    public object Group { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Value">Value</param>
+/// <param name="Match">Match</param>
+/// <param name="Type">Type</param>
+/// <param name="Group">Group</param>
+public record SourceNode(string Prop, object Value, string Match, object Type, object Group);
 
 /// <summary>Model for the request payload of the summarize endpoint</summary>
-public class SummarizeRequest
-{
-    /// <summary>The generative model to use for the summarization. If not provided, the model configured for the Knowledge Box is used.</summary>
-    public object GenerativeModel { get; set; }
-
-    /// <summary>Optional custom prompt input by the user</summary>
-    public object UserPrompt { get; set; }
-
-    /// <summary>Uids or slugs of the resources to summarize. If the resources are not found, they will be ignored.</summary>
-    public List<string> Resources { get; set; }
-
-    /// <summary>SummaryKind</summary>
-    public string SummaryKind { get; set; }
-}
+/// <param name="GenerativeModel">The generative model to use for the summarization. If not provided, the model configured for the Knowledge Box is used.</param>
+/// <param name="UserPrompt">Optional custom prompt input by the user</param>
+/// <param name="Resources">Uids or slugs of the resources to summarize. If the resources are not found, they will be ignored.</param>
+/// <param name="SummaryKind">SummaryKind</param>
+public record SummarizeRequest(object GenerativeModel, object UserPrompt, List<string> Resources, string SummaryKind);
 
 /// <summary>SummarizedResource</summary>
-public class SummarizedResource
-{
-    /// <summary>Summary of the resource</summary>
-    public string Summary { get; set; }
-
-    /// <summary>Tokens</summary>
-    public int Tokens { get; set; }
-}
+/// <param name="Summary">Summary of the resource</param>
+/// <param name="Tokens">Tokens</param>
+public record SummarizedResource(string Summary, int Tokens);
 
 /// <summary>SummarizedResponse</summary>
-public class SummarizedResponse
-{
-    /// <summary>Individual resource summaries. The key is the resource id or slug.</summary>
-    public object Resources { get; set; }
-
-    /// <summary>Global summary of all resources combined.</summary>
-    public string Summary { get; set; }
-
-    /// <summary>Consumption</summary>
-    public object Consumption { get; set; }
-}
+/// <param name="Resources">Individual resource summaries. The key is the resource id or slug.</param>
+/// <param name="Summary">Global summary of all resources combined.</param>
+/// <param name="Consumption">Consumption</param>
+public record SummarizedResponse(object Resources, string Summary, object Consumption);
 
 /// <summary>SyncAskMetadata</summary>
-public class SyncAskMetadata
-{
-    /// <summary>Number of tokens used in the LLM context and answer</summary>
-    public object Tokens { get; set; }
-
-    /// <summary>Timings of the generative model</summary>
-    public object Timings { get; set; }
-}
+/// <param name="Tokens">Number of tokens used in the LLM context and answer</param>
+/// <param name="Timings">Timings of the generative model</param>
+public record SyncAskMetadata(object Tokens, object Timings);
 
 /// <summary>SyncAskResponse</summary>
-public class SyncAskResponse
-{
-    /// <summary>The generative answer to the query</summary>
-    public string Answer { get; set; }
-
-    /// <summary>The reasoning steps followed by the LLM to generate the answer. This is returned only if the reasoning feature is enabled in the request.</summary>
-    public object Reasoning { get; set; }
-
-    /// <summary>The generative JSON answer to the query. This is returned only if the answer_json_schema parameter is provided in the request.</summary>
-    public object AnswerJson { get; set; }
-
-    /// <summary>The status of the query execution. It can be 'success', 'error', 'no_context' or 'no_retrieval_data'</summary>
-    public string Status { get; set; }
-
-    /// <summary>RetrievalResults</summary>
-    public KnowledgeboxFindResults RetrievalResults { get; set; }
-
-    /// <summary>Sorted list of best matching text blocks in the retrieval step. This includes the main query and prequeries results, if any.</summary>
-    public List<AskRetrievalMatch> RetrievalBestMatches { get; set; }
-
-    /// <summary>The retrieval results of the prequeries</summary>
-    public object Prequeries { get; set; }
-
-    /// <summary>The id of the learning request. This id can be used to provide feedback on the learning process.</summary>
-    public string LearningId { get; set; }
-
-    /// <summary>The detected relations of the answer</summary>
-    public object Relations { get; set; }
-
-    /// <summary>The citations of the answer. List of references to the resources used to generate the answer.</summary>
-    public object Citations { get; set; }
-
-    /// <summary>Augmented text blocks that were sent to the LLM as part of the RAG strategies applied on the retrieval results in the request.</summary>
-    public object AugmentedContext { get; set; }
-
-    /// <summary>The prompt context used to generate the answer. Returned only if the debug flag is set to true</summary>
-    public object PromptContext { get; set; }
-
-    /// <summary>The internal predict request used to generate the answer. Returned only if the debug flag is set to true</summary>
-    public object PredictRequest { get; set; }
-
-    /// <summary>Metadata of the query execution. This includes the number of tokens used in the LLM context and answer, and the timings of the generative model.</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>The consumption of the query execution. Return only if 'X-show-consumption' header is set to true in the request.</summary>
-    public object Consumption { get; set; }
-
-    /// <summary>Error details message in case there was an error</summary>
-    public object ErrorDetails { get; set; }
-
-    /// <summary>Debug information about the ask operation. The metadata included in this field is subject to change and should not be used in production. Note that it is only available if the `debug` parameter is set to true in the request.</summary>
-    public object Debug { get; set; }
-}
+/// <param name="Answer">The generative answer to the query</param>
+/// <param name="Reasoning">The reasoning steps followed by the LLM to generate the answer. This is returned only if the reasoning feature is enabled in the request.</param>
+/// <param name="AnswerJson">The generative JSON answer to the query. This is returned only if the answer_json_schema parameter is provided in the request.</param>
+/// <param name="Status">The status of the query execution. It can be 'success', 'error', 'no_context' or 'no_retrieval_data'</param>
+/// <param name="RetrievalResults">RetrievalResults</param>
+/// <param name="RetrievalBestMatches">Sorted list of best matching text blocks in the retrieval step. This includes the main query and prequeries results, if any.</param>
+/// <param name="Prequeries">The retrieval results of the prequeries</param>
+/// <param name="LearningId">The id of the learning request. This id can be used to provide feedback on the learning process.</param>
+/// <param name="Relations">The detected relations of the answer</param>
+/// <param name="Citations">The citations of the answer. List of references to the resources used to generate the answer.</param>
+/// <param name="AugmentedContext">Augmented text blocks that were sent to the LLM as part of the RAG strategies applied on the retrieval results in the request.</param>
+/// <param name="PromptContext">The prompt context used to generate the answer. Returned only if the debug flag is set to true</param>
+/// <param name="PredictRequest">The internal predict request used to generate the answer. Returned only if the debug flag is set to true</param>
+/// <param name="Metadata">Metadata of the query execution. This includes the number of tokens used in the LLM context and answer, and the timings of the generative model.</param>
+/// <param name="Consumption">The consumption of the query execution. Return only if 'X-show-consumption' header is set to true in the request.</param>
+/// <param name="ErrorDetails">Error details message in case there was an error</param>
+/// <param name="Debug">Debug information about the ask operation. The metadata included in this field is subject to change and should not be used in production. Note that it is only available if the `debug` parameter is set to true in the request.</param>
+public record SyncAskResponse(string Answer, object Reasoning, object AnswerJson, string Status, KnowledgeboxFindResults RetrievalResults, List<AskRetrievalMatch> RetrievalBestMatches, object Prequeries, string LearningId, object Relations, object Citations, object AugmentedContext, object PromptContext, object PredictRequest, object Metadata, object Consumption, object ErrorDetails, object Debug);
 
 /// <summary>TableImageStrategy</summary>
-public class TableImageStrategy
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-}
+/// <param name="Name">Name</param>
+public record TableImageStrategy(string Name);
 
 /// <summary>TextFieldData</summary>
-public class TextFieldData
-{
-    /// <summary>Value</summary>
-    public object Value { get; set; }
-
-    /// <summary>Extracted</summary>
-    public object Extracted { get; set; }
-
-    /// <summary>Error</summary>
-    public object Error { get; set; }
-
-    /// <summary>Status</summary>
-    public object Status { get; set; }
-
-    /// <summary>Errors</summary>
-    public object Errors { get; set; }
-}
+/// <param name="Value">Value</param>
+/// <param name="Extracted">Extracted</param>
+/// <param name="Error">Error</param>
+/// <param name="Status">Status</param>
+/// <param name="Errors">Errors</param>
+public record TextFieldData(object Value, object Extracted, object Error, object Status, object Errors);
 
 /// <summary>TextFieldExtractedData</summary>
-public class TextFieldExtractedData
-{
-    /// <summary>Text</summary>
-    public object Text { get; set; }
-
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>LargeMetadata</summary>
-    public object LargeMetadata { get; set; }
-
-    /// <summary>Vectors</summary>
-    public object Vectors { get; set; }
-
-    /// <summary>QuestionAnswers</summary>
-    public object QuestionAnswers { get; set; }
-}
+/// <param name="Text">Text</param>
+/// <param name="Metadata">Metadata</param>
+/// <param name="LargeMetadata">LargeMetadata</param>
+/// <param name="Vectors">Vectors</param>
+/// <param name="QuestionAnswers">QuestionAnswers</param>
+public record TextFieldExtractedData(object Text, object Metadata, object LargeMetadata, object Vectors, object QuestionAnswers);
 
 /// <summary>TextPosition</summary>
-public class TextPosition
-{
-    /// <summary>PageNumber</summary>
-    public object PageNumber { get; set; }
-
-    /// <summary>Index</summary>
-    public int Index { get; set; }
-
-    /// <summary>Start</summary>
-    public int Start { get; set; }
-
-    /// <summary>End</summary>
-    public int End { get; set; }
-
-    /// <summary>StartSeconds</summary>
-    public object StartSeconds { get; set; }
-
-    /// <summary>EndSeconds</summary>
-    public object EndSeconds { get; set; }
-}
+/// <param name="PageNumber">PageNumber</param>
+/// <param name="Index">Index</param>
+/// <param name="Start">Start</param>
+/// <param name="End">End</param>
+/// <param name="StartSeconds">StartSeconds</param>
+/// <param name="EndSeconds">EndSeconds</param>
+public record TextPosition(object PageNumber, int Index, int Start, int End, object StartSeconds, object EndSeconds);
 
 /// <summary>TokensDetail</summary>
-public class TokensDetail
-{
-    /// <summary>Input</summary>
-    public float Input { get; set; }
-
-    /// <summary>Output</summary>
-    public float Output { get; set; }
-
-    /// <summary>Image</summary>
-    public float Image { get; set; }
-}
+/// <param name="Input">Input</param>
+/// <param name="Output">Output</param>
+/// <param name="Image">Image</param>
+public record TokensDetail(float Input, float Output, float Image);
 
 /// <summary>UserClassification</summary>
-public class UserClassification
-{
-    /// <summary>Labelset</summary>
-    public string Labelset { get; set; }
-
-    /// <summary>Label</summary>
-    public string Label { get; set; }
-
-    /// <summary>CancelledByUser</summary>
-    public bool CancelledByUser { get; set; }
-}
+/// <param name="Labelset">Labelset</param>
+/// <param name="Label">Label</param>
+/// <param name="CancelledByUser">CancelledByUser</param>
+public record UserClassification(string Labelset, string Label, bool CancelledByUser);
 
 /// <summary>Field-level metadata set by the user via the rest api</summary>
-public class UserFieldMetadata
-{
-    /// <summary>Paragraphs</summary>
-    public List<ParagraphAnnotation> Paragraphs { get; set; }
-
-    /// <summary>QuestionAnswers</summary>
-    public List<QuestionAnswerAnnotation> QuestionAnswers { get; set; }
-
-    /// <summary>Field</summary>
-    public FieldID Field { get; set; }
-}
+/// <param name="Paragraphs">Paragraphs</param>
+/// <param name="QuestionAnswers">QuestionAnswers</param>
+/// <param name="Field">Field</param>
+public record UserFieldMetadata(List<ParagraphAnnotation> Paragraphs, List<QuestionAnswerAnnotation> QuestionAnswers, FieldID Field);
 
 /// <summary>UserMetadata</summary>
-public class UserMetadata
-{
-    /// <summary>Classifications</summary>
-    public List<UserClassification> Classifications { get; set; }
-
-    /// <summary>Relations</summary>
-    public List<NucliadbModelsMetadataRelation> Relations { get; set; }
-}
+/// <param name="Classifications">Classifications</param>
+/// <param name="Relations">Relations</param>
+public record UserMetadata(List<UserClassification> Classifications, List<NucliadbModelsMetadataRelation> Relations);
 
 /// <summary>Vector</summary>
-public class Vector
-{
-    /// <summary>Start</summary>
-    public object Start { get; set; }
-
-    /// <summary>End</summary>
-    public object End { get; set; }
-
-    /// <summary>StartParagraph</summary>
-    public object StartParagraph { get; set; }
-
-    /// <summary>EndParagraph</summary>
-    public object EndParagraph { get; set; }
-
-    /// <summary>VectorValue</summary>
-    public object VectorValue { get; set; }
-}
+/// <param name="Start">Start</param>
+/// <param name="End">End</param>
+/// <param name="StartParagraph">StartParagraph</param>
+/// <param name="EndParagraph">EndParagraph</param>
+/// <param name="VectorValue">VectorValue</param>
+public record Vector(object Start, object End, object StartParagraph, object EndParagraph, object VectorValue);
 
 /// <summary>VectorObject</summary>
-public class VectorObject
-{
-    /// <summary>Vectors</summary>
-    public object Vectors { get; set; }
-
-    /// <summary>SplitVectors</summary>
-    public object SplitVectors { get; set; }
-
-    /// <summary>DeletedSplits</summary>
-    public object DeletedSplits { get; set; }
-}
+/// <param name="Vectors">Vectors</param>
+/// <param name="SplitVectors">SplitVectors</param>
+/// <param name="DeletedSplits">DeletedSplits</param>
+public record VectorObject(object Vectors, object SplitVectors, object DeletedSplits);
 
 /// <summary>Vectors</summary>
-public class Vectors
-{
-    /// <summary>VectorsValue</summary>
-    public object VectorsValue { get; set; }
-}
+/// <param name="VectorsValue">VectorsValue</param>
+public record Vectors(object VectorsValue);
 
 /// <summary>NucliadbModelsCommonParagraph</summary>
-public class NucliadbModelsCommonParagraph
-{
-    /// <summary>Start</summary>
-    public object Start { get; set; }
-
-    /// <summary>End</summary>
-    public object End { get; set; }
-
-    /// <summary>StartSeconds</summary>
-    public object StartSeconds { get; set; }
-
-    /// <summary>EndSeconds</summary>
-    public object EndSeconds { get; set; }
-
-    /// <summary>Kind</summary>
-    public object Kind { get; set; }
-
-    /// <summary>Classifications</summary>
-    public object Classifications { get; set; }
-
-    /// <summary>Sentences</summary>
-    public object Sentences { get; set; }
-
-    /// <summary>Key</summary>
-    public object Key { get; set; }
-
-    /// <summary>Page</summary>
-    public object Page { get; set; }
-
-    /// <summary>Representation</summary>
-    public object Representation { get; set; }
-
-    /// <summary>Relations</summary>
-    public object Relations { get; set; }
-}
+/// <param name="Start">Start</param>
+/// <param name="End">End</param>
+/// <param name="StartSeconds">StartSeconds</param>
+/// <param name="EndSeconds">EndSeconds</param>
+/// <param name="Kind">Kind</param>
+/// <param name="Classifications">Classifications</param>
+/// <param name="Sentences">Sentences</param>
+/// <param name="Key">Key</param>
+/// <param name="Page">Page</param>
+/// <param name="Representation">Representation</param>
+/// <param name="Relations">Relations</param>
+public record NucliadbModelsCommonParagraph(object Start, object End, object StartSeconds, object EndSeconds, object Kind, object Classifications, object Sentences, object Key, object Page, object Representation, object Relations);
 
 /// <summary>NucliadbModelsCommonSentence</summary>
-public class NucliadbModelsCommonSentence
-{
-    /// <summary>Start</summary>
-    public object Start { get; set; }
-
-    /// <summary>End</summary>
-    public object End { get; set; }
-
-    /// <summary>Key</summary>
-    public object Key { get; set; }
-}
+/// <param name="Start">Start</param>
+/// <param name="End">End</param>
+/// <param name="Key">Key</param>
+public record NucliadbModelsCommonSentence(object Start, object End, object Key);
 
 /// <summary>Matches if the field was generated by the given source</summary>
-public class NucliadbModelsFiltersGenerated
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Generator for this field. Currently, only data-augmentation is supported</summary>
-    public string By { get; set; }
-
-    /// <summary>Matches field generated by an specific DA task, given its prefix</summary>
-    public object DaTask { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="By">Generator for this field. Currently, only data-augmentation is supported</param>
+/// <param name="DaTask">Matches field generated by an specific DA task, given its prefix</param>
+public record NucliadbModelsFiltersGenerated(string Prop, string By, object DaTask);
 
 /// <summary>Matches if the relation was generated by the given source</summary>
-public class NucliadbModelsGraphRequestsGenerated
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>By</summary>
-    public string By { get; set; }
-
-    /// <summary>Matches relations generated by an specific DA task, given its prefix</summary>
-    public object DaTask { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="By">By</param>
+/// <param name="DaTask">Matches relations generated by an specific DA task, given its prefix</param>
+public record NucliadbModelsGraphRequestsGenerated(string Prop, string By, object DaTask);
 
 /// <summary>NucliadbModelsSearchParagraph</summary>
-public class NucliadbModelsSearchParagraph
-{
-    /// <summary>Score</summary>
-    public float Score { get; set; }
-
-    /// <summary>Rid</summary>
-    public string Rid { get; set; }
-
-    /// <summary>FieldType</summary>
-    public string FieldType { get; set; }
-
-    /// <summary>Field</summary>
-    public string Field { get; set; }
-
-    /// <summary>Text</summary>
-    public string Text { get; set; }
-
-    /// <summary>Labels</summary>
-    public List<string> Labels { get; set; }
-
-    /// <summary>StartSeconds</summary>
-    public object StartSeconds { get; set; }
-
-    /// <summary>EndSeconds</summary>
-    public object EndSeconds { get; set; }
-
-    /// <summary>Position</summary>
-    public object Position { get; set; }
-
-    /// <summary>FuzzyResult</summary>
-    public bool FuzzyResult { get; set; }
-}
+/// <param name="Score">Score</param>
+/// <param name="Rid">Rid</param>
+/// <param name="FieldType">FieldType</param>
+/// <param name="Field">Field</param>
+/// <param name="Text">Text</param>
+/// <param name="Labels">Labels</param>
+/// <param name="StartSeconds">StartSeconds</param>
+/// <param name="EndSeconds">EndSeconds</param>
+/// <param name="Position">Position</param>
+/// <param name="FuzzyResult">FuzzyResult</param>
+public record NucliadbModelsSearchParagraph(float Score, string Rid, string FieldType, string Field, string Text, List<string> Labels, object StartSeconds, object EndSeconds, object Position, bool FuzzyResult);
 
 /// <summary>NucliadbModelsSearchSentence</summary>
-public class NucliadbModelsSearchSentence
-{
-    /// <summary>Score</summary>
-    public float Score { get; set; }
-
-    /// <summary>Rid</summary>
-    public string Rid { get; set; }
-
-    /// <summary>Text</summary>
-    public string Text { get; set; }
-
-    /// <summary>FieldType</summary>
-    public string FieldType { get; set; }
-
-    /// <summary>Field</summary>
-    public string Field { get; set; }
-
-    /// <summary>Index</summary>
-    public object Index { get; set; }
-
-    /// <summary>Position</summary>
-    public object Position { get; set; }
-}
+/// <param name="Score">Score</param>
+/// <param name="Rid">Rid</param>
+/// <param name="Text">Text</param>
+/// <param name="FieldType">FieldType</param>
+/// <param name="Field">Field</param>
+/// <param name="Index">Index</param>
+/// <param name="Position">Position</param>
+public record NucliadbModelsSearchSentence(float Score, string Rid, string Text, string FieldType, string Field, object Index, object Position);
 
 /// <summary>AITables</summary>
-public class AITables
-{
-    /// <summary>Llm</summary>
-    public object Llm { get; set; }
-}
+/// <param name="Llm">Llm</param>
+public record AITables(object Llm);
 
 /// <summary>AnthropicKey</summary>
-public class AnthropicKey
-{
-    /// <summary>Key</summary>
-    public string Key { get; set; }
-}
+/// <param name="Key">Key</param>
+public record AnthropicKey(string Key);
 
 /// <summary>AskConfig</summary>
-public class AskConfig
-{
-    /// <summary>A dictionary containing optional audit-specific metadata, such as user_id, environment, or other contextual information. This metadata can be leveraged for filtering and analyzing activity logs in future operations. Each key-value pair represents a piece of metadata relevant to the user's request.</summary>
-    public object AuditMetadata { get; set; }
-
-    /// <summary>The top most relevant results to fetch at the retrieval step. The maximum number of results allowed is 200.</summary>
-    public int TopK { get; set; }
-
-    /// <summary>Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</summary>
-    public object FilterExpression { get; set; }
-
-    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</summary>
-    public List<string> Fields { get; set; }
-
-    /// <summary>The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public object Filters { get; set; }
-
-    /// <summary>List of keyword filter expressions to apply to the retrieval step. The text block search will only be performed on the documents that contain the specified keywords. The filters are case-insensitive, and only alphanumeric characters and spaces are allowed. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public object KeywordFilters { get; set; }
-
-    /// <summary>Vectors index to perform the search in. If not provided, NucliaDB will use the default one</summary>
-    public object Vectorset { get; set; }
-
-    /// <summary>Minimum score to filter search results. Results with a lower score will be ignored. Accepts either a float or a dictionary with the minimum scores for the bm25 and vector indexes. If a float is provided, it is interpreted as the minimum score for vector index search.</summary>
-    public object MinScore { get; set; }
-
-    /// <summary>Features enabled for the chat endpoint. Semantic search is done if `semantic` is included. If `keyword` is included, the results will include matching paragraphs from the bm25 index. If `relations` is included, a graph of entities related to the answer is returned. `paragraphs` and `vectors` are deprecated, please use `keyword` and `semantic` instead</summary>
-    public List<string> Features { get; set; }
-
-    /// <summary>Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeCreationStart { get; set; }
-
-    /// <summary>Resources created after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeCreationEnd { get; set; }
-
-    /// <summary>Resources modified before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeModificationStart { get; set; }
-
-    /// <summary>Resources modified after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeModificationEnd { get; set; }
-
-    /// <summary>Controls which types of metadata are serialized on resources of search results</summary>
-    public List<string> Show { get; set; }
-
-    /// <summary>Define which field types are serialized on resources of search results</summary>
-    public List<string> FieldTypeFilter { get; set; }
-
-    /// <summary>[Deprecated] Please use GET resource endpoint instead to get extracted metadata</summary>
-    public List<string> Extracted { get; set; }
-
-    /// <summary>DEPRECATED! Please, use `chat_history` instead.</summary>
-    public object Context { get; set; }
-
-    /// <summary>Use to rephrase the new LLM query by taking into account the chat conversation history. This will be passed to the LLM so that it is aware of the previous conversation.</summary>
-    public object ChatHistory { get; set; }
-
-    /// <summary>Additional context that is added to the retrieval context sent to the LLM.         It allows extending the chat feature with content that may not be in the Knowledge Box.</summary>
-    public object ExtraContext { get; set; }
-
-    /// <summary>Additional images added to the retrieval context sent to the LLM."         It allows extending the chat feature with content that may not be in the Knowledge Box.</summary>
-    public object ExtraContextImages { get; set; }
-
-    /// <summary>Image that will be used together with the query text for retrieval and then sent to the LLM as part of the context. If a query image is provided, the `extra_context_images` and `rag_images_strategies` will be disabled.</summary>
-    public object QueryImage { get; set; }
-
-    /// <summary>If set to true, the search will automatically add filters to the query. For example, it will filter results containing the entities detected in the query</summary>
-    public bool Autofilter { get; set; }
-
-    /// <summary>If set to true, the query terms will be highlighted in the results between <mark>...</mark> tags</summary>
-    public bool Highlight { get; set; }
-
-    /// <summary>List of resource ids to filter search results for. Only paragraphs from the specified resources will be returned.</summary>
-    public List<string> ResourceFilters { get; set; }
-
-    /// <summary>Use to customize the prompts given to the generative model. Both system and user prompts can be customized. If a string is provided, it is interpreted as the user prompt.</summary>
-    public object Prompt { get; set; }
-
-    /// <summary>Rank fusion algorithm to use to merge results from multiple retrievers (keyword, semantic)</summary>
-    public object RankFusion { get; set; }
-
-    /// <summary>Reranker let you specify which method you want to use to rerank your results at the end of retrieval</summary>
-    public object Reranker { get; set; }
-
-    /// <summary>Whether to include the citations for the answer in the response</summary>
-    public bool Citations { get; set; }
-
-    /// <summary>If citations is True, this sets the similarity threshold (0 to 1) for paragraphs to be included as citations. Lower values result in more citations. If not provided, Nuclia's default threshold is used.</summary>
-    public object CitationThreshold { get; set; }
-
-    /// <summary>Security metadata for the request. If not provided, the search request is done without the security lookup phase.</summary>
-    public object Security { get; set; }
-
-    /// <summary>If set to false (default), excludes hidden resources from search</summary>
-    public bool ShowHidden { get; set; }
-
-    /// <summary>Options for tweaking how the context for the LLM model is crafted: - `full_resource` will add the full text of the matching resources to the context. This strategy cannot be combined with `hierarchy`, `neighbouring_paragraphs`, or `field_extension`. - `field_extension` will add the text of the matching resource's specified fields to the context. - `hierarchy` will add the title and summary text of the parent resource to the context for each matching paragraph. - `neighbouring_paragraphs` will add the sorrounding paragraphs to the context for each matching paragraph. - `metadata_extension` will add the metadata of the matching paragraphs or its resources to the context. - `prequeries` allows to run multiple retrieval queries before the main query and add the results to the context. The results of specific queries can be boosted by the specifying weights.  If empty, the default strategy is used, which simply adds the text of the matching paragraphs to the context.</summary>
-    public List<object> RagStrategies { get; set; }
-
-    /// <summary>Options for tweaking how the image based context for the LLM model is crafted: - `page_image` will add the full page image of the matching resources to the context. - `tables` will send the table images for the paragraphs that contain tables and matched the retrieval query. - `paragraph_image` will add the images of the paragraphs that contain images (images for tables are not included). No image strategy is used by default. Note that this is only available for LLM models that support visual inputs. If the model does not support visual inputs, the image strategies will be ignored.</summary>
-    public List<object> RagImagesStrategies { get; set; }
-
-    /// <summary>If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</summary>
-    public bool Debug { get; set; }
-
-    /// <summary>The generative model to use for the chat endpoint. If not provided, the model configured for the Knowledge Box is used.</summary>
-    public object GenerativeModel { get; set; }
-
-    /// <summary>The seed to use for the generative model for deterministic generation. Only supported by some models.</summary>
-    public object GenerativeModelSeed { get; set; }
-
-    /// <summary>Use to limit the amount of tokens used in the LLM context and/or for generating the answer. If not provided, the default maximum tokens of the generative model will be used. If an integer is provided, it is interpreted as the maximum tokens for the answer.</summary>
-    public object MaxTokens { get; set; }
-
-    /// <summary>Rephrase the query for a more efficient retrieval. This will consume LLM tokens and make the request slower.</summary>
-    public bool Rephrase { get; set; }
-
-    /// <summary>Threshold to determine if the past chat history is relevant to rephrase the user's question. 0 - Always treat previous messages as relevant (always rephrase).1 - Always treat previous messages as irrelevant (never rephrase).Values in between adjust the sensitivity.</summary>
-    public object ChatHistoryRelevanceThreshold { get; set; }
-
-    /// <summary>If set to true, the response will be in markdown format</summary>
-    public bool PreferMarkdown { get; set; }
-
-    /// <summary>Desired JSON schema for the LLM answer. This schema is passed to the LLM so that it answers in a scructured format following the schema. If not provided, textual response is returned. Note that when using this parameter, the answer in the generative response will not be returned in chunks, the whole response text will be returned instead. Using this feature also disables the `citations` parameter. For maximal accuracy, please include a `description` for each field of the schema.</summary>
-    public object AnswerJsonSchema { get; set; }
-
-    /// <summary>Whether to generate an answer using the generative model. If set to false, the response will only contain the retrieval results.</summary>
-    public bool GenerateAnswer { get; set; }
-
-    /// <summary>Reasoning options for the generative model. Set to True to enable default reasoning, False to disable, or provide a Reasoning object for custom options.</summary>
-    public object Reasoning { get; set; }
-
-    /// <summary>Query</summary>
-    public object Query { get; set; }
-}
+/// <param name="AuditMetadata">A dictionary containing optional audit-specific metadata, such as user_id, environment, or other contextual information. This metadata can be leveraged for filtering and analyzing activity logs in future operations. Each key-value pair represents a piece of metadata relevant to the user's request.</param>
+/// <param name="TopK">The top most relevant results to fetch at the retrieval step. The maximum number of results allowed is 200.</param>
+/// <param name="FilterExpression">Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</param>
+/// <param name="Fields">The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</param>
+/// <param name="Filters">The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="KeywordFilters">List of keyword filter expressions to apply to the retrieval step. The text block search will only be performed on the documents that contain the specified keywords. The filters are case-insensitive, and only alphanumeric characters and spaces are allowed. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="Vectorset">Vectors index to perform the search in. If not provided, NucliaDB will use the default one</param>
+/// <param name="MinScore">Minimum score to filter search results. Results with a lower score will be ignored. Accepts either a float or a dictionary with the minimum scores for the bm25 and vector indexes. If a float is provided, it is interpreted as the minimum score for vector index search.</param>
+/// <param name="Features">Features enabled for the chat endpoint. Semantic search is done if `semantic` is included. If `keyword` is included, the results will include matching paragraphs from the bm25 index. If `relations` is included, a graph of entities related to the answer is returned. `paragraphs` and `vectors` are deprecated, please use `keyword` and `semantic` instead</param>
+/// <param name="RangeCreationStart">Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeCreationEnd">Resources created after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeModificationStart">Resources modified before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeModificationEnd">Resources modified after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="Show">Controls which types of metadata are serialized on resources of search results</param>
+/// <param name="FieldTypeFilter">Define which field types are serialized on resources of search results</param>
+/// <param name="Extracted">[Deprecated] Please use GET resource endpoint instead to get extracted metadata</param>
+/// <param name="Context">DEPRECATED! Please, use `chat_history` instead.</param>
+/// <param name="ChatHistory">Use to rephrase the new LLM query by taking into account the chat conversation history. This will be passed to the LLM so that it is aware of the previous conversation.</param>
+/// <param name="ExtraContext">Additional context that is added to the retrieval context sent to the LLM.         It allows extending the chat feature with content that may not be in the Knowledge Box.</param>
+/// <param name="ExtraContextImages">Additional images added to the retrieval context sent to the LLM."         It allows extending the chat feature with content that may not be in the Knowledge Box.</param>
+/// <param name="QueryImage">Image that will be used together with the query text for retrieval and then sent to the LLM as part of the context. If a query image is provided, the `extra_context_images` and `rag_images_strategies` will be disabled.</param>
+/// <param name="Autofilter">If set to true, the search will automatically add filters to the query. For example, it will filter results containing the entities detected in the query</param>
+/// <param name="Highlight">If set to true, the query terms will be highlighted in the results between <mark>...</mark> tags</param>
+/// <param name="ResourceFilters">List of resource ids to filter search results for. Only paragraphs from the specified resources will be returned.</param>
+/// <param name="Prompt">Use to customize the prompts given to the generative model. Both system and user prompts can be customized. If a string is provided, it is interpreted as the user prompt.</param>
+/// <param name="RankFusion">Rank fusion algorithm to use to merge results from multiple retrievers (keyword, semantic)</param>
+/// <param name="Reranker">Reranker let you specify which method you want to use to rerank your results at the end of retrieval</param>
+/// <param name="Citations">Whether to include the citations for the answer in the response</param>
+/// <param name="CitationThreshold">If citations is True, this sets the similarity threshold (0 to 1) for paragraphs to be included as citations. Lower values result in more citations. If not provided, Nuclia's default threshold is used.</param>
+/// <param name="Security">Security metadata for the request. If not provided, the search request is done without the security lookup phase.</param>
+/// <param name="ShowHidden">If set to false (default), excludes hidden resources from search</param>
+/// <param name="RagStrategies">Options for tweaking how the context for the LLM model is crafted: - `full_resource` will add the full text of the matching resources to the context. This strategy cannot be combined with `hierarchy`, `neighbouring_paragraphs`, or `field_extension`. - `field_extension` will add the text of the matching resource's specified fields to the context. - `hierarchy` will add the title and summary text of the parent resource to the context for each matching paragraph. - `neighbouring_paragraphs` will add the sorrounding paragraphs to the context for each matching paragraph. - `metadata_extension` will add the metadata of the matching paragraphs or its resources to the context. - `prequeries` allows to run multiple retrieval queries before the main query and add the results to the context. The results of specific queries can be boosted by the specifying weights.  If empty, the default strategy is used, which simply adds the text of the matching paragraphs to the context.</param>
+/// <param name="RagImagesStrategies">Options for tweaking how the image based context for the LLM model is crafted: - `page_image` will add the full page image of the matching resources to the context. - `tables` will send the table images for the paragraphs that contain tables and matched the retrieval query. - `paragraph_image` will add the images of the paragraphs that contain images (images for tables are not included). No image strategy is used by default. Note that this is only available for LLM models that support visual inputs. If the model does not support visual inputs, the image strategies will be ignored.</param>
+/// <param name="Debug">If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</param>
+/// <param name="GenerativeModel">The generative model to use for the chat endpoint. If not provided, the model configured for the Knowledge Box is used.</param>
+/// <param name="GenerativeModelSeed">The seed to use for the generative model for deterministic generation. Only supported by some models.</param>
+/// <param name="MaxTokens">Use to limit the amount of tokens used in the LLM context and/or for generating the answer. If not provided, the default maximum tokens of the generative model will be used. If an integer is provided, it is interpreted as the maximum tokens for the answer.</param>
+/// <param name="Rephrase">Rephrase the query for a more efficient retrieval. This will consume LLM tokens and make the request slower.</param>
+/// <param name="ChatHistoryRelevanceThreshold">Threshold to determine if the past chat history is relevant to rephrase the user's question. 0 - Always treat previous messages as relevant (always rephrase).1 - Always treat previous messages as irrelevant (never rephrase).Values in between adjust the sensitivity.</param>
+/// <param name="PreferMarkdown">If set to true, the response will be in markdown format</param>
+/// <param name="AnswerJsonSchema">Desired JSON schema for the LLM answer. This schema is passed to the LLM so that it answers in a scructured format following the schema. If not provided, textual response is returned. Note that when using this parameter, the answer in the generative response will not be returned in chunks, the whole response text will be returned instead. Using this feature also disables the `citations` parameter. For maximal accuracy, please include a `description` for each field of the schema.</param>
+/// <param name="GenerateAnswer">Whether to generate an answer using the generative model. If set to false, the response will only contain the retrieval results.</param>
+/// <param name="Reasoning">Reasoning options for the generative model. Set to True to enable default reasoning, False to disable, or provide a Reasoning object for custom options.</param>
+/// <param name="Query">Query</param>
+public record AskConfig(object AuditMetadata, int TopK, object FilterExpression, List<string> Fields, object Filters, object KeywordFilters, object Vectorset, object MinScore, List<string> Features, object RangeCreationStart, object RangeCreationEnd, object RangeModificationStart, object RangeModificationEnd, List<string> Show, List<string> FieldTypeFilter, List<string> Extracted, object Context, object ChatHistory, object ExtraContext, object ExtraContextImages, object QueryImage, bool Autofilter, bool Highlight, List<string> ResourceFilters, object Prompt, object RankFusion, object Reranker, bool Citations, object CitationThreshold, object Security, bool ShowHidden, List<object> RagStrategies, List<object> RagImagesStrategies, bool Debug, object GenerativeModel, object GenerativeModelSeed, object MaxTokens, bool Rephrase, object ChatHistoryRelevanceThreshold, bool PreferMarkdown, object AnswerJsonSchema, bool GenerateAnswer, object Reasoning, object Query);
 
 /// <summary>AskSearchConfiguration</summary>
-public class AskSearchConfiguration
-{
-    /// <summary>Kind</summary>
-    public string Kind { get; set; }
-
-    /// <summary>Config</summary>
-    public AskConfig Config { get; set; }
-}
+/// <param name="Kind">Kind</param>
+/// <param name="Config">Config</param>
+public record AskSearchConfiguration(string Kind, AskConfig Config);
 
 /// <summary>AzureMistralKey</summary>
-public class AzureMistralKey
-{
-    /// <summary>Key</summary>
-    public string Key { get; set; }
-
-    /// <summary>Url</summary>
-    public string Url { get; set; }
-}
+/// <param name="Key">Key</param>
+/// <param name="Url">Url</param>
+public record AzureMistralKey(string Key, string Url);
 
 /// <summary>AzureOpenAIKey</summary>
-public class AzureOpenAIKey
-{
-    /// <summary>Key</summary>
-    public string Key { get; set; }
-
-    /// <summary>Url</summary>
-    public string Url { get; set; }
-
-    /// <summary>Deployment</summary>
-    public string Deployment { get; set; }
-
-    /// <summary>Model</summary>
-    public string Model { get; set; }
-}
+/// <param name="Key">Key</param>
+/// <param name="Url">Url</param>
+/// <param name="Deployment">Deployment</param>
+/// <param name="Model">Model</param>
+public record AzureOpenAIKey(string Key, string Url, string Deployment, string Model);
 
 /// <summary>CreateEntitiesGroupPayload</summary>
-public class CreateEntitiesGroupPayload
-{
-    /// <summary>Group</summary>
-    public string Group { get; set; }
-
-    /// <summary>Entities</summary>
-    public object Entities { get; set; }
-
-    /// <summary>Title</summary>
-    public object Title { get; set; }
-
-    /// <summary>Color</summary>
-    public object Color { get; set; }
-}
+/// <param name="Group">Group</param>
+/// <param name="Entities">Entities</param>
+/// <param name="Title">Title</param>
+/// <param name="Color">Color</param>
+public record CreateEntitiesGroupPayload(string Group, object Entities, object Title, object Color);
 
 /// <summary>CreateExportResponse</summary>
-public class CreateExportResponse
-{
-    /// <summary>ExportId</summary>
-    public string ExportId { get; set; }
-}
+/// <param name="ExportId">ExportId</param>
+public record CreateExportResponse(string ExportId);
 
 /// <summary>CreateImportResponse</summary>
-public class CreateImportResponse
-{
-    /// <summary>ImportId</summary>
-    public string ImportId { get; set; }
-}
+/// <param name="ImportId">ImportId</param>
+public record CreateImportResponse(string ImportId);
 
 /// <summary>CreateResourcePayload</summary>
-public class CreateResourcePayload
-{
-    /// <summary>Title</summary>
-    public object Title { get; set; }
-
-    /// <summary>Summary</summary>
-    public object Summary { get; set; }
-
-    /// <summary>The slug is the user-defined id for the resource</summary>
-    public object Slug { get; set; }
-
-    /// <summary>The icon should be a media type string: https://www.iana.org/assignments/media-types/media-types.xhtml</summary>
-    public object Icon { get; set; }
-
-    /// <summary>Thumbnail</summary>
-    public object Thumbnail { get; set; }
-
-    /// <summary>Generic metadata for the resource. It can be used to store structured information about the resource that later is serialized on retrieval results, however this metadata can not be used for searching or filtering.</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>Usermetadata</summary>
-    public object Usermetadata { get; set; }
-
-    /// <summary>Fieldmetadata</summary>
-    public object Fieldmetadata { get; set; }
-
-    /// <summary>Origin metadata for the resource. Used to store information about the resource on the origin system. Most of its fields can later be used to filter at search time.</summary>
-    public object Origin { get; set; }
-
-    /// <summary>Extra metadata for the resource. It can be used to store structured information about the resource that can't be used to query at retrieval time.</summary>
-    public object Extra { get; set; }
-
-    /// <summary>Set the hidden status of the resource. If not set, the default value for new resources in the KnowledgeBox will be used.</summary>
-    public object Hidden { get; set; }
-
-    /// <summary>Dictionary of file fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</summary>
-    public object Files { get; set; }
-
-    /// <summary>Dictionary of link fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</summary>
-    public object Links { get; set; }
-
-    /// <summary>Dictionary of text fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</summary>
-    public object Texts { get; set; }
-
-    /// <summary>Dictionary of conversation fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</summary>
-    public object Conversations { get; set; }
-
-    /// <summary>Options for processing the resource. If not set, the default options will be used.</summary>
-    public object ProcessingOptions { get; set; }
-
-    /// <summary>Security metadata for the resource. It can be used to have fine-grained control over who can access the resource.</summary>
-    public object Security { get; set; }
-}
+/// <param name="Title">Title</param>
+/// <param name="Summary">Summary</param>
+/// <param name="Slug">The slug is the user-defined id for the resource</param>
+/// <param name="Icon">The icon should be a media type string: https://www.iana.org/assignments/media-types/media-types.xhtml</param>
+/// <param name="Thumbnail">Thumbnail</param>
+/// <param name="Metadata">Generic metadata for the resource. It can be used to store structured information about the resource that later is serialized on retrieval results, however this metadata can not be used for searching or filtering.</param>
+/// <param name="Usermetadata">Usermetadata</param>
+/// <param name="Fieldmetadata">Fieldmetadata</param>
+/// <param name="Origin">Origin metadata for the resource. Used to store information about the resource on the origin system. Most of its fields can later be used to filter at search time.</param>
+/// <param name="Extra">Extra metadata for the resource. It can be used to store structured information about the resource that can't be used to query at retrieval time.</param>
+/// <param name="Hidden">Set the hidden status of the resource. If not set, the default value for new resources in the KnowledgeBox will be used.</param>
+/// <param name="Files">Dictionary of file fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</param>
+/// <param name="Links">Dictionary of link fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</param>
+/// <param name="Texts">Dictionary of text fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</param>
+/// <param name="Conversations">Dictionary of conversation fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</param>
+/// <param name="ProcessingOptions">Options for processing the resource. If not set, the default options will be used.</param>
+/// <param name="Security">Security metadata for the resource. It can be used to have fine-grained control over who can access the resource.</param>
+public record CreateResourcePayload(object Title, object Summary, object Slug, object Icon, object Thumbnail, object Metadata, object Usermetadata, object Fieldmetadata, object Origin, object Extra, object Hidden, object Files, object Links, object Texts, object Conversations, object ProcessingOptions, object Security);
 
 /// <summary>CustomSplitStrategy</summary>
-public class CustomSplitStrategy
-{
 
-}
+public record CustomSplitStrategy();
 
 /// <summary>ExtractConfig</summary>
-public class ExtractConfig
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>VllmConfig</summary>
-    public object VllmConfig { get; set; }
-
-    /// <summary>AiTables</summary>
-    public object AiTables { get; set; }
-
-    /// <summary>Split</summary>
-    public object Split { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="VllmConfig">VllmConfig</param>
+/// <param name="AiTables">AiTables</param>
+/// <param name="Split">Split</param>
+public record ExtractConfig(string Name, object VllmConfig, object AiTables, object Split);
 
 /// <summary>FieldRef</summary>
-public class FieldRef
-{
-    /// <summary>FieldType</summary>
-    public string FieldType { get; set; }
-
-    /// <summary>FieldId</summary>
-    public string FieldId { get; set; }
-
-    /// <summary>Split</summary>
-    public object Split { get; set; }
-}
+/// <param name="FieldType">FieldType</param>
+/// <param name="FieldId">FieldId</param>
+/// <param name="Split">Split</param>
+public record FieldRef(string FieldType, string FieldId, object Split);
 
 /// <summary>File</summary>
-public class File
-{
-    /// <summary>Filename</summary>
-    public object Filename { get; set; }
-
-    /// <summary>ContentType</summary>
-    public string ContentType { get; set; }
-
-    /// <summary>Base64 encoded file content</summary>
-    public object Payload { get; set; }
-
-    /// <summary>Md5</summary>
-    public object Md5 { get; set; }
-
-    /// <summary>Uri</summary>
-    public object Uri { get; set; }
-
-    /// <summary>ExtraHeaders</summary>
-    public object ExtraHeaders { get; set; }
-}
+/// <param name="Filename">Filename</param>
+/// <param name="ContentType">ContentType</param>
+/// <param name="Payload">Base64 encoded file content</param>
+/// <param name="Md5">Md5</param>
+/// <param name="Uri">Uri</param>
+/// <param name="ExtraHeaders">ExtraHeaders</param>
+public record File(object Filename, string ContentType, object Payload, object Md5, object Uri, object ExtraHeaders);
 
 /// <summary>FileB64</summary>
-public class FileB64
-{
-    /// <summary>Filename</summary>
-    public string Filename { get; set; }
-
-    /// <summary>ContentType</summary>
-    public string ContentType { get; set; }
-
-    /// <summary>Payload</summary>
-    public string Payload { get; set; }
-
-    /// <summary>Md5</summary>
-    public string Md5 { get; set; }
-}
+/// <param name="Filename">Filename</param>
+/// <param name="ContentType">ContentType</param>
+/// <param name="Payload">Payload</param>
+/// <param name="Md5">Md5</param>
+public record FileB64(string Filename, string ContentType, string Payload, string Md5);
 
 /// <summary>FileField</summary>
-public class FileField
-{
-    /// <summary>Language</summary>
-    public object Language { get; set; }
-
-    /// <summary>Password</summary>
-    public object Password { get; set; }
-
-    /// <summary>File</summary>
-    public File File { get; set; }
-
-    /// <summary>Id of the Nuclia extract strategy to use at processing time. If not set, the default strategy will be used. Extract strategies are defined at the learning configuration api.</summary>
-    public object ExtractStrategy { get; set; }
-
-    /// <summary>Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</summary>
-    public object SplitStrategy { get; set; }
-}
+/// <param name="Language">Language</param>
+/// <param name="Password">Password</param>
+/// <param name="File">File</param>
+/// <param name="ExtractStrategy">Id of the Nuclia extract strategy to use at processing time. If not set, the default strategy will be used. Extract strategies are defined at the learning configuration api.</param>
+/// <param name="SplitStrategy">Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</param>
+public record FileField(object Language, object Password, File File, object ExtractStrategy, object SplitStrategy);
 
 /// <summary>FindConfig</summary>
-public class FindConfig
-{
-    /// <summary>A dictionary containing optional audit-specific metadata, such as user_id, environment, or other contextual information. This metadata can be leveraged for filtering and analyzing activity logs in future operations. Each key-value pair represents a piece of metadata relevant to the user's request.</summary>
-    public object AuditMetadata { get; set; }
-
-    /// <summary>The query to search for</summary>
-    public string Query { get; set; }
-
-    /// <summary>Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</summary>
-    public object FilterExpression { get; set; }
-
-    /// <summary>The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</summary>
-    public List<string> Fields { get; set; }
-
-    /// <summary>The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public object Filters { get; set; }
-
-    /// <summary>The number of results search should return. The maximum number of results allowed is 200.</summary>
-    public int TopK { get; set; }
-
-    /// <summary>Minimum score to filter search results. Results with a lower score will be ignored. Accepts either a float or a dictionary with the minimum scores for the bm25 and vector indexes. If a float is provided, it is interpreted as the minimum score for vector index search.</summary>
-    public object MinScore { get; set; }
-
-    /// <summary>Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeCreationStart { get; set; }
-
-    /// <summary>Resources created after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeCreationEnd { get; set; }
-
-    /// <summary>Resources modified before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeModificationStart { get; set; }
-
-    /// <summary>Resources modified after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</summary>
-    public object RangeModificationEnd { get; set; }
-
-    /// <summary>If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</summary>
-    public bool Debug { get; set; }
-
-    /// <summary>If set to true, the query terms will be highlighted in the results between <mark>...</mark> tags</summary>
-    public bool Highlight { get; set; }
-
-    /// <summary>Controls which types of metadata are serialized on resources of search results</summary>
-    public List<string> Show { get; set; }
-
-    /// <summary>Define which field types are serialized on resources of search results</summary>
-    public List<string> FieldTypeFilter { get; set; }
-
-    /// <summary>[Deprecated] Please use GET resource endpoint instead to get extracted metadata</summary>
-    public List<string> Extracted { get; set; }
-
-    /// <summary>The vector to perform the search with. If not provided, NucliaDB will use Nuclia Predict API to create the vector off from the query.</summary>
-    public object Vector { get; set; }
-
-    /// <summary>Vectors index to perform the search in. If not provided, NucliaDB will use the default one</summary>
-    public object Vectorset { get; set; }
-
-    /// <summary>Whether to return duplicate paragraphs on the same document</summary>
-    public bool WithDuplicates { get; set; }
-
-    /// <summary>Whether to return matches for custom knowledge box synonyms of the query terms. Note: only supported for `keyword` and `fulltext` search options.</summary>
-    public bool WithSynonyms { get; set; }
-
-    /// <summary>If set to true, the search will automatically add filters to the query. For example, it will filter results containing the entities detected in the query</summary>
-    public bool Autofilter { get; set; }
-
-    /// <summary>List of resource ids to filter search results for. Only paragraphs from the specified resources will be returned.</summary>
-    public List<string> ResourceFilters { get; set; }
-
-    /// <summary>Security metadata for the request. If not provided, the search request is done without the security lookup phase.</summary>
-    public object Security { get; set; }
-
-    /// <summary>If set to false (default), excludes hidden resources from search</summary>
-    public bool ShowHidden { get; set; }
-
-    /// <summary>Rephrase the query for a more efficient retrieval. This will consume LLM tokens and make the request slower.</summary>
-    public bool Rephrase { get; set; }
-
-    /// <summary>Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request. If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</summary>
-    public object RephrasePrompt { get; set; }
-
-    /// <summary>Image that will be used together with the query text for retrieval.</summary>
-    public object QueryImage { get; set; }
-
-    /// <summary>Query for the knowledge graph. Paths (node-relation-node) extracted from a paragraph_id will be used to extend the results</summary>
-    public object GraphQuery { get; set; }
-
-    /// <summary>List of search features to use. Each value corresponds to a lookup into on of the different indexes</summary>
-    public List<string> Features { get; set; }
-
-    /// <summary>Rank fusion algorithm to use to merge results from multiple retrievers (keyword, semantic)</summary>
-    public object RankFusion { get; set; }
-
-    /// <summary>Reranker let you specify which method you want to use to rerank your results at the end of retrieval</summary>
-    public object Reranker { get; set; }
-
-    /// <summary>List of keyword filter expressions to apply to the retrieval step. The text block search will only be performed on the documents that contain the specified keywords. The filters are case-insensitive, and only alphanumeric characters and spaces are allowed. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</summary>
-    public object KeywordFilters { get; set; }
-
-    /// <summary>The generative model used to rephrase the query. If not provided, the model configured for the Knowledge Box is used.</summary>
-    public object GenerativeModel { get; set; }
-}
+/// <param name="AuditMetadata">A dictionary containing optional audit-specific metadata, such as user_id, environment, or other contextual information. This metadata can be leveraged for filtering and analyzing activity logs in future operations. Each key-value pair represents a piece of metadata relevant to the user's request.</param>
+/// <param name="Query">The query to search for</param>
+/// <param name="FilterExpression">Returns only documents that match this filter expression.Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters This allows building complex filtering expressions and replaces the following parameters:`fields`, `filters`, `range_*`, `resource_filters`, `keyword_filters`.</param>
+/// <param name="Fields">The list of fields to search in. For instance: `a/title` to search only on title field. For more details on filtering by field, see: https://docs.nuclia.dev/docs/rag/advanced/search/#search-in-a-specific-field.</param>
+/// <param name="Filters">The list of filters to apply. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="TopK">The number of results search should return. The maximum number of results allowed is 200.</param>
+/// <param name="MinScore">Minimum score to filter search results. Results with a lower score will be ignored. Accepts either a float or a dictionary with the minimum scores for the bm25 and vector indexes. If a float is provided, it is interpreted as the minimum score for vector index search.</param>
+/// <param name="RangeCreationStart">Resources created before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeCreationEnd">Resources created after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeModificationStart">Resources modified before this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="RangeModificationEnd">Resources modified after this date will be filtered out of search results. Datetime are represented as a str in ISO 8601 format, like: 2008-09-15T15:53:00+05:00.</param>
+/// <param name="Debug">If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</param>
+/// <param name="Highlight">If set to true, the query terms will be highlighted in the results between <mark>...</mark> tags</param>
+/// <param name="Show">Controls which types of metadata are serialized on resources of search results</param>
+/// <param name="FieldTypeFilter">Define which field types are serialized on resources of search results</param>
+/// <param name="Extracted">[Deprecated] Please use GET resource endpoint instead to get extracted metadata</param>
+/// <param name="Vector">The vector to perform the search with. If not provided, NucliaDB will use Nuclia Predict API to create the vector off from the query.</param>
+/// <param name="Vectorset">Vectors index to perform the search in. If not provided, NucliaDB will use the default one</param>
+/// <param name="WithDuplicates">Whether to return duplicate paragraphs on the same document</param>
+/// <param name="WithSynonyms">Whether to return matches for custom knowledge box synonyms of the query terms. Note: only supported for `keyword` and `fulltext` search options.</param>
+/// <param name="Autofilter">If set to true, the search will automatically add filters to the query. For example, it will filter results containing the entities detected in the query</param>
+/// <param name="ResourceFilters">List of resource ids to filter search results for. Only paragraphs from the specified resources will be returned.</param>
+/// <param name="Security">Security metadata for the request. If not provided, the search request is done without the security lookup phase.</param>
+/// <param name="ShowHidden">If set to false (default), excludes hidden resources from search</param>
+/// <param name="Rephrase">Rephrase the query for a more efficient retrieval. This will consume LLM tokens and make the request slower.</param>
+/// <param name="RephrasePrompt">Rephrase prompt given to the generative model responsible for rephrasing the query for a more effective retrieval step. This is only used if the `rephrase` flag is set to true in the request. If not specified, Nuclia's default prompt is used. It must include the {question} placeholder. The placeholder will be replaced with the original question</param>
+/// <param name="QueryImage">Image that will be used together with the query text for retrieval.</param>
+/// <param name="GraphQuery">Query for the knowledge graph. Paths (node-relation-node) extracted from a paragraph_id will be used to extend the results</param>
+/// <param name="Features">List of search features to use. Each value corresponds to a lookup into on of the different indexes</param>
+/// <param name="RankFusion">Rank fusion algorithm to use to merge results from multiple retrievers (keyword, semantic)</param>
+/// <param name="Reranker">Reranker let you specify which method you want to use to rerank your results at the end of retrieval</param>
+/// <param name="KeywordFilters">List of keyword filter expressions to apply to the retrieval step. The text block search will only be performed on the documents that contain the specified keywords. The filters are case-insensitive, and only alphanumeric characters and spaces are allowed. Filtering examples can be found here: https://docs.nuclia.dev/docs/rag/advanced/search-filters</param>
+/// <param name="GenerativeModel">The generative model used to rephrase the query. If not provided, the model configured for the Knowledge Box is used.</param>
+public record FindConfig(object AuditMetadata, string Query, object FilterExpression, List<string> Fields, object Filters, int TopK, object MinScore, object RangeCreationStart, object RangeCreationEnd, object RangeModificationStart, object RangeModificationEnd, bool Debug, bool Highlight, List<string> Show, List<string> FieldTypeFilter, List<string> Extracted, object Vector, object Vectorset, bool WithDuplicates, bool WithSynonyms, bool Autofilter, List<string> ResourceFilters, object Security, bool ShowHidden, bool Rephrase, object RephrasePrompt, object QueryImage, object GraphQuery, List<string> Features, object RankFusion, object Reranker, object KeywordFilters, object GenerativeModel);
 
 /// <summary>FindSearchConfiguration</summary>
-public class FindSearchConfiguration
-{
-    /// <summary>Kind</summary>
-    public string Kind { get; set; }
-
-    /// <summary>Config</summary>
-    public FindConfig Config { get; set; }
-}
+/// <param name="Kind">Kind</param>
+/// <param name="Config">Config</param>
+public record FindSearchConfiguration(string Kind, FindConfig Config);
 
 /// <summary>GraphNode</summary>
-public class GraphNode
-{
-    /// <summary>Value</summary>
-    public object Value { get; set; }
-
-    /// <summary>Match</summary>
-    public string Match { get; set; }
-
-    /// <summary>Type</summary>
-    public object Type { get; set; }
-
-    /// <summary>Group</summary>
-    public object Group { get; set; }
-}
+/// <param name="Value">Value</param>
+/// <param name="Match">Match</param>
+/// <param name="Type">Type</param>
+/// <param name="Group">Group</param>
+public record GraphNode(object Value, string Match, object Type, object Group);
 
 /// <summary>GraphPath</summary>
-public class GraphPath
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Source</summary>
-    public object Source { get; set; }
-
-    /// <summary>Relation</summary>
-    public object Relation { get; set; }
-
-    /// <summary>Destination</summary>
-    public object Destination { get; set; }
-
-    /// <summary>Undirected</summary>
-    public bool Undirected { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Source">Source</param>
+/// <param name="Relation">Relation</param>
+/// <param name="Destination">Destination</param>
+/// <param name="Undirected">Undirected</param>
+public record GraphPath(string Prop, object Source, object Relation, object Destination, bool Undirected);
 
 /// <summary>GraphRelation</summary>
-public class GraphRelation
-{
-    /// <summary>Label</summary>
-    public object Label { get; set; }
-
-    /// <summary>Type</summary>
-    public object Type { get; set; }
-}
+/// <param name="Label">Label</param>
+/// <param name="Type">Type</param>
+public record GraphRelation(object Label, object Type);
 
 /// <summary>Some models require a specific template (including prefix) to work correctly in each task For example Snowflake's Arctic-embed requires a specific prefix to work correctly. In that case, the query prompt will be ``` passage_prompt: "" query_prompt: "Represent this sentence for searching relevant passages: {}" ```` where {} will be replaced by the actual sentence. `passage_prompt` is empty because the model does not require alterations to the sentence to embed is as a passage.</summary>
-public class HFEmbeddingKey
-{
-    /// <summary>Url</summary>
-    public string Url { get; set; }
-
-    /// <summary>Key</summary>
-    public string Key { get; set; }
-
-    /// <summary>Matryoshka</summary>
-    public List<int> Matryoshka { get; set; }
-
-    /// <summary>Similarity</summary>
-    public string Similarity { get; set; }
-
-    /// <summary>Size</summary>
-    public int Size { get; set; }
-
-    /// <summary>Threshold</summary>
-    public float Threshold { get; set; }
-
-    /// <summary>PassagePrompt</summary>
-    public string PassagePrompt { get; set; }
-
-    /// <summary>QueryPrompt</summary>
-    public string QueryPrompt { get; set; }
-}
+/// <param name="Url">Url</param>
+/// <param name="Key">Key</param>
+/// <param name="Matryoshka">Matryoshka</param>
+/// <param name="Similarity">Similarity</param>
+/// <param name="Size">Size</param>
+/// <param name="Threshold">Threshold</param>
+/// <param name="PassagePrompt">PassagePrompt</param>
+/// <param name="QueryPrompt">QueryPrompt</param>
+public record HFEmbeddingKey(string Url, string Key, List<int> Matryoshka, string Similarity, int Size, float Threshold, string PassagePrompt, string QueryPrompt);
 
 /// <summary>HFLLMKey</summary>
-public class HFLLMKey
-{
-    /// <summary>Key</summary>
-    public string Key { get; set; }
-
-    /// <summary>Url</summary>
-    public string Url { get; set; }
-
-    /// <summary>Model</summary>
-    public ModelType Model { get; set; }
-}
+/// <param name="Key">Key</param>
+/// <param name="Url">Url</param>
+/// <param name="Model">Model</param>
+public record HFLLMKey(string Key, string Url, ModelType Model);
 
 /// <summary>InputConversationField</summary>
-public class InputConversationField
-{
-    /// <summary>List of messages in the conversation field. Each message must have a unique ident.</summary>
-    public List<InputMessage> Messages { get; set; }
-
-    /// <summary>Id of the Nuclia extract strategy used at processing time. If not set, the default strategy was used. Extract strategies are defined at the learning configuration api.</summary>
-    public object ExtractStrategy { get; set; }
-
-    /// <summary>Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</summary>
-    public object SplitStrategy { get; set; }
-}
+/// <param name="Messages">List of messages in the conversation field. Each message must have a unique ident.</param>
+/// <param name="ExtractStrategy">Id of the Nuclia extract strategy used at processing time. If not set, the default strategy was used. Extract strategies are defined at the learning configuration api.</param>
+/// <param name="SplitStrategy">Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</param>
+public record InputConversationField(List<InputMessage> Messages, object ExtractStrategy, object SplitStrategy);
 
 /// <summary>InputMessage</summary>
-public class InputMessage
-{
-    /// <summary>Time at which the message was sent, in ISO 8601 format.</summary>
-    public object Timestamp { get; set; }
-
-    /// <summary>Sender of the message, e.g. 'user' or 'assistant'</summary>
-    public object Who { get; set; }
-
-    /// <summary>List of recipients of the message, e.g. ['assistant'] or ['user']</summary>
-    public List<string> To { get; set; }
-
-    /// <summary>Content</summary>
-    public InputMessageContent Content { get; set; }
-
-    /// <summary>Unique identifier for the message. Must be unique within the conversation.</summary>
-    public string Ident { get; set; }
-
-    /// <summary>Type</summary>
-    public object Type { get; set; }
-}
+/// <param name="Timestamp">Time at which the message was sent, in ISO 8601 format.</param>
+/// <param name="Who">Sender of the message, e.g. 'user' or 'assistant'</param>
+/// <param name="To">List of recipients of the message, e.g. ['assistant'] or ['user']</param>
+/// <param name="Content">Content</param>
+/// <param name="Ident">Unique identifier for the message. Must be unique within the conversation.</param>
+/// <param name="Type">Type</param>
+public record InputMessage(object Timestamp, object Who, List<string> To, InputMessageContent Content, string Ident, object Type);
 
 /// <summary>InputMessageContent</summary>
-public class InputMessageContent
-{
-    /// <summary>Text</summary>
-    public string Text { get; set; }
-
-    /// <summary>Format</summary>
-    public string Format { get; set; }
-
-    /// <summary>Attachments</summary>
-    public List<FileB64> Attachments { get; set; }
-
-    /// <summary>AttachmentsFields</summary>
-    public List<FieldRef> AttachmentsFields { get; set; }
-}
+/// <param name="Text">Text</param>
+/// <param name="Format">Format</param>
+/// <param name="Attachments">Attachments</param>
+/// <param name="AttachmentsFields">AttachmentsFields</param>
+public record InputMessageContent(string Text, string Format, List<FileB64> Attachments, List<FieldRef> AttachmentsFields);
 
 /// <summary>InputMetadata</summary>
-public class InputMetadata
-{
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>Language</summary>
-    public object Language { get; set; }
-
-    /// <summary>Languages</summary>
-    public object Languages { get; set; }
-}
+/// <param name="Metadata">Metadata</param>
+/// <param name="Language">Language</param>
+/// <param name="Languages">Languages</param>
+public record InputMetadata(object Metadata, object Language, object Languages);
 
 /// <summary>InputOrigin</summary>
-public class InputOrigin
-{
-    /// <summary>SourceId</summary>
-    public object SourceId { get; set; }
-
-    /// <summary>Url</summary>
-    public object Url { get; set; }
-
-    /// <summary>Creation date of the resource at the origin system. This can be later used for date range filtering on search endpoints. Have a look at the advanced search documentation page: https://docs.nuclia.dev/docs/rag/advanced/search/#date-filtering</summary>
-    public object Created { get; set; }
-
-    /// <summary>Modification date of the resource at the origin system. This can be later used for date range filtering on search endpoints.  Have a look at the advanced search documentation page: https://docs.nuclia.dev/docs/rag/advanced/search/#date-filtering</summary>
-    public object Modified { get; set; }
-
-    /// <summary>Generic metadata from the resource at the origin system. It can later be used for filtering on search endpoints with '/origin.metadata/{key}/{value}'</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>Resource tags about the origin system. It can later be used for filtering on search endpoints with '/origin.tags/{tag}'</summary>
-    public List<string> Tags { get; set; }
-
-    /// <summary>Collaborators</summary>
-    public List<string> Collaborators { get; set; }
-
-    /// <summary>Filename</summary>
-    public object Filename { get; set; }
-
-    /// <summary>Related</summary>
-    public List<string> Related { get; set; }
-
-    /// <summary>Path of the original resource. Typically used to store folder structure information of the resource at the origin system. It can be later used for filtering on search endpoints with '/origin.path/{path}'</summary>
-    public object Path { get; set; }
-}
+/// <param name="SourceId">SourceId</param>
+/// <param name="Url">Url</param>
+/// <param name="Created">Creation date of the resource at the origin system. This can be later used for date range filtering on search endpoints. Have a look at the advanced search documentation page: https://docs.nuclia.dev/docs/rag/advanced/search/#date-filtering</param>
+/// <param name="Modified">Modification date of the resource at the origin system. This can be later used for date range filtering on search endpoints.  Have a look at the advanced search documentation page: https://docs.nuclia.dev/docs/rag/advanced/search/#date-filtering</param>
+/// <param name="Metadata">Generic metadata from the resource at the origin system. It can later be used for filtering on search endpoints with '/origin.metadata/{key}/{value}'</param>
+/// <param name="Tags">Resource tags about the origin system. It can later be used for filtering on search endpoints with '/origin.tags/{tag}'</param>
+/// <param name="Collaborators">Collaborators</param>
+/// <param name="Filename">Filename</param>
+/// <param name="Related">Related</param>
+/// <param name="Path">Path of the original resource. Typically used to store folder structure information of the resource at the origin system. It can be later used for filtering on search endpoints with '/origin.path/{path}'</param>
+public record InputOrigin(object SourceId, object Url, object Created, object Modified, object Metadata, List<string> Tags, List<string> Collaborators, object Filename, List<string> Related, object Path);
 
 /// <summary>KnowledgeBoxConfigInput</summary>
-public class KnowledgeBoxConfigInput
-{
-    /// <summary>Slug for the Knowledge Box.</summary>
-    public object Slug { get; set; }
-
-    /// <summary>Title for the Knowledge Box.</summary>
-    public object Title { get; set; }
-
-    /// <summary>Description for the Knowledge Box.</summary>
-    public object Description { get; set; }
-
-    /// <summary>Learning configuration for the Knowledge Box. If provided, NucliaDB will set the learning configuration for the Knowledge Box.</summary>
-    public object LearningConfiguration { get; set; }
-
-    /// <summary>External index provider for the Knowledge Box.</summary>
-    public object ExternalIndexProvider { get; set; }
-
-    /// <summary>Metadata for the configured external index provider (if any)</summary>
-    public object ConfiguredExternalIndexProvider { get; set; }
-
-    /// <summary>This field is deprecated. Use 'learning_configuration' instead.</summary>
-    public object Similarity { get; set; }
-
-    /// <summary>Allow hiding resources</summary>
-    public bool HiddenResourcesEnabled { get; set; }
-
-    /// <summary>Hide newly created resources</summary>
-    public bool HiddenResourcesHideOnCreation { get; set; }
-}
+/// <param name="Slug">Slug for the Knowledge Box.</param>
+/// <param name="Title">Title for the Knowledge Box.</param>
+/// <param name="Description">Description for the Knowledge Box.</param>
+/// <param name="LearningConfiguration">Learning configuration for the Knowledge Box. If provided, NucliaDB will set the learning configuration for the Knowledge Box.</param>
+/// <param name="ExternalIndexProvider">External index provider for the Knowledge Box.</param>
+/// <param name="ConfiguredExternalIndexProvider">Metadata for the configured external index provider (if any)</param>
+/// <param name="Similarity">This field is deprecated. Use 'learning_configuration' instead.</param>
+/// <param name="HiddenResourcesEnabled">Allow hiding resources</param>
+/// <param name="HiddenResourcesHideOnCreation">Hide newly created resources</param>
+public record KnowledgeBoxConfigInput(object Slug, object Title, object Description, object LearningConfiguration, object ExternalIndexProvider, object ConfiguredExternalIndexProvider, object Similarity, bool HiddenResourcesEnabled, bool HiddenResourcesHideOnCreation);
 
 /// <summary>KnowledgeBoxConfigOutput</summary>
-public class KnowledgeBoxConfigOutput
-{
-    /// <summary>Slug for the Knowledge Box.</summary>
-    public object Slug { get; set; }
-
-    /// <summary>Title for the Knowledge Box.</summary>
-    public object Title { get; set; }
-
-    /// <summary>Description for the Knowledge Box.</summary>
-    public object Description { get; set; }
-
-    /// <summary>Learning configuration for the Knowledge Box. If provided, NucliaDB will set the learning configuration for the Knowledge Box.</summary>
-    public object LearningConfiguration { get; set; }
-
-    /// <summary>External index provider for the Knowledge Box.</summary>
-    public object ExternalIndexProvider { get; set; }
-
-    /// <summary>Metadata for the configured external index provider (if any)</summary>
-    public object ConfiguredExternalIndexProvider { get; set; }
-
-    /// <summary>This field is deprecated. Use 'learning_configuration' instead.</summary>
-    public object Similarity { get; set; }
-
-    /// <summary>Allow hiding resources</summary>
-    public bool HiddenResourcesEnabled { get; set; }
-
-    /// <summary>Hide newly created resources</summary>
-    public bool HiddenResourcesHideOnCreation { get; set; }
-}
+/// <param name="Slug">Slug for the Knowledge Box.</param>
+/// <param name="Title">Title for the Knowledge Box.</param>
+/// <param name="Description">Description for the Knowledge Box.</param>
+/// <param name="LearningConfiguration">Learning configuration for the Knowledge Box. If provided, NucliaDB will set the learning configuration for the Knowledge Box.</param>
+/// <param name="ExternalIndexProvider">External index provider for the Knowledge Box.</param>
+/// <param name="ConfiguredExternalIndexProvider">Metadata for the configured external index provider (if any)</param>
+/// <param name="Similarity">This field is deprecated. Use 'learning_configuration' instead.</param>
+/// <param name="HiddenResourcesEnabled">Allow hiding resources</param>
+/// <param name="HiddenResourcesHideOnCreation">Hide newly created resources</param>
+public record KnowledgeBoxConfigOutput(object Slug, object Title, object Description, object LearningConfiguration, object ExternalIndexProvider, object ConfiguredExternalIndexProvider, object Similarity, bool HiddenResourcesEnabled, bool HiddenResourcesHideOnCreation);
 
 /// <summary>The API representation of a Knowledge Box object.</summary>
-public class KnowledgeBoxObj
-{
-    /// <summary>Slug</summary>
-    public object Slug { get; set; }
-
-    /// <summary>Uuid</summary>
-    public string Uuid { get; set; }
-
-    /// <summary>Config</summary>
-    public object Config { get; set; }
-
-    /// <summary>Model</summary>
-    public object Model { get; set; }
-}
+/// <param name="Slug">Slug</param>
+/// <param name="Uuid">Uuid</param>
+/// <param name="Config">Config</param>
+/// <param name="Model">Model</param>
+public record KnowledgeBoxObj(object Slug, string Uuid, object Config, object Model);
 
 /// <summary>KnowledgeBoxObjID</summary>
-public class KnowledgeBoxObjID
-{
-    /// <summary>Uuid</summary>
-    public string Uuid { get; set; }
-}
+/// <param name="Uuid">Uuid</param>
+public record KnowledgeBoxObjID(string Uuid);
 
 /// <summary>KnowledgeBoxSynonyms</summary>
-public class KnowledgeBoxSynonyms
-{
-    /// <summary>Synonyms</summary>
-    public object Synonyms { get; set; }
-}
+/// <param name="Synonyms">Synonyms</param>
+public record KnowledgeBoxSynonyms(object Synonyms);
 
 /// <summary>LLMConfig</summary>
-public class LLMConfig
-{
-    /// <summary>UserKeys</summary>
-    public object UserKeys { get; set; }
-
-    /// <summary>GenerativeModel</summary>
-    public string GenerativeModel { get; set; }
-
-    /// <summary>GenerativeProvider</summary>
-    public string GenerativeProvider { get; set; }
-
-    /// <summary>GenerativePromptId</summary>
-    public string GenerativePromptId { get; set; }
-}
+/// <param name="UserKeys">UserKeys</param>
+/// <param name="GenerativeModel">GenerativeModel</param>
+/// <param name="GenerativeProvider">GenerativeProvider</param>
+/// <param name="GenerativePromptId">GenerativePromptId</param>
+public record LLMConfig(object UserKeys, string GenerativeModel, string GenerativeProvider, string GenerativePromptId);
 
 /// <summary>LLMSplitConfig</summary>
-public class LLMSplitConfig
-{
-    /// <summary>Rules</summary>
-    public List<string> Rules { get; set; }
-
-    /// <summary>Llm</summary>
-    public object Llm { get; set; }
-}
+/// <param name="Rules">Rules</param>
+/// <param name="Llm">Llm</param>
+public record LLMSplitConfig(List<string> Rules, object Llm);
 
 /// <summary>LabelSet</summary>
-public class LabelSet
-{
-    /// <summary>Title</summary>
-    public object Title { get; set; }
-
-    /// <summary>Color</summary>
-    public object Color { get; set; }
-
-    /// <summary>Multiple</summary>
-    public bool Multiple { get; set; }
-
-    /// <summary>Kind</summary>
-    public List<string> Kind { get; set; }
-
-    /// <summary>Labels</summary>
-    public List<NucliadbModelsLabelsLabel> Labels { get; set; }
-}
+/// <param name="Title">Title</param>
+/// <param name="Color">Color</param>
+/// <param name="Multiple">Multiple</param>
+/// <param name="Kind">Kind</param>
+/// <param name="Labels">Labels</param>
+public record LabelSet(object Title, object Color, bool Multiple, List<string> Kind, List<NucliadbModelsLabelsLabel> Labels);
 
 /// <summary>LinkField</summary>
-public class LinkField
-{
-    /// <summary>Headers</summary>
-    public object Headers { get; set; }
-
-    /// <summary>Cookies</summary>
-    public object Cookies { get; set; }
-
-    /// <summary>Uri</summary>
-    public string Uri { get; set; }
-
-    /// <summary>Language</summary>
-    public object Language { get; set; }
-
-    /// <summary>Localstorage</summary>
-    public object Localstorage { get; set; }
-
-    /// <summary>CssSelector</summary>
-    public object CssSelector { get; set; }
-
-    /// <summary>Xpath</summary>
-    public object Xpath { get; set; }
-
-    /// <summary>Id of the Nuclia extract strategy to use at processing time. If not set, the default strategy will be used. Extract strategies are defined at the learning configuration api.</summary>
-    public object ExtractStrategy { get; set; }
-
-    /// <summary>Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</summary>
-    public object SplitStrategy { get; set; }
-}
+/// <param name="Headers">Headers</param>
+/// <param name="Cookies">Cookies</param>
+/// <param name="Uri">Uri</param>
+/// <param name="Language">Language</param>
+/// <param name="Localstorage">Localstorage</param>
+/// <param name="CssSelector">CssSelector</param>
+/// <param name="Xpath">Xpath</param>
+/// <param name="ExtractStrategy">Id of the Nuclia extract strategy to use at processing time. If not set, the default strategy will be used. Extract strategies are defined at the learning configuration api.</param>
+/// <param name="SplitStrategy">Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</param>
+public record LinkField(object Headers, object Cookies, string Uri, object Language, object Localstorage, object CssSelector, object Xpath, object ExtractStrategy, object SplitStrategy);
 
 /// <summary>ManualSplitConfig</summary>
-public class ManualSplitConfig
-{
-    /// <summary>Splitter</summary>
-    public string Splitter { get; set; }
-}
+/// <param name="Splitter">Splitter</param>
+public record ManualSplitConfig(string Splitter);
 
 /// <summary>MistralKey</summary>
-public class MistralKey
-{
-    /// <summary>Key</summary>
-    public string Key { get; set; }
-}
+/// <param name="Key">Key</param>
+public record MistralKey(string Key);
 
 /// <summary>ModelType</summary>
-public class ModelType
-{
 
-}
+public record ModelType();
 
 /// <summary>NewImportedKbResponse</summary>
-public class NewImportedKbResponse
-{
-    /// <summary>Kbid</summary>
-    public string Kbid { get; set; }
-
-    /// <summary>Slug</summary>
-    public string Slug { get; set; }
-}
+/// <param name="Kbid">Kbid</param>
+/// <param name="Slug">Slug</param>
+public record NewImportedKbResponse(string Kbid, string Slug);
 
 /// <summary>OpenAIKey</summary>
-public class OpenAIKey
-{
-    /// <summary>Key</summary>
-    public string Key { get; set; }
-
-    /// <summary>Org</summary>
-    public string Org { get; set; }
-}
+/// <param name="Key">Key</param>
+/// <param name="Org">Org</param>
+public record OpenAIKey(string Key, string Org);
 
 /// <summary>PalmKey</summary>
-public class PalmKey
-{
-    /// <summary>Credentials</summary>
-    public string Credentials { get; set; }
-
-    /// <summary>Location</summary>
-    public string Location { get; set; }
-}
+/// <param name="Credentials">Credentials</param>
+/// <param name="Location">Location</param>
+public record PalmKey(string Credentials, string Location);
 
 /// <summary>PineconeIndexProvider</summary>
-public class PineconeIndexProvider
-{
-    /// <summary>Type</summary>
-    public string Type { get; set; }
-
-    /// <summary>ApiKey</summary>
-    public string ApiKey { get; set; }
-
-    /// <summary>ServerlessCloud</summary>
-    public string ServerlessCloud { get; set; }
-}
+/// <param name="Type">Type</param>
+/// <param name="ApiKey">ApiKey</param>
+/// <param name="ServerlessCloud">ServerlessCloud</param>
+public record PineconeIndexProvider(string Type, string ApiKey, string ServerlessCloud);
 
 /// <summary>PushProcessingOptions</summary>
-public class PushProcessingOptions
-{
-    /// <summary>MlText</summary>
-    public object MlText { get; set; }
-}
+/// <param name="MlText">MlText</param>
+public record PushProcessingOptions(object MlText);
 
 /// <summary>Matches all fields of a resource given its id or slug</summary>
-public class Resource
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>UUID of the resource to match</summary>
-    public object Id { get; set; }
-
-    /// <summary>Slug of the resource to match</summary>
-    public object Slug { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Id">UUID of the resource to match</param>
+/// <param name="Slug">Slug of the resource to match</param>
+public record Resource(string Prop, object Id, object Slug);
 
 /// <summary>ResourceCreated</summary>
-public class ResourceCreated
-{
-    /// <summary>Uuid</summary>
-    public string Uuid { get; set; }
-
-    /// <summary>Elapsed</summary>
-    public object Elapsed { get; set; }
-
-    /// <summary>Seqid</summary>
-    public object Seqid { get; set; }
-}
+/// <param name="Uuid">Uuid</param>
+/// <param name="Elapsed">Elapsed</param>
+/// <param name="Seqid">Seqid</param>
+public record ResourceCreated(string Uuid, object Elapsed, object Seqid);
 
 /// <summary>ResourceFieldAdded</summary>
-public class ResourceFieldAdded
-{
-    /// <summary>Seqid</summary>
-    public object Seqid { get; set; }
-}
+/// <param name="Seqid">Seqid</param>
+public record ResourceFieldAdded(object Seqid);
 
 /// <summary>ResourceFileUploaded</summary>
-public class ResourceFileUploaded
-{
-    /// <summary>Seqid</summary>
-    public object Seqid { get; set; }
-
-    /// <summary>Uuid</summary>
-    public object Uuid { get; set; }
-
-    /// <summary>FieldId</summary>
-    public object FieldId { get; set; }
-}
+/// <param name="Seqid">Seqid</param>
+/// <param name="Uuid">Uuid</param>
+/// <param name="FieldId">FieldId</param>
+public record ResourceFileUploaded(object Seqid, object Uuid, object FieldId);
 
 /// <summary>ResourceUpdated</summary>
-public class ResourceUpdated
-{
-    /// <summary>Seqid</summary>
-    public object Seqid { get; set; }
-}
+/// <param name="Seqid">Seqid</param>
+public record ResourceUpdated(object Seqid);
 
 /// <summary>Metadata of the semantic model associated to the KB</summary>
-public class SemanticModelMetadata
-{
-    /// <summary>SimilarityFunction</summary>
-    public string SimilarityFunction { get; set; }
-
-    /// <summary>Dimension of the indexed vectors/embeddings</summary>
-    public object VectorDimension { get; set; }
-
-    /// <summary>Deprecated</summary>
-    public object DefaultMinScore { get; set; }
-}
+/// <param name="SimilarityFunction">SimilarityFunction</param>
+/// <param name="VectorDimension">Dimension of the indexed vectors/embeddings</param>
+/// <param name="DefaultMinScore">Deprecated</param>
+public record SemanticModelMetadata(string SimilarityFunction, object VectorDimension, object DefaultMinScore);
 
 /// <summary>SplitConfig</summary>
-public class SplitConfig
-{
-    /// <summary>MaxParagraph</summary>
-    public int MaxParagraph { get; set; }
-}
+/// <param name="MaxParagraph">MaxParagraph</param>
+public record SplitConfig(int MaxParagraph);
 
 /// <summary>Hey, developer! Keep this in sync with corresponding pydantic model in learning_config.models</summary>
-public class SplitConfiguration
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>MaxParagraph</summary>
-    public int MaxParagraph { get; set; }
-
-    /// <summary>CustomSplit</summary>
-    public object CustomSplit { get; set; }
-
-    /// <summary>LlmSplit</summary>
-    public object LlmSplit { get; set; }
-
-    /// <summary>ManualSplit</summary>
-    public object ManualSplit { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="MaxParagraph">MaxParagraph</param>
+/// <param name="CustomSplit">CustomSplit</param>
+/// <param name="LlmSplit">LlmSplit</param>
+/// <param name="ManualSplit">ManualSplit</param>
+public record SplitConfiguration(string Name, int MaxParagraph, object CustomSplit, object LlmSplit, object ManualSplit);
 
 /// <summary>TextField</summary>
-public class TextField
-{
-    /// <summary>The text body. The format of the text should be specified in the format field. The sum of all text fields in the request may not exceed 2MB. If you need to store more text, consider using a file field instead or splitting into multiple requests for each text field.</summary>
-    public string Body { get; set; }
-
-    /// <summary>Format</summary>
-    public string Format { get; set; }
-
-    /// <summary>Id of the Nuclia extract strategy to use at processing time. If not set, the default strategy will be used. Extract strategies are defined at the learning configuration api.</summary>
-    public object ExtractStrategy { get; set; }
-
-    /// <summary>Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</summary>
-    public object SplitStrategy { get; set; }
-}
+/// <param name="Body">The text body. The format of the text should be specified in the format field. The sum of all text fields in the request may not exceed 2MB. If you need to store more text, consider using a file field instead or splitting into multiple requests for each text field.</param>
+/// <param name="Format">Format</param>
+/// <param name="ExtractStrategy">Id of the Nuclia extract strategy to use at processing time. If not set, the default strategy will be used. Extract strategies are defined at the learning configuration api.</param>
+/// <param name="SplitStrategy">Id of the Nuclia split strategy used at processing time. If not set, the default strategy was used. Split strategies are defined at the learning configuration api.</param>
+public record TextField(string Body, string Format, object ExtractStrategy, object SplitStrategy);
 
 /// <summary>TextGenerationKey</summary>
-public class TextGenerationKey
-{
-    /// <summary>Model</summary>
-    public string Model { get; set; }
-}
+/// <param name="Model">Model</param>
+public record TextGenerationKey(string Model);
 
 /// <summary>UpdateEntitiesGroupPayload</summary>
-public class UpdateEntitiesGroupPayload
-{
-    /// <summary>Title</summary>
-    public object Title { get; set; }
-
-    /// <summary>Color</summary>
-    public object Color { get; set; }
-
-    /// <summary>Add</summary>
-    public object Add { get; set; }
-
-    /// <summary>Update</summary>
-    public object Update { get; set; }
-
-    /// <summary>Delete</summary>
-    public List<string> Delete { get; set; }
-}
+/// <param name="Title">Title</param>
+/// <param name="Color">Color</param>
+/// <param name="Add">Add</param>
+/// <param name="Update">Update</param>
+/// <param name="Delete">Delete</param>
+public record UpdateEntitiesGroupPayload(object Title, object Color, object Add, object Update, List<string> Delete);
 
 /// <summary>UpdateResourcePayload</summary>
-public class UpdateResourcePayload
-{
-    /// <summary>Title</summary>
-    public object Title { get; set; }
-
-    /// <summary>Summary</summary>
-    public object Summary { get; set; }
-
-    /// <summary>The slug is the user-defined id for the resource</summary>
-    public object Slug { get; set; }
-
-    /// <summary>Thumbnail</summary>
-    public object Thumbnail { get; set; }
-
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>Usermetadata</summary>
-    public object Usermetadata { get; set; }
-
-    /// <summary>Fieldmetadata</summary>
-    public object Fieldmetadata { get; set; }
-
-    /// <summary>Origin</summary>
-    public object Origin { get; set; }
-
-    /// <summary>Extra metadata for the resource. It can be used to store structured information about the resource that can't be used to query at retrieval time. If not set, the existing extra metadata will not be modified.</summary>
-    public object Extra { get; set; }
-
-    /// <summary>Dictionary of file fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</summary>
-    public object Files { get; set; }
-
-    /// <summary>Dictionary of link fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</summary>
-    public object Links { get; set; }
-
-    /// <summary>Dictionary of text fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</summary>
-    public object Texts { get; set; }
-
-    /// <summary>Dictionary of conversation fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</summary>
-    public object Conversations { get; set; }
-
-    /// <summary>Options for processing the resource. If not set, the default options will be used.</summary>
-    public object ProcessingOptions { get; set; }
-
-    /// <summary>Security metadata for the resource. It can be used to have fine-grained control over who can access the resource.</summary>
-    public object Security { get; set; }
-
-    /// <summary>Modify the hidden status of the resource. If not set, the hidden status will not be modified.</summary>
-    public object Hidden { get; set; }
-}
+/// <param name="Title">Title</param>
+/// <param name="Summary">Summary</param>
+/// <param name="Slug">The slug is the user-defined id for the resource</param>
+/// <param name="Thumbnail">Thumbnail</param>
+/// <param name="Metadata">Metadata</param>
+/// <param name="Usermetadata">Usermetadata</param>
+/// <param name="Fieldmetadata">Fieldmetadata</param>
+/// <param name="Origin">Origin</param>
+/// <param name="Extra">Extra metadata for the resource. It can be used to store structured information about the resource that can't be used to query at retrieval time. If not set, the existing extra metadata will not be modified.</param>
+/// <param name="Files">Dictionary of file fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</param>
+/// <param name="Links">Dictionary of link fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</param>
+/// <param name="Texts">Dictionary of text fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</param>
+/// <param name="Conversations">Dictionary of conversation fields to be added to the resource. The keys correspond to the field id, and must comply with the regex: ^[a-zA-Z0-9:_-]+$</param>
+/// <param name="ProcessingOptions">Options for processing the resource. If not set, the default options will be used.</param>
+/// <param name="Security">Security metadata for the resource. It can be used to have fine-grained control over who can access the resource.</param>
+/// <param name="Hidden">Modify the hidden status of the resource. If not set, the hidden status will not be modified.</param>
+public record UpdateResourcePayload(object Title, object Summary, object Slug, object Thumbnail, object Metadata, object Usermetadata, object Fieldmetadata, object Origin, object Extra, object Files, object Links, object Texts, object Conversations, object ProcessingOptions, object Security, object Hidden);
 
 /// <summary>UserLearningKeys</summary>
-public class UserLearningKeys
-{
-    /// <summary>Openai</summary>
-    public object Openai { get; set; }
-
-    /// <summary>AzureOpenai</summary>
-    public object AzureOpenai { get; set; }
-
-    /// <summary>Palm</summary>
-    public object Palm { get; set; }
-
-    /// <summary>Anthropic</summary>
-    public object Anthropic { get; set; }
-
-    /// <summary>Claude3</summary>
-    public object Claude3 { get; set; }
-
-    /// <summary>TextGeneration</summary>
-    public object TextGeneration { get; set; }
-
-    /// <summary>Mistral</summary>
-    public object Mistral { get; set; }
-
-    /// <summary>AzureMistral</summary>
-    public object AzureMistral { get; set; }
-
-    /// <summary>HfLlm</summary>
-    public object HfLlm { get; set; }
-
-    /// <summary>HfEmbedding</summary>
-    public object HfEmbedding { get; set; }
-}
+/// <param name="Openai">Openai</param>
+/// <param name="AzureOpenai">AzureOpenai</param>
+/// <param name="Palm">Palm</param>
+/// <param name="Anthropic">Anthropic</param>
+/// <param name="Claude3">Claude3</param>
+/// <param name="TextGeneration">TextGeneration</param>
+/// <param name="Mistral">Mistral</param>
+/// <param name="AzureMistral">AzureMistral</param>
+/// <param name="HfLlm">HfLlm</param>
+/// <param name="HfEmbedding">HfEmbedding</param>
+public record UserLearningKeys(object Openai, object AzureOpenai, object Palm, object Anthropic, object Claude3, object TextGeneration, object Mistral, object AzureMistral, object HfLlm, object HfEmbedding);
 
 /// <summary>VLLMExtractionConfig</summary>
-public class VLLMExtractionConfig
-{
-    /// <summary>Rules</summary>
-    public List<string> Rules { get; set; }
-
-    /// <summary>Llm</summary>
-    public object Llm { get; set; }
-}
+/// <param name="Rules">Rules</param>
+/// <param name="Llm">Llm</param>
+public record VLLMExtractionConfig(List<string> Rules, object Llm);
 
 /// <summary>NucliadbModelsEntitiesEntity</summary>
-public class NucliadbModelsEntitiesEntity
-{
-    /// <summary>Value</summary>
-    public string Value { get; set; }
-
-    /// <summary>Merged</summary>
-    public bool Merged { get; set; }
-
-    /// <summary>Represents</summary>
-    public List<string> Represents { get; set; }
-}
+/// <param name="Value">Value</param>
+/// <param name="Merged">Merged</param>
+/// <param name="Represents">Represents</param>
+public record NucliadbModelsEntitiesEntity(string Value, bool Merged, List<string> Represents);
 
 /// <summary>Matches fields that contains a detected entity</summary>
-public class NucliadbModelsFiltersEntity
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Type of the entity. e.g: PERSON</summary>
-    public string Subtype { get; set; }
-
-    /// <summary>Value of the entity. e.g: Anna. If blank, matches any entity of the given type</summary>
-    public object Value { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Subtype">Type of the entity. e.g: PERSON</param>
+/// <param name="Value">Value of the entity. e.g: Anna. If blank, matches any entity of the given type</param>
+public record NucliadbModelsFiltersEntity(string Prop, string Subtype, object Value);
 
 /// <summary>Matches fields/paragraphs with a label (or labelset)</summary>
-public class NucliadbModelsFiltersLabel
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>The labelset to match</summary>
-    public string Labelset { get; set; }
-
-    /// <summary>The label to match. If blank, matches all labels in the given labelset</summary>
-    public object Label { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Labelset">The labelset to match</param>
+/// <param name="Label">The label to match. If blank, matches all labels in the given labelset</param>
+public record NucliadbModelsFiltersLabel(string Prop, string Labelset, object Label);
 
 /// <summary>NucliadbModelsGraphRequestsRelation</summary>
-public class NucliadbModelsGraphRequestsRelation
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>Label</summary>
-    public object Label { get; set; }
-
-    /// <summary>Type</summary>
-    public object Type { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Label">Label</param>
+/// <param name="Type">Type</param>
+public record NucliadbModelsGraphRequestsRelation(string Prop, object Label, object Type);
 
 /// <summary>NucliadbModelsLabelsLabel</summary>
-public class NucliadbModelsLabelsLabel
-{
-    /// <summary>Title</summary>
-    public string Title { get; set; }
-
-    /// <summary>Related</summary>
-    public object Related { get; set; }
-
-    /// <summary>Text</summary>
-    public object Text { get; set; }
-
-    /// <summary>Uri</summary>
-    public object Uri { get; set; }
-}
+/// <param name="Title">Title</param>
+/// <param name="Related">Related</param>
+/// <param name="Text">Text</param>
+/// <param name="Uri">Uri</param>
+public record NucliadbModelsLabelsLabel(string Title, object Related, object Text, object Uri);
 
 /// <summary>NucliadbModelsMetadataRelation</summary>
-public class NucliadbModelsMetadataRelation
-{
-    /// <summary>Relation</summary>
-    public string Relation { get; set; }
-
-    /// <summary>Label</summary>
-    public object Label { get; set; }
-
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>From</summary>
-    public object From { get; set; }
-
-    /// <summary>To</summary>
-    public RelationEntity To { get; set; }
-}
+/// <param name="Relation">Relation</param>
+/// <param name="Label">Label</param>
+/// <param name="Metadata">Metadata</param>
+/// <param name="From">From</param>
+/// <param name="To">To</param>
+public record NucliadbModelsMetadataRelation(string Relation, object Label, object Metadata, object From, RelationEntity To);
 
 /// <summary>EntitiesGroup</summary>
-public class EntitiesGroup
-{
-    /// <summary>Title of the entities group</summary>
-    public object Title { get; set; }
-
-    /// <summary>Color of the entities group. This is for display purposes only.</summary>
-    public object Color { get; set; }
-
-    /// <summary>Denotes if it has been created by the user</summary>
-    public bool Custom { get; set; }
-
-    /// <summary>Entities</summary>
-    public object Entities { get; set; }
-}
+/// <param name="Title">Title of the entities group</param>
+/// <param name="Color">Color of the entities group. This is for display purposes only.</param>
+/// <param name="Custom">Denotes if it has been created by the user</param>
+/// <param name="Entities">Entities</param>
+public record EntitiesGroup(object Title, object Color, bool Custom, object Entities);
 
 /// <summary>EntitiesGroupSummary</summary>
-public class EntitiesGroupSummary
-{
-    /// <summary>Title of the entities group</summary>
-    public object Title { get; set; }
-
-    /// <summary>Color of the entities group. This is for display purposes only.</summary>
-    public object Color { get; set; }
-
-    /// <summary>Denotes if it has been created by the user</summary>
-    public bool Custom { get; set; }
-
-    /// <summary>This field is deprecated and will be removed in future versions. It will always be empty. Use the /api/v1/kb/{kbid}/entitiesgroup/{group} endpoint to get the entities of a group.</summary>
-    public object Entities { get; set; }
-}
+/// <param name="Title">Title of the entities group</param>
+/// <param name="Color">Color of the entities group. This is for display purposes only.</param>
+/// <param name="Custom">Denotes if it has been created by the user</param>
+/// <param name="Entities">This field is deprecated and will be removed in future versions. It will always be empty. Use the /api/v1/kb/{kbid}/entitiesgroup/{group} endpoint to get the entities of a group.</param>
+public record EntitiesGroupSummary(object Title, object Color, bool Custom, object Entities);
 
 /// <summary>KnowledgeBoxConfig</summary>
-public class KnowledgeBoxConfig
-{
-    /// <summary>Slug for the Knowledge Box.</summary>
-    public object Slug { get; set; }
-
-    /// <summary>Title for the Knowledge Box.</summary>
-    public object Title { get; set; }
-
-    /// <summary>Description for the Knowledge Box.</summary>
-    public object Description { get; set; }
-
-    /// <summary>Learning configuration for the Knowledge Box. If provided, NucliaDB will set the learning configuration for the Knowledge Box.</summary>
-    public object LearningConfiguration { get; set; }
-
-    /// <summary>External index provider for the Knowledge Box.</summary>
-    public object ExternalIndexProvider { get; set; }
-
-    /// <summary>Metadata for the configured external index provider (if any)</summary>
-    public object ConfiguredExternalIndexProvider { get; set; }
-
-    /// <summary>This field is deprecated. Use 'learning_configuration' instead.</summary>
-    public object Similarity { get; set; }
-
-    /// <summary>Allow hiding resources</summary>
-    public bool HiddenResourcesEnabled { get; set; }
-
-    /// <summary>Hide newly created resources</summary>
-    public bool HiddenResourcesHideOnCreation { get; set; }
-}
+/// <param name="Slug">Slug for the Knowledge Box.</param>
+/// <param name="Title">Title for the Knowledge Box.</param>
+/// <param name="Description">Description for the Knowledge Box.</param>
+/// <param name="LearningConfiguration">Learning configuration for the Knowledge Box. If provided, NucliaDB will set the learning configuration for the Knowledge Box.</param>
+/// <param name="ExternalIndexProvider">External index provider for the Knowledge Box.</param>
+/// <param name="ConfiguredExternalIndexProvider">Metadata for the configured external index provider (if any)</param>
+/// <param name="Similarity">This field is deprecated. Use 'learning_configuration' instead.</param>
+/// <param name="HiddenResourcesEnabled">Allow hiding resources</param>
+/// <param name="HiddenResourcesHideOnCreation">Hide newly created resources</param>
+public record KnowledgeBoxConfig(object Slug, object Title, object Description, object LearningConfiguration, object ExternalIndexProvider, object ConfiguredExternalIndexProvider, object Similarity, bool HiddenResourcesEnabled, bool HiddenResourcesHideOnCreation);
 
 /// <summary>KnowledgeBoxEntities</summary>
-public class KnowledgeBoxEntities
-{
-    /// <summary>Uuid</summary>
-    public string Uuid { get; set; }
-
-    /// <summary>Groups</summary>
-    public object Groups { get; set; }
-}
+/// <param name="Uuid">Uuid</param>
+/// <param name="Groups">Groups</param>
+public record KnowledgeBoxEntities(string Uuid, object Groups);
 
 /// <summary>KnowledgeBoxLabels</summary>
-public class KnowledgeBoxLabels
-{
-    /// <summary>Uuid</summary>
-    public string Uuid { get; set; }
-
-    /// <summary>Labelsets</summary>
-    public object Labelsets { get; set; }
-}
+/// <param name="Uuid">Uuid</param>
+/// <param name="Labelsets">Labelsets</param>
+public record KnowledgeBoxLabels(string Uuid, object Labelsets);
 
 /// <summary>Paragraph</summary>
-public class Paragraph
-{
-    /// <summary>Start</summary>
-    public object Start { get; set; }
-
-    /// <summary>End</summary>
-    public object End { get; set; }
-
-    /// <summary>StartSeconds</summary>
-    public object StartSeconds { get; set; }
-
-    /// <summary>EndSeconds</summary>
-    public object EndSeconds { get; set; }
-
-    /// <summary>Kind</summary>
-    public object Kind { get; set; }
-
-    /// <summary>Classifications</summary>
-    public object Classifications { get; set; }
-
-    /// <summary>Sentences</summary>
-    public object Sentences { get; set; }
-
-    /// <summary>Key</summary>
-    public object Key { get; set; }
-
-    /// <summary>Page</summary>
-    public object Page { get; set; }
-
-    /// <summary>Representation</summary>
-    public object Representation { get; set; }
-
-    /// <summary>Relations</summary>
-    public object Relations { get; set; }
-}
+/// <param name="Start">Start</param>
+/// <param name="End">End</param>
+/// <param name="StartSeconds">StartSeconds</param>
+/// <param name="EndSeconds">EndSeconds</param>
+/// <param name="Kind">Kind</param>
+/// <param name="Classifications">Classifications</param>
+/// <param name="Sentences">Sentences</param>
+/// <param name="Key">Key</param>
+/// <param name="Page">Page</param>
+/// <param name="Representation">Representation</param>
+/// <param name="Relations">Relations</param>
+public record Paragraph(object Start, object End, object StartSeconds, object EndSeconds, object Kind, object Classifications, object Sentences, object Key, object Page, object Representation, object Relations);
 
 /// <summary>RequestsResult</summary>
-public class RequestsResult
-{
-    /// <summary>Processing ID of the resource.</summary>
-    public string ProcessingId { get; set; }
-
-    /// <summary>Resource ID.</summary>
-    public string ResourceId { get; set; }
-
-    /// <summary>Kbid</summary>
-    public string Kbid { get; set; }
-
-    /// <summary>Title of the resource.</summary>
-    public object Title { get; set; }
-
-    /// <summary>Labels of the resource.</summary>
-    public List<string> Labels { get; set; }
-
-    /// <summary>Whether the resource has been completed</summary>
-    public bool Completed { get; set; }
-
-    /// <summary>Whether the resource has been scheduled</summary>
-    public bool Scheduled { get; set; }
-
-    /// <summary>Timestamp of when the resource was first scheduled.</summary>
-    public string Timestamp { get; set; }
-
-    /// <summary>Timestamp of when the resource was completed</summary>
-    public object CompletedAt { get; set; }
-
-    /// <summary>Timestamp of when the resource was first scheduled.</summary>
-    public object ScheduledAt { get; set; }
-
-    /// <summary>Whether the resource has failed to process</summary>
-    public bool Failed { get; set; }
-
-    /// <summary>Number of retries for the resource.</summary>
-    public int Retries { get; set; }
-
-    /// <summary>Estimated time until the resource is scheduled.</summary>
-    public float ScheduleEta { get; set; }
-
-    /// <summary>Order of the resource in the schedule queue.</summary>
-    public int ScheduleOrder { get; set; }
-}
+/// <param name="ProcessingId">Processing ID of the resource.</param>
+/// <param name="ResourceId">Resource ID.</param>
+/// <param name="Kbid">Kbid</param>
+/// <param name="Title">Title of the resource.</param>
+/// <param name="Labels">Labels of the resource.</param>
+/// <param name="Completed">Whether the resource has been completed</param>
+/// <param name="Scheduled">Whether the resource has been scheduled</param>
+/// <param name="Timestamp">Timestamp of when the resource was first scheduled.</param>
+/// <param name="CompletedAt">Timestamp of when the resource was completed</param>
+/// <param name="ScheduledAt">Timestamp of when the resource was first scheduled.</param>
+/// <param name="Failed">Whether the resource has failed to process</param>
+/// <param name="Retries">Number of retries for the resource.</param>
+/// <param name="ScheduleEta">Estimated time until the resource is scheduled.</param>
+/// <param name="ScheduleOrder">Order of the resource in the schedule queue.</param>
+public record RequestsResult(string ProcessingId, string ResourceId, string Kbid, object Title, List<string> Labels, bool Completed, bool Scheduled, string Timestamp, object CompletedAt, object ScheduledAt, bool Failed, int Retries, float ScheduleEta, int ScheduleOrder);
 
 /// <summary>RequestsResults</summary>
-public class RequestsResults
-{
-    /// <summary>List of results.</summary>
-    public List<RequestsResult> Results { get; set; }
-
-    /// <summary>Cursor to use for the next page of results.</summary>
-    public object Cursor { get; set; }
-}
+/// <param name="Results">List of results.</param>
+/// <param name="Cursor">Cursor to use for the next page of results.</param>
+public record RequestsResults(List<RequestsResult> Results, object Cursor);
 
 /// <summary>ResourceField</summary>
-public class ResourceField
-{
-    /// <summary>FieldType</summary>
-    public string FieldType { get; set; }
-
-    /// <summary>FieldId</summary>
-    public string FieldId { get; set; }
-
-    /// <summary>Value</summary>
-    public object Value { get; set; }
-
-    /// <summary>Extracted</summary>
-    public object Extracted { get; set; }
-
-    /// <summary>Error</summary>
-    public object Error { get; set; }
-
-    /// <summary>Status</summary>
-    public object Status { get; set; }
-
-    /// <summary>Errors</summary>
-    public object Errors { get; set; }
-}
+/// <param name="FieldType">FieldType</param>
+/// <param name="FieldId">FieldId</param>
+/// <param name="Value">Value</param>
+/// <param name="Extracted">Extracted</param>
+/// <param name="Error">Error</param>
+/// <param name="Status">Status</param>
+/// <param name="Errors">Errors</param>
+public record ResourceField(string FieldType, string FieldId, object Value, object Extracted, object Error, object Status, object Errors);
 
 /// <summary>ResourceList</summary>
-public class ResourceList
-{
-    /// <summary>Resources</summary>
-    public List<NucliadbModelsResourceResource> Resources { get; set; }
-
-    /// <summary>Pagination</summary>
-    public ResourcePagination Pagination { get; set; }
-}
+/// <param name="Resources">Resources</param>
+/// <param name="Pagination">Pagination</param>
+public record ResourceList(List<NucliadbModelsResourceResource> Resources, ResourcePagination Pagination);
 
 /// <summary>ResourcePagination</summary>
-public class ResourcePagination
-{
-    /// <summary>Page</summary>
-    public int Page { get; set; }
-
-    /// <summary>Size</summary>
-    public int Size { get; set; }
-
-    /// <summary>Last</summary>
-    public bool Last { get; set; }
-}
+/// <param name="Page">Page</param>
+/// <param name="Size">Size</param>
+/// <param name="Last">Last</param>
+public record ResourcePagination(int Page, int Size, bool Last);
 
 /// <summary>Sentence</summary>
-public class Sentence
-{
-    /// <summary>Start</summary>
-    public object Start { get; set; }
-
-    /// <summary>End</summary>
-    public object End { get; set; }
-
-    /// <summary>Key</summary>
-    public object Key { get; set; }
-}
+/// <param name="Start">Start</param>
+/// <param name="End">End</param>
+/// <param name="Key">Key</param>
+public record Sentence(object Start, object End, object Key);
 
 /// <summary>StatusResponse</summary>
-public class StatusResponse
-{
-    /// <summary>Status</summary>
-    public string Status { get; set; }
-
-    /// <summary>Total</summary>
-    public int Total { get; set; }
-
-    /// <summary>Processed</summary>
-    public int Processed { get; set; }
-
-    /// <summary>Retries</summary>
-    public int Retries { get; set; }
-}
+/// <param name="Status">Status</param>
+/// <param name="Total">Total</param>
+/// <param name="Processed">Processed</param>
+/// <param name="Retries">Retries</param>
+public record StatusResponse(string Status, int Total, int Processed, int Retries);
 
 /// <summary>NucliadbModelsExtractedEntity</summary>
-public class NucliadbModelsExtractedEntity
-{
-    /// <summary>Token</summary>
-    public object Token { get; set; }
-
-    /// <summary>Root</summary>
-    public object Root { get; set; }
-
-    /// <summary>Type</summary>
-    public object Type { get; set; }
-}
+/// <param name="Token">Token</param>
+/// <param name="Root">Root</param>
+/// <param name="Type">Type</param>
+public record NucliadbModelsExtractedEntity(object Token, object Root, object Type);
 
 /// <summary>Matches all fields of a resource given its id or slug</summary>
-public class NucliadbModelsFiltersResource
-{
-    /// <summary>Prop</summary>
-    public string Prop { get; set; }
-
-    /// <summary>UUID of the resource to match</summary>
-    public object Id { get; set; }
-
-    /// <summary>Slug of the resource to match</summary>
-    public object Slug { get; set; }
-}
+/// <param name="Prop">Prop</param>
+/// <param name="Id">UUID of the resource to match</param>
+/// <param name="Slug">Slug of the resource to match</param>
+public record NucliadbModelsFiltersResource(string Prop, object Id, object Slug);
 
 /// <summary>NucliadbModelsResourceResource</summary>
-public class NucliadbModelsResourceResource
-{
-    /// <summary>Id</summary>
-    public string Id { get; set; }
-
-    /// <summary>Slug</summary>
-    public object Slug { get; set; }
-
-    /// <summary>Title</summary>
-    public object Title { get; set; }
-
-    /// <summary>Summary</summary>
-    public object Summary { get; set; }
-
-    /// <summary>Icon</summary>
-    public object Icon { get; set; }
-
-    /// <summary>Thumbnail</summary>
-    public object Thumbnail { get; set; }
-
-    /// <summary>Metadata</summary>
-    public object Metadata { get; set; }
-
-    /// <summary>Usermetadata</summary>
-    public object Usermetadata { get; set; }
-
-    /// <summary>Fieldmetadata</summary>
-    public object Fieldmetadata { get; set; }
-
-    /// <summary>Computedmetadata</summary>
-    public object Computedmetadata { get; set; }
-
-    /// <summary>Created</summary>
-    public object Created { get; set; }
-
-    /// <summary>Modified</summary>
-    public object Modified { get; set; }
-
-    /// <summary>LastSeqid</summary>
-    public object LastSeqid { get; set; }
-
-    /// <summary>LastAccountSeq</summary>
-    public object LastAccountSeq { get; set; }
-
-    /// <summary>Queue</summary>
-    public object Queue { get; set; }
-
-    /// <summary>Hidden</summary>
-    public object Hidden { get; set; }
-
-    /// <summary>Origin</summary>
-    public object Origin { get; set; }
-
-    /// <summary>Extra</summary>
-    public object Extra { get; set; }
-
-    /// <summary>Relations</summary>
-    public object Relations { get; set; }
-
-    /// <summary>Data</summary>
-    public object Data { get; set; }
-
-    /// <summary>Resource security metadata</summary>
-    public object Security { get; set; }
-}
+/// <param name="Id">Id</param>
+/// <param name="Slug">Slug</param>
+/// <param name="Title">Title</param>
+/// <param name="Summary">Summary</param>
+/// <param name="Icon">Icon</param>
+/// <param name="Thumbnail">Thumbnail</param>
+/// <param name="Metadata">Metadata</param>
+/// <param name="Usermetadata">Usermetadata</param>
+/// <param name="Fieldmetadata">Fieldmetadata</param>
+/// <param name="Computedmetadata">Computedmetadata</param>
+/// <param name="Created">Created</param>
+/// <param name="Modified">Modified</param>
+/// <param name="LastSeqid">LastSeqid</param>
+/// <param name="LastAccountSeq">LastAccountSeq</param>
+/// <param name="Queue">Queue</param>
+/// <param name="Hidden">Hidden</param>
+/// <param name="Origin">Origin</param>
+/// <param name="Extra">Extra</param>
+/// <param name="Relations">Relations</param>
+/// <param name="Data">Data</param>
+/// <param name="Security">Resource security metadata</param>
+public record NucliadbModelsResourceResource(string Id, object Slug, object Title, object Summary, object Icon, object Thumbnail, object Metadata, object Usermetadata, object Fieldmetadata, object Computedmetadata, object Created, object Modified, object LastSeqid, object LastAccountSeq, object Queue, object Hidden, object Origin, object Extra, object Relations, object Data, object Security);

@@ -69,12 +69,7 @@ public partial class MainWindowViewModel(IHttpClientFactory httpClientFactory) :
         IsLoading = true;
         StatusMessage = "Creating post...";
 
-        var newPost = new PostInput
-        {
-            UserId = 1,
-            Title = NewPostTitle,
-            Body = NewPostBody,
-        };
+        var newPost = new PostInput(UserId: 1, Title: NewPostTitle, Body: NewPostBody);
 
         using var httpClient = httpClientFactory.CreateClient();
         var result = await httpClient.CreatePostAsync(newPost, default).ConfigureAwait(false);
@@ -110,12 +105,7 @@ public partial class MainWindowViewModel(IHttpClientFactory httpClientFactory) :
         IsLoading = true;
         StatusMessage = "Updating post...";
 
-        var updatedPost = new PostInput
-        {
-            UserId = post.UserId,
-            Title = post.Title + " [Updated]",
-            Body = post.Body,
-        };
+        var updatedPost = new PostInput(UserId: post.UserId, Title: post.Title + " [Updated]", Body: post.Body);
 
         using var httpClient = httpClientFactory.CreateClient();
         var result = await httpClient

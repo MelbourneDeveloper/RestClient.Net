@@ -197,8 +197,8 @@ public class OpenApiCodeGeneratorTests
             $"Missing class declaration. Code: {result.ExtensionMethodsCode.Substring(0, Math.Min(500, result.ExtensionMethodsCode.Length))}"
         );
         Assert.IsTrue(
-            result.ModelsCode.Contains("public class Pet"),
-            $"Missing Pet class. Code: {result.ModelsCode}"
+            result.ModelsCode.Contains("public record Pet"),
+            $"Missing Pet record. Code: {result.ModelsCode}"
         );
     }
 
@@ -452,10 +452,10 @@ public class OpenApiCodeGeneratorTests
             )
         );
 
-        Assert.IsTrue(result.ModelsCode.Contains("public class Pet"));
-        Assert.IsTrue(result.ModelsCode.Contains("public long Id { get; set; }"));
-        Assert.IsTrue(result.ModelsCode.Contains("public string Name { get; set; }"));
-        Assert.IsTrue(result.ModelsCode.Contains("public string Tag { get; set; }"));
+        Assert.IsTrue(result.ModelsCode.Contains("public record Pet("));
+        Assert.IsTrue(result.ModelsCode.Contains("long Id"));
+        Assert.IsTrue(result.ModelsCode.Contains("string Name"));
+        Assert.IsTrue(result.ModelsCode.Contains("string Tag"));
     }
 
     [TestMethod]

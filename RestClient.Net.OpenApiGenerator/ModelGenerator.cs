@@ -47,7 +47,7 @@ internal static class ModelGenerator
         schema.Enum != null &&
         schema.Enum.Count > 0;
 
-    /// <summary>Generates a single C# model class from an OpenAPI schema.</summary>
+    /// <summary>Generates a single C# model record from an OpenAPI schema.</summary>
     /// <param name="name">The name of the model.</param>
     /// <param name="schema">The OpenAPI schema.</param>
     /// <param name="schemas">Optional schemas dictionary to check for string enums.</param>
@@ -58,12 +58,12 @@ internal static class ModelGenerator
         IDictionary<string, IOpenApiSchema>? schemas = null
     )
     {
-        var properties = (schema.Properties ?? new Dictionary<string, IOpenApiSchema>())
+        var parameters = (schema.Properties ?? new Dictionary<string, IOpenApiSchema>())
             .Select(p =>
             {
                 var propName = CodeGenerationHelpers.ToPascalCase(p.Key);
 
-                // Avoid property name conflict with class name
+                // Avoid property name conflict with record name
                 if (propName.Equals(name, StringComparison.Ordinal))
                 {
                     propName += "Value";
@@ -73,19 +73,18 @@ internal static class ModelGenerator
                 var propDesc = SanitizeDescription(
                     (p.Value as OpenApiSchema)?.Description ?? propName
                 );
-                return $"    /// <summary>{propDesc}</summary>\n    public {propType} {propName} {{ get; set; }}";
+                return (ParamDoc: $"/// <param name=\"{propName}\">{propDesc}</param>", ParamDecl: $"{propType} {propName}");
             })
             .ToList();
 
-        var propertiesCode = string.Join("\n\n", properties);
-        var classDesc = SanitizeDescription(schema.Description ?? name);
+        var paramDocs = string.Join("\n", parameters.Select(p => p.ParamDoc));
+        var paramDecls = string.Join(", ", parameters.Select(p => p.ParamDecl));
+        var recordDesc = SanitizeDescription(schema.Description ?? name);
 
         return $$"""
-            /// <summary>{{classDesc}}</summary>
-            public class {{name}}
-            {
-            {{propertiesCode}}
-            }
+            /// <summary>{{recordDesc}}</summary>
+            {{paramDocs}}
+            public record {{name}}({{paramDecls}});
             """;
     }
 

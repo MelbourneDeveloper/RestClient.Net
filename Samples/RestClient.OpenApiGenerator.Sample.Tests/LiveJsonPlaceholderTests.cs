@@ -49,12 +49,7 @@ public sealed class LiveJsonPlaceholderTests
     [TestMethod]
     public async Task CreateTodo_ReturnsCreatedTodo()
     {
-        var newTodo = new TodoInput
-        {
-            UserId = 1,
-            Title = "Test Todo",
-            Completed = false,
-        };
+        var newTodo = new TodoInput(UserId: 1, Title: "Test Todo", Completed: false);
 
         using var httpClient = _httpClientFactory.CreateClient();
         var result = await httpClient
@@ -82,12 +77,7 @@ public sealed class LiveJsonPlaceholderTests
     [TestMethod]
     public async Task UpdateTodo_ReturnsUpdatedTodo()
     {
-        var updatedTodo = new TodoInput
-        {
-            UserId = 1,
-            Title = "Updated Test Todo",
-            Completed = true,
-        };
+        var updatedTodo = new TodoInput(UserId: 1, Title: "Updated Test Todo", Completed: true);
 
         using var httpClient = _httpClientFactory.CreateClient();
         var result = await httpClient
@@ -152,12 +142,11 @@ public sealed class LiveJsonPlaceholderTests
     [TestMethod]
     public async Task CreatePost_ReturnsCreatedPost()
     {
-        var newPost = new PostInput
-        {
-            UserId = 1,
-            Title = "Test Post",
-            Body = "This is a test post body",
-        };
+        var newPost = new PostInput(
+            UserId: 1,
+            Title: "Test Post",
+            Body: "This is a test post body"
+        );
 
         using var httpClient = _httpClientFactory.CreateClient();
         var result = await httpClient
@@ -185,12 +174,11 @@ public sealed class LiveJsonPlaceholderTests
     [TestMethod]
     public async Task UpdatePost_ReturnsUpdatedPost()
     {
-        var updatedPost = new PostInput
-        {
-            UserId = 1,
-            Title = "Updated Test Post",
-            Body = "This is an updated test post body",
-        };
+        var updatedPost = new PostInput(
+            UserId: 1,
+            Title: "Updated Test Post",
+            Body: "This is an updated test post body"
+        );
 
         using var httpClient = _httpClientFactory.CreateClient();
         var result = await httpClient
@@ -286,7 +274,9 @@ public sealed class LiveJsonPlaceholderTests
 #pragma warning restore CA1849
 
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.GetTodosAsync(cancellationToken: cts.Token).ConfigureAwait(false);
+        var result = await httpClient
+            .GetTodosAsync(cancellationToken: cts.Token)
+            .ConfigureAwait(false);
 
         var exception = result switch
         {
@@ -314,12 +304,7 @@ public sealed class LiveJsonPlaceholderTests
         cts.Cancel();
 #pragma warning restore CA1849
 
-        var newTodo = new TodoInput
-        {
-            UserId = 1,
-            Title = "Test Todo",
-            Completed = false,
-        };
+        var newTodo = new TodoInput(UserId: 1, Title: "Test Todo", Completed: false);
 
         using var httpClient = _httpClientFactory.CreateClient();
         var result = await httpClient
@@ -352,12 +337,7 @@ public sealed class LiveJsonPlaceholderTests
         cts.Cancel();
 #pragma warning restore CA1849
 
-        var updatedTodo = new TodoInput
-        {
-            UserId = 1,
-            Title = "Updated Test Todo",
-            Completed = true,
-        };
+        var updatedTodo = new TodoInput(UserId: 1, Title: "Updated Test Todo", Completed: true);
 
         using var httpClient = _httpClientFactory.CreateClient();
         var result = await httpClient
