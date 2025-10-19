@@ -59,14 +59,12 @@ internal static class McpToolGenerator
             #nullable enable
             using System.ComponentModel;
             using System.Text.Json;
-            using ModelContextProtocol;
             using Outcome;
             using {{extensionsNamespace}};
 
             namespace {{@namespace}};
 
             /// <summary>MCP server tools for {{serverName}} API.</summary>
-            [McpServerToolType]
             public class {{serverName}}Tools(IHttpClientFactory httpClientFactory)
             {
                 private static readonly JsonSerializerOptions JsonOptions = new()
@@ -109,8 +107,16 @@ internal static class McpToolGenerator
         var hasBody = GetRequestBodyType(operation) != null;
         var bodyType = GetRequestBodyType(operation) ?? "object";
         var responseType = GetResponseType(operation);
+        var errorType = GetErrorType(operation);
         var isDelete = operationType == HttpMethod.Delete;
         var resultResponseType = isDelete ? "Unit" : responseType;
+
+        // Build the full response type name for alias lookup
+        // When error type is not "string", append it to response type (e.g., "KnowledgeBoxObjHTTPValidationError")
+        var fullResponseType = errorType != "string"
+            ? $"{resultResponseType}{errorType}"
+            : resultResponseType;
+
         var summary = operation.Description ?? operation.Summary ?? $"{mcpToolName} operation";
 
         return GenerateToolMethod(
@@ -120,7 +126,8 @@ internal static class McpToolGenerator
             parameters,
             hasBody,
             bodyType,
-            resultResponseType
+            fullResponseType,
+            errorType
         );
     }
 
@@ -131,7 +138,8 @@ internal static class McpToolGenerator
         List<McpParameterInfo> parameters,
         bool hasBody,
         string bodyType,
-        string responseType
+        string responseType,
+        string errorType
     )
     {
         var methodParams = new List<string>();
@@ -159,7 +167,16 @@ internal static class McpToolGenerator
         foreach (var param in optionalParams)
         {
             methodParams.Add(FormatParameter(param));
-            extensionCallArgs.Add(param.Name);
+
+            // For optional strings with default "", use null coalescing
+            if (param.Type == "string?" && param.DefaultValue == "")
+            {
+                extensionCallArgs.Add($"{param.Name} ?? \"\"");
+            }
+            else
+            {
+                extensionCallArgs.Add(param.Name);
+            }
         }
 
         var paramDescriptions = string.Join(
@@ -187,20 +204,25 @@ internal static class McpToolGenerator
         return $$"""
             /// <summary>{{SanitizeDescription(summary)}}</summary>
                 {{paramDescriptions}}
-                [McpServerTool]
                 [Description("{{SanitizeDescription(summary)}}")]
                 public async Task<string> {{toolName}}({{methodParamsStr}})
                 {
                     var httpClient = httpClientFactory.CreateClient();
-                    var result = await httpClient.{{extensionMethodName}}({{extensionCallArgsStr}}CancellationToken.None);
+                    var result = await httpClient.{{extensionMethodName}}({{extensionCallArgsStr}});
 
                     return result switch
                     {
                         {{okAlias}}(var success) =>
                             JsonSerializer.Serialize(success, JsonOptions),
-                        {{errorAlias}}(var error) =>
-                            $"Error: {error.StatusCode} - {error.Body}",
-                        _ => "Unknown error"
+                        {{errorAlias}}(var httpError) => httpError switch
+                        {
+                            HttpError<{{errorType}}>.ErrorResponseError err =>
+                                $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                            HttpError<{{errorType}}>.ExceptionError err =>
+                                $"Exception: {err.Exception.Message}",
+                            _ => "Unknown error"
+                        },
+                        _ => "Unknown result"
                     };
                 }
             """;
@@ -277,6 +299,7 @@ internal static class McpToolGenerator
             }
 
             // Make nullable if not required and no default value
+            // For strings with default "", DON'T make nullable - pass the parameter and use ?? ""
             var makeNullable = !required && hasNoDefault && !baseType.EndsWith('?');
             var type = makeNullable ? $"{baseType}?" : baseType;
 
@@ -328,6 +351,25 @@ internal static class McpToolGenerator
                 ? CodeGenerationHelpers.ToPascalCase(schemaRef.Reference.Id)
                 : "object"
             : "object";
+    }
+
+    private static string GetErrorType(OpenApiOperation operation)
+    {
+        var errorResponse = operation.Responses?.FirstOrDefault(r =>
+            r.Key.StartsWith('4') || r.Key.StartsWith('5')
+        );
+
+        if (errorResponse?.Value?.Content == null)
+        {
+            return "string";
+        }
+
+        var content = errorResponse.Value.Value.Content.FirstOrDefault();
+        return content.Value?.Schema is OpenApiSchemaReference schemaRef
+            ? schemaRef.Reference.Id != null
+                ? CodeGenerationHelpers.ToPascalCase(schemaRef.Reference.Id)
+                : "string"
+            : "string";
     }
 
     private static string GetExtensionMethodName(

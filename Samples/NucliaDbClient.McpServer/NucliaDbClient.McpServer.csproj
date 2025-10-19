@@ -14,7 +14,8 @@
     <ProjectReference Include="..\NucliaDbClient\NucliaDbClient.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <!-- Include the generated MCP tools -->
+    <!-- Include the generated MCP tools and type aliases -->
     <Compile Include="..\NucliaDbClient\Generated\NucliaDbMcpTools.g.cs" Link="Generated\NucliaDbMcpTools.g.cs" />
+    <Compile Include="..\NucliaDbClient\Generated\GlobalUsings.g.cs" Link="Generated\GlobalUsings.g.cs" />
   </ItemGroup>
 </Project>
