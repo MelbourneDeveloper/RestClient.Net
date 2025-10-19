@@ -1,16 +1,24 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using ModelContextProtocol.Server;
 using NucliaDB.Mcp;
+
+var builder = Host.CreateApplicationBuilder(args);
+
+// Configure logging to stderr to not interfere with stdio MCP protocol
+builder.Logging.AddConsole(consoleLogOptions =>
+{
+    consoleLogOptions.LogToStandardErrorThreshold = LogLevel.Trace;
+});
 
 // Get the NucliaDB base URL from environment or use default
 var nucleaBaseUrl =
     Environment.GetEnvironmentVariable("NUCLIA_BASE_URL") ?? "http://localhost:8080/api/v1";
 
-// Create a simple HTTP client factory
-var services = new ServiceCollection();
-
 // Configure HttpClient with base URL
-services.AddHttpClient(
-    "default",
+builder.Services.AddHttpClient(
+    string.Empty,
     client =>
     {
         client.BaseAddress = new Uri(nucleaBaseUrl);
@@ -19,13 +27,13 @@ services.AddHttpClient(
 );
 
 // Add the NucliaDB tools to DI
-services.AddSingleton<NucliaDbTools>();
+builder.Services.AddSingleton<NucliaDbTools>();
 
-var serviceProvider = services.BuildServiceProvider();
+// Add MCP server with stdio transport and tools from assembly
+builder.Services
+    .AddMcpServer()
+    .WithStdioServerTransport()
+    .WithToolsFromAssembly();
 
-// TODO: Wire up MCP server when ModelContextProtocol API stabilizes
-Console.WriteLine("NucliaDB MCP Server - MCP tools generated successfully!");
-Console.WriteLine($"Configured for NucliaDB at: {nucleaBaseUrl}");
-Console.WriteLine("Ready to integrate with ModelContextProtocol when API is stable.");
-
-await Task.CompletedTask.ConfigureAwait(false);
+var host = builder.Build();
+await host.RunAsync();

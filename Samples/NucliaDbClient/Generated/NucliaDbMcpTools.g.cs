@@ -1,12 +1,14 @@
 #nullable enable
 using System.ComponentModel;
 using System.Text.Json;
+using ModelContextProtocol.Server;
 using Outcome;
 using NucliaDB.Generated;
 
 namespace NucliaDB.Mcp;
 
 /// <summary>MCP server tools for NucliaDb API.</summary>
+[McpServerToolType]
 public class NucliaDbTools(IHttpClientFactory httpClientFactory)
 {
     private static readonly JsonSerializerOptions JsonOptions = new()
@@ -18,6 +20,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`</summary>
     /// <param name="slug">slug</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`")]
+    [McpServerTool]
     public async Task<string> KbBySlugKbSSlugGet(string slug)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -43,6 +46,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="xNUCLIADBROLES">xNUCLIADBROLES</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`")]
+    [McpServerTool]
     public async Task<string> KbKbKbidGet(string kbid, string xNUCLIADBROLES = "READER")
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -73,6 +77,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xSynchronous">When set to true, outputs response as JSON in a non-streaming way. This is slower and requires waiting for entire answer to be ready.</param>
     /// <param name="body">Request body</param>
     [Description("Ask questions on a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> AskKnowledgeboxEndpointKbKbidAsk(string kbid, AskRequest body, string xNdbClient = "api", bool xShowConsumption = false, string? xNucliadbUser = null, string? xForwardedFor = null, bool xSynchronous = false)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -113,6 +118,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="hidden">Set to filter only hidden or only non-hidden resources. Default is to return everything</param>
     /// <param name="show">Controls which types of metadata are serialized on resources of search results</param>
     [Description("List resources of a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> CatalogGetKbKbidCatalog(string kbid, string? query = null, object? filterExpression = null, List<string>? filters = null, List<string>? faceted = null, string? sortField = null, object? sortLimit = null, string sortOrder = "desc", int pageNumber = 0, int pageSize = 20, object? withStatus = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, object? hidden = null, List<string>? show = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -138,6 +144,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="body">Request body</param>
     [Description("List resources of a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> CatalogPostKbKbidCatalog(string kbid, CatalogRequest body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -162,6 +169,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <summary>Current configuration of models assigned to a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`</summary>
     /// <param name="kbid">kbid</param>
     [Description("Current configuration of models assigned to a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`")]
+    [McpServerTool]
     public async Task<string> ConfigurationKbKbidConfigurationGet(string kbid)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -187,6 +195,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="body">Request body</param>
     [Description("Update current configuration of models assigned to a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
+    [McpServerTool]
     public async Task<string> ConfigurationKbKbidConfigurationPatch(string kbid, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -212,6 +221,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="body">Request body</param>
     [Description("Create configuration of models assigned to a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
+    [McpServerTool]
     public async Task<string> SetConfigurationKbKbidConfiguration(string kbid, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -238,6 +248,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="debug">If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</param>
     /// <param name="xNUCLIADBROLES">xNUCLIADBROLES</param>
     [Description("Summary of amount of different things inside a knowledgebox --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`")]
+    [McpServerTool]
     public async Task<string> KnowledgeboxCountersKbKbidCounters(string kbid, bool debug = false, string xNUCLIADBROLES = "READER")
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -263,6 +274,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> SetCustomSynonymsKbKbidCustomSynonyms(string kbid, KnowledgeBoxSynonyms body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -287,6 +299,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`</summary>
     /// <param name="kbid">kbid</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> CustomSynonymsKbKbidCustomSynonymsDelete(string kbid)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -311,6 +324,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`</summary>
     /// <param name="kbid">kbid</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> CustomSynonymsKbKbidCustomSynonymsGet(string kbid)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -337,6 +351,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="group">group</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> UpdateEntitiesGroupKbKbidEntitiesgroupGroup(string kbid, string group, UpdateEntitiesGroupPayload body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -362,6 +377,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="group">group</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> EntitiesKbKbidEntitiesgroupGroupDelete(string kbid, string group)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -387,6 +403,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="group">group</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> EntityKbKbidEntitiesgroupGroupGet(string kbid, string group)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -412,6 +429,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> CreateEntitiesGroupKbKbidEntitiesgroups(string kbid, CreateEntitiesGroupPayload body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -437,6 +455,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="showEntities">showEntities</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> EntitiesKbKbidEntitiesgroupsGet(string kbid, bool showEntities = false)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -462,6 +481,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
+    [McpServerTool]
     public async Task<string> StartKbExportEndpointKbKbidExport(string kbid, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -487,6 +507,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="exportId">exportId</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`")]
+    [McpServerTool]
     public async Task<string> DownloadExportKbEndpointKbKbidExportExportId(string kbid, string exportId)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -512,6 +533,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="exportId">exportId</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`")]
+    [McpServerTool]
     public async Task<string> ExportStatusEndpointKbKbidExportExportIdStatusGet(string kbid, string exportId)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -537,6 +559,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="body">Request body</param>
     [Description("Add a extract strategy to a KB --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
+    [McpServerTool]
     public async Task<string> AddStrategyKbKbidExtractStrategies(string kbid, ExtractConfig body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -561,6 +584,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <summary>Get available extract strategies --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`</summary>
     /// <param name="kbid">kbid</param>
     [Description("Get available extract strategies --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`")]
+    [McpServerTool]
     public async Task<string> ExtractStrategiesKbKbidExtractStrategiesGet(string kbid)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -586,6 +610,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="strategyId">strategyId</param>
     [Description("Removes a extract strategy from a KB --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
+    [McpServerTool]
     public async Task<string> StrategyKbKbidExtractStrategiesStrategyStrategyIdDelete(string kbid, string strategyId)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -611,6 +636,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="strategyId">strategyId</param>
     [Description("Get extract strategy for a given id --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`")]
+    [McpServerTool]
     public async Task<string> ExtractStrategyFromIdKbKbidExtractStrategiesStrategyStrategyIdGet(string kbid, string strategyId)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -639,6 +665,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xForwardedFor">xForwardedFor</param>
     /// <param name="body">Request body</param>
     [Description("Send feedback for a search operation in a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> SendFeedbackEndpointKbKbidFeedback(string kbid, FeedbackRequest body, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -693,6 +720,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNucliadbUser">xNucliadbUser</param>
     /// <param name="xForwardedFor">xForwardedFor</param>
     [Description("Find on a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> FindKnowledgeboxKbKbidFind(string kbid, string? query = null, object? filterExpression = null, List<string>? fields = null, List<string>? filters = null, object? topK = null, object? minScore = null, object? minScoreSemantic = null, float minScoreBm25 = 0, object? vectorset = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, List<string>? features = null, bool debug = false, bool highlight = false, List<string>? show = null, List<string>? fieldType = null, List<string>? extracted = null, bool withDuplicates = false, bool withSynonyms = false, bool autofilter = false, List<string>? securityGroups = null, bool showHidden = false, string rankFusion = "rrf", object? reranker = null, object? searchConfiguration = null, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -721,6 +749,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xForwardedFor">xForwardedFor</param>
     /// <param name="body">Request body</param>
     [Description("Find on a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> FindPostKnowledgeboxKbKbidFind(string kbid, FindRequest body, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -749,6 +778,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xForwardedFor">xForwardedFor</param>
     /// <param name="body">Request body</param>
     [Description("Search on the Knowledge Box graph and retrieve triplets of vertex-edge-vertex --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> GraphSearchKnowledgeboxKbKbidGraph(string kbid, GraphSearchRequest body, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -777,6 +807,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xForwardedFor">xForwardedFor</param>
     /// <param name="body">Request body</param>
     [Description("Search on the Knowledge Box graph and retrieve nodes (vertices) --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> GraphNodesSearchKnowledgeboxKbKbidGraphNodes(string kbid, GraphNodesSearchRequest body, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -805,6 +836,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xForwardedFor">xForwardedFor</param>
     /// <param name="body">Request body</param>
     [Description("Search on the Knowledge Box graph and retrieve relations (edges) --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> GraphRelationsSearchKnowledgeboxKbKbidGraphRelations(string kbid, GraphRelationsSearchRequest body, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -830,6 +862,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
+    [McpServerTool]
     public async Task<string> StartKbImportEndpointKbKbidImport(string kbid, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -855,6 +888,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="importId">importId</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`")]
+    [McpServerTool]
     public async Task<string> ImportStatusEndpointKbKbidImportImportIdStatusGet(string kbid, string importId)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -881,6 +915,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="labelset">labelset</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> SetLabelsetEndpointKbKbidLabelsetLabelset(string kbid, string labelset, LabelSet body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -906,6 +941,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="labelset">labelset</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> LabelsetEndpointKbKbidLabelsetLabelsetDelete(string kbid, string labelset)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -931,6 +967,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="labelset">labelset</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> LabelsetEndpointKbKbidLabelsetLabelsetGet(string kbid, string labelset)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -955,6 +992,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`</summary>
     /// <param name="kbid">kbid</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> LabelsetsEndointKbKbidLabelsetsGet(string kbid)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -980,6 +1018,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="modelId">modelId</param>
     [Description("Get metadata for a particular model --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`")]
+    [McpServerTool]
     public async Task<string> ModelKbKbidModelModelIdGet(string kbid, string modelId)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1004,6 +1043,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <summary>Get available models --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`</summary>
     /// <param name="kbid">kbid</param>
     [Description("Get available models --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`")]
+    [McpServerTool]
     public async Task<string> ModelsKbKbidModelsGet(string kbid)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1030,6 +1070,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="modelId">modelId</param>
     /// <param name="filename">filename</param>
     [Description("Download the trained model or any other generated file as a result of a training task on a Knowledge Box. --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`")]
+    [McpServerTool]
     public async Task<string> DownloadModelKbKbidModelsModelIdFilename(string kbid, string modelId, string filename)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1054,6 +1095,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <summary>Provides a stream of activity notifications for the given Knowledge Box. The stream will be automatically closed after 2 minutes. --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`</summary>
     /// <param name="kbid">kbid</param>
     [Description("Provides a stream of activity notifications for the given Knowledge Box. The stream will be automatically closed after 2 minutes. --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> NotificationsEndpointKbKbidNotifications(string kbid)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1083,6 +1125,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xForwardedFor">xForwardedFor</param>
     /// <param name="body">Request body</param>
     [Description("Convenience endpoint that proxies requests to the Predict API. It adds the Knowledge Box configuration settings as headers to the predict API request. Refer to the Predict API documentation for more details about the request and response models: https://docs.nuclia.dev/docs/nua-api#tag/Predict --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> PredictProxyEndpointKbKbidPredictEndpoint(string kbid, string endpoint, object body, string? xNucliadbUser = null, string xNdbClient = "api", string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1111,6 +1154,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNdbClient">xNdbClient</param>
     /// <param name="xForwardedFor">xForwardedFor</param>
     [Description("Convenience endpoint that proxies requests to the Predict API. It adds the Knowledge Box configuration settings as headers to the predict API request. Refer to the Predict API documentation for more details about the request and response models: https://docs.nuclia.dev/docs/nua-api#tag/Predict --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> PredictProxyEndpointKbKbidPredictEndpoint2(string kbid, string endpoint, string? xNucliadbUser = null, string xNdbClient = "api", string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1138,6 +1182,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="scheduled">scheduled</param>
     /// <param name="limit">limit</param>
     [Description("Provides the status of the processing of the given Knowledge Box. --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> ProcessingStatusKbKbidProcessingStatus(string kbid, object? cursor = null, object? scheduled = null, int limit = 20)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1167,6 +1212,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xSplitStrategy">Split strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> TusPostRidPrefixKbKbidResourcePathRidFileFieldTusupload(string kbid, string pathRid, string field, object body, object? xExtractStrategy = null, object? xSplitStrategy = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1194,6 +1240,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="field">field</param>
     /// <param name="uploadId">uploadId</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> UploadInformationKbKbidResourcePathRidFileFieldTusuploadUploadId(string kbid, string pathRid, string field, string uploadId)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1227,6 +1274,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xSplitStrategy">Split strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
     /// <param name="body">Request body</param>
     [Description("Upload a file as a field on an existing resource, if the field exists will return a conflict (419) --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> UploadRidPrefixKbKbidResourcePathRidFileFieldUpload(string kbid, string pathRid, string field, object body, object? xFilename = null, object? xPassword = null, object? xLanguage = null, object? xMd5 = null, object? xExtractStrategy = null, object? xSplitStrategy = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1256,6 +1304,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNUCLIADBROLES">xNUCLIADBROLES</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> ModifyResourceRidPrefixKbKbidResourceRid(string kbid, string rid, UpdateResourcePayload body, string? xNucliadbUser = null, bool xSkipStore = false, string xNUCLIADBROLES = "WRITER")
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1282,6 +1331,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="rid">rid</param>
     /// <param name="xNUCLIADBROLES">xNUCLIADBROLES</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> ResourceRidPrefixKbKbidResourceRidDelete(string kbid, string rid, string xNUCLIADBROLES = "WRITER")
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1313,6 +1363,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xForwardedFor">xForwardedFor</param>
     /// <param name="xNUCLIADBROLES">xNUCLIADBROLES</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> ResourceByUuidKbKbidResourceRidGet(string kbid, string rid, List<string>? show = null, List<string>? fieldType = null, List<string>? extracted = null, string? xNucliadbUser = null, string? xForwardedFor = null, string xNUCLIADBROLES = "READER")
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1344,6 +1395,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xSynchronous">When set to true, outputs response as JSON in a non-streaming way. This is slower and requires waiting for entire answer to be ready.</param>
     /// <param name="body">Request body</param>
     [Description("Ask questions to a resource --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> ResourceAskEndpointByUuidKbKbidResourceRidAsk(string kbid, string rid, AskRequest body, bool xShowConsumption = false, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null, bool xSynchronous = false)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1371,6 +1423,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="fieldId">fieldId</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> AddResourceFieldConversationRidPrefixKbKbidResourceRidConversationFieldId(string kbid, string rid, string fieldId, InputConversationField body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1399,6 +1452,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="messageId">messageId</param>
     /// <param name="fileNum">fileNum</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> DownloadFieldConversationAttachmentRidPrefixKbKbidResourceRidConversationFieldIdDownloadFieldMessageIdFileNum(string kbid, string rid, string fieldId, string messageId, int fileNum)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1426,6 +1480,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="fieldId">fieldId</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> AppendMessagesToConversationFieldRidPrefixKbKbidResourceRidConversationFieldIdMessages(string kbid, string rid, string fieldId, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1454,6 +1509,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xSkipStore">If set to true, file fields will not be saved in the blob storage. They will only be sent to process.</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> AddResourceFieldFileRidPrefixKbKbidResourceRidFileFieldId(string kbid, string rid, string fieldId, FileField body, bool xSkipStore = false)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1481,6 +1537,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="fieldId">fieldId</param>
     /// <param name="inline">inline</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> DownloadFieldFileRidPrefixKbKbidResourceRidFileFieldIdDownloadField(string kbid, string rid, string fieldId, bool inline = false)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1511,6 +1568,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xFilePassword">If a file is password protected, the password must be provided here for the file to be processed</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> ReprocessFileFieldKbKbidResourceRidFileFieldIdReprocess(string kbid, string rid, string fieldId, object body, bool resetTitle = false, string? xNucliadbUser = null, object? xFilePassword = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1539,6 +1597,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="uploadId">uploadId</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> TusPatchRidPrefixKbKbidResourceRidFileFieldTusuploadUploadId(string kbid, string rid, string field, string uploadId, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1566,6 +1625,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="fieldId">fieldId</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> AddResourceFieldLinkRidPrefixKbKbidResourceRidLinkFieldId(string kbid, string rid, string fieldId, LinkField body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1593,6 +1653,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="reindexVectors">reindexVectors</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> ReindexResourceRidPrefixKbKbidResourceRidReindex(string kbid, string rid, object body, bool reindexVectors = false)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1621,6 +1682,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNucliadbUser">xNucliadbUser</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> ReprocessResourceRidPrefixKbKbidResourceRidReprocess(string kbid, string rid, object body, bool resetTitle = false, string? xNucliadbUser = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1648,6 +1710,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNucliadbUser">xNucliadbUser</param>
     /// <param name="body">Request body</param>
     [Description("Run Agents on Resource --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> RunAgentsByUuidKbKbidResourceRidRunAgents(string kbid, string rid, ResourceAgentsRequest body, string? xNucliadbUser = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1688,6 +1751,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="debug">If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</param>
     /// <param name="xNdbClient">xNdbClient</param>
     [Description("Search on a single resource --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> ResourceSearchKbKbidResourceRidSearch(string kbid, string rid, string query, object? filterExpression = null, List<string>? fields = null, List<string>? filters = null, List<string>? faceted = null, object? sortField = null, string sortOrder = "desc", object? topK = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, bool highlight = false, bool debug = false, string xNdbClient = "api")
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1716,6 +1780,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNUCLIADBROLES">xNUCLIADBROLES</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> AddResourceFieldTextRidPrefixKbKbidResourceRidTextFieldId(string kbid, string rid, string fieldId, TextField body, string xNUCLIADBROLES = "WRITER")
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1743,6 +1808,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="fieldType">fieldType</param>
     /// <param name="fieldId">fieldId</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> ResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdDelete(string kbid, string rid, string fieldType, string fieldId)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1773,6 +1839,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="extracted">extracted</param>
     /// <param name="page">page</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> ResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdGet(string kbid, string rid, string fieldType, string fieldId, List<string>? show = null, List<string>? extracted = null, object? page = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1801,6 +1868,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="fieldId">fieldId</param>
     /// <param name="downloadField">downloadField</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> DownloadExtractFileRidPrefixKbKbidResourceRidFieldTypeFieldIdDownloadExtractedDownloadField(string kbid, string rid, string fieldType, string fieldId, string downloadField)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1829,6 +1897,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNUCLIADBROLES">xNUCLIADBROLES</param>
     /// <param name="body">Request body</param>
     [Description("Create a new Resource in a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> CreateResourceKbKbidResources(string kbid, CreateResourcePayload body, bool xSkipStore = false, string? xNucliadbUser = null, string xNUCLIADBROLES = "WRITER")
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1856,6 +1925,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="size">Page size</param>
     /// <param name="xNUCLIADBROLES">xNUCLIADBROLES</param>
     [Description("List of resources of a knowledgebox --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> ListResourcesKbKbidResources(string kbid, int page = 0, int size = 20, string xNUCLIADBROLES = "READER")
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1880,6 +1950,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <summary>Get jsonschema definition to update the `learning_configuration` of your Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`</summary>
     /// <param name="kbid">kbid</param>
     [Description("Get jsonschema definition to update the `learning_configuration` of your Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`")]
+    [McpServerTool]
     public async Task<string> SchemaForConfigurationUpdatesKbKbidSchemaGet(string kbid)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1935,6 +2006,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNucliadbUser">xNucliadbUser</param>
     /// <param name="xForwardedFor">xForwardedFor</param>
     [Description("Search on a Knowledge Box and retrieve separate results for documents, paragraphs, and sentences. Usually, it is better to use `find` --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> SearchKnowledgeboxKbKbidSearch(string kbid, string? query = null, object? filterExpression = null, List<string>? fields = null, List<string>? filters = null, List<string>? faceted = null, string? sortField = null, object? sortLimit = null, string sortOrder = "desc", int topK = 20, object? minScore = null, object? minScoreSemantic = null, float minScoreBm25 = 0, object? vectorset = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, List<string>? features = null, bool debug = false, bool highlight = false, List<string>? show = null, List<string>? fieldType = null, List<string>? extracted = null, bool withDuplicates = false, bool withSynonyms = false, bool autofilter = false, List<string>? securityGroups = null, bool showHidden = false, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1963,6 +2035,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xForwardedFor">xForwardedFor</param>
     /// <param name="body">Request body</param>
     [Description("Search on a Knowledge Box and retrieve separate results for documents, paragraphs, and sentences. Usually, it is better to use `find` --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> SearchPostKnowledgeboxKbKbidSearch(string kbid, SearchRequest body, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -1987,6 +2060,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`</summary>
     /// <param name="kbid">kbid</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> ListSearchConfigurationsKbKbidSearchConfigurations(string kbid)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2013,6 +2087,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="configName">configName</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> CreateSearchConfigurationKbKbidSearchConfigurationsConfigName(string kbid, string configName, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2039,6 +2114,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="configName">configName</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> UpdateSearchConfigurationKbKbidSearchConfigurationsConfigName(string kbid, string configName, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2064,6 +2140,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="configName">configName</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> SearchConfigurationKbKbidSearchConfigurationsConfigNameDelete(string kbid, string configName)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2089,6 +2166,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="configName">configName</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> SearchConfigurationKbKbidSearchConfigurationsConfigNameGet(string kbid, string configName)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2117,6 +2195,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNucliadbUser">xNucliadbUser</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> ModifyResourceRslugPrefixKbKbidSlugRslug(string kbid, string rslug, UpdateResourcePayload body, bool xSkipStore = false, string? xNucliadbUser = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2142,6 +2221,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="rslug">rslug</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> ResourceRslugPrefixKbKbidSlugRslugDelete(string kbid, string rslug)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2172,6 +2252,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNucliadbUser">xNucliadbUser</param>
     /// <param name="xForwardedFor">xForwardedFor</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> ResourceBySlugKbKbidSlugRslugGet(string kbid, string rslug, List<string>? show = null, List<string>? fieldType = null, List<string>? extracted = null, string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2199,6 +2280,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="fieldId">fieldId</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> AddResourceFieldConversationRslugPrefixKbKbidSlugRslugConversationFieldId(string kbid, string rslug, string fieldId, InputConversationField body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2227,6 +2309,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="messageId">messageId</param>
     /// <param name="fileNum">fileNum</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> DownloadFieldConversationRslugPrefixKbKbidSlugRslugConversationFieldIdDownloadFieldMessageIdFileNum(string kbid, string rslug, string fieldId, string messageId, int fileNum)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2254,6 +2337,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="fieldId">fieldId</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> AppendMessagesToConversationFieldRslugPrefixKbKbidSlugRslugConversationFieldIdMessages(string kbid, string rslug, string fieldId, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2282,6 +2366,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xSkipStore">If set to true, file fields will not be saved in the blob storage. They will only be sent to process.</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> AddResourceFieldFileRslugPrefixKbKbidSlugRslugFileFieldId(string kbid, string rslug, string fieldId, FileField body, bool xSkipStore = false)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2309,6 +2394,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="fieldId">fieldId</param>
     /// <param name="inline">inline</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> DownloadFieldFileRslugPrefixKbKbidSlugRslugFileFieldIdDownloadField(string kbid, string rslug, string fieldId, bool inline = false)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2338,6 +2424,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xSplitStrategy">Split strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> TusPostRslugPrefixKbKbidSlugRslugFileFieldTusupload(string kbid, string rslug, string field, object body, object? xExtractStrategy = null, object? xSplitStrategy = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2366,6 +2453,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="uploadId">uploadId</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> TusPatchRslugPrefixKbKbidSlugRslugFileFieldTusuploadUploadId(string kbid, string rslug, string field, string uploadId, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2393,6 +2481,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="field">field</param>
     /// <param name="uploadId">uploadId</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> UploadInformationKbKbidSlugRslugFileFieldTusuploadUploadId(string kbid, string rslug, string field, string uploadId)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2426,6 +2515,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xSplitStrategy">Split strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
     /// <param name="body">Request body</param>
     [Description("Upload a file as a field on an existing resource, if the field exists will return a conflict (419) --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> UploadRslugPrefixKbKbidSlugRslugFileFieldUpload(string kbid, string rslug, string field, object body, object? xFilename = null, object? xPassword = null, object? xLanguage = null, object? xMd5 = null, object? xExtractStrategy = null, object? xSplitStrategy = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2453,6 +2543,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="fieldId">fieldId</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> AddResourceFieldLinkRslugPrefixKbKbidSlugRslugLinkFieldId(string kbid, string rslug, string fieldId, LinkField body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2480,6 +2571,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="reindexVectors">reindexVectors</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> ReindexResourceRslugPrefixKbKbidSlugRslugReindex(string kbid, string rslug, object body, bool reindexVectors = false)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2508,6 +2600,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNucliadbUser">xNucliadbUser</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> ReprocessResourceRslugPrefixKbKbidSlugRslugReprocess(string kbid, string rslug, object body, bool resetTitle = false, string? xNucliadbUser = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2535,6 +2628,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="fieldId">fieldId</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> AddResourceFieldTextRslugPrefixKbKbidSlugRslugTextFieldId(string kbid, string rslug, string fieldId, TextField body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2562,6 +2656,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="fieldType">fieldType</param>
     /// <param name="fieldId">fieldId</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> ResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDelete(string kbid, string rslug, string fieldType, string fieldId)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2592,6 +2687,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="extracted">extracted</param>
     /// <param name="page">page</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> ResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdGet(string kbid, string rslug, string fieldType, string fieldId, List<string>? show = null, List<string>? extracted = null, object? page = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2620,6 +2716,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="fieldId">fieldId</param>
     /// <param name="downloadField">downloadField</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> DownloadExtractFileRslugPrefixKbKbidSlugRslugFieldTypeFieldIdDownloadExtractedDownloadField(string kbid, string rslug, string fieldType, string fieldId, string downloadField)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2651,6 +2748,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xSynchronous">When set to true, outputs response as JSON in a non-streaming way. This is slower and requires waiting for entire answer to be ready.</param>
     /// <param name="body">Request body</param>
     [Description("Ask questions to a resource --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> ResourceAskEndpointBySlugKbKbidSlugSlugAsk(string kbid, string slug, AskRequest body, bool xShowConsumption = false, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null, bool xSynchronous = false)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2678,6 +2776,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNucliadbUser">xNucliadbUser</param>
     /// <param name="body">Request body</param>
     [Description("Run Agents on Resource (by slug) --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> RunAgentsBySlugKbKbidSlugSlugRunAgents(string kbid, string slug, ResourceAgentsRequest body, string? xNucliadbUser = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2703,6 +2802,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="body">Request body</param>
     [Description("Add a split strategy to a KB --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
+    [McpServerTool]
     public async Task<string> AddSplitStrategyKbKbidSplitStrategies(string kbid, SplitConfiguration body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2727,6 +2827,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <summary>Get available split strategies --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`</summary>
     /// <param name="kbid">kbid</param>
     [Description("Get available split strategies --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`")]
+    [McpServerTool]
     public async Task<string> SplitStrategiesKbKbidSplitStrategiesGet(string kbid)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2752,6 +2853,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="strategyId">strategyId</param>
     [Description("Removes a split strategy from a KB --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
+    [McpServerTool]
     public async Task<string> SplitStrategyKbKbidSplitStrategiesStrategyStrategyIdDelete(string kbid, string strategyId)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2777,6 +2879,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="strategyId">strategyId</param>
     [Description("Get split strategy for a given id --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`")]
+    [McpServerTool]
     public async Task<string> SplitStrategyFromIdKbKbidSplitStrategiesStrategyStrategyIdGet(string kbid, string strategyId)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2818,6 +2921,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNucliadbUser">xNucliadbUser</param>
     /// <param name="xForwardedFor">xForwardedFor</param>
     [Description("Suggestions on a knowledge box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> SuggestKnowledgeboxKbKbidSuggest(string kbid, string query, List<string>? fields = null, List<string>? filters = null, List<string>? faceted = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, List<string>? features = null, List<string>? show = null, List<string>? fieldType = null, bool debug = false, bool highlight = false, bool showHidden = false, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2844,6 +2948,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xShowConsumption">xShowConsumption</param>
     /// <param name="body">Request body</param>
     [Description("Summarize Your Documents --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
+    [McpServerTool]
     public async Task<string> SummarizeEndpointKbKbidSummarize(string kbid, SummarizeRequest body, bool xShowConsumption = false)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2871,6 +2976,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xSplitStrategy">Split strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> TusPostKbKbidTusupload(string kbid, object body, object? xExtractStrategy = null, object? xSplitStrategy = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2899,6 +3005,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="uploadId">uploadId</param>
     /// <param name="field">field</param>
     [Description("TUS Server information")]
+    [McpServerTool]
     public async Task<string> TusOptionsKbKbidTusupload(string kbid, object? rid = null, object? rslug = null, object? uploadId = null, object? field = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2925,6 +3032,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="uploadId">uploadId</param>
     /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> KbKbidTusuploadUploadIdPatch(string kbid, string uploadId, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2950,6 +3058,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="uploadId">uploadId</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> UploadInformationKbKbidTusuploadUploadId(string kbid, string uploadId)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -2981,6 +3090,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xSplitStrategy">Split strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
     /// <param name="body">Request body</param>
     [Description("Upload a file onto a Knowledge Box, field id will be file and rid will be autogenerated. --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    [McpServerTool]
     public async Task<string> UploadKbKbidUpload(string kbid, object body, object? xFilename = null, object? xPassword = null, object? xLanguage = null, object? xMd5 = null, object? xExtractStrategy = null, object? xSplitStrategy = null)
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -3006,6 +3116,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNUCLIADBROLES">xNUCLIADBROLES</param>
     /// <param name="body">Request body</param>
     [Description("Create a new knowledge box")]
+    [McpServerTool]
     public async Task<string> CreateKnowledgeBoxKbs(object body, string xNUCLIADBROLES = "MANAGER")
     {
         var httpClient = httpClientFactory.CreateClient();
@@ -3030,6 +3141,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <summary>Get jsonschema definition for `learning_configuration` field of knowledgebox creation payload</summary>
     
     [Description("Get jsonschema definition for `learning_configuration` field of knowledgebox creation payload")]
+    [McpServerTool]
     public async Task<string> LearningConfigurationSchemaLearningConfigurationSchema()
     {
         var httpClient = httpClientFactory.CreateClient();
