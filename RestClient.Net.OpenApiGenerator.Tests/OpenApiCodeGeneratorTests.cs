@@ -214,8 +214,14 @@ public class OpenApiCodeGeneratorTests
             )
         );
 
-        Assert.IsTrue(result.ExtensionMethodsCode.Contains("\"https://api.test.com\""));
-        Assert.IsFalse(result.ExtensionMethodsCode.Contains("\"/v1\""));
+        Assert.IsTrue(
+            result.ExtensionMethodsCode.Contains("\"https://api.test.com\""),
+            $"Missing base URL. Generated code:\n{result.ExtensionMethodsCode.Substring(0, Math.Min(1000, result.ExtensionMethodsCode.Length))}"
+        );
+        Assert.IsFalse(
+            result.ExtensionMethodsCode.Contains("\"/v1\""),
+            $"Found /v1 in generated code"
+        );
     }
 
     [TestMethod]
@@ -246,7 +252,7 @@ public class OpenApiCodeGeneratorTests
             )
         );
 
-        Assert.IsTrue(result.ExtensionMethodsCode.Contains("int limit"));
+        Assert.IsTrue(result.ExtensionMethodsCode.Contains("int? limit"));
         Assert.IsTrue(result.ExtensionMethodsCode.Contains("?limit={param}"));
     }
 
@@ -264,9 +270,13 @@ public class OpenApiCodeGeneratorTests
 
         Assert.IsTrue(
             result.ExtensionMethodsCode.Contains("string apiKey")
-                && result.ExtensionMethodsCode.Contains("long petId")
+                && result.ExtensionMethodsCode.Contains("long petId"),
+            $"Missing parameters. Code:\n{result.ExtensionMethodsCode}"
         );
-        Assert.IsTrue(result.ExtensionMethodsCode.Contains("?api_key={param.apiKey}"));
+        Assert.IsTrue(
+            result.ExtensionMethodsCode.Contains("?api_key={param.apiKey}"),
+            $"Missing direct interpolation. Code:\n{result.ExtensionMethodsCode}"
+        );
     }
 
     [TestMethod]
@@ -506,7 +516,7 @@ public class OpenApiCodeGeneratorTests
         // Verify that public methods call the private delegates with HttpClient as first parameter
         Assert.IsTrue(
             result.ExtensionMethodsCode.Contains("(httpClient,")
-                && result.ExtensionMethodsCode.Contains(", ct)")
+                && result.ExtensionMethodsCode.Contains(", cancellationToken)")
         );
     }
 }

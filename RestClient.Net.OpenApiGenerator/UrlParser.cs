@@ -88,7 +88,18 @@ internal static partial class UrlParser
             );
         }
 
-        var baseUrl = baseUrlOverride ?? $"{uri.Scheme}://{uri.Authority}";
+        // If override is provided, parse it to separate baseUrl and basePath
+        if (!string.IsNullOrWhiteSpace(baseUrlOverride))
+        {
+            if (Uri.TryCreate(baseUrlOverride, UriKind.Absolute, out var overrideUri))
+            {
+                var overrideBaseUrl = $"{overrideUri.Scheme}://{overrideUri.Authority}";
+                var overrideBasePath = overrideUri.AbsolutePath.TrimEnd('/');
+                return new OkUrl((overrideBaseUrl, overrideBasePath));
+            }
+        }
+
+        var baseUrl = $"{uri.Scheme}://{uri.Authority}";
         var basePath2 = uri.AbsolutePath.TrimEnd('/');
         return new OkUrl((baseUrl, basePath2));
     }

@@ -1,15 +1,32 @@
 services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: nucliadb-postgres
+    environment:
+      POSTGRES_DB: nucliadb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
   nucliadb:
-    image: nuclia/nucliadb:5.2.7
+    image: nuclia/nucliadb:latest
     container_name: nucliadb-local
+    depends_on:
+      - postgres
     ports:
       - "8080:8080"
       - "8060:8060"
       - "8040:8040"
     environment:
-      - LOG=INFO
+      DRIVER: pg
+      DRIVER_PG_URL: postgresql://postgres:postgres@postgres:5432/nucliadb
+      FILE_BACKEND: local
     volumes:
       - nucliadb-data:/data
 
 volumes:
   nucliadb-data:
+  postgres-data:

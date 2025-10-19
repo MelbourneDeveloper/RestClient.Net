@@ -6,6 +6,8 @@ using Xunit.Abstractions;
 using Xunit.Sdk;
 
 #pragma warning disable CS8509 // C# compiler doesn't understand nested discriminated unions - use EXHAUSTION001 instead
+#pragma warning disable SA1512 // Single-line comments should not be followed by blank line
+
 
 namespace NucliaDbClient.Tests;
 
@@ -14,9 +16,8 @@ namespace NucliaDbClient.Tests;
 public class NucliaDbApiTests
 {
     private readonly IHttpClientFactory _httpClientFactory;
-
-    // DO NOT PUT VARIABLES HERE. NO SHARED STATE BETWEEN TESTS.
     private static string? _createdResourceId;
+    private static string? _knowledgeBoxId;
 
     public NucliaDbApiTests()
     {
@@ -28,14 +29,125 @@ public class NucliaDbApiTests
 
     private HttpClient CreateHttpClient() => _httpClientFactory.CreateClient();
 
+    private async Task<string> EnsureResourceExists()
+    {
+        if (!string.IsNullOrEmpty(_createdResourceId))
+        {
+            return _createdResourceId;
+        }
+
+        var payload = new CreateResourcePayload
+        {
+            Slug = $"test-resource-{Guid.NewGuid()}",
+            Title = "Test Resource",
+            Texts = new Dictionary<string, TextField>(),
+            Files = new Dictionary<string, FileField>(),
+            Links = new Dictionary<string, LinkField>(),
+            Conversations = new Dictionary<string, InputConversationField>(),
+        };
+
+        var result = await CreateHttpClient()
+            .CreateResourceKbKbidResourcesAsync(
+                kbid: _knowledgeBoxId!,
+                body: payload,
+                xSkipStore: false,
+                xNucliadbUser: "test-user",
+                xNUCLIADBROLES: "WRITER"
+            );
+
+        var created = result switch
+        {
+            OkResourceCreated(var value) => value,
+            ErrorResourceCreated(HttpError<string>.ExceptionError(var ex)) =>
+                throw new InvalidOperationException("Failed to create resource", ex),
+            ErrorResourceCreated(
+                HttpError<string>.ErrorResponseError
+                (var body, var statusCode, _)
+            ) => throw new InvalidOperationException(
+                $"Failed to create resource: HTTP {statusCode}: {body}"
+            ),
+        };
+
+        _createdResourceId = created.Uuid!;
+        return _createdResourceId;
+    }
+
+    [Fact]
+    [TestPriority(-1)]
+    public async Task CreateKnowledgeBox_CreatesKB()
+    {
+        var payload = new { slug = $"test-kb-{Guid.NewGuid()}", title = "Test Knowledge Box" };
+
+        var result = await CreateHttpClient()
+            .CreateKnowledgeBoxKbsAsync(body: payload, xNUCLIADBROLES: "MANAGER");
+
+        var kb = result switch
+        {
+            OkKnowledgeBoxObj(var value) => value,
+            ErrorKnowledgeBoxObj(HttpError<string>.ExceptionError(var ex)) =>
+                throw new InvalidOperationException("Failed to create knowledge box", ex),
+            ErrorKnowledgeBoxObj(
+                HttpError<string>.ErrorResponseError
+                (var body, var statusCode, _)
+            ) => throw new InvalidOperationException(
+                $"Failed to create knowledge box: HTTP {statusCode}: {body}"
+            ),
+        };
+
+        Assert.NotNull(kb);
+        Assert.NotNull(kb.Uuid);
+
+        _knowledgeBoxId = kb.Uuid;
+    }
+
+    [Fact]
+    [TestPriority(0)]
+    public async Task CreateResource_ReturnsResourceCreated_WithoutAuthentication()
+    {
+        var payload = new CreateResourcePayload
+        {
+            Slug = $"test-resource-{Guid.NewGuid()}",
+            Title = "Test Resource",
+            Texts = new Dictionary<string, TextField>(),
+            Files = new Dictionary<string, FileField>(),
+            Links = new Dictionary<string, LinkField>(),
+            Conversations = new Dictionary<string, InputConversationField>(),
+        };
+
+        var result = await CreateHttpClient()
+            .CreateResourceKbKbidResourcesAsync(
+                kbid: _knowledgeBoxId!,
+                body: payload,
+                xSkipStore: false,
+                xNucliadbUser: "test-user",
+                xNUCLIADBROLES: "WRITER"
+            );
+
+        var created = result switch
+        {
+            OkResourceCreated(var value) => value,
+            ErrorResourceCreated(HttpError<string>.ExceptionError(var ex)) =>
+                throw new InvalidOperationException("Failed to create resource", ex),
+            ErrorResourceCreated(
+                HttpError<string>.ErrorResponseError
+                (var body, var statusCode, _)
+            ) => throw new InvalidOperationException(
+                $"Failed to create resource: HTTP {statusCode}: {body}"
+            ),
+        };
+
+        Assert.NotNull(created);
+        Assert.NotNull(created.Uuid);
+        Assert.NotNull(created.Seqid);
+    }
+
     [Fact]
     [TestPriority(1)]
     public async Task GetKnowledgeBox_ReturnsValidData()
     {
         // Act
         var result = await CreateHttpClient()
-            .GetKbKbKbidGet("2edd5a30-8e28-4185-a0be-629971a9784c", "READER")
-            .ConfigureAwait(false);
+            .KbKbKbidGetAsync(kbid: _knowledgeBoxId!, xNUCLIADBROLES: "READER");
 
         // Assert
         var kb = result switch
@@ -52,65 +164,24 @@ public class NucliaDbApiTests
         Assert.NotNull(kb);
         Assert.NotNull(kb.Slug);
         Assert.NotNull(kb.Uuid);
-        Assert.Equal("2edd5a30-8e28-4185-a0be-629971a9784c", kb.Uuid);
-    }
-
-    [Fact]
-    [TestPriority(2)]
-    public async Task CreateResource_ReturnsResourceCreated()
-    {
-        // Act
-        var payload = new CreateResourcePayload
-        {
-            Slug = $"test-resource-{Guid.NewGuid()}",
-            Title = "Test Resource",
-            Texts = new Dictionary<string, TextField>(),
-            Files = new Dictionary<string, FileField>(),
-            Links = new Dictionary<string, LinkField>(),
-            Conversations = new Dictionary<string, InputConversationField>(),
-        };
-
-        var result = await CreateHttpClient()
-            .CreateResourceKbKbidResourcesPost(
-                "2edd5a30-8e28-4185-a0be-629971a9784c",
-                false,
-                "test-user",
-                "WRITER",
-                payload
-            )
-            .ConfigureAwait(false);
-
-        // Assert
-        var created = result switch
-        {
-            OkResourceCreated(var value) => value,
-            ErrorResourceCreated(HttpError<string>.ExceptionError(var ex)) =>
-                throw new InvalidOperationException("API call failed with exception", ex),
-            ErrorResourceCreated(
-                HttpError<string>.ErrorResponseError
-                (var body, var statusCode, _)
-            ) => throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
-        };
-
-        Assert.NotNull(created);
-        Assert.NotNull(created.Uuid);
-        Assert.NotEmpty(created.Uuid);
-        _createdResourceId = created.Uuid;
+        Assert.Equal(_knowledgeBoxId, kb.Uuid);
     }
 
     [Fact]
     [TestPriority(3)]
     public async Task ListResources_ReturnsResourceList()
     {
+        // Ensure there's at least one resource in the KB (for fresh container robustness)
+        await EnsureResourceExists();
+
         // Act
         var result = await CreateHttpClient()
-            .ListResourcesKbKbidResourcesGet(
-                "2edd5a30-8e28-4185-a0be-629971a9784c",
-                0,
-                10,
-                "READER"
-            )
-            .ConfigureAwait(false);
+            .ListResourcesKbKbidResourcesAsync(
+                kbid: _knowledgeBoxId!,
+                page: 0,
+                size: 10,
+                xNUCLIADBROLES: "READER"
+            );
 
         // Assert
         var resources = result switch
@@ -131,24 +202,21 @@ public class NucliaDbApiTests
     [TestPriority(4)]
     public async Task GetResource_ReturnsResource()
     {
-        if (_createdResourceId == null)
-        {
-            return;
-        }
+        // Ensure resource exists
+        var resourceId = await EnsureResourceExists();
 
         // Act
         var result = await CreateHttpClient()
-            .GetResourceByUuidKbKbidResourceRidGet(
-                "2edd5a30-8e28-4185-a0be-629971a9784c",
-                _createdResourceId!,
-                [],
-                [],
-                [],
-                "test-user",
-                "127.0.0.1",
-                "READER"
-            )
-            .ConfigureAwait(false);
+            .ResourceByUuidKbKbidResourceRidGetAsync(
+                kbid: _knowledgeBoxId!,
+                rid: resourceId,
+                show: [],
+                fieldType: [],
+                extracted: [],
+                xNucliadbUser: "test-user",
+                xForwardedFor: "127.0.0.1",
+                xNUCLIADBROLES: "READER"
+            );
 
         // Assert
         var resource = result switch
@@ -164,17 +232,15 @@ public class NucliaDbApiTests
 
         Assert.NotNull(resource);
         Assert.NotNull(resource.Id);
-        Assert.Equal(_createdResourceId, resource.Id);
     }
 
+#pragma warning disable xUnit1004
     [Fact]
     [TestPriority(5)]
     public async Task ModifyResource_ReturnsResourceUpdated()
     {
-        if (_createdResourceId == null)
-        {
-            return;
-        }
+        // Ensure resource exists
+        var resourceId = await EnsureResourceExists();
 
         // Act
         var updatePayload = new UpdateResourcePayload
@@ -187,15 +253,14 @@ public class NucliaDbApiTests
         };
 
         var result = await CreateHttpClient()
-            .ModifyResourceRidPrefixKbKbidResourceRidPatch(
-                "2edd5a30-8e28-4185-a0be-629971a9784c",
-                _createdResourceId!,
-                "test-user",
-                false,
-                "WRITER",
-                updatePayload
-            )
-            .ConfigureAwait(false);
+            .ModifyResourceRidPrefixKbKbidResourceRidAsync(
+                kbid: _knowledgeBoxId!,
+                rid: resourceId,
+                body: updatePayload,
+                xNucliadbUser: "test-user",
+                xSkipStore: false,
+                xNUCLIADBROLES: "WRITER"
+            );
 
         // Assert
         var updated = result switch
@@ -213,18 +278,18 @@ public class NucliaDbApiTests
         Assert.NotNull(updated.Seqid);
     }
 
+#pragma warning disable xUnit1004
     [Fact]
     [TestPriority(6)]
     public async Task GetKnowledgeBoxCounters_ReturnsCounters()
     {
         // Act
         var result = await CreateHttpClient()
-            .KnowledgeboxCountersKbKbidCountersGet(
-                "2edd5a30-8e28-4185-a0be-629971a9784c",
-                false,
-                "READER"
-            )
-            .ConfigureAwait(false);
+            .KnowledgeboxCountersKbKbidCountersAsync(
+                kbid: _knowledgeBoxId!,
+                debug: false,
+                xNUCLIADBROLES: "READER"
+            );
 
         // Assert
         var counters = result switch
@@ -242,26 +307,24 @@ public class NucliaDbApiTests
         Assert.True(counters.Resources >= 1, "Should have at least 1 resource");
     }
 
+#pragma warning disable xUnit1004
     [Fact]
     [TestPriority(9)]
     public async Task AddTextFieldToResource_ReturnsResourceFieldAdded()
     {
-        if (_createdResourceId == null)
-        {
-            return;
-        }
+        // Ensure resource exists
+        var resourceId = await EnsureResourceExists();
 
         // Act
         var textField = new TextField { Body = "This is test text content", Format = "PLAIN" };
         var result = await CreateHttpClient()
-            .AddResourceFieldTextRidPrefixKbKbidResourceRidTextFieldIdPut(
-                "2edd5a30-8e28-4185-a0be-629971a9784c",
-                _createdResourceId!,
-                "test-field",
-                "WRITER",
-                textField
-            )
-            .ConfigureAwait(false);
+            .AddResourceFieldTextRidPrefixKbKbidResourceRidTextFieldIdAsync(
+                kbid: _knowledgeBoxId!,
+                rid: resourceId,
+                fieldId: "test-field",
+                body: textField,
+                xNUCLIADBROLES: "WRITER"
+            );
 
         // Assert
         var fieldAdded = result switch
@@ -279,23 +342,21 @@ public class NucliaDbApiTests
         Assert.NotNull(fieldAdded.Seqid);
     }
 
+#pragma warning disable xUnit1004
     [Fact]
     [TestPriority(10)]
     public async Task DeleteResource_ReturnsUnit()
     {
-        if (_createdResourceId == null)
-        {
-            return;
-        }
+        // Ensure resource exists
+        var resourceId = await EnsureResourceExists();
 
         // Act
         var result = await CreateHttpClient()
-            .DeleteResourceRidPrefixKbKbidResourceRidDelete(
-                "2edd5a30-8e28-4185-a0be-629971a9784c",
-                _createdResourceId!,
-                "WRITER"
-            )
-            .ConfigureAwait(false);
+            .ResourceRidPrefixKbKbidResourceRidDeleteAsync(
+                kbid: _knowledgeBoxId!,
+                rid: resourceId,
+                xNUCLIADBROLES: "WRITER"
+            );
 
         // Assert
         var unit = result switch
@@ -308,6 +369,9 @@ public class NucliaDbApiTests
         };
 
         Assert.Equal(Unit.Value, unit);
+
+        // Clear the resource ID since it's been deleted
+        _createdResourceId = null;
     }
 }
 

@@ -5,7 +5,9 @@ internal readonly record struct ParameterInfo(
     string Type,
     bool IsPath,
     bool IsHeader,
-    string OriginalName
+    string OriginalName,
+    bool Required,
+    string? DefaultValue
 );
 
 /// <summary>Generates C# extension methods from OpenAPI operations.</summary>
@@ -35,6 +37,7 @@ internal static class ExtensionMethodGenerator
         var groupedMethods =
             new Dictionary<string, List<(string PublicMethod, string PrivateDelegate)>>();
         var responseTypes = new HashSet<string>();
+        var methodNameCounts = new Dictionary<string, int>();
 
         foreach (var path in document.Paths)
         {
@@ -53,11 +56,12 @@ internal static class ExtensionMethodGenerator
                 _ = responseTypes.Add(resultResponseType);
 
                 var (publicMethod, privateDelegate) = GenerateMethod(
+                    basePath,
                     path.Key,
                     operation.Key,
                     operation.Value,
-                    basePath,
-                    document.Components?.Schemas
+                    document.Components?.Schemas,
+                    methodNameCounts
                 );
                 if (!string.IsNullOrEmpty(publicMethod))
                 {
@@ -133,27 +137,27 @@ internal static class ExtensionMethodGenerator
 
                 private static async Task<T> DeserializeJson<T>(
                     HttpResponseMessage response,
-                    CancellationToken ct = default
+                    CancellationToken cancellationToken = default
                 )
                 {
-                    var body = await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
+                    var body = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
                     System.Console.WriteLine($"[DEBUG] Response status: {response.StatusCode}, URL: {response.RequestMessage?.RequestUri}, body: {body}");
-                    var result = await response.Content.ReadFromJsonAsync<T>(JsonOptions, cancellationToken: ct).ConfigureAwait(false);
+                    var result = await response.Content.ReadFromJsonAsync<T>(JsonOptions, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return result ?? throw new InvalidOperationException($"Failed to deserialize response to type {typeof(T).Name}");
                 }
 
                 private static async Task<string> DeserializeString(
                     HttpResponseMessage response,
-                    CancellationToken ct = default
+                    CancellationToken cancellationToken = default
                 ) =>
-                    await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
+                    await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
 
                 private static async Task<string> DeserializeError(
                     HttpResponseMessage response,
-                    CancellationToken ct = default
+                    CancellationToken cancellationToken = default
                 )
                 {
-                    var content = await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
+                    var content = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
                     return string.IsNullOrEmpty(content) ? "Unknown error" : content;
                 }
 
@@ -234,24 +238,37 @@ internal static class ExtensionMethodGenerator
     }
 
     private static (string PublicMethod, string PrivateDelegate) GenerateMethod(
+        string basePath,
         string path,
         HttpMethod operationType,
         OpenApiOperation operation,
-        string basePath,
-        IDictionary<string, IOpenApiSchema>? schemas = null
+        IDictionary<string, IOpenApiSchema>? schemas,
+        Dictionary<string, int> methodNameCounts
     )
     {
         var methodName = GetMethodName(operation, operationType, path);
+
+        // Ensure uniqueness by tracking method names and adding suffixes
+        if (methodNameCounts.TryGetValue(methodName, out var count))
+        {
+            methodNameCounts[methodName] = count + 1;
+            methodName = $"{methodName}{count + 1}";
+        }
+        else
+        {
+            methodNameCounts[methodName] = 1;
+        }
+
         var parameters = GetParameters(operation, schemas);
         var requestBodyType = GetRequestBodyType(operation);
         var responseType = GetResponseType(operation);
-        var fullPath = $"{basePath}{path}";
-        var summary = operation.Summary ?? operation.Description ?? $"{methodName} operation";
+        var rawSummary = operation.Description ?? operation.Summary ?? $"{methodName} operation";
+        var summary = FormatXmlDocSummary(rawSummary);
 
         return GenerateHttpMethod(
             operationType,
             methodName,
-            fullPath,
+            basePath + path,
             parameters,
             requestBodyType,
             responseType,
@@ -364,17 +381,17 @@ internal static class ExtensionMethodGenerator
             var queryStringExpression = hasQueryParams
                 ? (
                     isSingleParam && queryParams.Count == 1
-                        ? $"BuildQueryString((\"{queryParams[0].OriginalName}\", param))"
-                        : $"BuildQueryString({string.Join(", ", queryParams.Select(q => $"(\"{q.OriginalName}\", param.{q.Name})"))})"
+                        ? $"?{queryParams[0].OriginalName}={{param}}"
+                        : $"?{string.Join("&", queryParams.Select(q => $"{q.OriginalName}={{param.{q.Name}}}"))}"
                 )
-                : "string.Empty";
+                : string.Empty;
 
             var headersExpression = hasHeaderParams
                 ? BuildHeadersDictionaryExpression(headerParams, "param", isSingleParam)
                 : "null";
 
             var buildRequestBody =
-                $"static param => new HttpRequestParts(new RelativeUrl($\"{path}{{{queryStringExpression}}}\"), null, {headersExpression})";
+                $"static param => new HttpRequestParts(new RelativeUrl($\"{path}{queryStringExpression}\"), null, {headersExpression})";
 
             return BuildMethod(
                 methodName,
@@ -382,7 +399,7 @@ internal static class ExtensionMethodGenerator
                 resultType,
                 resultResponseType,
                 nonPathParamsType,
-                string.Join(", ", nonPathParams.Select(q => $"{q.Type} {q.Name}")),
+                string.Join(", ", nonPathParams.Select(FormatParameterWithDefault)),
                 paramInvocation,
                 buildRequestBody,
                 deserializeMethod,
@@ -402,22 +419,30 @@ internal static class ExtensionMethodGenerator
         // If we have query/header params along with path params and no body
         if (!hasBody && (hasQueryParams || hasHeaderParams))
         {
-            var allParamsList = parameters.Select(p => $"{p.Type} {p.Name}").ToList();
+            var allParamsTypeList = parameters.Select(p => $"{p.Type} {p.Name}").ToList();
+            var allParamsList = parameters.Select(FormatParameterWithDefault).ToList();
             var isSingleParam = parameters.Count == 1;
             var allParamsType = isSingleParam
                 ? parameters[0].Type
-                : $"({string.Join(", ", allParamsList)})";
+                : $"({string.Join(", ", allParamsTypeList)})";
             var allParamsNames = string.Join(", ", parameters.Select(p => p.Name));
             var paramInvocation = isSingleParam ? allParamsNames : $"({allParamsNames})";
             var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
 
-            var queryStringExpression = hasQueryParams
+            // Use BuildQueryString for nullable parameters to handle null values correctly
+            var hasNullableQueryParams = queryParams.Any(q => q.Type.Contains('?', StringComparison.Ordinal));
+            var queryStringExpression = !hasQueryParams ? string.Empty
+                : hasNullableQueryParams
                 ? (
                     isSingleParam && queryParams.Count == 1
                         ? $"BuildQueryString((\"{queryParams[0].OriginalName}\", param))"
                         : $"BuildQueryString({string.Join(", ", queryParams.Select(q => $"(\"{q.OriginalName}\", param.{q.Name})"))})"
                 )
-                : "string.Empty";
+                : (
+                    isSingleParam && queryParams.Count == 1
+                        ? $"?{queryParams[0].OriginalName}={{param}}"
+                        : $"?{string.Join("&", queryParams.Select(q => $"{q.OriginalName}={{param.{q.Name}}}"))}"
+                );
 
             var headersExpression = hasHeaderParams
                 ? BuildHeadersDictionaryExpression(headerParams, "param", isSingleParam)
@@ -436,8 +461,9 @@ internal static class ExtensionMethodGenerator
                     )
                     : sanitizedPath.Replace("{", "{param.", StringComparison.Ordinal);
 
-            var buildRequestBody =
-                $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParam}{{{queryStringExpression}}}\"), null, {headersExpression})";
+            var buildRequestBody = hasQueryParams && hasNullableQueryParams
+                ? $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParam}{{{queryStringExpression}}}\"), null, {headersExpression})"
+                : $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParam}{queryStringExpression}\"), null, {headersExpression})";
 
             return BuildMethod(
                 methodName,
@@ -465,7 +491,7 @@ internal static class ExtensionMethodGenerator
                 : sanitizedPath.Replace("{", "{param.", StringComparison.Ordinal);
             var publicMethodParams = string.Join(
                 ", ",
-                pathParams.Select(p => $"{p.Type} {p.Name}")
+                pathParams.Select(FormatParameterWithDefault)
             );
             var publicMethodInvocation = isSinglePathParam
                 ? pathParamsNames
@@ -521,22 +547,23 @@ internal static class ExtensionMethodGenerator
                 );
 
             var queryStringExpression = hasQueryParams
-                ? $"BuildQueryString({string.Join(", ", queryParams.Select(q => $"(\"{q.OriginalName}\", param.{q.Name})"))})"
-                : "string.Empty";
+                ? $"?{string.Join("&", queryParams.Select(q => $"{q.OriginalName}={{param.{q.Name}}}"))}"
+                : string.Empty;
 
             var headersExpression = hasHeaderParams
                 ? BuildHeadersDictionaryExpression(headerParams, "param", false)
                 : "null";
 
             var buildRequestBody =
-                $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParamInterpolation}{{{queryStringExpression}}}\"), CreateJsonContent(param.Body), {headersExpression})";
+                $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParamInterpolation}{queryStringExpression}\"), CreateJsonContent(param.Body), {headersExpression})";
 
             // Public methods ALWAYS have individual parameters, never tuples
-            var publicMethodParams = hasNonPathNonBodyParams
-                ? string.Join(", ", parameters.Select(p => $"{p.Type} {p.Name}"))
-                    + $", {bodyType} body"
-                : string.Join(", ", pathParams.Select(p => $"{p.Type} {p.Name}"))
-                    + $", {bodyType} body";
+            // Required parameters must come before optional ones
+            var relevantParams = hasNonPathNonBodyParams ? parameters : pathParams;
+            var requiredParams = relevantParams.Where(p => !HasDefault(p)).Select(FormatParameterWithDefault);
+            var optionalParams = relevantParams.Where(HasDefault).Select(FormatParameterWithDefault);
+            var allParams = requiredParams.Concat([$"{bodyType} body"]).Concat(optionalParams);
+            var publicMethodParams = string.Join(", ", allParams);
 
             var publicMethodInvocation =
                 hasNonPathNonBodyParams
@@ -567,7 +594,7 @@ internal static class ExtensionMethodGenerator
     {
         if (!string.IsNullOrEmpty(operation.OperationId))
         {
-            return CodeGenerationHelpers.ToPascalCase(operation.OperationId);
+            return CleanOperationId(operation.OperationId, operationType);
         }
 
         var pathPart =
@@ -584,7 +611,98 @@ internal static class ExtensionMethodGenerator
             : operationType == HttpMethod.Options ? "Options"
             : operationType.Method;
 
-        return $"{methodName}{CodeGenerationHelpers.ToPascalCase(pathPart)}";
+        return $"{methodName}{CodeGenerationHelpers.ToPascalCase(pathPart)}Async";
+    }
+
+    private static string CleanOperationId(string operationId, HttpMethod operationType)
+    {
+        var cleaned = operationId;
+        var removedPrefix = false;
+
+        // Remove HTTP method prefix (e.g., "get_", "post_", "delete_")
+#pragma warning disable CA1308 // Normalize strings to uppercase - we need lowercase for operation ID comparison
+        var methodPrefix = operationType.Method.ToLowerInvariant() + "_";
+#pragma warning restore CA1308
+        if (cleaned.StartsWith(methodPrefix, StringComparison.OrdinalIgnoreCase))
+        {
+            cleaned = cleaned[methodPrefix.Length..];
+            removedPrefix = true;
+        }
+
+        // Only remove HTTP method suffix if we didn't already remove the prefix
+        // This prevents over-cleaning that causes name collisions
+        if (!removedPrefix)
+        {
+#pragma warning disable CA1308 // Normalize strings to uppercase - we need lowercase for operation ID comparison
+            var methodSuffix = "_" + operationType.Method.ToLowerInvariant();
+#pragma warning restore CA1308
+            if (cleaned.EndsWith(methodSuffix, StringComparison.OrdinalIgnoreCase))
+            {
+                cleaned = cleaned[..^methodSuffix.Length];
+            }
+        }
+
+        // Remove double underscores
+        while (cleaned.Contains("__", StringComparison.Ordinal))
+        {
+            cleaned = cleaned.Replace("__", "_", StringComparison.Ordinal);
+        }
+
+        // Remove leading/trailing underscores
+        cleaned = cleaned.Trim('_');
+
+        // Convert to PascalCase and add Async suffix
+        return CodeGenerationHelpers.ToPascalCase(cleaned) + "Async";
+    }
+
+    private static string FormatParameterWithDefault(ParameterInfo param)
+    {
+        var defaultPart = param.DefaultValue != null
+            ? param.Type switch
+            {
+                var t when t.Contains('?', StringComparison.Ordinal) => " = null",
+                var t when t.StartsWith("string", StringComparison.Ordinal) =>
+                    $" = \"{param.DefaultValue}\"",
+                var t when t.StartsWith("bool", StringComparison.Ordinal) =>
+                    param.DefaultValue.Equals("true", StringComparison.OrdinalIgnoreCase)
+                        ? " = true"
+                        : " = false",
+                _ => $" = {param.DefaultValue}",
+            }
+            : param.Type.Contains('?', StringComparison.Ordinal) ? " = null"
+            : string.Empty;
+
+        return $"{param.Type} {param.Name}{defaultPart}";
+    }
+
+    private static bool HasDefault(ParameterInfo param) =>
+        param.DefaultValue != null || param.Type.Contains('?', StringComparison.Ordinal);
+
+    private static string FormatXmlDocSummary(string description)
+    {
+        // Take the first line/paragraph before any --- separator or double newline
+        var lines = description.Split('\n');
+        var summaryLines = new List<string>();
+
+        foreach (var line in lines)
+        {
+            var trimmed = line.Trim();
+
+            // Stop at separator or blank line that indicates the end of the summary
+            if (trimmed == "---" || (summaryLines.Count > 0 && string.IsNullOrWhiteSpace(trimmed)))
+            {
+                break;
+            }
+
+            if (!string.IsNullOrWhiteSpace(trimmed))
+            {
+                summaryLines.Add(trimmed);
+            }
+        }
+
+        return summaryLines.Count > 0
+            ? string.Join(" ", summaryLines)
+            : description.Replace("\n", " ", StringComparison.Ordinal).Trim();
     }
 
     private static List<ParameterInfo> GetParameters(
@@ -608,9 +726,30 @@ internal static class ExtensionMethodGenerator
 
             var isPath = param.In == ParameterLocation.Path;
             var isHeader = param.In == ParameterLocation.Header;
-            var type = ModelGenerator.MapOpenApiType(param.Schema, schemas);
+            var isQuery = param.In == ParameterLocation.Query;
+            var required = param.Required;
+            var baseType = ModelGenerator.MapOpenApiType(param.Schema, schemas);
             var sanitizedName = CodeGenerationHelpers.ToCamelCase(param.Name);
-            parameters.Add(new ParameterInfo(sanitizedName, type, isPath, isHeader, param.Name));
+
+            // Extract default value if present, but only for simple types
+            var rawDefaultValue = param.Schema?.Default?.ToString();
+            var isSimpleType = baseType is "string" or "int" or "long" or "bool" or "float" or "double" or "decimal";
+            var defaultValue = isSimpleType && !string.IsNullOrEmpty(rawDefaultValue) ? rawDefaultValue : null;
+
+            // For optional string query parameters without a schema default, use empty string
+            // This allows direct URL interpolation without nullable types
+            if (isQuery && !required && string.IsNullOrEmpty(defaultValue) && baseType == "string")
+            {
+                defaultValue = "";
+            }
+
+            // Make nullable if not required and no default value
+            // Note: Even value types (int, bool, etc.) can and should be nullable when optional
+            var hasNoDefault = defaultValue == null;
+            var makeNullable = !required && hasNoDefault && !baseType.EndsWith('?');
+            var type = makeNullable ? $"{baseType}?" : baseType;
+
+            parameters.Add(new ParameterInfo(sanitizedName, type, isPath, isHeader, param.Name, required, defaultValue));
         }
 
         return parameters;
@@ -757,19 +896,24 @@ internal static class ExtensionMethodGenerator
             return "null";
         }
 
-        // Only use param.ToString() directly if we have a single overall parameter that IS the header
+        // Only use param?.ToString() directly if we have a single overall parameter that IS the header
         if (headerParams.Count == 1 && isSingleOverallParam)
         {
             var h = headerParams[0];
-            return $"new Dictionary<string, string> {{ [\"{h.OriginalName}\"] = {paramPrefix}.ToString() ?? string.Empty }}";
+            return $"new Dictionary<string, string> {{ [\"{h.OriginalName}\"] = {paramPrefix}?.ToString() ?? string.Empty }}";
         }
 
         // Otherwise, we have a tuple and need to access param.{headerName}
         var entries = string.Join(
             ", ",
             headerParams.Select(h =>
-                $"[\"{h.OriginalName}\"] = {paramPrefix}.{h.Name}.ToString() ?? string.Empty"
-            )
+            {
+                var isNullable = h.Type.EndsWith('?');
+                var accessor = isNullable
+                    ? $"{paramPrefix}.{h.Name}?.ToString() ?? string.Empty"
+                    : $"{paramPrefix}.{h.Name}.ToString()";
+                return $"[\"{h.OriginalName}\"] = {accessor}";
+            })
         );
         return $"new Dictionary<string, string> {{ {entries} }}";
     }

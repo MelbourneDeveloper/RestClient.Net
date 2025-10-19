@@ -45,9 +45,8 @@ public static class OpenApiCodeGenerator
 
             var urlResult = UrlParser.GetBaseUrlAndPath(document, baseUrlOverride);
 
-            return urlResult switch
-            {
-                OkUrl(var (baseUrl, basePath)) => GenerateCodeFiles(
+            return urlResult is OkUrl(var (baseUrl, basePath))
+                ? GenerateCodeFiles(
                     document,
                     @namespace,
                     className,
@@ -56,9 +55,12 @@ public static class OpenApiCodeGenerator
                     basePath,
                     jsonNamingPolicy,
                     caseInsensitive
-                ),
-                ErrorUrl(var error) => new GeneratorError($"Error: {error}"),
-            };
+                )
+                : urlResult switch
+                {
+                    OkUrl => new GeneratorError("Unreachable: Ok case already handled"),
+                    ErrorUrl(var error) => new GeneratorError($"Error: {error}"),
+                };
         }
         catch (Exception ex)
         {

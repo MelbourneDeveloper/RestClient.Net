@@ -34,93 +34,93 @@ public static class JSONPlaceholderApiExtensions
     #region Posts Operations
 
     /// <summary>Get all posts</summary>
-    public static Task<Result<List<Post>, HttpError<string>>> GetPosts(
+    public static Task<Result<List<Post>, HttpError<string>>> GetPostsAsync(
         this HttpClient httpClient,
         
         CancellationToken cancellationToken = default
-    ) => _getPosts(httpClient, Unit.Value, cancellationToken);
+    ) => _getPostsAsync(httpClient, Unit.Value, cancellationToken);
     
     /// <summary>Create a new post</summary>
-    public static Task<Result<Post, HttpError<string>>> CreatePost(
+    public static Task<Result<Post, HttpError<string>>> CreatePostAsync(
         this HttpClient httpClient,
         PostInput body,
         CancellationToken cancellationToken = default
-    ) => _createPost(httpClient, body, cancellationToken);
+    ) => _createPostAsync(httpClient, body, cancellationToken);
     
     /// <summary>Get a post by ID</summary>
-    public static Task<Result<Post, HttpError<string>>> GetPostById(
+    public static Task<Result<Post, HttpError<string>>> GetPostByIdAsync(
         this HttpClient httpClient,
         long id,
         CancellationToken cancellationToken = default
-    ) => _getPostById(httpClient, id, cancellationToken);
+    ) => _getPostByIdAsync(httpClient, id, cancellationToken);
     
     /// <summary>Update a post</summary>
-    public static Task<Result<Post, HttpError<string>>> UpdatePost(
+    public static Task<Result<Post, HttpError<string>>> UpdatePostAsync(
         this HttpClient httpClient,
         long id, PostInput body,
         CancellationToken cancellationToken = default
-    ) => _updatePost(httpClient, (id, body), cancellationToken);
+    ) => _updatePostAsync(httpClient, (id, body), cancellationToken);
     
     /// <summary>Delete a post</summary>
-    public static Task<Result<Unit, HttpError<string>>> DeletePost(
+    public static Task<Result<Unit, HttpError<string>>> DeletePostAsync(
         this HttpClient httpClient,
         long id,
         CancellationToken cancellationToken = default
-    ) => _deletePost(httpClient, id, cancellationToken);
+    ) => _deletePostAsync(httpClient, id, cancellationToken);
 
     #endregion
 
     #region Todos Operations
 
     /// <summary>Get all todos</summary>
-    public static Task<Result<List<Todo>, HttpError<string>>> GetTodos(
+    public static Task<Result<List<Todo>, HttpError<string>>> GetTodosAsync(
         this HttpClient httpClient,
         
         CancellationToken cancellationToken = default
-    ) => _getTodos(httpClient, Unit.Value, cancellationToken);
+    ) => _getTodosAsync(httpClient, Unit.Value, cancellationToken);
     
     /// <summary>Create a new todo</summary>
-    public static Task<Result<Todo, HttpError<string>>> CreateTodo(
+    public static Task<Result<Todo, HttpError<string>>> CreateTodoAsync(
         this HttpClient httpClient,
         TodoInput body,
         CancellationToken cancellationToken = default
-    ) => _createTodo(httpClient, body, cancellationToken);
+    ) => _createTodoAsync(httpClient, body, cancellationToken);
     
     /// <summary>Get a todo by ID</summary>
-    public static Task<Result<Todo, HttpError<string>>> GetTodoById(
+    public static Task<Result<Todo, HttpError<string>>> GetTodoByIdAsync(
         this HttpClient httpClient,
         long id,
         CancellationToken cancellationToken = default
-    ) => _getTodoById(httpClient, id, cancellationToken);
+    ) => _getTodoByIdAsync(httpClient, id, cancellationToken);
     
     /// <summary>Update a todo</summary>
-    public static Task<Result<Todo, HttpError<string>>> UpdateTodo(
+    public static Task<Result<Todo, HttpError<string>>> UpdateTodoAsync(
         this HttpClient httpClient,
         long id, TodoInput body,
         CancellationToken cancellationToken = default
-    ) => _updateTodo(httpClient, (id, body), cancellationToken);
+    ) => _updateTodoAsync(httpClient, (id, body), cancellationToken);
     
     /// <summary>Delete a todo</summary>
-    public static Task<Result<Unit, HttpError<string>>> DeleteTodo(
+    public static Task<Result<Unit, HttpError<string>>> DeleteTodoAsync(
         this HttpClient httpClient,
         long id,
         CancellationToken cancellationToken = default
-    ) => _deleteTodo(httpClient, id, cancellationToken);
+    ) => _deleteTodoAsync(httpClient, id, cancellationToken);
 
     #endregion
 
     #region Users Operations
 
     /// <summary>Get a user by ID</summary>
-    public static Task<Result<User, HttpError<string>>> GetUserById(
+    public static Task<Result<User, HttpError<string>>> GetUserByIdAsync(
         this HttpClient httpClient,
         long id,
         CancellationToken cancellationToken = default
-    ) => _getUserById(httpClient, id, cancellationToken);
+    ) => _getUserByIdAsync(httpClient, id, cancellationToken);
 
     #endregion
 
-    private static GetAsync<List<Post>, string, Unit> _getPosts { get; } =
+    private static GetAsync<List<Post>, string, Unit> _getPostsAsync { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<List<Post>, string, Unit>(
             url: BaseUrl,
             buildRequest: static _ => new HttpRequestParts(new RelativeUrl("/posts"), null, null),
@@ -128,7 +128,7 @@ public static class JSONPlaceholderApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<Post, string, PostInput> _createPost { get; } =
+    private static PostAsync<Post, string, PostInput> _createPostAsync { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<Post, string, PostInput>(
             url: BaseUrl,
             buildRequest: static body => new HttpRequestParts(new RelativeUrl("/posts"), CreateJsonContent(body), null),
@@ -136,7 +136,7 @@ public static class JSONPlaceholderApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<Post, string, long> _getPostById { get; } =
+    private static GetAsync<Post, string, long> _getPostByIdAsync { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<Post, string, long>(
             url: BaseUrl,
             buildRequest: static id => new HttpRequestParts(new RelativeUrl($"/posts/{id}"), null, null),
@@ -144,7 +144,7 @@ public static class JSONPlaceholderApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static PutAsync<Post, string, (long Params, PostInput Body)> _updatePost { get; } =
+    private static PutAsync<Post, string, (long Params, PostInput Body)> _updatePostAsync { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePut<Post, string, (long Params, PostInput Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/posts/{param.Params}"), CreateJsonContent(param.Body), null),
@@ -152,7 +152,7 @@ public static class JSONPlaceholderApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static DeleteAsync<Unit, string, long> _deletePost { get; } =
+    private static DeleteAsync<Unit, string, long> _deletePostAsync { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateDelete<Unit, string, long>(
             url: BaseUrl,
             buildRequest: static id => new HttpRequestParts(new RelativeUrl($"/posts/{id}"), null, null),
@@ -160,7 +160,7 @@ public static class JSONPlaceholderApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<List<Todo>, string, Unit> _getTodos { get; } =
+    private static GetAsync<List<Todo>, string, Unit> _getTodosAsync { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<List<Todo>, string, Unit>(
             url: BaseUrl,
             buildRequest: static _ => new HttpRequestParts(new RelativeUrl("/todos"), null, null),
@@ -168,7 +168,7 @@ public static class JSONPlaceholderApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<Todo, string, TodoInput> _createTodo { get; } =
+    private static PostAsync<Todo, string, TodoInput> _createTodoAsync { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePost<Todo, string, TodoInput>(
             url: BaseUrl,
             buildRequest: static body => new HttpRequestParts(new RelativeUrl("/todos"), CreateJsonContent(body), null),
@@ -176,7 +176,7 @@ public static class JSONPlaceholderApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<Todo, string, long> _getTodoById { get; } =
+    private static GetAsync<Todo, string, long> _getTodoByIdAsync { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<Todo, string, long>(
             url: BaseUrl,
             buildRequest: static id => new HttpRequestParts(new RelativeUrl($"/todos/{id}"), null, null),
@@ -184,7 +184,7 @@ public static class JSONPlaceholderApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static PutAsync<Todo, string, (long Params, TodoInput Body)> _updateTodo { get; } =
+    private static PutAsync<Todo, string, (long Params, TodoInput Body)> _updateTodoAsync { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreatePut<Todo, string, (long Params, TodoInput Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/todos/{param.Params}"), CreateJsonContent(param.Body), null),
@@ -192,7 +192,7 @@ public static class JSONPlaceholderApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static DeleteAsync<Unit, string, long> _deleteTodo { get; } =
+    private static DeleteAsync<Unit, string, long> _deleteTodoAsync { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateDelete<Unit, string, long>(
             url: BaseUrl,
             buildRequest: static id => new HttpRequestParts(new RelativeUrl($"/todos/{id}"), null, null),
@@ -200,7 +200,7 @@ public static class JSONPlaceholderApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<User, string, long> _getUserById { get; } =
+    private static GetAsync<User, string, long> _getUserByIdAsync { get; } =
         RestClient.Net.HttpClientFactoryExtensions.CreateGet<User, string, long>(
             url: BaseUrl,
             buildRequest: static id => new HttpRequestParts(new RelativeUrl($"/users/{id}"), null, null),
@@ -217,27 +217,27 @@ public static class JSONPlaceholderApiExtensions
 
     private static async Task<T> DeserializeJson<T>(
         HttpResponseMessage response,
-        CancellationToken ct = default
+        CancellationToken cancellationToken = default
     )
     {
-        var body = await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
+        var body = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         System.Console.WriteLine($"[DEBUG] Response status: {response.StatusCode}, URL: {response.RequestMessage?.RequestUri}, body: {body}");
-        var result = await response.Content.ReadFromJsonAsync<T>(JsonOptions, cancellationToken: ct).ConfigureAwait(false);
+        var result = await response.Content.ReadFromJsonAsync<T>(JsonOptions, cancellationToken: cancellationToken).ConfigureAwait(false);
         return result ?? throw new InvalidOperationException($"Failed to deserialize response to type {typeof(T).Name}");
     }
 
     private static async Task<string> DeserializeString(
         HttpResponseMessage response,
-        CancellationToken ct = default
+        CancellationToken cancellationToken = default
     ) =>
-        await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
+        await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
 
     private static async Task<string> DeserializeError(
         HttpResponseMessage response,
-        CancellationToken ct = default
+        CancellationToken cancellationToken = default
     )
     {
-        var content = await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
+        var content = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         return string.IsNullOrEmpty(content) ? "Unknown error" : content;
     }
 

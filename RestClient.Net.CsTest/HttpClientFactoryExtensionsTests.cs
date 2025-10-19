@@ -1686,4 +1686,216 @@ public sealed class HttpClientFactoryExtensionsTests
 
         Assert.IsInstanceOfType<TaskCanceledException>(exception);
     }
+
+    [TestMethod]
+    public async Task CreateHead_ReturnsSuccessResult()
+    {
+        // Arrange
+        var expectedContent = "Head Success";
+        using var response = new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent(expectedContent),
+        };
+        using var httpClient = CreateMockHttpClientFactory(response: response).CreateClient();
+
+        var head = CreateHead<string, MyErrorModel, int>(
+            url: "http://test.com".ToAbsoluteUrl(),
+            buildRequest: id => new HttpRequestParts(
+                RelativeUrl: new RelativeUrl($"/items/{id}"),
+                Body: null,
+                Headers: null
+            ),
+            deserializeSuccess: TestDeserializer.Deserialize<string>,
+            deserializeError: TestDeserializer.Deserialize<MyErrorModel>
+        );
+
+        // Act
+        var result = await head(httpClient, 123).ConfigureAwait(false);
+
+        // Assert
+        var successValue = +result;
+        Assert.AreEqual(expectedContent, successValue);
+    }
+
+    [TestMethod]
+    public async Task CreateHead_ErrorResponse_ReturnsFailureResult()
+    {
+        // Arrange
+        var expectedErrorContent = "Head Failed";
+        using var errorResponse = new HttpResponseMessage(HttpStatusCode.BadRequest)
+        {
+            Content = new StringContent( /*lang=json,strict*/
+                "{\"message\":\"Head Failed\"}"
+            ),
+        };
+        using var httpClient = CreateMockHttpClientFactory(response: errorResponse).CreateClient();
+
+        var head = CreateHead<string, MyErrorModel, int>(
+            url: "http://test.com".ToAbsoluteUrl(),
+            buildRequest: id => new HttpRequestParts(
+                RelativeUrl: new RelativeUrl($"/items/{id}"),
+                Body: null,
+                Headers: null
+            ),
+            deserializeSuccess: TestDeserializer.Deserialize<string>,
+            deserializeError: TestDeserializer.Deserialize<MyErrorModel>
+        );
+
+        // Act
+        var result = await head(httpClient, 123).ConfigureAwait(false);
+
+        // Assert
+        var httpError = !result;
+        if (httpError is not ResponseError(var body, var statusCode, var headers))
+        {
+            throw new InvalidOperationException("Expected error response");
+        }
+
+        Assert.AreEqual(HttpStatusCode.BadRequest, statusCode);
+        Assert.AreEqual(expectedErrorContent, body.Message);
+    }
+
+    [TestMethod]
+    public async Task CreateHead_CancellationToken_CancelsRequest()
+    {
+        // Arrange
+        using var cts = new CancellationTokenSource();
+        using var httpClient = CreateMockHttpClientFactory(
+                exceptionToThrow: new TaskCanceledException()
+            )
+            .CreateClient();
+
+        var head = CreateHead<string, MyErrorModel, int>(
+            url: "http://test.com".ToAbsoluteUrl(),
+            buildRequest: id => new HttpRequestParts(
+                RelativeUrl: new RelativeUrl($"/items/{id}"),
+                Body: null,
+                Headers: null
+            ),
+            deserializeSuccess: TestDeserializer.Deserialize<string>,
+            deserializeError: TestDeserializer.Deserialize<MyErrorModel>
+        );
+
+        await cts.CancelAsync().ConfigureAwait(false);
+
+        // Act
+        var result = await head(httpClient, 123, cts.Token).ConfigureAwait(false);
+
+        // Assert
+        var exception = !result switch
+        {
+            ExceptionError(var ex) => ex,
+            ResponseError(var b, var sc, var h) => throw new InvalidOperationException(
+                "Expected exception error"
+            ),
+        };
+
+        Assert.IsInstanceOfType<TaskCanceledException>(exception);
+    }
+
+    [TestMethod]
+    public async Task CreateOptions_ReturnsSuccessResult()
+    {
+        // Arrange
+        var expectedContent = "Options Success";
+        using var response = new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent(expectedContent),
+        };
+        using var httpClient = CreateMockHttpClientFactory(response: response).CreateClient();
+
+        var options = CreateOptions<string, MyErrorModel, int>(
+            url: "http://test.com".ToAbsoluteUrl(),
+            buildRequest: id => new HttpRequestParts(
+                RelativeUrl: new RelativeUrl($"/items/{id}"),
+                Body: null,
+                Headers: null
+            ),
+            deserializeSuccess: TestDeserializer.Deserialize<string>,
+            deserializeError: TestDeserializer.Deserialize<MyErrorModel>
+        );
+
+        // Act
+        var result = await options(httpClient, 123).ConfigureAwait(false);
+
+        // Assert
+        var successValue = +result;
+        Assert.AreEqual(expectedContent, successValue);
+    }
+
+    [TestMethod]
+    public async Task CreateOptions_ErrorResponse_ReturnsFailureResult()
+    {
+        // Arrange
+        var expectedErrorContent = "Options Failed";
+        using var errorResponse = new HttpResponseMessage(HttpStatusCode.BadRequest)
+        {
+            Content = new StringContent( /*lang=json,strict*/
+                "{\"message\":\"Options Failed\"}"
+            ),
+        };
+        using var httpClient = CreateMockHttpClientFactory(response: errorResponse).CreateClient();
+
+        var options = CreateOptions<string, MyErrorModel, int>(
+            url: "http://test.com".ToAbsoluteUrl(),
+            buildRequest: id => new HttpRequestParts(
+                RelativeUrl: new RelativeUrl($"/items/{id}"),
+                Body: null,
+                Headers: null
+            ),
+            deserializeSuccess: TestDeserializer.Deserialize<string>,
+            deserializeError: TestDeserializer.Deserialize<MyErrorModel>
+        );
+
+        // Act
+        var result = await options(httpClient, 123).ConfigureAwait(false);
+
+        // Assert
+        var httpError = !result;
+        if (httpError is not ResponseError(var body, var statusCode, var headers))
+        {
+            throw new InvalidOperationException("Expected error response");
+        }
+
+        Assert.AreEqual(HttpStatusCode.BadRequest, statusCode);
+        Assert.AreEqual(expectedErrorContent, body.Message);
+    }
+
+    [TestMethod]
+    public async Task CreateOptions_CancellationToken_CancelsRequest()
+    {
+        // Arrange
+        using var cts = new CancellationTokenSource();
+        using var httpClient = CreateMockHttpClientFactory(
+                exceptionToThrow: new TaskCanceledException()
+            )
+            .CreateClient();
+
+        var options = CreateOptions<string, MyErrorModel, int>(
+            url: "http://test.com".ToAbsoluteUrl(),
+            buildRequest: id => new HttpRequestParts(
+                RelativeUrl: new RelativeUrl($"/items/{id}"),
+                Body: null,
+                Headers: null
+            ),
+            deserializeSuccess: TestDeserializer.Deserialize<string>,
+            deserializeError: TestDeserializer.Deserialize<MyErrorModel>
+        );
+
+        await cts.CancelAsync().ConfigureAwait(false);
+
+        // Act
+        var result = await options(httpClient, 123, cts.Token).ConfigureAwait(false);
+
+        // Assert
+        var exception = !result switch
+        {
+            ExceptionError(var ex) => ex,
+            ResponseError(var b, var sc, var h) => throw new InvalidOperationException(
+                "Expected exception error"
+            ),
+        };
+
+        Assert.IsInstanceOfType<TaskCanceledException>(exception);
+    }
 }
