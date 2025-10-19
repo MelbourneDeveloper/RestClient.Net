@@ -8,58 +8,95 @@ namespace NucliaDbClient.Tests;
 
 public sealed class NucliaDbFixture : IDisposable
 {
-    private static readonly string DockerComposeDir = Path.Combine(
-        Directory.GetCurrentDirectory(),
-        "..",
-        "..",
-        "..",
-        "..",
-        "NucliaDbClient"
-    );
+    private static readonly string DockerComposeDir = GetDockerComposeDirectory();
+
+    private static string GetDockerComposeDirectory()
+    {
+        var dir = Path.Combine(
+            Directory.GetCurrentDirectory(),
+            "..",
+            "..",
+            "..",
+            "..",
+            "NucliaDbClient"
+        );
+        var fullPath = Path.GetFullPath(dir);
+        var composePath = Path.Combine(fullPath, "docker-compose.yml");
+
+        if (!File.Exists(composePath))
+        {
+            throw new InvalidOperationException(
+                $"docker-compose.yml not found at {composePath}. Current directory: {Directory.GetCurrentDirectory()}"
+            );
+        }
+
+        Console.WriteLine($"Docker Compose directory: {fullPath}");
+        return fullPath;
+    }
 
     public NucliaDbFixture()
     {
+        Console.WriteLine("Setting up NucliaDB test environment...");
         CleanDockerEnvironment();
         StartDockerEnvironment();
         WaitForNucliaDbReady();
+        Console.WriteLine("NucliaDB test environment ready!");
     }
 
     private static void CleanDockerEnvironment()
     {
-        var startInfo = new ProcessStartInfo
-        {
-            FileName = "docker",
-            Arguments = "compose down -v --remove-orphans",
-            WorkingDirectory = DockerComposeDir,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            UseShellExecute = false,
-        };
-
-        using var process = Process.Start(startInfo);
-        process?.WaitForExit();
+        Console.WriteLine("Cleaning Docker environment...");
+        RunDockerCommand("compose down -v --remove-orphans");
     }
 
     private static void StartDockerEnvironment()
     {
+        Console.WriteLine("Starting Docker Compose...");
+        RunDockerCommand("compose up -d");
+    }
+
+    private static void RunDockerCommand(string arguments)
+    {
         var startInfo = new ProcessStartInfo
         {
             FileName = "docker",
-            Arguments = "compose up -d",
+            Arguments = arguments,
             WorkingDirectory = DockerComposeDir,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
         };
 
-        using var process = Process.Start(startInfo);
-        process?.WaitForExit();
+        using var process = Process.Start(startInfo)
+            ?? throw new InvalidOperationException($"Failed to start docker process with arguments: {arguments}");
+
+        var output = process.StandardOutput.ReadToEnd();
+        var error = process.StandardError.ReadToEnd();
+        process.WaitForExit();
+
+        if (!string.IsNullOrWhiteSpace(output))
+        {
+            Console.WriteLine($"Docker output: {output}");
+        }
+
+        if (!string.IsNullOrWhiteSpace(error))
+        {
+            Console.WriteLine($"Docker stderr: {error}");
+        }
+
+        if (process.ExitCode != 0)
+        {
+            throw new InvalidOperationException(
+                $"Docker command failed with exit code {process.ExitCode}: {arguments}\nError: {error}"
+            );
+        }
     }
 
     private static void WaitForNucliaDbReady()
     {
+        Console.WriteLine("Waiting for NucliaDB to be ready...");
         using var httpClient = new HttpClient();
-        var maxAttempts = 30;
+        var maxAttempts = 60;
         var delayMs = 1000;
         var uri = new Uri("http://localhost:8080/");
 
@@ -73,23 +110,35 @@ public sealed class NucliaDbFixture : IDisposable
                     || response.StatusCode == System.Net.HttpStatusCode.NotFound
                 )
                 {
+                    Console.WriteLine($"NucliaDB is ready! (attempt {i + 1}/{maxAttempts})");
                     return;
                 }
+
+                Console.WriteLine($"Attempt {i + 1}/{maxAttempts}: Status code {response.StatusCode}");
             }
-            catch
+            catch (Exception ex)
             {
-                // Ignore exceptions during startup
+                Console.WriteLine($"Attempt {i + 1}/{maxAttempts}: {ex.GetType().Name}");
             }
 
             Thread.Sleep(delayMs);
         }
 
-        throw new InvalidOperationException("NucliaDB failed to start within the expected time");
+        throw new InvalidOperationException(
+            $"NucliaDB failed to start within {maxAttempts} seconds. Check Docker logs with: docker logs nucliadb-local"
+        );
     }
 
     public void Dispose()
     {
-        // Optionally clean up after tests
-        // CleanDockerEnvironment();
+        Console.WriteLine("Cleaning up NucliaDB test environment...");
+        try
+        {
+            CleanDockerEnvironment();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Warning: Failed to clean up Docker environment: {ex.Message}");
+        }
     }
 }

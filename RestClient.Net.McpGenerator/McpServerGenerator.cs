@@ -12,15 +12,13 @@ public static class McpServerGenerator
     /// <param name="namespace">The namespace for generated MCP tools.</param>
     /// <param name="serverName">The MCP server name.</param>
     /// <param name="extensionsNamespace">The namespace of the pre-generated extensions.</param>
-    /// <param name="extensionsClassName">The class name of the pre-generated extensions.</param>
     /// <returns>A Result containing the generated C# code or error message.</returns>
 #pragma warning disable CA1054
     public static Result<string, string> Generate(
         string openApiContent,
         string @namespace,
         string serverName,
-        string extensionsNamespace,
-        string extensionsClassName
+        string extensionsNamespace
     )
 #pragma warning restore CA1054
     {
@@ -43,8 +41,7 @@ public static class McpServerGenerator
                     document,
                     @namespace,
                     serverName,
-                    extensionsNamespace,
-                    extensionsClassName
+                    extensionsNamespace
                 )
             );
         }

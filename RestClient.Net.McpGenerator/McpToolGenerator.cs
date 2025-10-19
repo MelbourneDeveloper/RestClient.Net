@@ -1,5 +1,3 @@
-using RestClient.Net.OpenApiGenerator;
-
 namespace RestClient.Net.McpGenerator;
 
 internal readonly record struct McpParameterInfo(
@@ -20,14 +18,12 @@ internal static class McpToolGenerator
     /// <param name="namespace">The namespace for the MCP server.</param>
     /// <param name="serverName">The MCP server name.</param>
     /// <param name="extensionsNamespace">The namespace of the extensions.</param>
-    /// <param name="extensionsClassName">The class name of the extensions.</param>
     /// <returns>The generated MCP tools code.</returns>
     public static string GenerateTools(
         OpenApiDocument document,
         string @namespace,
         string serverName,
-        string extensionsNamespace,
-        string extensionsClassName
+        string extensionsNamespace
     )
     {
         var tools = new List<string>();
@@ -47,8 +43,6 @@ internal static class McpToolGenerator
                     operation.Key,
                     operation.Value,
                     document.Components?.Schemas,
-                    extensionsNamespace,
-                    extensionsClassName,
                     methodNameCounts
                 );
 
@@ -71,6 +65,7 @@ internal static class McpToolGenerator
 
             namespace {{@namespace}};
 
+            /// <summary>MCP server tools for {{serverName}} API.</summary>
             [McpServerToolType]
             public class {{serverName}}Tools(IHttpClientFactory httpClientFactory)
             {
@@ -90,8 +85,6 @@ internal static class McpToolGenerator
         HttpMethod operationType,
         OpenApiOperation operation,
         IDictionary<string, IOpenApiSchema>? schemas,
-        string extensionsNamespace,
-        string extensionsClassName,
         Dictionary<string, int> methodNameCounts
     )
     {
@@ -123,7 +116,6 @@ internal static class McpToolGenerator
         return GenerateToolMethod(
             mcpToolName,
             extensionMethodName,
-            extensionsClassName,
             summary,
             parameters,
             hasBody,
@@ -135,7 +127,6 @@ internal static class McpToolGenerator
     private static string GenerateToolMethod(
         string toolName,
         string extensionMethodName,
-        string extensionsClassName,
         string summary,
         List<McpParameterInfo> parameters,
         bool hasBody,
@@ -177,6 +168,9 @@ internal static class McpToolGenerator
                 ? string.Join(", ", extensionCallArgs) + ", "
                 : string.Empty;
 
+        var okAlias = $"Ok{responseType}";
+        var errorAlias = $"Error{responseType}";
+
         return $$"""
             /// <summary>{{SanitizeDescription(summary)}}</summary>
                 {{paramDescriptions}}
@@ -189,9 +183,9 @@ internal static class McpToolGenerator
 
                     return result switch
                     {
-                        Result<{{responseType}}, HttpError<string>>.Ok(var success) =>
+                        {{okAlias}}(var success) =>
                             JsonSerializer.Serialize(success, JsonOptions),
-                        Result<{{responseType}}, HttpError<string>>.Error(var error) =>
+                        {{errorAlias}}(var error) =>
                             $"Error: {error.StatusCode} - {error.Body}",
                         _ => "Unknown error"
                     };
@@ -201,11 +195,13 @@ internal static class McpToolGenerator
 
     private static string FormatParameter(McpParameterInfo param)
     {
+        var isNullable = param.Type.Contains('?', StringComparison.Ordinal);
+
         var defaultPart =
-            param.DefaultValue != null
+            isNullable ? " = null"
+            : param.DefaultValue != null
                 ? param.Type switch
                 {
-                    var t when t.Contains('?', StringComparison.Ordinal) => " = null",
                     var t when t.StartsWith("string", StringComparison.Ordinal) =>
                         $" = \"{param.DefaultValue}\"",
                     var t when t.StartsWith("bool", StringComparison.Ordinal) =>
@@ -214,7 +210,6 @@ internal static class McpToolGenerator
                             : " = false",
                     _ => $" = {param.DefaultValue}",
                 }
-            : param.Type.Contains('?', StringComparison.Ordinal) ? " = null"
             : string.Empty;
 
         return $"{param.Type} {param.Name}{defaultPart}";
@@ -245,9 +240,31 @@ internal static class McpToolGenerator
             var description = param.Description ?? sanitizedName;
             var isPath = param.In == ParameterLocation.Path;
             var isHeader = param.In == ParameterLocation.Header;
+            var isQuery = param.In == ParameterLocation.Query;
 
-            var defaultValue = param.Schema?.Default?.ToString();
-            var makeNullable = !required && defaultValue == null && !baseType.EndsWith('?');
+            // Extract default value - match the extension generator logic
+            var rawDefaultValue = param.Schema?.Default?.ToString();
+            var isSimpleType =
+                baseType
+                    is "string"
+                        or "int"
+                        or "long"
+                        or "float"
+                        or "double"
+                        or "decimal"
+                        or "bool";
+            var defaultValue =
+                isSimpleType && !string.IsNullOrEmpty(rawDefaultValue) ? rawDefaultValue : null;
+
+            // For optional string query parameters without a schema default, use empty string
+            var hasNoDefault = defaultValue == null;
+            if (!required && baseType == "string" && isQuery && hasNoDefault)
+            {
+                defaultValue = "";
+            }
+
+            // Make nullable if not required and no default value
+            var makeNullable = !required && hasNoDefault && !baseType.EndsWith('?');
             var type = makeNullable ? $"{baseType}?" : baseType;
 
             parameters.Add(

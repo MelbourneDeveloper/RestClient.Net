@@ -31,8 +31,19 @@ jobs:
       - name: Build solution
         run: dotnet build RestClient.sln --configuration Release --no-restore /warnaserror
 
+      - name: Verify Docker is available
+        run: |
+          docker --version
+          docker compose version
+
       - name: Run all tests with code coverage
         run: dotnet test RestClient.sln --configuration Release --no-build --verbosity normal --logger "console;verbosity=detailed" --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Threshold=100 DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.ThresholdType=line,branch,method DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.ThresholdStat=total
+
+      - name: Cleanup Docker containers
+        if: always()
+        run: |
+          cd Samples/NucliaDbClient
+          docker compose down -v --remove-orphans || true
 
       - name: Install Stryker Mutator
         run: dotnet tool install --global dotnet-stryker

@@ -11,5 +11,6 @@
   <ItemGroup>
     <ProjectReference Include="..\RestClient.Net.OpenApiGenerator\RestClient.Net.OpenApiGenerator.csproj" />
     <ProjectReference Include="..\RestClient.Net\RestClient.Net.csproj" />
+    <PackageReference Include="Outcome" Version="1.0.0" />
   </ItemGroup>
 </Project>

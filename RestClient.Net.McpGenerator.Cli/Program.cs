@@ -25,12 +25,22 @@ static void PrintUsage()
     Console.WriteLine("Usage:");
     Console.WriteLine("  mcp-generator [options]\n");
     Console.WriteLine("Options:");
-    Console.WriteLine("  -u, --openapi-url <url>       (Required) URL or file path to OpenAPI spec");
-    Console.WriteLine("  -o, --output-file <path>      (Required) Output file path for generated code");
-    Console.WriteLine("  -n, --namespace <namespace>   MCP server namespace (default: 'McpServer')");
+    Console.WriteLine(
+        "  -u, --openapi-url <url>       (Required) URL or file path to OpenAPI spec"
+    );
+    Console.WriteLine(
+        "  -o, --output-file <path>      (Required) Output file path for generated code"
+    );
+    Console.WriteLine(
+        "  -n, --namespace <namespace>   MCP server namespace (default: 'McpServer')"
+    );
     Console.WriteLine("  -s, --server-name <name>      MCP server name (default: 'ApiMcp')");
-    Console.WriteLine("  --ext-namespace <namespace>   Extensions namespace (default: 'Generated')");
-    Console.WriteLine("  --ext-class <class>           Extensions class name (default: 'ApiExtensions')");
+    Console.WriteLine(
+        "  --ext-namespace <namespace>   Extensions namespace (default: 'Generated')"
+    );
+    Console.WriteLine(
+        "  --ext-class <class>           Extensions class name (default: 'ApiExtensions')"
+    );
     Console.WriteLine("  -h, --help                    Show this help message");
 }
 
@@ -47,16 +57,20 @@ static Config? ParseArgs(string[] args)
     {
         switch (args[i])
         {
-            case "-u" or "--openapi-url":
+            case "-u"
+            or "--openapi-url":
                 openApiUrl = GetNextArg(args, i++, "openapi-url");
                 break;
-            case "-o" or "--output-file":
+            case "-o"
+            or "--output-file":
                 outputFile = GetNextArg(args, i++, "output-file");
                 break;
-            case "-n" or "--namespace":
+            case "-n"
+            or "--namespace":
                 namespaceName = GetNextArg(args, i++, "namespace") ?? namespaceName;
                 break;
-            case "-s" or "--server-name":
+            case "-s"
+            or "--server-name":
                 serverName = GetNextArg(args, i++, "server-name") ?? serverName;
                 break;
             case "--ext-namespace":
@@ -146,8 +160,7 @@ static async Task GenerateCode(Config config)
         openApiSpec,
         @namespace: config.Namespace,
         serverName: config.ServerName,
-        extensionsNamespace: config.ExtensionsNamespace,
-        extensionsClassName: config.ExtensionsClass
+        extensionsNamespace: config.ExtensionsNamespace
     );
 
 #pragma warning disable IDE0010
@@ -155,7 +168,7 @@ static async Task GenerateCode(Config config)
 #pragma warning restore IDE0010
     {
         case Outcome.Result<string, string>.Ok<string, string>(var code):
-            File.WriteAllText(config.OutputFile, code);
+            await File.WriteAllTextAsync(config.OutputFile, code).ConfigureAwait(false);
             Console.WriteLine($"Generated {code.Length} characters of MCP tools code");
             Console.WriteLine($"\nSaved to: {config.OutputFile}");
             Console.WriteLine("\nGeneration completed successfully!");

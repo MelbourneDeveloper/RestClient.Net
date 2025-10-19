@@ -10,6 +10,11 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
     <PackageReference Include="Urls" Version="1.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- Exclude MCP tools from compilation - they require ModelContextProtocol package -->
+    <Compile Remove="Generated\*McpTools*.cs" />
+    <None Include="Generated\*McpTools*.cs" />
+  </ItemGroup>
   <Target Name="GenerateOpenApiCode" BeforeTargets="CoreCompile" DependsOnTargets="ResolveProjectReferences">
     <Exec Command="dotnet $(MSBuildThisFileDirectory)../../RestClient.Net.OpenApiGenerator.Cli/bin/$(Configuration)/net9.0/RestClient.Net.OpenApiGenerator.Cli.dll -u $(MSBuildThisFileDirectory)api.yaml -o $(MSBuildThisFileDirectory)Generated -n NucliaDB.Generated -c NucliaDBApiExtensions -v 3.0.2 -b $(NucliaBaseUrl)" />
   </Target>
