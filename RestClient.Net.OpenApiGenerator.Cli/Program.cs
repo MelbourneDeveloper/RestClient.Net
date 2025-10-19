@@ -45,7 +45,6 @@ static void PrintUsage()
     Console.WriteLine("  -n, --namespace <namespace>   The namespace (default: 'Generated')");
     Console.WriteLine("  -c, --class-name <name>       The class name (default: 'ApiExtensions')");
     Console.WriteLine("  -b, --base-url <url>          Optional base URL override");
-    Console.WriteLine("  -v, --version <version>       OpenAPI version override (e.g., '3.1.0')");
     Console.WriteLine(
         "  --json-naming <policy>        JSON naming policy: camelCase, PascalCase, snake_case (default: camelCase)"
     );
@@ -62,7 +61,6 @@ static Config? ParseArgs(string[] args)
     var namespaceName = "Generated";
     var className = "ApiExtensions";
     string? baseUrl = null;
-    string? version = null;
     var jsonNamingPolicy = "camelCase";
     var caseInsensitive = true;
 
@@ -89,10 +87,6 @@ static Config? ParseArgs(string[] args)
             case "-b"
             or "--base-url":
                 baseUrl = GetNextArg(args, i++, "base-url");
-                break;
-            case "-v"
-            or "--version":
-                version = GetNextArg(args, i++, "version");
                 break;
             case "--json-naming":
                 jsonNamingPolicy = GetNextArg(args, i++, "json-naming") ?? jsonNamingPolicy;
@@ -132,7 +126,6 @@ static Config? ParseArgs(string[] args)
         namespaceName,
         className,
         baseUrl,
-        version,
         jsonNamingPolicy,
         caseInsensitive
     );
@@ -262,7 +255,6 @@ internal sealed record Config(
     string Namespace,
     string ClassName,
     string? BaseUrl,
-    string? Version,
     string JsonNamingPolicy,
     bool CaseInsensitive
 );
