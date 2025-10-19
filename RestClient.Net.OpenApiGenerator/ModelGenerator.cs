@@ -1,7 +1,7 @@
 namespace RestClient.Net.OpenApiGenerator;
 
 /// <summary>Generates C# model classes from OpenAPI schemas.</summary>
-internal static class ModelGenerator
+public static class ModelGenerator
 {
     /// <summary>Generates C# models from an OpenAPI document.</summary>
     /// <param name="document">The OpenAPI document.</param>

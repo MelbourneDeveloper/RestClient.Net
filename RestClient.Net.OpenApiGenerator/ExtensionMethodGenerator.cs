@@ -1,6 +1,14 @@
 namespace RestClient.Net.OpenApiGenerator;
 
-internal readonly record struct ParameterInfo(
+/// <summary>Parameter information for OpenAPI operations.</summary>
+/// <param name="Name">The parameter name.</param>
+/// <param name="Type">The parameter type.</param>
+/// <param name="IsPath">Whether the parameter is a path parameter.</param>
+/// <param name="IsHeader">Whether the parameter is a header parameter.</param>
+/// <param name="OriginalName">The original parameter name from the OpenAPI spec.</param>
+/// <param name="Required">Whether the parameter is required.</param>
+/// <param name="DefaultValue">The default value for the parameter.</param>
+public readonly record struct ParameterInfo(
     string Name,
     string Type,
     bool IsPath,
@@ -11,7 +19,7 @@ internal readonly record struct ParameterInfo(
 );
 
 /// <summary>Generates C# extension methods from OpenAPI operations.</summary>
-internal static class ExtensionMethodGenerator
+public static class ExtensionMethodGenerator
 {
     /// <summary>Generates extension methods from an OpenAPI document.</summary>
     /// <param name="document">The OpenAPI document.</param>
@@ -36,7 +44,7 @@ internal static class ExtensionMethodGenerator
     {
         var groupedMethods =
             new Dictionary<string, List<(string PublicMethod, string PrivateDelegate)>>();
-        var responseTypes = new HashSet<string>();
+        var resultTypes = new HashSet<(string SuccessType, string ErrorType)>();
         var methodNameCounts = new Dictionary<string, int>();
 
         foreach (var path in document.Paths)
@@ -51,9 +59,10 @@ internal static class ExtensionMethodGenerator
             foreach (var operation in path.Value.Operations)
             {
                 var responseType = GetResponseType(operation.Value);
+                var errorType = GetErrorType(operation.Value);
                 var isDelete = operation.Key == HttpMethod.Delete;
                 var resultResponseType = isDelete ? "Unit" : responseType;
-                _ = responseTypes.Add(resultResponseType);
+                _ = resultTypes.Add((resultResponseType, errorType));
 
                 var (publicMethod, privateDelegate) = GenerateMethod(
                     basePath,
@@ -76,7 +85,7 @@ internal static class ExtensionMethodGenerator
         }
 
         var (publicMethodsCode, privateDelegatesCode) = GenerateGroupedCode(groupedMethods);
-        var typeAliases = GenerateTypeAliasesFile(responseTypes, @namespace);
+        var typeAliases = GenerateTypeAliasesFile(resultTypes, @namespace);
 
         var namingPolicyCode = jsonNamingPolicy switch
         {
@@ -262,6 +271,7 @@ internal static class ExtensionMethodGenerator
         var parameters = GetParameters(operation, schemas);
         var requestBodyType = GetRequestBodyType(operation);
         var responseType = GetResponseType(operation);
+        var errorType = GetErrorType(operation);
         var rawSummary = operation.Description ?? operation.Summary ?? $"{methodName} operation";
         var summary = FormatXmlDocSummary(rawSummary);
 
@@ -272,6 +282,7 @@ internal static class ExtensionMethodGenerator
             parameters,
             requestBodyType,
             responseType,
+            errorType,
             summary
         );
     }
@@ -284,6 +295,7 @@ internal static class ExtensionMethodGenerator
         List<ParameterInfo> parameters,
         string? requestBodyType,
         string responseType,
+        string errorType,
         string summary
     )
 #pragma warning restore CA1502
@@ -303,7 +315,7 @@ internal static class ExtensionMethodGenerator
 
         var bodyType = requestBodyType ?? "object";
         var resultResponseType = isDelete ? "Unit" : responseType;
-        var resultType = $"Result<{resultResponseType}, HttpError<string>>";
+        var resultType = $"Result<{resultResponseType}, HttpError<{errorType}>>";
         var pathExpression = CodeGenerationHelpers.BuildPathExpression(path);
         var deserializer =
             responseType == "string" ? "DeserializeString" : $"DeserializeJson<{responseType}>";
@@ -337,6 +349,7 @@ internal static class ExtensionMethodGenerator
                     createMethod,
                     resultType,
                     resultResponseType,
+                    errorType,
                     "Unit",
                     string.Empty,
                     "Unit.Value",
@@ -357,6 +370,7 @@ internal static class ExtensionMethodGenerator
                     createMethod,
                     resultType,
                     resultResponseType,
+                    errorType,
                     bodyType,
                     $"{bodyType} body",
                     "body",
@@ -398,6 +412,7 @@ internal static class ExtensionMethodGenerator
                 createMethod,
                 resultType,
                 resultResponseType,
+                errorType,
                 nonPathParamsType,
                 string.Join(", ", nonPathParams.Select(FormatParameterWithDefault)),
                 paramInvocation,
@@ -430,14 +445,17 @@ internal static class ExtensionMethodGenerator
             var deserializeMethod = isDelete ? "_deserializeUnit" : deserializer;
 
             // Use BuildQueryString for nullable parameters to handle null values correctly
-            var hasNullableQueryParams = queryParams.Any(q => q.Type.Contains('?', StringComparison.Ordinal));
-            var queryStringExpression = !hasQueryParams ? string.Empty
+            var hasNullableQueryParams = queryParams.Any(q =>
+                q.Type.Contains('?', StringComparison.Ordinal)
+            );
+            var queryStringExpression =
+                !hasQueryParams ? string.Empty
                 : hasNullableQueryParams
-                ? (
-                    isSingleParam && queryParams.Count == 1
-                        ? $"BuildQueryString((\"{queryParams[0].OriginalName}\", param))"
-                        : $"BuildQueryString({string.Join(", ", queryParams.Select(q => $"(\"{q.OriginalName}\", param.{q.Name})"))})"
-                )
+                    ? (
+                        isSingleParam && queryParams.Count == 1
+                            ? $"BuildQueryString((\"{queryParams[0].OriginalName}\", param))"
+                            : $"BuildQueryString({string.Join(", ", queryParams.Select(q => $"(\"{q.OriginalName}\", param.{q.Name})"))})"
+                    )
                 : (
                     isSingleParam && queryParams.Count == 1
                         ? $"?{queryParams[0].OriginalName}={{param}}"
@@ -461,15 +479,17 @@ internal static class ExtensionMethodGenerator
                     )
                     : sanitizedPath.Replace("{", "{param.", StringComparison.Ordinal);
 
-            var buildRequestBody = hasQueryParams && hasNullableQueryParams
-                ? $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParam}{{{queryStringExpression}}}\"), null, {headersExpression})"
-                : $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParam}{queryStringExpression}\"), null, {headersExpression})";
+            var buildRequestBody =
+                hasQueryParams && hasNullableQueryParams
+                    ? $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParam}{{{queryStringExpression}}}\"), null, {headersExpression})"
+                    : $"static param => new HttpRequestParts(new RelativeUrl($\"{pathWithParam}{queryStringExpression}\"), null, {headersExpression})";
 
             return BuildMethod(
                 methodName,
                 createMethod,
                 resultType,
                 resultResponseType,
+                errorType,
                 allParamsType,
                 string.Join(", ", allParamsList),
                 paramInvocation,
@@ -505,6 +525,7 @@ internal static class ExtensionMethodGenerator
                 createMethod,
                 resultType,
                 resultResponseType,
+                errorType,
                 pathParamsType,
                 publicMethodParams,
                 publicMethodInvocation,
@@ -560,8 +581,12 @@ internal static class ExtensionMethodGenerator
             // Public methods ALWAYS have individual parameters, never tuples
             // Required parameters must come before optional ones
             var relevantParams = hasNonPathNonBodyParams ? parameters : pathParams;
-            var requiredParams = relevantParams.Where(p => !HasDefault(p)).Select(FormatParameterWithDefault);
-            var optionalParams = relevantParams.Where(HasDefault).Select(FormatParameterWithDefault);
+            var requiredParams = relevantParams
+                .Where(p => !HasDefault(p))
+                .Select(FormatParameterWithDefault);
+            var optionalParams = relevantParams
+                .Where(HasDefault)
+                .Select(FormatParameterWithDefault);
             var allParams = requiredParams.Concat([$"{bodyType} body"]).Concat(optionalParams);
             var publicMethodParams = string.Join(", ", allParams);
 
@@ -576,6 +601,7 @@ internal static class ExtensionMethodGenerator
                 createMethod,
                 resultType,
                 resultResponseType,
+                errorType,
                 compositeType,
                 publicMethodParams,
                 publicMethodInvocation,
@@ -657,18 +683,19 @@ internal static class ExtensionMethodGenerator
 
     private static string FormatParameterWithDefault(ParameterInfo param)
     {
-        var defaultPart = param.DefaultValue != null
-            ? param.Type switch
-            {
-                var t when t.Contains('?', StringComparison.Ordinal) => " = null",
-                var t when t.StartsWith("string", StringComparison.Ordinal) =>
-                    $" = \"{param.DefaultValue}\"",
-                var t when t.StartsWith("bool", StringComparison.Ordinal) =>
-                    param.DefaultValue.Equals("true", StringComparison.OrdinalIgnoreCase)
-                        ? " = true"
-                        : " = false",
-                _ => $" = {param.DefaultValue}",
-            }
+        var defaultPart =
+            param.DefaultValue != null
+                ? param.Type switch
+                {
+                    var t when t.Contains('?', StringComparison.Ordinal) => " = null",
+                    var t when t.StartsWith("string", StringComparison.Ordinal) =>
+                        $" = \"{param.DefaultValue}\"",
+                    var t when t.StartsWith("bool", StringComparison.Ordinal) =>
+                        param.DefaultValue.Equals("true", StringComparison.OrdinalIgnoreCase)
+                            ? " = true"
+                            : " = false",
+                    _ => $" = {param.DefaultValue}",
+                }
             : param.Type.Contains('?', StringComparison.Ordinal) ? " = null"
             : string.Empty;
 
@@ -733,8 +760,17 @@ internal static class ExtensionMethodGenerator
 
             // Extract default value if present, but only for simple types
             var rawDefaultValue = param.Schema?.Default?.ToString();
-            var isSimpleType = baseType is "string" or "int" or "long" or "bool" or "float" or "double" or "decimal";
-            var defaultValue = isSimpleType && !string.IsNullOrEmpty(rawDefaultValue) ? rawDefaultValue : null;
+            var isSimpleType =
+                baseType
+                    is "string"
+                        or "int"
+                        or "long"
+                        or "bool"
+                        or "float"
+                        or "double"
+                        or "decimal";
+            var defaultValue =
+                isSimpleType && !string.IsNullOrEmpty(rawDefaultValue) ? rawDefaultValue : null;
 
             // For optional string query parameters without a schema default, use empty string
             // This allows direct URL interpolation without nullable types
@@ -749,7 +785,17 @@ internal static class ExtensionMethodGenerator
             var makeNullable = !required && hasNoDefault && !baseType.EndsWith('?');
             var type = makeNullable ? $"{baseType}?" : baseType;
 
-            parameters.Add(new ParameterInfo(sanitizedName, type, isPath, isHeader, param.Name, required, defaultValue));
+            parameters.Add(
+                new ParameterInfo(
+                    sanitizedName,
+                    type,
+                    isPath,
+                    isHeader,
+                    param.Name,
+                    required,
+                    defaultValue
+                )
+            );
         }
 
         return parameters;
@@ -770,14 +816,14 @@ internal static class ExtensionMethodGenerator
             : "object";
     }
 
-    private static string GenerateTypeAliasesFile(HashSet<string> responseTypes, string @namespace)
+    private static string GenerateTypeAliasesFile(HashSet<(string SuccessType, string ErrorType)> resultTypes, string @namespace)
     {
-        if (responseTypes.Count == 0)
+        if (resultTypes.Count == 0)
         {
             return string.Empty;
         }
 
-        var aliases = GenerateTypeAliasesList(responseTypes, @namespace);
+        var aliases = GenerateTypeAliasesList(resultTypes, @namespace);
 
         return $$"""
             #pragma warning disable IDE0005 // Using directive is unnecessary.
@@ -786,54 +832,67 @@ internal static class ExtensionMethodGenerator
     }
 
     private static List<string> GenerateTypeAliasesList(
-        HashSet<string> responseTypes,
+        HashSet<(string SuccessType, string ErrorType)> resultTypes,
         string @namespace
     )
     {
         var aliases = new List<string>();
 
-        if (responseTypes.Count == 0)
+        if (resultTypes.Count == 0)
         {
             return aliases;
         }
 
-        foreach (var responseType in responseTypes.OrderBy(t => t))
+        foreach (var (successType, errorType) in resultTypes.OrderBy(t => t.SuccessType).ThenBy(t => t.ErrorType))
         {
-            var typeName = responseType
+            var typeName = successType
                 .Replace("List<", string.Empty, StringComparison.Ordinal)
                 .Replace(">", string.Empty, StringComparison.Ordinal)
                 .Replace(".", string.Empty, StringComparison.Ordinal);
-            var pluralSuffix = responseType.StartsWith("List<", StringComparison.Ordinal)
+            var pluralSuffix = successType.StartsWith("List<", StringComparison.Ordinal)
                 ? "s"
                 : string.Empty;
-            var aliasName = $"{typeName}{pluralSuffix}";
+
+            // Include error type in alias name if not string (to avoid conflicts)
+            var errorTypeName = errorType == "string" ? "" : errorType
+                .Replace("List<", string.Empty, StringComparison.Ordinal)
+                .Replace(">", string.Empty, StringComparison.Ordinal)
+                .Replace(".", string.Empty, StringComparison.Ordinal);
+            var aliasName = $"{typeName}{pluralSuffix}{errorTypeName}";
 
             // Qualify type names with namespace (except for System types and Outcome.Unit)
-            var qualifiedType = responseType switch
+            var qualifiedSuccessType = successType switch
             {
                 "Unit" => "Outcome.Unit",
                 "object" => "System.Object",
                 "string" => "System.String",
-                _ when responseType.StartsWith("List<", StringComparison.Ordinal) =>
-                    responseType.Replace(
+                _ when successType.StartsWith("List<", StringComparison.Ordinal) =>
+                    successType.Replace(
                         "List<",
                         $"System.Collections.Generic.List<{@namespace}.",
                         StringComparison.Ordinal
                     ),
-                _ => $"{@namespace}.{responseType}",
+                _ => $"{@namespace}.{successType}",
+            };
+
+            var qualifiedErrorType = errorType switch
+            {
+                "string" => "string",
+                "object" => "System.Object",
+                _ => $"{@namespace}.{errorType}",
             };
 
             // Generate Ok alias
             aliases.Add(
                 $$"""
-                global using Ok{{aliasName}} = Outcome.Result<{{qualifiedType}}, Outcome.HttpError<string>>.Ok<{{qualifiedType}}, Outcome.HttpError<string>>;
+                global using Ok{{aliasName}} = Outcome.Result<{{qualifiedSuccessType}}, Outcome.HttpError<{{qualifiedErrorType}}>>.Ok<{{qualifiedSuccessType}}, Outcome.HttpError<{{qualifiedErrorType}}>>;
                 """
             );
 
             // Generate Error alias
             aliases.Add(
                 $$"""
-                global using Error{{aliasName}} = Outcome.Result<{{qualifiedType}}, Outcome.HttpError<string>>.Error<{{qualifiedType}}, Outcome.HttpError<string>>;
+                global using Error{{aliasName}} = Outcome.Result<{{qualifiedSuccessType}}, Outcome.HttpError<{{qualifiedErrorType}}>>.Error<{{qualifiedSuccessType}}, Outcome.HttpError<{{qualifiedErrorType}}>>;
                 """
             );
         }
@@ -846,6 +905,7 @@ internal static class ExtensionMethodGenerator
         string createMethod,
         string resultType,
         string resultResponseType,
+        string errorType,
         string paramType,
         string publicParams,
         string paramInvocation,
@@ -863,13 +923,16 @@ internal static class ExtensionMethodGenerator
         var delegateType =
             createMethod.Replace("Create", string.Empty, StringComparison.Ordinal) + "Async";
 
+        var deserializeErrorMethod =
+            errorType == "string" ? "DeserializeError" : $"DeserializeJson<{errorType}>";
+
         var privateDelegate = $$"""
-            private static {{delegateType}}<{{resultResponseType}}, string, {{paramType}}> {{privateFunctionName}} { get; } =
-                RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, string, {{paramType}}>(
+            private static {{delegateType}}<{{resultResponseType}}, {{errorType}}, {{paramType}}> {{privateFunctionName}} { get; } =
+                RestClient.Net.HttpClientFactoryExtensions.{{createMethod}}<{{resultResponseType}}, {{errorType}}, {{paramType}}>(
                     url: BaseUrl,
                     buildRequest: {{buildRequestBody}},
                     deserializeSuccess: {{deserializeMethod}},
-                    deserializeError: DeserializeError
+                    deserializeError: {{deserializeErrorMethod}}
                 );
             """;
 
@@ -939,5 +1002,24 @@ internal static class ExtensionMethodGenerator
             && schema.Items is OpenApiSchemaReference itemsRef
                 ? $"List<{(itemsRef.Reference.Id != null ? CodeGenerationHelpers.ToPascalCase(itemsRef.Reference.Id) : "object")}>"
                 : ModelGenerator.MapOpenApiType(content.Value?.Schema);
+    }
+
+    private static string GetErrorType(OpenApiOperation operation)
+    {
+        var errorResponse = operation.Responses?.FirstOrDefault(r =>
+            r.Key.StartsWith('4') || r.Key.StartsWith('5')
+        );
+
+        if (errorResponse?.Value?.Content == null)
+        {
+            return "string";
+        }
+
+        var content = errorResponse.Value.Value.Content.FirstOrDefault();
+        return content.Value?.Schema is OpenApiSchemaReference schemaRef
+            ? schemaRef.Reference.Id != null
+                ? CodeGenerationHelpers.ToPascalCase(schemaRef.Reference.Id)
+                : "string"
+            : "string";
     }
 }

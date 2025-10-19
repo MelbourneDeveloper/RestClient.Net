@@ -1,0 +1,371 @@
+using RestClient.Net.OpenApiGenerator;
+
+namespace RestClient.Net.McpGenerator;
+
+internal readonly record struct McpParameterInfo(
+    string Name,
+    string Type,
+    string Description,
+    bool Required,
+    string? DefaultValue,
+    bool IsPath,
+    bool IsHeader
+);
+
+/// <summary>Generates MCP tool classes that use RestClient.Net extensions.</summary>
+internal static class McpToolGenerator
+{
+    /// <summary>Generates MCP tools that wrap generated extension methods.</summary>
+    /// <param name="document">The OpenAPI document.</param>
+    /// <param name="namespace">The namespace for the MCP server.</param>
+    /// <param name="serverName">The MCP server name.</param>
+    /// <param name="extensionsNamespace">The namespace of the extensions.</param>
+    /// <param name="extensionsClassName">The class name of the extensions.</param>
+    /// <returns>The generated MCP tools code.</returns>
+    public static string GenerateTools(
+        OpenApiDocument document,
+        string @namespace,
+        string serverName,
+        string extensionsNamespace,
+        string extensionsClassName
+    )
+    {
+        var tools = new List<string>();
+        var methodNameCounts = new Dictionary<string, int>();
+
+        foreach (var path in document.Paths)
+        {
+            if (path.Value?.Operations == null)
+            {
+                continue;
+            }
+
+            foreach (var operation in path.Value.Operations)
+            {
+                var toolMethod = GenerateTool(
+                    path.Key,
+                    operation.Key,
+                    operation.Value,
+                    document.Components?.Schemas,
+                    extensionsNamespace,
+                    extensionsClassName,
+                    methodNameCounts
+                );
+
+                if (!string.IsNullOrEmpty(toolMethod))
+                {
+                    tools.Add(toolMethod);
+                }
+            }
+        }
+
+        var toolsCode = string.Join("\n\n    ", tools);
+
+        return $$"""
+            #nullable enable
+            using System.ComponentModel;
+            using System.Text.Json;
+            using ModelContextProtocol;
+            using Outcome;
+            using {{extensionsNamespace}};
+
+            namespace {{@namespace}};
+
+            [McpServerToolType]
+            public class {{serverName}}Tools(IHttpClientFactory httpClientFactory)
+            {
+                private static readonly JsonSerializerOptions JsonOptions = new()
+                {
+                    PropertyNameCaseInsensitive = true,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                };
+
+                {{toolsCode}}
+            }
+            """;
+    }
+
+    private static string GenerateTool(
+        string path,
+        HttpMethod operationType,
+        OpenApiOperation operation,
+        IDictionary<string, IOpenApiSchema>? schemas,
+        string extensionsNamespace,
+        string extensionsClassName,
+        Dictionary<string, int> methodNameCounts
+    )
+    {
+        var extensionMethodName = GetExtensionMethodName(operation, operationType, path);
+
+        if (methodNameCounts.TryGetValue(extensionMethodName, out var count))
+        {
+            methodNameCounts[extensionMethodName] = count + 1;
+            extensionMethodName = $"{extensionMethodName}{count + 1}";
+        }
+        else
+        {
+            methodNameCounts[extensionMethodName] = 1;
+        }
+
+        var mcpToolName = extensionMethodName.Replace(
+            "Async",
+            string.Empty,
+            StringComparison.Ordinal
+        );
+        var parameters = GetParameters(operation, schemas);
+        var hasBody = GetRequestBodyType(operation) != null;
+        var bodyType = GetRequestBodyType(operation) ?? "object";
+        var responseType = GetResponseType(operation);
+        var isDelete = operationType == HttpMethod.Delete;
+        var resultResponseType = isDelete ? "Unit" : responseType;
+        var summary = operation.Description ?? operation.Summary ?? $"{mcpToolName} operation";
+
+        return GenerateToolMethod(
+            mcpToolName,
+            extensionMethodName,
+            extensionsClassName,
+            summary,
+            parameters,
+            hasBody,
+            bodyType,
+            resultResponseType
+        );
+    }
+
+    private static string GenerateToolMethod(
+        string toolName,
+        string extensionMethodName,
+        string extensionsClassName,
+        string summary,
+        List<McpParameterInfo> parameters,
+        bool hasBody,
+        string bodyType,
+        string responseType
+    )
+    {
+        var methodParams = new List<string>();
+        var extensionCallArgs = new List<string>();
+
+        foreach (var param in parameters)
+        {
+            methodParams.Add(FormatParameter(param));
+            extensionCallArgs.Add(param.Name);
+        }
+
+        if (hasBody)
+        {
+            methodParams.Add($"{bodyType} body");
+            extensionCallArgs.Add("body");
+        }
+
+        var paramDescriptions = string.Join(
+            "\n    ",
+            parameters.Select(p =>
+                $"/// <param name=\"{p.Name}\">{SanitizeDescription(p.Description)}</param>"
+            )
+        );
+
+        if (hasBody)
+        {
+            paramDescriptions += "\n    /// <param name=\"body\">Request body</param>";
+        }
+
+        var methodParamsStr =
+            methodParams.Count > 0 ? string.Join(", ", methodParams) : string.Empty;
+        var extensionCallArgsStr =
+            extensionCallArgs.Count > 0
+                ? string.Join(", ", extensionCallArgs) + ", "
+                : string.Empty;
+
+        return $$"""
+            /// <summary>{{SanitizeDescription(summary)}}</summary>
+                {{paramDescriptions}}
+                [McpTool]
+                [Description("{{SanitizeDescription(summary)}}")]
+                public async Task<string> {{toolName}}({{methodParamsStr}})
+                {
+                    var httpClient = httpClientFactory.CreateClient();
+                    var result = await httpClient.{{extensionMethodName}}({{extensionCallArgsStr}}CancellationToken.None);
+
+                    return result switch
+                    {
+                        Result<{{responseType}}, HttpError<string>>.Ok(var success) =>
+                            JsonSerializer.Serialize(success, JsonOptions),
+                        Result<{{responseType}}, HttpError<string>>.Error(var error) =>
+                            $"Error: {error.StatusCode} - {error.Body}",
+                        _ => "Unknown error"
+                    };
+                }
+            """;
+    }
+
+    private static string FormatParameter(McpParameterInfo param)
+    {
+        var defaultPart =
+            param.DefaultValue != null
+                ? param.Type switch
+                {
+                    var t when t.Contains('?', StringComparison.Ordinal) => " = null",
+                    var t when t.StartsWith("string", StringComparison.Ordinal) =>
+                        $" = \"{param.DefaultValue}\"",
+                    var t when t.StartsWith("bool", StringComparison.Ordinal) =>
+                        param.DefaultValue.Equals("true", StringComparison.OrdinalIgnoreCase)
+                            ? " = true"
+                            : " = false",
+                    _ => $" = {param.DefaultValue}",
+                }
+            : param.Type.Contains('?', StringComparison.Ordinal) ? " = null"
+            : string.Empty;
+
+        return $"{param.Type} {param.Name}{defaultPart}";
+    }
+
+    private static List<McpParameterInfo> GetParameters(
+        OpenApiOperation operation,
+        IDictionary<string, IOpenApiSchema>? schemas
+    )
+    {
+        var parameters = new List<McpParameterInfo>();
+
+        if (operation.Parameters == null)
+        {
+            return parameters;
+        }
+
+        foreach (var param in operation.Parameters)
+        {
+            if (param.Name == null)
+            {
+                continue;
+            }
+
+            var sanitizedName = CodeGenerationHelpers.ToCamelCase(param.Name);
+            var baseType = ModelGenerator.MapOpenApiType(param.Schema, schemas);
+            var required = param.Required;
+            var description = param.Description ?? sanitizedName;
+            var isPath = param.In == ParameterLocation.Path;
+            var isHeader = param.In == ParameterLocation.Header;
+
+            var defaultValue = param.Schema?.Default?.ToString();
+            var makeNullable = !required && defaultValue == null && !baseType.EndsWith('?');
+            var type = makeNullable ? $"{baseType}?" : baseType;
+
+            parameters.Add(
+                new McpParameterInfo(
+                    sanitizedName,
+                    type,
+                    description,
+                    required,
+                    defaultValue,
+                    isPath,
+                    isHeader
+                )
+            );
+        }
+
+        return parameters;
+    }
+
+    private static string? GetRequestBodyType(OpenApiOperation operation)
+    {
+        if (operation.RequestBody?.Content == null)
+        {
+            return null;
+        }
+
+        var firstContent = operation.RequestBody.Content.FirstOrDefault();
+        return firstContent.Value?.Schema is OpenApiSchemaReference schemaRef
+            ? schemaRef.Reference.Id != null
+                ? CodeGenerationHelpers.ToPascalCase(schemaRef.Reference.Id)
+                : "object"
+            : "object";
+    }
+
+    private static string GetResponseType(OpenApiOperation operation)
+    {
+        var successResponse = operation.Responses?.FirstOrDefault(r =>
+            r.Key.StartsWith('2') || r.Key == "default"
+        );
+
+        if (successResponse?.Value?.Content == null)
+        {
+            return "object";
+        }
+
+        var content = successResponse.Value.Value.Content.FirstOrDefault();
+        return content.Value?.Schema is OpenApiSchemaReference schemaRef
+            ? schemaRef.Reference.Id != null
+                ? CodeGenerationHelpers.ToPascalCase(schemaRef.Reference.Id)
+                : "object"
+            : "object";
+    }
+
+    private static string GetExtensionMethodName(
+        OpenApiOperation operation,
+        HttpMethod operationType,
+        string path
+    )
+    {
+        if (!string.IsNullOrEmpty(operation.OperationId))
+        {
+            return CleanOperationId(operation.OperationId, operationType);
+        }
+
+        var pathPart =
+            path.Split('/').LastOrDefault(p => !string.IsNullOrEmpty(p) && !p.StartsWith('{'))
+            ?? "Resource";
+
+        var methodName =
+            operationType == HttpMethod.Get ? "Get"
+            : operationType == HttpMethod.Post ? "Create"
+            : operationType == HttpMethod.Put ? "Update"
+            : operationType == HttpMethod.Delete ? "Delete"
+            : operationType == HttpMethod.Patch ? "Patch"
+            : operationType.Method;
+
+        return $"{methodName}{CodeGenerationHelpers.ToPascalCase(pathPart)}Async";
+    }
+
+    private static string CleanOperationId(string operationId, HttpMethod operationType)
+    {
+        var cleaned = operationId;
+        var removedPrefix = false;
+
+#pragma warning disable CA1308
+        var methodPrefix = operationType.Method.ToLowerInvariant() + "_";
+#pragma warning restore CA1308
+        if (cleaned.StartsWith(methodPrefix, StringComparison.OrdinalIgnoreCase))
+        {
+            cleaned = cleaned[methodPrefix.Length..];
+            removedPrefix = true;
+        }
+
+        if (!removedPrefix)
+        {
+#pragma warning disable CA1308
+            var methodSuffix = "_" + operationType.Method.ToLowerInvariant();
+#pragma warning restore CA1308
+            if (cleaned.EndsWith(methodSuffix, StringComparison.OrdinalIgnoreCase))
+            {
+                cleaned = cleaned[..^methodSuffix.Length];
+            }
+        }
+
+        while (cleaned.Contains("__", StringComparison.Ordinal))
+        {
+            cleaned = cleaned.Replace("__", "_", StringComparison.Ordinal);
+        }
+
+        cleaned = cleaned.Trim('_');
+
+        return CodeGenerationHelpers.ToPascalCase(cleaned) + "Async";
+    }
+
+    private static string SanitizeDescription(string description) =>
+        description
+            .Replace("\r\n", " ", StringComparison.Ordinal)
+            .Replace("\n", " ", StringComparison.Ordinal)
+            .Replace("\r", " ", StringComparison.Ordinal)
+            .Replace("\"", "'", StringComparison.Ordinal)
+            .Trim();
+}

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 namespace RestClient.Net.OpenApiGenerator;
 
 /// <summary>Helper methods for code generation.</summary>
-internal static partial class CodeGenerationHelpers
+public static partial class CodeGenerationHelpers
 {
     /// <summary>Converts a string to PascalCase.</summary>
     /// <param name="text">The text to convert.</param>
@@ -54,7 +54,9 @@ internal static partial class CodeGenerationHelpers
     /// <param name="path">The path template with original parameter names.</param>
     /// <param name="parameters">List of parameters with original and sanitized names.</param>
     /// <returns>The path with sanitized parameter names.</returns>
+#pragma warning disable CA1002
     public static string SanitizePathParameters(string path, List<ParameterInfo> parameters)
+#pragma warning restore CA1002
     {
         var result = path;
         foreach (var param in parameters.Where(p => p.IsPath))

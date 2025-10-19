@@ -4,7 +4,7 @@ using Outcome;
 namespace RestClient.Net.OpenApiGenerator;
 
 /// <summary>Parses base URLs and paths from OpenAPI documents.</summary>
-internal static partial class UrlParser
+public static partial class UrlParser
 {
     [GeneratedRegex(@"\{[^}]+\}")]
     private static partial Regex TemplateVariableRegex();

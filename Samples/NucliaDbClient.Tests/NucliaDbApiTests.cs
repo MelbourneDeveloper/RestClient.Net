@@ -66,11 +66,13 @@ public class NucliaDbApiTests
 
         var created = result switch
         {
-            OkResourceCreated(var value) => value,
-            ErrorResourceCreated(HttpError<string>.ExceptionError(var ex)) =>
-                throw new InvalidOperationException("Failed to create resource", ex),
-            ErrorResourceCreated(
-                HttpError<string>.ErrorResponseError
+            OkResourceCreatedHTTPValidationError(var value) => value,
+            ErrorResourceCreatedHTTPValidationError(
+                HttpError<HTTPValidationError>.ExceptionError
+                (var ex)
+            ) => throw new InvalidOperationException("Failed to create resource", ex),
+            ErrorResourceCreatedHTTPValidationError(
+                HttpError<HTTPValidationError>.ErrorResponseError
                 (var body, var statusCode, _)
             ) => throw new InvalidOperationException(
                 $"Failed to create resource: HTTP {statusCode}: {body}"
@@ -148,11 +150,13 @@ public class NucliaDbApiTests
 
         var created = result switch
         {
-            OkResourceCreated(var value) => value,
-            ErrorResourceCreated(HttpError<string>.ExceptionError(var ex)) =>
-                throw new InvalidOperationException("Failed to create resource", ex),
-            ErrorResourceCreated(
-                HttpError<string>.ErrorResponseError
+            OkResourceCreatedHTTPValidationError(var value) => value,
+            ErrorResourceCreatedHTTPValidationError(
+                HttpError<HTTPValidationError>.ExceptionError
+                (var ex)
+            ) => throw new InvalidOperationException("Failed to create resource", ex),
+            ErrorResourceCreatedHTTPValidationError(
+                HttpError<HTTPValidationError>.ErrorResponseError
                 (var body, var statusCode, _)
             ) => throw new InvalidOperationException(
                 $"Failed to create resource: HTTP {statusCode}: {body}"
@@ -175,11 +179,13 @@ public class NucliaDbApiTests
         // Assert
         var kb = result switch
         {
-            OkKnowledgeBoxObj(var value) => value,
-            ErrorKnowledgeBoxObj(HttpError<string>.ExceptionError(var ex)) =>
-                throw new InvalidOperationException("API call failed with exception", ex),
-            ErrorKnowledgeBoxObj(
-                HttpError<string>.ErrorResponseError
+            OkKnowledgeBoxObjHTTPValidationError(var value) => value,
+            ErrorKnowledgeBoxObjHTTPValidationError(
+                HttpError<HTTPValidationError>.ExceptionError
+                (var ex)
+            ) => throw new InvalidOperationException("API call failed with exception", ex),
+            ErrorKnowledgeBoxObjHTTPValidationError(
+                HttpError<HTTPValidationError>.ErrorResponseError
                 (var body, var statusCode, _)
             ) => throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
         };
@@ -209,11 +215,15 @@ public class NucliaDbApiTests
         // Assert
         var resources = result switch
         {
-            OkResourceList(var value) => value,
-            ErrorResourceList(HttpError<string>.ExceptionError(var ex)) =>
-                throw new InvalidOperationException("API call failed with exception", ex),
-            ErrorResourceList(HttpError<string>.ErrorResponseError(var body, var statusCode, _)) =>
-                throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
+            OkResourceListHTTPValidationError(var value) => value,
+            ErrorResourceListHTTPValidationError(
+                HttpError<HTTPValidationError>.ExceptionError
+                (var ex)
+            ) => throw new InvalidOperationException("API call failed with exception", ex),
+            ErrorResourceListHTTPValidationError(
+                HttpError<HTTPValidationError>.ErrorResponseError
+                (var body, var statusCode, _)
+            ) => throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
         };
 
         Assert.NotNull(resources);
@@ -244,11 +254,11 @@ public class NucliaDbApiTests
         // Assert
         var resource = result switch
         {
-            OkNucliadbModelsResourceResource(var value) => value,
-            ErrorNucliadbModelsResourceResource(HttpError<string>.ExceptionError(var ex)) =>
+            OkNucliadbModelsResourceResourceHTTPValidationError(var value) => value,
+            ErrorNucliadbModelsResourceResourceHTTPValidationError(HttpError<HTTPValidationError>.ExceptionError(var ex)) =>
                 throw new InvalidOperationException("API call failed with exception", ex),
-            ErrorNucliadbModelsResourceResource(
-                HttpError<string>.ErrorResponseError
+            ErrorNucliadbModelsResourceResourceHTTPValidationError(
+                HttpError<HTTPValidationError>.ErrorResponseError
                 (var body, var statusCode, _)
             ) => throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
         };
@@ -297,11 +307,11 @@ public class NucliaDbApiTests
         // Assert
         var updated = result switch
         {
-            OkResourceUpdated(var value) => value,
-            ErrorResourceUpdated(HttpError<string>.ExceptionError(var ex)) =>
+            OkResourceUpdatedHTTPValidationError(var value) => value,
+            ErrorResourceUpdatedHTTPValidationError(HttpError<HTTPValidationError>.ExceptionError(var ex)) =>
                 throw new InvalidOperationException("API call failed with exception", ex),
-            ErrorResourceUpdated(
-                HttpError<string>.ErrorResponseError
+            ErrorResourceUpdatedHTTPValidationError(
+                HttpError<HTTPValidationError>.ErrorResponseError
                 (var body, var statusCode, _)
             ) => throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
         };
@@ -325,11 +335,11 @@ public class NucliaDbApiTests
         // Assert
         var counters = result switch
         {
-            OkKnowledgeboxCounters(var value) => value,
-            ErrorKnowledgeboxCounters(HttpError<string>.ExceptionError(var ex)) =>
+            OkKnowledgeboxCountersHTTPValidationError(var value) => value,
+            ErrorKnowledgeboxCountersHTTPValidationError(HttpError<HTTPValidationError>.ExceptionError(var ex)) =>
                 throw new InvalidOperationException("API call failed with exception", ex),
-            ErrorKnowledgeboxCounters(
-                HttpError<string>.ErrorResponseError
+            ErrorKnowledgeboxCountersHTTPValidationError(
+                HttpError<HTTPValidationError>.ErrorResponseError
                 (var body, var statusCode, _)
             ) => throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
         };
@@ -346,7 +356,12 @@ public class NucliaDbApiTests
         var resourceId = await EnsureResourceExists();
 
         // Act
-        var textField = new TextField(Body: "This is test text content", Format: "PLAIN", ExtractStrategy: null, SplitStrategy: null);
+        var textField = new TextField(
+            Body: "This is test text content",
+            Format: "PLAIN",
+            ExtractStrategy: null,
+            SplitStrategy: null
+        );
         var result = await CreateHttpClient()
             .AddResourceFieldTextRidPrefixKbKbidResourceRidTextFieldIdAsync(
                 kbid: _knowledgeBoxId!,
@@ -359,11 +374,11 @@ public class NucliaDbApiTests
         // Assert
         var fieldAdded = result switch
         {
-            OkResourceFieldAdded(var value) => value,
-            ErrorResourceFieldAdded(HttpError<string>.ExceptionError(var ex)) =>
+            OkResourceFieldAddedHTTPValidationError(var value) => value,
+            ErrorResourceFieldAddedHTTPValidationError(HttpError<HTTPValidationError>.ExceptionError(var ex)) =>
                 throw new InvalidOperationException("API call failed with exception", ex),
-            ErrorResourceFieldAdded(
-                HttpError<string>.ErrorResponseError
+            ErrorResourceFieldAddedHTTPValidationError(
+                HttpError<HTTPValidationError>.ErrorResponseError
                 (var body, var statusCode, _)
             ) => throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
         };
@@ -390,10 +405,10 @@ public class NucliaDbApiTests
         // Assert
         var unit = result switch
         {
-            OkUnit(var value) => value,
-            ErrorUnit(HttpError<string>.ExceptionError(var ex)) =>
+            OkUnitHTTPValidationError(var value) => value,
+            ErrorUnitHTTPValidationError(HttpError<HTTPValidationError>.ExceptionError(var ex)) =>
                 throw new InvalidOperationException("API call failed with exception", ex),
-            ErrorUnit(HttpError<string>.ErrorResponseError(var body, var statusCode, _)) =>
+            ErrorUnitHTTPValidationError(HttpError<HTTPValidationError>.ErrorResponseError(var body, var statusCode, _)) =>
                 throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
         };
 

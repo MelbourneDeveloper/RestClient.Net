@@ -24,4 +24,7 @@
     <ProjectReference Include="..\NucliaDbClient\NucliaDbClient.csproj" />
     <ProjectReference Include="..\..\Exhaustion\Exhaustion.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\NucliaDbClient\Generated\GlobalUsings.g.cs" Link="GlobalUsings.g.cs" />
+  </ItemGroup>
 </Project>
