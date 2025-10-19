@@ -17,6 +17,55 @@ public static class NucliaDbTools
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
+    /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`</summary>
+    /// <param name="slug">slug</param>
+    /// <param name="httpClient">HttpClient instance</param>
+    [McpServerTool, Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`")]
+    public static async Task<string> KbBySlugKbSSlugGet(HttpClient httpClient, string slug)
+    {
+        var result = await httpClient.KbBySlugKbSSlugGetAsync(slug, CancellationToken.None);
+
+        return result switch
+        {
+            OkKnowledgeBoxObjHTTPValidationError(var success) =>
+                JsonSerializer.Serialize(success, JsonOptions),
+            ErrorKnowledgeBoxObjHTTPValidationError(var httpError) => httpError switch
+            {
+                HttpError<HTTPValidationError>.ErrorResponseError err =>
+                    $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                HttpError<HTTPValidationError>.ExceptionError err =>
+                    $"Exception: {err.Exception.Message}",
+                _ => "Unknown error"
+            },
+            _ => "Unknown result"
+        };
+    }
+
+    /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`</summary>
+    /// <param name="kbid">kbid</param>
+    /// <param name="xNUCLIADBROLES">xNUCLIADBROLES</param>
+    /// <param name="httpClient">HttpClient instance</param>
+    [McpServerTool, Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`")]
+    public static async Task<string> KbKbKbidGet(HttpClient httpClient, string kbid, string xNUCLIADBROLES = "READER")
+    {
+        var result = await httpClient.KbKbKbidGetAsync(kbid, xNUCLIADBROLES, CancellationToken.None);
+
+        return result switch
+        {
+            OkKnowledgeBoxObjHTTPValidationError(var success) =>
+                JsonSerializer.Serialize(success, JsonOptions),
+            ErrorKnowledgeBoxObjHTTPValidationError(var httpError) => httpError switch
+            {
+                HttpError<HTTPValidationError>.ErrorResponseError err =>
+                    $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                HttpError<HTTPValidationError>.ExceptionError err =>
+                    $"Exception: {err.Exception.Message}",
+                _ => "Unknown error"
+            },
+            _ => "Unknown result"
+        };
+    }
+
     /// <summary>Ask questions on a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`</summary>
     /// <param name="kbid">kbid</param>
     /// <param name="xNdbClient">xNdbClient</param>
@@ -101,6 +150,157 @@ public static class NucliaDbTools
             OkKnowledgeboxSearchResultsHTTPValidationError(var success) =>
                 JsonSerializer.Serialize(success, JsonOptions),
             ErrorKnowledgeboxSearchResultsHTTPValidationError(var httpError) => httpError switch
+            {
+                HttpError<HTTPValidationError>.ErrorResponseError err =>
+                    $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                HttpError<HTTPValidationError>.ExceptionError err =>
+                    $"Exception: {err.Exception.Message}",
+                _ => "Unknown error"
+            },
+            _ => "Unknown result"
+        };
+    }
+
+    /// <summary>Update current configuration of models assigned to a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`</summary>
+    /// <param name="kbid">kbid</param>
+    /// <param name="body">Request body</param>
+    /// <param name="httpClient">HttpClient instance</param>
+    [McpServerTool, Description("Update current configuration of models assigned to a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
+    public static async Task<string> ConfigurationKbKbidConfigurationPatch(HttpClient httpClient, string kbid, object body)
+    {
+        var result = await httpClient.ConfigurationKbKbidConfigurationPatchAsync(kbid, body, CancellationToken.None);
+
+        return result switch
+        {
+            OkobjectHTTPValidationError(var success) =>
+                JsonSerializer.Serialize(success, JsonOptions),
+            ErrorobjectHTTPValidationError(var httpError) => httpError switch
+            {
+                HttpError<HTTPValidationError>.ErrorResponseError err =>
+                    $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                HttpError<HTTPValidationError>.ExceptionError err =>
+                    $"Exception: {err.Exception.Message}",
+                _ => "Unknown error"
+            },
+            _ => "Unknown result"
+        };
+    }
+
+    /// <summary>Create configuration of models assigned to a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`</summary>
+    /// <param name="kbid">kbid</param>
+    /// <param name="body">Request body</param>
+    /// <param name="httpClient">HttpClient instance</param>
+    [McpServerTool, Description("Create configuration of models assigned to a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
+    public static async Task<string> SetConfigurationKbKbidConfiguration(HttpClient httpClient, string kbid, object body)
+    {
+        var result = await httpClient.SetConfigurationKbKbidConfigurationAsync(kbid, body, CancellationToken.None);
+
+        return result switch
+        {
+            OkobjectHTTPValidationError(var success) =>
+                JsonSerializer.Serialize(success, JsonOptions),
+            ErrorobjectHTTPValidationError(var httpError) => httpError switch
+            {
+                HttpError<HTTPValidationError>.ErrorResponseError err =>
+                    $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                HttpError<HTTPValidationError>.ExceptionError err =>
+                    $"Exception: {err.Exception.Message}",
+                _ => "Unknown error"
+            },
+            _ => "Unknown result"
+        };
+    }
+
+    /// <summary>Summary of amount of different things inside a knowledgebox --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`</summary>
+    /// <param name="kbid">kbid</param>
+    /// <param name="debug">If set, the response will include some extra metadata for debugging purposes, like the list of queried nodes.</param>
+    /// <param name="xNUCLIADBROLES">xNUCLIADBROLES</param>
+    /// <param name="httpClient">HttpClient instance</param>
+    [McpServerTool, Description("Summary of amount of different things inside a knowledgebox --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER` - `MANAGER`")]
+    public static async Task<string> KnowledgeboxCountersKbKbidCounters(HttpClient httpClient, string kbid, bool debug = false, string xNUCLIADBROLES = "READER")
+    {
+        var result = await httpClient.KnowledgeboxCountersKbKbidCountersAsync(kbid, debug, xNUCLIADBROLES, CancellationToken.None);
+
+        return result switch
+        {
+            OkKnowledgeboxCountersHTTPValidationError(var success) =>
+                JsonSerializer.Serialize(success, JsonOptions),
+            ErrorKnowledgeboxCountersHTTPValidationError(var httpError) => httpError switch
+            {
+                HttpError<HTTPValidationError>.ErrorResponseError err =>
+                    $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                HttpError<HTTPValidationError>.ExceptionError err =>
+                    $"Exception: {err.Exception.Message}",
+                _ => "Unknown error"
+            },
+            _ => "Unknown result"
+        };
+    }
+
+    /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`</summary>
+    /// <param name="kbid">kbid</param>
+    /// <param name="body">Request body</param>
+    /// <param name="httpClient">HttpClient instance</param>
+    [McpServerTool, Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
+    public static async Task<string> StartKbExportEndpointKbKbidExport(HttpClient httpClient, string kbid, object body)
+    {
+        var result = await httpClient.StartKbExportEndpointKbKbidExportAsync(kbid, body, CancellationToken.None);
+
+        return result switch
+        {
+            OkCreateExportResponseHTTPValidationError(var success) =>
+                JsonSerializer.Serialize(success, JsonOptions),
+            ErrorCreateExportResponseHTTPValidationError(var httpError) => httpError switch
+            {
+                HttpError<HTTPValidationError>.ErrorResponseError err =>
+                    $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                HttpError<HTTPValidationError>.ExceptionError err =>
+                    $"Exception: {err.Exception.Message}",
+                _ => "Unknown error"
+            },
+            _ => "Unknown result"
+        };
+    }
+
+    /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`</summary>
+    /// <param name="kbid">kbid</param>
+    /// <param name="exportId">exportId</param>
+    /// <param name="httpClient">HttpClient instance</param>
+    [McpServerTool, Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`")]
+    public static async Task<string> DownloadExportKbEndpointKbKbidExportExportId(HttpClient httpClient, string kbid, string exportId)
+    {
+        var result = await httpClient.DownloadExportKbEndpointKbKbidExportExportIdAsync(kbid, exportId, CancellationToken.None);
+
+        return result switch
+        {
+            OkobjectHTTPValidationError(var success) =>
+                JsonSerializer.Serialize(success, JsonOptions),
+            ErrorobjectHTTPValidationError(var httpError) => httpError switch
+            {
+                HttpError<HTTPValidationError>.ErrorResponseError err =>
+                    $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                HttpError<HTTPValidationError>.ExceptionError err =>
+                    $"Exception: {err.Exception.Message}",
+                _ => "Unknown error"
+            },
+            _ => "Unknown result"
+        };
+    }
+
+    /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`</summary>
+    /// <param name="kbid">kbid</param>
+    /// <param name="exportId">exportId</param>
+    /// <param name="httpClient">HttpClient instance</param>
+    [McpServerTool, Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`")]
+    public static async Task<string> ExportStatusEndpointKbKbidExportExportIdStatusGet(HttpClient httpClient, string kbid, string exportId)
+    {
+        var result = await httpClient.ExportStatusEndpointKbKbidExportExportIdStatusGetAsync(kbid, exportId, CancellationToken.None);
+
+        return result switch
+        {
+            OkStatusResponseHTTPValidationError(var success) =>
+                JsonSerializer.Serialize(success, JsonOptions),
+            ErrorStatusResponseHTTPValidationError(var httpError) => httpError switch
             {
                 HttpError<HTTPValidationError>.ErrorResponseError err =>
                     $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
@@ -295,6 +495,56 @@ public static class NucliaDbTools
             OkGraphRelationsSearchResponseHTTPValidationError(var success) =>
                 JsonSerializer.Serialize(success, JsonOptions),
             ErrorGraphRelationsSearchResponseHTTPValidationError(var httpError) => httpError switch
+            {
+                HttpError<HTTPValidationError>.ErrorResponseError err =>
+                    $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                HttpError<HTTPValidationError>.ExceptionError err =>
+                    $"Exception: {err.Exception.Message}",
+                _ => "Unknown error"
+            },
+            _ => "Unknown result"
+        };
+    }
+
+    /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`</summary>
+    /// <param name="kbid">kbid</param>
+    /// <param name="body">Request body</param>
+    /// <param name="httpClient">HttpClient instance</param>
+    [McpServerTool, Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
+    public static async Task<string> StartKbImportEndpointKbKbidImport(HttpClient httpClient, string kbid, object body)
+    {
+        var result = await httpClient.StartKbImportEndpointKbKbidImportAsync(kbid, body, CancellationToken.None);
+
+        return result switch
+        {
+            OkCreateImportResponseHTTPValidationError(var success) =>
+                JsonSerializer.Serialize(success, JsonOptions),
+            ErrorCreateImportResponseHTTPValidationError(var httpError) => httpError switch
+            {
+                HttpError<HTTPValidationError>.ErrorResponseError err =>
+                    $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                HttpError<HTTPValidationError>.ExceptionError err =>
+                    $"Exception: {err.Exception.Message}",
+                _ => "Unknown error"
+            },
+            _ => "Unknown result"
+        };
+    }
+
+    /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`</summary>
+    /// <param name="kbid">kbid</param>
+    /// <param name="importId">importId</param>
+    /// <param name="httpClient">HttpClient instance</param>
+    [McpServerTool, Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`")]
+    public static async Task<string> ImportStatusEndpointKbKbidImportImportIdStatusGet(HttpClient httpClient, string kbid, string importId)
+    {
+        var result = await httpClient.ImportStatusEndpointKbKbidImportImportIdStatusGetAsync(kbid, importId, CancellationToken.None);
+
+        return result switch
+        {
+            OkStatusResponseHTTPValidationError(var success) =>
+                JsonSerializer.Serialize(success, JsonOptions),
+            ErrorStatusResponseHTTPValidationError(var httpError) => httpError switch
             {
                 HttpError<HTTPValidationError>.ErrorResponseError err =>
                     $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
@@ -604,6 +854,86 @@ public static class NucliaDbTools
             OkSummarizedResponseHTTPValidationError(var success) =>
                 JsonSerializer.Serialize(success, JsonOptions),
             ErrorSummarizedResponseHTTPValidationError(var httpError) => httpError switch
+            {
+                HttpError<HTTPValidationError>.ErrorResponseError err =>
+                    $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                HttpError<HTTPValidationError>.ExceptionError err =>
+                    $"Exception: {err.Exception.Message}",
+                _ => "Unknown error"
+            },
+            _ => "Unknown result"
+        };
+    }
+
+    /// <summary>Upload a file onto a Knowledge Box, field id will be file and rid will be autogenerated. --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`</summary>
+    /// <param name="kbid">kbid</param>
+    /// <param name="xFilename">Name of the file being uploaded.</param>
+    /// <param name="xPassword">If the file is password protected, the password must be provided here.</param>
+    /// <param name="xLanguage">xLanguage</param>
+    /// <param name="xMd5">MD5 hash of the file being uploaded. This is used to check if the file has been uploaded before.</param>
+    /// <param name="xExtractStrategy">Extract strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
+    /// <param name="xSplitStrategy">Split strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
+    /// <param name="body">Request body</param>
+    /// <param name="httpClient">HttpClient instance</param>
+    [McpServerTool, Description("Upload a file onto a Knowledge Box, field id will be file and rid will be autogenerated. --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
+    public static async Task<string> UploadKbKbidUpload(HttpClient httpClient, string kbid, object body, object? xFilename = null, object? xPassword = null, object? xLanguage = null, object? xMd5 = null, object? xExtractStrategy = null, object? xSplitStrategy = null)
+    {
+        var result = await httpClient.UploadKbKbidUploadAsync(kbid, body, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, CancellationToken.None);
+
+        return result switch
+        {
+            OkResourceFileUploadedHTTPValidationError(var success) =>
+                JsonSerializer.Serialize(success, JsonOptions),
+            ErrorResourceFileUploadedHTTPValidationError(var httpError) => httpError switch
+            {
+                HttpError<HTTPValidationError>.ErrorResponseError err =>
+                    $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                HttpError<HTTPValidationError>.ExceptionError err =>
+                    $"Exception: {err.Exception.Message}",
+                _ => "Unknown error"
+            },
+            _ => "Unknown result"
+        };
+    }
+
+    /// <summary>Create a new knowledge box</summary>
+    /// <param name="xNUCLIADBROLES">xNUCLIADBROLES</param>
+    /// <param name="body">Request body</param>
+    /// <param name="httpClient">HttpClient instance</param>
+    [McpServerTool, Description("Create a new knowledge box")]
+    public static async Task<string> CreateKnowledgeBoxKbs(HttpClient httpClient, object body, string xNUCLIADBROLES = "MANAGER")
+    {
+        var result = await httpClient.CreateKnowledgeBoxKbsAsync(body, xNUCLIADBROLES, CancellationToken.None);
+
+        return result switch
+        {
+            OkKnowledgeBoxObj(var success) =>
+                JsonSerializer.Serialize(success, JsonOptions),
+            ErrorKnowledgeBoxObj(var httpError) => httpError switch
+            {
+                HttpError<string>.ErrorResponseError err =>
+                    $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
+                HttpError<string>.ExceptionError err =>
+                    $"Exception: {err.Exception.Message}",
+                _ => "Unknown error"
+            },
+            _ => "Unknown result"
+        };
+    }
+
+    /// <summary>Get jsonschema definition for `learning_configuration` field of knowledgebox creation payload</summary>
+    
+    /// <param name="httpClient">HttpClient instance</param>
+    [McpServerTool, Description("Get jsonschema definition for `learning_configuration` field of knowledgebox creation payload")]
+    public static async Task<string> LearningConfigurationSchemaLearningConfigurationSchema(HttpClient httpClient)
+    {
+        var result = await httpClient.LearningConfigurationSchemaLearningConfigurationSchemaAsync(CancellationToken.None);
+
+        return result switch
+        {
+            OkobjectHTTPValidationError(var success) =>
+                JsonSerializer.Serialize(success, JsonOptions),
+            ErrorobjectHTTPValidationError(var httpError) => httpError switch
             {
                 HttpError<HTTPValidationError>.ErrorResponseError err =>
                     $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
