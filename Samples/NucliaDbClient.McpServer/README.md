@@ -10,27 +10,20 @@ This is a Model Context Protocol (MCP) server that provides Claude Code with acc
 
 ## Quick Start
 
-### 1. Start NucliaDB and MCP Server
+### Run the setup script
 
 ```bash
 cd Samples/NucliaDbClient.McpServer
-./start-mcp-server.sh
+./run-for-claude.sh
 ```
 
-This will:
-- Start NucliaDB via docker-compose (PostgreSQL + NucliaDB containers)
-- Wait for NucliaDB to be ready
-- Build and run the MCP server
+This ONE script does everything:
+- Starts NucliaDB via docker-compose (if not already running)
+- Waits for NucliaDB to be ready
+- Builds the MCP server
+- Adds it to Claude Code configuration
 
-### 2. Alternative: Run MCP Server Only
-
-If NucliaDB is already running:
-
-```bash
-./run-mcp-server.sh
-```
-
-### 3. Stop NucliaDB
+### Stop NucliaDB
 
 ```bash
 ./stop-nucliadb.sh
@@ -94,16 +87,22 @@ Then edit the file to update paths for your system.
 
 ## Available Tools
 
-The MCP server provides access to all NucliaDB REST API operations, including:
+The MCP server is **filtered to Search operations only** (18 tools) to avoid flooding Claude Code:
 
-- **Knowledge Box Management**: Get, create, delete knowledge boxes
-- **Search**: Full-text search, semantic search, catalog search
 - **Ask**: Question-answering on knowledge bases
-- **Resources**: Create, read, update, delete resources
-- **Labels & Entities**: Manage labels and entity recognition
-- **Configuration**: Configure models and settings
+- **Search**: Full-text search, semantic search, catalog search
+- **List Resources**: Query and list knowledge box contents
+- **Suggest**: Get suggestions based on queries
 
-See the [generated MCP tools](../NucliaDbClient/Generated/NucliaDbMcpTools.g.cs) for the complete list.
+The full NucliaDB API has 110+ operations across these tags:
+- Search (18 tools) ✓ Currently enabled
+- Resources - Resource CRUD operations
+- Knowledge Boxes - KB management
+- Models - Model configuration
+- Knowledge Box Services - Advanced KB services
+- And more...
+
+See the [generated MCP tools](../NucliaDbClient/Generated/NucliaDbMcpTools.g.cs) for the current filtered list. To include different operations, see the **Tag Filtering** section in Development below.
 
 ## Environment Variables
 
@@ -166,7 +165,17 @@ dotnet run --project RestClient.Net.OpenApiGenerator.Cli/RestClient.Net.OpenApiG
   -n NucliaDB.Generated \
   -c NucliaDBApiExtensions
 
-# Regenerate the MCP tools
+# Regenerate the MCP tools with tag filtering (recommended to reduce tool count)
+# Only include Search-related tools (18 tools instead of 110)
+dotnet run --project RestClient.Net.McpGenerator.Cli/RestClient.Net.McpGenerator.Cli.csproj -- \
+  --openapi-url Samples/NucliaDbClient/api.yaml \
+  --output-file Samples/NucliaDbClient/Generated/NucliaDbMcpTools.g.cs \
+  --namespace NucliaDB.Mcp \
+  --server-name NucliaDb \
+  --ext-namespace NucliaDB.Generated \
+  --tags Search
+
+# Or generate all tools (not recommended - creates 110 tools)
 dotnet run --project RestClient.Net.McpGenerator.Cli/RestClient.Net.McpGenerator.Cli.csproj -- \
   --openapi-url Samples/NucliaDbClient/api.yaml \
   --output-file Samples/NucliaDbClient/Generated/NucliaDbMcpTools.g.cs \
@@ -174,6 +183,39 @@ dotnet run --project RestClient.Net.McpGenerator.Cli/RestClient.Net.McpGenerator
   --server-name NucliaDb \
   --ext-namespace NucliaDB.Generated
 
+# Or include multiple tags (e.g., Search and Resources)
+dotnet run --project RestClient.Net.McpGenerator.Cli/RestClient.Net.McpGenerator.Cli.csproj -- \
+  --openapi-url Samples/NucliaDbClient/api.yaml \
+  --output-file Samples/NucliaDbClient/Generated/NucliaDbMcpTools.g.cs \
+  --namespace NucliaDB.Mcp \
+  --server-name NucliaDb \
+  --ext-namespace NucliaDB.Generated \
+  --tags "Search,Resources"
+
 # Rebuild the MCP server
 dotnet build Samples/NucliaDbClient.McpServer
+```
+
+### Tag Filtering
+
+The NucliaDB OpenAPI spec has many operations organized by tags. To avoid flooding Claude Code with too many tools, use the `--tags` parameter to specify which sections you want:
+
+**Available tags:**
+- `Search` - Search and ask operations (18 tools)
+- `Resources` - Resource CRUD operations
+- `Knowledge Boxes` - Knowledge box management
+- `Models` - Model configuration
+- `Knowledge Box Services` - Advanced KB services
+- And more...
+
+**Examples:**
+```bash
+# Only search operations (recommended for most use cases)
+--tags Search
+
+# Search and resources only
+--tags "Search,Resources"
+
+# Multiple tags
+--tags "Search,Resources,Knowledge Boxes"
 ```

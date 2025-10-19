@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\RestClient.Net\RestClient.Net.csproj" />
     <ProjectReference Include="..\..\RestClient.Net.OpenApiGenerator.Cli\RestClient.Net.OpenApiGenerator.Cli.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\RestClient.Net.McpGenerator.Cli\RestClient.Net.McpGenerator.Cli.csproj" ReferenceOutputAssembly="false" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
     <PackageReference Include="Urls" Version="1.0.0" />
   </ItemGroup>
@@ -17,5 +18,8 @@
   </ItemGroup>
   <Target Name="GenerateOpenApiCode" BeforeTargets="CoreCompile" DependsOnTargets="ResolveProjectReferences">
     <Exec Command="dotnet $(MSBuildThisFileDirectory)../../RestClient.Net.OpenApiGenerator.Cli/bin/$(Configuration)/net9.0/RestClient.Net.OpenApiGenerator.Cli.dll -u $(MSBuildThisFileDirectory)api.yaml -o $(MSBuildThisFileDirectory)Generated -n NucliaDB.Generated -c NucliaDBApiExtensions -v 3.0.2 -b $(NucliaBaseUrl)" />
+  </Target>
+  <Target Name="GenerateMcpTools" BeforeTargets="CoreCompile" DependsOnTargets="ResolveProjectReferences">
+    <Exec Command="dotnet $(MSBuildThisFileDirectory)../../RestClient.Net.McpGenerator.Cli/bin/$(Configuration)/net9.0/RestClient.Net.McpGenerator.Cli.dll --openapi-url $(MSBuildThisFileDirectory)api.yaml --output-file $(MSBuildThisFileDirectory)Generated/NucliaDbMcpTools.g.cs --namespace NucliaDB.Mcp --server-name NucliaDb --ext-namespace NucliaDB.Generated --tags &quot;Search,Knowledge Boxes&quot;" />
   </Target>
 </Project>

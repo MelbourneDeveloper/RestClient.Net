@@ -18,12 +18,14 @@ internal static class McpToolGenerator
     /// <param name="namespace">The namespace for the MCP server.</param>
     /// <param name="serverName">The MCP server name.</param>
     /// <param name="extensionsNamespace">The namespace of the extensions.</param>
+    /// <param name="includeTags">Optional set of tags to filter operations. If specified, only operations with these tags are generated.</param>
     /// <returns>The generated MCP tools code.</returns>
     public static string GenerateTools(
         OpenApiDocument document,
         string @namespace,
         string serverName,
-        string extensionsNamespace
+        string extensionsNamespace,
+        ISet<string>? includeTags = null
     )
     {
         var tools = new List<string>();
@@ -38,6 +40,21 @@ internal static class McpToolGenerator
 
             foreach (var operation in path.Value.Operations)
             {
+                // Skip if tags filter is specified and operation doesn't match
+                if (includeTags != null && includeTags.Count > 0)
+                {
+                    var operationTags = operation.Value.Tags;
+                    if (
+                        operationTags == null
+                        || !operationTags.Any(tag =>
+                            includeTags.Contains(tag.Name, StringComparer.OrdinalIgnoreCase)
+                        )
+                    )
+                    {
+                        continue;
+                    }
+                }
+
                 var toolMethod = GenerateTool(
                     path.Key,
                     operation.Key,
@@ -61,11 +78,13 @@ internal static class McpToolGenerator
             using System.Text.Json;
             using Outcome;
             using {{extensionsNamespace}};
+            using ModelContextProtocol.Server;
 
             namespace {{@namespace}};
 
             /// <summary>MCP server tools for {{serverName}} API.</summary>
-            public class {{serverName}}Tools(IHttpClientFactory httpClientFactory)
+            [McpServerToolType]
+            public static class {{serverName}}Tools
             {
                 private static readonly JsonSerializerOptions JsonOptions = new()
                 {
@@ -208,13 +227,17 @@ internal static class McpToolGenerator
         var okAlias = $"Ok{responseType}";
         var errorAlias = $"Error{responseType}";
 
+        var httpClientParam =
+            methodParamsStr.Length > 0 ? "HttpClient httpClient, " : "HttpClient httpClient";
+        var allParams = httpClientParam + methodParamsStr;
+
         return $$"""
             /// <summary>{{SanitizeDescription(summary)}}</summary>
                 {{paramDescriptions}}
-                [Description("{{SanitizeDescription(summary)}}")]
-                public async Task<string> {{toolName}}({{methodParamsStr}})
+                /// <param name="httpClient">HttpClient instance</param>
+                [McpServerTool, Description("{{SanitizeDescription(summary)}}")]
+                public static async Task<string> {{toolName}}({{allParams}})
                 {
-                    var httpClient = httpClientFactory.CreateClient();
                     var result = await httpClient.{{extensionMethodName}}({{extensionCallArgsStr}});
 
                     return result switch
