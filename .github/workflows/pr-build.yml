@@ -32,6 +32,13 @@ jobs:
       - name: Build solution
         run: dotnet build RestClient.sln --configuration Release --no-restore /warnaserror
 
+      - name: Run code analysis
+        run: dotnet build RestClient.sln --configuration Release --no-restore /p:RunAnalyzers=true /p:TreatWarningsAsErrors=true
+
+      - name: Run Stryker Mutation Testing
+        working-directory: RestClient.Net.CsTest
+        run: dotnet stryker --project RestClient.Net.CsTest.csproj --break-at 100 --reporter "console" --reporter "html"
+
       - name: Verify Docker is available
         run: |
           docker --version
@@ -46,8 +53,3 @@ jobs:
           cd Samples/NucliaDbClient
           docker compose down -v --remove-orphans || true
 
-      - name: Run Stryker Mutation Testing
-        run: dotnet stryker --break-at 100 --reporter "console" --reporter "html"
-
-      - name: Run code analysis
-        run: dotnet build RestClient.sln --configuration Release --no-restore /p:RunAnalyzers=true /p:TreatWarningsAsErrors=true
