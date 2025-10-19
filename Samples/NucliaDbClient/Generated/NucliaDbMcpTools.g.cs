@@ -76,7 +76,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> AskKnowledgeboxEndpointKbKbidAsk(string kbid, AskRequest body, string xNdbClient = "api", bool xShowConsumption = false, string? xNucliadbUser = null, string? xForwardedFor = null, bool xSynchronous = false)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.AskKnowledgeboxEndpointKbKbidAskAsync(kbid, body, xNdbClient, xShowConsumption, xNucliadbUser, xForwardedFor, xSynchronous, CancellationToken.None);
+        var result = await httpClient.AskKnowledgeboxEndpointKbKbidAskAsync(kbid, body, xNdbClient, xShowConsumption, xNucliadbUser ?? "", xForwardedFor ?? "", xSynchronous, CancellationToken.None);
 
         return result switch
         {
@@ -116,7 +116,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> CatalogGetKbKbidCatalog(string kbid, string? query = null, object? filterExpression = null, List<string>? filters = null, List<string>? faceted = null, string? sortField = null, object? sortLimit = null, string sortOrder = "desc", int pageNumber = 0, int pageSize = 20, object? withStatus = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, object? hidden = null, List<string>? show = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.CatalogGetKbKbidCatalogAsync(kbid, query, filterExpression, filters, faceted, sortField, sortLimit, sortOrder, pageNumber, pageSize, withStatus, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, hidden, show, CancellationToken.None);
+        var result = await httpClient.CatalogGetKbKbidCatalogAsync(kbid, query ?? "", filterExpression, filters, faceted, sortField ?? "", sortLimit, sortOrder, pageNumber, pageSize, withStatus, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, hidden, show, CancellationToken.None);
 
         return result switch
         {
@@ -185,11 +185,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
 
     /// <summary>Update current configuration of models assigned to a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`</summary>
     /// <param name="kbid">kbid</param>
+    /// <param name="body">Request body</param>
     [Description("Update current configuration of models assigned to a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
-    public async Task<string> ConfigurationKbKbidConfigurationPatch(string kbid)
+    public async Task<string> ConfigurationKbKbidConfigurationPatch(string kbid, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.ConfigurationKbKbidConfigurationPatchAsync(kbid, CancellationToken.None);
+        var result = await httpClient.ConfigurationKbKbidConfigurationPatchAsync(kbid, body, CancellationToken.None);
 
         return result switch
         {
@@ -209,11 +210,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
 
     /// <summary>Create configuration of models assigned to a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`</summary>
     /// <param name="kbid">kbid</param>
+    /// <param name="body">Request body</param>
     [Description("Create configuration of models assigned to a Knowledge Box --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
-    public async Task<string> SetConfigurationKbKbidConfiguration(string kbid)
+    public async Task<string> SetConfigurationKbKbidConfiguration(string kbid, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.SetConfigurationKbKbidConfigurationAsync(kbid, CancellationToken.None);
+        var result = await httpClient.SetConfigurationKbKbidConfigurationAsync(kbid, body, CancellationToken.None);
 
         return result switch
         {
@@ -458,11 +460,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
 
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`</summary>
     /// <param name="kbid">kbid</param>
+    /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
-    public async Task<string> StartKbExportEndpointKbKbidExport(string kbid)
+    public async Task<string> StartKbExportEndpointKbKbidExport(string kbid, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.StartKbExportEndpointKbKbidExportAsync(kbid, CancellationToken.None);
+        var result = await httpClient.StartKbExportEndpointKbKbidExportAsync(kbid, body, CancellationToken.None);
 
         return result switch
         {
@@ -541,9 +544,9 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
 
         return result switch
         {
-            OkobjectHTTPValidationError(var success) =>
+            OkstringHTTPValidationError(var success) =>
                 JsonSerializer.Serialize(success, JsonOptions),
-            ErrorobjectHTTPValidationError(var httpError) => httpError switch
+            ErrorstringHTTPValidationError(var httpError) => httpError switch
             {
                 HttpError<HTTPValidationError>.ErrorResponseError err =>
                     $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
@@ -639,7 +642,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> SendFeedbackEndpointKbKbidFeedback(string kbid, FeedbackRequest body, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.SendFeedbackEndpointKbKbidFeedbackAsync(kbid, body, xNdbClient, xNucliadbUser, xForwardedFor, CancellationToken.None);
+        var result = await httpClient.SendFeedbackEndpointKbKbidFeedbackAsync(kbid, body, xNdbClient, xNucliadbUser ?? "", xForwardedFor ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -693,7 +696,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> FindKnowledgeboxKbKbidFind(string kbid, string? query = null, object? filterExpression = null, List<string>? fields = null, List<string>? filters = null, object? topK = null, object? minScore = null, object? minScoreSemantic = null, float minScoreBm25 = 0, object? vectorset = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, List<string>? features = null, bool debug = false, bool highlight = false, List<string>? show = null, List<string>? fieldType = null, List<string>? extracted = null, bool withDuplicates = false, bool withSynonyms = false, bool autofilter = false, List<string>? securityGroups = null, bool showHidden = false, string rankFusion = "rrf", object? reranker = null, object? searchConfiguration = null, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.FindKnowledgeboxKbKbidFindAsync(kbid, query, filterExpression, fields, filters, topK, minScore, minScoreSemantic, minScoreBm25, vectorset, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, debug, highlight, show, fieldType, extracted, withDuplicates, withSynonyms, autofilter, securityGroups, showHidden, rankFusion, reranker, searchConfiguration, xNdbClient, xNucliadbUser, xForwardedFor, CancellationToken.None);
+        var result = await httpClient.FindKnowledgeboxKbKbidFindAsync(kbid, query ?? "", filterExpression, fields, filters, topK, minScore, minScoreSemantic, minScoreBm25, vectorset, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, debug, highlight, show, fieldType, extracted, withDuplicates, withSynonyms, autofilter, securityGroups, showHidden, rankFusion, reranker, searchConfiguration, xNdbClient, xNucliadbUser ?? "", xForwardedFor ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -721,7 +724,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> FindPostKnowledgeboxKbKbidFind(string kbid, FindRequest body, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.FindPostKnowledgeboxKbKbidFindAsync(kbid, body, xNdbClient, xNucliadbUser, xForwardedFor, CancellationToken.None);
+        var result = await httpClient.FindPostKnowledgeboxKbKbidFindAsync(kbid, body, xNdbClient, xNucliadbUser ?? "", xForwardedFor ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -749,7 +752,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> GraphSearchKnowledgeboxKbKbidGraph(string kbid, GraphSearchRequest body, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.GraphSearchKnowledgeboxKbKbidGraphAsync(kbid, body, xNdbClient, xNucliadbUser, xForwardedFor, CancellationToken.None);
+        var result = await httpClient.GraphSearchKnowledgeboxKbKbidGraphAsync(kbid, body, xNdbClient, xNucliadbUser ?? "", xForwardedFor ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -777,7 +780,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> GraphNodesSearchKnowledgeboxKbKbidGraphNodes(string kbid, GraphNodesSearchRequest body, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.GraphNodesSearchKnowledgeboxKbKbidGraphNodesAsync(kbid, body, xNdbClient, xNucliadbUser, xForwardedFor, CancellationToken.None);
+        var result = await httpClient.GraphNodesSearchKnowledgeboxKbKbidGraphNodesAsync(kbid, body, xNdbClient, xNucliadbUser ?? "", xForwardedFor ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -805,7 +808,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> GraphRelationsSearchKnowledgeboxKbKbidGraphRelations(string kbid, GraphRelationsSearchRequest body, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.GraphRelationsSearchKnowledgeboxKbKbidGraphRelationsAsync(kbid, body, xNdbClient, xNucliadbUser, xForwardedFor, CancellationToken.None);
+        var result = await httpClient.GraphRelationsSearchKnowledgeboxKbKbidGraphRelationsAsync(kbid, body, xNdbClient, xNucliadbUser ?? "", xForwardedFor ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -825,11 +828,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
 
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`</summary>
     /// <param name="kbid">kbid</param>
+    /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `WRITER`")]
-    public async Task<string> StartKbImportEndpointKbKbidImport(string kbid)
+    public async Task<string> StartKbImportEndpointKbKbidImport(string kbid, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.StartKbImportEndpointKbKbidImportAsync(kbid, CancellationToken.None);
+        var result = await httpClient.StartKbImportEndpointKbKbidImportAsync(kbid, body, CancellationToken.None);
 
         return result switch
         {
@@ -1077,11 +1081,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNucliadbUser">xNucliadbUser</param>
     /// <param name="xNdbClient">xNdbClient</param>
     /// <param name="xForwardedFor">xForwardedFor</param>
+    /// <param name="body">Request body</param>
     [Description("Convenience endpoint that proxies requests to the Predict API. It adds the Knowledge Box configuration settings as headers to the predict API request. Refer to the Predict API documentation for more details about the request and response models: https://docs.nuclia.dev/docs/nua-api#tag/Predict --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`")]
-    public async Task<string> PredictProxyEndpointKbKbidPredictEndpoint(string kbid, string endpoint, string? xNucliadbUser = null, string xNdbClient = "api", string? xForwardedFor = null)
+    public async Task<string> PredictProxyEndpointKbKbidPredictEndpoint(string kbid, string endpoint, object body, string? xNucliadbUser = null, string xNdbClient = "api", string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.PredictProxyEndpointKbKbidPredictEndpointAsync(kbid, endpoint, xNucliadbUser, xNdbClient, xForwardedFor, CancellationToken.None);
+        var result = await httpClient.PredictProxyEndpointKbKbidPredictEndpointAsync(kbid, endpoint, body, xNucliadbUser ?? "", xNdbClient, xForwardedFor ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -1109,7 +1114,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> PredictProxyEndpointKbKbidPredictEndpoint2(string kbid, string endpoint, string? xNucliadbUser = null, string xNdbClient = "api", string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.PredictProxyEndpointKbKbidPredictEndpointAsync2(kbid, endpoint, xNucliadbUser, xNdbClient, xForwardedFor, CancellationToken.None);
+        var result = await httpClient.PredictProxyEndpointKbKbidPredictEndpointAsync2(kbid, endpoint, xNucliadbUser ?? "", xNdbClient, xForwardedFor ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -1220,11 +1225,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xMd5">MD5 hash of the file being uploaded. This is used to check if the file has been uploaded before.</param>
     /// <param name="xExtractStrategy">Extract strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
     /// <param name="xSplitStrategy">Split strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
+    /// <param name="body">Request body</param>
     [Description("Upload a file as a field on an existing resource, if the field exists will return a conflict (419) --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
-    public async Task<string> UploadRidPrefixKbKbidResourcePathRidFileFieldUpload(string kbid, string pathRid, string field, object? xFilename = null, object? xPassword = null, object? xLanguage = null, object? xMd5 = null, object? xExtractStrategy = null, object? xSplitStrategy = null)
+    public async Task<string> UploadRidPrefixKbKbidResourcePathRidFileFieldUpload(string kbid, string pathRid, string field, object body, object? xFilename = null, object? xPassword = null, object? xLanguage = null, object? xMd5 = null, object? xExtractStrategy = null, object? xSplitStrategy = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.UploadRidPrefixKbKbidResourcePathRidFileFieldUploadAsync(kbid, pathRid, field, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, CancellationToken.None);
+        var result = await httpClient.UploadRidPrefixKbKbidResourcePathRidFileFieldUploadAsync(kbid, pathRid, field, body, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, CancellationToken.None);
 
         return result switch
         {
@@ -1253,7 +1259,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> ModifyResourceRidPrefixKbKbidResourceRid(string kbid, string rid, UpdateResourcePayload body, string? xNucliadbUser = null, bool xSkipStore = false, string xNUCLIADBROLES = "WRITER")
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.ModifyResourceRidPrefixKbKbidResourceRidAsync(kbid, rid, body, xNucliadbUser, xSkipStore, xNUCLIADBROLES, CancellationToken.None);
+        var result = await httpClient.ModifyResourceRidPrefixKbKbidResourceRidAsync(kbid, rid, body, xNucliadbUser ?? "", xSkipStore, xNUCLIADBROLES, CancellationToken.None);
 
         return result switch
         {
@@ -1310,7 +1316,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> ResourceByUuidKbKbidResourceRidGet(string kbid, string rid, List<string>? show = null, List<string>? fieldType = null, List<string>? extracted = null, string? xNucliadbUser = null, string? xForwardedFor = null, string xNUCLIADBROLES = "READER")
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.ResourceByUuidKbKbidResourceRidGetAsync(kbid, rid, show, fieldType, extracted, xNucliadbUser, xForwardedFor, xNUCLIADBROLES, CancellationToken.None);
+        var result = await httpClient.ResourceByUuidKbKbidResourceRidGetAsync(kbid, rid, show, fieldType, extracted, xNucliadbUser ?? "", xForwardedFor ?? "", xNUCLIADBROLES, CancellationToken.None);
 
         return result switch
         {
@@ -1341,7 +1347,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> ResourceAskEndpointByUuidKbKbidResourceRidAsk(string kbid, string rid, AskRequest body, bool xShowConsumption = false, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null, bool xSynchronous = false)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.ResourceAskEndpointByUuidKbKbidResourceRidAskAsync(kbid, rid, body, xShowConsumption, xNdbClient, xNucliadbUser, xForwardedFor, xSynchronous, CancellationToken.None);
+        var result = await httpClient.ResourceAskEndpointByUuidKbKbidResourceRidAskAsync(kbid, rid, body, xShowConsumption, xNdbClient, xNucliadbUser ?? "", xForwardedFor ?? "", xSynchronous, CancellationToken.None);
 
         return result switch
         {
@@ -1503,11 +1509,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="resetTitle">Reset the title of the resource so that the file or link computed titles are set after processing.</param>
     /// <param name="xNucliadbUser">xNucliadbUser</param>
     /// <param name="xFilePassword">If a file is password protected, the password must be provided here for the file to be processed</param>
+    /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
-    public async Task<string> ReprocessFileFieldKbKbidResourceRidFileFieldIdReprocess(string kbid, string rid, string fieldId, bool resetTitle = false, string? xNucliadbUser = null, object? xFilePassword = null)
+    public async Task<string> ReprocessFileFieldKbKbidResourceRidFileFieldIdReprocess(string kbid, string rid, string fieldId, object body, bool resetTitle = false, string? xNucliadbUser = null, object? xFilePassword = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.ReprocessFileFieldKbKbidResourceRidFileFieldIdReprocessAsync(kbid, rid, fieldId, resetTitle, xNucliadbUser, xFilePassword, CancellationToken.None);
+        var result = await httpClient.ReprocessFileFieldKbKbidResourceRidFileFieldIdReprocessAsync(kbid, rid, fieldId, body, resetTitle, xNucliadbUser ?? "", xFilePassword, CancellationToken.None);
 
         return result switch
         {
@@ -1530,11 +1537,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="rid">rid</param>
     /// <param name="field">field</param>
     /// <param name="uploadId">uploadId</param>
+    /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
-    public async Task<string> TusPatchRidPrefixKbKbidResourceRidFileFieldTusuploadUploadId(string kbid, string rid, string field, string uploadId)
+    public async Task<string> TusPatchRidPrefixKbKbidResourceRidFileFieldTusuploadUploadId(string kbid, string rid, string field, string uploadId, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.TusPatchRidPrefixKbKbidResourceRidFileFieldTusuploadUploadIdAsync(kbid, rid, field, uploadId, CancellationToken.None);
+        var result = await httpClient.TusPatchRidPrefixKbKbidResourceRidFileFieldTusuploadUploadIdAsync(kbid, rid, field, uploadId, body, CancellationToken.None);
 
         return result switch
         {
@@ -1583,11 +1591,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="rid">rid</param>
     /// <param name="reindexVectors">reindexVectors</param>
+    /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
-    public async Task<string> ReindexResourceRidPrefixKbKbidResourceRidReindex(string kbid, string rid, bool reindexVectors = false)
+    public async Task<string> ReindexResourceRidPrefixKbKbidResourceRidReindex(string kbid, string rid, object body, bool reindexVectors = false)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.ReindexResourceRidPrefixKbKbidResourceRidReindexAsync(kbid, rid, reindexVectors, CancellationToken.None);
+        var result = await httpClient.ReindexResourceRidPrefixKbKbidResourceRidReindexAsync(kbid, rid, body, reindexVectors, CancellationToken.None);
 
         return result switch
         {
@@ -1610,11 +1619,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="rid">rid</param>
     /// <param name="resetTitle">Reset the title of the resource so that the file or link computed titles are set after processing.</param>
     /// <param name="xNucliadbUser">xNucliadbUser</param>
+    /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
-    public async Task<string> ReprocessResourceRidPrefixKbKbidResourceRidReprocess(string kbid, string rid, bool resetTitle = false, string? xNucliadbUser = null)
+    public async Task<string> ReprocessResourceRidPrefixKbKbidResourceRidReprocess(string kbid, string rid, object body, bool resetTitle = false, string? xNucliadbUser = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.ReprocessResourceRidPrefixKbKbidResourceRidReprocessAsync(kbid, rid, resetTitle, xNucliadbUser, CancellationToken.None);
+        var result = await httpClient.ReprocessResourceRidPrefixKbKbidResourceRidReprocessAsync(kbid, rid, body, resetTitle, xNucliadbUser ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -1641,7 +1651,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> RunAgentsByUuidKbKbidResourceRidRunAgents(string kbid, string rid, ResourceAgentsRequest body, string? xNucliadbUser = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.RunAgentsByUuidKbKbidResourceRidRunAgentsAsync(kbid, rid, body, xNucliadbUser, CancellationToken.None);
+        var result = await httpClient.RunAgentsByUuidKbKbidResourceRidRunAgentsAsync(kbid, rid, body, xNucliadbUser ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -1822,7 +1832,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> CreateResourceKbKbidResources(string kbid, CreateResourcePayload body, bool xSkipStore = false, string? xNucliadbUser = null, string xNUCLIADBROLES = "WRITER")
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.CreateResourceKbKbidResourcesAsync(kbid, body, xSkipStore, xNucliadbUser, xNUCLIADBROLES, CancellationToken.None);
+        var result = await httpClient.CreateResourceKbKbidResourcesAsync(kbid, body, xSkipStore, xNucliadbUser ?? "", xNUCLIADBROLES, CancellationToken.None);
 
         return result switch
         {
@@ -1928,7 +1938,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> SearchKnowledgeboxKbKbidSearch(string kbid, string? query = null, object? filterExpression = null, List<string>? fields = null, List<string>? filters = null, List<string>? faceted = null, string? sortField = null, object? sortLimit = null, string sortOrder = "desc", int topK = 20, object? minScore = null, object? minScoreSemantic = null, float minScoreBm25 = 0, object? vectorset = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, List<string>? features = null, bool debug = false, bool highlight = false, List<string>? show = null, List<string>? fieldType = null, List<string>? extracted = null, bool withDuplicates = false, bool withSynonyms = false, bool autofilter = false, List<string>? securityGroups = null, bool showHidden = false, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.SearchKnowledgeboxKbKbidSearchAsync(kbid, query, filterExpression, fields, filters, faceted, sortField, sortLimit, sortOrder, topK, minScore, minScoreSemantic, minScoreBm25, vectorset, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, debug, highlight, show, fieldType, extracted, withDuplicates, withSynonyms, autofilter, securityGroups, showHidden, xNdbClient, xNucliadbUser, xForwardedFor, CancellationToken.None);
+        var result = await httpClient.SearchKnowledgeboxKbKbidSearchAsync(kbid, query ?? "", filterExpression, fields, filters, faceted, sortField ?? "", sortLimit, sortOrder, topK, minScore, minScoreSemantic, minScoreBm25, vectorset, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, debug, highlight, show, fieldType, extracted, withDuplicates, withSynonyms, autofilter, securityGroups, showHidden, xNdbClient, xNucliadbUser ?? "", xForwardedFor ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -1956,7 +1966,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> SearchPostKnowledgeboxKbKbidSearch(string kbid, SearchRequest body, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.SearchPostKnowledgeboxKbKbidSearchAsync(kbid, body, xNdbClient, xNucliadbUser, xForwardedFor, CancellationToken.None);
+        var result = await httpClient.SearchPostKnowledgeboxKbKbidSearchAsync(kbid, body, xNdbClient, xNucliadbUser ?? "", xForwardedFor ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -2110,7 +2120,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> ModifyResourceRslugPrefixKbKbidSlugRslug(string kbid, string rslug, UpdateResourcePayload body, bool xSkipStore = false, string? xNucliadbUser = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.ModifyResourceRslugPrefixKbKbidSlugRslugAsync(kbid, rslug, body, xSkipStore, xNucliadbUser, CancellationToken.None);
+        var result = await httpClient.ModifyResourceRslugPrefixKbKbidSlugRslugAsync(kbid, rslug, body, xSkipStore, xNucliadbUser ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -2165,7 +2175,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> ResourceBySlugKbKbidSlugRslugGet(string kbid, string rslug, List<string>? show = null, List<string>? fieldType = null, List<string>? extracted = null, string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.ResourceBySlugKbKbidSlugRslugGetAsync(kbid, rslug, show, fieldType, extracted, xNucliadbUser, xForwardedFor, CancellationToken.None);
+        var result = await httpClient.ResourceBySlugKbKbidSlugRslugGetAsync(kbid, rslug, show, fieldType, extracted, xNucliadbUser ?? "", xForwardedFor ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -2354,11 +2364,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="rslug">rslug</param>
     /// <param name="field">field</param>
     /// <param name="uploadId">uploadId</param>
+    /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
-    public async Task<string> TusPatchRslugPrefixKbKbidSlugRslugFileFieldTusuploadUploadId(string kbid, string rslug, string field, string uploadId)
+    public async Task<string> TusPatchRslugPrefixKbKbidSlugRslugFileFieldTusuploadUploadId(string kbid, string rslug, string field, string uploadId, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.TusPatchRslugPrefixKbKbidSlugRslugFileFieldTusuploadUploadIdAsync(kbid, rslug, field, uploadId, CancellationToken.None);
+        var result = await httpClient.TusPatchRslugPrefixKbKbidSlugRslugFileFieldTusuploadUploadIdAsync(kbid, rslug, field, uploadId, body, CancellationToken.None);
 
         return result switch
         {
@@ -2413,11 +2424,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xMd5">MD5 hash of the file being uploaded. This is used to check if the file has been uploaded before.</param>
     /// <param name="xExtractStrategy">Extract strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
     /// <param name="xSplitStrategy">Split strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
+    /// <param name="body">Request body</param>
     [Description("Upload a file as a field on an existing resource, if the field exists will return a conflict (419) --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
-    public async Task<string> UploadRslugPrefixKbKbidSlugRslugFileFieldUpload(string kbid, string rslug, string field, object? xFilename = null, object? xPassword = null, object? xLanguage = null, object? xMd5 = null, object? xExtractStrategy = null, object? xSplitStrategy = null)
+    public async Task<string> UploadRslugPrefixKbKbidSlugRslugFileFieldUpload(string kbid, string rslug, string field, object body, object? xFilename = null, object? xPassword = null, object? xLanguage = null, object? xMd5 = null, object? xExtractStrategy = null, object? xSplitStrategy = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.UploadRslugPrefixKbKbidSlugRslugFileFieldUploadAsync(kbid, rslug, field, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, CancellationToken.None);
+        var result = await httpClient.UploadRslugPrefixKbKbidSlugRslugFileFieldUploadAsync(kbid, rslug, field, body, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, CancellationToken.None);
 
         return result switch
         {
@@ -2466,11 +2478,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="kbid">kbid</param>
     /// <param name="rslug">rslug</param>
     /// <param name="reindexVectors">reindexVectors</param>
+    /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
-    public async Task<string> ReindexResourceRslugPrefixKbKbidSlugRslugReindex(string kbid, string rslug, bool reindexVectors = false)
+    public async Task<string> ReindexResourceRslugPrefixKbKbidSlugRslugReindex(string kbid, string rslug, object body, bool reindexVectors = false)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.ReindexResourceRslugPrefixKbKbidSlugRslugReindexAsync(kbid, rslug, reindexVectors, CancellationToken.None);
+        var result = await httpClient.ReindexResourceRslugPrefixKbKbidSlugRslugReindexAsync(kbid, rslug, body, reindexVectors, CancellationToken.None);
 
         return result switch
         {
@@ -2493,11 +2506,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="rslug">rslug</param>
     /// <param name="resetTitle">Reset the title of the resource so that the file or link computed titles are set after processing.</param>
     /// <param name="xNucliadbUser">xNucliadbUser</param>
+    /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
-    public async Task<string> ReprocessResourceRslugPrefixKbKbidSlugRslugReprocess(string kbid, string rslug, bool resetTitle = false, string? xNucliadbUser = null)
+    public async Task<string> ReprocessResourceRslugPrefixKbKbidSlugRslugReprocess(string kbid, string rslug, object body, bool resetTitle = false, string? xNucliadbUser = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.ReprocessResourceRslugPrefixKbKbidSlugRslugReprocessAsync(kbid, rslug, resetTitle, xNucliadbUser, CancellationToken.None);
+        var result = await httpClient.ReprocessResourceRslugPrefixKbKbidSlugRslugReprocessAsync(kbid, rslug, body, resetTitle, xNucliadbUser ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -2640,7 +2654,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> ResourceAskEndpointBySlugKbKbidSlugSlugAsk(string kbid, string slug, AskRequest body, bool xShowConsumption = false, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null, bool xSynchronous = false)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.ResourceAskEndpointBySlugKbKbidSlugSlugAskAsync(kbid, slug, body, xShowConsumption, xNdbClient, xNucliadbUser, xForwardedFor, xSynchronous, CancellationToken.None);
+        var result = await httpClient.ResourceAskEndpointBySlugKbKbidSlugSlugAskAsync(kbid, slug, body, xShowConsumption, xNdbClient, xNucliadbUser ?? "", xForwardedFor ?? "", xSynchronous, CancellationToken.None);
 
         return result switch
         {
@@ -2667,7 +2681,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> RunAgentsBySlugKbKbidSlugSlugRunAgents(string kbid, string slug, ResourceAgentsRequest body, string? xNucliadbUser = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.RunAgentsBySlugKbKbidSlugSlugRunAgentsAsync(kbid, slug, body, xNucliadbUser, CancellationToken.None);
+        var result = await httpClient.RunAgentsBySlugKbKbidSlugSlugRunAgentsAsync(kbid, slug, body, xNucliadbUser ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -2696,9 +2710,9 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
 
         return result switch
         {
-            OkobjectHTTPValidationError(var success) =>
+            OkstringHTTPValidationError(var success) =>
                 JsonSerializer.Serialize(success, JsonOptions),
-            ErrorobjectHTTPValidationError(var httpError) => httpError switch
+            ErrorstringHTTPValidationError(var httpError) => httpError switch
             {
                 HttpError<HTTPValidationError>.ErrorResponseError err =>
                     $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
@@ -2807,7 +2821,7 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     public async Task<string> SuggestKnowledgeboxKbKbidSuggest(string kbid, string query, List<string>? fields = null, List<string>? filters = null, List<string>? faceted = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, List<string>? features = null, List<string>? show = null, List<string>? fieldType = null, bool debug = false, bool highlight = false, bool showHidden = false, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.SuggestKnowledgeboxKbKbidSuggestAsync(kbid, query, fields, filters, faceted, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, show, fieldType, debug, highlight, showHidden, xNdbClient, xNucliadbUser, xForwardedFor, CancellationToken.None);
+        var result = await httpClient.SuggestKnowledgeboxKbKbidSuggestAsync(kbid, query, fields, filters, faceted, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, show, fieldType, debug, highlight, showHidden, xNdbClient, xNucliadbUser ?? "", xForwardedFor ?? "", CancellationToken.None);
 
         return result switch
         {
@@ -2909,11 +2923,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`</summary>
     /// <param name="kbid">kbid</param>
     /// <param name="uploadId">uploadId</param>
+    /// <param name="body">Request body</param>
     [Description("--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
-    public async Task<string> KbKbidTusuploadUploadIdPatch(string kbid, string uploadId)
+    public async Task<string> KbKbidTusuploadUploadIdPatch(string kbid, string uploadId, object body)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.KbKbidTusuploadUploadIdPatchAsync(kbid, uploadId, CancellationToken.None);
+        var result = await httpClient.KbKbidTusuploadUploadIdPatchAsync(kbid, uploadId, body, CancellationToken.None);
 
         return result switch
         {
@@ -2964,11 +2979,12 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xMd5">MD5 hash of the file being uploaded. This is used to check if the file has been uploaded before.</param>
     /// <param name="xExtractStrategy">Extract strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
     /// <param name="xSplitStrategy">Split strategy to use when uploading a file. If not provided, the default strategy will be used.</param>
+    /// <param name="body">Request body</param>
     [Description("Upload a file onto a Knowledge Box, field id will be file and rid will be autogenerated. --- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`")]
-    public async Task<string> UploadKbKbidUpload(string kbid, object? xFilename = null, object? xPassword = null, object? xLanguage = null, object? xMd5 = null, object? xExtractStrategy = null, object? xSplitStrategy = null)
+    public async Task<string> UploadKbKbidUpload(string kbid, object body, object? xFilename = null, object? xPassword = null, object? xLanguage = null, object? xMd5 = null, object? xExtractStrategy = null, object? xSplitStrategy = null)
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.UploadKbKbidUploadAsync(kbid, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, CancellationToken.None);
+        var result = await httpClient.UploadKbKbidUploadAsync(kbid, body, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, CancellationToken.None);
 
         return result switch
         {
@@ -2990,10 +3006,10 @@ public class NucliaDbTools(IHttpClientFactory httpClientFactory)
     /// <param name="xNUCLIADBROLES">xNUCLIADBROLES</param>
     /// <param name="body">Request body</param>
     [Description("Create a new knowledge box")]
-    public async Task<string> CreateKnowledgeBoxKbs(string xNUCLIADBROLES, object body)
+    public async Task<string> CreateKnowledgeBoxKbs(object body, string xNUCLIADBROLES = "MANAGER")
     {
         var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.CreateKnowledgeBoxKbsAsync(xNUCLIADBROLES, body, CancellationToken.None);
+        var result = await httpClient.CreateKnowledgeBoxKbsAsync(body, xNUCLIADBROLES, CancellationToken.None);
 
         return result switch
         {

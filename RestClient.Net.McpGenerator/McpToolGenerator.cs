@@ -104,7 +104,10 @@ internal static class McpToolGenerator
             StringComparison.Ordinal
         );
         var parameters = GetParameters(operation, schemas);
-        var hasBody = GetRequestBodyType(operation) != null;
+        // Match ExtensionMethodGenerator behavior: POST/PUT/PATCH always have body
+        var hasBody = operationType == HttpMethod.Post
+            || operationType == HttpMethod.Put
+            || operationType == HttpMethod.Patch;
         var bodyType = GetRequestBodyType(operation) ?? "object";
         var responseType = GetResponseType(operation);
         var errorType = GetErrorType(operation);
@@ -146,8 +149,9 @@ internal static class McpToolGenerator
         var extensionCallArgs = new List<string>();
 
         // Separate required and optional parameters
-        var requiredParams = parameters.Where(p => p.Required || (!p.Type.Contains('?', StringComparison.Ordinal) && p.DefaultValue == null)).ToList();
-        var optionalParams = parameters.Where(p => !p.Required && (p.Type.Contains('?', StringComparison.Ordinal) || p.DefaultValue != null)).ToList();
+        // A parameter is optional if it has a default value OR is nullable, regardless of Required flag
+        var optionalParams = parameters.Where(p => p.DefaultValue != null || p.Type.Contains('?', StringComparison.Ordinal)).ToList();
+        var requiredParams = parameters.Except(optionalParams).ToList();
 
         // Add required parameters first
         foreach (var param in requiredParams)
@@ -169,7 +173,7 @@ internal static class McpToolGenerator
             methodParams.Add(FormatParameter(param));
 
             // For optional strings with default "", use null coalescing
-            if (param.Type == "string?" && param.DefaultValue == "")
+            if (param.Type == "string?" && string.IsNullOrEmpty(param.DefaultValue))
             {
                 extensionCallArgs.Add($"{param.Name} ?? \"\"");
             }
@@ -193,10 +197,11 @@ internal static class McpToolGenerator
 
         var methodParamsStr =
             methodParams.Count > 0 ? string.Join(", ", methodParams) : string.Empty;
-        var extensionCallArgsStr =
-            extensionCallArgs.Count > 0
-                ? string.Join(", ", extensionCallArgs) + ", "
-                : string.Empty;
+
+        // Always add CancellationToken.None as last parameter
+        extensionCallArgs.Add("CancellationToken.None");
+
+        var extensionCallArgsStr = string.Join(", ", extensionCallArgs);
 
         var okAlias = $"Ok{responseType}";
         var errorAlias = $"Error{responseType}";
@@ -346,11 +351,31 @@ internal static class McpToolGenerator
         }
 
         var content = successResponse.Value.Value.Content.FirstOrDefault();
-        return content.Value?.Schema is OpenApiSchemaReference schemaRef
-            ? schemaRef.Reference.Id != null
+
+        // Check if it's a schema reference (named type)
+        if (content.Value?.Schema is OpenApiSchemaReference schemaRef)
+        {
+            return schemaRef.Reference.Id != null
                 ? CodeGenerationHelpers.ToPascalCase(schemaRef.Reference.Id)
-                : "object"
-            : "object";
+                : "object";
+        }
+
+        // Check for primitive types
+        if (content.Value?.Schema != null)
+        {
+            var schema = content.Value.Schema;
+            return schema.Type switch
+            {
+                JsonSchemaType.String => "string",
+                JsonSchemaType.Integer => schema.Format == "int64" ? "long" : "int",
+                JsonSchemaType.Number => schema.Format == "float" ? "float" : "double",
+                JsonSchemaType.Boolean => "bool",
+                JsonSchemaType.Array => "object", // Arrays are complex
+                _ => "object"
+            };
+        }
+
+        return "object";
     }
 
     private static string GetErrorType(OpenApiOperation operation)
