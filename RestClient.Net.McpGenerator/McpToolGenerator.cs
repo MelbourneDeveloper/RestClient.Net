@@ -137,16 +137,29 @@ internal static class McpToolGenerator
         var methodParams = new List<string>();
         var extensionCallArgs = new List<string>();
 
-        foreach (var param in parameters)
+        // Separate required and optional parameters
+        var requiredParams = parameters.Where(p => p.Required || (!p.Type.Contains('?', StringComparison.Ordinal) && p.DefaultValue == null)).ToList();
+        var optionalParams = parameters.Where(p => !p.Required && (p.Type.Contains('?', StringComparison.Ordinal) || p.DefaultValue != null)).ToList();
+
+        // Add required parameters first
+        foreach (var param in requiredParams)
         {
-            methodParams.Add(FormatParameter(param));
+            methodParams.Add($"{param.Type} {param.Name}");
             extensionCallArgs.Add(param.Name);
         }
 
+        // Add body if required (body is always required when present)
         if (hasBody)
         {
             methodParams.Add($"{bodyType} body");
             extensionCallArgs.Add("body");
+        }
+
+        // Add optional parameters last
+        foreach (var param in optionalParams)
+        {
+            methodParams.Add(FormatParameter(param));
+            extensionCallArgs.Add(param.Name);
         }
 
         var paramDescriptions = string.Join(
@@ -174,7 +187,7 @@ internal static class McpToolGenerator
         return $$"""
             /// <summary>{{SanitizeDescription(summary)}}</summary>
                 {{paramDescriptions}}
-                [McpTool]
+                [McpServerTool]
                 [Description("{{SanitizeDescription(summary)}}")]
                 public async Task<string> {{toolName}}({{methodParamsStr}})
                 {
