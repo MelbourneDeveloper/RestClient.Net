@@ -26,7 +26,7 @@ public sealed class LiveJsonPlaceholderTests
     public async Task GetTodos_ReturnsListOfTodos()
     {
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.GetTodos().ConfigureAwait(false);
+        var result = await httpClient.GetTodosAsync().ConfigureAwait(false);
 
         var todos = result switch
         {
@@ -49,16 +49,11 @@ public sealed class LiveJsonPlaceholderTests
     [TestMethod]
     public async Task CreateTodo_ReturnsCreatedTodo()
     {
-        var newTodo = new TodoInput
-        {
-            UserId = 1,
-            Title = "Test Todo",
-            Completed = false,
-        };
+        var newTodo = new TodoInput(UserId: 1, Title: "Test Todo", Completed: false);
 
         using var httpClient = _httpClientFactory.CreateClient();
         var result = await httpClient
-            .CreateTodo(newTodo, CancellationToken.None)
+            .CreateTodoAsync(newTodo, cancellationToken: CancellationToken.None)
             .ConfigureAwait(false);
 
         var todo = result switch
@@ -82,16 +77,11 @@ public sealed class LiveJsonPlaceholderTests
     [TestMethod]
     public async Task UpdateTodo_ReturnsUpdatedTodo()
     {
-        var updatedTodo = new TodoInput
-        {
-            UserId = 1,
-            Title = "Updated Test Todo",
-            Completed = true,
-        };
+        var updatedTodo = new TodoInput(UserId: 1, Title: "Updated Test Todo", Completed: true);
 
         using var httpClient = _httpClientFactory.CreateClient();
         var result = await httpClient
-            .UpdateTodo((1, updatedTodo), CancellationToken.None)
+            .UpdateTodoAsync(1, updatedTodo, cancellationToken: CancellationToken.None)
             .ConfigureAwait(false);
 
         var todo = result switch
@@ -116,7 +106,9 @@ public sealed class LiveJsonPlaceholderTests
     public async Task DeleteTodo_Succeeds()
     {
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.DeleteTodo(1, CancellationToken.None).ConfigureAwait(false);
+        var result = await httpClient
+            .DeleteTodoAsync(id: 1, cancellationToken: CancellationToken.None)
+            .ConfigureAwait(false);
 
         Assert.IsTrue(result.IsOk);
     }
@@ -125,7 +117,9 @@ public sealed class LiveJsonPlaceholderTests
     public async Task GetPosts_ReturnsListOfPosts()
     {
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.GetPosts(CancellationToken.None).ConfigureAwait(false);
+        var result = await httpClient
+            .GetPostsAsync(cancellationToken: CancellationToken.None)
+            .ConfigureAwait(false);
 
         var posts = result switch
         {
@@ -148,16 +142,15 @@ public sealed class LiveJsonPlaceholderTests
     [TestMethod]
     public async Task CreatePost_ReturnsCreatedPost()
     {
-        var newPost = new PostInput
-        {
-            UserId = 1,
-            Title = "Test Post",
-            Body = "This is a test post body",
-        };
+        var newPost = new PostInput(
+            UserId: 1,
+            Title: "Test Post",
+            Body: "This is a test post body"
+        );
 
         using var httpClient = _httpClientFactory.CreateClient();
         var result = await httpClient
-            .CreatePost(newPost, CancellationToken.None)
+            .CreatePostAsync(newPost, cancellationToken: CancellationToken.None)
             .ConfigureAwait(false);
 
         var post = result switch
@@ -181,16 +174,15 @@ public sealed class LiveJsonPlaceholderTests
     [TestMethod]
     public async Task UpdatePost_ReturnsUpdatedPost()
     {
-        var updatedPost = new PostInput
-        {
-            UserId = 1,
-            Title = "Updated Test Post",
-            Body = "This is an updated test post body",
-        };
+        var updatedPost = new PostInput(
+            UserId: 1,
+            Title: "Updated Test Post",
+            Body: "This is an updated test post body"
+        );
 
         using var httpClient = _httpClientFactory.CreateClient();
         var result = await httpClient
-            .UpdatePost((1, updatedPost), CancellationToken.None)
+            .UpdatePostAsync(1, updatedPost, cancellationToken: CancellationToken.None)
             .ConfigureAwait(false);
 
         var post = result switch
@@ -214,7 +206,9 @@ public sealed class LiveJsonPlaceholderTests
     public async Task DeletePost_Succeeds()
     {
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.DeletePost(1, CancellationToken.None).ConfigureAwait(false);
+        var result = await httpClient
+            .DeletePostAsync(1, cancellationToken: CancellationToken.None)
+            .ConfigureAwait(false);
 
         Assert.IsTrue(result.IsOk);
     }
@@ -223,7 +217,9 @@ public sealed class LiveJsonPlaceholderTests
     public async Task GetPostById_ReturnsPost()
     {
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.GetPostById(1, CancellationToken.None).ConfigureAwait(false);
+        var result = await httpClient
+            .GetPostByIdAsync(1, cancellationToken: CancellationToken.None)
+            .ConfigureAwait(false);
 
         var post = result switch
         {
@@ -247,7 +243,9 @@ public sealed class LiveJsonPlaceholderTests
     public async Task GetUserById_ReturnsUser()
     {
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.GetUserById(1, CancellationToken.None).ConfigureAwait(false);
+        var result = await httpClient
+            .GetUserByIdAsync(1, cancellationToken: CancellationToken.None)
+            .ConfigureAwait(false);
 
         var user = result switch
         {
@@ -276,7 +274,9 @@ public sealed class LiveJsonPlaceholderTests
 #pragma warning restore CA1849
 
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.GetTodos(cts.Token).ConfigureAwait(false);
+        var result = await httpClient
+            .GetTodosAsync(cancellationToken: cts.Token)
+            .ConfigureAwait(false);
 
         var exception = result switch
         {
@@ -304,15 +304,12 @@ public sealed class LiveJsonPlaceholderTests
         cts.Cancel();
 #pragma warning restore CA1849
 
-        var newTodo = new TodoInput
-        {
-            UserId = 1,
-            Title = "Test Todo",
-            Completed = false,
-        };
+        var newTodo = new TodoInput(UserId: 1, Title: "Test Todo", Completed: false);
 
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.CreateTodo(newTodo, cts.Token).ConfigureAwait(false);
+        var result = await httpClient
+            .CreateTodoAsync(newTodo, cancellationToken: cts.Token)
+            .ConfigureAwait(false);
 
         var exception = result switch
         {
@@ -340,15 +337,12 @@ public sealed class LiveJsonPlaceholderTests
         cts.Cancel();
 #pragma warning restore CA1849
 
-        var updatedTodo = new TodoInput
-        {
-            UserId = 1,
-            Title = "Updated Test Todo",
-            Completed = true,
-        };
+        var updatedTodo = new TodoInput(UserId: 1, Title: "Updated Test Todo", Completed: true);
 
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.UpdateTodo((1, updatedTodo), cts.Token).ConfigureAwait(false);
+        var result = await httpClient
+            .UpdateTodoAsync(1, updatedTodo, cancellationToken: cts.Token)
+            .ConfigureAwait(false);
 
         var exception = result switch
         {
@@ -377,7 +371,9 @@ public sealed class LiveJsonPlaceholderTests
 #pragma warning restore CA1849
 
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.DeleteTodo(1, cts.Token).ConfigureAwait(false);
+        var result = await httpClient
+            .DeleteTodoAsync(1, cancellationToken: cts.Token)
+            .ConfigureAwait(false);
 
         var exception = result switch
         {
@@ -406,7 +402,9 @@ public sealed class LiveJsonPlaceholderTests
 #pragma warning restore CA1849
 
         using var httpClient = _httpClientFactory.CreateClient();
-        var result = await httpClient.GetPostById(1, cts.Token).ConfigureAwait(false);
+        var result = await httpClient
+            .GetPostByIdAsync(1, cancellationToken: cts.Token)
+            .ConfigureAwait(false);
 
         var exception = result switch
         {

@@ -1,3 +1,5 @@
+#pragma warning disable CA1502 // Cyclomatic complexity - TODO: Refactor Program.cs
+
 using Microsoft.Extensions.DependencyInjection;
 using RestClient.Net;
 using RestClient.Net.OpenApiGenerator;
@@ -43,7 +45,12 @@ static void PrintUsage()
     Console.WriteLine("  -n, --namespace <namespace>   The namespace (default: 'Generated')");
     Console.WriteLine("  -c, --class-name <name>       The class name (default: 'ApiExtensions')");
     Console.WriteLine("  -b, --base-url <url>          Optional base URL override");
-    Console.WriteLine("  -v, --version <version>       OpenAPI version override (e.g., '3.1.0')");
+    Console.WriteLine(
+        "  --json-naming <policy>        JSON naming policy: camelCase, PascalCase, snake_case (default: camelCase)"
+    );
+    Console.WriteLine(
+        "  --case-insensitive <bool>     Enable case-insensitive JSON deserialization (default: true)"
+    );
     Console.WriteLine("  -h, --help                    Show this help message");
 }
 
@@ -54,7 +61,8 @@ static Config? ParseArgs(string[] args)
     var namespaceName = "Generated";
     var className = "ApiExtensions";
     string? baseUrl = null;
-    string? version = null;
+    var jsonNamingPolicy = "camelCase";
+    var caseInsensitive = true;
 
     for (var i = 0; i < args.Length; i++)
     {
@@ -80,9 +88,18 @@ static Config? ParseArgs(string[] args)
             or "--base-url":
                 baseUrl = GetNextArg(args, i++, "base-url");
                 break;
-            case "-v"
-            or "--version":
-                version = GetNextArg(args, i++, "version");
+            case "--json-naming":
+                jsonNamingPolicy = GetNextArg(args, i++, "json-naming") ?? jsonNamingPolicy;
+                break;
+            case "--case-insensitive":
+                var caseInsensitiveValue = GetNextArg(args, i++, "case-insensitive");
+                if (
+                    caseInsensitiveValue != null
+                    && bool.TryParse(caseInsensitiveValue, out var parsed)
+                )
+                {
+                    caseInsensitive = parsed;
+                }
                 break;
             default:
                 break;
@@ -103,7 +120,15 @@ static Config? ParseArgs(string[] args)
         return null;
     }
 
-    return new Config(openApiUrl, outputPath, namespaceName, className, baseUrl, version);
+    return new Config(
+        openApiUrl,
+        outputPath,
+        namespaceName,
+        className,
+        baseUrl,
+        jsonNamingPolicy,
+        caseInsensitive
+    );
 }
 
 static string? GetNextArg(string[] args, int currentIndex, string optionName)
@@ -186,30 +211,36 @@ static async Task GenerateCode(Config config)
     Console.WriteLine($"Downloaded {openApiSpec.Length} characters\n");
     Console.WriteLine("Generating C# code from OpenAPI spec...");
 
-    var generatorResult = OpenApiCodeGenerator.Generate(
+    var result = OpenApiCodeGenerator.Generate(
         openApiSpec,
         @namespace: config.Namespace,
         className: config.ClassName,
         outputPath: config.OutputPath,
         baseUrlOverride: config.BaseUrl,
-        versionOverride: config.Version
+        jsonNamingPolicy: config.JsonNamingPolicy,
+        caseInsensitive: config.CaseInsensitive
     );
 
-    Console.WriteLine(
-        $"Generated {generatorResult.ExtensionMethodsCode.Length} "
-            + "characters of extension methods"
-    );
-    Console.WriteLine($"Generated {generatorResult.ModelsCode.Length} " + "characters of models");
-
-    if (generatorResult.ExtensionMethodsCode.StartsWith("//", StringComparison.Ordinal))
+#pragma warning disable IDE0010
+    switch (result)
+#pragma warning restore IDE0010
     {
-        Console.WriteLine("\nError in generated code:");
-        Console.WriteLine(generatorResult.ExtensionMethodsCode);
-        return;
+        case GeneratorOk(var generatorResult):
+            Console.WriteLine(
+                $"Generated {generatorResult.ExtensionMethodsCode.Length} "
+                    + "characters of extension methods"
+            );
+            Console.WriteLine(
+                $"Generated {generatorResult.ModelsCode.Length} " + "characters of models"
+            );
+            Console.WriteLine($"\nSaved files to: {config.OutputPath}");
+            Console.WriteLine("\nGeneration completed successfully!");
+            break;
+        case GeneratorError(var error):
+            Console.WriteLine("\nCode generation failed:");
+            Console.WriteLine(error);
+            break;
     }
-
-    Console.WriteLine($"\nSaved files to: {config.OutputPath}");
-    Console.WriteLine("\nGeneration completed successfully!");
 }
 
 static string HandleDownloadError(string message)
@@ -224,5 +255,6 @@ internal sealed record Config(
     string Namespace,
     string ClassName,
     string? BaseUrl,
-    string? Version
+    string JsonNamingPolicy,
+    bool CaseInsensitive
 );

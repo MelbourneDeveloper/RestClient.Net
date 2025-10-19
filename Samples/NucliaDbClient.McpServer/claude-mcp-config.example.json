@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "nuclia-db": {
+      "command": "/usr/local/share/dotnet/dotnet",
+      "args": [
+        "run",
+        "--project",
+        "/Users/christianfindlay/Documents/Code/RestClient.Net/Samples/NucliaDbClient.McpServer/NucliaDbClient.McpServer.csproj"
+      ],
+      "env": {
+        "NUCLIA_BASE_URL": "http://localhost:8080/api/v1"
+      }
+    }
+  }
+}

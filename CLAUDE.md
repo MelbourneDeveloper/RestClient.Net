@@ -4,18 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Code Rules
 
-- NO DUPLICATION - EVER!!!!
-- Reduce the AMOUNT of code wherever possible
+- NO DUPLICATION - EVER!!!! REMOVING DUPLICATION is the absolute HIGHEST PRIORITY!!!
+- YOU ARE NOT ALLOWED TO SKIP TESTS
 - No throwing exceptions, except for in tests
 - FP style code. Pure functions with immutable types.
-- 100% test coverage everywhere
-- Don't use Git unless I explicitly ask you to
 - Keep functions under 20 LOC
 - Keep files under 300 LOC
-- Use StyleCop.Analyzers and Microsoft.CodeAnalysis.NetAnalyzers for code quality
-- Ccode analysis warnings are always errors
-- Nullable reference types are enabled
 - NEVER copy files. Only MOVE files
+- Don't use Git unless I explicitly ask you to
+- Promote code analysis warnings to errors
+- EXHAUSTION001 is a critical error and must be turned on everywhere
+- Nullable reference types are enabled and MUST be obeyed
+- Do not back files up
+- Aggressively pursue these aims, even when it means taking more time on a task
 
 ## Build, Test, and Development Commands
 

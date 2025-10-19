@@ -243,6 +243,66 @@ public static class HttpClientExtensions
         );
 
     /// <summary>
+    /// Performs a HEAD request.
+    /// </summary>
+    /// <typeparam name="TSuccess">The type representing a successful response.</typeparam>
+    /// <typeparam name="TError">The type representing an error response.</typeparam>
+    /// <param name="httpClient">The HTTP client to use.</param>
+    /// <param name="url">The URL to send the request to.</param>
+    /// <param name="deserializeSuccess">Function to deserialize a successful response.</param>
+    /// <param name="deserializeError">Function to deserialize an error response.</param>
+    /// <param name="headers">The headers to include in the request (optional).</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A Result containing either the successful response or an HTTP error.</returns>
+    public static Task<Result<TSuccess, HttpError<TError>>> HeadAsync<TSuccess, TError>(
+        this HttpClient httpClient,
+        AbsoluteUrl url,
+        Deserialize<TSuccess> deserializeSuccess,
+        Deserialize<TError> deserializeError,
+        IReadOnlyDictionary<string, string>? headers = null,
+        CancellationToken cancellationToken = default
+    ) =>
+        httpClient.SendAsync(
+            url: url,
+            httpMethod: HttpMethod.Head,
+            deserializeSuccess: deserializeSuccess,
+            deserializeError: deserializeError,
+            requestBody: null,
+            headers: headers,
+            cancellationToken: cancellationToken
+        );
+
+    /// <summary>
+    /// Performs an OPTIONS request.
+    /// </summary>
+    /// <typeparam name="TSuccess">The type representing a successful response.</typeparam>
+    /// <typeparam name="TError">The type representing an error response.</typeparam>
+    /// <param name="httpClient">The HTTP client to use.</param>
+    /// <param name="url">The URL to send the request to.</param>
+    /// <param name="deserializeSuccess">Function to deserialize a successful response.</param>
+    /// <param name="deserializeError">Function to deserialize an error response.</param>
+    /// <param name="headers">The headers to include in the request (optional).</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A Result containing either the successful response or an HTTP error.</returns>
+    public static Task<Result<TSuccess, HttpError<TError>>> OptionsAsync<TSuccess, TError>(
+        this HttpClient httpClient,
+        AbsoluteUrl url,
+        Deserialize<TSuccess> deserializeSuccess,
+        Deserialize<TError> deserializeError,
+        IReadOnlyDictionary<string, string>? headers = null,
+        CancellationToken cancellationToken = default
+    ) =>
+        httpClient.SendAsync(
+            url: url,
+            httpMethod: HttpMethod.Options,
+            deserializeSuccess: deserializeSuccess,
+            deserializeError: deserializeError,
+            requestBody: null,
+            headers: headers,
+            cancellationToken: cancellationToken
+        );
+
+    /// <summary>
     /// Downloads a file from the specified URL to a stream.
     /// </summary>
     /// <typeparam name="TError">The type representing an error response.</typeparam>

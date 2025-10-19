@@ -38,7 +38,7 @@ public partial class MainWindowViewModel(IHttpClientFactory httpClientFactory) :
         StatusMessage = "Loading posts...";
 
         using var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.GetPosts().ConfigureAwait(false);
+        var result = await httpClient.GetPostsAsync().ConfigureAwait(false);
 
         switch (result)
         {
@@ -69,15 +69,10 @@ public partial class MainWindowViewModel(IHttpClientFactory httpClientFactory) :
         IsLoading = true;
         StatusMessage = "Creating post...";
 
-        var newPost = new PostInput
-        {
-            UserId = 1,
-            Title = NewPostTitle,
-            Body = NewPostBody,
-        };
+        var newPost = new PostInput(UserId: 1, Title: NewPostTitle, Body: NewPostBody);
 
         using var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.CreatePost(newPost, default).ConfigureAwait(false);
+        var result = await httpClient.CreatePostAsync(newPost, default).ConfigureAwait(false);
 
         switch (result)
         {
@@ -110,16 +105,15 @@ public partial class MainWindowViewModel(IHttpClientFactory httpClientFactory) :
         IsLoading = true;
         StatusMessage = "Updating post...";
 
-        var updatedPost = new PostInput
-        {
-            UserId = post.UserId,
-            Title = post.Title + " [Updated]",
-            Body = post.Body,
-        };
+        var updatedPost = new PostInput(
+            UserId: post.UserId,
+            Title: post.Title + " [Updated]",
+            Body: post.Body
+        );
 
         using var httpClient = httpClientFactory.CreateClient();
         var result = await httpClient
-            .UpdatePost((post.Id, updatedPost), default)
+            .UpdatePostAsync(post.Id, updatedPost, default)
             .ConfigureAwait(false);
 
         switch (result)
@@ -156,7 +150,7 @@ public partial class MainWindowViewModel(IHttpClientFactory httpClientFactory) :
         StatusMessage = "Deleting post...";
 
         using var httpClient = httpClientFactory.CreateClient();
-        var result = await httpClient.DeletePost(post.Id, default).ConfigureAwait(false);
+        var result = await httpClient.DeletePostAsync(post.Id, default).ConfigureAwait(false);
 
         switch (result)
         {

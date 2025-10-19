@@ -431,4 +431,66 @@ public static class HttpClientFactoryExtensions
                 )
                 .ConfigureAwait(false);
         };
+
+    /// <summary>
+    /// Creates a HEAD request delegate for the specified URL.
+    /// </summary>
+    /// <typeparam name="TSuccess">The type to deserialize successful responses to.</typeparam>
+    /// <typeparam name="TError">The type to deserialize error responses to.</typeparam>
+    /// <typeparam name="TParam">The type of parameter used to construct the request.</typeparam>
+    /// <param name="url">The absolute URL for the HEAD request.</param>
+    /// <param name="buildRequest">Function to build the request parts from parameters.</param>
+    /// <param name="deserializeSuccess">Function to deserialize successful HTTP responses.</param>
+    /// <param name="deserializeError">Function to deserialize error HTTP responses.</param>
+    /// <returns>A delegate that can execute the HEAD request with the specified parameters.</returns>
+    public static HeadAsync<TSuccess, TError, TParam> CreateHead<TSuccess, TError, TParam>(
+        AbsoluteUrl url,
+        BuildRequest<TParam> buildRequest,
+        Deserialize<TSuccess> deserializeSuccess,
+        Deserialize<TError> deserializeError
+    ) =>
+        async (httpClient, parameters, ct) =>
+        {
+            var requestParts = buildRequest(parameters);
+            return await httpClient
+                .HeadAsync(
+                    url: url.WithRelativeUrl(requestParts.RelativeUrl),
+                    deserializeSuccess: deserializeSuccess,
+                    deserializeError: deserializeError,
+                    headers: requestParts.Headers,
+                    cancellationToken: ct
+                )
+                .ConfigureAwait(false);
+        };
+
+    /// <summary>
+    /// Creates an OPTIONS request delegate for the specified URL.
+    /// </summary>
+    /// <typeparam name="TSuccess">The type to deserialize successful responses to.</typeparam>
+    /// <typeparam name="TError">The type to deserialize error responses to.</typeparam>
+    /// <typeparam name="TParam">The type of parameter used to construct the request.</typeparam>
+    /// <param name="url">The absolute URL for the OPTIONS request.</param>
+    /// <param name="buildRequest">Function to build the request parts from parameters.</param>
+    /// <param name="deserializeSuccess">Function to deserialize successful HTTP responses.</param>
+    /// <param name="deserializeError">Function to deserialize error HTTP responses.</param>
+    /// <returns>A delegate that can execute the OPTIONS request with the specified parameters.</returns>
+    public static OptionsAsync<TSuccess, TError, TParam> CreateOptions<TSuccess, TError, TParam>(
+        AbsoluteUrl url,
+        BuildRequest<TParam> buildRequest,
+        Deserialize<TSuccess> deserializeSuccess,
+        Deserialize<TError> deserializeError
+    ) =>
+        async (httpClient, parameters, ct) =>
+        {
+            var requestParts = buildRequest(parameters);
+            return await httpClient
+                .OptionsAsync(
+                    url: url.WithRelativeUrl(requestParts.RelativeUrl),
+                    deserializeSuccess: deserializeSuccess,
+                    deserializeError: deserializeError,
+                    headers: requestParts.Headers,
+                    cancellationToken: ct
+                )
+                .ConfigureAwait(false);
+        };
 }

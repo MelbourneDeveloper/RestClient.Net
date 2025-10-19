@@ -1,129 +1,57 @@
 namespace JSONPlaceholder.Generated;
 
 /// <summary>Todo</summary>
-public class Todo
-{
-    /// <summary>UserId</summary>
-    public long UserId { get; set; }
-
-    /// <summary>Id</summary>
-    public long Id { get; set; }
-
-    /// <summary>Title</summary>
-    public string Title { get; set; }
-
-    /// <summary>Completed</summary>
-    public bool Completed { get; set; }
-}
+/// <param name="UserId">UserId</param>
+/// <param name="Id">Id</param>
+/// <param name="Title">Title</param>
+/// <param name="Completed">Completed</param>
+public record Todo(long UserId, long Id, string Title, bool Completed);
 
 /// <summary>TodoInput</summary>
-public class TodoInput
-{
-    /// <summary>UserId</summary>
-    public long UserId { get; set; }
-
-    /// <summary>Title</summary>
-    public string Title { get; set; }
-
-    /// <summary>Completed</summary>
-    public bool Completed { get; set; }
-}
+/// <param name="UserId">UserId</param>
+/// <param name="Title">Title</param>
+/// <param name="Completed">Completed</param>
+public record TodoInput(long UserId, string Title, bool Completed);
 
 /// <summary>Post</summary>
-public class Post
-{
-    /// <summary>UserId</summary>
-    public long UserId { get; set; }
-
-    /// <summary>Id</summary>
-    public long Id { get; set; }
-
-    /// <summary>Title</summary>
-    public string Title { get; set; }
-
-    /// <summary>Body</summary>
-    public string Body { get; set; }
-}
+/// <param name="UserId">UserId</param>
+/// <param name="Id">Id</param>
+/// <param name="Title">Title</param>
+/// <param name="Body">Body</param>
+public record Post(long UserId, long Id, string Title, string Body);
 
 /// <summary>PostInput</summary>
-public class PostInput
-{
-    /// <summary>UserId</summary>
-    public long UserId { get; set; }
-
-    /// <summary>Title</summary>
-    public string Title { get; set; }
-
-    /// <summary>Body</summary>
-    public string Body { get; set; }
-}
+/// <param name="UserId">UserId</param>
+/// <param name="Title">Title</param>
+/// <param name="Body">Body</param>
+public record PostInput(long UserId, string Title, string Body);
 
 /// <summary>User</summary>
-public class User
-{
-    /// <summary>Id</summary>
-    public long Id { get; set; }
-
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>Username</summary>
-    public string Username { get; set; }
-
-    /// <summary>Email</summary>
-    public string Email { get; set; }
-
-    /// <summary>Address</summary>
-    public Address Address { get; set; }
-
-    /// <summary>Phone</summary>
-    public string Phone { get; set; }
-
-    /// <summary>Website</summary>
-    public string Website { get; set; }
-
-    /// <summary>Company</summary>
-    public Company Company { get; set; }
-}
+/// <param name="Id">Id</param>
+/// <param name="Name">Name</param>
+/// <param name="Username">Username</param>
+/// <param name="Email">Email</param>
+/// <param name="Address">Address</param>
+/// <param name="Phone">Phone</param>
+/// <param name="Website">Website</param>
+/// <param name="Company">Company</param>
+public record User(long Id, string Name, string Username, string Email, Address Address, string Phone, string Website, Company Company);
 
 /// <summary>Address</summary>
-public class Address
-{
-    /// <summary>Street</summary>
-    public string Street { get; set; }
-
-    /// <summary>Suite</summary>
-    public string Suite { get; set; }
-
-    /// <summary>City</summary>
-    public string City { get; set; }
-
-    /// <summary>Zipcode</summary>
-    public string Zipcode { get; set; }
-
-    /// <summary>Geo</summary>
-    public Geo Geo { get; set; }
-}
+/// <param name="Street">Street</param>
+/// <param name="Suite">Suite</param>
+/// <param name="City">City</param>
+/// <param name="Zipcode">Zipcode</param>
+/// <param name="Geo">Geo</param>
+public record Address(string Street, string Suite, string City, string Zipcode, Geo Geo);
 
 /// <summary>Geo</summary>
-public class Geo
-{
-    /// <summary>Lat</summary>
-    public string Lat { get; set; }
-
-    /// <summary>Lng</summary>
-    public string Lng { get; set; }
-}
+/// <param name="Lat">Lat</param>
+/// <param name="Lng">Lng</param>
+public record Geo(string Lat, string Lng);
 
 /// <summary>Company</summary>
-public class Company
-{
-    /// <summary>Name</summary>
-    public string Name { get; set; }
-
-    /// <summary>CatchPhrase</summary>
-    public string CatchPhrase { get; set; }
-
-    /// <summary>Bs</summary>
-    public string Bs { get; set; }
-}
+/// <param name="Name">Name</param>
+/// <param name="CatchPhrase">CatchPhrase</param>
+/// <param name="Bs">Bs</param>
+public record Company(string Name, string CatchPhrase, string Bs);

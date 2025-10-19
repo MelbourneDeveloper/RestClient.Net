@@ -12,7 +12,6 @@ dotnet_analyzer_diagnostic.category-Globalization.severity = error
 dotnet_analyzer_diagnostic.category-Documentation.severity = error
 dotnet_analyzer_diagnostic.category-Readability.severity = error
 dotnet_analyzer_diagnostic.category-Ordering.severity = error
-dotnet_analyzer_diagnostic.category-StyleCop.CSharp.OrderingRules.severity = none
 
 # Nullability
 # CS8602: Dereference of a possibly null reference.
@@ -41,7 +40,6 @@ dotnet_diagnostic.CA2000.severity = error
 dotnet_diagnostic.CA2201.severity = error
 dotnet_diagnostic.CS1591.severity = error
 dotnet_diagnostic.IDE0022.severity = error
-dotnet_diagnostic.CA1054.severity = error
 dotnet_diagnostic.CS8600.severity = error
 dotnet_diagnostic.CS8601.severity = error
 dotnet_diagnostic.CS8603.severity = error
@@ -373,9 +371,15 @@ dotnet_diagnostic.SA1400.severity = none
 dotnet_diagnostic.SA1114.severity = none
 dotnet_diagnostic.SA1118.severity = none
 dotnet_diagnostic.SA1649.severity = none
+dotnet_diagnostic.CA1054.severity = none
+
+dotnet_diagnostic.SA1200.severity = none
 
 
-
+# TODO: these are nice. Put back
+dotnet_diagnostic.SA1201.severity = none
+dotnet_diagnostic.SA1202.severity = none
+dotnet_diagnostic.SA1204.severity = none
 
 
 

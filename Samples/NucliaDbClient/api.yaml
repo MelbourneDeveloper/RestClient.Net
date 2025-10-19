@@ -3,7 +3,7 @@ info:
   description: API reference for the NucliaDB, covering all the endpoints related
     to pushing or searching contents.
   version: v1
-openapi: 3.0.2
+openapi: 3.1.0
 servers:
 - url: https://{region-x}.stashify.cloud/api/v1
   description: Development server
@@ -121,6 +121,13 @@ paths:
         schema:
           type: string
           title: Kbid
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: READER
+          title: X-NUCLIADB-ROLES
       responses:
         '200':
           description: Successful Response
@@ -642,6 +649,13 @@ paths:
           default: false
         description: If set, the response will include some extra metadata for debugging
           purposes, like the list of queried nodes.
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: READER
+          title: X-NUCLIADB-ROLES
       responses:
         '200':
           description: Successful Response
@@ -2988,6 +3002,13 @@ paths:
           title: X-Skip-Store
         description: If set to true, file fields will not be saved in the blob storage.
           They will only be sent to process.
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: WRITER
+          title: X-NUCLIADB-ROLES
       requestBody:
         required: true
         content:
@@ -3037,6 +3058,13 @@ paths:
         schema:
           type: string
           title: Rid
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: WRITER
+          title: X-NUCLIADB-ROLES
       responses:
         '204':
           description: Successful Response
@@ -3127,6 +3155,13 @@ paths:
           type: string
           default: ''
           title: X-Forwarded-For
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: READER
+          title: X-NUCLIADB-ROLES
       responses:
         '200':
           description: Successful Response
@@ -4155,6 +4190,13 @@ paths:
           type: string
           pattern: ^[a-zA-Z0-9:_-]+$
           title: Field Id
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: WRITER
+          title: X-NUCLIADB-ROLES
       requestBody:
         required: true
         content:
@@ -4415,6 +4457,13 @@ paths:
           type: string
           default: ''
           title: X-Nucliadb-User
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: WRITER
+          title: X-NUCLIADB-ROLES
       requestBody:
         required: true
         content:
@@ -4476,6 +4525,13 @@ paths:
           default: 20
           title: Size
         description: Page size
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: false
+        schema:
+          type: string
+          default: READER
+          title: X-NUCLIADB-ROLES
       responses:
         '200':
           description: Successful Response
@@ -7463,7 +7519,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /kbs: {}
+  /kbs:
+    post:
+      tags:
+      - Knowledge Boxes
+      summary: Create Knowledge Box
+      description: Create a new knowledge box
+      operationId: CreateKnowledgeBox_kbs_post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                slug:
+                  type: string
+                title:
+                  type: string
+              required:
+              - slug
+      parameters:
+      - name: X-NUCLIADB-ROLES
+        in: header
+        required: true
+        schema:
+          type: string
+          default: MANAGER
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeBoxObj'
   /kbs/import: {}
   /learning/configuration/schema:
     get:

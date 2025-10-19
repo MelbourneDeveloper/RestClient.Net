@@ -1,10 +1,31 @@
 using RestClient.Net.OpenApiGenerator;
+using GeneratorError = Outcome.Result<
+    RestClient.Net.OpenApiGenerator.GeneratorResult,
+    string
+>.Error<RestClient.Net.OpenApiGenerator.GeneratorResult, string>;
+using GeneratorOk = Outcome.Result<RestClient.Net.OpenApiGenerator.GeneratorResult, string>.Ok<
+    RestClient.Net.OpenApiGenerator.GeneratorResult,
+    string
+>;
 
 namespace RestClient.Net.OpenApiGenerator.Tests;
 
 [TestClass]
 public class OpenApiCodeGeneratorTests
 {
+    private static GeneratorResult GetSuccessResult(
+        Outcome.Result<GeneratorResult, string> result
+    ) =>
+#pragma warning disable CS8509
+        result switch
+        {
+            GeneratorOk(var r) => r,
+            GeneratorError(var error) => throw new AssertFailedException(
+                $"Generation failed: {error}"
+            ),
+        };
+#pragma warning restore CS8509
+
     private const string SimpleOpenApiSpec = """
         {
           "openapi": "3.0.0",
@@ -152,11 +173,13 @@ public class OpenApiCodeGeneratorTests
     [TestMethod]
     public void Generate_WithValidSpec_ProducesNonEmptyCode()
     {
-        var result = OpenApiCodeGenerator.Generate(
-            SimpleOpenApiSpec,
-            "TestApi",
-            "TestApiExtensions",
-            Path.GetTempPath()
+        var result = GetSuccessResult(
+            OpenApiCodeGenerator.Generate(
+                SimpleOpenApiSpec,
+                "TestApi",
+                "TestApiExtensions",
+                Path.GetTempPath()
+            )
         );
 
         // Debug: Output actual result if empty
@@ -174,33 +197,43 @@ public class OpenApiCodeGeneratorTests
             $"Missing class declaration. Code: {result.ExtensionMethodsCode.Substring(0, Math.Min(500, result.ExtensionMethodsCode.Length))}"
         );
         Assert.IsTrue(
-            result.ModelsCode.Contains("public class Pet"),
-            $"Missing Pet class. Code: {result.ModelsCode}"
+            result.ModelsCode.Contains("public record Pet"),
+            $"Missing Pet record. Code: {result.ModelsCode}"
         );
     }
 
     [TestMethod]
     public void Generate_CreatesCorrectBaseUrl()
     {
-        var result = OpenApiCodeGenerator.Generate(
-            SimpleOpenApiSpec,
-            "TestApi",
-            "TestApiExtensions",
-            Path.GetTempPath()
+        var result = GetSuccessResult(
+            OpenApiCodeGenerator.Generate(
+                SimpleOpenApiSpec,
+                "TestApi",
+                "TestApiExtensions",
+                Path.GetTempPath()
+            )
         );
 
-        Assert.IsTrue(result.ExtensionMethodsCode.Contains("\"https://api.test.com\""));
-        Assert.IsFalse(result.ExtensionMethodsCode.Contains("\"/v1\""));
+        Assert.IsTrue(
+            result.ExtensionMethodsCode.Contains("\"https://api.test.com\""),
+            $"Missing base URL. Generated code:\n{result.ExtensionMethodsCode.Substring(0, Math.Min(1000, result.ExtensionMethodsCode.Length))}"
+        );
+        Assert.IsFalse(
+            result.ExtensionMethodsCode.Contains("\"/v1\""),
+            $"Found /v1 in generated code"
+        );
     }
 
     [TestMethod]
     public void Generate_CreatesCorrectRelativeUrls()
     {
-        var result = OpenApiCodeGenerator.Generate(
-            SimpleOpenApiSpec,
-            "TestApi",
-            "TestApiExtensions",
-            Path.GetTempPath()
+        var result = GetSuccessResult(
+            OpenApiCodeGenerator.Generate(
+                SimpleOpenApiSpec,
+                "TestApi",
+                "TestApiExtensions",
+                Path.GetTempPath()
+            )
         );
 
         Assert.IsTrue(result.ExtensionMethodsCode.Contains("\"/v1/pets\""));
@@ -210,42 +243,52 @@ public class OpenApiCodeGeneratorTests
     [TestMethod]
     public void Generate_IncludesQueryParameters()
     {
-        var result = OpenApiCodeGenerator.Generate(
-            SimpleOpenApiSpec,
-            "TestApi",
-            "TestApiExtensions",
-            Path.GetTempPath()
+        var result = GetSuccessResult(
+            OpenApiCodeGenerator.Generate(
+                SimpleOpenApiSpec,
+                "TestApi",
+                "TestApiExtensions",
+                Path.GetTempPath()
+            )
         );
 
-        Assert.IsTrue(result.ExtensionMethodsCode.Contains("int limit"));
+        Assert.IsTrue(result.ExtensionMethodsCode.Contains("int? limit"));
         Assert.IsTrue(result.ExtensionMethodsCode.Contains("?limit={param}"));
     }
 
     [TestMethod]
     public void Generate_HandlesPathAndQueryParametersTogether()
     {
-        var result = OpenApiCodeGenerator.Generate(
-            SimpleOpenApiSpec,
-            "TestApi",
-            "TestApiExtensions",
-            Path.GetTempPath()
+        var result = GetSuccessResult(
+            OpenApiCodeGenerator.Generate(
+                SimpleOpenApiSpec,
+                "TestApi",
+                "TestApiExtensions",
+                Path.GetTempPath()
+            )
         );
 
         Assert.IsTrue(
-            result.ExtensionMethodsCode.Contains("string api_key")
-                && result.ExtensionMethodsCode.Contains("long petId")
+            result.ExtensionMethodsCode.Contains("string apiKey")
+                && result.ExtensionMethodsCode.Contains("long petId"),
+            $"Missing parameters. Code:\n{result.ExtensionMethodsCode}"
         );
-        Assert.IsTrue(result.ExtensionMethodsCode.Contains("?api_key={param.api_key}"));
+        Assert.IsTrue(
+            result.ExtensionMethodsCode.Contains("?api_key={param.apiKey}"),
+            $"Missing direct interpolation. Code:\n{result.ExtensionMethodsCode}"
+        );
     }
 
     [TestMethod]
     public void Generate_ResolvesSchemaReferences()
     {
-        var result = OpenApiCodeGenerator.Generate(
-            SimpleOpenApiSpec,
-            "TestApi",
-            "TestApiExtensions",
-            Path.GetTempPath()
+        var result = GetSuccessResult(
+            OpenApiCodeGenerator.Generate(
+                SimpleOpenApiSpec,
+                "TestApi",
+                "TestApiExtensions",
+                Path.GetTempPath()
+            )
         );
 
         Assert.IsTrue(result.ExtensionMethodsCode.Contains("Result<Pet,"));
@@ -256,11 +299,13 @@ public class OpenApiCodeGeneratorTests
     [TestMethod]
     public void Generate_CreatesGetMethod()
     {
-        var result = OpenApiCodeGenerator.Generate(
-            SimpleOpenApiSpec,
-            "TestApi",
-            "TestApiExtensions",
-            Path.GetTempPath()
+        var result = GetSuccessResult(
+            OpenApiCodeGenerator.Generate(
+                SimpleOpenApiSpec,
+                "TestApi",
+                "TestApiExtensions",
+                Path.GetTempPath()
+            )
         );
 
         Assert.IsTrue(result.ExtensionMethodsCode.Contains("ListPets"));
@@ -270,11 +315,13 @@ public class OpenApiCodeGeneratorTests
     [TestMethod]
     public void Generate_CreatesPostMethod()
     {
-        var result = OpenApiCodeGenerator.Generate(
-            SimpleOpenApiSpec,
-            "TestApi",
-            "TestApiExtensions",
-            Path.GetTempPath()
+        var result = GetSuccessResult(
+            OpenApiCodeGenerator.Generate(
+                SimpleOpenApiSpec,
+                "TestApi",
+                "TestApiExtensions",
+                Path.GetTempPath()
+            )
         );
 
         Assert.IsTrue(result.ExtensionMethodsCode.Contains("CreatePet"));
@@ -284,11 +331,13 @@ public class OpenApiCodeGeneratorTests
     [TestMethod]
     public void Generate_CreatesDeleteMethod()
     {
-        var result = OpenApiCodeGenerator.Generate(
-            SimpleOpenApiSpec,
-            "TestApi",
-            "TestApiExtensions",
-            Path.GetTempPath()
+        var result = GetSuccessResult(
+            OpenApiCodeGenerator.Generate(
+                SimpleOpenApiSpec,
+                "TestApi",
+                "TestApiExtensions",
+                Path.GetTempPath()
+            )
         );
 
         Assert.IsTrue(result.ExtensionMethodsCode.Contains("DeletePet"));
@@ -313,8 +362,15 @@ public class OpenApiCodeGeneratorTests
             Path.GetTempPath()
         );
 
-        Assert.IsTrue(result.ExtensionMethodsCode.StartsWith("// Error", StringComparison.Ordinal));
-        Assert.IsTrue(result.ExtensionMethodsCode.Contains("must specify at least one server"));
+#pragma warning disable CS8509
+        var error = result switch
+        {
+            GeneratorError(var e) => e,
+            GeneratorOk => throw new AssertFailedException("Expected error but got success"),
+        };
+#pragma warning restore CS8509
+
+        Assert.IsTrue(error.Contains("must specify at least one server"));
     }
 
     [TestMethod]
@@ -336,9 +392,16 @@ public class OpenApiCodeGeneratorTests
             Path.GetTempPath()
         );
 
-        Assert.IsTrue(result.ExtensionMethodsCode.StartsWith("// Error", StringComparison.Ordinal));
-        Assert.IsTrue(result.ExtensionMethodsCode.Contains("relative"));
-        Assert.IsTrue(result.ExtensionMethodsCode.Contains("baseUrlOverride"));
+#pragma warning disable CS8509
+        var error = result switch
+        {
+            GeneratorError(var e) => e,
+            GeneratorOk => throw new AssertFailedException("Expected error but got success"),
+        };
+#pragma warning restore CS8509
+
+        Assert.IsTrue(error.Contains("relative"));
+        Assert.IsTrue(error.Contains("baseUrlOverride"));
     }
 
     [TestMethod]
@@ -363,12 +426,14 @@ public class OpenApiCodeGeneratorTests
             }
             """;
 
-        var result = OpenApiCodeGenerator.Generate(
-            specWithRelativeUrl,
-            "TestApi",
-            "TestApiExtensions",
-            Path.GetTempPath(),
-            "https://example.com"
+        var result = GetSuccessResult(
+            OpenApiCodeGenerator.Generate(
+                specWithRelativeUrl,
+                "TestApi",
+                "TestApiExtensions",
+                Path.GetTempPath(),
+                "https://example.com"
+            )
         );
 
         Assert.IsTrue(result.ExtensionMethodsCode.Contains("https://example.com"));
@@ -378,17 +443,19 @@ public class OpenApiCodeGeneratorTests
     [TestMethod]
     public void Generate_CreatesModelWithCorrectProperties()
     {
-        var result = OpenApiCodeGenerator.Generate(
-            SimpleOpenApiSpec,
-            "TestApi",
-            "TestApiExtensions",
-            Path.GetTempPath()
+        var result = GetSuccessResult(
+            OpenApiCodeGenerator.Generate(
+                SimpleOpenApiSpec,
+                "TestApi",
+                "TestApiExtensions",
+                Path.GetTempPath()
+            )
         );
 
-        Assert.IsTrue(result.ModelsCode.Contains("public class Pet"));
-        Assert.IsTrue(result.ModelsCode.Contains("public long Id { get; set; }"));
-        Assert.IsTrue(result.ModelsCode.Contains("public string Name { get; set; }"));
-        Assert.IsTrue(result.ModelsCode.Contains("public string Tag { get; set; }"));
+        Assert.IsTrue(result.ModelsCode.Contains("public record Pet("));
+        Assert.IsTrue(result.ModelsCode.Contains("long Id"));
+        Assert.IsTrue(result.ModelsCode.Contains("string Name"));
+        Assert.IsTrue(result.ModelsCode.Contains("string Tag"));
     }
 
     [TestMethod]
@@ -398,11 +465,13 @@ public class OpenApiCodeGeneratorTests
 
         try
         {
-            _ = OpenApiCodeGenerator.Generate(
-                SimpleOpenApiSpec,
-                "TestApi",
-                "TestApiExtensions",
-                tempDir
+            _ = GetSuccessResult(
+                OpenApiCodeGenerator.Generate(
+                    SimpleOpenApiSpec,
+                    "TestApi",
+                    "TestApiExtensions",
+                    tempDir
+                )
             );
 
             var extensionsFile = Path.Combine(tempDir, "TestApiExtensions.g.cs");
@@ -425,11 +494,13 @@ public class OpenApiCodeGeneratorTests
     [TestMethod]
     public void Generate_CreatesPrivateStaticFuncFields()
     {
-        var result = OpenApiCodeGenerator.Generate(
-            SimpleOpenApiSpec,
-            "TestApi",
-            "TestApiExtensions",
-            Path.GetTempPath()
+        var result = GetSuccessResult(
+            OpenApiCodeGenerator.Generate(
+                SimpleOpenApiSpec,
+                "TestApi",
+                "TestApiExtensions",
+                Path.GetTempPath()
+            )
         );
 
         // Verify that private static properties with delegates are generated
@@ -445,7 +516,7 @@ public class OpenApiCodeGeneratorTests
         // Verify that public methods call the private delegates with HttpClient as first parameter
         Assert.IsTrue(
             result.ExtensionMethodsCode.Contains("(httpClient,")
-                && result.ExtensionMethodsCode.Contains(", ct)")
+                && result.ExtensionMethodsCode.Contains(", cancellationToken)")
         );
     }
 }

@@ -143,3 +143,39 @@ public delegate Task<Result<TSuccess, HttpError<TError>>> PatchAsync<TSuccess, T
     CancellationToken cancellationToken = default
 );
 #pragma warning restore CA1005 // Avoid excessive parameters on generic types
+
+/// <summary>
+/// Delegate for executing HEAD requests that return a Result with typed success and error responses.
+/// </summary>
+/// <typeparam name="TSuccess">The type of the success response body.</typeparam>
+/// <typeparam name="TError">The type of the error response body.</typeparam>
+/// <typeparam name="TParam">The type of the parameter used to construct the request URL.</typeparam>
+/// <param name="httpClient">The HttpClient to use for the request.</param>
+/// <param name="parameters">The parameters used to construct the request URL.</param>
+/// <param name="cancellationToken">Cancellation token to cancel the request.</param>
+/// <returns>A Result containing either the success response or an HttpError with the error response.</returns>
+#pragma warning disable CA1005 // Avoid excessive parameters on generic types
+public delegate Task<Result<TSuccess, HttpError<TError>>> HeadAsync<TSuccess, TError, TParam>(
+    HttpClient httpClient,
+    TParam parameters,
+    CancellationToken cancellationToken = default
+);
+#pragma warning restore CA1005 // Avoid excessive parameters on generic types
+
+/// <summary>
+/// Delegate for executing OPTIONS requests that return a Result with typed success and error responses.
+/// </summary>
+/// <typeparam name="TSuccess">The type of the success response body.</typeparam>
+/// <typeparam name="TError">The type of the error response body.</typeparam>
+/// <typeparam name="TParam">The type of the parameter used to construct the request URL.</typeparam>
+/// <param name="httpClient">The HttpClient to use for the request.</param>
+/// <param name="parameters">The parameters used to construct the request URL.</param>
+/// <param name="cancellationToken">Cancellation token to cancel the request.</param>
+/// <returns>A Result containing either the success response or an HttpError with the error response.</returns>
+#pragma warning disable CA1005 // Avoid excessive parameters on generic types
+public delegate Task<Result<TSuccess, HttpError<TError>>> OptionsAsync<TSuccess, TError, TParam>(
+    HttpClient httpClient,
+    TParam parameters,
+    CancellationToken cancellationToken = default
+);
+#pragma warning restore CA1005 // Avoid excessive parameters on generic types

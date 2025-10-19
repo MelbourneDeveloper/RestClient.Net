@@ -1,9 +1,7 @@
-using Microsoft.OpenApi.Models;
-
 namespace RestClient.Net.OpenApiGenerator;
 
 /// <summary>Generates C# model classes from OpenAPI schemas.</summary>
-internal static class ModelGenerator
+public static class ModelGenerator
 {
     /// <summary>Generates C# models from an OpenAPI document.</summary>
     /// <param name="document">The OpenAPI document.</param>
@@ -13,12 +11,23 @@ internal static class ModelGenerator
     {
         var models = new List<string>();
 
-        foreach (
-            var schema in document.Components?.Schemas ?? new Dictionary<string, OpenApiSchema>()
-        )
+        if (document.Components?.Schemas != null)
         {
-            var model = GenerateModel(schema.Key, schema.Value);
-            models.Add(model);
+            foreach (var schema in document.Components.Schemas)
+            {
+                if (schema.Value is OpenApiSchema schemaObj)
+                {
+                    // Skip string enums - they'll be mapped to string type
+                    if (IsStringEnum(schemaObj))
+                    {
+                        continue;
+                    }
+
+                    var className = CodeGenerationHelpers.ToPascalCase(schema.Key);
+                    var model = GenerateModel(className, schemaObj, document.Components.Schemas);
+                    models.Add(model);
+                }
+            }
         }
 
         var modelsCode = string.Join("\n\n", models);
@@ -30,37 +39,74 @@ internal static class ModelGenerator
             """;
     }
 
-    /// <summary>Generates a single C# model class from an OpenAPI schema.</summary>
+    /// <summary>Checks if a schema is a string enum.</summary>
+    /// <param name="schema">The schema to check.</param>
+    /// <returns>True if the schema is a string enum.</returns>
+    private static bool IsStringEnum(OpenApiSchema schema) =>
+        schema.Type == JsonSchemaType.String && schema.Enum != null && schema.Enum.Count > 0;
+
+    /// <summary>Generates a single C# model record from an OpenAPI schema.</summary>
     /// <param name="name">The name of the model.</param>
     /// <param name="schema">The OpenAPI schema.</param>
+    /// <param name="schemas">Optional schemas dictionary to check for string enums.</param>
     /// <returns>The generated model code.</returns>
-    private static string GenerateModel(string name, OpenApiSchema schema)
+    private static string GenerateModel(
+        string name,
+        OpenApiSchema schema,
+        IDictionary<string, IOpenApiSchema>? schemas = null
+    )
     {
-        var properties = schema
-            .Properties.Select(p =>
+        var parameters = (schema.Properties ?? new Dictionary<string, IOpenApiSchema>())
+            .Select(p =>
             {
                 var propName = CodeGenerationHelpers.ToPascalCase(p.Key);
-                var propType = MapOpenApiType(p.Value);
-                var propDesc = p.Value.Description ?? propName;
-                return $"    /// <summary>{propDesc}</summary>\n    public {propType} {propName} {{ get; set; }}";
+
+                // Avoid property name conflict with record name
+                if (propName.Equals(name, StringComparison.Ordinal))
+                {
+                    propName += "Value";
+                }
+
+                var propType = MapOpenApiType(p.Value, schemas);
+                var propDesc = SanitizeDescription(
+                    (p.Value as OpenApiSchema)?.Description ?? propName
+                );
+                return (
+                    ParamDoc: $"/// <param name=\"{propName}\">{propDesc}</param>",
+                    ParamDecl: $"{propType} {propName}"
+                );
             })
             .ToList();
 
-        var propertiesCode = string.Join("\n\n", properties);
+        var paramDocs = string.Join("\n", parameters.Select(p => p.ParamDoc));
+        var paramDecls = string.Join(", ", parameters.Select(p => p.ParamDecl));
+        var recordDesc = SanitizeDescription(schema.Description ?? name);
 
         return $$"""
-            /// <summary>{{schema.Description ?? name}}</summary>
-            public class {{name}}
-            {
-            {{propertiesCode}}
-            }
+            /// <summary>{{recordDesc}}</summary>
+            {{paramDocs}}
+            public record {{name}}({{paramDecls}});
             """;
     }
 
+    /// <summary>Sanitizes a description for use in XML comments.</summary>
+    /// <param name="description">The description to sanitize.</param>
+    /// <returns>A single-line description safe for XML comments.</returns>
+    private static string SanitizeDescription(string description) =>
+        description
+            .Replace("\r\n", " ", StringComparison.Ordinal)
+            .Replace("\n", " ", StringComparison.Ordinal)
+            .Replace("\r", " ", StringComparison.Ordinal)
+            .Trim();
+
     /// <summary>Maps an OpenAPI schema to a C# type.</summary>
     /// <param name="schema">The OpenAPI schema.</param>
+    /// <param name="schemas">Optional schemas dictionary to check for string enums.</param>
     /// <returns>The C# type name.</returns>
-    public static string MapOpenApiType(OpenApiSchema? schema)
+    public static string MapOpenApiType(
+        IOpenApiSchema? schema,
+        IDictionary<string, IOpenApiSchema>? schemas = null
+    )
     {
         if (schema == null)
         {
@@ -68,28 +114,53 @@ internal static class ModelGenerator
         }
 
         // Check for schema reference first
-        if (schema.Reference != null)
+        if (schema is OpenApiSchemaReference schemaRef)
         {
-            return schema.Reference.Id;
+            // Return "string" if this is a reference to a string enum, otherwise return the class name
+            return schemaRef.Reference.Id == null ? "object"
+                : schemas != null
+                && schemas.TryGetValue(schemaRef.Reference.Id, out var referencedSchema)
+                && referencedSchema is OpenApiSchema refSchemaObj
+                && IsStringEnum(refSchemaObj)
+                    ? "string"
+                : CodeGenerationHelpers.ToPascalCase(schemaRef.Reference.Id);
+        }
+
+        if (schema is not OpenApiSchema schemaObj)
+        {
+            return "object";
         }
 
         // Handle arrays
-        if (schema.Type == "array")
+        if (schemaObj.Type == JsonSchemaType.Array)
         {
-            return schema.Items?.Reference != null ? $"List<{schema.Items.Reference.Id}>"
-                : schema.Items?.Type == "string" ? "List<string>"
-                : schema.Items?.Type == "integer" ? "List<int>"
-                : schema.Items?.Type == "number" ? "List<double>"
-                : "List<object>";
+            return schemaObj.Items is OpenApiSchemaReference itemsRef
+                ? itemsRef.Reference.Id == null
+                    ? "List<object>"
+                    : schemas != null
+                    && schemas.TryGetValue(itemsRef.Reference.Id, out var itemsSchema)
+                    && itemsSchema is OpenApiSchema itemsSchemaObj
+                    && IsStringEnum(itemsSchemaObj)
+                        ? "List<string>"
+                        : $"List<{CodeGenerationHelpers.ToPascalCase(itemsRef.Reference.Id)}>"
+                : schemaObj.Items is OpenApiSchema items
+                    ? items.Type switch
+                    {
+                        JsonSchemaType.String => "List<string>",
+                        JsonSchemaType.Integer => "List<int>",
+                        JsonSchemaType.Number => "List<double>",
+                        _ => "List<object>",
+                    }
+                    : "List<object>";
         }
 
         // Handle primitive types
-        return schema.Type switch
+        return schemaObj.Type switch
         {
-            "integer" => schema.Format == "int64" ? "long" : "int",
-            "number" => schema.Format == "double" ? "double" : "float",
-            "string" => "string",
-            "boolean" => "bool",
+            JsonSchemaType.Integer => schemaObj.Format == "int64" ? "long" : "int",
+            JsonSchemaType.Number => schemaObj.Format == "double" ? "double" : "float",
+            JsonSchemaType.String => "string",
+            JsonSchemaType.Boolean => "bool",
             _ => "object",
         };
     }

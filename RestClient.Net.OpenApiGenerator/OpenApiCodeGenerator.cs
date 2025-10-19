@@ -1,10 +1,11 @@
-using Microsoft.OpenApi.Readers;
-using ErrorUrl = Outcome.Result<(string, string), string>.Error<(string, string), string>;
-using OkUrl = Outcome.Result<(string, string), string>.Ok<(string, string), string>;
+#pragma warning disable CS8509
 
 namespace RestClient.Net.OpenApiGenerator;
 
-/// <summary>Generates C# extension methods from OpenAPI specifications.</summary>
+/// <summary>Generates C# extension methods from OpenAPI specifications.
+/// This uses the Microsoft.OpenApi library to parse OpenAPI documents and generate code https://github.com/microsoft/OpenAPI.NET.
+/// See the tests here https://github.com/microsoft/OpenAPI.NET/tree/main/test/Microsoft.OpenApi.Tests to see how the API works.
+/// </summary>
 public static class OpenApiCodeGenerator
 {
     /// <summary>Generates code from an OpenAPI document.</summary>
@@ -13,71 +14,71 @@ public static class OpenApiCodeGenerator
     /// <param name="className">The class name for extension methods.</param>
     /// <param name="outputPath">The directory path where generated files will be saved.</param>
     /// <param name="baseUrlOverride">Optional base URL override. Use this when the OpenAPI spec has a relative server URL.</param>
-    /// <param name="versionOverride">Optional OpenAPI version override (e.g., "3.0.2"). Use this when the spec declares the wrong version.</param>
-    /// <returns>The generated code result.</returns>
+    /// <param name="jsonNamingPolicy">JSON naming policy (camelCase, PascalCase, snake_case).</param>
+    /// <param name="caseInsensitive">Enable case-insensitive JSON deserialization.</param>
+    /// <returns>A Result containing either the generated code or an error message with exception details.</returns>
 #pragma warning disable CA1054
-    public static GeneratorResult Generate(
+    public static Outcome.Result<GeneratorResult, string> Generate(
         string openApiContent,
         string @namespace,
         string className,
         string outputPath,
         string? baseUrlOverride = null,
-        string? versionOverride = null
+        string jsonNamingPolicy = "camelCase",
+        bool caseInsensitive = true
     )
 #pragma warning restore CA1054
     {
-        // Apply version override if specified
-        if (!string.IsNullOrEmpty(versionOverride))
+        try
         {
-#pragma warning disable SYSLIB1045
-            openApiContent = System.Text.RegularExpressions.Regex.Replace(
-                openApiContent,
-                @"^openapi:\s*[\d\.]+",
-                $"openapi: {versionOverride}",
-                System.Text.RegularExpressions.RegexOptions.Multiline
+            var settings = new OpenApiReaderSettings();
+            settings.AddYamlReader();
+
+            var readResult = OpenApiDocument.Parse(openApiContent, settings: settings);
+
+            if (readResult.Document == null)
+            {
+                return new GeneratorError("Error parsing OpenAPI: Document is null");
+            }
+
+            var document = readResult.Document;
+
+            var urlResult = UrlParser.GetBaseUrlAndPath(document, baseUrlOverride);
+
+            return urlResult is OkUrl(var (baseUrl, basePath))
+                ? GenerateCodeFiles(
+                    document,
+                    @namespace,
+                    className,
+                    outputPath,
+                    baseUrl,
+                    basePath,
+                    jsonNamingPolicy,
+                    caseInsensitive
+                )
+                : urlResult switch
+                {
+                    OkUrl => new GeneratorError("Unreachable: Ok case already handled"),
+                    ErrorUrl(var error) => new GeneratorError($"Error: {error}"),
+                };
+        }
+        catch (Exception ex)
+        {
+            return new GeneratorError(
+                $"Exception during code generation: {ex.GetType().Name}: {ex.Message}\n{ex.StackTrace}"
             );
-#pragma warning restore SYSLIB1045
         }
-
-        var reader = new OpenApiStringReader();
-        var document = reader.Read(openApiContent, out var diagnostic);
-
-        if (diagnostic.Errors.Count > 0)
-        {
-            var errors = string.Join(", ", diagnostic.Errors.Select(e => e.Message));
-            return new GeneratorResult($"// Error parsing OpenAPI: {errors}", string.Empty);
-        }
-
-        if (document == null)
-        {
-            return new GeneratorResult("// Error parsing OpenAPI: Document is null", string.Empty);
-        }
-
-        var urlResult = UrlParser.GetBaseUrlAndPath(document, baseUrlOverride);
-
-#pragma warning disable CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
-        return urlResult switch
-        {
-            OkUrl(var (baseUrl, basePath)) => GenerateCodeFiles(
-                document,
-                @namespace,
-                className,
-                outputPath,
-                baseUrl,
-                basePath
-            ),
-            ErrorUrl(var error) => new GeneratorResult($"// Error: {error}", string.Empty),
-        };
-#pragma warning restore CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
     }
 
-    private static GeneratorResult GenerateCodeFiles(
-        Microsoft.OpenApi.Models.OpenApiDocument document,
+    private static GeneratorOk GenerateCodeFiles(
+        OpenApiDocument document,
         string @namespace,
         string className,
         string outputPath,
         string baseUrl,
-        string basePath
+        string basePath,
+        string jsonNamingPolicy,
+        bool caseInsensitive
     )
     {
         var (extensionMethods, typeAliases) = ExtensionMethodGenerator.GenerateExtensionMethods(
@@ -85,7 +86,9 @@ public static class OpenApiCodeGenerator
             @namespace,
             className,
             baseUrl,
-            basePath
+            basePath,
+            jsonNamingPolicy,
+            caseInsensitive
         );
         var models = ModelGenerator.GenerateModels(document, @namespace);
 
@@ -102,6 +105,6 @@ public static class OpenApiCodeGenerator
         File.WriteAllText(modelsFile, models);
         File.WriteAllText(typeAliasesFile, typeAliases);
 
-        return new GeneratorResult(extensionMethods, models);
+        return new GeneratorOk(new GeneratorResult(extensionMethods, models));
     }
 }
