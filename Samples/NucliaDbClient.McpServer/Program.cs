@@ -30,10 +30,7 @@ builder.Services.AddHttpClient(
 builder.Services.AddSingleton<NucliaDbTools>();
 
 // Add MCP server with stdio transport and tools from assembly
-builder.Services
-    .AddMcpServer()
-    .WithStdioServerTransport()
-    .WithToolsFromAssembly();
+builder.Services.AddMcpServer().WithStdioServerTransport().WithToolsFromAssembly();
 
 var host = builder.Build();
 await host.RunAsync();

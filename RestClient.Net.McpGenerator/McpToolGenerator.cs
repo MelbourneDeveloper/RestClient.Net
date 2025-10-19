@@ -18,12 +18,14 @@ internal static class McpToolGenerator
     /// <param name="namespace">The namespace for the MCP server.</param>
     /// <param name="serverName">The MCP server name.</param>
     /// <param name="extensionsNamespace">The namespace of the extensions.</param>
+    /// <param name="includeTags">Optional set of tags to filter operations. If specified, only operations with these tags are generated.</param>
     /// <returns>The generated MCP tools code.</returns>
     public static string GenerateTools(
         OpenApiDocument document,
         string @namespace,
         string serverName,
-        string extensionsNamespace
+        string extensionsNamespace,
+        ISet<string>? includeTags = null
     )
     {
         var tools = new List<string>();
@@ -38,6 +40,21 @@ internal static class McpToolGenerator
 
             foreach (var operation in path.Value.Operations)
             {
+                // Skip if tags filter is specified and operation doesn't match
+                if (includeTags != null && includeTags.Count > 0)
+                {
+                    var operationTags = operation.Value.Tags;
+                    if (
+                        operationTags == null
+                        || !operationTags.Any(tag =>
+                            includeTags.Contains(tag.Name, StringComparer.OrdinalIgnoreCase)
+                        )
+                    )
+                    {
+                        continue;
+                    }
+                }
+
                 var toolMethod = GenerateTool(
                     path.Key,
                     operation.Key,

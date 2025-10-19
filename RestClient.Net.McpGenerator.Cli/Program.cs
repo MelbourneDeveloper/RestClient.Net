@@ -41,6 +41,9 @@ static void PrintUsage()
     Console.WriteLine(
         "  --ext-class <class>           Extensions class name (default: 'ApiExtensions')"
     );
+    Console.WriteLine(
+        "  -t, --tags <tag1,tag2>        Comma-separated list of OpenAPI tags to include (optional)"
+    );
     Console.WriteLine("  -h, --help                    Show this help message");
 }
 
@@ -52,6 +55,7 @@ static Config? ParseArgs(string[] args)
     var serverName = "ApiMcp";
     var extensionsNamespace = "Generated";
     var extensionsClass = "ApiExtensions";
+    string? tagsFilter = null;
 
     for (var i = 0; i < args.Length; i++)
     {
@@ -79,6 +83,10 @@ static Config? ParseArgs(string[] args)
             case "--ext-class":
                 extensionsClass = GetNextArg(args, i++, "ext-class") ?? extensionsClass;
                 break;
+            case "-t"
+            or "--tags":
+                tagsFilter = GetNextArg(args, i++, "tags");
+                break;
             default:
                 break;
         }
@@ -104,7 +112,8 @@ static Config? ParseArgs(string[] args)
         namespaceName,
         serverName,
         extensionsNamespace,
-        extensionsClass
+        extensionsClass,
+        tagsFilter
     );
 }
 
@@ -154,13 +163,26 @@ static async Task GenerateCode(Config config)
     }
 
     Console.WriteLine($"Read {openApiSpec.Length} characters\n");
+
+    // Parse tags filter if provided
+    ISet<string>? includeTags = null;
+    if (!string.IsNullOrWhiteSpace(config.TagsFilter))
+    {
+        includeTags = new HashSet<string>(
+            config.TagsFilter.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries),
+            StringComparer.OrdinalIgnoreCase
+        );
+        Console.WriteLine($"Filtering to tags: {string.Join(", ", includeTags)}");
+    }
+
     Console.WriteLine("Generating MCP tools code...");
 
     var result = McpServerGenerator.Generate(
         openApiSpec,
         @namespace: config.Namespace,
         serverName: config.ServerName,
-        extensionsNamespace: config.ExtensionsNamespace
+        extensionsNamespace: config.ExtensionsNamespace,
+        includeTags: includeTags
     );
 
 #pragma warning disable IDE0010
@@ -186,5 +208,6 @@ internal sealed record Config(
     string Namespace,
     string ServerName,
     string ExtensionsNamespace,
-    string ExtensionsClass
+    string ExtensionsClass,
+    string? TagsFilter
 );

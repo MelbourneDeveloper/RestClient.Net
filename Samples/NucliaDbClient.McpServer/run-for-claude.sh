@@ -1,43 +1,70 @@
 #!/bin/bash
 
-# Add the NucliaDB MCP server to Claude Code
-# This allows Claude Code to interact with NucliaDB via the Model Context Protocol
+# Setup NucliaDB MCP server for Claude Code
+# This script:
+# 1. Starts NucliaDB via docker-compose (if not running)
+# 2. Builds the MCP server
+# 3. Adds it to Claude Code configuration
 
 set -e
 
-# Get the absolute path to the project directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_PATH="$SCRIPT_DIR/NucliaDbClient.McpServer.csproj"
-
-# Find the dotnet executable
+DOCKER_DIR="$SCRIPT_DIR/../NucliaDbClient"
 DOTNET_PATH=$(which dotnet)
 
-echo "Configuring NucliaDB MCP server for Claude Code..."
-echo "  Script directory: $SCRIPT_DIR"
-echo "  Project path: $PROJECT_PATH"
-echo "  Dotnet path: $DOTNET_PATH"
+echo "NucliaDB MCP Server Setup"
+echo "========================="
 echo ""
 
-# Add the MCP server to Claude Code configuration
-# The command structure is: claude mcp add [options] <name> [--env KEY=value] -- <command> [args...]
+# Check if NucliaDB is running
+if curl -s -f "http://localhost:8080" > /dev/null 2>&1; then
+    echo "✓ NucliaDB is already running"
+else
+    echo "Starting NucliaDB..."
+    cd "$DOCKER_DIR"
+    docker-compose up -d
+
+    # Wait for NucliaDB to be ready
+    echo "Waiting for NucliaDB to start..."
+    MAX_RETRIES=30
+    RETRY_COUNT=0
+
+    while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+        if curl -s -f "http://localhost:8080" > /dev/null 2>&1; then
+            echo "✓ NucliaDB is ready!"
+            break
+        fi
+        RETRY_COUNT=$((RETRY_COUNT + 1))
+        if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
+            echo "✗ Timeout waiting for NucliaDB"
+            exit 1
+        fi
+        sleep 2
+    done
+fi
+
+echo ""
+echo "Building MCP server..."
+cd "$SCRIPT_DIR"
+dotnet build
+
+echo ""
+echo "Adding to Claude Code configuration..."
 claude mcp add --transport stdio nucliadb-mcp --env NUCLIA_BASE_URL=http://localhost:8080/api/v1 -- "$DOTNET_PATH" run --project "$PROJECT_PATH" --no-build
 
 echo ""
-echo "✓ NucliaDB MCP server added to Claude Code!"
+echo "✓ Setup complete!"
 echo ""
-echo "Next steps:"
-echo "  1. Make sure NucliaDB is running:"
-echo "     cd $SCRIPT_DIR && docker-compose up -d"
+echo "Verify with: claude mcp list"
+echo "The server should appear as 'nucliadb-mcp' with a ✓ status"
 echo ""
-echo "  2. Verify the MCP server is configured:"
-echo "     claude mcp list"
+echo "Available MCP tools (filtered to Search operations only):"
+echo "  - Ask questions on knowledge boxes"
+echo "  - Search resources (full-text, semantic, catalog)"
+echo "  - List and query knowledge box contents"
+echo "  - 18 total Search-related operations"
 echo ""
-echo "  3. Test the connection:"
-echo "     The server should appear as 'nucliadb-mcp' with a ✓ or ✗ status"
-echo ""
-echo "Available MCP tools:"
-echo "  - Knowledge box management (get, create, delete)"
-echo "  - Search (full-text, semantic, catalog)"
-echo "  - Ask (question-answering)"
-echo "  - Resources (CRUD operations)"
-echo "  - And 100+ more NucliaDB API operations!"
+echo "Note: The MCP tools are filtered to Search operations only to avoid"
+echo "      flooding Claude Code. To include more operations, regenerate"
+echo "      with different tags (see README.md)."
