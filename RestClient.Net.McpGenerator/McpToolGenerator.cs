@@ -227,7 +227,8 @@ internal static class McpToolGenerator
         var okAlias = $"Ok{responseType}";
         var errorAlias = $"Error{responseType}";
 
-        var httpClientParam = methodParamsStr.Length > 0 ? "HttpClient httpClient, " : "HttpClient httpClient";
+        var httpClientParam =
+            methodParamsStr.Length > 0 ? "HttpClient httpClient, " : "HttpClient httpClient";
         var allParams = httpClientParam + methodParamsStr;
 
         return $$"""

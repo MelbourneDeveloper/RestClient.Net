@@ -169,7 +169,10 @@ static async Task GenerateCode(Config config)
     if (!string.IsNullOrWhiteSpace(config.TagsFilter))
     {
         includeTags = new HashSet<string>(
-            config.TagsFilter.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries),
+            config.TagsFilter.Split(
+                ',',
+                StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries
+            ),
             StringComparer.OrdinalIgnoreCase
         );
         Console.WriteLine($"Filtering to tags: {string.Join(", ", includeTags)}");
