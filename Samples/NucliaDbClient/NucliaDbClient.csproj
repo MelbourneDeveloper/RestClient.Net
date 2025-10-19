@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\RestClient.Net\RestClient.Net.csproj" />
     <ProjectReference Include="..\..\RestClient.Net.OpenApiGenerator.Cli\RestClient.Net.OpenApiGenerator.Cli.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\RestClient.Net.McpGenerator.Cli\RestClient.Net.McpGenerator.Cli.csproj" ReferenceOutputAssembly="false" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
     <PackageReference Include="Urls" Version="1.0.0" />
   </ItemGroup>
