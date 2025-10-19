@@ -4,6 +4,8 @@
 
 **The safest way to make REST calls in C#**
 
+**New!** Generate MCP servers from OpenAPI specs!!!
+
 Built from the ground up with functional programming, type safety, and modern .NET patterns. Successor to the [original RestClient.Net](https://www.nuget.org/packages/RestClient.Net.Abstractions).
 
 ## What Makes It Different
@@ -16,6 +18,7 @@ This library is uncompromising in its approach to type safety and functional des
 
 ## Features
 
+- **Generate an MCP Server and client code** from an OpenAPI 3.x spec.
 - **Result Types** - Returns `Result<TSuccess, HttpError<TError>>` with closed hierarchy types for compile-time safety (Outcome package)
 - **Zero Exceptions** - No exception throwing for predictable error handling
 - **Progress Reporting** - Built-in download/upload progress tracking
@@ -108,6 +111,74 @@ global using ExceptionErrorPost = Outcome.HttpError<ErrorResponse>.ExceptionErro
 
 If you use the OpenAPI generator, it will generate these type aliases for you automatically.
 
+## OpenAPI Client and MCP Code Generation
+
+Generate type-safe C# clients and MCP servers from OpenAPI specs.
+
+### Client Generation
+
+```bash
+dotnet add package RestClient.Net.OpenApiGenerator
+```
+
+Generate extension methods from OpenAPI 3.x specs:
+
+```csharp
+// Generated code usage
+using YourApi.Generated;
+
+var httpClient = factory.CreateClient();
+
+// All HTTP methods supported with Result types
+var user = await httpClient.GetUserById("123", ct);
+var created = await httpClient.CreateUser(newUser, ct);
+var updated = await httpClient.UpdateUser((Params: "123", Body: user), ct);
+var deleted = await httpClient.DeleteUser("123", ct);
+
+// Pattern match on results
+switch (user)
+{
+    case OkUser(var success):
+        Console.WriteLine($"User: {success.Name}");
+        break;
+    case ErrorUser(var error):
+        Console.WriteLine($"Error: {error.StatusCode}");
+        break;
+}
+```
+
+The generator creates extension methods on `HttpClient`, model classes from schemas, and result type aliases for pattern matching.
+
+### MCP Server Generation
+
+Generate Model Context Protocol servers for Claude Code from OpenAPI specs:
+
+```bash
+# Generate API client first
+dotnet run --project RestClient.Net.OpenApiGenerator.Cli -- \
+  -u api.yaml \
+  -o Generated \
+  -n YourApi.Generated
+
+# Generate MCP tools from the same spec
+dotnet run --project RestClient.Net.McpGenerator.Cli -- \
+  --openapi-url api.yaml \
+  --output-file Generated/McpTools.g.cs \
+  --namespace YourApi.Mcp \
+  --server-name YourApi \
+  --ext-namespace YourApi.Generated \
+  --tags "Search,Resources"
+```
+
+The MCP generator wraps the generated extension methods as MCP tools that Claude Code can invoke.
+
+**Complete example:** See `Samples/NucliaDbClient.McpServer` for a working MCP server built from the NucliaDB OpenAPI spec. The example includes:
+- Generated client code (`Samples/NucliaDbClient/Generated`)
+- Generated MCP tools (`NucliaDbMcpTools.g.cs`)
+- MCP server host project (`NucliaDbClient.McpServer`)
+- Docker Compose setup for NucliaDB
+- Claude Code integration script (`run-for-claude.sh`)
+
 ## Exhaustiveness Checking with Exhaustion
 
 **Exhaustion is integral to RestClient.Net's safety guarantees.** It's a Roslyn analyzer that ensures you handle every possible case when pattern matching on Result types.
@@ -154,110 +225,6 @@ Exhaustion works by analyzing sealed type hierarchies in switch expressions and 
 - `Error<TSuccess, HttpError<TError>>` with `ExceptionError<TError>` - Exception during request
 
 If you don't handle all three, your code won't compile.
-
-### OpenAPI Code Generation
-
-Generate type-safe extension methods from OpenAPI specs:
-
-```csharp
-using JSONPlaceholder.Generated;
-
-// Get HttpClient from factory
-var httpClient = factory.CreateClient();
-
-// GET all todos
-var todos = await httpClient.GetTodos(ct);
-
-// GET todo by ID
-var todo = await httpClient.GetTodoById(1, ct);
-switch (todo)
-{
-    case OkTodo(var success):
-        Console.WriteLine($"Todo: {success.Title}");
-        break;
-    case ErrorTodo(var error):
-        Console.WriteLine($"Error: {error.StatusCode} - {error.Body}");
-        break;
-}
-
-// POST - create a new todo
-var newTodo = new TodoInput { Title = "New Task", UserId = 1, Completed = false };
-var created = await httpClient.CreateTodo(newTodo, ct);
-
-// PUT - update with path param and body
-var updated = await httpClient.UpdateTodo((Params: 1, Body: newTodo), ct);
-
-// DELETE - returns Unit
-var deleted = await httpClient.DeleteTodo(1, ct);
-```
-
-```bash
-dotnet add package RestClient.Net.OpenApiGenerator
-```
-
-Define your schema (OpenAPI 3.x):
-```yaml
-openapi: 3.0.0
-paths:
-  /users/{id}:
-    get:
-      operationId: getUserById
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-  /users:
-    post:
-      operationId: createUser
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-```
-
-The generator creates:
-1. **Extension methods** - Strongly-typed methods on `HttpClient`
-2. **Model classes** - DTOs from schema definitions
-3. **Result type aliases** - Convenient `OkUser` and `ErrorUser` types
-
-Generated usage:
-```csharp
-// Get HttpClient from factory
-var httpClient = factory.CreateClient();
-
-// GET with path parameter
-var user = await httpClient.GetUserById("123", ct);
-
-// POST with body
-var created = await httpClient.CreateUser(newUser, ct);
-
-// PUT with path param and body
-var updated = await httpClient.UpdateUser((Params: "123", Body: user), ct);
-
-// DELETE returns Unit
-var deleted = await httpClient.DeleteUser("123", ct);
-```
-
-All generated methods:
-- Create extension methods on `HttpClient` (use with `IHttpClientFactory.CreateClient()`)
-- Return `Result<TSuccess, HttpError<TError>>` for functional error handling
-- Bundle URL/body/headers into `HttpRequestParts` via `buildRequest`
-- Support progress reporting through `ProgressReportingHttpContent`
 
 ### Progress Reporting
 
