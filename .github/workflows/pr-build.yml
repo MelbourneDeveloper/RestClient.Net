@@ -20,13 +20,14 @@ jobs:
             8.0.x
             9.0.x
 
+      - name: Restore .NET tools
+        run: dotnet tool restore
+
       - name: Restore dependencies
         run: dotnet restore RestClient.sln
 
       - name: Check code formatting with CSharpier
-        run: |
-          dotnet tool install --global csharpier
-          dotnet csharpier --check .
+        run: dotnet csharpier --check .
 
       - name: Build solution
         run: dotnet build RestClient.sln --configuration Release --no-restore /warnaserror
@@ -44,9 +45,6 @@ jobs:
         run: |
           cd Samples/NucliaDbClient
           docker compose down -v --remove-orphans || true
-
-      - name: Install Stryker Mutator
-        run: dotnet tool install --global dotnet-stryker
 
       - name: Run Stryker Mutation Testing
         run: dotnet stryker --break-at 100 --reporter "console" --reporter "html"

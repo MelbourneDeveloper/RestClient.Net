@@ -2,6 +2,13 @@
   "version": 1,
   "isRoot": true,
   "tools": {
+    "csharpier": {
+      "version": "0.30.2",
+      "commands": [
+        "dotnet-csharpier"
+      ],
+      "rollForward": false
+    },
     "fantomas": {
       "version": "6.3.15",
       "commands": [
