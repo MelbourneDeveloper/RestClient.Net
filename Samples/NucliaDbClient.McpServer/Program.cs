@@ -16,7 +16,7 @@ builder.Logging.AddConsole(consoleLogOptions =>
 var nucleaBaseUrl =
     Environment.GetEnvironmentVariable("NUCLIA_BASE_URL") ?? "http://localhost:8080/api/v1";
 
-// Configure HttpClient with base URL
+// Configure default HttpClient with base URL
 builder.Services.AddHttpClient(
     string.Empty,
     client =>
@@ -25,9 +25,6 @@ builder.Services.AddHttpClient(
         client.Timeout = TimeSpan.FromSeconds(30);
     }
 );
-
-// Add the NucliaDB tools to DI
-builder.Services.AddSingleton<NucliaDbTools>();
 
 // Add MCP server with stdio transport and tools from assembly
 builder.Services.AddMcpServer().WithStdioServerTransport().WithToolsFromAssembly();

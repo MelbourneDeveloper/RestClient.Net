@@ -78,11 +78,13 @@ internal static class McpToolGenerator
             using System.Text.Json;
             using Outcome;
             using {{extensionsNamespace}};
+            using ModelContextProtocol.Server;
 
             namespace {{@namespace}};
 
             /// <summary>MCP server tools for {{serverName}} API.</summary>
-            public class {{serverName}}Tools(IHttpClientFactory httpClientFactory)
+            [McpServerToolType]
+            public static class {{serverName}}Tools
             {
                 private static readonly JsonSerializerOptions JsonOptions = new()
                 {
@@ -225,13 +227,16 @@ internal static class McpToolGenerator
         var okAlias = $"Ok{responseType}";
         var errorAlias = $"Error{responseType}";
 
+        var httpClientParam = methodParamsStr.Length > 0 ? "HttpClient httpClient, " : "HttpClient httpClient";
+        var allParams = httpClientParam + methodParamsStr;
+
         return $$"""
             /// <summary>{{SanitizeDescription(summary)}}</summary>
                 {{paramDescriptions}}
-                [Description("{{SanitizeDescription(summary)}}")]
-                public async Task<string> {{toolName}}({{methodParamsStr}})
+                /// <param name="httpClient">HttpClient instance</param>
+                [McpServerTool, Description("{{SanitizeDescription(summary)}}")]
+                public static async Task<string> {{toolName}}({{allParams}})
                 {
-                    var httpClient = httpClientFactory.CreateClient();
                     var result = await httpClient.{{extensionMethodName}}({{extensionCallArgsStr}});
 
                     return result switch
