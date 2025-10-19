@@ -37,7 +37,7 @@ jobs:
 
       - name: Run Stryker Mutation Testing
         working-directory: RestClient.Net.CsTest
-        run: dotnet stryker --project RestClient.Net.CsTest.csproj --break-at 100 --reporter "console" --reporter "html"
+        run: dotnet stryker --project RestClient.Net.CsTest.csproj --break-at 100
 
       - name: Verify Docker is available
         run: |
