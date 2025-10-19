@@ -105,7 +105,11 @@ public partial class MainWindowViewModel(IHttpClientFactory httpClientFactory) :
         IsLoading = true;
         StatusMessage = "Updating post...";
 
-        var updatedPost = new PostInput(UserId: post.UserId, Title: post.Title + " [Updated]", Body: post.Body);
+        var updatedPost = new PostInput(
+            UserId: post.UserId,
+            Title: post.Title + " [Updated]",
+            Body: post.Body
+        );
 
         using var httpClient = httpClientFactory.CreateClient();
         var result = await httpClient

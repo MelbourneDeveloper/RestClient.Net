@@ -31,7 +31,9 @@ public static class McpServerGenerator
 
             if (readResult.Document == null)
             {
-                return new Result<string, string>.Error<string, string>("Error parsing OpenAPI: Document is null");
+                return new Result<string, string>.Error<string, string>(
+                    "Error parsing OpenAPI: Document is null"
+                );
             }
 
             var document = readResult.Document;

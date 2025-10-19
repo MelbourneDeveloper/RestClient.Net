@@ -67,8 +67,11 @@ public sealed class NucliaDbFixture : IDisposable
             UseShellExecute = false,
         };
 
-        using var process = Process.Start(startInfo)
-            ?? throw new InvalidOperationException($"Failed to start docker process with arguments: {arguments}");
+        using var process =
+            Process.Start(startInfo)
+            ?? throw new InvalidOperationException(
+                $"Failed to start docker process with arguments: {arguments}"
+            );
 
         var output = process.StandardOutput.ReadToEnd();
         var error = process.StandardError.ReadToEnd();
@@ -114,7 +117,9 @@ public sealed class NucliaDbFixture : IDisposable
                     return;
                 }
 
-                Console.WriteLine($"Attempt {i + 1}/{maxAttempts}: Status code {response.StatusCode}");
+                Console.WriteLine(
+                    $"Attempt {i + 1}/{maxAttempts}: Status code {response.StatusCode}"
+                );
             }
             catch (Exception ex)
             {

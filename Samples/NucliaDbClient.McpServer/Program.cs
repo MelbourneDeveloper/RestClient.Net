@@ -9,11 +9,14 @@ var nucleaBaseUrl =
 var services = new ServiceCollection();
 
 // Configure HttpClient with base URL
-services.AddHttpClient("default", client =>
-{
-    client.BaseAddress = new Uri(nucleaBaseUrl);
-    client.Timeout = TimeSpan.FromSeconds(30);
-});
+services.AddHttpClient(
+    "default",
+    client =>
+    {
+        client.BaseAddress = new Uri(nucleaBaseUrl);
+        client.Timeout = TimeSpan.FromSeconds(30);
+    }
+);
 
 // Add the NucliaDB tools to DI
 services.AddSingleton<NucliaDbTools>();

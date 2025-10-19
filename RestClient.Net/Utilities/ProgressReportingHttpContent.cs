@@ -35,8 +35,7 @@ public class ProgressReportingHttpContent : HttpContent
             progress: progress,
             bufferSize: bufferSize,
             contentType: contentType
-        )
-    { }
+        ) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ProgressReportingHttpContent"/> class using a byte array as content.
@@ -56,8 +55,7 @@ public class ProgressReportingHttpContent : HttpContent
             progress: progress,
             bufferSize: bufferSize,
             contentType: contentType
-        )
-    { }
+        ) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ProgressReportingHttpContent"/> class using a stream as content.

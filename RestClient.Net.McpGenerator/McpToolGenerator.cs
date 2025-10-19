@@ -105,7 +105,8 @@ internal static class McpToolGenerator
         );
         var parameters = GetParameters(operation, schemas);
         // Match ExtensionMethodGenerator behavior: POST/PUT/PATCH always have body
-        var hasBody = operationType == HttpMethod.Post
+        var hasBody =
+            operationType == HttpMethod.Post
             || operationType == HttpMethod.Put
             || operationType == HttpMethod.Patch;
         var bodyType = GetRequestBodyType(operation) ?? "object";
@@ -116,9 +117,8 @@ internal static class McpToolGenerator
 
         // Build the full response type name for alias lookup
         // When error type is not "string", append it to response type (e.g., "KnowledgeBoxObjHTTPValidationError")
-        var fullResponseType = errorType != "string"
-            ? $"{resultResponseType}{errorType}"
-            : resultResponseType;
+        var fullResponseType =
+            errorType != "string" ? $"{resultResponseType}{errorType}" : resultResponseType;
 
         var summary = operation.Description ?? operation.Summary ?? $"{mcpToolName} operation";
 
@@ -150,7 +150,9 @@ internal static class McpToolGenerator
 
         // Separate required and optional parameters
         // A parameter is optional if it has a default value OR is nullable, regardless of Required flag
-        var optionalParams = parameters.Where(p => p.DefaultValue != null || p.Type.Contains('?', StringComparison.Ordinal)).ToList();
+        var optionalParams = parameters
+            .Where(p => p.DefaultValue != null || p.Type.Contains('?', StringComparison.Ordinal))
+            .ToList();
         var requiredParams = parameters.Except(optionalParams).ToList();
 
         // Add required parameters first
@@ -371,7 +373,7 @@ internal static class McpToolGenerator
                 JsonSchemaType.Number => schema.Format == "float" ? "float" : "double",
                 JsonSchemaType.Boolean => "bool",
                 JsonSchemaType.Array => "object", // Arrays are complex
-                _ => "object"
+                _ => "object",
             };
         }
 

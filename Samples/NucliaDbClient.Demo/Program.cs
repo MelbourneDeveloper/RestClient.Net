@@ -4,11 +4,14 @@ using Outcome;
 
 // Setup HTTP client factory
 var services = new ServiceCollection();
-services.AddHttpClient("default", client =>
-{
-    client.BaseAddress = new Uri("http://localhost:8080/api/v1");
-    client.Timeout = TimeSpan.FromSeconds(30);
-});
+services.AddHttpClient(
+    "default",
+    client =>
+    {
+        client.BaseAddress = new Uri("http://localhost:8080/api/v1");
+        client.Timeout = TimeSpan.FromSeconds(30);
+    }
+);
 
 var serviceProvider = services.BuildServiceProvider();
 var httpClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
@@ -30,14 +33,11 @@ var createResult = await httpClient.CreateKnowledgeBoxKbsAsync(createPayload).Co
 
 var kbId = createResult switch
 {
-    OkKnowledgeBoxObj ok =>
-        $"Created successfully! UUID: {ok.Value.Uuid}",
+    OkKnowledgeBoxObj ok => $"Created successfully! UUID: {ok.Value.Uuid}",
     ErrorKnowledgeBoxObj error => error.Value switch
     {
-        HttpError<string>.ErrorResponseError err =>
-            $"Error {err.StatusCode}: {err.Body}",
-        HttpError<string>.ExceptionError err =>
-            $"Exception: {err.Exception.Message}",
+        HttpError<string>.ErrorResponseError err => $"Error {err.StatusCode}: {err.Body}",
+        HttpError<string>.ExceptionError err => $"Exception: {err.Exception.Message}",
         _ => "Unknown error",
     },
 };
@@ -56,8 +56,7 @@ var kbDetails = getResult switch
     {
         HttpError<HTTPValidationError>.ErrorResponseError err =>
             $"Error {err.StatusCode}: {err.Body}",
-        HttpError<HTTPValidationError>.ExceptionError err =>
-            $"Exception: {err.Exception.Message}",
+        HttpError<HTTPValidationError>.ExceptionError err => $"Exception: {err.Exception.Message}",
         _ => "Unknown error",
     },
 };

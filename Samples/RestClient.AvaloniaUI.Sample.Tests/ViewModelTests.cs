@@ -142,7 +142,12 @@ public sealed class MainWindowViewModelTests
         using var response = GetErrorResponse();
         var httpClientFactory = CreateMockHttpClientFactory(response: response);
         var viewModel = new MainWindowViewModel(httpClientFactory);
-        var testPost = new JSONPlaceholder.Generated.Post(UserId: 1, Id: 1, Title: "Test", Body: "Body");
+        var testPost = new JSONPlaceholder.Generated.Post(
+            UserId: 1,
+            Id: 1,
+            Title: "Test",
+            Body: "Body"
+        );
 
         await viewModel.UpdatePostCommand.ExecuteAsync(testPost).ConfigureAwait(false);
 
@@ -175,7 +180,12 @@ public sealed class MainWindowViewModelTests
         using var response = GetErrorResponse();
         var httpClientFactory = CreateMockHttpClientFactory(response: response);
         var viewModel = new MainWindowViewModel(httpClientFactory);
-        var testPost = new JSONPlaceholder.Generated.Post(UserId: 1, Id: 1, Title: "Test", Body: "Body");
+        var testPost = new JSONPlaceholder.Generated.Post(
+            UserId: 1,
+            Id: 1,
+            Title: "Test",
+            Body: "Body"
+        );
         viewModel.Posts.Add(testPost);
 
         await viewModel.DeletePostCommand.ExecuteAsync(testPost).ConfigureAwait(false);

@@ -43,9 +43,7 @@ public static class ModelGenerator
     /// <param name="schema">The schema to check.</param>
     /// <returns>True if the schema is a string enum.</returns>
     private static bool IsStringEnum(OpenApiSchema schema) =>
-        schema.Type == JsonSchemaType.String &&
-        schema.Enum != null &&
-        schema.Enum.Count > 0;
+        schema.Type == JsonSchemaType.String && schema.Enum != null && schema.Enum.Count > 0;
 
     /// <summary>Generates a single C# model record from an OpenAPI schema.</summary>
     /// <param name="name">The name of the model.</param>
@@ -73,7 +71,10 @@ public static class ModelGenerator
                 var propDesc = SanitizeDescription(
                     (p.Value as OpenApiSchema)?.Description ?? propName
                 );
-                return (ParamDoc: $"/// <param name=\"{propName}\">{propDesc}</param>", ParamDecl: $"{propType} {propName}");
+                return (
+                    ParamDoc: $"/// <param name=\"{propName}\">{propDesc}</param>",
+                    ParamDecl: $"{propType} {propName}"
+                );
             })
             .ToList();
 
@@ -116,13 +117,12 @@ public static class ModelGenerator
         if (schema is OpenApiSchemaReference schemaRef)
         {
             // Return "string" if this is a reference to a string enum, otherwise return the class name
-            return schemaRef.Reference.Id == null
-                ? "object"
-                : schemas != null &&
-                    schemas.TryGetValue(schemaRef.Reference.Id, out var referencedSchema) &&
-                    referencedSchema is OpenApiSchema refSchemaObj &&
-                    IsStringEnum(refSchemaObj)
-                ? "string"
+            return schemaRef.Reference.Id == null ? "object"
+                : schemas != null
+                && schemas.TryGetValue(schemaRef.Reference.Id, out var referencedSchema)
+                && referencedSchema is OpenApiSchema refSchemaObj
+                && IsStringEnum(refSchemaObj)
+                    ? "string"
                 : CodeGenerationHelpers.ToPascalCase(schemaRef.Reference.Id);
         }
 
@@ -137,21 +137,21 @@ public static class ModelGenerator
             return schemaObj.Items is OpenApiSchemaReference itemsRef
                 ? itemsRef.Reference.Id == null
                     ? "List<object>"
-                    : schemas != null &&
-                        schemas.TryGetValue(itemsRef.Reference.Id, out var itemsSchema) &&
-                        itemsSchema is OpenApiSchema itemsSchemaObj &&
-                        IsStringEnum(itemsSchemaObj)
-                    ? "List<string>"
-                    : $"List<{CodeGenerationHelpers.ToPascalCase(itemsRef.Reference.Id)}>"
+                    : schemas != null
+                    && schemas.TryGetValue(itemsRef.Reference.Id, out var itemsSchema)
+                    && itemsSchema is OpenApiSchema itemsSchemaObj
+                    && IsStringEnum(itemsSchemaObj)
+                        ? "List<string>"
+                        : $"List<{CodeGenerationHelpers.ToPascalCase(itemsRef.Reference.Id)}>"
                 : schemaObj.Items is OpenApiSchema items
-                ? items.Type switch
-                {
-                    JsonSchemaType.String => "List<string>",
-                    JsonSchemaType.Integer => "List<int>",
-                    JsonSchemaType.Number => "List<double>",
-                    _ => "List<object>",
-                }
-                : "List<object>";
+                    ? items.Type switch
+                    {
+                        JsonSchemaType.String => "List<string>",
+                        JsonSchemaType.Integer => "List<int>",
+                        JsonSchemaType.Number => "List<double>",
+                        _ => "List<object>",
+                    }
+                    : "List<object>";
         }
 
         // Handle primitive types

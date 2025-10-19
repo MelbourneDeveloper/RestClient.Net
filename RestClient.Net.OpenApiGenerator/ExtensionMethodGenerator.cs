@@ -816,7 +816,10 @@ public static class ExtensionMethodGenerator
             : "object";
     }
 
-    private static string GenerateTypeAliasesFile(HashSet<(string SuccessType, string ErrorType)> resultTypes, string @namespace)
+    private static string GenerateTypeAliasesFile(
+        HashSet<(string SuccessType, string ErrorType)> resultTypes,
+        string @namespace
+    )
     {
         if (resultTypes.Count == 0)
         {
@@ -843,7 +846,11 @@ public static class ExtensionMethodGenerator
             return aliases;
         }
 
-        foreach (var (successType, errorType) in resultTypes.OrderBy(t => t.SuccessType).ThenBy(t => t.ErrorType))
+        foreach (
+            var (successType, errorType) in resultTypes
+                .OrderBy(t => t.SuccessType)
+                .ThenBy(t => t.ErrorType)
+        )
         {
             var typeName = successType
                 .Replace("List<", string.Empty, StringComparison.Ordinal)
@@ -854,10 +861,13 @@ public static class ExtensionMethodGenerator
                 : string.Empty;
 
             // Include error type in alias name if not string (to avoid conflicts)
-            var errorTypeName = errorType == "string" ? "" : errorType
-                .Replace("List<", string.Empty, StringComparison.Ordinal)
-                .Replace(">", string.Empty, StringComparison.Ordinal)
-                .Replace(".", string.Empty, StringComparison.Ordinal);
+            var errorTypeName =
+                errorType == "string"
+                    ? ""
+                    : errorType
+                        .Replace("List<", string.Empty, StringComparison.Ordinal)
+                        .Replace(">", string.Empty, StringComparison.Ordinal)
+                        .Replace(".", string.Empty, StringComparison.Ordinal);
             var aliasName = $"{typeName}{pluralSuffix}{errorTypeName}";
 
             // Qualify type names with namespace (except for System types and Outcome.Unit)
