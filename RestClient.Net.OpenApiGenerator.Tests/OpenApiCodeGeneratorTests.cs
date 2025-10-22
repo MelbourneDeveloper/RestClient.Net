@@ -604,13 +604,31 @@ public class OpenApiCodeGeneratorTests
 
         // Verify anyOf properties are correctly typed - THIS PROVES BUG #142 IS FIXED
         Assert.IsTrue(result.ModelsCode.Contains("public record KnowledgeBoxObj("));
-        Assert.IsTrue(result.ModelsCode.Contains("string? Slug"), $"Expected 'string? Slug' but got: {result.ModelsCode}");
-        Assert.IsTrue(result.ModelsCode.Contains("string Uuid"), $"Expected 'string Uuid' but got: {result.ModelsCode}");
-        Assert.IsTrue(result.ModelsCode.Contains("KnowledgeBoxConfig? Config"), $"Expected 'KnowledgeBoxConfig? Config' but got: {result.ModelsCode}");
-        Assert.IsTrue(result.ModelsCode.Contains("SemanticModelMetadata? Model"), $"Expected 'SemanticModelMetadata? Model' but got: {result.ModelsCode}");
+        Assert.IsTrue(
+            result.ModelsCode.Contains("string? Slug"),
+            $"Expected 'string? Slug' but got: {result.ModelsCode}"
+        );
+        Assert.IsTrue(
+            result.ModelsCode.Contains("string Uuid"),
+            $"Expected 'string Uuid' but got: {result.ModelsCode}"
+        );
+        Assert.IsTrue(
+            result.ModelsCode.Contains("KnowledgeBoxConfig? Config"),
+            $"Expected 'KnowledgeBoxConfig? Config' but got: {result.ModelsCode}"
+        );
+        Assert.IsTrue(
+            result.ModelsCode.Contains("SemanticModelMetadata? Model"),
+            $"Expected 'SemanticModelMetadata? Model' but got: {result.ModelsCode}"
+        );
         Assert.IsFalse(result.ModelsCode.Contains("object Slug"), "Should not have 'object Slug'");
-        Assert.IsFalse(result.ModelsCode.Contains("object Config"), "Should not have 'object Config'");
-        Assert.IsFalse(result.ModelsCode.Contains("object Model"), "Should not have 'object Model'");
+        Assert.IsFalse(
+            result.ModelsCode.Contains("object Config"),
+            "Should not have 'object Config'"
+        );
+        Assert.IsFalse(
+            result.ModelsCode.Contains("object Model"),
+            "Should not have 'object Model'"
+        );
     }
 
     [TestMethod]
@@ -1707,8 +1725,14 @@ public class OpenApiCodeGeneratorTests
             OpenApiCodeGenerator.Generate(spec, "TestApi", "TestApiExtensions", Path.GetTempPath())
         );
 
-        Assert.IsTrue(result.ExtensionMethodsCode.Contains("authorization"), "Should contain 'authorization'");
-        Assert.IsTrue(result.ExtensionMethodsCode.Contains("xRequestID"), "Should contain 'xRequestID'");
+        Assert.IsTrue(
+            result.ExtensionMethodsCode.Contains("authorization"),
+            "Should contain 'authorization'"
+        );
+        Assert.IsTrue(
+            result.ExtensionMethodsCode.Contains("xRequestID"),
+            "Should contain 'xRequestID'"
+        );
     }
 
     [TestMethod]
