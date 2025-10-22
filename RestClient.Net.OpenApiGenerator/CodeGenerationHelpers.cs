@@ -15,8 +15,31 @@ public static partial class CodeGenerationHelpers
             return text;
         }
 
-        var parts = text.Split(['-', '_', ' '], StringSplitOptions.RemoveEmptyEntries);
+        var sanitized = SanitizeIdentifier(text);
+        var parts = sanitized.Split(['-', '_', ' '], StringSplitOptions.RemoveEmptyEntries);
         return string.Join(string.Empty, parts.Select(p => char.ToUpperInvariant(p[0]) + p[1..]));
+    }
+
+    /// <summary>Removes invalid C# identifier characters from a string.</summary>
+    /// <param name="text">The text to sanitize.</param>
+    /// <returns>The sanitized text with invalid characters removed.</returns>
+    private static string SanitizeIdentifier(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return text;
+        }
+
+        var result = new System.Text.StringBuilder(text.Length);
+        foreach (var c in text)
+        {
+            if (char.IsLetterOrDigit(c) || c == '_' || c == '-' || c == ' ')
+            {
+                _ = result.Append(c);
+            }
+        }
+
+        return result.ToString();
     }
 
     /// <summary>Converts a string to camelCase.</summary>
