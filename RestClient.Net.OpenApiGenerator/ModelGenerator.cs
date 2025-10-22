@@ -33,6 +33,7 @@ public static class ModelGenerator
         var modelsCode = string.Join("\n\n", models);
 
         return $$"""
+            #nullable enable
             namespace {{@namespace}};
 
             {{modelsCode}}
@@ -129,6 +130,25 @@ public static class ModelGenerator
         if (schema is not OpenApiSchema schemaObj)
         {
             return "object";
+        }
+
+        // Handle anyOf schemas
+        if (schemaObj.AnyOf != null && schemaObj.AnyOf.Count > 0)
+        {
+            // Filter out null types and get the first non-null type
+            // Handle both OpenApiSchema with Type != Null and OpenApiSchemaReference
+            var nonNullSchema = schemaObj.AnyOf.FirstOrDefault(s =>
+                s is OpenApiSchemaReference
+                || (s is OpenApiSchema os && os.Type != JsonSchemaType.Null)
+            );
+
+            if (nonNullSchema != null)
+            {
+                // Recursively resolve the type
+                var baseType = MapOpenApiType(nonNullSchema, schemas);
+                // Make it nullable since it's in an anyOf with null
+                return baseType.EndsWith('?') ? baseType : $"{baseType}?";
+            }
         }
 
         // Handle arrays
