@@ -1,0 +1,112 @@
+---
+layout: layouts/base.njk
+title: RestClient.Net - C# 类型安全 REST 客户端
+lang: zh
+permalink: /zh/
+---
+
+<section class="hero">
+  <div class="container">
+    <h1>RestClient.Net</h1>
+    <p class="hero-tagline">C# 中最安全的 REST 调用方式。基于函数式编程、类型安全和现代 .NET 模式从头构建。</p>
+    <div class="hero-actions">
+      <a href="/zh/docs/" class="btn btn-primary">开始使用</a>
+      <a href="https://github.com/MelbourneDeveloper/RestClient.Net" class="btn btn-secondary">在 GitHub 上查看</a>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="features">
+    <div class="feature-card">
+      <h3>Result 类型</h3>
+      <p>返回 <code>Result&lt;TSuccess, HttpError&lt;TError&gt;&gt;</code>，使用封闭层次类型实现编译时安全。不再猜测异常处理。</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>零异常</h3>
+      <p>不抛出异常，实现可预测的错误处理。每种可能的结果都在类型系统中表示。</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>穷尽性检查</h3>
+      <p>使用 Exhaustion 分析器保证编译时完整性。如果你没有处理所有情况，代码将无法编译。</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>HttpClient 扩展</h3>
+      <p>与 <code>IHttpClientFactory.CreateClient()</code> 配合使用，实现正确的连接池和 DNS 行为处理。</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>OpenAPI 生成器</h3>
+      <p>从 OpenAPI 3.x 规范生成类型安全的 C# 客户端。自动生成模型和 Result 类型别名。</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>MCP 服务器生成器</h3>
+      <p>从 OpenAPI 规范为 Claude Code 生成模型上下文协议服务器。AI 就绪的 API 集成。</p>
+    </div>
+  </div>
+</section>
+
+<section class="container" style="padding: 3rem 0;">
+  <h2 style="text-align: center; margin-bottom: 2rem;">快速安装</h2>
+  {% highlight "bash" %}dotnet add package RestClient.Net{% endhighlight %}
+
+  <h2 style="text-align: center; margin: 3rem 0 2rem;">基本用法</h2>
+  {% highlight "csharp" %}using RestClient.Net;
+
+// 发起 GET 请求
+var result = await httpClient
+    .GetAsync(
+        url: "https://api.example.com/posts/1".ToAbsoluteUrl(),
+        deserializeSuccess: DeserializePost,
+        deserializeError: DeserializeError
+    );
+
+// 模式匹配结果 - 必须处理所有情况
+var output = result switch
+{
+    OkPost(var post) => $"成功: {post.Title}",
+    ErrorPost(ResponseErrorPost(var err, var status, _)) => $"错误 {status}",
+    ErrorPost(ExceptionErrorPost(var ex)) => $"异常: {ex.Message}",
+};{% endhighlight %}
+</section>
+
+<section class="container" style="padding: 3rem 0; background: var(--color-bg-secondary); margin: 0 -1.5rem; padding-left: 1.5rem; padding-right: 1.5rem;">
+  <h2 style="text-align: center; margin-bottom: 1rem;">为什么使用可辨识联合？</h2>
+  <p style="text-align: center; max-width: 40rem; margin: 0 auto 2rem; color: var(--color-text-secondary);">
+    C# 尚未正式支持可辨识联合，但 RestClient.Net 今天就将这种强大的模式带入你的代码。配合 Exhaustion 分析器，遗漏任何情况都会导致编译失败。
+  </p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 60rem; margin: 0 auto;">
+    <div>
+      <h4 style="color: var(--color-error);">不使用 Exhaustion</h4>
+      {% highlight "csharp" %}// 危险 - 编译通过但可能抛出异常
+var output = result switch
+{
+    OkPost(var post) => "成功",
+    ErrorPost(ResponseErrorPost(...)) => "错误",
+    // 遗漏了 ExceptionErrorPost！
+    // 运行时崩溃等着发生
+};{% endhighlight %}
+    </div>
+    <div>
+      <h4 style="color: var(--color-success);">使用 Exhaustion</h4>
+      {% highlight "csharp" %}// 安全 - 编译器报错！
+// error EXHAUSTION001: Switch 不完整
+// 遗漏: ExceptionErrorPost
+// 构建失败直到处理所有情况{% endhighlight %}
+    </div>
+  </div>
+</section>
+
+<section class="container" style="padding: 3rem 0;">
+  <h2 style="text-align: center; margin-bottom: 2rem;">准备好开始了吗？</h2>
+  <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+    <a href="/zh/docs/" class="btn btn-primary">阅读文档</a>
+    <a href="/zh/docs/openapi/" class="btn btn-secondary">OpenAPI 生成器</a>
+    <a href="/zh/docs/mcp/" class="btn btn-secondary">MCP 服务器</a>
+  </div>
+</section>

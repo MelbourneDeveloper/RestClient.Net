@@ -1,0 +1,117 @@
+---
+layout: layouts/base.njk
+title: RestClient.Net - Type-Safe REST Client for C#
+lang: en
+permalink: /
+---
+
+<section class="hero">
+  <div class="container">
+    <img src="/assets/images/Logo.jpg" alt="RestClient.Net Logo" class="hero-logo">
+    <h1><span>RestClient.Net</span></h1>
+    <p class="hero-tagline">The safest way to make REST calls in C#. Built with functional programming, compile-time exhaustiveness, and modern .NET patterns.</p>
+    <div class="hero-actions">
+      <a href="/docs/" class="btn btn-primary">Get Started</a>
+      <a href="https://github.com/MelbourneDeveloper/RestClient.Net" class="btn btn-secondary">View on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="features">
+    <div class="feature-card">
+      <h3>Result Types</h3>
+      <p>Returns <code>Result&lt;TSuccess, HttpError&lt;TError&gt;&gt;</code> with closed hierarchy types for compile-time safety. No more exception handling guesswork.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Zero Exceptions</h3>
+      <p>No exception throwing for predictable error handling. Every possible outcome is represented in the type system.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Exhaustiveness Checking</h3>
+      <p>Uses the Exhaustion analyzer for compile-time completeness guarantees. If you don't handle all cases, it won't compile.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>HttpClient Extensions</h3>
+      <p>Works with <code>IHttpClientFactory.CreateClient()</code> for proper pooled connections and DNS behavior handling.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>OpenAPI Generator</h3>
+      <p>Generate type-safe C# clients from OpenAPI 3.x specs. Automatic model generation and result type aliases.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>MCP Server Generator</h3>
+      <p>Generate Model Context Protocol servers for Claude Code from OpenAPI specs. AI-ready API integration.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container mt-2xl">
+  <h2 class="text-center">Quick Install</h2>
+  {% highlight "bash" %}dotnet add package RestClient.Net{% endhighlight %}
+</section>
+
+<section class="container mt-2xl">
+  <h2 class="text-center">Basic Usage</h2>
+  {% highlight "csharp" %}using RestClient.Net;
+
+// Make a GET request
+var result = await httpClient
+    .GetAsync(
+        url: "https://api.example.com/posts/1".ToAbsoluteUrl(),
+        deserializeSuccess: DeserializePost,
+        deserializeError: DeserializeError
+    );
+
+// Pattern match on the result - MUST handle all cases
+var output = result switch
+{
+    OkPost(var post) => $"Success: {post.Title}",
+    ErrorPost(ResponseErrorPost(var err, var status, _)) => $"Error {status}",
+    ErrorPost(ExceptionErrorPost(var ex)) => $"Exception: {ex.Message}",
+};{% endhighlight %}
+</section>
+
+<section class="mt-2xl" style="background: var(--bg-secondary); padding: var(--space-12) 0;">
+  <div class="container">
+    <h2 class="text-center" style="margin-top: 0;">Why Discriminated Unions?</h2>
+    <p class="text-center" style="max-width: 40rem; margin: 0 auto var(--space-8); color: var(--text-secondary);">
+      C# doesn't officially support discriminated unions yet, but RestClient.Net brings this powerful pattern to your code today. With the Exhaustion analyzer, missing a case means your code won't compile.
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-8); max-width: 60rem; margin: 0 auto;">
+      <div class="feature-card" style="border-left: 4px solid var(--color-error);">
+        <h4 style="color: var(--color-error); margin-top: 0;">Without Exhaustion</h4>
+        {% highlight "csharp" %}// DANGEROUS - compiles but may throw
+var output = result switch
+{
+    OkPost(var post) => "Success",
+    ErrorPost(ResponseErrorPost(...)) => "Error",
+    // Missing ExceptionErrorPost!
+    // Runtime crash waiting to happen
+};{% endhighlight %}
+      </div>
+      <div class="feature-card" style="border-left: 4px solid var(--color-success);">
+        <h4 style="color: var(--color-success); margin-top: 0;">With Exhaustion</h4>
+        {% highlight "csharp" %}// SAFE - compiler error!
+// error EXHAUSTION001: Switch not exhaustive
+// Missing: ExceptionErrorPost
+// Build fails until you handle all cases{% endhighlight %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container mt-2xl mb-2xl">
+  <h2 class="text-center">Ready to Get Started?</h2>
+  <div class="flex justify-center gap-md flex-wrap">
+    <a href="/docs/" class="btn btn-primary">Read the Docs</a>
+    <a href="/docs/openapi/" class="btn btn-secondary" style="background: var(--color-surface); color: var(--color-primary); border: 2px solid var(--color-primary);">OpenAPI Generator</a>
+    <a href="/docs/mcp/" class="btn btn-secondary" style="background: var(--color-surface); color: var(--color-primary); border: 2px solid var(--color-primary);">MCP Server</a>
+  </div>
+</section>

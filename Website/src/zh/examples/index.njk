@@ -1,0 +1,281 @@
+---
+layout: layouts/base.njk
+title: 代码示例
+lang: zh
+permalink: /zh/examples/
+---
+<div style="max-width: 900px; margin: 0 auto; padding: 2rem;">
+  <h1>代码示例</h1>
+  <p style="color: var(--color-muted); margin-bottom: 2rem;">常见场景的完整可用示例</p>
+
+  <div class="examples-grid" style="display: grid; gap: 2rem;">
+
+    <section>
+      <h2 id="basic-get">基本 GET 请求</h2>
+      <p>使用类型安全的错误处理从 REST API 获取数据。</p>
+      {% highlight "csharp" %}using System.Net.Http.Json;
+using RestClient.Net;
+using Urls;
+
+// 定义模型
+record Post(int UserId, int Id, string Title, string Body);
+record ApiError(string Message);
+
+// 类型别名，用于简洁的模式匹配
+using OkPost = Outcome.Result<Post, Outcome.HttpError<ApiError>>
+    .Ok<Post, Outcome.HttpError<ApiError>>;
+using ErrorPost = Outcome.Result<Post, Outcome.HttpError<ApiError>>
+    .Error<Post, Outcome.HttpError<ApiError>>;
+using ResponseErrorPost = Outcome.HttpError<ApiError>.ErrorResponseError;
+using ExceptionErrorPost = Outcome.HttpError<ApiError>.ExceptionError;
+
+// 发起请求
+using var httpClient = new HttpClient();
+var result = await httpClient.GetAsync(
+    url: "https://jsonplaceholder.typicode.com/posts/1".ToAbsoluteUrl(),
+    deserializeSuccess: async (content, ct) =>
+        await content.ReadFromJsonAsync<Post>(ct) ?? throw new Exception("Null"),
+    deserializeError: async (content, ct) =>
+        await content.ReadFromJsonAsync<ApiError>(ct) ?? new ApiError("Unknown")
+);
+
+// 处理所有情况
+var message = result switch
+{
+    OkPost(var post) => $"标题: {post.Title}",
+    ErrorPost(ResponseErrorPost(var err, var status, _)) => $"错误 {status}: {err.Message}",
+    ErrorPost(ExceptionErrorPost(var ex)) => $"异常: {ex.Message}",
+};
+
+Console.WriteLine(message);{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="post-request">带请求体的 POST 请求</h2>
+      <p>使用 JSON 请求体创建新资源。</p>
+      {% highlight "csharp" %}record CreatePostRequest(string Title, string Body, int UserId);
+
+var newPost = new CreatePostRequest("我的标题", "我的内容", 1);
+
+var result = await httpClient.PostAsync(
+    url: "https://jsonplaceholder.typicode.com/posts".ToAbsoluteUrl(),
+    body: newPost,
+    serializeRequest: body => JsonContent.Create(body),
+    deserializeSuccess: async (content, ct) =>
+        await content.ReadFromJsonAsync<Post>(ct) ?? throw new Exception("Null"),
+    deserializeError: async (content, ct) =>
+        await content.ReadFromJsonAsync<ApiError>(ct) ?? new ApiError("Unknown")
+);
+
+var message = result switch
+{
+    OkPost(var post) => $"创建的文章 ID: {post.Id}",
+    ErrorPost(ResponseErrorPost(var err, var status, _)) => $"失败: {status}",
+    ErrorPost(ExceptionErrorPost(var ex)) => $"异常: {ex.Message}",
+};{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="ihttpclientfactory">使用 IHttpClientFactory</h2>
+      <p>在 ASP.NET Core 应用程序中正确使用 HttpClient。</p>
+      {% highlight "csharp" %}// Program.cs - 注册客户端
+builder.Services.AddHttpClient("api", client =>
+{
+    client.BaseAddress = new Uri("https://api.example.com");
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+    client.Timeout = TimeSpan.FromSeconds(30);
+});
+
+// UserService.cs - 使用客户端
+public class UserService(IHttpClientFactory httpClientFactory)
+{
+    public async Task<Result<User, HttpError<ApiError>>> GetUserAsync(
+        string userId,
+        CancellationToken ct = default)
+    {
+        var client = httpClientFactory.CreateClient("api");
+
+        return await client.GetAsync(
+            url: $"/users/{userId}".ToAbsoluteUrl(),
+            deserializeSuccess: Deserializers.Json<User>,
+            deserializeError: Deserializers.Error,
+            cancellationToken: ct
+        );
+    }
+}{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="retry-policy">使用 Polly 的重试策略</h2>
+      <p>为瞬态故障添加自动重试。</p>
+      {% highlight "csharp" %}// Program.cs
+builder.Services.AddHttpClient("api")
+    .AddStandardResilienceHandler(options =>
+    {
+        options.Retry.MaxRetryAttempts = 3;
+        options.Retry.Delay = TimeSpan.FromMilliseconds(500);
+        options.Retry.UseJitter = true;
+        options.Retry.ShouldHandle = args => ValueTask.FromResult(
+            args.Outcome.Exception is not null ||
+            args.Outcome.Result?.StatusCode >= HttpStatusCode.InternalServerError
+        );
+    });{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="authentication">认证处理器</h2>
+      <p>自动为请求添加认证令牌。</p>
+      {% highlight "csharp" %}public class AuthenticationHandler(ITokenService tokenService) : DelegatingHandler
+{
+    protected override async Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage request,
+        CancellationToken cancellationToken)
+    {
+        var token = await tokenService.GetAccessTokenAsync(cancellationToken);
+
+        request.Headers.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
+
+        var response = await base.SendAsync(request, cancellationToken);
+
+        // 如果令牌过期则刷新
+        if (response.StatusCode == HttpStatusCode.Unauthorized)
+        {
+            token = await tokenService.RefreshTokenAsync(cancellationToken);
+            request.Headers.Authorization =
+                new AuthenticationHeaderValue("Bearer", token);
+            response = await base.SendAsync(request, cancellationToken);
+        }
+
+        return response;
+    }
+}
+
+// Program.cs
+builder.Services.AddTransient<AuthenticationHandler>();
+builder.Services.AddHttpClient("api")
+    .AddHttpMessageHandler<AuthenticationHandler>();{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="status-code-handling">状态码特定处理</h2>
+      <p>针对不同的 HTTP 状态码进行不同处理。</p>
+      {% highlight "csharp" %}var result = await httpClient.GetUserAsync(userId);
+
+var message = result switch
+{
+    OkUser(var user) => $"找到: {user.Name}",
+
+    // 未找到 - 用户不存在
+    ErrorUser(ResponseErrorUser(_, HttpStatusCode.NotFound, _)) =>
+        "用户未找到。请检查 ID。",
+
+    // 未授权 - 需要登录
+    ErrorUser(ResponseErrorUser(_, HttpStatusCode.Unauthorized, _)) =>
+        "请登录以查看此用户。",
+
+    // 禁止访问 - 无权限
+    ErrorUser(ResponseErrorUser(_, HttpStatusCode.Forbidden, _)) =>
+        "您没有权限查看此用户。",
+
+    // 请求过多
+    ErrorUser(ResponseErrorUser(_, HttpStatusCode.TooManyRequests, var response)) =>
+    {
+        var retryAfter = response.Headers.RetryAfter?.Delta;
+        return $"请求过多。请在 {retryAfter?.TotalSeconds ?? 60} 秒后重试。";
+    },
+
+    // 服务器错误
+    ErrorUser(ResponseErrorUser(var err, var status, _)) when (int)status >= 500 =>
+        "服务器出现问题。请稍后重试。",
+
+    // 其他 API 错误
+    ErrorUser(ResponseErrorUser(var err, var status, _)) =>
+        $"API 错误 {(int)status}: {err.Message}",
+
+    // 网络/超时错误
+    ErrorUser(ExceptionErrorUser(TaskCanceledException ex))
+        when ex.CancellationToken.IsCancellationRequested =>
+        "请求已取消。",
+
+    ErrorUser(ExceptionErrorUser(TaskCanceledException)) =>
+        "请求超时。请重试。",
+
+    ErrorUser(ExceptionErrorUser(HttpRequestException)) =>
+        "网络错误。请检查您的连接。",
+
+    ErrorUser(ExceptionErrorUser(var ex)) =>
+        $"意外错误: {ex.Message}",
+};{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="chaining-operations">链式多个请求</h2>
+      <p>链接依赖的 API 调用并正确传播错误。</p>
+      {% highlight "csharp" %}// 获取用户，然后获取他们的订单，再获取订单详情
+public async Task<Result<OrderDetails, HttpError<ApiError>>> GetUserOrderDetailsAsync(
+    string userId,
+    CancellationToken ct)
+{
+    // 首先，获取用户
+    var userResult = await httpClient.GetUserAsync(userId, ct);
+
+    return await userResult switch
+    {
+        OkUser(var user) => await GetOrdersForUserAsync(user, ct),
+        ErrorUser(var error) => new Result<OrderDetails, HttpError<ApiError>>
+            .Error(error),
+    };
+}
+
+private async Task<Result<OrderDetails, HttpError<ApiError>>> GetOrdersForUserAsync(
+    User user,
+    CancellationToken ct)
+{
+    var ordersResult = await httpClient.GetOrdersAsync(user.Id, ct);
+
+    return ordersResult switch
+    {
+        OkOrders(var orders) => new Result<OrderDetails, HttpError<ApiError>>
+            .Ok(new OrderDetails(user, orders)),
+        ErrorOrders(var error) => new Result<OrderDetails, HttpError<ApiError>>
+            .Error(error),
+    };
+}{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="parallel-requests">并行请求</h2>
+      <p>并行发起多个独立请求。</p>
+      {% highlight "csharp" %}public async Task<Dashboard> GetDashboardAsync(string userId, CancellationToken ct)
+{
+    // 并行启动所有请求
+    var userTask = httpClient.GetUserAsync(userId, ct);
+    var ordersTask = httpClient.GetOrdersAsync(userId, ct);
+    var notificationsTask = httpClient.GetNotificationsAsync(userId, ct);
+
+    // 等待所有请求完成
+    await Task.WhenAll(userTask, ordersTask, notificationsTask);
+
+    var userResult = await userTask;
+    var ordersResult = await ordersTask;
+    var notificationsResult = await notificationsTask;
+
+    // 合并结果
+    return (userResult, ordersResult, notificationsResult) switch
+    {
+        (OkUser(var user), OkOrders(var orders), OkNotifications(var notifications)) =>
+            new Dashboard(user, orders, notifications),
+
+        (ErrorUser(var e), _, _) =>
+            throw new Exception($"加载用户失败: {e}"),
+        (_, ErrorOrders(var e), _) =>
+            throw new Exception($"加载订单失败: {e}"),
+        (_, _, ErrorNotifications(var e)) =>
+            throw new Exception($"加载通知失败: {e}"),
+    };
+}{% endhighlight %}
+    </section>
+
+  </div>
+</div>

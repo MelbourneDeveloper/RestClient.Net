@@ -1,0 +1,19 @@
+{
+  "name": "restclient-net-website",
+  "version": "1.0.0",
+  "description": "RestClient.Net documentation website",
+  "type": "module",
+  "scripts": {
+    "generate-api": "node scripts/generate-api-docs.js",
+    "dev": "npx @11ty/eleventy --serve",
+    "build": "npm run generate-api && npx @11ty/eleventy",
+    "test": "playwright test"
+  },
+  "dependencies": {
+    "eleventy-plugin-techdoc": "^0.1.0"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@playwright/test": "^1.40.0"
+  }
+}

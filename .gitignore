@@ -15,3 +15,10 @@ coverage.cobertura.xml
 final-check/
 test-output-final
 nupkgs/
+
+# Website
+Website/node_modules/
+Website/_site/
+Website/package-lock.json
+Website/playwright-report/
+Website/test-results/

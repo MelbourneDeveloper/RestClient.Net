@@ -1,0 +1,12 @@
+{
+  "name": "RestClient.Net",
+  "title": "RestClient.Net",
+  "description": "The safest way to make REST calls in C#. Built with functional programming, type safety, and modern .NET patterns.",
+  "url": "https://restclient.net",
+  "stylesheet": "/assets/css/styles.css",
+  "author": "Christian Findlay",
+  "twitterSite": "@caborean",
+  "ogImage": "/assets/images/Logo.jpg",
+  "themeColor": "#3D9970",
+  "keywords": "C#, .NET, REST, HTTP, API, functional programming, type safety, HttpClient"
+}

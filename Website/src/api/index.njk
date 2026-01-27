@@ -1,0 +1,87 @@
+---
+layout: layouts/base.njk
+title: API Reference
+lang: en
+permalink: /api/
+---
+<div style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+  <h1>API Reference</h1>
+  <p style="color: var(--color-muted); margin-bottom: 2rem;">Complete API documentation for RestClient.Net</p>
+
+  <h2>Core API</h2>
+  <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+    <a href="/api/httpclient-extensions/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">HttpClient Extensions</h3>
+      <p style="margin: 0; color: var(--color-muted);"><a href="/api/httpclient-extensions/#getasync" style="color: var(--color-primary);">GetAsync</a>, <a href="/api/httpclient-extensions/#postasync" style="color: var(--color-primary);">PostAsync</a>, <a href="/api/httpclient-extensions/#putasync" style="color: var(--color-primary);">PutAsync</a>, <a href="/api/httpclient-extensions/#deleteasync" style="color: var(--color-primary);">DeleteAsync</a>, <a href="/api/httpclient-extensions/#patchasync" style="color: var(--color-primary);">PatchAsync</a></p>
+    </a>
+    <a href="/api/result-types/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">Result Types</h3>
+      <p style="margin: 0; color: var(--color-muted);"><a href="/api/result-types/#resulttsuccessterror" style="color: var(--color-primary);">Result&lt;T,E&gt;</a>, <a href="/api/result-types/#httperrorterror" style="color: var(--color-primary);">HttpError</a>, <a href="/api/result-types/#type-aliases" style="color: var(--color-primary);">Type Aliases</a></p>
+    </a>
+    <a href="/api/serialization/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">Serialization</h3>
+      <p style="margin: 0; color: var(--color-muted);"><a href="/api/serialization/#json-deserialization" style="color: var(--color-primary);">JSON</a>, <a href="/api/serialization/#custom-content-types" style="color: var(--color-primary);">Custom Serializers</a>, <a href="/api/serialization/#stream-response" style="color: var(--color-primary);">Response Handling</a></p>
+    </a>
+  </div>
+
+  <h2>Code Generators</h2>
+  <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+    <a href="/api/openapi-generator/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">OpenAPI Generator</h3>
+      <p style="margin: 0; color: var(--color-muted);">Generate type-safe C# clients from <a href="https://swagger.io/specification/" style="color: var(--color-primary);">OpenAPI 3.x</a></p>
+    </a>
+    <a href="/api/mcp-generator/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">MCP Generator</h3>
+      <p style="margin: 0; color: var(--color-muted);">Generate <a href="https://modelcontextprotocol.io/" style="color: var(--color-primary);">MCP servers</a> for AI integration</p>
+    </a>
+  </div>
+
+  <h2>Guides</h2>
+  <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+    <a href="/docs/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">Getting Started</h3>
+      <p style="margin: 0; color: var(--color-muted);">Installation and basic usage</p>
+    </a>
+    <a href="/docs/exhaustion/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">Exhaustion Analyzer</h3>
+      <p style="margin: 0; color: var(--color-muted);">Compile-time exhaustiveness checking with <a href="https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/" style="color: var(--color-primary);">Roslyn</a></p>
+    </a>
+  </div>
+
+  <h2 style="margin-top: 3rem;">NuGet Packages</h2>
+  <table style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr style="border-bottom: 2px solid var(--color-border);">
+        <th style="text-align: left; padding: 0.75rem;">Package</th>
+        <th style="text-align: left; padding: 0.75rem;">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid var(--color-border);">
+        <td style="padding: 0.75rem;"><a href="https://www.nuget.org/packages/RestClient.Net"><code>RestClient.Net</code></a></td>
+        <td style="padding: 0.75rem;">Core library with <a href="/api/httpclient-extensions/">HttpClient extensions</a></td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--color-border);">
+        <td style="padding: 0.75rem;"><a href="https://www.nuget.org/packages/RestClient.Net.OpenApiGenerator"><code>RestClient.Net.OpenApiGenerator</code></a></td>
+        <td style="padding: 0.75rem;"><a href="/api/openapi-generator/">OpenAPI 3.x client generator</a></td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--color-border);">
+        <td style="padding: 0.75rem;"><a href="https://www.nuget.org/packages/RestClient.Net.McpGenerator"><code>RestClient.Net.McpGenerator</code></a></td>
+        <td style="padding: 0.75rem;"><a href="/api/mcp-generator/">MCP server generator</a></td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--color-border);">
+        <td style="padding: 0.75rem;"><a href="https://www.nuget.org/packages/Exhaustion"><code>Exhaustion</code></a></td>
+        <td style="padding: 0.75rem;"><a href="https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/">Roslyn analyzer</a> for <a href="/api/result-types/#exhaustion-analyzer">switch exhaustiveness</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin-top: 3rem;">External References</h2>
+  <ul>
+    <li><a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclient">HttpClient</a> - .NET HTTP client</li>
+    <li><a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.ihttpclientfactory">IHttpClientFactory</a> - Factory for HttpClient pooling</li>
+    <li><a href="https://learn.microsoft.com/en-us/dotnet/api/system.text.json">System.Text.Json</a> - JSON serialization</li>
+    <li><a href="https://swagger.io/specification/">OpenAPI Specification</a> - API specification format</li>
+    <li><a href="https://modelcontextprotocol.io/">Model Context Protocol</a> - AI tool integration</li>
+  </ul>
+</div>

@@ -1,0 +1,167 @@
+{
+  "main": [
+    {
+      "text": "Home",
+      "url": "/"
+    },
+    {
+      "text": "Docs",
+      "url": "/docs/"
+    },
+    {
+      "text": "API",
+      "url": "/api/"
+    },
+    {
+      "text": "Examples",
+      "url": "/examples/"
+    },
+    {
+      "text": "Blog",
+      "url": "/blog/"
+    },
+    {
+      "text": "GitHub",
+      "url": "https://github.com/MelbourneDeveloper/RestClient.Net",
+      "external": true
+    }
+  ],
+  "docs": [
+    {
+      "title": "Getting Started",
+      "items": [
+        {
+          "text": "Introduction",
+          "url": "/docs/"
+        },
+        {
+          "text": "Installation",
+          "url": "/docs/installation/"
+        },
+        {
+          "text": "Basic Usage",
+          "url": "/docs/basic-usage/"
+        },
+        {
+          "text": "Error Handling",
+          "url": "/docs/error-handling/"
+        },
+        {
+          "text": "Advanced Usage",
+          "url": "/docs/advanced-usage/"
+        }
+      ]
+    },
+    {
+      "title": "Tools",
+      "items": [
+        {
+          "text": "OpenAPI Generator",
+          "url": "/docs/openapi/"
+        },
+        {
+          "text": "MCP Server",
+          "url": "/docs/mcp/"
+        },
+        {
+          "text": "Exhaustion Analyzer",
+          "url": "/docs/exhaustion/"
+        }
+      ]
+    },
+    {
+      "title": "API Reference",
+      "items": [
+        {
+          "text": "Overview",
+          "url": "/api/"
+        },
+        {
+          "text": "HTTP Methods",
+          "url": "/api/http-methods/"
+        },
+        {
+          "text": "HttpClient Extensions",
+          "url": "/api/httpclient-extensions/"
+        },
+        {
+          "text": "Result Types",
+          "url": "/api/result-types/"
+        },
+        {
+          "text": "Serialization",
+          "url": "/api/serialization/"
+        },
+        {
+          "text": "URL Handling",
+          "url": "/api/url-handling/"
+        }
+      ]
+    }
+  ],
+  "footer": [
+    {
+      "title": "Documentation",
+      "items": [
+        {
+          "text": "Getting Started",
+          "url": "/docs/"
+        },
+        {
+          "text": "Installation",
+          "url": "/docs/installation/"
+        },
+        {
+          "text": "Error Handling",
+          "url": "/docs/error-handling/"
+        },
+        {
+          "text": "OpenAPI Generator",
+          "url": "/docs/openapi/"
+        },
+        {
+          "text": "MCP Server",
+          "url": "/docs/mcp/"
+        }
+      ]
+    },
+    {
+      "title": "Community",
+      "items": [
+        {
+          "text": "GitHub",
+          "url": "https://github.com/MelbourneDeveloper/RestClient.Net"
+        },
+        {
+          "text": "NuGet",
+          "url": "https://www.nuget.org/packages/RestClient.Net"
+        },
+        {
+          "text": "Twitter",
+          "url": "https://twitter.com/caborean"
+        }
+      ]
+    },
+    {
+      "title": "Resources",
+      "items": [
+        {
+          "text": "Blog",
+          "url": "/blog/"
+        },
+        {
+          "text": "Code Examples",
+          "url": "/examples/"
+        },
+        {
+          "text": "API Reference",
+          "url": "/api/"
+        },
+        {
+          "text": "Exhaustion Analyzer",
+          "url": "https://www.nuget.org/packages/Exhaustion"
+        }
+      ]
+    }
+  ]
+}

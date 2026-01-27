@@ -1,0 +1,280 @@
+---
+layout: layouts/base.njk
+title: Code Examples
+permalink: /examples/
+---
+<div style="max-width: 900px; margin: 0 auto; padding: 2rem;">
+  <h1>Code Examples</h1>
+  <p style="color: var(--color-muted); margin-bottom: 2rem;">Complete, working examples for common scenarios</p>
+
+  <div class="examples-grid" style="display: grid; gap: 2rem;">
+
+    <section>
+      <h2 id="basic-get">Basic GET Request</h2>
+      <p>Fetch data from a REST API with type-safe error handling.</p>
+      {% highlight "csharp" %}using System.Net.Http.Json;
+using RestClient.Net;
+using Urls;
+
+// Define models
+record Post(int UserId, int Id, string Title, string Body);
+record ApiError(string Message);
+
+// Type aliases for clean pattern matching
+using OkPost = Outcome.Result<Post, Outcome.HttpError<ApiError>>
+    .Ok<Post, Outcome.HttpError<ApiError>>;
+using ErrorPost = Outcome.Result<Post, Outcome.HttpError<ApiError>>
+    .Error<Post, Outcome.HttpError<ApiError>>;
+using ResponseErrorPost = Outcome.HttpError<ApiError>.ErrorResponseError;
+using ExceptionErrorPost = Outcome.HttpError<ApiError>.ExceptionError;
+
+// Make the request
+using var httpClient = new HttpClient();
+var result = await httpClient.GetAsync(
+    url: "https://jsonplaceholder.typicode.com/posts/1".ToAbsoluteUrl(),
+    deserializeSuccess: async (content, ct) =>
+        await content.ReadFromJsonAsync<Post>(ct) ?? throw new Exception("Null"),
+    deserializeError: async (content, ct) =>
+        await content.ReadFromJsonAsync<ApiError>(ct) ?? new ApiError("Unknown")
+);
+
+// Handle all cases
+var message = result switch
+{
+    OkPost(var post) => $"Title: {post.Title}",
+    ErrorPost(ResponseErrorPost(var err, var status, _)) => $"Error {status}: {err.Message}",
+    ErrorPost(ExceptionErrorPost(var ex)) => $"Exception: {ex.Message}",
+};
+
+Console.WriteLine(message);{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="post-request">POST Request with Body</h2>
+      <p>Create a new resource with a JSON request body.</p>
+      {% highlight "csharp" %}record CreatePostRequest(string Title, string Body, int UserId);
+
+var newPost = new CreatePostRequest("My Title", "My content", 1);
+
+var result = await httpClient.PostAsync(
+    url: "https://jsonplaceholder.typicode.com/posts".ToAbsoluteUrl(),
+    body: newPost,
+    serializeRequest: body => JsonContent.Create(body),
+    deserializeSuccess: async (content, ct) =>
+        await content.ReadFromJsonAsync<Post>(ct) ?? throw new Exception("Null"),
+    deserializeError: async (content, ct) =>
+        await content.ReadFromJsonAsync<ApiError>(ct) ?? new ApiError("Unknown")
+);
+
+var message = result switch
+{
+    OkPost(var post) => $"Created post with ID: {post.Id}",
+    ErrorPost(ResponseErrorPost(var err, var status, _)) => $"Failed: {status}",
+    ErrorPost(ExceptionErrorPost(var ex)) => $"Exception: {ex.Message}",
+};{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="ihttpclientfactory">Using IHttpClientFactory</h2>
+      <p>Proper HttpClient usage in ASP.NET Core applications.</p>
+      {% highlight "csharp" %}// Program.cs - Register the client
+builder.Services.AddHttpClient("api", client =>
+{
+    client.BaseAddress = new Uri("https://api.example.com");
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+    client.Timeout = TimeSpan.FromSeconds(30);
+});
+
+// UserService.cs - Use the client
+public class UserService(IHttpClientFactory httpClientFactory)
+{
+    public async Task<Result<User, HttpError<ApiError>>> GetUserAsync(
+        string userId,
+        CancellationToken ct = default)
+    {
+        var client = httpClientFactory.CreateClient("api");
+
+        return await client.GetAsync(
+            url: $"/users/{userId}".ToAbsoluteUrl(),
+            deserializeSuccess: Deserializers.Json<User>,
+            deserializeError: Deserializers.Error,
+            cancellationToken: ct
+        );
+    }
+}{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="retry-policy">Retry Policy with Polly</h2>
+      <p>Add automatic retries for transient failures.</p>
+      {% highlight "csharp" %}// Program.cs
+builder.Services.AddHttpClient("api")
+    .AddStandardResilienceHandler(options =>
+    {
+        options.Retry.MaxRetryAttempts = 3;
+        options.Retry.Delay = TimeSpan.FromMilliseconds(500);
+        options.Retry.UseJitter = true;
+        options.Retry.ShouldHandle = args => ValueTask.FromResult(
+            args.Outcome.Exception is not null ||
+            args.Outcome.Result?.StatusCode >= HttpStatusCode.InternalServerError
+        );
+    });{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="authentication">Authentication Handler</h2>
+      <p>Automatically add authentication tokens to requests.</p>
+      {% highlight "csharp" %}public class AuthenticationHandler(ITokenService tokenService) : DelegatingHandler
+{
+    protected override async Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage request,
+        CancellationToken cancellationToken)
+    {
+        var token = await tokenService.GetAccessTokenAsync(cancellationToken);
+
+        request.Headers.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
+
+        var response = await base.SendAsync(request, cancellationToken);
+
+        // Refresh token if expired
+        if (response.StatusCode == HttpStatusCode.Unauthorized)
+        {
+            token = await tokenService.RefreshTokenAsync(cancellationToken);
+            request.Headers.Authorization =
+                new AuthenticationHeaderValue("Bearer", token);
+            response = await base.SendAsync(request, cancellationToken);
+        }
+
+        return response;
+    }
+}
+
+// Program.cs
+builder.Services.AddTransient<AuthenticationHandler>();
+builder.Services.AddHttpClient("api")
+    .AddHttpMessageHandler<AuthenticationHandler>();{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="status-code-handling">Status Code Specific Handling</h2>
+      <p>Handle different HTTP status codes differently.</p>
+      {% highlight "csharp" %}var result = await httpClient.GetUserAsync(userId);
+
+var message = result switch
+{
+    OkUser(var user) => $"Found: {user.Name}",
+
+    // Not Found - user doesn't exist
+    ErrorUser(ResponseErrorUser(_, HttpStatusCode.NotFound, _)) =>
+        "User not found. Please check the ID.",
+
+    // Unauthorized - need to log in
+    ErrorUser(ResponseErrorUser(_, HttpStatusCode.Unauthorized, _)) =>
+        "Please log in to view this user.",
+
+    // Forbidden - not allowed
+    ErrorUser(ResponseErrorUser(_, HttpStatusCode.Forbidden, _)) =>
+        "You don't have permission to view this user.",
+
+    // Rate limited
+    ErrorUser(ResponseErrorUser(_, HttpStatusCode.TooManyRequests, var response)) =>
+    {
+        var retryAfter = response.Headers.RetryAfter?.Delta;
+        return $"Too many requests. Try again in {retryAfter?.TotalSeconds ?? 60} seconds.";
+    },
+
+    // Server error
+    ErrorUser(ResponseErrorUser(var err, var status, _)) when (int)status >= 500 =>
+        "The server is experiencing issues. Please try again later.",
+
+    // Other API errors
+    ErrorUser(ResponseErrorUser(var err, var status, _)) =>
+        $"API Error {(int)status}: {err.Message}",
+
+    // Network/timeout errors
+    ErrorUser(ExceptionErrorUser(TaskCanceledException ex))
+        when ex.CancellationToken.IsCancellationRequested =>
+        "Request was cancelled.",
+
+    ErrorUser(ExceptionErrorUser(TaskCanceledException)) =>
+        "Request timed out. Please try again.",
+
+    ErrorUser(ExceptionErrorUser(HttpRequestException)) =>
+        "Network error. Please check your connection.",
+
+    ErrorUser(ExceptionErrorUser(var ex)) =>
+        $"Unexpected error: {ex.Message}",
+};{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="chaining-operations">Chaining Multiple Requests</h2>
+      <p>Chain dependent API calls with proper error propagation.</p>
+      {% highlight "csharp" %}// Get user, then get their orders, then get order details
+public async Task<Result<OrderDetails, HttpError<ApiError>>> GetUserOrderDetailsAsync(
+    string userId,
+    CancellationToken ct)
+{
+    // First, get the user
+    var userResult = await httpClient.GetUserAsync(userId, ct);
+
+    return await userResult switch
+    {
+        OkUser(var user) => await GetOrdersForUserAsync(user, ct),
+        ErrorUser(var error) => new Result<OrderDetails, HttpError<ApiError>>
+            .Error(error),
+    };
+}
+
+private async Task<Result<OrderDetails, HttpError<ApiError>>> GetOrdersForUserAsync(
+    User user,
+    CancellationToken ct)
+{
+    var ordersResult = await httpClient.GetOrdersAsync(user.Id, ct);
+
+    return ordersResult switch
+    {
+        OkOrders(var orders) => new Result<OrderDetails, HttpError<ApiError>>
+            .Ok(new OrderDetails(user, orders)),
+        ErrorOrders(var error) => new Result<OrderDetails, HttpError<ApiError>>
+            .Error(error),
+    };
+}{% endhighlight %}
+    </section>
+
+    <section>
+      <h2 id="parallel-requests">Parallel Requests</h2>
+      <p>Make multiple independent requests in parallel.</p>
+      {% highlight "csharp" %}public async Task<Dashboard> GetDashboardAsync(string userId, CancellationToken ct)
+{
+    // Start all requests in parallel
+    var userTask = httpClient.GetUserAsync(userId, ct);
+    var ordersTask = httpClient.GetOrdersAsync(userId, ct);
+    var notificationsTask = httpClient.GetNotificationsAsync(userId, ct);
+
+    // Wait for all to complete
+    await Task.WhenAll(userTask, ordersTask, notificationsTask);
+
+    var userResult = await userTask;
+    var ordersResult = await ordersTask;
+    var notificationsResult = await notificationsTask;
+
+    // Combine results
+    return (userResult, ordersResult, notificationsResult) switch
+    {
+        (OkUser(var user), OkOrders(var orders), OkNotifications(var notifications)) =>
+            new Dashboard(user, orders, notifications),
+
+        (ErrorUser(var e), _, _) =>
+            throw new Exception($"Failed to load user: {e}"),
+        (_, ErrorOrders(var e), _) =>
+            throw new Exception($"Failed to load orders: {e}"),
+        (_, _, ErrorNotifications(var e)) =>
+            throw new Exception($"Failed to load notifications: {e}"),
+    };
+}{% endhighlight %}
+    </section>
+
+  </div>
+</div>

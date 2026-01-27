@@ -1,0 +1,82 @@
+---
+layout: layouts/base.njk
+title: API 参考
+lang: zh
+permalink: /zh/api/
+---
+<div style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+  <h1>API 参考</h1>
+  <p style="color: var(--color-muted); margin-bottom: 2rem;">RestClient.Net 完整 API 文档</p>
+
+  <h2>核心 API</h2>
+  <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+    <a href="/zh/api/httpclient-extensions/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">HttpClient 扩展</h3>
+      <p style="margin: 0; color: var(--color-muted);">GetAsync, PostAsync, PutAsync, DeleteAsync, PatchAsync</p>
+    </a>
+    <a href="/zh/api/result-types/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">Result 类型</h3>
+      <p style="margin: 0; color: var(--color-muted);">Result&lt;T,E&gt;, HttpError, 类型别名, 模式匹配</p>
+    </a>
+    <a href="/zh/api/serialization/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">序列化</h3>
+      <p style="margin: 0; color: var(--color-muted);">JSON, 自定义序列化器, 请求/响应处理</p>
+    </a>
+    <a href="/zh/api/configuration/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">配置</h3>
+      <p style="margin: 0; color: var(--color-muted);">IHttpClientFactory, 认证, 重试策略</p>
+    </a>
+  </div>
+
+  <h2>代码生成器</h2>
+  <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+    <a href="/zh/api/openapi-generator/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">OpenAPI 生成器</h3>
+      <p style="margin: 0; color: var(--color-muted);">从 OpenAPI 3.x 生成类型安全的 C# 客户端</p>
+    </a>
+    <a href="/zh/api/mcp-generator/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">MCP 生成器</h3>
+      <p style="margin: 0; color: var(--color-muted);">为 AI 集成生成 MCP 服务器</p>
+    </a>
+  </div>
+
+  <h2>指南</h2>
+  <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+    <a href="/zh/docs/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">入门指南</h3>
+      <p style="margin: 0; color: var(--color-muted);">安装和基本用法</p>
+    </a>
+    <a href="/zh/docs/exhaustion/" class="feature-card" style="display: block; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; text-decoration: none;">
+      <h3 style="margin: 0 0 0.5rem 0;">Exhaustion 分析器</h3>
+      <p style="margin: 0; color: var(--color-muted);">编译时穷尽性检查</p>
+    </a>
+  </div>
+
+  <h2 style="margin-top: 3rem;">NuGet 包</h2>
+  <table style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr style="border-bottom: 2px solid var(--color-border);">
+        <th style="text-align: left; padding: 0.75rem;">包名</th>
+        <th style="text-align: left; padding: 0.75rem;">描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid var(--color-border);">
+        <td style="padding: 0.75rem;"><code>RestClient.Net</code></td>
+        <td style="padding: 0.75rem;">包含 HttpClient 扩展的核心库</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--color-border);">
+        <td style="padding: 0.75rem;"><code>RestClient.Net.OpenApiGenerator</code></td>
+        <td style="padding: 0.75rem;">OpenAPI 3.x 客户端生成器</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--color-border);">
+        <td style="padding: 0.75rem;"><code>RestClient.Net.McpGenerator</code></td>
+        <td style="padding: 0.75rem;">MCP 服务器生成器</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--color-border);">
+        <td style="padding: 0.75rem;"><code>Exhaustion</code></td>
+        <td style="padding: 0.75rem;">用于 switch 穷尽性检查的 Roslyn 分析器</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
