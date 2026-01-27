@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "generate-api": "node scripts/generate-api-docs.js",
-    "dev": "npx @11ty/eleventy --serve",
+    "dev": "lsof -ti:8080 | xargs kill -9 2>/dev/null; npx @11ty/eleventy --serve --port=8080",
     "build": "npm run generate-api && npx @11ty/eleventy",
     "test": "playwright test"
   },

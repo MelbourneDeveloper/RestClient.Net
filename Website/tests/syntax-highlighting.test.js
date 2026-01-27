@@ -18,9 +18,6 @@ const pagesWithCode = [
   { url: '/docs/openapi/', name: 'OpenAPI', minTokens: 10 },
   { url: '/docs/mcp/', name: 'MCP', minTokens: 10 },
   { url: '/examples/', name: 'Examples', minTokens: 100 },
-  { url: '/api/httpclient-extensions/', name: 'HttpClient Extensions API', minTokens: 20 },
-  { url: '/api/result-types/', name: 'Result Types API', minTokens: 20 },
-  { url: '/api/serialization/', name: 'Serialization API', minTokens: 20 },
   { url: '/blog/introducing-restclient/', name: 'Blog post', minTokens: 10 },
 
   // Chinese pages
@@ -29,7 +26,6 @@ const pagesWithCode = [
   { url: '/zh/docs/basic-usage/', name: 'Chinese Basic Usage', minTokens: 20 },
   { url: '/zh/docs/error-handling/', name: 'Chinese Error Handling', minTokens: 20 },
   { url: '/zh/examples/', name: 'Chinese Examples', minTokens: 100 },
-  { url: '/zh/api/httpclient-extensions/', name: 'Chinese HttpClient Extensions API', minTokens: 20 },
 ];
 
 test.describe('Syntax Highlighting - All Pages MUST Have Tokens', () => {
@@ -96,38 +92,25 @@ test.describe('Syntax Highlighting - Token Types MUST Exist', () => {
   });
 });
 
-test.describe('Syntax Highlighting - API Docs MUST Have Highlighting', () => {
-  test('API HttpClient Extensions MUST have syntax highlighting', async ({ page }) => {
-    await page.goto('/api/httpclient-extensions/');
-    const codeBlocks = await page.locator('pre code').count();
-    expect(codeBlocks, 'API HttpClient Extensions MUST have code blocks - BROKEN!').toBeGreaterThan(0);
-    const tokens = await page.locator('pre code .token').count();
-    expect(tokens, 'API HttpClient Extensions MUST have syntax tokens - BROKEN!').toBeGreaterThan(0);
-  });
+// API method detail pages - these have actual code examples
+test.describe('Syntax Highlighting - API Method Detail Pages', () => {
+  const apiMethodPages = [
+    { url: '/api/getasync/', name: 'GetAsync' },
+    { url: '/api/postasync/', name: 'PostAsync' },
+    { url: '/api/putasync/', name: 'PutAsync' },
+    { url: '/api/deleteasync/', name: 'DeleteAsync' },
+    { url: '/api/patchasync/', name: 'PatchAsync' },
+  ];
 
-  test('API Result Types MUST have syntax highlighting', async ({ page }) => {
-    await page.goto('/api/result-types/');
-    const codeBlocks = await page.locator('pre code').count();
-    expect(codeBlocks, 'API Result Types MUST have code blocks - BROKEN!').toBeGreaterThan(0);
-    const tokens = await page.locator('pre code .token').count();
-    expect(tokens, 'API Result Types MUST have syntax tokens - BROKEN!').toBeGreaterThan(0);
-  });
-
-  test('API Serialization MUST have syntax highlighting', async ({ page }) => {
-    await page.goto('/api/serialization/');
-    const codeBlocks = await page.locator('pre code').count();
-    expect(codeBlocks, 'API Serialization MUST have code blocks - BROKEN!').toBeGreaterThan(0);
-    const tokens = await page.locator('pre code .token').count();
-    expect(tokens, 'API Serialization MUST have syntax tokens - BROKEN!').toBeGreaterThan(0);
-  });
-
-  test('Chinese API HttpClient Extensions MUST have syntax highlighting', async ({ page }) => {
-    await page.goto('/zh/api/httpclient-extensions/');
-    const codeBlocks = await page.locator('pre code').count();
-    expect(codeBlocks, 'Chinese API HttpClient Extensions MUST have code blocks - BROKEN!').toBeGreaterThan(0);
-    const tokens = await page.locator('pre code .token').count();
-    expect(tokens, 'Chinese API HttpClient Extensions MUST have syntax tokens - BROKEN!').toBeGreaterThan(0);
-  });
+  for (const { url, name } of apiMethodPages) {
+    test(`${name} method page MUST have syntax highlighting`, async ({ page }) => {
+      await page.goto(url);
+      const codeBlocks = await page.locator('pre code').count();
+      expect(codeBlocks, `${name} MUST have code blocks - BROKEN!`).toBeGreaterThan(0);
+      const tokens = await page.locator('pre code .token').count();
+      expect(tokens, `${name} MUST have syntax tokens - BROKEN!`).toBeGreaterThan(0);
+    });
+  }
 });
 
 test.describe('Syntax Highlighting - Visual MUST Be Correct', () => {
