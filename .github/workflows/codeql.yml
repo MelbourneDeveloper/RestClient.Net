@@ -1,0 +1,155 @@
+# agent-pmo:372ce7f
+name: CodeQL
+
+# CodeQL static security analysis ([GITHUB-CODE-SCANNING]).
+#
+# SEPARATE from ci.yml on purpose: CodeQL feeds GitHub code-scanning alerts and
+# needs `security-events: write` + a weekly schedule, while ci.yml owns
+# lint/test/build. It does NOT overlap with `make lint` (style/correctness) or
+# dependency-review (vulnerable packages) — CodeQL finds vulnerable CODE. Never
+# add security-rule linter plugins that re-cover CodeQL: no doubling up.
+#
+# THE MATRIX BELOW IS TAILORED PER REPO BY THE agent-pmo SKILL. The skill
+# intersects (languages actually in this repo) with (languages CodeQL supports
+# AT THE TIME THE SKILL RUNS — checked live, not from a frozen list) and writes
+# one matrix entry per language in that intersection. Keep `actions` always (it
+# scans the workflow files themselves). If the intersection is empty, the skill
+# deletes this file. Action SHAs are kept current by the github-actions
+# Dependabot group ([GITHUB-DEPENDABOT]).
+on:
+  pull_request:
+    branches: [main]
+  schedule:
+    # Weekly, so newly-published CodeQL queries re-scan even without a push.
+    - cron: "27 4 * * 1"
+  # Release workflows can call this with gate=true to scan the exact
+  # released SHA with the current query set and BLOCK publishing on any
+  # High/Critical finding. The PR scan covers the diff, the weekly scan covers
+  # query drift, the gated call covers the released commit itself — as a HARD
+  # gate, not advice: a finding FAILS the release. This replaces the old
+  # standalone `push: [tags]` scan, which could only file alerts AFTER the
+  # artifact had already shipped — useless as a gate. [GITHUB-CODE-SCANNING]
+  # This light setup leaves the existing publishing workflows unchanged.
+  workflow_call:
+    inputs:
+      gate:
+        description: >-
+          When true (release calls), fail the job on any High/Critical finding so
+          the calling release workflow cannot publish. PR/weekly runs leave this
+          false and stay advisory (the PR check-failure threshold governs merges).
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Code scanning (SARIF upload) requires GitHub Advanced Security on PRIVATE
+    # repos. Gating on public visibility lets a private repo skip cleanly (no red
+    # X) and self-enable the moment it is made public — no follow-up edit needed.
+    # Dependabot PRs are excluded: they are swept into `dependabot-upgrades` by
+    # dependabot-automerge.yml and never merge to main directly, so scanning them
+    # only burns the matrix on a bump we discard — CodeQL runs on the
+    # consolidation PR instead. ([GITHUB-DEPENDABOT])
+    if: github.event.repository.visibility == 'public' && github.actor != 'dependabot[bot]'
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        # TAILORED BY THE SKILL — one entry per (repo language ∩ CodeQL-supported
+        # at runtime). `build-mode: none` suits interpreted langs + rust + csharp.
+        # Compiled langs that need a real build (go, java-kotlin, c-cpp) use
+        # `build-mode: autobuild` (or manual). NOT supported: Dart/Flutter, F#.
+        include:
+          - language: actions          # scans the workflow files themselves
+            build-mode: none
+          - language: javascript-typescript
+            build-mode: none
+          - language: csharp
+            build-mode: none
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4.36.2
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+          queries: security-extended
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4.36.2
+        with:
+          category: "/language:${{ matrix.language }}"
+          # Drop SARIF on disk so the gate step can read it. `upload` stays on
+          # (default) so alerts still post to code scanning on every run.
+          output: sarif-results
+      # Release gate. `security-severity` is the 0-10 CVSS-style score CodeQL
+      # attaches to each security rule; >= 7.0 == High or Critical. Enforced ONLY
+      # on gated (release) calls — PR/weekly runs skip this and stay advisory.
+      # Caveat: this reads freshly produced SARIF, which does NOT reflect alert
+      # dismissals — a dismissed false positive re-blocks until excluded via a
+      # CodeQL config. FAILS CLOSED: missing/malformed SARIF errors, never passes.
+      # [GITHUB-CODE-SCANNING]
+      - name: Enforce no high/critical findings (release gate)
+        if: inputs.gate
+        shell: bash
+        env:
+          SARIF_DIR: sarif-results
+          SEVERITY_THRESHOLD: '7.0'
+        run: |-
+          set -euo pipefail
+          shopt -s nullglob
+          # Fail closed: no SARIF means we cannot prove the code is clean.
+          sarifs=( "${SARIF_DIR}"/*.sarif )
+          if [ "${#sarifs[@]}" -eq 0 ]; then
+            echo "::error::CodeQL gate: no SARIF in ${SARIF_DIR}; cannot verify findings — failing closed."
+            exit 1
+          fi
+          offenders=0
+          for sarif in "${sarifs[@]}"; do
+            if ! jq -e '.runs' "${sarif}" >/dev/null 2>&1; then
+              echo "::error::CodeQL gate: ${sarif} is not valid SARIF (no .runs) — failing closed."
+              exit 1
+            fi
+            # Observability: a clean scan logs results=0 with a non-zero
+            # severity_rules count, proving real SARIF was parsed.
+            jq -r --arg f "${sarif##*/}" '
+              ([ (.runs[].tool.driver.rules // [])[],
+                 (.runs[].tool.extensions[]?.rules // [])[] ]) as $rules
+              | "CodeQL gate: \($f): results=\([.runs[].results[]?]|length) severity_rules=\([$rules[]|select(.properties["security-severity"])]|length)"
+            ' "${sarif}"
+            # CodeQL puts query rules in tool.extensions[].rules (driver.rules is
+            # empty in CodeQL output); union both, then keep results >= threshold.
+            hits="$(jq -r --argjson t "${SEVERITY_THRESHOLD}" '
+              .runs[]
+              | ( [ (.tool.driver.rules // [])[],
+                    (.tool.extensions[]?.rules // [])[] ]
+                  | map({ key: .id,
+                          value: ((.properties["security-severity"] // "0") | tonumber) })
+                  | from_entries
+                ) as $severity
+              | .results[]
+              | select( ($severity[.ruleId] // 0) >= $t )
+              | .ruleId
+            ' "${sarif}" | sort | uniq -c | sort -rn)"
+            if [ -n "${hits}" ]; then
+              echo "::error::High/critical CodeQL findings in ${sarif}:"
+              echo "${hits}"
+              offenders=$((offenders + 1))
+            fi
+          done
+          if [ "${offenders}" -gt 0 ]; then
+            echo "::error::CodeQL gate failed — release blocked. Fix or dismiss-and-exclude the findings, then re-tag."
+            exit 1
+          fi
+          echo "CodeQL gate passed: nothing at or above severity ${SEVERITY_THRESHOLD}."
