@@ -34,8 +34,13 @@ internal static class ConstructorParameterAnalysis
         foreach (var constructor in type.Constructors)
         {
             budget.Visit();
-            if (!constructor.IsStatic
-                && (primaryCtor == null || constructor.Parameters.Length > primaryCtor.Parameters.Length))
+            if (
+                !constructor.IsStatic
+                && (
+                    primaryCtor == null
+                    || constructor.Parameters.Length > primaryCtor.Parameters.Length
+                )
+            )
             {
                 primaryCtor = constructor;
             }

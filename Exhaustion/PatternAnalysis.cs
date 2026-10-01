@@ -97,7 +97,11 @@ internal static class PatternAnalysis
     /// <param name="model">The semantic model for type resolution.</param>
     /// <param name="budget">The shared analysis budget.</param>
     /// <returns>The type name, or null if the pattern doesn't match a specific type.</returns>
-    public static string? GetPatternTypeName(PatternSyntax pattern, SemanticModel model, AnalysisBudget? budget = null)
+    public static string? GetPatternTypeName(
+        PatternSyntax pattern,
+        SemanticModel model,
+        AnalysisBudget? budget = null
+    )
     {
         budget ??= new AnalysisBudget();
         budget.Visit();
@@ -108,7 +112,10 @@ internal static class PatternAnalysis
         {
             WriteLine($"  ConstantPattern: {constantPattern.Expression}");
             var typeInfo = model.GetTypeInfo(constantPattern.Expression, budget.CancellationToken);
-            var symbolInfo = model.GetSymbolInfo(constantPattern.Expression, budget.CancellationToken);
+            var symbolInfo = model.GetSymbolInfo(
+                constantPattern.Expression,
+                budget.CancellationToken
+            );
             WriteLine($"  TypeInfo.Type: {typeInfo.Type}, ConvertedType: {typeInfo.ConvertedType}");
             WriteLine($"  SymbolInfo.Symbol: {symbolInfo.Symbol}");
 
@@ -149,7 +156,10 @@ internal static class PatternAnalysis
             WriteLine($"  TypeInfo.Type: {typeInfo.Type}, ConvertedType: {typeInfo.ConvertedType}");
 
             WriteLine($"  Has explicit Type syntax: {recursivePattern.Type}");
-            var explicitTypeInfo = model.GetTypeInfo(recursivePattern.Type, budget.CancellationToken);
+            var explicitTypeInfo = model.GetTypeInfo(
+                recursivePattern.Type,
+                budget.CancellationToken
+            );
             var symbolInfo = model.GetSymbolInfo(recursivePattern.Type, budget.CancellationToken);
             WriteLine($"  Explicit TypeInfo: {explicitTypeInfo.Type}");
             WriteLine($"  Explicit SymbolInfo: {symbolInfo.Symbol}");
@@ -166,7 +176,9 @@ internal static class PatternAnalysis
             if (nestedVariants.Count > 0)
             {
                 var baseName = GetDisplayName(outerType, budget);
-                var variantNames = nestedVariants.Select(variant => GetDisplayName(variant, budget));
+                var variantNames = nestedVariants.Select(variant =>
+                    GetDisplayName(variant, budget)
+                );
                 var displayName = $"{baseName} with {string.Join(", ", variantNames)}";
                 WriteLine($"  -> Matched with nested: {displayName}");
                 return displayName;
@@ -243,7 +255,10 @@ internal static class PatternAnalysis
             {
                 if (nestedRecursive.Type != null)
                 {
-                    var nestedSymbolInfo = model.GetSymbolInfo(nestedRecursive.Type, budget.CancellationToken);
+                    var nestedSymbolInfo = model.GetSymbolInfo(
+                        nestedRecursive.Type,
+                        budget.CancellationToken
+                    );
 
                     if (nestedSymbolInfo.Symbol is INamedTypeSymbol aliasType)
                     {
@@ -254,7 +269,10 @@ internal static class PatternAnalysis
             // Handle DeclarationPatternSyntax (e.g., "ApiErrorResponse errorResponse")
             else if (subpattern.Pattern is DeclarationPatternSyntax declPattern)
             {
-                var declSymbolInfo = model.GetSymbolInfo(declPattern.Type, budget.CancellationToken);
+                var declSymbolInfo = model.GetSymbolInfo(
+                    declPattern.Type,
+                    budget.CancellationToken
+                );
 
                 if (declSymbolInfo.Symbol is INamedTypeSymbol aliasType)
                 {
@@ -264,7 +282,10 @@ internal static class PatternAnalysis
             // Handle ConstantPatternSyntax (e.g., type aliases without variables like "ResponseErrorString")
             else if (subpattern.Pattern is ConstantPatternSyntax constantPattern)
             {
-                var symbolInfo = model.GetSymbolInfo(constantPattern.Expression, budget.CancellationToken);
+                var symbolInfo = model.GetSymbolInfo(
+                    constantPattern.Expression,
+                    budget.CancellationToken
+                );
 
                 if (symbolInfo.Symbol is INamedTypeSymbol aliasType)
                 {

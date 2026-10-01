@@ -66,17 +66,24 @@ public class ExhaustionAnalyzer : DiagnosticAnalyzer
         catch (AnalysisLimitExceededException)
         {
             context.CancellationToken.ThrowIfCancellationRequested();
-            context.ReportDiagnostic(Diagnostic.Create(AnalysisLimitRule, context.Node.GetLocation()));
+            context.ReportDiagnostic(
+                Diagnostic.Create(AnalysisLimitRule, context.Node.GetLocation())
+            );
         }
     }
 
-    private static void AnalyzeSwitchExpression(SyntaxNodeAnalysisContext context, AnalysisBudget budget)
+    private static void AnalyzeSwitchExpression(
+        SyntaxNodeAnalysisContext context,
+        AnalysisBudget budget
+    )
     {
         budget.Visit();
         var switchExpr = (SwitchExpressionSyntax)context.Node;
         var model = context.SemanticModel;
 
-        var switchType = model.GetTypeInfo(switchExpr.GoverningExpression, budget.CancellationToken).Type!;
+        var switchType = model
+            .GetTypeInfo(switchExpr.GoverningExpression, budget.CancellationToken)
+            .Type!;
 
         // Check if there's a TOP-LEVEL discard pattern (not nested subpattern discards)
         var hasDiscard = switchExpr.Arms.Any(arm => IsTopLevelDiscard(arm.Pattern));
@@ -134,7 +141,10 @@ public class ExhaustionAnalyzer : DiagnosticAnalyzer
         }
     }
 
-    private static void AnalyzeSwitchStatement(SyntaxNodeAnalysisContext context, AnalysisBudget budget)
+    private static void AnalyzeSwitchStatement(
+        SyntaxNodeAnalysisContext context,
+        AnalysisBudget budget
+    )
     {
         budget.Visit();
         var switchStmt = (SwitchStatementSyntax)context.Node;

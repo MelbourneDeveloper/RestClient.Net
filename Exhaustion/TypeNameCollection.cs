@@ -83,7 +83,10 @@ internal static class TypeNameCollection
     /// <param name="type">The type to collect leaf types from.</param>
     /// <param name="budget">The shared analysis budget.</param>
     /// <returns>List of leaf types.</returns>
-    public static List<INamedTypeSymbol> GetAllLeafTypes(INamedTypeSymbol type, AnalysisBudget? budget = null)
+    public static List<INamedTypeSymbol> GetAllLeafTypes(
+        INamedTypeSymbol type,
+        AnalysisBudget? budget = null
+    )
     {
         budget ??= new AnalysisBudget();
         var result = new List<INamedTypeSymbol>();

@@ -53,7 +53,10 @@ internal static class TypeHierarchyAnalysis
     /// <param name="baseType">The base type to find derived types for.</param>
     /// <param name="budget">The shared analysis budget.</param>
     /// <returns>List of immediate derived types.</returns>
-    public static List<INamedTypeSymbol> GetImmediateDerivedTypes(INamedTypeSymbol baseType, AnalysisBudget? budget = null)
+    public static List<INamedTypeSymbol> GetImmediateDerivedTypes(
+        INamedTypeSymbol baseType,
+        AnalysisBudget? budget = null
+    )
     {
         budget ??= new AnalysisBudget();
         budget.Visit();
@@ -88,7 +91,10 @@ internal static class TypeHierarchyAnalysis
     /// <param name="type">The type to analyze.</param>
     /// <param name="budget">The shared analysis budget.</param>
     /// <returns>Set of required type names for exhaustive pattern matching.</returns>
-    public static HashSet<string> GetRequiredTypeNames(ITypeSymbol type, AnalysisBudget? budget = null)
+    public static HashSet<string> GetRequiredTypeNames(
+        ITypeSymbol type,
+        AnalysisBudget? budget = null
+    )
     {
         budget ??= new AnalysisBudget();
         budget.Visit();
