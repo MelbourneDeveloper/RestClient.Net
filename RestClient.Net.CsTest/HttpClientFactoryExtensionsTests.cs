@@ -87,6 +87,8 @@ public sealed class HttpClientFactoryExtensionsTests
             )
             .ConfigureAwait(false);
 
+        HttpResultAssertions.Success(result);
+
         // Assert
         Assert.AreEqual(
             +result,
@@ -124,6 +126,8 @@ public sealed class HttpClientFactoryExtensionsTests
             )
             .ConfigureAwait(false);
 
+        HttpResultAssertions.Success(result);
+
         // Assert
         var successResult = +result;
         Assert.AreEqual(expectedResponse, successResult);
@@ -155,6 +159,8 @@ public sealed class HttpClientFactoryExtensionsTests
                 deserializeError: TestDeserializer.Deserialize<MyErrorModel>
             )
             .ConfigureAwait(false);
+
+        HttpResultAssertions.Success(result);
 
         // Assert
         var successResult = +result;
@@ -207,6 +213,8 @@ public sealed class HttpClientFactoryExtensionsTests
                 headers: headers
             )
             .ConfigureAwait(false);
+
+        HttpResultAssertions.Success(result);
 
         // Assert
         var successValue = +result;
@@ -271,6 +279,8 @@ public sealed class HttpClientFactoryExtensionsTests
             )
             .ConfigureAwait(false);
 
+        HttpResultAssertions.Failure(result);
+
         // Assert
         var (body, statusCode, headers) = !result switch
         {
@@ -306,6 +316,8 @@ public sealed class HttpClientFactoryExtensionsTests
                 deserializeError: TestDeserializer.Deserialize<MyErrorModel>
             )
             .ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var exception = !result switch
@@ -343,6 +355,8 @@ public sealed class HttpClientFactoryExtensionsTests
             )
             .ConfigureAwait(false);
 
+        HttpResultAssertions.Success(result);
+
         // Assert
         var successResult = +result;
         Assert.AreEqual(expectedContent, successResult);
@@ -373,6 +387,8 @@ public sealed class HttpClientFactoryExtensionsTests
                 requestBody: requestBody
             )
             .ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var error = !result;
@@ -408,6 +424,8 @@ public sealed class HttpClientFactoryExtensionsTests
             )
             .ConfigureAwait(false);
 
+        HttpResultAssertions.Success(result);
+
         // Assert
         var successResult = +result;
         Assert.AreEqual(expectedResponse, successResult);
@@ -438,6 +456,8 @@ public sealed class HttpClientFactoryExtensionsTests
                 requestBody: requestBody
             )
             .ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var (body, statusCode) = !result switch
@@ -486,6 +506,8 @@ public sealed class HttpClientFactoryExtensionsTests
             )
             .ConfigureAwait(false);
 
+        HttpResultAssertions.Success(result);
+
         // Assert
         var result1 = +result;
         Assert.AreEqual(content, result1);
@@ -506,11 +528,11 @@ public sealed class HttpClientFactoryExtensionsTests
                 clientName: "TestClient",
                 url: "http://test.com/nonexistentfile".ToAbsoluteUrl(),
                 destinationStream: new MemoryStream(),
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-                deserializeError: static async (m, c) => ""
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+                deserializeError: static (m, c) => Task.FromResult(string.Empty)
             )
             .ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var (body, statusCode) = !result switch
@@ -539,11 +561,11 @@ public sealed class HttpClientFactoryExtensionsTests
                 clientName: "TestClient",
                 url: "http://test.com/file".ToAbsoluteUrl(),
                 destinationStream: new MemoryStream(),
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-                deserializeError: static async (m, c) => ""
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+                deserializeError: static (m, c) => Task.FromResult(string.Empty)
             )
             .ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var exception = !result switch
@@ -588,6 +610,8 @@ public sealed class HttpClientFactoryExtensionsTests
             )
             .ConfigureAwait(false);
 
+        HttpResultAssertions.Success(result);
+
         // Assert
         _ = +result; // Verify it's a success result
 
@@ -622,6 +646,8 @@ public sealed class HttpClientFactoryExtensionsTests
                 cancellationToken: CancellationToken.None
             )
             .ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var (body, statusCode) = !result switch
@@ -681,6 +707,8 @@ public sealed class HttpClientFactoryExtensionsTests
                     await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false)
             )
             .ConfigureAwait(false);
+
+        HttpResultAssertions.Success(result);
 
         // Assert
         var successResult = +result;
@@ -748,6 +776,8 @@ public sealed class HttpClientFactoryExtensionsTests
             )
             .ConfigureAwait(false);
 
+        HttpResultAssertions.Failure(result);
+
         // Assert
         var (body, statusCode) = !result switch
         {
@@ -793,6 +823,12 @@ public sealed class HttpClientFactoryExtensionsTests
             ("file1.txt", new MemoryStream(Encoding.UTF8.GetBytes("File 1 content"))),
             ("file2.txt", new MemoryStream(Encoding.UTF8.GetBytes("File 2 content"))),
         };
+        var expectedTotal = files.Sum(file => file.Stream.Length);
+        var expectedContents = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["file1.txt"] = "File 1 content",
+            ["file2.txt"] = "File 2 content",
+        };
 
         using var response = new HttpResponseMessage(HttpStatusCode.OK)
         {
@@ -813,9 +849,7 @@ public sealed class HttpClientFactoryExtensionsTests
                     using var reader = new StreamReader(stream);
                     var fileContent = await reader.ReadToEndAsync(ct).ConfigureAwait(false);
                     uploadedFiles.Add((fileName!, fileContent));
-                    progressReports.Add(
-                        (uploadedFiles.Sum(f => f.Content.Length), files.Sum(f => f.Stream.Length))
-                    );
+                    progressReports.Add((uploadedFiles.Sum(f => f.Content.Length), expectedTotal));
                 }
             }
         );
@@ -848,6 +882,8 @@ public sealed class HttpClientFactoryExtensionsTests
             )
             .ConfigureAwait(false);
 
+        HttpResultAssertions.Success(result);
+
         // Assert
         var successResult = +result;
         Assert.AreEqual("Multi-file upload successful", successResult);
@@ -855,12 +891,12 @@ public sealed class HttpClientFactoryExtensionsTests
         // Verify upload progress was reported correctly
         Assert.IsTrue(progressReports.Count > 0, "Progress reports should have been recorded.");
         Assert.AreEqual(
-            files.Sum(f => f.Stream.Length),
+            expectedTotal,
             progressReports.Last().Current,
             "Final uploaded bytes should match the total content length."
         );
         Assert.AreEqual(
-            files.Sum(f => f.Stream.Length),
+            expectedTotal,
             progressReports.Last().Total,
             "Total bytes should match the total content length."
         );
@@ -870,10 +906,19 @@ public sealed class HttpClientFactoryExtensionsTests
         foreach (var file in files)
         {
             var (name, content1) = uploadedFiles.Single(f => f.Name == file.Name);
-            file.Stream.Position = 0;
-            using var reader = new StreamReader(file.Stream);
-            var expectedContent = await reader.ReadToEndAsync().ConfigureAwait(false);
-            Assert.AreEqual(expectedContent, content1, $"Content of file {file.Name} should match");
+            Assert.AreEqual(file.Name, name);
+            Assert.AreEqual(
+                expectedContents[file.Name],
+                content1,
+                $"Content of file {file.Name} should match"
+            );
+            Assert.IsFalse(
+                file.Stream.CanRead,
+                "The request must dispose owned upload streams after completion."
+            );
+            Assert.IsFalse(file.Stream.CanWrite);
+            Assert.IsFalse(file.Stream.CanSeek);
+            _ = Assert.ThrowsException<ObjectDisposedException>(() => file.Stream.ReadByte());
         }
     }
 
@@ -885,6 +930,12 @@ public sealed class HttpClientFactoryExtensionsTests
         {
             ("file1.txt", new MemoryStream(Encoding.UTF8.GetBytes("File 1 content"))),
             ("file2.txt", new MemoryStream(Encoding.UTF8.GetBytes("File 2 content"))),
+        };
+        var expectedTotal = files.Sum(file => file.Stream.Length);
+        var expectedContents = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["file1.txt"] = "File 1 content",
+            ["file2.txt"] = "File 2 content",
         };
 
         using var errorResponse = new HttpResponseMessage(HttpStatusCode.BadRequest)
@@ -908,9 +959,7 @@ public sealed class HttpClientFactoryExtensionsTests
                     using var reader = new StreamReader(stream);
                     var fileContent = await reader.ReadToEndAsync(ct).ConfigureAwait(false);
                     uploadedFiles.Add((fileName!, fileContent));
-                    progressReports.Add(
-                        (uploadedFiles.Sum(f => f.Content.Length), files.Sum(f => f.Stream.Length))
-                    );
+                    progressReports.Add((uploadedFiles.Sum(f => f.Content.Length), expectedTotal));
                 }
             }
         );
@@ -943,6 +992,8 @@ public sealed class HttpClientFactoryExtensionsTests
             )
             .ConfigureAwait(false);
 
+        HttpResultAssertions.Failure(result);
+
         // Assert
         var (body1, statusCode, headers) = (ResponseErrorString)!result;
 
@@ -961,12 +1012,12 @@ public sealed class HttpClientFactoryExtensionsTests
         // Verify upload progress was reported correctly
         Assert.IsTrue(progressReports.Count > 0, "Progress reports should have been recorded.");
         Assert.AreEqual(
-            files.Sum(f => f.Stream.Length),
+            expectedTotal,
             progressReports.Last().Current,
             "Final uploaded bytes should match the total content length."
         );
         Assert.AreEqual(
-            files.Sum(f => f.Stream.Length),
+            expectedTotal,
             progressReports.Last().Total,
             "Total bytes should match the total content length."
         );
@@ -976,10 +1027,19 @@ public sealed class HttpClientFactoryExtensionsTests
         foreach (var file in files)
         {
             var (name, content1) = uploadedFiles.Single(f => f.Name == file.Name);
-            file.Stream.Position = 0;
-            using var reader = new StreamReader(file.Stream);
-            var expectedContent = await reader.ReadToEndAsync().ConfigureAwait(false);
-            Assert.AreEqual(expectedContent, content1, $"Content of file {file.Name} should match");
+            Assert.AreEqual(file.Name, name);
+            Assert.AreEqual(
+                expectedContents[file.Name],
+                content1,
+                $"Content of file {file.Name} should match"
+            );
+            Assert.IsFalse(
+                file.Stream.CanRead,
+                "The request must dispose owned upload streams after completion."
+            );
+            Assert.IsFalse(file.Stream.CanWrite);
+            Assert.IsFalse(file.Stream.CanSeek);
+            _ = Assert.ThrowsException<ObjectDisposedException>(() => file.Stream.ReadByte());
         }
     }
 
@@ -1009,6 +1069,8 @@ public sealed class HttpClientFactoryExtensionsTests
                 deserializeError: TestDeserializer.Deserialize<MyErrorModel>
             )
             .ConfigureAwait(false);
+
+        HttpResultAssertions.Success(result);
 
         // Assert
         var successResult = +result;
@@ -1041,6 +1103,8 @@ public sealed class HttpClientFactoryExtensionsTests
 
         // Act
         var result = await patch(httpClient, 123).ConfigureAwait(false);
+
+        HttpResultAssertions.Success(result);
 
         // Assert
         var successValue = +result;
@@ -1082,6 +1146,8 @@ public sealed class HttpClientFactoryExtensionsTests
         );
         var result = await patch(httpClient, 123).ConfigureAwait(false);
 
+        HttpResultAssertions.Failure(result);
+
         // Assert
         var httpError = !result;
 
@@ -1119,6 +1185,8 @@ public sealed class HttpClientFactoryExtensionsTests
         // Act
         var result = await get(httpClient, 123).ConfigureAwait(false);
 
+        HttpResultAssertions.Success(result);
+
         // Assert
         var successValue = +result;
         Assert.AreEqual(expectedContent, successValue);
@@ -1150,6 +1218,8 @@ public sealed class HttpClientFactoryExtensionsTests
 
         // Act
         var result = await get(httpClient, 123).ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var httpError = !result;
@@ -1189,6 +1259,8 @@ public sealed class HttpClientFactoryExtensionsTests
         // Act
         var result = await post(httpClient, 123).ConfigureAwait(false);
 
+        HttpResultAssertions.Success(result);
+
         // Assert
         var successValue = +result;
         Assert.AreEqual(expectedContent, successValue);
@@ -1222,6 +1294,8 @@ public sealed class HttpClientFactoryExtensionsTests
 
         // Act
         var result = await post(httpClient, 123).ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var httpError = !result;
@@ -1261,6 +1335,8 @@ public sealed class HttpClientFactoryExtensionsTests
         // Act
         var result = await put(httpClient, 123).ConfigureAwait(false);
 
+        HttpResultAssertions.Success(result);
+
         // Assert
         var successValue = +result;
         Assert.AreEqual(expectedContent, successValue);
@@ -1294,6 +1370,8 @@ public sealed class HttpClientFactoryExtensionsTests
 
         // Act
         var result = await put(httpClient, 123).ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var httpError = !result;
@@ -1331,6 +1409,8 @@ public sealed class HttpClientFactoryExtensionsTests
         // Act
         var result = await delete(httpClient, 123).ConfigureAwait(false);
 
+        HttpResultAssertions.Success(result);
+
         // Assert
         var successValue = +result;
         Assert.AreEqual(expectedContent, successValue);
@@ -1362,6 +1442,8 @@ public sealed class HttpClientFactoryExtensionsTests
 
         // Act
         var result = await delete(httpClient, 123).ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var httpError = !result;
@@ -1402,6 +1484,8 @@ public sealed class HttpClientFactoryExtensionsTests
 
         var result = await get(httpClient, Unit.Value).ConfigureAwait(false);
 
+        HttpResultAssertions.Failure(result);
+
         // Assert
         var exception = !result switch
         {
@@ -1435,11 +1519,14 @@ public sealed class HttpClientFactoryExtensionsTests
                 deserializeSuccess: static async (_, _) =>
                 {
                     await Task.CompletedTask.ConfigureAwait(false);
+
                     throw new InvalidOperationException("Deserialization failed");
                 },
                 deserializeError: TestDeserializer.Deserialize<MyErrorModel>
             )
             .ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var exception = !result switch
@@ -1473,10 +1560,13 @@ public sealed class HttpClientFactoryExtensionsTests
                 deserializeError: static async (_, _) =>
                 {
                     await Task.CompletedTask.ConfigureAwait(false);
+
                     throw new InvalidOperationException("Error deserialization failed");
                 }
             )
             .ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var exception = !result switch
@@ -1516,6 +1606,8 @@ public sealed class HttpClientFactoryExtensionsTests
 
         // Act
         var result = await get(httpClient, 123, cts.Token).ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var exception = !result switch
@@ -1557,6 +1649,8 @@ public sealed class HttpClientFactoryExtensionsTests
         // Act
         var result = await post(httpClient, 123, cts.Token).ConfigureAwait(false);
 
+        HttpResultAssertions.Failure(result);
+
         // Assert
         var exception = !result switch
         {
@@ -1597,6 +1691,8 @@ public sealed class HttpClientFactoryExtensionsTests
         // Act
         var result = await put(httpClient, 123, cts.Token).ConfigureAwait(false);
 
+        HttpResultAssertions.Failure(result);
+
         // Assert
         var exception = !result switch
         {
@@ -1634,6 +1730,8 @@ public sealed class HttpClientFactoryExtensionsTests
 
         // Act
         var result = await delete(httpClient, 123, cts.Token).ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var exception = !result switch
@@ -1675,6 +1773,8 @@ public sealed class HttpClientFactoryExtensionsTests
         // Act
         var result = await patch(httpClient, 123, cts.Token).ConfigureAwait(false);
 
+        HttpResultAssertions.Failure(result);
+
         // Assert
         var exception = !result switch
         {
@@ -1712,6 +1812,8 @@ public sealed class HttpClientFactoryExtensionsTests
         // Act
         var result = await head(httpClient, 123).ConfigureAwait(false);
 
+        HttpResultAssertions.Success(result);
+
         // Assert
         var successValue = +result;
         Assert.AreEqual(expectedContent, successValue);
@@ -1743,6 +1845,8 @@ public sealed class HttpClientFactoryExtensionsTests
 
         // Act
         var result = await head(httpClient, 123).ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var httpError = !result;
@@ -1781,6 +1885,8 @@ public sealed class HttpClientFactoryExtensionsTests
         // Act
         var result = await head(httpClient, 123, cts.Token).ConfigureAwait(false);
 
+        HttpResultAssertions.Failure(result);
+
         // Assert
         var exception = !result switch
         {
@@ -1818,6 +1924,8 @@ public sealed class HttpClientFactoryExtensionsTests
         // Act
         var result = await options(httpClient, 123).ConfigureAwait(false);
 
+        HttpResultAssertions.Success(result);
+
         // Assert
         var successValue = +result;
         Assert.AreEqual(expectedContent, successValue);
@@ -1849,6 +1957,8 @@ public sealed class HttpClientFactoryExtensionsTests
 
         // Act
         var result = await options(httpClient, 123).ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var httpError = !result;
@@ -1886,6 +1996,8 @@ public sealed class HttpClientFactoryExtensionsTests
 
         // Act
         var result = await options(httpClient, 123, cts.Token).ConfigureAwait(false);
+
+        HttpResultAssertions.Failure(result);
 
         // Assert
         var exception = !result switch

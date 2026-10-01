@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Outcome;
 
 namespace RestClient.OpenApiGenerator.Sample.Tests;
 
@@ -40,10 +41,24 @@ public sealed class LiveJsonPlaceholderTests
                     $"Expected success result but got error: HTTP {statusCode}: {body}"
                 ),
         };
+        AssertSuccessResult(result, todos);
 
         Assert.IsNotNull(todos);
         Assert.IsTrue(todos.Count > 0);
         Assert.IsFalse(string.IsNullOrEmpty(todos[0].Title));
+        Assert.AreEqual(todos.Count, todos.Select(todo => todo.Id).Distinct().Count());
+        Assert.IsTrue(
+            todos.All(todo =>
+                todo.Id > 0 && todo.UserId > 0 && !string.IsNullOrWhiteSpace(todo.Title)
+            )
+        );
+        Assert.AreEqual(1L, todos[0].Id);
+        Assert.AreEqual(1L, todos[0].UserId);
+        var completed = todos.Where(todo => todo.Completed).ToArray();
+        var incomplete = todos.Where(todo => !todo.Completed).ToArray();
+        Assert.IsTrue(completed.Length > 0);
+        Assert.IsTrue(incomplete.Length > 0);
+        Assert.AreEqual(todos.Count, completed.Length + incomplete.Length);
     }
 
     [TestMethod]
@@ -68,10 +83,15 @@ public sealed class LiveJsonPlaceholderTests
                     $"Expected success result but got error: HTTP {statusCode}: {body}"
                 ),
         };
+        AssertSuccessResult(result, todo);
 
         Assert.IsNotNull(todo);
         Assert.IsTrue(todo.Id > 0);
         Assert.AreEqual("Test Todo", todo.Title);
+        Assert.AreEqual(newTodo.UserId, todo.UserId);
+        Assert.AreEqual(newTodo.Completed, todo.Completed);
+        Assert.IsFalse(todo.Completed);
+        Assert.AreEqual(new TodoInput(1, "Test Todo", false), newTodo);
     }
 
     [TestMethod]
@@ -96,10 +116,15 @@ public sealed class LiveJsonPlaceholderTests
                     $"Expected success result but got error: HTTP {statusCode}: {body}"
                 ),
         };
+        AssertSuccessResult(result, todo);
 
         Assert.IsNotNull(todo);
         Assert.AreEqual("Updated Test Todo", todo.Title);
         Assert.IsTrue(todo.Completed);
+        Assert.AreEqual(1L, todo.Id);
+        Assert.AreEqual(updatedTodo.UserId, todo.UserId);
+        Assert.AreEqual(updatedTodo.Completed, todo.Completed);
+        Assert.AreEqual(new TodoInput(1, "Updated Test Todo", true), updatedTodo);
     }
 
     [TestMethod]
@@ -110,6 +135,7 @@ public sealed class LiveJsonPlaceholderTests
             .DeleteTodoAsync(id: 1, cancellationToken: CancellationToken.None)
             .ConfigureAwait(false);
 
+        AssertSuccessResult(result, Unit.Value);
         Assert.IsTrue(result.IsOk);
     }
 
@@ -133,10 +159,31 @@ public sealed class LiveJsonPlaceholderTests
                     $"Expected success result but got error: HTTP {statusCode}: {body}"
                 ),
         };
+        AssertSuccessResult(result, posts);
 
         Assert.IsNotNull(posts);
         Assert.IsTrue(posts.Count > 0);
         Assert.IsFalse(string.IsNullOrEmpty(posts[0].Title));
+        Assert.AreEqual(posts.Count, posts.Select(post => post.Id).Distinct().Count());
+        Assert.IsTrue(
+            posts.All(post =>
+                post.Id > 0
+                && post.UserId > 0
+                && !string.IsNullOrWhiteSpace(post.Title)
+                && !string.IsNullOrWhiteSpace(post.Body)
+            )
+        );
+        var firstResult = await httpClient
+            .GetPostByIdAsync(posts[0].Id, cancellationToken: CancellationToken.None)
+            .ConfigureAwait(false);
+        var firstPost = ((OkPost)firstResult).Value;
+        AssertSuccessResult(firstResult, firstPost);
+        Assert.AreEqual(
+            posts[0],
+            firstPost,
+            "List and individual-resource endpoints must deserialize the same post."
+        );
+        Assert.AreNotSame(posts[0], firstPost);
     }
 
     [TestMethod]
@@ -165,10 +212,14 @@ public sealed class LiveJsonPlaceholderTests
                     $"Expected success result but got error: HTTP {statusCode}: {body}"
                 ),
         };
+        AssertSuccessResult(result, post);
 
         Assert.IsNotNull(post);
         Assert.IsTrue(post.Id > 0);
         Assert.AreEqual("Test Post", post.Title);
+        Assert.AreEqual(newPost.UserId, post.UserId);
+        Assert.AreEqual(newPost.Body, post.Body);
+        Assert.AreEqual(new PostInput(1, "Test Post", "This is a test post body"), newPost);
     }
 
     [TestMethod]
@@ -197,9 +248,17 @@ public sealed class LiveJsonPlaceholderTests
                     $"Expected success result but got error: HTTP {statusCode}: {body}"
                 ),
         };
+        AssertSuccessResult(result, post);
 
         Assert.IsNotNull(post);
         Assert.AreEqual("Updated Test Post", post.Title);
+        Assert.AreEqual(1L, post.Id);
+        Assert.AreEqual(updatedPost.UserId, post.UserId);
+        Assert.AreEqual(updatedPost.Body, post.Body);
+        Assert.AreEqual(
+            new PostInput(1, "Updated Test Post", "This is an updated test post body"),
+            updatedPost
+        );
     }
 
     [TestMethod]
@@ -210,6 +269,7 @@ public sealed class LiveJsonPlaceholderTests
             .DeletePostAsync(1, cancellationToken: CancellationToken.None)
             .ConfigureAwait(false);
 
+        AssertSuccessResult(result, Unit.Value);
         Assert.IsTrue(result.IsOk);
     }
 
@@ -233,10 +293,27 @@ public sealed class LiveJsonPlaceholderTests
                     $"Expected success result but got error: HTTP {statusCode}: {body}"
                 ),
         };
+        AssertSuccessResult(result, post);
 
         Assert.IsNotNull(post);
         Assert.AreEqual(1, post.Id);
         Assert.IsFalse(string.IsNullOrEmpty(post.Title));
+        Assert.AreEqual(1L, post.UserId);
+        Assert.AreEqual(
+            "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+            post.Title
+        );
+        Assert.AreEqual(
+            "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+            post.Body
+        );
+        var repeatedResult = await httpClient
+            .GetPostByIdAsync(1, cancellationToken: CancellationToken.None)
+            .ConfigureAwait(false);
+        var repeated = ((OkPost)repeatedResult).Value;
+        AssertSuccessResult(repeatedResult, repeated);
+        Assert.AreEqual(post, repeated);
+        Assert.AreNotSame(post, repeated);
     }
 
     [TestMethod]
@@ -259,10 +336,38 @@ public sealed class LiveJsonPlaceholderTests
                     $"Expected success result but got error: HTTP {statusCode}: {body}"
                 ),
         };
+        AssertSuccessResult(result, user);
 
         Assert.IsNotNull(user);
         Assert.AreEqual(1, user.Id);
         Assert.IsFalse(string.IsNullOrEmpty(user.Name));
+        Assert.IsFalse(string.IsNullOrWhiteSpace(user.Username));
+        Assert.IsFalse(string.IsNullOrWhiteSpace(user.Email));
+        StringAssert.Contains(user.Email, "@");
+        Assert.IsFalse(string.IsNullOrWhiteSpace(user.Phone));
+        Assert.IsFalse(string.IsNullOrWhiteSpace(user.Website));
+        Assert.IsNotNull(user.Address);
+        Assert.IsFalse(string.IsNullOrWhiteSpace(user.Address.Street));
+        Assert.IsFalse(string.IsNullOrWhiteSpace(user.Address.City));
+        Assert.IsNotNull(user.Address.Geo);
+        Assert.IsTrue(
+            double.TryParse(
+                user.Address.Geo.Lat,
+                System.Globalization.CultureInfo.InvariantCulture,
+                out var latitude
+            )
+        );
+        Assert.IsTrue(
+            double.TryParse(
+                user.Address.Geo.Lng,
+                System.Globalization.CultureInfo.InvariantCulture,
+                out var longitude
+            )
+        );
+        Assert.IsTrue(latitude is >= -90 and <= 90);
+        Assert.IsTrue(longitude is >= -180 and <= 180);
+        Assert.IsNotNull(user.Company);
+        Assert.IsFalse(string.IsNullOrWhiteSpace(user.Company.Name));
     }
 
     [TestMethod]
@@ -289,6 +394,7 @@ public sealed class LiveJsonPlaceholderTests
                     $"Expected exception error but got HTTP error: {statusCode}: {body}"
                 ),
         };
+        AssertCancelledResult(result, exception, cts.Token);
 
         Assert.IsTrue(
             exception is OperationCanceledException or TaskCanceledException,
@@ -322,6 +428,7 @@ public sealed class LiveJsonPlaceholderTests
                     $"Expected exception error but got HTTP error: {statusCode}: {body}"
                 ),
         };
+        AssertCancelledResult(result, exception, cts.Token);
 
         Assert.IsTrue(
             exception is OperationCanceledException or TaskCanceledException,
@@ -355,6 +462,7 @@ public sealed class LiveJsonPlaceholderTests
                     $"Expected exception error but got HTTP error: {statusCode}: {body}"
                 ),
         };
+        AssertCancelledResult(result, exception, cts.Token);
 
         Assert.IsTrue(
             exception is OperationCanceledException or TaskCanceledException,
@@ -386,6 +494,7 @@ public sealed class LiveJsonPlaceholderTests
                     $"Expected exception error but got HTTP error: {statusCode}: {body}"
                 ),
         };
+        AssertCancelledResult(result, exception, cts.Token);
 
         Assert.IsTrue(
             exception is OperationCanceledException or TaskCanceledException,
@@ -417,10 +526,136 @@ public sealed class LiveJsonPlaceholderTests
                     $"Expected exception error but got HTTP error: {statusCode}: {body}"
                 ),
         };
+        AssertCancelledResult(result, exception, cts.Token);
 
         Assert.IsTrue(
             exception is OperationCanceledException or TaskCanceledException,
             $"Expected cancellation exception but got: {exception.GetType().Name}"
         );
+    }
+
+    private static void AssertSuccessResult<T>(Result<T, HttpError<string>> result, T expected)
+    {
+        Assert.IsTrue(result.IsOk);
+        Assert.IsFalse(result.IsError);
+        Assert.IsInstanceOfType<Result<T, HttpError<string>>.Ok<T, HttpError<string>>>(result);
+        Assert.AreEqual(
+            expected,
+            ((Result<T, HttpError<string>>.Ok<T, HttpError<string>>)result).Value
+        );
+        var successCalls = 0;
+        var errorCalls = 0;
+        var tapped = result.Tap(
+            value =>
+            {
+                successCalls++;
+                Assert.AreEqual(expected, value);
+            },
+            _ =>
+            {
+                errorCalls++;
+            }
+        );
+        Assert.AreSame(result, tapped);
+        Assert.AreEqual(1, successCalls);
+        Assert.AreEqual(0, errorCalls);
+        var branch = result.Match(
+            value =>
+            {
+                successCalls++;
+                Assert.AreEqual(expected, value);
+                return "success";
+            },
+            _ =>
+            {
+                errorCalls++;
+                return "error";
+            }
+        );
+        Assert.AreEqual("success", branch);
+        Assert.AreEqual(2, successCalls);
+        Assert.AreEqual(0, errorCalls);
+        var bound = result.Bind(value =>
+        {
+            successCalls++;
+            Assert.AreEqual(expected, value);
+            return result;
+        });
+        Assert.AreSame(result, bound);
+        Assert.AreEqual(3, successCalls);
+        Assert.AreEqual(0, errorCalls);
+        Assert.AreEqual(expected, result.GetValueOrDefault(default(T)!));
+    }
+
+    private static void AssertCancelledResult<T>(
+        Result<T, HttpError<string>> result,
+        Exception expected,
+        CancellationToken token
+    )
+    {
+        Assert.IsTrue(token.IsCancellationRequested);
+        Assert.IsTrue(result.IsError);
+        Assert.IsFalse(result.IsOk);
+        Assert.IsInstanceOfType<OperationCanceledException>(expected);
+        var error = ((Result<T, HttpError<string>>.Error<T, HttpError<string>>)result).Value;
+        Assert.IsInstanceOfType<HttpError<string>.ExceptionError>(error);
+        Assert.AreSame(expected, ((HttpError<string>.ExceptionError)error).Exception);
+        var successCalls = 0;
+        var errorCalls = 0;
+        var tapped = result.Tap(
+            _ =>
+            {
+                successCalls++;
+            },
+            actual =>
+            {
+                errorCalls++;
+                Assert.AreSame(error, actual);
+            }
+        );
+        Assert.AreSame(result, tapped);
+        Assert.AreEqual(0, successCalls);
+        Assert.AreEqual(1, errorCalls);
+        var branch = result.Match(
+            _ =>
+            {
+                successCalls++;
+                return "success";
+            },
+            actual =>
+            {
+                errorCalls++;
+                Assert.AreSame(error, actual);
+                return "cancelled";
+            }
+        );
+        Assert.AreEqual("cancelled", branch);
+        Assert.AreEqual(0, successCalls);
+        Assert.AreEqual(2, errorCalls);
+        var mapped = result.Map(value =>
+        {
+            successCalls++;
+            return value;
+        });
+        Assert.IsTrue(mapped.IsError);
+        Assert.IsFalse(mapped.IsOk);
+        Assert.AreSame(
+            error,
+            ((Result<T, HttpError<string>>.Error<T, HttpError<string>>)mapped).Value
+        );
+        Assert.AreEqual(0, successCalls);
+        var mappedError = result.MapError(actual =>
+        {
+            errorCalls++;
+            Assert.AreSame(error, actual);
+            return actual;
+        });
+        Assert.IsTrue(mappedError.IsError);
+        var preservedError = (
+            (Result<T, HttpError<string>>.Error<T, HttpError<string>>)mappedError
+        ).Value;
+        Assert.AreSame(error, preservedError);
+        Assert.AreSame(expected, ((HttpError<string>.ExceptionError)preservedError).Exception);
+        Assert.AreEqual(3, errorCalls);
     }
 }
