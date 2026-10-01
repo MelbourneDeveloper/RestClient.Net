@@ -576,12 +576,10 @@ namespace Test
     }
 
     [TestMethod]
-    public void CollectLeafTypes_ProveConstructionCodeIsDeadOrWorking()
+    [DataRow(false)]
+    [DataRow(true)]
+    public void CollectLeafTypes_ConstructedParent_PreservesInheritedTypeArguments(bool useMetadata)
     {
-        // CRITICAL TEST: Determine if lines 86-98 in TypeNameCollection.cs are DEAD CODE
-        // The condition is: type.IsGenericType && !type.IsUnboundGenericType && child.IsGenericType && child.Arity > 0
-        // This would only be true if you have a CONSTRUCTED parent AND child with its OWN unbound type params
-        // This is EXTREMELY RARE in closed hierarchies!
         var code =
             IsExternalInitPolyfill
             + @"
@@ -591,44 +589,48 @@ namespace Test
     {
         private Result() { }
 
-        public sealed record Ok(TSuccess Value) : Result<TSuccess, TFailure>;
+        public sealed record Ok(TSuccess Value, TFailure Error) : Result<TSuccess, TFailure>;
     }
 }";
         var (typeSymbol, compilation) = GetTypeSymbolWithCompilation(code, "Result");
+        var errors = compilation.GetDiagnostics()
+            .Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)
+            .ToArray();
+        Assert.AreEqual(0, errors.Length, string.Join(Environment.NewLine, errors.Select(diagnostic => diagnostic.ToString())));
+
+        if (useMetadata)
+        {
+            using var stream = new MemoryStream();
+            var emitResult = compilation.Emit(stream);
+            Assert.IsTrue(emitResult.Success, string.Join(Environment.NewLine, emitResult.Diagnostics.Select(diagnostic => diagnostic.ToString())));
+            compilation = CSharpCompilation.Create(
+                "MetadataConsumer",
+                references: compilation.References.Append(MetadataReference.CreateFromImage(stream.ToArray())),
+                options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)
+            );
+            typeSymbol = compilation.GetTypeByMetadataName("Test.Result`2")!;
+            Assert.IsNotNull(typeSymbol, "The metadata fixture must expose the same generic hierarchy.");
+        }
+
         var stringType = compilation.GetSpecialType(SpecialType.System_String);
         var intType = compilation.GetSpecialType(SpecialType.System_Int32);
         var constructedType = typeSymbol.Construct(stringType, intType);
 
-        // Get derived types from CONSTRUCTED parent
-        var derived = TypeHierarchyAnalysis.GetImmediateDerivedTypes(constructedType);
-        var okType = derived.First(t => t.Name == "Ok");
-
-        // Check if the condition would be true
-        var conditionResult =
-            constructedType.IsGenericType
-            && !constructedType.IsUnboundGenericType
-            && okType.IsGenericType
-            && okType.Arity > 0;
-
-        // If condition is FALSE, the code at lines 86-98 is NEVER EXECUTED for typical closed hierarchies
-        // This means it's DEAD CODE that should be REMOVED!
-        if (!conditionResult)
-        {
-            Assert.Inconclusive(
-                $"DEAD CODE DETECTED! Lines 86-98 in CollectLeafTypes never execute. "
-                    + $"Parent IsGeneric={constructedType.IsGenericType}, "
-                    + $"IsUnbound={constructedType.IsUnboundGenericType}, "
-                    + $"Child IsGeneric={okType.IsGenericType}, "
-                    + $"Child.Arity={okType.Arity}. "
-                    + "The condition is ALWAYS FALSE for normal closed hierarchies!"
-            );
-        }
-
-        // If we get here, the code is NOT dead - test it works
         var result = new List<INamedTypeSymbol>();
         TypeNameCollection.CollectLeafTypes(constructedType, result);
 
         Assert.AreEqual(1, result.Count, "Should collect one leaf type");
-        Assert.AreEqual("Ok", result[0].Name);
+        var okType = result[0];
+        Assert.AreEqual("Ok", okType.Name);
+        // Arity counts parameters declared by Ok, not parameters inherited from its containing type.
+        Assert.AreEqual(0, okType.Arity);
+        Assert.AreEqual(0, okType.TypeArguments.Length);
+        Assert.IsTrue(okType.IsGenericType, "A nested type in a generic parent is still generic.");
+        Assert.IsTrue(SymbolEqualityComparer.Default.Equals(constructedType, okType.ContainingType));
+        Assert.IsTrue(SymbolEqualityComparer.Default.Equals(constructedType, okType.BaseType));
+
+        var constructor = okType.InstanceConstructors.Single(candidate => candidate.Parameters.Length == 2);
+        Assert.IsTrue(SymbolEqualityComparer.Default.Equals(stringType, constructor.Parameters[0].Type), "TSuccess must resolve to string.");
+        Assert.IsTrue(SymbolEqualityComparer.Default.Equals(intType, constructor.Parameters[1].Type), "TFailure must resolve to int.");
     }
 }
