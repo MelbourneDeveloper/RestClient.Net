@@ -128,8 +128,8 @@ public static class ExtensionMethodGenerator
                     PropertyNamingPolicy = {{namingPolicyCode}}
                 };
 
-                private static readonly Deserialize<Unit> _deserializeUnit = static (_, _) =>
-                    Task.FromResult(Unit.Value);
+                private static readonly Deserialize<Outcome.Unit> _deserializeUnit = static (_, _) =>
+                    Task.FromResult(Outcome.Unit.Value);
 
                 #endregion
 
@@ -350,9 +350,9 @@ public static class ExtensionMethodGenerator
                     resultType,
                     resultResponseType,
                     errorType,
-                    "Unit",
+                    "Outcome.Unit",
                     string.Empty,
-                    "Unit.Value",
+                    "Outcome.Unit.Value",
                     buildRequestBody,
                     deserializeMethod,
                     summary
@@ -827,9 +827,15 @@ public static class ExtensionMethodGenerator
         }
 
         var aliases = GenerateTypeAliasesList(resultTypes, @namespace);
+        var nullableDirective = resultTypes.Any(types =>
+            types.SuccessType.Contains('?', StringComparison.Ordinal)
+            || types.ErrorType.Contains('?', StringComparison.Ordinal)
+        )
+            ? "#nullable enable\n"
+            : string.Empty;
 
         return $$"""
-            #pragma warning disable IDE0005 // Using directive is unnecessary.
+            {{nullableDirective}}#pragma warning disable IDE0005 // Using directive is unnecessary.
             {{string.Join("\n", aliases)}}
             """;
     }
@@ -855,6 +861,7 @@ public static class ExtensionMethodGenerator
             var typeName = successType
                 .Replace("List<", string.Empty, StringComparison.Ordinal)
                 .Replace(">", string.Empty, StringComparison.Ordinal)
+                .Replace("?", "Nullable", StringComparison.Ordinal)
                 .Replace(".", string.Empty, StringComparison.Ordinal);
             var pluralSuffix = successType.StartsWith("List<", StringComparison.Ordinal)
                 ? "s"
@@ -871,26 +878,10 @@ public static class ExtensionMethodGenerator
             var aliasName = $"{typeName}{pluralSuffix}{errorTypeName}";
 
             // Qualify type names with namespace (except for System types and Outcome.Unit)
-            var qualifiedSuccessType = successType switch
-            {
-                "Unit" => "Outcome.Unit",
-                "object" => "System.Object",
-                "string" => "System.String",
-                _ when successType.StartsWith("List<", StringComparison.Ordinal) =>
-                    successType.Replace(
-                        "List<",
-                        $"System.Collections.Generic.List<{@namespace}.",
-                        StringComparison.Ordinal
-                    ),
-                _ => $"{@namespace}.{successType}",
-            };
-
-            var qualifiedErrorType = errorType switch
-            {
-                "string" => "string",
-                "object" => "System.Object",
-                _ => $"{@namespace}.{errorType}",
-            };
+            var qualifiedSuccessType =
+                successType == "Unit" ? "Outcome.Unit" : QualifyAliasType(successType, @namespace);
+            var qualifiedErrorType =
+                errorType == "string" ? "string" : QualifyAliasType(errorType, @namespace);
 
             // Generate Ok alias
             aliases.Add(
@@ -909,6 +900,23 @@ public static class ExtensionMethodGenerator
 
         return aliases;
     }
+
+    private static string QualifyAliasType(string type, string @namespace) =>
+        type switch
+        {
+            "object" => "System.Object",
+            "string" => "System.String",
+            "int" => "System.Int32",
+            "long" => "System.Int64",
+            "float" => "System.Single",
+            "double" => "System.Double",
+            "bool" => "System.Boolean",
+            _ when type.EndsWith('?') => $"{QualifyAliasType(type[..^1], @namespace)}?",
+            _ when type.StartsWith("List<", StringComparison.Ordinal) && type.EndsWith('>') =>
+                $"System.Collections.Generic.List<{QualifyAliasType(type[5..^1], @namespace)}>",
+            _ when type.StartsWith("System.", StringComparison.Ordinal) => type,
+            _ => $"{@namespace}.{type}",
+        };
 
     private static (string PublicMethod, string PrivateDelegate) BuildMethod(
         string methodName,

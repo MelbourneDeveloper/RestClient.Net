@@ -39,7 +39,7 @@ public static partial class UrlParser
                         + "OpenAPI server URL must be an absolute URL with protocol and host (e.g., https://api.example.com/api/v3), "
                         + "or you must provide a baseUrlOverride parameter when calling Generate()."
                 )
-                : new OkUrl((baseUrlOverride!, fullUrl.TrimEnd('/')));
+                : new OkUrl((baseUrlOverride, fullUrl.TrimEnd('/')));
         }
 
         // Handle URLs with template variables (e.g., https://{region}.example.com)
@@ -56,7 +56,7 @@ public static partial class UrlParser
         {
             // If URL is invalid but override is provided, use override
             return !string.IsNullOrWhiteSpace(baseUrlOverride)
-                ? new OkUrl((baseUrlOverride!, string.Empty))
+                ? new OkUrl((baseUrlOverride, string.Empty))
                 : Result<(string, string), string>.Failure(
                     $"Server URL '{fullUrl}' is not a valid absolute URL. "
                         + "URL must include protocol and host (e.g., https://api.example.com), "

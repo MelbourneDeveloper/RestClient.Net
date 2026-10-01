@@ -26,8 +26,8 @@ public static class JSONPlaceholderApiExtensions
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
-    private static readonly Deserialize<Unit> _deserializeUnit = static (_, _) =>
-        Task.FromResult(Unit.Value);
+    private static readonly Deserialize<Outcome.Unit> _deserializeUnit = static (_, _) =>
+        Task.FromResult(Outcome.Unit.Value);
 
     #endregion
 
@@ -38,7 +38,7 @@ public static class JSONPlaceholderApiExtensions
         this HttpClient httpClient,
         
         CancellationToken cancellationToken = default
-    ) => _getPostsAsync(httpClient, Unit.Value, cancellationToken);
+    ) => _getPostsAsync(httpClient, Outcome.Unit.Value, cancellationToken);
     
     /// <summary>Create a new post</summary>
     public static Task<Result<Post, HttpError<string>>> CreatePostAsync(
@@ -77,7 +77,7 @@ public static class JSONPlaceholderApiExtensions
         this HttpClient httpClient,
         
         CancellationToken cancellationToken = default
-    ) => _getTodosAsync(httpClient, Unit.Value, cancellationToken);
+    ) => _getTodosAsync(httpClient, Outcome.Unit.Value, cancellationToken);
     
     /// <summary>Create a new todo</summary>
     public static Task<Result<Todo, HttpError<string>>> CreateTodoAsync(
@@ -120,8 +120,8 @@ public static class JSONPlaceholderApiExtensions
 
     #endregion
 
-    private static GetAsync<List<Post>, string, Unit> _getPostsAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<List<Post>, string, Unit>(
+    private static GetAsync<List<Post>, string, Outcome.Unit> _getPostsAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<List<Post>, string, Outcome.Unit>(
             url: BaseUrl,
             buildRequest: static _ => new HttpRequestParts(new RelativeUrl("/posts"), null, null),
             deserializeSuccess: DeserializeJson<List<Post>>,
@@ -160,8 +160,8 @@ public static class JSONPlaceholderApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<List<Todo>, string, Unit> _getTodosAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<List<Todo>, string, Unit>(
+    private static GetAsync<List<Todo>, string, Outcome.Unit> _getTodosAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<List<Todo>, string, Outcome.Unit>(
             url: BaseUrl,
             buildRequest: static _ => new HttpRequestParts(new RelativeUrl("/todos"), null, null),
             deserializeSuccess: DeserializeJson<List<Todo>>,

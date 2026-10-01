@@ -99,8 +99,12 @@ public class Client : IClient
     private Dictionary<string, string> GetHeaders<TRequestBody>(IRequest<TRequestBody> request) =>
         DefaultRequestHeaders
             .Concat(request.Headers)
-            .GroupBy(h => h.Key)
-            .ToDictionary(g => g.Key, g => string.Join(", ", g.SelectMany(h => h.Value)));
+            .GroupBy(h => h.Key, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(
+                g => g.Key,
+                g => string.Join(", ", g.Last().Value),
+                StringComparer.OrdinalIgnoreCase
+            );
 
     private static Deserialize<Response<TResponseBody>> DeserializeSuccessResponse<TResponseBody>(
         IRequest request
@@ -136,7 +140,7 @@ public class Client : IClient
             using var reader = new StreamReader(
                 await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false)
             );
-            return await reader.ReadToEndAsync(cancellationToken).ConfigureAwait(false)!;
+            return await reader.ReadToEndAsync(cancellationToken).ConfigureAwait(false);
         };
 
     private Response<TResponseBody> HandleFailure<TResponseBody>(

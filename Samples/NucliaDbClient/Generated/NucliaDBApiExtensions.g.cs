@@ -26,8 +26,8 @@ public static class NucliaDBApiExtensions
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
-    private static readonly Deserialize<Unit> _deserializeUnit = static (_, _) =>
-        Task.FromResult(Unit.Value);
+    private static readonly Deserialize<Outcome.Unit> _deserializeUnit = static (_, _) =>
+        Task.FromResult(Outcome.Unit.Value);
 
     #endregion
 
@@ -809,7 +809,7 @@ public static class NucliaDBApiExtensions
         this HttpClient httpClient,
         
         CancellationToken cancellationToken = default
-    ) => _learningConfigurationSchemaLearningConfigurationSchemaAsync(httpClient, Unit.Value, cancellationToken);
+    ) => _learningConfigurationSchemaLearningConfigurationSchemaAsync(httpClient, Outcome.Unit.Value, cancellationToken);
 
     #endregion
 
@@ -1685,8 +1685,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<object, HTTPValidationError, Unit> _learningConfigurationSchemaLearningConfigurationSchemaAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, HTTPValidationError, Unit>(
+    private static GetAsync<object, HTTPValidationError, Outcome.Unit> _learningConfigurationSchemaLearningConfigurationSchemaAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, HTTPValidationError, Outcome.Unit>(
             url: BaseUrl,
             buildRequest: static _ => new HttpRequestParts(new RelativeUrl("/api/v1/learning/configuration/schema"), null, null),
             deserializeSuccess: DeserializeJson<object>,

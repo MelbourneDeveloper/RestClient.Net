@@ -9,6 +9,119 @@ namespace Exhaustion.Tests;
 [TestClass]
 public sealed class DiagnosticMessagesTests
 {
+    private static void AssertMessageInteractions(
+        string baseType,
+        HashSet<string> matched,
+        HashSet<string> missing,
+        string expectedMain,
+        string expectedDetail
+    )
+    {
+        var matchedSnapshot = matched.ToArray();
+        var missingSnapshot = missing.ToArray();
+        var (reorderedMain, reorderedDetail) = DiagnosticMessages.BuildDetailMessage(
+            baseType,
+            [.. matched.Reverse()],
+            [.. missing.Reverse()]
+        );
+        Assert.AreEqual(
+            expectedMain,
+            reorderedMain,
+            "Changing insertion order must not change the coverage verdict."
+        );
+        Assert.AreEqual(
+            expectedDetail,
+            reorderedDetail,
+            "Changing insertion order must not change the sorted detail."
+        );
+        CollectionAssert.AreEqual(
+            matchedSnapshot,
+            matched.ToArray(),
+            "Formatting must preserve the matched input set."
+        );
+        CollectionAssert.AreEqual(
+            missingSnapshot,
+            missing.ToArray(),
+            "Formatting must preserve the missing input set."
+        );
+
+        var (renamedMain, renamedDetail) = DiagnosticMessages.BuildDetailMessage(
+            "RenamedType",
+            matched,
+            missing
+        );
+        Assert.AreEqual(
+            expectedMain.Replace(
+                $"Switch on {baseType}",
+                "Switch on RenamedType",
+                StringComparison.Ordinal
+            ),
+            renamedMain,
+            "Changing the switched type must update the main message."
+        );
+        Assert.AreEqual(
+            expectedDetail,
+            renamedDetail,
+            "Renaming the switched type must preserve its coverage detail."
+        );
+
+        HashSet<string> updatedMatched = [.. matched, "NewlyCovered"];
+        HashSet<string> updatedMissing = [.. missing, "StillMissing"];
+        var (incompleteMain, incompleteDetail) = DiagnosticMessages.BuildDetailMessage(
+            baseType,
+            updatedMatched,
+            updatedMissing
+        );
+        Assert.AreEqual(
+            $"Switch on {baseType} is not exhaustive",
+            incompleteMain,
+            "New missing coverage must produce the incomplete verdict."
+        );
+        Assert.IsTrue(
+            incompleteDetail.Contains("NewlyCovered", StringComparison.Ordinal),
+            "New coverage must appear in the detail."
+        );
+        Assert.IsTrue(
+            incompleteDetail.Contains("StillMissing", StringComparison.Ordinal),
+            "Uncovered variants must appear in the detail."
+        );
+        Assert.IsTrue(
+            incompleteDetail.Contains("; Missing: ", StringComparison.Ordinal),
+            "Matched and missing coverage must remain separate sections."
+        );
+
+        updatedMatched.UnionWith(updatedMissing);
+        updatedMissing.Clear();
+        var (completeMain, completeDetail) = DiagnosticMessages.BuildDetailMessage(
+            baseType,
+            updatedMatched,
+            updatedMissing
+        );
+        Assert.AreEqual(
+            $"Switch on {baseType} has redundant default arm",
+            completeMain,
+            "Covering every missing variant must change the verdict."
+        );
+        Assert.IsFalse(
+            completeDetail.Contains("Missing:", StringComparison.Ordinal),
+            "Completed coverage must omit the missing section."
+        );
+        Assert.IsTrue(
+            completeDetail.Contains("StillMissing", StringComparison.Ordinal),
+            "The formerly missing variant must now appear as matched coverage."
+        );
+        CollectionAssert.AreEqual(
+            matchedSnapshot,
+            matched.ToArray(),
+            "Follow-up calls must not mutate the original matched set."
+        );
+        CollectionAssert.AreEqual(
+            missingSnapshot,
+            missing.ToArray(),
+            "Follow-up calls must not mutate the original missing set."
+        );
+    }
+
     [TestMethod]
     public void BuildDetailMessage_WithMissingTypes_ReturnsNotExhaustiveMessage()
     {
@@ -33,6 +146,14 @@ public sealed class DiagnosticMessagesTests
             "Matched: Type1, Type2; Missing: Type3, Type4",
             detailMessage,
             "Detail should include both matched and missing types separated by semicolon"
+        );
+
+        AssertMessageInteractions(
+            "BaseType",
+            matchedTypes,
+            missingTypes,
+            mainMessage,
+            detailMessage
         );
     }
 
@@ -61,6 +182,14 @@ public sealed class DiagnosticMessagesTests
             detailMessage,
             "Detail should include only matched types when there are no missing types"
         );
+
+        AssertMessageInteractions(
+            "SomeType",
+            matchedTypes,
+            missingTypes,
+            mainMessage,
+            detailMessage
+        );
     }
 
     [TestMethod]
@@ -88,6 +217,8 @@ public sealed class DiagnosticMessagesTests
             detailMessage,
             "Detail should include only missing types when there are no matched types"
         );
+
+        AssertMessageInteractions("MyType", matchedTypes, missingTypes, mainMessage, detailMessage);
     }
 
     [TestMethod]
@@ -114,6 +245,14 @@ public sealed class DiagnosticMessagesTests
             string.Empty,
             detailMessage,
             "Detail should be empty when both sets are empty"
+        );
+
+        AssertMessageInteractions(
+            "EmptyType",
+            matchedTypes,
+            missingTypes,
+            mainMessage,
+            detailMessage
         );
     }
 
@@ -142,6 +281,8 @@ public sealed class DiagnosticMessagesTests
             detailMessage,
             "Detail should format correctly with single item in each set"
         );
+
+        AssertMessageInteractions("Result", matchedTypes, missingTypes, mainMessage, detailMessage);
     }
 
     [TestMethod]
@@ -169,6 +310,8 @@ public sealed class DiagnosticMessagesTests
             detailMessage,
             "Types should be sorted alphabetically in the output"
         );
+
+        AssertMessageInteractions("Animal", matchedTypes, missingTypes, mainMessage, detailMessage);
     }
 
     [TestMethod]
@@ -196,5 +339,7 @@ public sealed class DiagnosticMessagesTests
             detailMessage,
             "Detail should show both Result types matched alphabetically"
         );
+
+        AssertMessageInteractions("Result", matchedTypes, missingTypes, mainMessage, detailMessage);
     }
 }

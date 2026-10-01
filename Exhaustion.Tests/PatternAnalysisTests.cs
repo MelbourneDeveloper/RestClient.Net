@@ -6,6 +6,7 @@ namespace Exhaustion.Tests;
 
 #pragma warning disable CA1515
 #pragma warning disable SA1600
+#pragma warning disable CA1506 // Roslyn fixtures also reference the shared analysis budget.
 
 /// <summary>
 /// Tests for the PatternAnalysis module, specifically GetNestedVariants.
@@ -132,6 +133,13 @@ namespace TestCode
 
         // Act
         var variants = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        AssertNestedVariantInteractions(
+            pattern,
+            model,
+            outerType,
+            variants,
+            "Error<String, HttpError<String>>"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -174,6 +182,7 @@ namespace TestCode
 
         // Act
         var variants = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        AssertNestedVariantInteractions(pattern, model, outerType, variants, "SimpleType");
 
         // Assert
         Assert.AreEqual(
@@ -213,6 +222,14 @@ namespace TestCode
 
         // Act
         var variants = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        AssertNestedVariantInteractions(
+            pattern,
+            model,
+            outerType,
+            variants,
+            "Error<String, HttpError<String>> with ExceptionError<String>",
+            "ExceptionError"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -270,6 +287,15 @@ namespace TestCode
 
         // Act
         var variants = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        AssertNestedVariantInteractions(
+            pattern,
+            model,
+            outerType,
+            variants,
+            "Task with Active, High",
+            "Active",
+            "High"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -317,6 +343,14 @@ namespace TestCode
 
         // Act
         var variants = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        AssertNestedVariantInteractions(
+            pattern,
+            model,
+            outerType,
+            variants,
+            "Error<String, HttpError<String>> with ExceptionError<String>",
+            "ExceptionError"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -357,6 +391,14 @@ namespace TestCode
 
         // Act
         var variants = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        AssertNestedVariantInteractions(
+            pattern,
+            model,
+            outerType,
+            variants,
+            "Error<String, HttpError<String>> with ExceptionError<String>",
+            "ExceptionError"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -398,6 +440,14 @@ namespace TestCode
 
         // Act
         var variants = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        AssertNestedVariantInteractions(
+            pattern,
+            model,
+            outerType,
+            variants,
+            "Error<String, HttpError<String>> with ExceptionError<String>",
+            "ExceptionError"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -438,6 +488,13 @@ namespace TestCode
 
         // Act
         var variants = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        AssertNestedVariantInteractions(
+            pattern,
+            model,
+            outerType,
+            variants,
+            "Error<String, HttpError<String>>"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -477,6 +534,13 @@ namespace TestCode
 
         // Act
         var variants = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        AssertNestedVariantInteractions(
+            pattern,
+            model,
+            outerType,
+            variants,
+            "Error<String, HttpError<String>>"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -533,6 +597,14 @@ namespace TestCode
 
         // Act
         var variants = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        AssertNestedVariantInteractions(
+            pattern,
+            model,
+            outerType,
+            variants,
+            "Task with Active",
+            "Active"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -573,6 +645,14 @@ namespace TestCode
 
         // Act
         var variants = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        AssertNestedVariantInteractions(
+            pattern,
+            model,
+            outerType,
+            variants,
+            "Error<String, HttpError<String>> with ErrorResponseError<String>",
+            "ErrorResponseError"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -617,6 +697,14 @@ namespace TestCode
 
         // Act
         var variants = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        AssertNestedVariantInteractions(
+            pattern,
+            model,
+            outerType,
+            variants,
+            "Error<String, HttpError<String>> with ExceptionError<String>",
+            "ExceptionError"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -658,6 +746,14 @@ namespace TestCode
 
         // Act
         var variants = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        AssertNestedVariantInteractions(
+            pattern,
+            model,
+            outerType,
+            variants,
+            "Error<String, HttpError<String>> with ErrorResponseError<String>",
+            "ErrorResponseError"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -718,6 +814,13 @@ namespace TestCode
 
         // Act
         var matchedTypes = PatternAnalysis.GetMatchedTypes(switchExpr, semanticModel);
+        AssertMatchedTypeInteractions(
+            switchExpr,
+            semanticModel,
+            matchedTypes,
+            "Ok<String, HttpError<String>>",
+            "Error<String, HttpError<String>>"
+        );
 
         // Assert
         Assert.AreEqual(2, matchedTypes.Count, "Should match two types: Ok and Error");
@@ -772,6 +875,7 @@ namespace TestCode
 
         // Act
         var matchedTypes = PatternAnalysis.GetMatchedTypes(switchExpr, semanticModel);
+        AssertMatchedTypeInteractions(switchExpr, semanticModel, matchedTypes, "Ok<Int32, String>");
 
         // Assert
         Assert.AreEqual(1, matchedTypes.Count, "Should only match Ok, not the discard");
@@ -827,6 +931,13 @@ namespace TestCode
 
         // Act
         var matchedTypes = PatternAnalysis.GetMatchedTypesFromStatement(switchStmt, semanticModel);
+        AssertMatchedTypeInteractions(
+            switchStmt,
+            semanticModel,
+            matchedTypes,
+            "Ok<String, HttpError<String>>",
+            "Error<String, HttpError<String>>"
+        );
 
         // Assert
         Assert.AreEqual(2, matchedTypes.Count, "Should match two types: Ok and Error");
@@ -883,6 +994,7 @@ namespace TestCode
 
         // Act
         var matchedTypes = PatternAnalysis.GetMatchedTypesFromStatement(switchStmt, semanticModel);
+        AssertMatchedTypeInteractions(switchStmt, semanticModel, matchedTypes, "Ok<Int32, String>");
 
         // Assert
         Assert.AreEqual(1, matchedTypes.Count, "Should only match Ok, not the discard");
@@ -948,6 +1060,7 @@ namespace TestCode
 
         // Act
         var matchedTypes = PatternAnalysis.GetMatchedTypesFromStatement(switchStmt, semanticModel);
+        AssertMatchedTypeInteractions(switchStmt, semanticModel, matchedTypes);
 
         // Assert
         Assert.AreEqual(
@@ -1003,6 +1116,13 @@ namespace TestCode
 
         // Act
         var typeName = PatternAnalysis.GetPatternTypeName(pattern, semanticModel);
+        AssertPatternNameInteractions(
+            pattern,
+            semanticModel,
+            typeName,
+            "Ok<Int32, String>",
+            "Ok<Int32, String>"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -1057,6 +1177,13 @@ namespace TestCode
 
         // Act
         var typeName = PatternAnalysis.GetPatternTypeName(pattern, semanticModel);
+        AssertPatternNameInteractions(
+            pattern,
+            semanticModel,
+            typeName,
+            "Ok<Int32, String>",
+            "Ok<Int32, String>"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -1111,6 +1238,13 @@ namespace TestCode
 
         // Act
         var typeName = PatternAnalysis.GetPatternTypeName(pattern, semanticModel);
+        AssertPatternNameInteractions(
+            pattern,
+            semanticModel,
+            typeName,
+            "Ok<Int32, String>",
+            "Ok<Int32, String>"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -1171,6 +1305,13 @@ namespace TestCode
 
         // Act
         var typeName = PatternAnalysis.GetPatternTypeName(pattern, semanticModel);
+        AssertPatternNameInteractions(
+            pattern,
+            semanticModel,
+            typeName,
+            "Error<String, HttpError<String>> with ExceptionError<String>",
+            "Error<String, HttpError<String>> with ExceptionError<String>"
+        );
 
         // Assert
         Assert.IsNotNull(typeName, "Should return a type name");
@@ -1229,6 +1370,13 @@ namespace TestCode
 
         // Act
         var typeName = PatternAnalysis.GetPatternTypeName(pattern, semanticModel);
+        AssertPatternNameInteractions(
+            pattern,
+            semanticModel,
+            typeName,
+            "Ok<Int32, String>",
+            "Ok<Int32, String>"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -1283,6 +1431,7 @@ namespace TestCode
 
         // Act
         var typeName = PatternAnalysis.GetPatternTypeName(pattern, semanticModel);
+        AssertPatternNameInteractions(pattern, semanticModel, typeName, null, "Ok<Int32, String>");
 
         // Assert
         Assert.IsNull(typeName, "Should return null for discard pattern");
@@ -1335,6 +1484,13 @@ namespace TestCode
 
         // Act
         var typeName = PatternAnalysis.GetPatternTypeName(pattern, semanticModel);
+        AssertPatternNameInteractions(
+            pattern,
+            semanticModel,
+            typeName,
+            "Error<String, HttpError<String>>",
+            "Error<String, HttpError<String>>"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -1397,6 +1553,13 @@ namespace TestCode
 
         // Act
         var typeName = PatternAnalysis.GetPatternTypeName(pattern, semanticModel);
+        AssertPatternNameInteractions(
+            pattern,
+            semanticModel,
+            typeName,
+            "Error<Int32, String>",
+            "Error<Int32, String>"
+        );
 
         // Assert
         Assert.AreEqual(
@@ -1471,8 +1634,297 @@ namespace TestCode
 
         // Act
         var typeName = PatternAnalysis.GetPatternTypeName(pattern, semanticModel);
+        AssertPatternNameInteractions(pattern, semanticModel, typeName, null);
 
         // Assert
         Assert.IsNull(typeName, "Should return null when RecursivePatternSyntax.Type is null");
     }
+
+    private static void AssertNestedVariantInteractions(
+        RecursivePatternSyntax pattern,
+        SemanticModel model,
+        INamedTypeSymbol outerType,
+        List<INamedTypeSymbol> variants,
+        string expectedPatternName,
+        params string[] expectedVariantNames
+    )
+    {
+        var originalSource = pattern.SyntaxTree.GetText().ToString();
+        CollectionAssert.AreEqual(
+            expectedVariantNames,
+            variants.Select(variant => variant.Name).ToArray(),
+            "Nested variants must match the exact positional order."
+        );
+        foreach (var variant in variants)
+        {
+            Assert.IsTrue(variant.IsSealed);
+            Assert.IsTrue(variant.IsRecord);
+            Assert.AreEqual(0, variant.Arity);
+            Assert.IsTrue(
+                SymbolEqualityComparer.Default.Equals(variant.ContainingType, variant.BaseType),
+                "Each fixture variant must derive from its actual constructed containing hierarchy."
+            );
+            var expectedOwnerName = variant.Name switch
+            {
+                "Active" => "TestTypes.Status",
+                "High" => "TestTypes.Priority",
+                _ => "TestTypes.HttpError`1",
+            };
+            var expectedOwner = model.Compilation.GetTypeByMetadataName(expectedOwnerName)!;
+            if (expectedOwner.Arity == 1)
+            {
+                expectedOwner = expectedOwner.Construct(
+                    model.Compilation.GetSpecialType(SpecialType.System_String)
+                );
+                Assert.AreEqual(
+                    SpecialType.System_String,
+                    variant.ContainingType!.TypeArguments.Single().SpecialType
+                );
+            }
+
+            var expectedVariant = expectedOwner.GetTypeMembers(variant.Name).Single();
+            Assert.IsTrue(
+                SymbolEqualityComparer.Default.Equals(expectedVariant, variant),
+                "Variant identity must include the correctly substituted generic arguments."
+            );
+            if (variant.Name == "ErrorResponseError")
+            {
+                var constructor = variant.InstanceConstructors.Single(candidate =>
+                    candidate.Parameters.Length == 2
+                );
+                Assert.AreEqual(
+                    SpecialType.System_String,
+                    constructor.Parameters[0].Type.SpecialType
+                );
+                Assert.AreEqual(
+                    SpecialType.System_Int32,
+                    constructor.Parameters[1].Type.SpecialType
+                );
+            }
+        }
+
+        var repeated = PatternAnalysis.GetNestedVariants(pattern, model, outerType);
+        Assert.AreNotSame(
+            variants,
+            repeated,
+            "Independent analyses must return independent collections."
+        );
+        CollectionAssert.AreEqual(
+            expectedVariantNames,
+            repeated.Select(variant => variant.Name).ToArray()
+        );
+        for (var index = 0; index < variants.Count; index++)
+        {
+            Assert.IsTrue(SymbolEqualityComparer.Default.Equals(variants[index], repeated[index]));
+        }
+
+        repeated.Clear();
+        CollectionAssert.AreEqual(
+            expectedVariantNames,
+            variants.Select(variant => variant.Name).ToArray(),
+            "Mutating a later result must not mutate a previous result."
+        );
+        CollectionAssert.AreEqual(
+            expectedVariantNames,
+            PatternAnalysis
+                .GetNestedVariants(pattern, model, outerType)
+                .Select(variant => variant.Name)
+                .ToArray(),
+            "Mutating a result must not poison a subsequent analysis."
+        );
+        Assert.AreEqual(expectedPatternName, PatternAnalysis.GetPatternTypeName(pattern, model));
+        var switchExpression = pattern.Ancestors().OfType<SwitchExpressionSyntax>().Single();
+        Assert.IsTrue(
+            PatternAnalysis
+                .GetMatchedTypes(switchExpression, model)
+                .SetEquals([expectedPatternName])
+        );
+        Assert.IsTrue(
+            SymbolEqualityComparer.Default.Equals(
+                outerType,
+                model.GetTypeInfo(switchExpression.GoverningExpression).Type
+            )
+        );
+        Assert.AreEqual(originalSource, pattern.SyntaxTree.GetText().ToString());
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+        _ = Assert.ThrowsException<OperationCanceledException>(
+            () =>
+                PatternAnalysis.GetNestedVariants(
+                    pattern,
+                    model,
+                    outerType,
+                    new AnalysisBudget(cancellation.Token)
+                )
+        );
+        CollectionAssert.AreEqual(
+            expectedVariantNames,
+            variants.Select(variant => variant.Name).ToArray(),
+            "Cancelled analysis must preserve existing results."
+        );
+    }
+
+    private static void AssertPatternNameInteractions(
+        PatternSyntax pattern,
+        SemanticModel model,
+        string? actual,
+        string? expectedName,
+        params string[] expectedMatchedTypes
+    )
+    {
+        var originalSource = pattern.SyntaxTree.GetText().ToString();
+        var originalSpan = pattern.Span;
+        Assert.AreEqual(
+            expectedName,
+            actual,
+            "The complete display name must match, including all generic arguments and nested variants."
+        );
+        Assert.AreEqual(expectedName, PatternAnalysis.GetPatternTypeName(pattern, model));
+        var switchExpression = pattern.Ancestors().OfType<SwitchExpressionSyntax>().Single();
+        var matched = PatternAnalysis.GetMatchedTypes(switchExpression, model);
+        Assert.IsTrue(
+            matched.SetEquals(expectedMatchedTypes),
+            "Whole-switch analysis must agree with the exact expected pattern coverage."
+        );
+        matched.Clear();
+        Assert.IsTrue(
+            PatternAnalysis
+                .GetMatchedTypes(switchExpression, model)
+                .SetEquals(expectedMatchedTypes),
+            "Changing a returned set must not affect later analysis."
+        );
+        Assert.AreEqual(
+            expectedName,
+            PatternAnalysis.GetPatternTypeName(pattern, model),
+            "Pattern results must survive intervening whole-switch analysis."
+        );
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+        _ = Assert.ThrowsException<OperationCanceledException>(
+            () =>
+                PatternAnalysis.GetPatternTypeName(
+                    pattern,
+                    model,
+                    new AnalysisBudget(cancellation.Token)
+                )
+        );
+        Assert.AreEqual(originalSpan, pattern.Span);
+        Assert.AreEqual(originalSource, pattern.SyntaxTree.GetText().ToString());
+        Assert.AreEqual(
+            expectedName,
+            actual,
+            "Cancelled analysis must not change the earlier result."
+        );
+    }
+
+    private static void AssertMatchedTypeInteractions(
+        SyntaxNode switchNode,
+        SemanticModel model,
+        HashSet<string> actual,
+        params string[] expected
+    )
+    {
+        var originalSource = switchNode.SyntaxTree.GetText().ToString();
+        Assert.IsTrue(
+            actual.SetEquals(expected),
+            "Coverage must contain exactly the expected variants, with no fallback or unrelated names."
+        );
+        var repeated = ReadMatchedTypes(switchNode, model);
+        Assert.AreNotSame(repeated, actual);
+        Assert.IsTrue(repeated.SetEquals(expected));
+        repeated.Clear();
+        _ = repeated.Add("Caller-owned sentinel");
+        Assert.IsTrue(actual.SetEquals(expected), "Returned coverage sets must be independent.");
+        Assert.IsTrue(
+            ReadMatchedTypes(switchNode, model).SetEquals(expected),
+            "Mutating a result must not affect subsequent coverage."
+        );
+
+        SyntaxNode withoutFallback;
+        if (switchNode is SwitchExpressionSyntax expression)
+        {
+            withoutFallback = expression.WithArms(
+                SyntaxFactory.SeparatedList(expression.Arms.Where(arm => !IsFallback(arm.Pattern)))
+            );
+        }
+        else
+        {
+            var statement = (SwitchStatementSyntax)switchNode;
+            var sections = statement
+                .Sections.Select(section =>
+                    section.WithLabels(
+                        SyntaxFactory.List(
+                            section.Labels.Where(label =>
+                                label is not DefaultSwitchLabelSyntax
+                                && label
+                                    is not CaseSwitchLabelSyntax
+                                    {
+                                        Value: IdentifierNameSyntax { Identifier.ValueText: "_" }
+                                    }
+                                && !(
+                                    label is CasePatternSwitchLabelSyntax patternLabel
+                                    && IsFallback(patternLabel.Pattern)
+                                )
+                            )
+                        )
+                    )
+                )
+                .Where(section => section.Labels.Count > 0);
+            withoutFallback = statement.WithSections(SyntaxFactory.List(sections));
+        }
+
+        Assert.AreNotEqual(
+            switchNode.ToFullString(),
+            withoutFallback.ToFullString(),
+            "The interaction must actually remove a fallback arm or label."
+        );
+        var originalTree = switchNode.SyntaxTree;
+        var changedRoot = originalTree.GetRoot().ReplaceNode(switchNode, withoutFallback);
+        var changedTree = originalTree.WithRootAndOptions(changedRoot, originalTree.Options);
+        var changedCompilation = model.Compilation.ReplaceSyntaxTree(originalTree, changedTree);
+        var changedModel = changedCompilation.GetSemanticModel(changedTree);
+        var changedSwitch = changedTree
+            .GetRoot()
+            .DescendantNodes()
+            .Single(node => node is SwitchExpressionSyntax or SwitchStatementSyntax);
+        Assert.IsTrue(
+            ReadMatchedTypes(changedSwitch, changedModel).SetEquals(expected),
+            "Removing a fallback must preserve explicit type coverage."
+        );
+        Assert.IsTrue(
+            ReadMatchedTypes(switchNode, model).SetEquals(expected),
+            "Analyzing an edit must preserve results for the original syntax tree."
+        );
+        Assert.AreEqual(originalSource, originalTree.GetText().ToString());
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+        var budget = new AnalysisBudget(cancellation.Token);
+        _ = switchNode is SwitchExpressionSyntax originalExpression
+            ? Assert.ThrowsException<OperationCanceledException>(
+                () => PatternAnalysis.GetMatchedTypes(originalExpression, model, budget)
+            )
+            : Assert.ThrowsException<OperationCanceledException>(
+                () =>
+                    PatternAnalysis.GetMatchedTypesFromStatement(
+                        (SwitchStatementSyntax)switchNode,
+                        model,
+                        budget
+                    )
+            );
+
+        Assert.IsTrue(actual.SetEquals(expected));
+    }
+
+    private static HashSet<string> ReadMatchedTypes(SyntaxNode switchNode, SemanticModel model) =>
+        switchNode is SwitchExpressionSyntax expression
+            ? PatternAnalysis.GetMatchedTypes(expression, model)
+            : PatternAnalysis.GetMatchedTypesFromStatement(
+                (SwitchStatementSyntax)switchNode,
+                model
+            );
+
+    private static bool IsFallback(PatternSyntax pattern) =>
+        pattern
+            is DiscardPatternSyntax
+                or VarPatternSyntax { Designation: DiscardDesignationSyntax };
 }

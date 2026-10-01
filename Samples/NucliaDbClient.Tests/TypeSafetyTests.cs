@@ -19,6 +19,7 @@ public class TypeSafetyTests
     #region Setup
     private readonly IHttpClientFactory _httpClientFactory;
     private static string? _knowledgeBoxId;
+    private static string? _knowledgeBoxSlug;
 
     public TypeSafetyTests(NucliaDbFixture fixture)
     {
@@ -53,10 +54,18 @@ public class TypeSafetyTests
                 $"Failed to create knowledge box: HTTP {statusCode}: {body}"
             ),
         };
+        HttpResultAssertions.Success(result, kb);
 
         Assert.NotNull(kb);
         Assert.NotNull(kb.Uuid);
+        Assert.False(string.IsNullOrWhiteSpace(kb.Uuid));
         _knowledgeBoxId = kb.Uuid;
+        _knowledgeBoxSlug = payload.slug;
+        var fetched = await CreateHttpClient()
+            .KbKbKbidGetAsync(kbid: kb.Uuid, xNUCLIADBROLES: "READER");
+        var persisted = Assert.IsType<OkKnowledgeBoxObjHTTPValidationError>(fetched).Value;
+        HttpResultAssertions.Success(fetched, persisted);
+        HttpResultAssertions.KnowledgeBox(persisted, kb.Uuid, payload.slug, payload.title);
     }
 
     /// <summary>
@@ -84,6 +93,13 @@ public class TypeSafetyTests
                 (var body, var statusCode, _)
             ) => throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
         };
+        HttpResultAssertions.Success(result, kb);
+        HttpResultAssertions.KnowledgeBox(
+            kb,
+            _knowledgeBoxId!,
+            _knowledgeBoxSlug!,
+            "Type Safety Test KB"
+        );
 
         // Assert - These assertions will only compile if Config is KnowledgeBoxConfig (not object)
         Assert.NotNull(kb);
@@ -131,6 +147,13 @@ public class TypeSafetyTests
                 (var body, var statusCode, _)
             ) => throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
         };
+        HttpResultAssertions.Success(result, kb);
+        HttpResultAssertions.KnowledgeBox(
+            kb,
+            _knowledgeBoxId!,
+            _knowledgeBoxSlug!,
+            "Type Safety Test KB"
+        );
 
         // Assert - These assertions will only compile if Model is SemanticModelMetadata (not object)
         Assert.NotNull(kb);
@@ -178,6 +201,13 @@ public class TypeSafetyTests
                 (var body, var statusCode, _)
             ) => throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
         };
+        HttpResultAssertions.Success(result, kb);
+        HttpResultAssertions.KnowledgeBox(
+            kb,
+            _knowledgeBoxId!,
+            _knowledgeBoxSlug!,
+            "Type Safety Test KB"
+        );
 
         // Assert - Access multiple levels of properties without casting
         Assert.NotNull(kb);
@@ -218,6 +248,13 @@ public class TypeSafetyTests
                 (var body, var statusCode, _)
             ) => throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
         };
+        HttpResultAssertions.Success(result, kb);
+        HttpResultAssertions.KnowledgeBox(
+            kb,
+            _knowledgeBoxId!,
+            _knowledgeBoxSlug!,
+            "Type Safety Test KB"
+        );
 
         // Assert - Use pattern matching on typed properties
         Assert.NotNull(kb);
@@ -268,6 +305,13 @@ public class TypeSafetyTests
                 (var body, var statusCode, _)
             ) => throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
         };
+        HttpResultAssertions.Success(result1, kb1);
+        HttpResultAssertions.KnowledgeBox(
+            kb1,
+            _knowledgeBoxId!,
+            _knowledgeBoxSlug!,
+            "Type Safety Test KB"
+        );
 
         // Second call
         var result2 = await CreateHttpClient()
@@ -285,6 +329,13 @@ public class TypeSafetyTests
                 (var body, var statusCode, _)
             ) => throw new InvalidOperationException($"API call failed: HTTP {statusCode}: {body}"),
         };
+        HttpResultAssertions.Success(result2, kb2);
+        HttpResultAssertions.KnowledgeBox(
+            kb2,
+            _knowledgeBoxId!,
+            _knowledgeBoxSlug!,
+            "Type Safety Test KB"
+        );
 
         // Assert - Both objects have properly typed Config and Model
         Assert.NotNull(kb1);
@@ -301,6 +352,18 @@ public class TypeSafetyTests
         var model2Func = kb2.Model?.SimilarityFunction;
 
         Assert.Equal(model1Func, model2Func);
+        Assert.NotSame(kb1, kb2);
+        Assert.Equal(kb1.Uuid, kb2.Uuid);
+        Assert.NotSame(kb1.Config, kb2.Config);
+        Assert.Equal(kb1.Config?.Slug, kb2.Config?.Slug);
+        Assert.Equal(kb1.Config?.Title, kb2.Config?.Title);
+        Assert.Equal(kb1.Config?.Description, kb2.Config?.Description);
+        Assert.Equal(kb1.Config?.HiddenResourcesEnabled, kb2.Config?.HiddenResourcesEnabled);
+        Assert.Equal(
+            kb1.Config?.HiddenResourcesHideOnCreation,
+            kb2.Config?.HiddenResourcesHideOnCreation
+        );
+        Assert.Equal(kb1.Model, kb2.Model);
     }
 
     /// <summary>
@@ -355,5 +418,31 @@ public class TypeSafetyTests
         Assert.Equal("test", slug);
         Assert.Equal("cosine", similarityFunction);
         Assert.Equal(768, vectorDimension);
+        Assert.NotNull(kb.Config);
+        Assert.NotNull(kb.Model);
+        Assert.Same(config, kb.Config);
+        Assert.Same(model, kb.Model);
+        Assert.Equal("Test", kb.Config.Title);
+        Assert.Equal("Test", kb.Config.Description);
+        Assert.False(kb.Config.HiddenResourcesEnabled);
+        Assert.False(kb.Config.HiddenResourcesHideOnCreation);
+        Assert.Equal(0.7f, kb.Model.DefaultMinScore);
+        var changed = kb with
+        {
+            Config = config with { Title = "Edited" },
+            Model = model with { VectorDimension = 384 },
+        };
+        Assert.Equal("Edited", changed.Config.Title);
+        Assert.Equal(384, changed.Model.VectorDimension);
+        Assert.Equal(kb.Uuid, changed.Uuid);
+        Assert.Equal("Test", kb.Config.Title);
+        Assert.Equal(768, kb.Model.VectorDimension);
+        var json = System.Text.Json.JsonSerializer.Serialize(changed);
+        var restored = System.Text.Json.JsonSerializer.Deserialize<KnowledgeBoxObj>(json);
+        Assert.NotNull(restored);
+        Assert.Equal(changed, restored);
+        Assert.NotSame(changed, restored);
+        Assert.NotSame(changed.Config, restored.Config);
+        Assert.NotSame(changed.Model, restored.Model);
     }
 }
