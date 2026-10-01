@@ -27,9 +27,13 @@ Install via NuGet:
 dotnet add package Exhaustion
 ```
 
-## Diagnostic ID
+## Diagnostics
 
 **EXHAUSTION001**: Switch expression/statement must be exhaustive for closed type hierarchies
+
+**EXHAUSTION002**: Exhaustiveness could not be determined because the analysis complexity limit was exceeded. This warning identifies the affected switch without reporting partial coverage as a complete result.
+
+Each switch has an independent budget of 1,024 constructor-variant combinations, 16,384 analysis steps, and a maximum traversal depth of 64. Products are checked before expansion, and analysis respects compiler cancellation. These limits prevent broad recursive ASTs, such as SqlParserCS 0.6.5, from causing unbounded constructor expansion and analyzer out-of-memory failures.
 
 ## Examples
 

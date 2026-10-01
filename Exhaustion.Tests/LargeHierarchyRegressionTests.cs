@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace Exhaustion.Tests;
@@ -95,6 +96,42 @@ public sealed class LargeHierarchyRegressionTests
         await AssertBoundedAnalysisAsync(source, 1).ConfigureAwait(false);
     }
 
+    [TestMethod]
+    public async Task ConstructorProductBeyondInt64_ReportsControlledDiagnostic()
+    {
+        if (Environment.GetEnvironmentVariable(IsolatedProcessVariable) != "1")
+        {
+            await RunInHeapLimitedProcessAsync().ConfigureAwait(false);
+            return;
+        }
+
+        // 2^64 combinations also exercises overflow-safe product checks. Keep this isolated.
+        var parameters = string.Join(", ", Enumerable.Range(0, 64).Select(index => $"Choice P{index}"));
+        var source = $$"""
+            public abstract record Choice
+            {
+                private Choice() { }
+                public sealed record A : Choice;
+                public sealed record B : Choice;
+            }
+            public abstract record Root
+            {
+                private Root() { }
+                public sealed record Branch({{parameters}}) : Root;
+            }
+            public static class Consumer
+            {
+                public static int Evaluate(Root root) => root switch
+                {
+                    Root.Branch => 1,
+                    _ => 0,
+                };
+            }
+            """;
+
+        await AssertBoundedAnalysisAsync(source, 1).ConfigureAwait(false);
+    }
+
     private static async Task AssertBoundedAnalysisAsync(string source, int expectedSwitchCount)
     {
         var platformAssemblies = (string?)AppContext.GetData("TRUSTED_PLATFORM_ASSEMBLIES")
@@ -129,7 +166,14 @@ public sealed class LargeHierarchyRegressionTests
         var allocatedDuringAnalysis = GC.GetTotalAllocatedBytes() - allocatedBeforeAnalysis;
         Assert.AreEqual(expectedSwitchCount, diagnostics.Length, "Every switch must still be analyzed and produce a controlled diagnostic.");
         Assert.AreEqual(expectedSwitchCount, diagnostics.Select(diagnostic => diagnostic.Location.SourceSpan).Distinct().Count(), "Each switch must have its own diagnostic.");
-        Assert.IsTrue(diagnostics.All(diagnostic => diagnostic.Id.StartsWith("EXHAUSTION", StringComparison.Ordinal)));
+        Assert.IsTrue(diagnostics.All(diagnostic => diagnostic.Id == "EXHAUSTION002"));
+        Assert.IsTrue(diagnostics.All(diagnostic => diagnostic.Severity == DiagnosticSeverity.Warning));
+        var syntaxRoot = await compilation.SyntaxTrees.Single().GetRootAsync().ConfigureAwait(false);
+        var switchSpans = syntaxRoot.DescendantNodes()
+            .Where(node => node is SwitchExpressionSyntax or SwitchStatementSyntax)
+            .Select(node => node.Span)
+            .ToHashSet();
+        Assert.IsTrue(diagnostics.All(diagnostic => diagnostic.Location.IsInSource && switchSpans.Contains(diagnostic.Location.SourceSpan)), "Every diagnostic must identify an actual switch.");
         Assert.IsTrue(diagnostics.All(diagnostic => diagnostic.GetMessage(CultureInfo.InvariantCulture).Length < 4096), "Diagnostics must not materialize the AST constructor Cartesian product.");
         Assert.IsTrue(allocatedDuringAnalysis < 128 * 1024 * 1024, $"Analysis allocated {allocatedDuringAnalysis:N0} bytes, exceeding 128 MiB.");
         Assert.IsTrue(stopwatch.Elapsed < TimeSpan.FromSeconds(20), $"Analysis took {stopwatch.Elapsed}.");

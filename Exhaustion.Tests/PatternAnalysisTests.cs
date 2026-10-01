@@ -6,6 +6,7 @@ namespace Exhaustion.Tests;
 
 #pragma warning disable CA1515
 #pragma warning disable SA1600
+#pragma warning disable CA1506 // Roslyn fixtures also reference the shared analysis budget.
 
 /// <summary>
 /// Tests for the PatternAnalysis module, specifically GetNestedVariants.

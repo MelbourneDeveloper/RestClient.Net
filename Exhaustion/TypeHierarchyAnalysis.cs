@@ -12,9 +12,12 @@ internal static class TypeHierarchyAnalysis
     /// Checks if a type represents a closed hierarchy (sealed set of subtypes).
     /// </summary>
     /// <param name="type">The type to check.</param>
+    /// <param name="budget">The shared analysis budget.</param>
     /// <returns>True if the type is a closed hierarchy, false otherwise.</returns>
-    public static bool IsClosedHierarchy(INamedTypeSymbol type)
+    public static bool IsClosedHierarchy(INamedTypeSymbol type, AnalysisBudget? budget = null)
     {
+        budget ??= new AnalysisBudget();
+        budget.Visit();
         WriteLine($"IsClosedHierarchy check for: {type.Name}");
 
         // Must be abstract or sealed record (records use sealed for their nested types)
@@ -27,19 +30,18 @@ internal static class TypeHierarchyAnalysis
         }
 
         // Check for private constructors only (or protected for records - copy constructor)
-        var constructors = type.Constructors.Where(c => !c.IsStatic).ToList();
-
-        var hasPublicConstructor = constructors.Any(c =>
-            c.DeclaredAccessibility == Accessibility.Public
-        );
-        if (hasPublicConstructor)
+        foreach (var constructor in type.Constructors)
         {
-            WriteLine($"  -> Has public constructor");
-            return false;
+            budget.Visit();
+            if (!constructor.IsStatic && constructor.DeclaredAccessibility == Accessibility.Public)
+            {
+                WriteLine($"  -> Has public constructor");
+                return false;
+            }
         }
 
         // Must have at least one derived type
-        var derivedCount = GetImmediateDerivedTypes(type).Count;
+        var derivedCount = GetImmediateDerivedTypes(type, budget).Count;
         WriteLine($"  -> Derived types count: {derivedCount}");
         return derivedCount > 0;
     }
@@ -49,9 +51,12 @@ internal static class TypeHierarchyAnalysis
     /// Only looks for nested types within the base type itself.
     /// </summary>
     /// <param name="baseType">The base type to find derived types for.</param>
+    /// <param name="budget">The shared analysis budget.</param>
     /// <returns>List of immediate derived types.</returns>
-    public static List<INamedTypeSymbol> GetImmediateDerivedTypes(INamedTypeSymbol baseType)
+    public static List<INamedTypeSymbol> GetImmediateDerivedTypes(INamedTypeSymbol baseType, AnalysisBudget? budget = null)
     {
+        budget ??= new AnalysisBudget();
+        budget.Visit();
         var result = new List<INamedTypeSymbol>();
 
         // Look for nested types within this type itself
@@ -59,6 +64,7 @@ internal static class TypeHierarchyAnalysis
 
         foreach (var member in members)
         {
+            budget.Visit();
             if (member.BaseType is INamedTypeSymbol memberBase)
             {
                 // Compare the original definitions (unbounded generics)
@@ -80,27 +86,31 @@ internal static class TypeHierarchyAnalysis
     /// Returns empty set if the type is not a closed hierarchy.
     /// </summary>
     /// <param name="type">The type to analyze.</param>
+    /// <param name="budget">The shared analysis budget.</param>
     /// <returns>Set of required type names for exhaustive pattern matching.</returns>
-    public static HashSet<string> GetRequiredTypeNames(ITypeSymbol type)
+    public static HashSet<string> GetRequiredTypeNames(ITypeSymbol type, AnalysisBudget? budget = null)
     {
+        budget ??= new AnalysisBudget();
+        budget.Visit();
         if (type is not INamedTypeSymbol namedType)
         {
             return [];
         }
 
         // Check if this is a closed hierarchy
-        if (!IsClosedHierarchy(namedType))
+        if (!IsClosedHierarchy(namedType, budget))
         {
             return [];
         }
 
         // Get immediate derived types
-        var derivedTypes = GetImmediateDerivedTypes(namedType);
+        var derivedTypes = GetImmediateDerivedTypes(namedType, budget);
 
         // Collect type names from derived types
         var result = new HashSet<string>();
         foreach (var derived in derivedTypes)
         {
+            budget.Visit();
             // If the parent is a constructed generic type, construct the derived type with the same type arguments
             var instantiatedDerived = derived;
             if (namedType.IsGenericType && !namedType.IsUnboundGenericType)
@@ -122,7 +132,7 @@ internal static class TypeHierarchyAnalysis
             }
 
             // Recursively get type names
-            TypeNameCollection.GetAllTypeNames(instantiatedDerived, result);
+            TypeNameCollection.GetAllTypeNames(instantiatedDerived, result, budget);
         }
 
         return result;

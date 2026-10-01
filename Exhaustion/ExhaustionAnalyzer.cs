@@ -24,6 +24,11 @@ public class ExhaustionAnalyzer : DiagnosticAnalyzer
     public const string DiagnosticId = DiagnosticRules.DiagnosticId;
 
     /// <summary>
+    /// Diagnostic ID when exhaustive coverage cannot be determined within the analysis budget.
+    /// </summary>
+    public const string AnalysisLimitDiagnosticId = DiagnosticRules.AnalysisLimitDiagnosticId;
+
+    /// <summary>
     /// Gets the collection of diagnostic descriptors supported by this analyzer.
     /// </summary>
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics =>
@@ -37,31 +42,56 @@ public class ExhaustionAnalyzer : DiagnosticAnalyzer
     {
         context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
         context.EnableConcurrentExecution();
-        context.RegisterSyntaxNodeAction(AnalyzeSwitchExpression, SyntaxKind.SwitchExpression);
-        context.RegisterSyntaxNodeAction(AnalyzeSwitchStatement, SyntaxKind.SwitchStatement);
+        context.RegisterSyntaxNodeAction(
+            AnalyzeSwitch,
+            SyntaxKind.SwitchExpression,
+            SyntaxKind.SwitchStatement
+        );
     }
 
-    private void AnalyzeSwitchExpression(SyntaxNodeAnalysisContext context)
+    private static void AnalyzeSwitch(SyntaxNodeAnalysisContext context)
     {
+        var budget = new AnalysisBudget(context.CancellationToken);
+        try
+        {
+            if (context.Node is SwitchExpressionSyntax)
+            {
+                AnalyzeSwitchExpression(context, budget);
+            }
+            else
+            {
+                AnalyzeSwitchStatement(context, budget);
+            }
+        }
+        catch (AnalysisLimitExceededException)
+        {
+            context.CancellationToken.ThrowIfCancellationRequested();
+            context.ReportDiagnostic(Diagnostic.Create(AnalysisLimitRule, context.Node.GetLocation()));
+        }
+    }
+
+    private static void AnalyzeSwitchExpression(SyntaxNodeAnalysisContext context, AnalysisBudget budget)
+    {
+        budget.Visit();
         var switchExpr = (SwitchExpressionSyntax)context.Node;
         var model = context.SemanticModel;
 
-        var switchType = model.GetTypeInfo(switchExpr.GoverningExpression).Type!;
+        var switchType = model.GetTypeInfo(switchExpr.GoverningExpression, budget.CancellationToken).Type!;
 
         // Check if there's a TOP-LEVEL discard pattern (not nested subpattern discards)
         var hasDiscard = switchExpr.Arms.Any(arm => IsTopLevelDiscard(arm.Pattern));
 
         // Get types matched by the switch arms (needed for both closed and non-closed hierarchies)
-        var matchedTypes = GetMatchedTypes(switchExpr, model);
+        var matchedTypes = GetMatchedTypes(switchExpr, model, budget);
 
         // Check if type is closed hierarchy and get required type names
-        var requiredTypeNames = GetRequiredTypeNames(switchType);
+        var requiredTypeNames = GetRequiredTypeNames(switchType, budget);
         if (requiredTypeNames.Count == 0)
         {
             // Not a closed hierarchy, but check for redundant default arm on sealed types
             if (hasDiscard && switchType is INamedTypeSymbol namedSwitchType)
             {
-                var switchTypeName = GetDisplayName(namedSwitchType);
+                var switchTypeName = GetDisplayName(namedSwitchType, budget);
                 // If the switch type itself is matched, the default is redundant
                 if (matchedTypes.Contains(switchTypeName))
                 {
@@ -104,12 +134,13 @@ public class ExhaustionAnalyzer : DiagnosticAnalyzer
         }
     }
 
-    private void AnalyzeSwitchStatement(SyntaxNodeAnalysisContext context)
+    private static void AnalyzeSwitchStatement(SyntaxNodeAnalysisContext context, AnalysisBudget budget)
     {
+        budget.Visit();
         var switchStmt = (SwitchStatementSyntax)context.Node;
         var model = context.SemanticModel;
 
-        var switchType = model.GetTypeInfo(switchStmt.Expression).Type!;
+        var switchType = model.GetTypeInfo(switchStmt.Expression, budget.CancellationToken).Type!;
 
         // Check if there's a default or TOP-LEVEL discard case
         var hasDefault = switchStmt.Sections.Any(section =>
@@ -123,16 +154,16 @@ public class ExhaustionAnalyzer : DiagnosticAnalyzer
         );
 
         // Get types matched by the switch statement (needed for both closed and non-closed hierarchies)
-        var matchedTypes = GetMatchedTypesFromStatement(switchStmt, model);
+        var matchedTypes = GetMatchedTypesFromStatement(switchStmt, model, budget);
 
         // Check if type is closed hierarchy and get required type names
-        var requiredTypeNames = GetRequiredTypeNames(switchType);
+        var requiredTypeNames = GetRequiredTypeNames(switchType, budget);
         if (requiredTypeNames.Count == 0)
         {
             // Not a closed hierarchy, but check for redundant default arm on sealed types
             if (hasDefault && switchType is INamedTypeSymbol namedSwitchType)
             {
-                var switchTypeName = GetDisplayName(namedSwitchType);
+                var switchTypeName = GetDisplayName(namedSwitchType, budget);
                 // If the switch type itself is matched, the default is redundant
                 if (matchedTypes.Contains(switchTypeName))
                 {

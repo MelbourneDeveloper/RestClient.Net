@@ -13,12 +13,15 @@ internal static class ConstructorParameterAnalysis
     /// Returns a list of (parameter index, variants) tuples for parameters with multiple variants.
     /// </summary>
     /// <param name="type">The type to analyze.</param>
+    /// <param name="budget">The shared analysis budget.</param>
     /// <returns>List of parameter indices and their type variants.</returns>
     public static List<(
         int Index,
         List<INamedTypeSymbol> Variants
-    )> GetConstructorParameterHierarchies(INamedTypeSymbol type)
+    )> GetConstructorParameterHierarchies(INamedTypeSymbol type, AnalysisBudget? budget = null)
     {
+        budget ??= new AnalysisBudget();
+        budget.Visit();
         var result = new List<(int, List<INamedTypeSymbol>)>();
 
         if (!type.IsRecord)
@@ -27,19 +30,31 @@ internal static class ConstructorParameterAnalysis
         }
 
         // Get the primary constructor
-        var primaryCtor = type
-            .Constructors.Where(c => !c.IsStatic)
-            .OrderByDescending(c => c.Parameters.Length)
-            .First();
+        IMethodSymbol? primaryCtor = null;
+        foreach (var constructor in type.Constructors)
+        {
+            budget.Visit();
+            if (!constructor.IsStatic
+                && (primaryCtor == null || constructor.Parameters.Length > primaryCtor.Parameters.Length))
+            {
+                primaryCtor = constructor;
+            }
+        }
+
+        if (primaryCtor == null)
+        {
+            return result;
+        }
 
         for (var i = 0; i < primaryCtor.Parameters.Length; i++)
         {
+            budget.Visit();
             var param = primaryCtor.Parameters[i];
             var paramType = param.Type;
 
             if (paramType is INamedTypeSymbol namedParamType)
             {
-                var variants = TypeNameCollection.GetAllLeafTypes(namedParamType);
+                var variants = TypeNameCollection.GetAllLeafTypes(namedParamType, budget);
 
                 // Only care if there are multiple variants (closed hierarchy)
                 if (variants.Count > 1)
@@ -62,20 +77,65 @@ internal static class ConstructorParameterAnalysis
     /// <param name="currentIndex">The current index in the parameter hierarchies list.</param>
     /// <param name="selectedVariants">The currently selected variants for each parameter.</param>
     /// <param name="result">The set to accumulate expanded type names into.</param>
+    /// <param name="budget">The shared analysis budget.</param>
     public static void ExpandParameterCombinations(
         INamedTypeSymbol type,
         List<(int Index, List<INamedTypeSymbol> Variants)> paramHierarchies,
         int currentIndex,
         Dictionary<int, INamedTypeSymbol> selectedVariants,
-        HashSet<string> result
+        HashSet<string> result,
+        AnalysisBudget? budget = null
     )
     {
+        budget ??= new AnalysisBudget();
+        var combinationCount = 1;
+        for (var index = currentIndex; index < paramHierarchies.Count; index++)
+        {
+            budget.Visit();
+            var variantCount = paramHierarchies[index].Variants.Count;
+            if (variantCount == 0)
+            {
+                return;
+            }
+
+            // Divide before multiplying so even enormous products cannot overflow or allocate.
+            if (combinationCount > budget.RemainingCombinations / variantCount)
+            {
+                throw new AnalysisLimitExceededException();
+            }
+
+            combinationCount *= variantCount;
+        }
+
+        budget.ReserveCombinations(combinationCount);
+        ExpandParameterCombinationsCore(
+            type,
+            paramHierarchies,
+            currentIndex,
+            new Dictionary<int, INamedTypeSymbol>(selectedVariants),
+            result,
+            budget
+        );
+    }
+
+    private static void ExpandParameterCombinationsCore(
+        INamedTypeSymbol type,
+        List<(int Index, List<INamedTypeSymbol> Variants)> paramHierarchies,
+        int currentIndex,
+        Dictionary<int, INamedTypeSymbol> selectedVariants,
+        HashSet<string> result,
+        AnalysisBudget budget
+    )
+    {
+        budget.Visit();
+        budget.CheckDepth(currentIndex);
         if (currentIndex >= paramHierarchies.Count)
         {
             // Base case: all parameters assigned - create display name
             var displayName = DisplayNameGeneration.GetDisplayNameWithParameters(
                 type,
-                selectedVariants
+                selectedVariants,
+                budget
             );
             WriteLine($"    -> Adding expanded type: {displayName}");
             _ = result.Add(displayName);
@@ -86,17 +146,17 @@ internal static class ConstructorParameterAnalysis
 
         foreach (var variant in variants)
         {
-            var newSelectedVariants = new Dictionary<int, INamedTypeSymbol>(selectedVariants)
-            {
-                [paramIndex] = variant,
-            };
-            ExpandParameterCombinations(
+            selectedVariants[paramIndex] = variant;
+            ExpandParameterCombinationsCore(
                 type,
                 paramHierarchies,
                 currentIndex + 1,
-                newSelectedVariants,
-                result
+                selectedVariants,
+                result,
+                budget
             );
         }
+
+        _ = selectedVariants.Remove(paramIndex);
     }
 }
