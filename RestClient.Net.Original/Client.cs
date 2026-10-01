@@ -140,7 +140,7 @@ public class Client : IClient
             using var reader = new StreamReader(
                 await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false)
             );
-            return await reader.ReadToEndAsync(cancellationToken).ConfigureAwait(false)!;
+            return await reader.ReadToEndAsync(cancellationToken).ConfigureAwait(false);
         };
 
     private Response<TResponseBody> HandleFailure<TResponseBody>(

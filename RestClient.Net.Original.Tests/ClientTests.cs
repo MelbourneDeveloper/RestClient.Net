@@ -517,7 +517,7 @@ public sealed class ClientTests
         // Assert
         Assert.IsTrue(result.IsSuccess);
         Assert.IsNotNull(result.Body);
-        Assert.AreEqual(1, result.Body!.id);
+        Assert.AreEqual(1, result.Body.id);
 
         AssertResponse(result, 200, "GET", "posts/1", new PostResponse(1));
         Assert.AreEqual(1, requestCount);
