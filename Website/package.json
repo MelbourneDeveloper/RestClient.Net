@@ -7,7 +7,7 @@
     "generate-api": "node scripts/generate-api-docs.js",
     "dev": "npm run generate-api && eleventy --serve --port=4173",
     "build": "npm run generate-api && npm run clean && eleventy && node scripts/check-site.js",
-    "test:unit": "node --test tests-node/*.test.js",
+    "test:unit": "node --test --test-concurrency=1 tests-node/*.test.js",
     "test": "playwright test",
     "clean": "node -e \"require('node:fs').rmSync('_site', {recursive: true, force: true})\""
   },
