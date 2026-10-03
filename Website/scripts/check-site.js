@@ -6,6 +6,7 @@ import { parse as parseHtml } from 'parse5';
 import { parse as parseJavaScript } from 'acorn';
 
 export const CSS_BUDGET = 2500;
+const AUTHORIZED_GOOGLE_TAG = 'https://www.googletagmanager.com/gtag/js?id=G-PGDS00DBRX';
 
 async function filesUnder(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -143,7 +144,7 @@ export async function auditSite(directory, options = {}) {
       }
       if (node.tagName === 'script' && attribute(node, 'type') !== 'application/ld+json') {
         const src = attribute(node, 'src');
-        if (src && new URL(src, url).origin !== configured.origin) errors.push(`${relative}: external JavaScript could inject unbudgeted styles`);
+        if (src && new URL(src, url).origin !== configured.origin && src !== AUTHORIZED_GOOGLE_TAG) errors.push(`${relative}: external JavaScript could inject unbudgeted styles`);
         if (!src && content(node).trim()) errors.push(...cssInjectionErrors(content(node), relative));
       }
       if (node.tagName === 'link' && attribute(node, 'hreflang')) {

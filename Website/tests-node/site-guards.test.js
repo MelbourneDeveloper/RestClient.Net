@@ -102,6 +102,63 @@ test('external scripts cannot outsource hidden CSS', async t => {
   assert.match((await site.run()).errors.join('\n'), /external JavaScript/);
 });
 
+test('the exact user-authorized Google tag works on root and prefixed deployments', async t => {
+  for (const prefix of ['/', '/RestClient.Net/']) {
+    const site = await fixture(t, { prefix });
+    await site.write('index.html', site.html('<h1>Docs</h1>', `
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGDS00DBRX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-PGDS00DBRX');
+</script>`));
+    const report = await site.run();
+    assert.deepEqual(report.errors, []);
+    assert.equal(report.cssBytes, Buffer.byteLength('body{color:#123}', 'utf8'));
+    assert.equal(report.pageCount, 1);
+  }
+});
+
+test('Google tag exception rejects every altered origin, path, measurement ID, and query', async t => {
+  const site = await fixture(t);
+  for (const src of [
+    'http://www.googletagmanager.com/gtag/js?id=G-PGDS00DBRX',
+    '//www.googletagmanager.com/gtag/js?id=G-PGDS00DBRX',
+    'https://googletagmanager.com/gtag/js?id=G-PGDS00DBRX',
+    'https://www.googletagmanager.com.evil.test/gtag/js?id=G-PGDS00DBRX',
+    'https://www.googletagmanager.com@evil.test/gtag/js?id=G-PGDS00DBRX',
+    'https://www.googletagmanager.com:444/gtag/js?id=G-PGDS00DBRX',
+    'https://www.googletagmanager.com/gtm.js?id=G-PGDS00DBRX',
+    'https://www.googletagmanager.com/gtag/js/extra?id=G-PGDS00DBRX',
+    'https://www.googletagmanager.com/gtag/js?id=G-OTHER',
+    'https://www.googletagmanager.com/gtag/js',
+    'https://www.googletagmanager.com/gtag/js?other=G-PGDS00DBRX',
+    'https://www.googletagmanager.com/gtag/js?id=G-PGDS00DBRX&extra=1',
+    'https://www.googletagmanager.com/gtag/js?id=G-PGDS00DBRX&id=G-OTHER',
+    'https://www.googletagmanager.com/gtag/js?id=G-PGDS00DBRX#extra',
+    'https://www.googletagmanager.com/gtag/js?id=%47-PGDS00DBRX',
+  ]) {
+    await site.write('index.html', site.html('<h1>Docs</h1>', `<script async src="${src}"></script>`));
+    const report = await site.run();
+    assert.ok(report.errors.some(error => error.includes('external JavaScript')), src);
+    assert.equal(report.cssBytes, Buffer.byteLength('body{color:#123}', 'utf8'));
+  }
+});
+
+test('authorized Google tag does not exempt any CSS or other external scripts', async t => {
+  const site = await fixture(t, { stylesheet: ' '.repeat(CSS_BUDGET + 1) });
+  await site.write('index.html', site.html('<h1 style="color:red">Docs</h1>', `
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGDS00DBRX"></script>
+<script src="https://cdn.test/unapproved.js"></script>
+<link rel="stylesheet" href="https://www.googletagmanager.com/gtag/js?id=G-PGDS00DBRX">`));
+  const errors = (await site.run()).errors.join('\n');
+  assert.match(errors, /CSS budget exceeded/);
+  assert.match(errors, /inline CSS bypasses/);
+  assert.match(errors, /external or embedded stylesheet/);
+  assert.match(errors, /external JavaScript/);
+});
+
 test('SVG assets cannot conceal extra CSS outside the shared budget', async t => {
   const site = await fixture(t);
   for (const svg of ['<svg><style>text{font-size:99px}</style></svg>', '<svg><text style="font-size:99px">Hello</text></svg>']) {
