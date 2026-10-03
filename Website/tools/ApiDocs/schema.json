@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://restclient.net/api/reference/schema.json",
+  "title": "RestClient.Net source API reference",
+  "type": "object",
+  "required": ["schemaVersion", "sourceRef", "projects", "types"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "sourceRef": { "type": "string" },
+    "projects": { "type": "array", "items": { "type": "string" } },
+    "types": { "type": "array", "items": { "$ref": "#/$defs/type" } }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": ["file", "line", "url"],
+      "properties": { "file": { "type": "string" }, "line": { "type": "integer", "minimum": 1 }, "url": { "type": "string", "format": "uri" } }
+    },
+    "parameter": {
+      "type": "object",
+      "required": ["name", "type", "modifiers", "default"],
+      "properties": { "name": { "type": "string" }, "type": { "type": "string" }, "modifiers": { "type": "string" }, "default": { "type": ["string", "null"] } }
+    },
+    "namedDocumentation": {
+      "type": "object", "required": ["name", "description"],
+      "properties": { "name": { "type": "string" }, "description": { "type": "string" } }
+    },
+    "documentation": {
+      "type": "object", "required": ["summary", "remarks", "returns", "parameters", "typeParameters"],
+      "properties": {
+        "summary": { "type": "string" }, "remarks": { "type": "string" }, "returns": { "type": "string" },
+        "parameters": { "type": "array", "items": { "$ref": "#/$defs/namedDocumentation" } },
+        "typeParameters": { "type": "array", "items": { "$ref": "#/$defs/namedDocumentation" } }
+      }
+    },
+    "member": {
+      "type": "object", "required": ["id", "anchor", "name", "kind", "signature", "docs", "parameters", "source"],
+      "properties": {
+        "id": { "type": "string" }, "anchor": { "type": "string" }, "name": { "type": "string" }, "kind": { "type": "string" }, "signature": { "type": "string" },
+        "docs": { "$ref": "#/$defs/documentation" }, "parameters": { "type": "array", "items": { "$ref": "#/$defs/parameter" } }, "source": { "$ref": "#/$defs/source" }
+      }
+    },
+    "type": {
+      "type": "object", "required": ["id", "name", "displayName", "namespace", "project", "kind", "signature", "docs", "parameters", "source", "url", "members"],
+      "properties": {
+        "id": { "type": "string" }, "name": { "type": "string" }, "displayName": { "type": "string" }, "namespace": { "type": "string" }, "project": { "type": "string" }, "kind": { "type": "string" }, "signature": { "type": "string" },
+        "docs": { "$ref": "#/$defs/documentation" }, "parameters": { "type": "array", "items": { "$ref": "#/$defs/parameter" } }, "source": { "$ref": "#/$defs/source" }, "url": { "type": "string" }, "members": { "type": "array", "items": { "$ref": "#/$defs/member" } }
+      }
+    }
+  }
+}

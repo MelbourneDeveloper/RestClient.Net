@@ -5,15 +5,21 @@
   "type": "module",
   "scripts": {
     "generate-api": "node scripts/generate-api-docs.js",
-    "dev": "lsof -ti:8080 | xargs kill -9 2>/dev/null; npx @11ty/eleventy --serve --port=8080",
-    "build": "npm run generate-api && npx @11ty/eleventy",
-    "test": "playwright test"
-  },
-  "dependencies": {
-    "eleventy-plugin-techdoc": "^0.1.0"
+    "dev": "npm run generate-api && eleventy --serve --port=4173",
+    "build": "npm run generate-api && npm run clean && eleventy && node scripts/check-site.js",
+    "test:unit": "node --test tests-node/*.test.js",
+    "test": "playwright test",
+    "clean": "node -e \"require('node:fs').rmSync('_site', {recursive: true, force: true})\""
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2",
-    "@playwright/test": "^1.40.0"
+    "@playwright/test": "^1.40.0",
+    "acorn": "8.18.0",
+    "parse5": "8.0.1"
+  },
+  "dependencies": {
+    "@11ty/eleventy-plugin-syntaxhighlight": "5.0.2",
+    "markdown-it": "14.3.2",
+    "markdown-it-anchor": "9.2.0"
   }
 }

@@ -1,0 +1,13 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: collections.journalArchives
+  size: 1
+  alias: archive
+  addAllPagesToCollections: true
+permalink: "{{ archive.url }}"
+eleventyComputed:
+  title: "{{ archive.title }}"
+  lang: "{{ archive.lang }}"
+---
+<section><p class="eyebrow">RESTCLIENT.NET / JOURNAL</p><h1>{{ archive.title }}</h1><div class="grid">{% for post in archive.posts %}<article class="feature-card"><small>{{ post.date | dateFormat }}</small><h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2><p>{{ post.data.excerpt or post.data.description }}</p></article>{% endfor %}</div><p><a href="{{ '/zh' if lang == 'zh' else '' }}/blog/">{{ '← 返回博客' if lang == 'zh' else '← Back to Blog' }}</a></p></section>

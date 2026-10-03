@@ -1,0 +1,22 @@
+---
+permalink: /feed.xml
+layout: false
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>RestClient.Net Blog</title>
+<subtitle>C# HTTP clients, explicit results, and exhaustive error handling.</subtitle>
+<id>{{ '/blog/' | absoluteUrl | xmlEscape }}</id>
+<link href="{{ '/feed.xml' | absoluteUrl | xmlEscape }}" rel="self" />
+<link href="{{ '/blog/' | absoluteUrl | xmlEscape }}" />
+{% for post in collections.posts %}{% if loop.first %}<updated>{{ post.date | isoDate }}</updated>{% endif %}{% endfor %}
+<author><name>{{ site.author | xmlEscape }}</name></author>
+{% for post in collections.posts %}<entry>
+<title>{{ post.data.title | xmlEscape }}</title>
+<id>{{ post.url | absoluteUrl | xmlEscape }}</id>
+<link href="{{ post.url | absoluteUrl | xmlEscape }}" />
+<updated>{{ post.date | isoDate }}</updated>
+<summary>{{ (post.data.excerpt or post.data.description or post.data.title) | xmlEscape }}</summary>
+</entry>{% endfor %}
+</feed>
