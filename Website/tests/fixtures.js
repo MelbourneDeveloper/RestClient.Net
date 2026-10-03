@@ -11,7 +11,7 @@ export const test = base.extend({
       await expect(page.locator('main')).toHaveCount(1);
       await expect(page.locator('h1')).toHaveCount(1);
       await expect(page.locator('html')).toHaveAttribute('lang', /^(en|zh)$/);
-      await expect(page).toHaveTitle(/RestClient\.Net/);
+      await expect(page).toHaveTitle(/^(?:.+ · )?RestClient\.Net$/);
       await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /\S/);
       await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
       await expect(page.locator('link[rel="stylesheet"]')).toHaveCount(1);

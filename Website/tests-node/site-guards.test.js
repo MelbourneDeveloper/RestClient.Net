@@ -158,3 +158,11 @@ test('canonical, structured data, and crawl output regressions fail visibly', as
   assert.match(errors, /Sitemap omits/);
   assert.match(errors, /wrong sitemap/);
 });
+
+test('sitemap URL validation decodes exactly one XML entity layer', async t => {
+  const site = await fixture(t);
+  await site.write('sitemap.xml', '<urlset><url><loc>https://example.test/&amp;lt;missing&amp;gt;</loc></url></urlset>');
+  const report = await site.run();
+  assert.ok(report.errors.includes('Sitemap has a nonexistent page: https://example.test/&lt;missing&gt;'));
+  assert.ok(!report.errors.some(error => error.includes('https://example.test/<missing>')));
+});

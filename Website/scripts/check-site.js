@@ -27,7 +27,7 @@ function elements(document) {
 const attribute = (node, name) => node.attrs?.find(item => item.name === name)?.value;
 const content = node => node.nodeName === '#text' ? node.value : (node.childNodes ?? []).map(content).join('');
 const routeFor = file => `/${file.replaceAll(path.sep, '/').replace(/index\.html$/, '')}`;
-const decodeXml = value => value.replaceAll('&amp;', '&').replaceAll('&quot;', '"').replaceAll('&lt;', '<').replaceAll('&gt;', '>');
+const decodeXml = value => value.replace(/&(amp|quot|apos|lt|gt);/g, (_, entity) => ({ amp: '&', quot: '"', apos: "'", lt: '<', gt: '>' })[entity]);
 
 export function cssInjectionErrors(source, filename = 'script.js') {
   const errors = [];
