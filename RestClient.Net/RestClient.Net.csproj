@@ -3,7 +3,7 @@
     <TargetFrameworks>net8.0;net9.0;netstandard2.1</TargetFrameworks>
     <IsPackable>true</IsPackable>
     <PackageId>RestClient.Net</PackageId>
-    <Version>7.1.2</Version>
+    <Version>7.3.1</Version>
     <Authors>Christian Findlay</Authors>
     <Company>Christian Findlay</Company>
     <Description>The safest way to make REST calls in C#. Functional HTTP client library with Result types, exhaustiveness checking, and zero exceptions.</Description>
@@ -22,8 +22,8 @@
       <PrivateAssets></PrivateAssets>
       <IncludeAssets>all</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Exhaustion" Version="1.0.0">
-      <PrivateAssets></PrivateAssets>
+    <PackageReference Include="Exhaustion" Version="$(ExhaustionVersion)">
+      <PrivateAssets>none</PrivateAssets>
       <IncludeAssets>all</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Outcome" Version="1.0.0" />

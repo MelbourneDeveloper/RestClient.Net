@@ -11,6 +11,7 @@
         <NoWarn>$(NoWarn);CA2234;IDE0290;SA1513;SA1010;SA1400;SA1122;SA1124;SA1516;SA1114;SA1005;SA1124</NoWarn>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <LangVersion>latest</LangVersion>
+        <ExhaustionVersion>1.0.1</ExhaustionVersion>
     </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
@@ -21,7 +22,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Exhaustion" Version="1.0.0" Condition="'$(MSBuildProjectName)' != 'Exhaustion' AND '$(MSBuildProjectName)' != 'Exhaustion.Tests' AND '$(MSBuildProjectName)' != 'RestClient.Net' AND '$(MSBuildProjectName)' != 'Buh'">
+      <PackageReference Include="Exhaustion" Version="$(ExhaustionVersion)" Condition="'$(MSBuildProjectName)' != 'Exhaustion' AND '$(MSBuildProjectName)' != 'Exhaustion.Tests' AND '$(MSBuildProjectName)' != 'RestClient.Net' AND '$(MSBuildProjectName)' != 'Buh'">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       </PackageReference>
