@@ -1,6 +1,15 @@
 <!doctype html>
 <html lang="{{ lang or 'en' }}">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGDS00DBRX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGDS00DBRX');
+</script>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{{ title }} · {{ page.url | section | upper }} · RestClient.Net</title>
 <meta name="description" content="{{ description or excerpt or site.description }}">
