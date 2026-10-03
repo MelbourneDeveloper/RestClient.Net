@@ -21,6 +21,7 @@ __pycache__/
 # Website
 Website/node_modules/
 Website/_site/
+Website/_site-prefix/
 Website/playwright-report/
 Website/test-results/
-Website/src/api/
+Website/src/api/reference/

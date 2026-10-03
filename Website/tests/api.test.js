@@ -1,7 +1,7 @@
 /**
  * API Reference Tests
  */
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 test.describe('API Reference', () => {
   test('API index loads', async ({ page }) => {
@@ -12,7 +12,9 @@ test.describe('API Reference', () => {
   test('API page has title', async ({ page }) => {
     await page.goto('/api/');
     const h1 = page.locator('h1');
-    await expect(h1).toContainText('API');
+    await expect(h1).toHaveText('Know every signature.');
+    await expect(page).toHaveTitle(/API reference/);
+    await expect(page.locator('main')).toContainText('Source API reference');
   });
 
   test('API page has package links', async ({ page }) => {

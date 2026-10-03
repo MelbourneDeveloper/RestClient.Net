@@ -1,7 +1,7 @@
 /**
  * Blog Tests
  */
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 test.describe('Blog', () => {
   test('blog index loads', async ({ page }) => {
@@ -12,12 +12,13 @@ test.describe('Blog', () => {
   test('blog has title', async ({ page }) => {
     await page.goto('/blog/');
     const h1 = page.locator('h1');
-    await expect(h1).toContainText('Blog');
+    await expect(h1).toHaveText('Ideas worth building on.');
+    await expect(page).toHaveTitle(/Journal/);
   });
 
   test('blog has post list', async ({ page }) => {
     await page.goto('/blog/');
-    const posts = page.locator('.post-list li, ul li a');
+    const posts = page.locator('article.feature-card');
     const count = await posts.count();
     expect(count).toBeGreaterThan(0);
   });

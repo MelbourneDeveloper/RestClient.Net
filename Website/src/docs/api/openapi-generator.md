@@ -393,5 +393,5 @@ restclient-openapi generate \
 
 ## See Also
 
-- [MCP Generator](./mcp-generator) - Generate MCP servers from OpenAPI specs
-- [Getting Started with OpenAPI](/docs/openapi) - Tutorial and examples
+- [MCP Generator](/docs/api/mcp-generator/) - Generate MCP servers from OpenAPI specs
+- [Getting Started with OpenAPI](/docs/openapi/) - Tutorial and examples

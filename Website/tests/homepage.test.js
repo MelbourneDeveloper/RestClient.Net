@@ -1,7 +1,7 @@
 /**
  * Homepage Tests
  */
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 test.describe('Homepage', () => {
   test('homepage loads', async ({ page }) => {

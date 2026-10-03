@@ -1,0 +1,41 @@
+{% set zh = lang == 'zh' %}{% set prefix = '/zh' if zh else '' %}
+<section class="hero">
+<p class="eyebrow">{{ '面向 .NET 的函数式 HTTP 工具箱' if zh else 'THE FUNCTIONAL HTTP TOOLKIT FOR .NET' }} <span>↗ OPEN SOURCE</span></p>
+<h1>{{ '每种结果。' if zh else 'Every outcome.' }}<br><em>{{ '尽在掌握。' if zh else 'In view.' }}</em></h1>
+<div class="split"><p class="hero-tagline">{{ '把不确定的网络，变成明确的类型。使用 Result、模式匹配和穷尽性检查，让每一个 C# HTTP 请求都有清晰的结果。' if zh else 'The network is unpredictable. Your code doesn’t have to be. Make every HTTP outcome explicit with typed results, pattern matching, and exhaustiveness checks.' }}</p><div class="hero-actions actions"><a class="button primary" href="{{ prefix }}/docs/">{{ '开始构建' if zh else 'Start building' }} ↗</a><a class="button" href="/api/reference/">{{ '探索 API' if zh else 'Explore the API' }} →</a></div></div>
+</section>
+<section class="lab" aria-label="{{ '交互式 HTTP 结果演示' if zh else 'Interactive HTTP outcome explorer' }}">
+<div class="bar"><p class="eyebrow">01 / {{ '请求实验室' if zh else 'THE REQUEST LAB' }}</p><span class="eyebrow">HTTP → RESULT&lt;T, E&gt;</span></div>
+<canvas hidden id="flow-canvas" width="1200" height="470" aria-label="HTTP request branches into a successful result, an HTTP response error, or an exception error"></canvas>
+<noscript><p>{{ '请求产生三种明确结果：成功、HTTP 错误或网络异常。下面的 C# 模式匹配显式处理每一种情况。' if zh else 'A request produces a success, an HTTP error, or a network exception. The C# pattern match below handles each outcome explicitly.' }}</p></noscript>
+<div class="bar"><div class="actions" role="group" aria-label="{{ '选择请求结果' if zh else 'Choose a request outcome' }}"><button data-outcome="success" aria-pressed="true" disabled>200 {{ '成功' if zh else 'Success' }}</button><button data-outcome="response" aria-pressed="false" disabled>404 {{ '响应错误' if zh else 'Response error' }}</button><button data-outcome="exception" aria-pressed="false" disabled>× {{ '网络异常' if zh else 'Network error' }}</button></div><button id="motion-toggle" aria-pressed="false" hidden>{{ '暂停动画' if zh else 'Pause motion' }}</button></div>
+<p id="outcome-status" aria-live="polite" aria-atomic="true">{{ '200 OK → 成功结果中包含已反序列化的响应。' if zh else '200 OK → Your deserialized response, wrapped in a typed success.' }}</p>
+<pre id="outcome-code" data-result><code class="language-csharp"><span class="token keyword">var</span> message = result <span class="token keyword">switch</span>
+{
+    <strong>OkPost(<span class="token keyword">var</span> post) =&gt; post.Title,</strong>
+    ErrorPost(ResponseErrorPost(<span class="token keyword">var</span> error, <span class="token keyword">var</span> status, _)) =&gt; $<span class="token string">"HTTP {status}"</span>,
+    ErrorPost(ExceptionErrorPost(<span class="token keyword">var</span> exception)) =&gt; exception.Message
+};</code></pre>
+<small>{{ '交互演示 · 无网络请求 · 类型别名请参阅文档' if zh else 'Interactive illustration · No requests leave your browser · Type aliases explained in the docs' }}</small>
+</section>
+<section><div class="split"><p class="eyebrow">02 / {{ '为实际开发而设计' if zh else 'DESIGNED FOR THE REAL WORLD' }}</p><h2>{{ '可靠，源于明确。' if zh else 'Confidence is a type.' }}</h2></div><div class="grid">
+<a class="feature-card" href="{{ prefix }}/docs/error-handling/"><span class="eyebrow">01 — OUTCOME</span><h3>{{ '让错误成为数据。' if zh else 'Errors become data.' }}</h3><p>{{ '成功、响应错误、异常：每种结果都拥有明确类型。' if zh else 'Success, response errors, exceptions. Represent what happened in the return type.' }}</p><span>Result&lt;T, E&gt; ↗</span></a>
+<a class="feature-card" href="{{ prefix }}/docs/exhaustion/"><span class="eyebrow">02 — EXHAUSTION</span><h3>{{ '在构建时检查。' if zh else 'Catch the missing case.' }}</h3><p>{{ '穷尽性分析发现遗漏的分支；复杂分析达到上限时会给出诊断。' if zh else 'Find missing switch branches at build time. Bounded analysis reports when a hierarchy exceeds its limits.' }}</p><span>{{ '探索分析器' if zh else 'Meet the analyzer' }} ↗</span></a>
+<a class="feature-card" href="{{ prefix }}/docs/basic-usage/"><span class="eyebrow">03 — HTTPCLIENT</span><h3>{{ '延续熟悉的工具。' if zh else 'Keep your HttpClient.' }}</h3><p>{{ '扩展现有 HttpClient 与连接池，保留你熟悉的处理器。' if zh else 'Extend the client you already use. Keep your handlers, connection pools, and dependency injection.' }}</p><span>IHttpClientFactory ↗</span></a>
+<a class="feature-card" href="{{ prefix }}/docs/openapi/"><span class="eyebrow">04 — OPENAPI</span><h3>{{ '从规范到类型。' if zh else 'From spec to safe calls.' }}</h3><p>{{ '将 OpenAPI 规范转换为类型明确的 C# 客户端。' if zh else 'Turn OpenAPI specifications into typed C# clients, models, and result aliases.' }}</p><span>{{ '生成客户端' if zh else 'Generate a client' }} ↗</span></a>
+<a class="feature-card" href="{{ prefix }}/docs/mcp/"><span class="eyebrow">05 — MCP</span><h3>{{ '让 API 成为工具。' if zh else 'Make your API a tool.' }}</h3><p>{{ '通过生成的 Model Context Protocol 服务器公开 API 操作。' if zh else 'Expose API operations through generated Model Context Protocol servers.' }}</p><span>{{ '探索 MCP' if zh else 'Explore MCP' }} ↗</span></a>
+<a class="feature-card" href="/api/reference/"><span class="eyebrow">06 — REFERENCE</span><h3>{{ '源码，直接可查。' if zh else 'Straight from the source.' }}</h3><p>{{ '查阅由真实 C# 声明与 XML 注释生成的 API 文档。' if zh else 'Browse API signatures and XML documentation exported directly from the C# source.' }}</p><span>{{ '查阅 API' if zh else 'Read the reference' }} ↗</span></a>
+</div></section>
+<section class="split"><div><p class="eyebrow">03 / {{ '开始构建' if zh else 'FROM FIRST CALL TO PRODUCTION' }}</p><h2>{{ '从一个请求开始。' if zh else 'One small install.
+A clearer way to code.' }}</h2><p>{{ '使用熟悉的 C#，明确处理每一个结果。' if zh else 'Familiar C#. Explicit outcomes. Start with one request, then build from there.' }}</p><a class="button primary" href="{{ prefix }}/docs/installation/">{{ '安装指南' if zh else 'Installation guide' }} ↗</a></div><div><pre><code class="language-bash">dotnet add package RestClient.Net</code></pre>{% highlight "csharp" %}using RestClient.Net;
+using Urls;
+
+var result = await httpClient.GetAsync(
+    "https://api.example.com/posts/1".ToAbsoluteUrl(),
+    deserializeSuccess: DeserializePost,
+    deserializeError: DeserializeError
+);
+
+// All outcomes stay in the return value.
+// Add your aliases and handle each branch.{% endhighlight %}</div></section>
+<section><p class="eyebrow">04 / {{ '开发笔记' if zh else 'NOTES FROM THE WORKBENCH' }}</p><div class="bar"><h2>{{ '思考更清晰，构建更可靠。' if zh else 'Better ways to build.' }}</h2><a href="{{ prefix }}/blog/">{{ '全部文章' if zh else 'Read the journal' }} ↗</a></div><div class="grid">{% set articles = collections.zhposts if zh else collections.posts %}{% for post in articles.slice(0,3) %}<a class="feature-card" href="{{ post.url }}"><small>{{ post.date | dateFormat }}</small><h3>{{ post.data.title }}</h3><p>{{ post.data.excerpt or post.data.description }}</p><span>{{ '阅读全文' if zh else 'Read article' }} ↗</span></a>{% endfor %}</div></section>

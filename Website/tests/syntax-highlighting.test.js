@@ -3,7 +3,7 @@
  * Verifies that ALL pages with code blocks have proper Prism syntax highlighting
  * NO SKIPPING - FAIL HARD if anything is wrong!
  */
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 // All pages that MUST contain code blocks with syntax highlighting
 // If any page doesn't have code or highlighting, TEST FAILS!

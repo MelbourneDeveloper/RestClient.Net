@@ -1,0 +1,22 @@
+---
+permalink: /llms.txt
+layout: false
+eleventyExcludeFromCollections: true
+---
+# RestClient.Net
+
+> RestClient.Net is a C# HTTP client library with explicit success, HTTP response error, and exception results. The Exhaustion analyzer checks closed type hierarchies during compilation.
+
+## Documentation and API reference
+
+{% for entry in collections.publicPages %}{% if '/docs/' in entry.url or '/api/' in entry.url %}- [{{ entry.data.title }}]({{ entry.url | absoluteUrl }})
+{% endif %}{% endfor %}
+## Articles
+
+{% for post in collections.posts %}- [{{ post.data.title }}]({{ post.url | absoluteUrl }}): {{ post.data.excerpt or post.data.description or post.data.title }}
+{% endfor %}
+## Source and packages
+
+- [Source repository](https://github.com/MelbourneDeveloper/RestClient.Net)
+- [RestClient.Net on NuGet](https://www.nuget.org/packages/RestClient.Net)
+- [Exhaustion on NuGet](https://www.nuget.org/packages/Exhaustion)

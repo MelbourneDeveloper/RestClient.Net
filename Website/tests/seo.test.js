@@ -1,7 +1,7 @@
 /**
  * SEO Tests
  */
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 test.describe('SEO Files', () => {
   test('robots.txt exists', async ({ page }) => {

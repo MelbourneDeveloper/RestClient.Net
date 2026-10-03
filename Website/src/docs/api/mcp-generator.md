@@ -281,5 +281,5 @@ The pet with ID 123 is a golden retriever named "Buddy" who is available for ado
 
 ## See Also
 
-- [OpenAPI Generator](./openapi-generator) - Generate RestClient.Net extensions
-- [Getting Started with MCP](/docs/mcp) - Tutorial and examples
+- [OpenAPI Generator](/docs/api/openapi-generator/) - Generate RestClient.Net extensions
+- [Getting Started with MCP](/docs/mcp/) - Tutorial and examples
