@@ -13,7 +13,7 @@ The existing dotnet commands are the local equivalents of the Makefile commands 
 
 | Purpose | Command |
 | --- | --- |
-| Setup | `dotnet tool restore` and `dotnet restore RestClient.sln` |
+| Setup | `dotnet tool restore`, `python3 scripts/release.py pack-analyzer`, then `dotnet restore RestClient.sln --source .artifacts/packages --source https://api.nuget.org/v3/index.json` |
 | Build | `dotnet build RestClient.sln --configuration Release --no-restore /warnaserror` |
 | Analysis | `dotnet build RestClient.sln --configuration Release --no-restore /p:RunAnalyzers=true /p:TreatWarningsAsErrors=true` |
 | Format check | `dotnet csharpier --check .` |
@@ -30,6 +30,8 @@ Use .NET 8 and 9 runtimes for the repository's targets. Run focused tests while 
 Use a feature branch and a PR to `main`; derive the PR title and description from the diff with `origin/main`. Follow the user's authorization for committing, pushing, and merging. Monitor the latest PR commit's checks and resolve failures before merging. Do not add AI co-author trailers.
 
 Dependabot updates accumulate on `dependabot-upgrades`; ordinary CI and CodeQL run on the consolidation PR to `main`, not on each bot bump. Never publish packages or create release tags as part of an ordinary PR.
+
+When a release is authorized, use `.github/workflows/publish-restclient.yml`. It builds and tests both packages, publishes and verifies `Exhaustion` first, then publishes `RestClient.Net` and verifies a fresh NuGet consumer. `ExhaustionVersion` in `Directory.Build.props` is shared by the analyzer and all references. See `scripts/README.md` for package verification and immutable-version rules.
 
 ## Integration-test isolation
 

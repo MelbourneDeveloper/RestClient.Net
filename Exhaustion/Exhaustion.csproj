@@ -8,7 +8,8 @@
 
     <!-- NuGet Package Metadata -->
     <PackageId>Exhaustion</PackageId>
-    <Version>1.0.0</Version>
+    <Version>$(ExhaustionVersion)</Version>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Authors>RestClient.Net Contributors</Authors>
     <Company>RestClient.Net</Company>
     <Description>Roslyn analyzer that enforces exhaustive pattern matching for closed type hierarchies in C#</Description>
