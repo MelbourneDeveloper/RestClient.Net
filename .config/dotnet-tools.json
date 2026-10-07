@@ -3,21 +3,21 @@
   "isRoot": true,
   "tools": {
     "csharpier": {
-      "version": "0.30.2",
+      "version": "1.3.0",
       "commands": [
         "dotnet-csharpier"
       ],
       "rollForward": false
     },
     "fantomas": {
-      "version": "6.3.15",
+      "version": "8.0.7",
       "commands": [
         "fantomas"
       ],
       "rollForward": false
     },
     "dotnet-stryker": {
-      "version": "4.11.0",
+      "version": "5.0.0",
       "commands": [
         "dotnet-stryker"
       ],
