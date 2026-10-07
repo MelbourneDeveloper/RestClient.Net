@@ -16,13 +16,14 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
-    <PackageReference Include="System.Text.Json" Version="8.0.5" Condition="'$(TargetFramework)' == 'netstandard2.1'" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.12" />
+    <PackageReference Include="System.Text.Json" Version="10.0.12" Condition="'$(TargetFramework)' == 'netstandard2.1'" />
     <PackageReference Include="Urls" Version="1.0.0">
       <PrivateAssets></PrivateAssets>
       <IncludeAssets>all</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Exhaustion" Version="1.0.0">
+    <PackageReference Include="Exhaustion" Version="1.0.1">
       <PrivateAssets></PrivateAssets>
       <IncludeAssets>all</IncludeAssets>
     </PackageReference>

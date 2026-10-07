@@ -17,11 +17,11 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0">
+      <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.401">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Exhaustion" Version="1.0.0" Condition="'$(MSBuildProjectName)' != 'Exhaustion' AND '$(MSBuildProjectName)' != 'Exhaustion.Tests' AND '$(MSBuildProjectName)' != 'RestClient.Net' AND '$(MSBuildProjectName)' != 'Buh'">
+      <PackageReference Include="Exhaustion" Version="1.0.1" Condition="'$(MSBuildProjectName)' != 'Exhaustion' AND '$(MSBuildProjectName)' != 'Exhaustion.Tests' AND '$(MSBuildProjectName)' != 'RestClient.Net' AND '$(MSBuildProjectName)' != 'Buh'">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       </PackageReference>
