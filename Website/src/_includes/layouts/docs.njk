@@ -1,0 +1,5 @@
+---
+layout: layouts/base.njk
+---
+{% set prefix = '/zh' if lang == 'zh' else '' %}
+<div class="reading"><aside class="sidebar docs-sidebar"><p class="eyebrow">{{ '文档 / 指南' if lang == 'zh' else 'DOCUMENTATION / FIELD GUIDE' }}</p><nav aria-label="Documentation"><a href="{{ prefix }}/docs/">{{ '入门指南' if lang == 'zh' else 'Overview' }}</a>{% for label,slug in [['Installation','installation'],['Basic usage','basic-usage'],['Error handling','error-handling'],['Advanced usage','advanced-usage'],['Exhaustion analyzer','exhaustion'],['OpenAPI generator','openapi'],['MCP generator','mcp']] %}<a href="{{ prefix }}/docs/{{ slug }}/"{% if page.url == prefix + '/docs/' + slug + '/' %} aria-current="page"{% endif %}>{{ label }}</a>{% endfor %}<a href="/api/reference/">Source API reference ↗</a></nav></aside><article class="prose"><p class="eyebrow">RESTCLIENT.NET / {{ 'API REFERENCE' if page.url | section == 'api' else 'DOCUMENTATION' }}</p><h1>{{ title }}</h1>{{ content | withoutHeading | safe }}</article></div>

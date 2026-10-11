@@ -1,7 +1,7 @@
 /**
  * Chinese i18n Tests
  */
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 test.describe('Chinese Homepage', () => {
   test('/zh/ loads', async ({ page }) => {
@@ -67,13 +67,13 @@ test.describe('Chinese API', () => {
 test.describe('Language Selector', () => {
   test('language selector exists', async ({ page }) => {
     await page.goto('/');
-    const langBtn = page.locator('.language-btn, .language-switcher button, [aria-label*="language"]');
+    const langBtn = page.locator('.language-switcher summary');
     await expect(langBtn.first()).toBeVisible();
   });
 
   test('language dropdown has Chinese option', async ({ page }) => {
     await page.goto('/');
-    const langBtn = page.locator('.language-btn, .language-switcher button').first();
+    const langBtn = page.locator('.language-switcher summary').first();
     await langBtn.click();
     const zhOption = page.locator('.language-dropdown a[lang="zh"], .language-dropdown a:has-text("中文")');
     await expect(zhOption.first()).toBeVisible();

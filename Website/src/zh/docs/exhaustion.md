@@ -41,3 +41,8 @@ Exhaustion 会随 RestClient.Net 自动安装，或单独安装:
 ```bash
 dotnet add package Exhaustion
 ```
+
+
+## 有界分析
+
+Exhaustion 在分析大型或递归类型层次时限制工作量。达到分析上限后，`EXHAUSTION002` 会指出分析未能完成。请简化 switch 表达式或类型层次，然后重新检查；达到上限并不代表已证明匹配完整。

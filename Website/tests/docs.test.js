@@ -1,7 +1,7 @@
 /**
  * Documentation Tests
  */
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 test.describe('Documentation', () => {
   test('docs index loads', async ({ page }) => {

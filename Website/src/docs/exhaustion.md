@@ -263,3 +263,8 @@ If Exhaustion reports an error incorrectly, please [report an issue](https://git
 - [Error Handling](/docs/error-handling/) - Result type patterns
 - [Basic Usage](/docs/basic-usage/) - Getting started guide
 - [API Reference](/api/result-types/) - Result type documentation
+
+
+## Bounded analysis
+
+Exhaustion limits how much work it performs when exploring large or recursive type hierarchies. When that budget is exceeded, `EXHAUSTION002` reports that analysis could not complete. Simplify the switch or the modeled hierarchy before treating it as exhaustively checked. The analyzer does not claim completeness when it reaches this limit.

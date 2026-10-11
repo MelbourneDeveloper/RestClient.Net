@@ -1,22 +1,27 @@
-name: Deploy Website to GitHub Pages
+name: Website
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.ref }}"
   cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -24,27 +29,58 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: "npm"
           cache-dependency-path: Website/package-lock.json
+
+      - name: Setup .NET for source API export
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
 
       - name: Install dependencies
         working-directory: Website
         run: npm ci
 
-      - name: Build website
+      - name: Test API export and website guards
+        working-directory: Website
+        run: npm run test:unit
+
+      - name: Build and audit local-root website
         working-directory: Website
         run: npm run build
 
+      - name: Install browser
+        working-directory: Website
+        run: npx playwright install --with-deps chromium
+
+      - name: Test website interactions and content
+        working-directory: Website
+        run: npm test
+
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v5
 
+      - name: Build and audit production URLs
+        working-directory: Website
+        env:
+          SITE_URL: ${{ steps.pages.outputs.origin }}
+          SITE_PATH_PREFIX: ${{ steps.pages.outputs.base_path }}
+        run: npm run build
+
       - name: Upload artifact
+        if: github.event_name == 'push'
         uses: actions/upload-pages-artifact@v3
         with:
           path: Website/_site
 
   deploy:
+    if: github.event_name == 'push'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

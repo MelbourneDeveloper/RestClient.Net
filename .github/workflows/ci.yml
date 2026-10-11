@@ -24,6 +24,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Isolate NuGet cache
+        run: echo "NUGET_PACKAGES=$RUNNER_TEMP/ci-nuget" >> "$GITHUB_ENV"
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -35,7 +38,9 @@ jobs:
         run: dotnet tool restore
 
       - name: Restore dependencies
-        run: dotnet restore RestClient.sln
+        run: |
+          python3 scripts/release.py pack-analyzer --output .artifacts/packages
+          dotnet restore RestClient.sln --source "$PWD/.artifacts/packages" --source https://api.nuget.org/v3/index.json
 
       - name: Check code formatting with CSharpier
         run: dotnet csharpier --check .
@@ -60,6 +65,24 @@ jobs:
 
       - name: Run F# tests outside the solution
         run: dotnet test RestClient.Net.FsTest/RestClient.Net.FsTest.fsproj --configuration Release --verbosity normal
+
+      - name: Test release ordering and artifact verification
+        run: python3 -m unittest discover -s scripts/tests -p test_release_orchestration.py -v
+
+      - name: Build and test release packages before publication
+        id: release_versions
+        run: |
+          python3 scripts/release.py versions >> "$GITHUB_OUTPUT"
+          python3 scripts/release.py pack --output .artifacts/release
+
+      - name: Verify fixed analyzer through package consumers
+        env:
+          CLIENT_VERSION: ${{ steps.release_versions.outputs.client_version }}
+          ANALYZER_VERSION: ${{ steps.release_versions.outputs.analyzer_version }}
+        run: |
+          for framework in net8.0 net9.0; do
+            python3 scripts/tests/test_release_packages.py --packages .artifacts/release --restclient-version "$CLIENT_VERSION" --exhaustion-version "$ANALYZER_VERSION" --framework "$framework"
+          done
 
       - name: Cleanup Docker containers
         if: always()
