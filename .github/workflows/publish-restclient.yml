@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Checkout release source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Isolate NuGet cache
         run: echo "NUGET_PACKAGES=$RUNNER_TEMP/release-nuget" >> "$GITHUB_ENV"
@@ -39,7 +39,7 @@ jobs:
         run: python3 scripts/release.py versions --client-version "$REQUESTED_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: |
             8.0.x
@@ -67,7 +67,7 @@ jobs:
           done
 
       - name: Upload verified release packages
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: restclient-and-exhaustion-packages
           path: |
