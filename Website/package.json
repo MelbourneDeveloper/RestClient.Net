@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@11ty/eleventy-plugin-syntaxhighlight": "5.0.2",
-    "markdown-it": "14.3.2",
+    "markdown-it": "14.3.3",
     "markdown-it-anchor": "9.2.0"
   }
 }
