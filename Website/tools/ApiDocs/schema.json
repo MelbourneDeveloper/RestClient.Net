@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://restclient.net/api/reference/schema.json",
+  "$id": "https://rest-client.net/api/reference/schema.json",
   "title": "RestClient.Net source API reference",
   "type": "object",
   "required": ["schemaVersion", "sourceRef", "projects", "types"],
