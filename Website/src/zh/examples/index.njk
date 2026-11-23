@@ -1,0 +1,26 @@
+---
+layout: layouts/base.njk
+title: 代码示例
+lang: zh
+permalink: /zh/examples/
+---
+<article class="prose article">
+<p class="eyebrow">RESTCLIENT.NET / 从源码到请求</p>
+<h1>可以运行的代码。</h1>
+<p>下面的示例使用 RestClient.Net 7.3.1 编译。页面与自动验证共用同一份源码，验证涵盖成功响应、HTTP 错误、连接失败、JSON 请求和取消操作。</p>
+<h2 id="basic-get">从 GET 请求开始</h2>
+<p>入口方法从 JSONPlaceholder 获取文章，并输出明确的结果。克隆仓库、安装 .NET 9 SDK 后运行：</p>
+{% highlight "bash" %}dotnet run --project Website/examples/Examples.csproj{% endhighlight %}
+<p>此命令会向 JSONPlaceholder 发出真实请求。自动验证使用本地消息处理器，不会发出 HTTP 请求。</p>
+<h2 id="post-request">发送 JSON，保留完整结果</h2>
+<p><code>CreatePostAsync</code> 将 <code>JsonContent.Create(request)</code> 作为 <code>requestBody</code> 传入。反序列化委托接收 <code>HttpResponseMessage</code>，因此需要读取 <code>response.Content</code>。成功响应转换为 <code>Post</code>，HTTP 错误保留文本格式的响应内容。</p>
+<h2 id="ihttpclientfactory">使用现有客户端工厂</h2>
+<p><code>GetUsingFactoryAsync</code> 使用名为 <code>posts</code> 的客户端。在应用中通过 <code>services.AddHttpClient("posts")</code> 注册即可。请求使用绝对 URL，已有的处理器、认证和弹性配置仍然适用。</p>
+<h2 id="status-code-handling">明确处理每一种结果</h2>
+<p><code>Result.Match</code> 分别处理成功和失败，随后 <code>HttpError.Match</code> 明确区分 HTTP 响应错误与异常。取消令牌会传递到请求与反序列化操作；取消请求的结果是一个异常错误。</p>
+<h2>完整源码</h2>
+<p>中英文页面均展示<a href="https://github.com/MelbourneDeveloper/RestClient.Net/blob/main/Website/examples/Program.cs">同一个源码文件</a>。其中的 <code>Main</code> 运行 GET 示例；POST 与客户端工厂方法可直接从应用调用。</p>
+{% highlight "csharp" %}{{ examples.source | safe }}{% endhighlight %}
+<h2>继续探索</h2>
+<p><a href="/api/reference/restclient-net-httpclientextensions/">HTTP 方法与签名</a> · <a href="/api/reference/restclient-net-httpclientfactoryextensions/">客户端工厂参考</a> · <a href="/zh/docs/error-handling/">错误处理指南</a> · <a href="/zh/docs/openapi/">从 OpenAPI 生成客户端</a></p>
+</article>

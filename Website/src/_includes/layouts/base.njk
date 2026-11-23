@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="{{ lang or 'en' }}">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGDS00DBRX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGDS00DBRX');
+</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ title }} · {{ page.url | section | upper }} · RestClient.Net</title>
+<meta name="description" content="{{ description or excerpt or site.description }}">
+<meta name="theme-color" content="#101313">
+<link rel="canonical" href="{{ page.url | absoluteUrl }}">
+<link rel="alternate" type="application/atom+xml" href="/feed.xml" title="RestClient.Net journal">
+{% for locale in ['en','zh'] %}{% if page.url | hasTranslation(locale, collections.all) %}<link rel="alternate" hreflang="{{ locale }}" href="{{ page.url | translationUrl(locale, collections.all) | absoluteUrl }}">{% endif %}{% endfor %}
+<meta property="og:title" content="{{ title }}"><meta property="og:description" content="{{ description or excerpt or site.description }}"><meta property="og:type" content="{% if page.url | section == 'blog' and date %}article{% else %}website{% endif %}"><meta property="og:url" content="{{ page.url | absoluteUrl }}"><meta property="og:image" content="{{ '/assets/images/social-card.png' | absoluteUrl }}">
+<meta name="twitter:image" content="{{ site.ogImage | absoluteUrl }}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{{ title }}"><meta name="twitter:description" content="{{ description or excerpt or site.description }}">
+<link rel="icon" href="/assets/images/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/css/styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"RestClient.Net","url":{{ site.url | json | safe }},"description":{{ site.description | json | safe }}}</script>
+<script src="/assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main-content">{{ '跳到正文' if lang == 'zh' else 'Skip to content' }}</a>
+<header class="bar">
+<a class="brand" href="{{ '/zh/' if lang == 'zh' else '/' }}" aria-label="RestClient.Net home"><img src="/assets/images/mark.svg" width="26" height="26" alt=""> RESTCLIENT<span>.NET</span></a>
+<details id="mobile-nav" open><summary aria-label="Navigation menu">{{ '菜单' if lang == 'zh' else 'Menu' }}</summary><nav aria-label="{{ '主导航' if lang == 'zh' else 'Main navigation' }}">
+{% set prefix = '/zh' if lang == 'zh' else '' %}
+{% for label,zh,url,key in [['Home','首页','/','home'],['Docs','文档','/docs/','docs'],['API','API','/api/','api'],['Examples','示例','/examples/','examples'],['Blog','博客','/blog/','blog']] %}<a class="nav-link{% if page.url | section == key %} active{% endif %}" {% if page.url | section == key %}aria-current="page"{% endif %} href="{{ prefix }}{{ url }}">{{ zh if lang == 'zh' else label }}</a>{% endfor %}
+</nav></details>
+<div class="actions"><details class="language-switcher"><summary class="language-btn" aria-label="Select language">{{ '中文' if lang == 'zh' else 'EN' }}</summary><div class="language-dropdown"><a lang="en" href="{{ page.url | translationUrl('en',collections.all) }}">English</a> <a lang="zh" href="{{ page.url | translationUrl('zh',collections.all) }}">中文</a></div></details><a href="https://github.com/MelbourneDeveloper/RestClient.Net" aria-label="GitHub repository">↗ GitHub</a></div>
+</header>
+<main id="main-content">{{ content | safe }}</main>
+<footer><div class="bar"><a class="brand" href="{{ prefix }}/">RESTCLIENT.NET</a><p>{{ '每种结果，尽在掌握。' if lang == 'zh' else 'Every outcome, accounted for.' }}</p></div><nav aria-label="Footer"><a href="{{ prefix }}/docs/">{{ '文档' if lang == 'zh' else 'Documentation' }}</a><a href="/api/reference/">API reference</a><a href="{{ prefix }}/blog/">{{ '博客' if lang == 'zh' else 'Journal' }}</a><a href="{{ prefix }}/examples/">{{ '示例' if lang == 'zh' else 'Examples' }}</a><a href="https://github.com/MelbourneDeveloper/RestClient.Net">GitHub ↗</a><a href="https://www.nuget.org/packages/RestClient.Net">NuGet ↗</a></nav><small>Open source · MIT · Built for .NET</small></footer>
+</body></html>

@@ -372,7 +372,7 @@ internal static class McpToolGenerator
 
         if (successResponse?.Value?.Content == null)
         {
-            return "Unit";
+            return "object";
         }
 
         var content = successResponse.Value.Value.Content.FirstOrDefault();

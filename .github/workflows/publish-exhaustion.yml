@@ -7,50 +7,76 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version number (e.g., 1.0.0)'
+        description: 'Exhaustion version (e.g., 1.0.1)'
         required: true
         type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nuget-release-${{ github.repository }}
+  cancel-in-progress: false
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      DOTNET_PROCESSOR_COUNT: '2'
 
     steps:
-      - name: Checkout code
+      - name: Checkout release source
         uses: actions/checkout@v4
+
+      - name: Isolate NuGet cache
+        run: echo "NUGET_PACKAGES=$RUNNER_TEMP/release-nuget" >> "$GITHUB_ENV"
+
+      - name: Resolve and validate release versions
+        id: versions
+        env:
+          REQUESTED_VERSION: ${{ inputs.version || github.ref_name }}
+        run: python3 scripts/release.py versions --analyzer-version "$REQUESTED_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: |
+            8.0.x
+            9.0.x
 
-      - name: Restore dependencies
-        run: dotnet restore Exhaustion/Exhaustion.csproj
+      - name: Test release ordering and artifact verification
+        run: python3 -m unittest discover -s scripts/tests -p test_release_orchestration.py -v
 
-      - name: Build
-        run: dotnet build Exhaustion/Exhaustion.csproj --configuration Release --no-restore
-
-      - name: Set version from tag
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/exhaustion-v}
-          echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
-
-      - name: Set version from input
-        if: github.event_name == 'workflow_dispatch'
-        run: |
-          echo "PACKAGE_VERSION=${{ vars.PACKAGE_VERSION }}" >> $GITHUB_ENV
-
-      - name: Pack
-        run: dotnet pack Exhaustion/Exhaustion.csproj --configuration Release --no-build --output ./packages /p:Version=${{ env.PACKAGE_VERSION }}
-
-      - name: Publish to NuGet
-        run: dotnet nuget push ./packages/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      - name: Build analyzer and local consumer package
         env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+          CLIENT_VERSION: ${{ steps.versions.outputs.client_version }}
+          ANALYZER_VERSION: ${{ steps.versions.outputs.analyzer_version }}
+        run: python3 scripts/release.py pack --client-version "$CLIENT_VERSION" --analyzer-version "$ANALYZER_VERSION" --output .artifacts/release
 
-      - name: Upload package artifact
+      - name: Run analyzer regressions
+        env:
+          ANALYZER_VERSION: ${{ steps.versions.outputs.analyzer_version }}
+        run: dotnet test Exhaustion.Tests/Exhaustion.Tests.csproj --configuration Release --verbosity normal -p:ExhaustionVersion="$ANALYZER_VERSION"
+
+      - name: Verify analyzer through the consumer package
+        env:
+          CLIENT_VERSION: ${{ steps.versions.outputs.client_version }}
+          ANALYZER_VERSION: ${{ steps.versions.outputs.analyzer_version }}
+        run: |
+          for framework in net8.0 net9.0; do
+            python3 scripts/tests/test_release_packages.py --packages .artifacts/release --restclient-version "$CLIENT_VERSION" --exhaustion-version "$ANALYZER_VERSION" --framework "$framework"
+          done
+
+      - name: Upload verified analyzer package
         uses: actions/upload-artifact@v4
         with:
           name: exhaustion-nuget-package
-          path: ./packages/*.nupkg
+          path: .artifacts/release/Exhaustion.*.nupkg
+          if-no-files-found: error
+
+      - name: Publish and verify analyzer
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+          ANALYZER_VERSION: ${{ steps.versions.outputs.analyzer_version }}
+        run: python3 scripts/release.py publish-analyzer --analyzer-version "$ANALYZER_VERSION" --output .artifacts/release

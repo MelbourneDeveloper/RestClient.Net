@@ -40,6 +40,71 @@ public sealed class DisplayNameGenerationTests
         return symbol ?? throw new InvalidOperationException($"Could not find type {typeName}");
     }
 
+    private static void AssertDisplayNameInteractions(
+        ITypeSymbol type,
+        string expectedDisplay,
+        string expectedUnbound,
+        Dictionary<int, INamedTypeSymbol>? variants = null
+    )
+    {
+        var namedType = type as INamedTypeSymbol;
+        Assert.IsNotNull(namedType);
+        variants ??= [];
+        var variantSnapshot = variants.ToArray();
+        var typeArguments = namedType.TypeArguments.ToArray();
+        var budget = new AnalysisBudget();
+
+        Assert.AreEqual(
+            expectedDisplay,
+            DisplayNameGeneration.GetDisplayName(namedType, budget),
+            "Repeated formatting must preserve the complete display name."
+        );
+        Assert.AreEqual(
+            expectedDisplay,
+            DisplayNameGeneration.GetDisplayNameWithParameters(namedType, [], budget),
+            "An empty selection must preserve the base display name."
+        );
+        Assert.AreEqual(
+            expectedUnbound,
+            DisplayNameGeneration.GetUnboundTypeName(namedType),
+            "The unbound name must identify the same type without arguments."
+        );
+        Assert.AreEqual(
+            expectedUnbound,
+            DisplayNameGeneration.GetUnboundTypeName(namedType.OriginalDefinition),
+            "Construction must not change the unbound type name."
+        );
+
+        var withVariants = DisplayNameGeneration.GetDisplayNameWithParameters(
+            namedType,
+            variants,
+            budget
+        );
+        Assert.AreEqual(
+            withVariants,
+            DisplayNameGeneration.GetDisplayNameWithParameters(namedType, variants),
+            "Fresh and shared budgets must produce the same selected-variant name."
+        );
+        CollectionAssert.AreEqual(
+            variantSnapshot,
+            variants.ToArray(),
+            "Formatting must not reorder or replace selected parameter variants."
+        );
+        CollectionAssert.AreEqual(
+            typeArguments,
+            namedType.TypeArguments.ToArray(),
+            "Formatting must preserve the constructed type arguments."
+        );
+        Assert.IsFalse(
+            expectedUnbound.Contains('<', StringComparison.Ordinal),
+            "Unbound names must omit generic arguments."
+        );
+        Assert.IsFalse(
+            expectedUnbound.Contains('`', StringComparison.Ordinal),
+            "Unbound names must omit generic arity suffixes."
+        );
+    }
+
     [TestMethod]
     public void GetDisplayName_SimpleNonGenericType_ReturnsTypeName()
     {
@@ -61,6 +126,8 @@ namespace Test
             result,
             "Simple non-generic type should return just the type name"
         );
+
+        AssertDisplayNameInteractions(typeSymbol, "SimpleClass", "SimpleClass");
     }
 
     [TestMethod]
@@ -105,6 +172,8 @@ namespace Test
             result,
             "Generic type should return name with type arguments"
         );
+
+        AssertDisplayNameInteractions(typeSymbol, "GenericClass<Int32, String>", "GenericClass");
     }
 
     [TestMethod]
@@ -156,6 +225,8 @@ namespace Test
             result,
             "Nested type in generic parent should return name with parent's type arguments"
         );
+
+        AssertDisplayNameInteractions(typeSymbol, "Inner<String>", "Inner");
     }
 
     [TestMethod]
@@ -222,6 +293,8 @@ namespace Test
             result.Contains("Inner<Int32>", StringComparison.Ordinal),
             "Result should contain Inner with Int32 type argument"
         );
+
+        AssertDisplayNameInteractions(typeSymbol, "Outer<Inner<Int32>>", "Outer");
     }
 
     [TestMethod]
@@ -246,6 +319,8 @@ namespace Test
             result,
             "Type with no parameter variants should return just the base name"
         );
+
+        AssertDisplayNameInteractions(typeSymbol, "SimpleClass", "SimpleClass");
     }
 
     [TestMethod]
@@ -275,6 +350,37 @@ namespace Test
             result,
             "Type with parameter variants should include 'with' clause"
         );
+        Assert.AreSame(
+            variantA,
+            variants[0],
+            "Formatting must preserve the first selected symbol."
+        );
+        Assert.AreSame(
+            variantB,
+            variants[1],
+            "Formatting must preserve the second selected symbol."
+        );
+        _ = variants.Remove(1);
+        Assert.AreEqual(
+            "Container with VariantA",
+            DisplayNameGeneration.GetDisplayNameWithParameters(containerSymbol, variants),
+            "Changing selected coverage must update the formatted variants."
+        );
+        Assert.AreEqual(
+            "Container with VariantA, VariantB",
+            result,
+            "A later formatting call must not change an earlier result."
+        );
+        variants.Clear();
+        Assert.AreEqual(
+            "Container",
+            DisplayNameGeneration.GetDisplayNameWithParameters(containerSymbol, variants),
+            "Removing all selections must restore the base display name."
+        );
+        variants.Add(0, variantA);
+        variants.Add(1, variantB);
+
+        AssertDisplayNameInteractions(containerSymbol, "Container", "Container", variants);
     }
 
     [TestMethod]
@@ -326,6 +432,8 @@ namespace Test
             result.Contains('<', StringComparison.Ordinal),
             "Result should not contain type arguments"
         );
+
+        AssertDisplayNameInteractions(typeSymbol, "GenericClass<Int32, String>", "GenericClass");
     }
 
     [TestMethod]
@@ -350,6 +458,8 @@ namespace Test
             result,
             "Result should equal type.Name for non-generic types"
         );
+
+        AssertDisplayNameInteractions(typeSymbol, "SimpleClass", "SimpleClass");
     }
 
     [TestMethod]
@@ -398,5 +508,7 @@ namespace Test
             result.Contains("Int32<", StringComparison.Ordinal),
             "Int32 should not have generic parameters"
         );
+
+        AssertDisplayNameInteractions(typeSymbol, "Container<Int32>", "Container");
     }
 }

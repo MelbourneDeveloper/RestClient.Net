@@ -172,9 +172,9 @@ public static class NucliaDbTools
 
         return result switch
         {
-            OkUnitHTTPValidationError(var success) =>
+            OkobjectHTTPValidationError(var success) =>
                 JsonSerializer.Serialize(success, JsonOptions),
-            ErrorUnitHTTPValidationError(var httpError) => httpError switch
+            ErrorobjectHTTPValidationError(var httpError) => httpError switch
             {
                 HttpError<HTTPValidationError>.ErrorResponseError err =>
                     $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
@@ -197,9 +197,9 @@ public static class NucliaDbTools
 
         return result switch
         {
-            OkUnitHTTPValidationError(var success) =>
+            OkobjectHTTPValidationError(var success) =>
                 JsonSerializer.Serialize(success, JsonOptions),
-            ErrorUnitHTTPValidationError(var httpError) => httpError switch
+            ErrorobjectHTTPValidationError(var httpError) => httpError switch
             {
                 HttpError<HTTPValidationError>.ErrorResponseError err =>
                     $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",
@@ -273,9 +273,9 @@ public static class NucliaDbTools
 
         return result switch
         {
-            OkUnitHTTPValidationError(var success) =>
+            OkobjectHTTPValidationError(var success) =>
                 JsonSerializer.Serialize(success, JsonOptions),
-            ErrorUnitHTTPValidationError(var httpError) => httpError switch
+            ErrorobjectHTTPValidationError(var httpError) => httpError switch
             {
                 HttpError<HTTPValidationError>.ErrorResponseError err =>
                     $"Error {err.StatusCode}: {JsonSerializer.Serialize(err.Body, JsonOptions)}",

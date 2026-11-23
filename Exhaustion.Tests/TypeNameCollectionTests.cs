@@ -54,6 +54,100 @@ namespace System.Runtime.CompilerServices
     private static INamedTypeSymbol GetTypeSymbol(string code, string typeName) =>
         GetTypeSymbolWithCompilation(code, typeName).Item1;
 
+    private static void AssertLeafCollectionInteractions(
+        INamedTypeSymbol type,
+        List<INamedTypeSymbol> expected
+    )
+    {
+        var direct = TypeNameCollection.GetAllLeafTypes(type, new AnalysisBudget());
+        Assert.AreNotSame(
+            expected,
+            direct,
+            "Separate collection calls must return independently mutable lists."
+        );
+        Assert.AreEqual(
+            expected.Count,
+            direct.Count,
+            "The allocating and accumulating APIs must return the same number of leaves."
+        );
+        Assert.IsTrue(
+            new HashSet<INamedTypeSymbol>(expected, SymbolEqualityComparer.Default).SetEquals(
+                direct
+            ),
+            "Both APIs must return the exact same leaf symbols."
+        );
+        Assert.AreEqual(
+            direct.Count,
+            direct.Distinct(SymbolEqualityComparer.Default).Count(),
+            "Leaf collection must not duplicate variants."
+        );
+        Assert.IsTrue(
+            direct.All(leaf => !TypeHierarchyAnalysis.IsClosedHierarchy(leaf)),
+            "Every collected symbol must be an unexpanded leaf."
+        );
+
+        var accumulated = new List<INamedTypeSymbol> { type };
+        TypeNameCollection.CollectLeafTypes(type, accumulated);
+        Assert.AreEqual(
+            expected.Count + 1,
+            accumulated.Count,
+            "Collection must append leaves without clearing existing entries."
+        );
+        Assert.IsTrue(
+            SymbolEqualityComparer.Default.Equals(type, accumulated[0]),
+            "The caller's existing entry must stay first."
+        );
+        CollectionAssert.AreEqual(
+            expected.ToArray(),
+            accumulated.Skip(1).ToArray(),
+            "Appending must preserve hierarchy traversal order."
+        );
+
+        var names = new HashSet<string>();
+        TypeNameCollection.GetAllTypeNames(type, names);
+        var leafNames = new HashSet<string>();
+        foreach (var leaf in direct)
+        {
+            TypeNameCollection.GetAllTypeNames(leaf, leafNames);
+        }
+
+        Assert.IsTrue(
+            names.SetEquals(leafNames),
+            "Flattened names must account for every leaf and no additional types."
+        );
+        direct.Clear();
+        CollectionAssert.AreEqual(
+            expected.ToArray(),
+            TypeNameCollection.GetAllLeafTypes(type).ToArray(),
+            "Mutating a returned list must not affect subsequent collection."
+        );
+    }
+
+    private static void AssertNameCollectionInteractions(
+        INamedTypeSymbol type,
+        HashSet<string> expected
+    )
+    {
+        var repeated = new HashSet<string> { "Existing coverage" };
+        TypeNameCollection.GetAllTypeNames(type, repeated, new AnalysisBudget());
+        Assert.IsTrue(
+            repeated.SetEquals(expected.Append("Existing coverage")),
+            "Name collection must append exact coverage while preserving the caller's existing entry."
+        );
+        TypeNameCollection.GetAllTypeNames(type, repeated);
+        Assert.IsTrue(
+            repeated.SetEquals(expected.Append("Existing coverage")),
+            "Repeated name collection must be idempotent."
+        );
+        repeated.Clear();
+        TypeNameCollection.GetAllTypeNames(type, repeated);
+        Assert.IsTrue(
+            repeated.SetEquals(expected),
+            "Clearing a previous result must not affect fresh name collection."
+        );
+        AssertLeafCollectionInteractions(type, TypeNameCollection.GetAllLeafTypes(type));
+    }
+
     [TestMethod]
     public void GetAllTypeNames_SimpleLeafType_AddsTypeName()
     {
@@ -74,6 +168,8 @@ namespace Test
         // Assert
         Assert.AreEqual(1, result.Count, "Should add one type name");
         Assert.IsTrue(result.Contains("SimpleType"), "Should contain the simple type name");
+
+        AssertNameCollectionInteractions(typeSymbol, result);
     }
 
     [TestMethod]
@@ -105,6 +201,8 @@ namespace Test
         Assert.AreEqual(2, result.Count, "Should add two type names from closed hierarchy");
         Assert.IsTrue(result.Contains("Ok<String, String>"), "Should contain Ok type");
         Assert.IsTrue(result.Contains("Error<String, String>"), "Should contain Error type");
+
+        AssertNameCollectionInteractions(constructedType, result);
     }
 
     [TestMethod]
@@ -133,6 +231,8 @@ namespace Test
         Assert.AreEqual(2, leafTypes.Count, "Should return two leaf types");
         Assert.IsTrue(leafTypes.Any(t => t.Name == "Ok"), "Should include Ok type");
         Assert.IsTrue(leafTypes.Any(t => t.Name == "Error"), "Should include Error type");
+
+        AssertLeafCollectionInteractions(typeSymbol, leafTypes);
     }
 
     [TestMethod]
@@ -154,6 +254,8 @@ namespace Test
         // Assert
         Assert.AreEqual(1, leafTypes.Count, "Should return the type itself as a leaf");
         Assert.AreEqual("SimpleType", leafTypes[0].Name, "Leaf type should be SimpleType");
+
+        AssertLeafCollectionInteractions(typeSymbol, leafTypes);
     }
 
     [TestMethod]
@@ -186,6 +288,8 @@ namespace Test
             result.Any(t => t.Name == "ErrorResponseError"),
             "Should include ErrorResponseError"
         );
+
+        AssertLeafCollectionInteractions(typeSymbol, result);
     }
 
     [TestMethod]
@@ -228,6 +332,26 @@ namespace Test
             error.IsGenericType || error.TypeArguments.Length == 2,
             "Error should be generic or have type arguments"
         );
+        Assert.IsTrue(
+            SymbolEqualityComparer.Default.Equals(constructedType, ok.ContainingType),
+            "Ok must retain the constructed containing type."
+        );
+        Assert.IsTrue(
+            SymbolEqualityComparer.Default.Equals(constructedType, error.ContainingType),
+            "Error must retain the constructed containing type."
+        );
+        Assert.IsTrue(
+            SymbolEqualityComparer.Default.Equals(constructedType, ok.BaseType),
+            "Ok must inherit the constructed hierarchy."
+        );
+        Assert.IsTrue(
+            SymbolEqualityComparer.Default.Equals(constructedType, error.BaseType),
+            "Error must inherit the constructed hierarchy."
+        );
+        Assert.AreEqual("Ok<String, String>", DisplayNameGeneration.GetDisplayName(ok));
+        Assert.AreEqual("Error<String, String>", DisplayNameGeneration.GetDisplayName(error));
+
+        AssertLeafCollectionInteractions(constructedType, result);
     }
 
     [TestMethod]
@@ -265,6 +389,8 @@ namespace Test
             result.Contains("Container with Inactive"),
             "Should include Container with Inactive"
         );
+
+        AssertNameCollectionInteractions(typeSymbol, result);
     }
 
     [TestMethod]
@@ -305,6 +431,8 @@ namespace Test
         // With the mutant (||), this fails: derived.Count==0 || isClosedHierarchy==true → true → recurse → nothing added
         Assert.AreEqual(1, result.Count, "Sealed leaf type should be added to result");
         Assert.AreEqual("Ok", result[0].Name, "The added type should be Ok");
+
+        AssertLeafCollectionInteractions(okType, result);
     }
 
     [TestMethod]
@@ -347,6 +475,8 @@ namespace Test
             result.Contains("Ok<String, String>"),
             "Result should contain Ok<String, String>"
         );
+
+        AssertNameCollectionInteractions(okType, result);
     }
 
     [TestMethod]
@@ -378,6 +508,8 @@ namespace Test
             result.Contains("SimpleType"),
             "Should contain basic display name SimpleType"
         );
+
+        AssertNameCollectionInteractions(typeSymbol, result);
     }
 
     [TestMethod]
@@ -406,6 +538,8 @@ namespace Test
             "Should not expand combinations when no closed hierarchies"
         );
         Assert.IsTrue(result.Contains("Person"), "Should contain simple Person type");
+
+        AssertNameCollectionInteractions(typeSymbol, result);
     }
 
     [TestMethod]
@@ -436,6 +570,8 @@ namespace Test
         Assert.AreEqual(2, result.Count, "Should collect two leaf types");
         Assert.IsTrue(result.Any(t => t.Name == "Active"), "Should include Active");
         Assert.IsTrue(result.Any(t => t.Name == "Inactive"), "Should include Inactive");
+
+        AssertLeafCollectionInteractions(typeSymbol, result);
     }
 
     [TestMethod]
@@ -470,6 +606,8 @@ namespace Test
         // Both should be generic types (unbound or with type parameters from parent)
         Assert.IsTrue(ok.IsGenericType, "Ok should be generic");
         Assert.IsTrue(error.IsGenericType, "Error should be generic");
+
+        AssertLeafCollectionInteractions(typeSymbol, result);
     }
 
     [TestMethod]
@@ -500,6 +638,8 @@ namespace Test
         // Assert - should get the non-generic child without construction
         Assert.AreEqual(1, result.Count, "Should collect one leaf type");
         Assert.AreEqual("EmptyContainer", result[0].Name, "Should be EmptyContainer");
+
+        AssertLeafCollectionInteractions(constructedType, result);
     }
 
     [TestMethod]
@@ -537,6 +677,8 @@ namespace Test
         // Assert - should still work correctly
         Assert.AreEqual(1, result.Count, "Should collect one leaf type");
         Assert.AreEqual("Ok", result[0].Name, "Should be Ok");
+
+        AssertLeafCollectionInteractions(constructedType, result);
     }
 
     [TestMethod]
@@ -573,15 +715,15 @@ namespace Test
             "Active MUST have 0 type arguments - parent not generic!"
         );
         Assert.IsFalse(active.IsGenericType, "Active must not be generic");
+
+        AssertLeafCollectionInteractions(typeSymbol, result);
     }
 
     [TestMethod]
-    public void CollectLeafTypes_ProveConstructionCodeIsDeadOrWorking()
+    [DataRow(false)]
+    [DataRow(true)]
+    public void CollectLeafTypes_ConstructedParent_PreservesInheritedTypeArguments(bool useMetadata)
     {
-        // CRITICAL TEST: Determine if lines 86-98 in TypeNameCollection.cs are DEAD CODE
-        // The condition is: type.IsGenericType && !type.IsUnboundGenericType && child.IsGenericType && child.Arity > 0
-        // This would only be true if you have a CONSTRUCTED parent AND child with its OWN unbound type params
-        // This is EXTREMELY RARE in closed hierarchies!
         var code =
             IsExternalInitPolyfill
             + @"
@@ -591,44 +733,76 @@ namespace Test
     {
         private Result() { }
 
-        public sealed record Ok(TSuccess Value) : Result<TSuccess, TFailure>;
+        public sealed record Ok(TSuccess Value, TFailure Error) : Result<TSuccess, TFailure>;
     }
 }";
         var (typeSymbol, compilation) = GetTypeSymbolWithCompilation(code, "Result");
+        var errors = compilation
+            .GetDiagnostics()
+            .Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)
+            .ToArray();
+        Assert.AreEqual(
+            0,
+            errors.Length,
+            string.Join(Environment.NewLine, errors.Select(diagnostic => diagnostic.ToString()))
+        );
+
+        if (useMetadata)
+        {
+            using var stream = new MemoryStream();
+            var emitResult = compilation.Emit(stream);
+            Assert.IsTrue(
+                emitResult.Success,
+                string.Join(
+                    Environment.NewLine,
+                    emitResult.Diagnostics.Select(diagnostic => diagnostic.ToString())
+                )
+            );
+            compilation = CSharpCompilation.Create(
+                "MetadataConsumer",
+                references: compilation.References.Append(
+                    MetadataReference.CreateFromImage(stream.ToArray())
+                ),
+                options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)
+            );
+            typeSymbol = compilation.GetTypeByMetadataName("Test.Result`2")!;
+            Assert.IsNotNull(
+                typeSymbol,
+                "The metadata fixture must expose the same generic hierarchy."
+            );
+        }
+
         var stringType = compilation.GetSpecialType(SpecialType.System_String);
         var intType = compilation.GetSpecialType(SpecialType.System_Int32);
         var constructedType = typeSymbol.Construct(stringType, intType);
 
-        // Get derived types from CONSTRUCTED parent
-        var derived = TypeHierarchyAnalysis.GetImmediateDerivedTypes(constructedType);
-        var okType = derived.First(t => t.Name == "Ok");
-
-        // Check if the condition would be true
-        var conditionResult =
-            constructedType.IsGenericType
-            && !constructedType.IsUnboundGenericType
-            && okType.IsGenericType
-            && okType.Arity > 0;
-
-        // If condition is FALSE, the code at lines 86-98 is NEVER EXECUTED for typical closed hierarchies
-        // This means it's DEAD CODE that should be REMOVED!
-        if (!conditionResult)
-        {
-            Assert.Inconclusive(
-                $"DEAD CODE DETECTED! Lines 86-98 in CollectLeafTypes never execute. "
-                    + $"Parent IsGeneric={constructedType.IsGenericType}, "
-                    + $"IsUnbound={constructedType.IsUnboundGenericType}, "
-                    + $"Child IsGeneric={okType.IsGenericType}, "
-                    + $"Child.Arity={okType.Arity}. "
-                    + "The condition is ALWAYS FALSE for normal closed hierarchies!"
-            );
-        }
-
-        // If we get here, the code is NOT dead - test it works
         var result = new List<INamedTypeSymbol>();
         TypeNameCollection.CollectLeafTypes(constructedType, result);
 
         Assert.AreEqual(1, result.Count, "Should collect one leaf type");
-        Assert.AreEqual("Ok", result[0].Name);
+        var okType = result[0];
+        Assert.AreEqual("Ok", okType.Name);
+        // Arity counts parameters declared by Ok, not parameters inherited from its containing type.
+        Assert.AreEqual(0, okType.Arity);
+        Assert.AreEqual(0, okType.TypeArguments.Length);
+        Assert.IsTrue(okType.IsGenericType, "A nested type in a generic parent is still generic.");
+        Assert.IsTrue(
+            SymbolEqualityComparer.Default.Equals(constructedType, okType.ContainingType)
+        );
+        Assert.IsTrue(SymbolEqualityComparer.Default.Equals(constructedType, okType.BaseType));
+
+        var constructor = okType.InstanceConstructors.Single(candidate =>
+            candidate.Parameters.Length == 2
+        );
+        Assert.IsTrue(
+            SymbolEqualityComparer.Default.Equals(stringType, constructor.Parameters[0].Type),
+            "TSuccess must resolve to string."
+        );
+        Assert.IsTrue(
+            SymbolEqualityComparer.Default.Equals(intType, constructor.Parameters[1].Type),
+            "TFailure must resolve to int."
+        );
+
+        AssertLeafCollectionInteractions(constructedType, result);
     }
 }

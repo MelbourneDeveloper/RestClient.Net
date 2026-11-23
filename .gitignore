@@ -15,5 +15,16 @@ coverage.cobertura.xml
 final-check/
 test-output-final
 nupkgs/
+.artifacts/
+__pycache__/
 
-.vscode/code-navigator/
+# Website
+Website/node_modules/
+Website/_site/
+Website/_site-prefix/
+Website/playwright-report/
+Website/test-results/
+Website/src/api/reference/
+.commandtree/commandtree.sqlite3
+
+.deslop-cache/

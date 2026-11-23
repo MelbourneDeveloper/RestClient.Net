@@ -1,0 +1,88 @@
+# agent-pmo:372ce7f
+name: Dependabot auto-merge
+
+# Sweeps EVERY Dependabot PR into the long-lived `dependabot-upgrades` staging
+# branch, no questions asked ([GITHUB-DEPENDABOT]). Two kinds of PR land here:
+#
+#   * VERSION updates  -> Dependabot opens them against `dependabot-upgrades`
+#     directly (.github/dependabot.yml `target-branch`).
+#   * SECURITY updates -> GitHub IGNORES `target-branch` for these and ALWAYS
+#     opens them against the default branch (`main`). So this workflow also
+#     triggers on `main` and folds the security bump into the SAME staging
+#     branch — nothing is ever left sitting on `main` waiting for a human.
+#
+# Merge strategy: the incoming branch ALWAYS clobbers what is already staged
+# (`git merge -X theirs`). Successive bumps of the same lock-file never conflict-
+# stall: the latest bump wins, every time. Nothing reaches `main` this way — the
+# full build/test (ci.yml) + CodeQL (codeql.yml) gate the single
+# `dependabot-upgrades -> main` consolidation PR, which is where review and the
+# expensive matrix actually run. ci.yml/codeql.yml deliberately SKIP Dependabot
+# PRs (they would only burn the matrix on a bump we immediately sweep away).
+#
+# Lives at the repo root so it is present on `dependabot-upgrades` (cut from
+# main): the workflow is read from the PR's base branch, so
+# BOTH `main` and the staging branch must carry this file.
+on:
+  # Use the trusted base workflow and its write token. Never run PR code.
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    branches:
+      - dependabot-upgrades
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sweep:
+    name: Clobber-merge into dependabot-upgrades
+    if: >-
+      github.actor == 'dependabot[bot]' &&
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    # Deliberately the standard runner, NOT a larger/paid one: a trivial merge
+    # bot must not consume CI minutes meant for the real build matrix.
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out the staging branch
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          ref: dependabot-upgrades
+          fetch-depth: 0
+
+      - name: Clobber-merge the bump and retire the PR
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_HEAD: ${{ github.event.pull_request.head.ref }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Pull the bump branch into a stable local ref we can re-merge.
+          git fetch origin "+refs/heads/${PR_HEAD}:refs/remotes/origin/${PR_HEAD}"
+          # Re-merge onto the LIVE staging tip and retry: concurrent Dependabot
+          # PRs race to push here, so each run rebases on whatever already landed
+          # and the incoming branch always wins conflicts (-X theirs).
+          for attempt in 1 2 3 4 5; do
+            git fetch origin "+refs/heads/dependabot-upgrades:refs/remotes/origin/dependabot-upgrades"
+            git reset --hard "origin/dependabot-upgrades"
+            git merge -X theirs --no-edit "origin/${PR_HEAD}" \
+              -m "build(deps): clobber-merge ${PR_HEAD} into dependabot-upgrades"
+            if git push origin "HEAD:dependabot-upgrades"; then
+              break
+            fi
+            if [ "$attempt" = "5" ]; then
+              echo "::error::could not push to dependabot-upgrades after 5 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          # Retire the PR + its branch: the bump is already staged, so the PR
+          # (whether it targeted main or the staging branch) has served its
+          # purpose. `|| true` — GitHub may have auto-closed it on the push.
+          gh pr close "$PR_URL" --delete-branch \
+            --comment "Swept into \`dependabot-upgrades\` (latest bump clobbers previous)." \
+            || git push origin --delete "$PR_HEAD" || true

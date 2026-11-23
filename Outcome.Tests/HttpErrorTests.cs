@@ -5,6 +5,8 @@ namespace Outcome.Tests;
 [TestClass]
 public class HttpErrorTests
 {
+    private static readonly string[] CustomHeaderValues = ["test-value"];
+
     private static System.Net.Http.Headers.HttpResponseHeaders CreateHeaders()
     {
         var response = new HttpResponseMessage();
@@ -18,6 +20,8 @@ public class HttpErrorTests
     {
         var error = HttpError<string>.FromException(new InvalidOperationException("test"));
         Assert.IsTrue(error.IsExceptionError);
+
+        OutcomeAssertions.Exception(error, "test", typeof(InvalidOperationException));
     }
 
     [TestMethod]
@@ -25,6 +29,8 @@ public class HttpErrorTests
     {
         var error = HttpError<string>.FromException(new InvalidOperationException("test"));
         Assert.IsFalse(error.IsErrorResponse);
+
+        OutcomeAssertions.Exception(error, "test", typeof(InvalidOperationException));
     }
 
     [TestMethod]
@@ -33,6 +39,8 @@ public class HttpErrorTests
         var headers = CreateHeaders();
         var error = HttpError<string>.FromErrorResponse("body", HttpStatusCode.BadRequest, headers);
         Assert.IsFalse(error.IsExceptionError);
+
+        OutcomeAssertions.Response(error, "body", HttpStatusCode.BadRequest, headers);
     }
 
     [TestMethod]
@@ -41,6 +49,8 @@ public class HttpErrorTests
         var headers = CreateHeaders();
         var error = HttpError<string>.FromErrorResponse("body", HttpStatusCode.BadRequest, headers);
         Assert.IsTrue(error.IsErrorResponse);
+
+        OutcomeAssertions.Response(error, "body", HttpStatusCode.BadRequest, headers);
     }
 
     [TestMethod]
@@ -52,6 +62,8 @@ public class HttpErrorTests
         Assert.IsTrue(error is ExceptionErrorString);
         var exceptionError = (ExceptionErrorString)error;
         Assert.AreSame(exception, exceptionError.Exception);
+
+        OutcomeAssertions.Exception(error, "test", typeof(InvalidOperationException));
     }
 
     [TestMethod]
@@ -69,6 +81,8 @@ public class HttpErrorTests
         Assert.AreEqual("test body", responseError.Body);
         Assert.AreEqual(HttpStatusCode.NotFound, responseError.StatusCode);
         Assert.AreSame(headers, responseError.Headers);
+
+        OutcomeAssertions.Response(error, "test body", HttpStatusCode.NotFound, headers);
     }
 
     [TestMethod]
@@ -83,6 +97,8 @@ public class HttpErrorTests
         );
 
         Assert.AreEqual("Exception: test", result);
+
+        OutcomeAssertions.Exception(error, "test", typeof(InvalidOperationException));
     }
 
     [TestMethod]
@@ -101,6 +117,8 @@ public class HttpErrorTests
         );
 
         Assert.AreEqual("Response: error body (BadRequest)", result);
+
+        OutcomeAssertions.Response(error, "error body", HttpStatusCode.BadRequest, headers);
     }
 
     [TestMethod]
@@ -111,6 +129,8 @@ public class HttpErrorTests
         var str = error.ToString();
 
         Assert.AreEqual("ExceptionError(InvalidOperationException: test message)", str);
+
+        OutcomeAssertions.Exception(error, "test message", typeof(InvalidOperationException));
     }
 
     [TestMethod]
@@ -121,6 +141,8 @@ public class HttpErrorTests
         var str = error.ToString();
 
         Assert.AreEqual("ErrorResponseError(NotFound: error body)", str);
+
+        OutcomeAssertions.Response(error, "error body", HttpStatusCode.NotFound, headers);
     }
 
     [TestMethod]
@@ -130,6 +152,9 @@ public class HttpErrorTests
         var error = ExceptionErrorString.FromException(exception);
 
         Assert.AreSame(exception, error.Exception);
+
+        OutcomeAssertions.Exception(error, exception.Message, typeof(ArgumentNullException));
+        Assert.AreEqual("param", ((ArgumentNullException)error.Exception).ParamName);
     }
 
     [TestMethod]
@@ -148,6 +173,8 @@ public class HttpErrorTests
         Assert.AreEqual("test", body);
         Assert.AreEqual(HttpStatusCode.BadRequest, statusCode);
         Assert.AreSame(headers, outHeaders);
+
+        OutcomeAssertions.Response(error, "test", HttpStatusCode.BadRequest, headers);
     }
 
     [TestMethod]
@@ -165,6 +192,8 @@ public class HttpErrorTests
         Assert.AreEqual(default, body);
         Assert.AreEqual(default, statusCode);
         Assert.IsNull(headers);
+
+        OutcomeAssertions.Exception(error, "test", typeof(Exception));
     }
 
     [TestMethod]
@@ -184,6 +213,10 @@ public class HttpErrorTests
         );
 
         Assert.AreSame(errorBody, result);
+
+        OutcomeAssertions.Response(error, errorBody, HttpStatusCode.BadRequest, headers);
+        Assert.AreEqual(400, errorBody.Code);
+        Assert.AreEqual("Bad Request", errorBody.Message);
     }
 
     [TestMethod]
@@ -215,6 +248,14 @@ public class HttpErrorTests
         var exError2 = HttpError<string>.FromException(exception);
 
         Assert.AreEqual(exError1, exError2);
+
+        OutcomeAssertions.Response(error1, "test", HttpStatusCode.BadRequest, headers1);
+        OutcomeAssertions.Response(error2, "test", HttpStatusCode.BadRequest, headers1);
+        OutcomeAssertions.Response(error3, "different", HttpStatusCode.BadRequest, headers1);
+        OutcomeAssertions.Exception(exError1, "test", typeof(InvalidOperationException));
+        OutcomeAssertions.Exception(exError2, "test", typeof(InvalidOperationException));
+        Assert.AreEqual(error1.GetHashCode(), error2.GetHashCode());
+        Assert.AreNotEqual(error1, exError1);
     }
 
     [TestMethod]
@@ -229,6 +270,8 @@ public class HttpErrorTests
         );
 
         Assert.AreEqual("null", result);
+
+        OutcomeAssertions.Response(error, null, HttpStatusCode.BadRequest, headers);
     }
 
     [TestMethod]
@@ -251,6 +294,7 @@ public class HttpErrorTests
 
             var responseError = (ResponseErrorString)error;
             Assert.AreEqual(statusCode, responseError.StatusCode);
+            OutcomeAssertions.Response(error, "error", statusCode, headers);
         }
     }
 
@@ -268,6 +312,10 @@ public class HttpErrorTests
         Assert.IsTrue(result.IsError);
         var extractedError = !result;
         Assert.IsTrue(extractedError.IsErrorResponse);
+
+        OutcomeAssertions.Response(error, "api error", HttpStatusCode.BadRequest, headers);
+        OutcomeAssertions.Error(result, error);
+        Assert.AreSame(error, extractedError);
     }
 
     [TestMethod]
@@ -285,6 +333,17 @@ public class HttpErrorTests
         Assert.AreSame(headers, error.Headers);
         Assert.IsTrue(error.Headers.Contains("X-Custom-Header"));
         Assert.AreEqual("test-value", error.Headers.GetValues("X-Custom-Header").First());
+
+        OutcomeAssertions.Response(
+            error,
+            "detailed error message",
+            HttpStatusCode.Conflict,
+            headers
+        );
+        CollectionAssert.AreEqual(
+            CustomHeaderValues,
+            error.Headers.GetValues("X-Custom-Header").ToArray()
+        );
     }
 
     [TestMethod]
@@ -308,6 +367,11 @@ public class HttpErrorTests
         Assert.IsTrue(toString.Contains("UnprocessableEntity", StringComparison.Ordinal));
         Assert.IsTrue(toString.Contains("ErrorCode", StringComparison.Ordinal));
         Assert.IsTrue(toString.Contains("1001", StringComparison.Ordinal));
+
+        OutcomeAssertions.Response(error, complexBody, HttpStatusCode.UnprocessableEntity, headers);
+        Assert.AreSame(complexBody, error.Body);
+        Assert.IsTrue(toString.Contains("Validation failed", StringComparison.Ordinal));
+        Assert.IsTrue(toString.Contains("Field X is required", StringComparison.Ordinal));
     }
 
     [TestMethod]
@@ -319,6 +383,8 @@ public class HttpErrorTests
         Assert.AreEqual(string.Empty, error.Body);
         Assert.AreEqual(HttpStatusCode.NoContent, error.StatusCode);
         Assert.AreEqual("ErrorResponseError(NoContent: )", error.ToString());
+
+        OutcomeAssertions.Response(error, string.Empty, HttpStatusCode.NoContent, headers);
     }
 
     [TestMethod]
@@ -332,6 +398,10 @@ public class HttpErrorTests
         Assert.AreEqual("modified", error2.Body);
         Assert.AreEqual(error1.StatusCode, error2.StatusCode);
         Assert.AreNotSame(error1, error2);
+
+        OutcomeAssertions.Response(error1, "original", HttpStatusCode.BadRequest, headers);
+        OutcomeAssertions.Response(error2, "modified", HttpStatusCode.BadRequest, headers);
+        Assert.AreNotEqual(error1, error2);
     }
 
     [TestMethod]
@@ -345,6 +415,8 @@ public class HttpErrorTests
         Assert.AreEqual("error message", body);
         Assert.AreEqual(HttpStatusCode.Forbidden, statusCode);
         Assert.AreSame(headers, extractedHeaders);
+
+        OutcomeAssertions.Response(error, "error message", HttpStatusCode.Forbidden, headers);
     }
 
     [TestMethod]
@@ -356,6 +428,10 @@ public class HttpErrorTests
 
         Assert.AreEqual(error1.GetHashCode(), error2.GetHashCode());
         Assert.AreEqual(error1, error2);
+
+        OutcomeAssertions.Response(error1, "test", HttpStatusCode.BadRequest, headers);
+        OutcomeAssertions.Response(error2, "test", HttpStatusCode.BadRequest, headers);
+        Assert.AreNotSame(error1, error2);
     }
 
     [TestMethod]
@@ -380,6 +456,7 @@ public class HttpErrorTests
             var error = new ResponseErrorString($"Error {(int)statusCode}", statusCode, headers);
 
             Assert.AreEqual(statusCode, error.StatusCode);
+            OutcomeAssertions.Response(error, $"Error {(int)statusCode}", statusCode, headers);
             Assert.AreEqual($"Error {(int)statusCode}", error.Body);
             Assert.IsTrue(
                 error.ToString().Contains(statusCode.ToString(), StringComparison.Ordinal)
@@ -401,5 +478,7 @@ public class HttpErrorTests
         Assert.AreEqual(body1, body2);
         Assert.AreEqual(status1, status2);
         Assert.AreSame(headers1, headers2);
+
+        OutcomeAssertions.Response(error, "test", HttpStatusCode.BadRequest, headers);
     }
 }

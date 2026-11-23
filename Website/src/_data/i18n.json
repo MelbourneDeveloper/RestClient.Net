@@ -1,0 +1,36 @@
+{
+  "en": {
+    "blog": {
+      "back": "← Back to Blog",
+      "title": "Blog",
+      "subtitle": "Latest updates and articles about RestClient.Net"
+    },
+    "nav": {
+      "apiReference": "API Reference",
+      "docs": "Documentation",
+      "blog": "Blog",
+      "api": "API"
+    },
+    "docs": {
+      "title": "Documentation",
+      "gettingStarted": "Getting Started"
+    }
+  },
+  "zh": {
+    "blog": {
+      "back": "← 返回博客",
+      "title": "博客",
+      "subtitle": "RestClient.Net 的最新更新和文章"
+    },
+    "nav": {
+      "apiReference": "API 参考",
+      "docs": "文档",
+      "blog": "博客",
+      "api": "API"
+    },
+    "docs": {
+      "title": "文档",
+      "gettingStarted": "入门指南"
+    }
+  }
+}

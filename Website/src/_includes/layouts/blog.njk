@@ -1,0 +1,4 @@
+---
+layout: layouts/base.njk
+---
+<article class="prose article blog-post"><p class="eyebrow">{{ '观点 / 开发笔记' if lang == 'zh' else 'PERSPECTIVES / ENGINEERING NOTES' }}</p><p><time datetime="{{ date | isoDate }}">{{ date | dateFormat }}</time> · {{ author or site.author }}</p><h1>{{ title }}</h1>{{ content | withoutHeading | safe }}<hr><a href="{{ '/zh' if lang == 'zh' else '' }}/blog/">{{ '← 返回博客' if lang == 'zh' else '← Back to Blog' }}</a></article>

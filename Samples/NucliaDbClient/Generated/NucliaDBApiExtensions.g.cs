@@ -26,8 +26,8 @@ public static class NucliaDBApiExtensions
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
-    private static readonly Deserialize<Unit> _deserializeUnit = static (_, _) =>
-        Task.FromResult(Unit.Value);
+    private static readonly Deserialize<Outcome.Unit> _deserializeUnit = static (_, _) =>
+        Task.FromResult(Outcome.Unit.Value);
 
     #endregion
 
@@ -76,14 +76,14 @@ public static class NucliaDBApiExtensions
     ) => _configurationKbKbidConfigurationGetAsync(httpClient, kbid, cancellationToken);
     
     /// <summary>Update current configuration of models assigned to a Knowledge Box</summary>
-    public static Task<Result<Unit, HttpError<HTTPValidationError>>> ConfigurationKbKbidConfigurationPatchAsync(
+    public static Task<Result<object, HttpError<HTTPValidationError>>> ConfigurationKbKbidConfigurationPatchAsync(
         this HttpClient httpClient,
         string kbid, object body,
         CancellationToken cancellationToken = default
     ) => _configurationKbKbidConfigurationPatchAsync(httpClient, (kbid, body), cancellationToken);
     
     /// <summary>Create configuration of models assigned to a Knowledge Box</summary>
-    public static Task<Result<Unit, HttpError<HTTPValidationError>>> SetConfigurationKbKbidConfigurationAsync(
+    public static Task<Result<object, HttpError<HTTPValidationError>>> SetConfigurationKbKbidConfigurationAsync(
         this HttpClient httpClient,
         string kbid, object body,
         CancellationToken cancellationToken = default
@@ -97,7 +97,7 @@ public static class NucliaDBApiExtensions
     ) => _knowledgeboxCountersKbKbidCountersAsync(httpClient, (kbid, debug, xNUCLIADBROLES), cancellationToken);
     
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`</summary>
-    public static Task<Result<Unit, HttpError<HTTPValidationError>>> SetCustomSynonymsKbKbidCustomSynonymsAsync(
+    public static Task<Result<object, HttpError<HTTPValidationError>>> SetCustomSynonymsKbKbidCustomSynonymsAsync(
         this HttpClient httpClient,
         string kbid, KnowledgeBoxSynonyms body,
         CancellationToken cancellationToken = default
@@ -160,7 +160,7 @@ public static class NucliaDBApiExtensions
     ) => _startKbExportEndpointKbKbidExportAsync(httpClient, (kbid, body), cancellationToken);
     
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `MANAGER` - `READER`</summary>
-    public static Task<Result<Unit, HttpError<HTTPValidationError>>> DownloadExportKbEndpointKbKbidExportExportIdAsync(
+    public static Task<Result<object, HttpError<HTTPValidationError>>> DownloadExportKbEndpointKbKbidExportExportIdAsync(
         this HttpClient httpClient,
         string kbid, string exportId,
         CancellationToken cancellationToken = default
@@ -440,7 +440,7 @@ public static class NucliaDBApiExtensions
     ) => _addResourceFieldLinkRidPrefixKbKbidResourceRidLinkFieldIdAsync(httpClient, ((kbid, rid, fieldId), body), cancellationToken);
     
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`</summary>
-    public static Task<Result<Unit, HttpError<HTTPValidationError>>> ReindexResourceRidPrefixKbKbidResourceRidReindexAsync(
+    public static Task<Result<object, HttpError<HTTPValidationError>>> ReindexResourceRidPrefixKbKbidResourceRidReindexAsync(
         this HttpClient httpClient,
         string kbid, string rid, object body, bool reindexVectors = false,
         CancellationToken cancellationToken = default
@@ -657,7 +657,7 @@ public static class NucliaDBApiExtensions
     ) => _addResourceFieldLinkRslugPrefixKbKbidSlugRslugLinkFieldIdAsync(httpClient, ((kbid, rslug, fieldId), body), cancellationToken);
     
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`</summary>
-    public static Task<Result<Unit, HttpError<HTTPValidationError>>> ReindexResourceRslugPrefixKbKbidSlugRslugReindexAsync(
+    public static Task<Result<object, HttpError<HTTPValidationError>>> ReindexResourceRslugPrefixKbKbidSlugRslugReindexAsync(
         this HttpClient httpClient,
         string kbid, string rslug, object body, bool reindexVectors = false,
         CancellationToken cancellationToken = default
@@ -809,7 +809,7 @@ public static class NucliaDBApiExtensions
         this HttpClient httpClient,
         
         CancellationToken cancellationToken = default
-    ) => _learningConfigurationSchemaLearningConfigurationSchemaAsync(httpClient, Unit.Value, cancellationToken);
+    ) => _learningConfigurationSchemaLearningConfigurationSchemaAsync(httpClient, Outcome.Unit.Value, cancellationToken);
 
     #endregion
 
@@ -861,19 +861,19 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static PatchAsync<Unit, HTTPValidationError, (string Params, object Body)> _configurationKbKbidConfigurationPatchAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePatch<Unit, HTTPValidationError, (string Params, object Body)>(
+    private static PatchAsync<object, HTTPValidationError, (string Params, object Body)> _configurationKbKbidConfigurationPatchAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePatch<object, HTTPValidationError, (string Params, object Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/configuration"), CreateJsonContent(param.Body), null),
-            deserializeSuccess: DeserializeJson<Unit>,
+            deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static PostAsync<Unit, HTTPValidationError, (string Params, object Body)> _setConfigurationKbKbidConfigurationAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<Unit, HTTPValidationError, (string Params, object Body)>(
+    private static PostAsync<object, HTTPValidationError, (string Params, object Body)> _setConfigurationKbKbidConfigurationAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, HTTPValidationError, (string Params, object Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/configuration"), CreateJsonContent(param.Body), null),
-            deserializeSuccess: DeserializeJson<Unit>,
+            deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
@@ -885,11 +885,11 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static PutAsync<Unit, HTTPValidationError, (string Params, KnowledgeBoxSynonyms Body)> _setCustomSynonymsKbKbidCustomSynonymsAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePut<Unit, HTTPValidationError, (string Params, KnowledgeBoxSynonyms Body)>(
+    private static PutAsync<object, HTTPValidationError, (string Params, KnowledgeBoxSynonyms Body)> _setCustomSynonymsKbKbidCustomSynonymsAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePut<object, HTTPValidationError, (string Params, KnowledgeBoxSynonyms Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.Params}/custom-synonyms"), CreateJsonContent(param.Body), null),
-            deserializeSuccess: DeserializeJson<Unit>,
+            deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
@@ -957,11 +957,11 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static GetAsync<Unit, HTTPValidationError, (string kbid, string exportId)> _downloadExportKbEndpointKbKbidExportExportIdAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<Unit, HTTPValidationError, (string kbid, string exportId)>(
+    private static GetAsync<object, HTTPValidationError, (string kbid, string exportId)> _downloadExportKbEndpointKbKbidExportExportIdAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, HTTPValidationError, (string kbid, string exportId)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/export/{param.exportId}"), null, null),
-            deserializeSuccess: DeserializeJson<Unit>,
+            deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
@@ -1277,11 +1277,11 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static PostAsync<Unit, HTTPValidationError, (string kbid, string rid, bool reindexVectors, object Body)> _reindexResourceRidPrefixKbKbidResourceRidReindexAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<Unit, HTTPValidationError, (string kbid, string rid, bool reindexVectors, object Body)>(
+    private static PostAsync<object, HTTPValidationError, (string kbid, string rid, bool reindexVectors, object Body)> _reindexResourceRidPrefixKbKbidResourceRidReindexAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, HTTPValidationError, (string kbid, string rid, bool reindexVectors, object Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/reindex?reindex_vectors={param.reindexVectors}"), CreateJsonContent(param.Body), null),
-            deserializeSuccess: DeserializeJson<Unit>,
+            deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
@@ -1525,11 +1525,11 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static PostAsync<Unit, HTTPValidationError, (string kbid, string rslug, bool reindexVectors, object Body)> _reindexResourceRslugPrefixKbKbidSlugRslugReindexAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<Unit, HTTPValidationError, (string kbid, string rslug, bool reindexVectors, object Body)>(
+    private static PostAsync<object, HTTPValidationError, (string kbid, string rslug, bool reindexVectors, object Body)> _reindexResourceRslugPrefixKbKbidSlugRslugReindexAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, HTTPValidationError, (string kbid, string rslug, bool reindexVectors, object Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/reindex?reindex_vectors={param.reindexVectors}"), CreateJsonContent(param.Body), null),
-            deserializeSuccess: DeserializeJson<Unit>,
+            deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
@@ -1685,8 +1685,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeError
         );
 
-    private static GetAsync<object, HTTPValidationError, Unit> _learningConfigurationSchemaLearningConfigurationSchemaAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, HTTPValidationError, Unit>(
+    private static GetAsync<object, HTTPValidationError, Outcome.Unit> _learningConfigurationSchemaLearningConfigurationSchemaAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<object, HTTPValidationError, Outcome.Unit>(
             url: BaseUrl,
             buildRequest: static _ => new HttpRequestParts(new RelativeUrl("/api/v1/learning/configuration/schema"), null, null),
             deserializeSuccess: DeserializeJson<object>,

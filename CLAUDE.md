@@ -59,6 +59,12 @@ RestClient.Net is a functional HTTP client library using Result types for error 
 
 5. **ProgressReportingHttpContent** - Custom `HttpContent` supporting upload/download progress callbacks.
 
+### PRs
+
+- Compare the current branch to main branch. Base title and comments solely on diff. IGNORE commit messages
+- Use the template at .github/pull_request_template.md
+- Keep the documentation tight.
+
 ### Code Generation
 
 **RestClient.Net.OpenApiGenerator** - Generates C# extension methods from OpenAPI 3.x specs:
