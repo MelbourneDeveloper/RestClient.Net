@@ -1,0 +1,26 @@
+{
+  "collected_at": "2025-10-26T08:01:48.760468",
+  "repository": "MelbourneDeveloper/RestClient.Net",
+  "files_collected": [
+    "restclient-net-commits.json",
+    "restclient-net-contributors.json",
+    "restclient-net-downloads.json",
+    "restclient-net-forks.json",
+    "restclient-net-issues_all.json",
+    "restclient-net-issues_closed.json",
+    "restclient-net-issues_open.json",
+    "restclient-net-languages.json",
+    "restclient-net-participation.json",
+    "restclient-net-pull_requests_all.json",
+    "restclient-net-pull_requests_merged.json",
+    "restclient-net-releases.json",
+    "restclient-net-repo_info.json",
+    "restclient-net-stats.json",
+    "restclient-net-tags.json",
+    "restclient-net-traffic_clones.json",
+    "restclient-net-traffic_views.json",
+    "restclient-net-workflow_runs.json",
+    "restclient-net-workflows.json"
+  ],
+  "total_files": 19
+}

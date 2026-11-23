@@ -1,0 +1,1159 @@
+[
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU0NDI5MDE=",
+      "is_bot": false,
+      "login": "Euan-McVie",
+      "name": "Euan McVie"
+    },
+    "comments": [
+      {
+        "id": "IC_kwDOAJaD5s7ICvHH",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "I get the use case and advantage for use this would bring, but I'm not sure how easily this would be able to do without introducing binary breaking changes or potentially doubling the number of `ExecuteAsync()` overloads we have.\n\nWe could possibly introduce an extension method that does the same thing, but with a different name, something like the below (with an intentionally obtuse name because I can't think of a better name right now):\n\n```csharp\npublic async ValueTask ExecuteWithAResilienceContextWithTheCallerNameAsTheResilienceKeyAsync(\n    Func<...> callback,\n    [CallerMemberName] string? callerMemberName,\n    CancellationToken cancellationToken = default)\n{\n    var context = ResilienceContextPool.Shared.Get(callerMemberName, cancellationToken);\n    try\n    {\n        await _connectPipeline.ExecuteAsync(callback, context).ConfigureAwait(false);\n    }\n    finally\n    {\n        ResilienceContextPool.Shared.Return(context);\n    }\n}\n```\n\nHowever, of course, if the above works, you could just add it to your own code base to minimise the amount of wrapping you need to do.\n",
+        "createdAt": "2025-10-01T12:52:30Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/2755#issuecomment-3356160455",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s7IU4Tu",
+        "author": {
+          "login": "Euan-McVie"
+        },
+        "authorAssociation": "NONE",
+        "body": "Yep, I added pretty much exactly that, but across multiple projects/repos etc. it means I have to copy this extension everywhere.\n\n```cs\n/// <summary>\n/// Extensions for the Polly <see cref=\"ResiliencePipeline\"/>.\n/// </summary>\npublic static class ResiliencePipelineX\n{\n    /// <summary>\n    /// Executes the specified callback in the same way as <see cref=\"ResiliencePipeline.ExecuteAsync(Func{CancellationToken, ValueTask}, CancellationToken)\"/>,\n    /// but providing the operation key automatically from the caller's name.\n    /// </summary>\n    /// <seealso href=\"https://github.com/App-vNext/Polly/issues/2755\">Issue to add to Polly library.</seealso>\n    /// <param name=\"resiliencePipeline\">The <see cref=\"ResiliencePipeline\"/> to use to execute the <paramref name=\"callback\"/>.</param>\n    /// <param name=\"callback\">The user-provided callback.</param>\n    /// <param name=\"cancellationToken\">The <see cref=\"CancellationToken\"/> associated with the callback.</param>\n    /// <param name=\"operationKey\">An operation key for the callback. Will default to the caller's name.</param>\n    /// <returns>The instance of <see cref=\"ValueTask\"/> that represents an asynchronous callback.</returns>\n    public static async ValueTask ExecuteWithNameAsync(\n        this ResiliencePipeline resiliencePipeline,\n        Func<CancellationToken, ValueTask> callback,\n        CancellationToken cancellationToken = default,\n        [CallerMemberName] string operationKey = \"\")\n    {\n        ArgumentNullException.ThrowIfNull(resiliencePipeline);\n\n        var context = ResilienceContextPool.Shared.Get(operationKey, cancellationToken);\n        try\n        {\n            await resiliencePipeline.ExecuteAsync(\n                context => callback(context.CancellationToken),\n                context)\n                .ConfigureAwait(context.ContinueOnCapturedContext);\n        }\n        finally\n        {\n            ResilienceContextPool.Shared.Return(context);\n        }\n    }\n}\n```",
+        "createdAt": "2025-10-02T12:14:33Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/2755#issuecomment-3360916718",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s7IV9WF",
+        "author": {
+          "login": "Euan-McVie"
+        },
+        "authorAssociation": "NONE",
+        "body": "@martincostello\nNot directly related, but when writing the extension I realised that I couldn't use the `Pool` that the pipeline was configured with as it is not a public property.\n\nFor all our current use cases we are not setting a custom context, so it is a not an immediate issue.\n\nShould it be made public though so that extension methods, or even the standard pattern when customizing more fully using the `try..finally` pattern would allow the caller to always request from the Pool associated with the pipeline so that the decision making on the context factory to use is always made by the pipeline declaration and not per call site?",
+        "createdAt": "2025-10-02T13:20:24Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/2755#issuecomment-3361199493",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s7JOWwZ",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "Which pool do you mean specifically? The first one that comes to mind is this one, which is public:\n\nhttps://github.com/App-vNext/Polly/blob/954ad8d32a60632e1d739cedb13925013fdebded/src/Polly.Core/ResilienceContextPool.cs#L14",
+        "createdAt": "2025-10-07T09:28:44Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/2755#issuecomment-3375983641",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s7J_Vyb",
+        "author": {
+          "login": "Euan-McVie"
+        },
+        "authorAssociation": "NONE",
+        "body": "@martincostello - It is the internal `Pool` property on the `ResiliencePipeline` itself.\nI did not trace code for where it is set, but I assume it is mapped during build when a custom `ResilienceContextPool` is set using the `ResiliencePipelineBuilderBase.ContextPool` property.",
+        "createdAt": "2025-10-10T08:23:35Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/2755#issuecomment-3388824731",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s7KQ9mQ",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "https://github.com/App-vNext/Polly/blob/40b5bb62e58dca97e3e7461bcb817f4debb00c74/src/Polly.Core/ResiliencePipeline.cs#L26\n\nI'm on the fence whether we _should_ expose it, but I can see that it would be useful in the scenario that:\n\n1. You want to use a custom `ResilienceContextPool` implementation, and:\n2. You have a custom extension method for `ResiliencePipeline` _and_ wish to access that specific custom pool in that method.\n",
+        "createdAt": "2025-10-11T15:53:32Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/2755#issuecomment-3393444240",
+        "viewerDidAuthor": false
+      }
+    ],
+    "createdAt": "2025-10-01T11:44:50Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzQ3ODQ4ODg2",
+        "name": "feature suggestion",
+        "description": "",
+        "color": "0052cc"
+      },
+      {
+        "id": "LA_kwDOAJaD5s7ezDD2",
+        "name": "help wanted",
+        "description": "A change up for grabs for contributions from the community",
+        "color": "4BC938"
+      }
+    ],
+    "number": 2755,
+    "title": "[Feature request]: Default Operation Key to name of calling method in v8."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc5NjM3MDE5",
+      "is_bot": false,
+      "login": "sk-shahnawaz",
+      "name": "Sk Shahnawaz Ul Haque"
+    },
+    "comments": [
+      {
+        "id": "IC_kwDOAJaD5s6zhO-h",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "Thanks - this is something we're already aware of that thepollyproject.org isn't working.\n\nIt's not something I have the power to update though.\n\n/cc @joelhulen",
+        "createdAt": "2025-06-27T06:24:38Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 3
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/2659#issuecomment-3011833761",
+        "viewerDidAuthor": false
+      }
+    ],
+    "createdAt": "2025-06-27T06:15:59Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzODQ3NjkwNQ==",
+        "name": "bug",
+        "description": "",
+        "color": "fc2929"
+      },
+      {
+        "id": "LA_kwDOAJaD5s8AAAACHuzPlA",
+        "name": "keep-open",
+        "description": "Prevents an issue or pull request from being marked as stale",
+        "color": "d4c5f9"
+      }
+    ],
+    "number": 2659,
+    "title": "[Bug]: Link to documentation site not working"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "comments": [
+      {
+        "id": "IC_kwDOAJaD5s6Z-Wqf",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "Blocked on https://github.com/stryker-mutator/stryker-net/issues/3117.",
+        "createdAt": "2025-01-10T16:54:49Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/2439#issuecomment-2583259807",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6h5b3t",
+        "author": {
+          "login": "github-actions"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "This issue is stale because it has been open for 60 days with no activity. It will be automatically closed in 14 days if no further updates are made.",
+        "createdAt": "2025-03-12T02:01:39Z",
+        "includesCreatedEdit": false,
+        "isMinimized": true,
+        "minimizedReason": "outdated",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/2439#issuecomment-2716188141",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6h78bZ",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "Still waiting on Stryker.",
+        "createdAt": "2025-03-12T07:18:33Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/2439#issuecomment-2716845785",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6rGLa8",
+        "author": {
+          "login": "github-actions"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "This issue is stale because it has been open for 60 days with no activity. It will be automatically closed in 14 days if no further updates are made.",
+        "createdAt": "2025-05-12T02:11:16Z",
+        "includesCreatedEdit": false,
+        "isMinimized": true,
+        "minimizedReason": "outdated",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/2439#issuecomment-2870523580",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6rLOig",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "Still waiting on Stryker.",
+        "createdAt": "2025-05-12T09:52:54Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/2439#issuecomment-2871847072",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s62qMAA",
+        "author": {
+          "login": "github-actions"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "This issue is stale because it has been open for 60 days with no activity. It will be automatically closed in 14 days if no further updates are made.",
+        "createdAt": "2025-07-12T02:13:12Z",
+        "includesCreatedEdit": false,
+        "isMinimized": true,
+        "minimizedReason": "outdated",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/2439#issuecomment-3064512512",
+        "viewerDidAuthor": false
+      }
+    ],
+    "createdAt": "2025-01-10T13:20:09Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWw1MjgxOTc4Mzc=",
+        "name": "CI/build",
+        "description": "",
+        "color": "f9d0c4"
+      },
+      {
+        "id": "LA_kwDOAJaD5s8AAAACHuzPlA",
+        "name": "keep-open",
+        "description": "Prevents an issue or pull request from being marked as stale",
+        "color": "d4c5f9"
+      }
+    ],
+    "number": 2439,
+    "title": "Upgrade to xunit v3"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "comments": [
+      {
+        "id": "IC_kwDOAJaD5s5aMBX1",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "Just did a quick spike of hacking around at this locally and found the following:\r\n\r\n- Polly v7 has a sync and an async cache, which are the consumer is expected to implement themselves as-appropriate using the provided interface. There's also some basic wrapping to handle serializing the value before caching.\r\n- Microsoft.Extensions.Caching.Abstractions provides the sync `IMemoryCache` and the async `IDistributedCache` - this is effectively the same as having a sync and async implementation in Polly v7.\r\n\r\nI'm not sure what the best way to go about doing this natively for Polly v8 would be. Off the top of my head, it feels like we'd need a bridge interface that has sync and async methods so the strategy can just pick the right method and what happens under-the-hood is up to the implementation.\r\n\r\nDoing the above means the policy can live in the core, but by default it wouldn't actually _do_ anything out of the box (which I think is also true of v7). We could then possibly have an additional assembly that will adapt from `IMemoryCache`/`IDistributedCache` to the policy cache interface. There'd possibly be some space for unintentional mistakes here though if someone setup a cache policy associated with `IDistributedCache` and then did a sync operation on it.\r\n\r\nUsing it via the extension would then be something like:\r\n\r\n```csharp\r\n// IMemoryCache\r\nbuilder.AddCaching(\r\n    MemoryCache.Default,\r\n    (context, state) => /* some object */,\r\n    (cacheEntry) => cacheEntry.SlidingExpiration = TimeSpan.FromSeconds(3));\r\n\r\n// IDistributedCache\r\nIDistributedCache distributedCache = ...;\r\nbuilder.AddCaching(\r\n    distributedCache,\r\n    (context, state) => \"my-cache-key\",\r\n    async (value) => await serializeToByteArray(value));\r\n```\r\n\r\nThe other bit I wasn't 100% sure on was on exactly how to get the callbacks for generating the cache key and value to preserve `TResult` and `TState`.\r\n",
+        "createdAt": "2023-04-18T13:07:07Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1513100789",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5aMEAP",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "Oh, and this was as far as I got with the provider just noodling around with `IMemoryCache`. I didn't get to `IDistributedCache`, or do anything with getting `TState` passed through.\r\n\r\n```csharp\r\nusing Microsoft.Extensions.Caching.Distributed;\r\nusing Microsoft.Extensions.Caching.Memory;\r\nusing Polly.Strategy;\r\n\r\nnamespace Polly.Caching;\r\n\r\ninternal sealed class CachingResilienceStrategy : ResilienceStrategy\r\n{\r\n    private readonly ResilienceStrategyTelemetry _telemetry;\r\n\r\n    public CachingResilienceStrategy(\r\n        IMemoryCache cache,\r\n        ResilienceStrategyTelemetry telemetry)\r\n    {\r\n        Cache = cache;\r\n        _telemetry = telemetry;\r\n    }\r\n\r\n    public IMemoryCache Cache { get; }\r\n\r\n    public Func<OnCacheHitArguments, ValueTask>? OnCacheHit { get; }\r\n\r\n    public Func<OnCacheMissedArguments, ValueTask>? OnCacheMissed { get; }\r\n\r\n    public Func<OnCachePutArguments, ValueTask>? OnCachePut { get; }\r\n\r\n    public Func<KeyGeneratorArguments, ValueTask<object>>? KeyGenerator { get; }\r\n\r\n    protected override async ValueTask<TResult> ExecuteCoreAsync<TResult, TState>(\r\n        Func<ResilienceContext, TState, ValueTask<TResult>> callback,\r\n        ResilienceContext context,\r\n        TState state)\r\n    {\r\n        object key = await KeyGenerator(new(context, state));\r\n\r\n        if (Cache.TryGetValue(key, out TResult? result))\r\n        {\r\n            if (OnCacheHit is { } onCacheHit)\r\n            {\r\n                await onCacheHit(default).ConfigureAwait(context.ContinueOnCapturedContext);\r\n            }\r\n\r\n            return result!;\r\n        }\r\n\r\n        if (OnCacheMissed is { } onCacheMissed)\r\n        {\r\n            await onCacheMissed(default).ConfigureAwait(context.ContinueOnCapturedContext);\r\n        }\r\n\r\n        result = await callback(context, state).ConfigureAwait(context.ContinueOnCapturedContext);\r\n\r\n        var entry = Cache.CreateEntry(key);\r\n\r\n        if (OnCachePut is { } onCachePut)\r\n        {\r\n            await onCachePut(new(context, entry)).ConfigureAwait(context.ContinueOnCapturedContext);\r\n        }\r\n\r\n        return result;\r\n    }\r\n}\r\n```",
+        "createdAt": "2023-04-18T13:11:17Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1513111567",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5bQQYO",
+        "author": {
+          "login": "martintmk"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "Hey @martincostello, nice job :) just a couple of thoughts about the caching:\r\n\r\n>Microsoft.Extensions.Caching.Abstractions provides the sync IMemoryCache and the async IDistributedCache - this is effectively the same as having a sync and async implementation in Polly v7.\r\n\r\nI believe the semantics are that `IDistributedCache` does not hold the cached locally while `IMemoryCache` does. The `IDistributedCache` is inherently slower and better scalable. When accessing/updating the `IMemoryCache` you don't need any async methods because all work is local. For `IDistributedCache` we have async overloads because it can indeed block the calling thread when making a request. However, `IDistributedCache` also exposes sync methods so we can use those when `ResilienceContext` is in synchronous execution. \r\n\r\n> I'm not sure what the best way to go about doing this natively for Polly v8 would be. Off the top of my head, it feels like we'd need a bridge interface that has sync and async methods so the strategy can just pick the right method and what happens under-the-hood is up to the implementation.\r\n\r\nMy naive thinking is that we expose two strategies `Distributed Caching Strategy` and `Memory Caching Strategy` each with their respective options. That way, the customer can compose these strategies and create 2-layerer caching strategies (memory first, followed by distributed caching). \r\n\r\n> Doing the above means the policy can live in the core, but by default it wouldn't actually do anything out of the box (which I think is also true of v7)\r\n\r\nI think the main concern is imposing the `Microsft.Extensions.Caching.Abstractions` dependency on everyone if this was directly in the `Polly.Core`. My vote would be to have these strategies in `Polly.Caching` package (similar thing that we did with `Polly.RateLimiting`). That way the `Polly.Core` can stay slim.\r\n\r\n> The other bit I wasn't 100% sure on was on exactly how to get the callbacks for generating the cache key and value to preserve TResult and TState.\r\n\r\nI think we don't really need to propagate `TState`, it is reserved for advanced scenarios to reduce lambda allocations and I cannot image having anything caching-related in it. \r\n\r\nRegarding the API surface do you think we need these events?\r\n\r\n``` csharp\r\n    public Func<OnCacheHitArguments, ValueTask>? OnCacheHit { get; }\r\n\r\n    public Func<OnCacheMissedArguments, ValueTask>? OnCacheMissed { get; }\r\n\r\n    public Func<OnCachePutArguments, ValueTask>? OnCachePut { get; }\r\n```\r\n\r\nI think `OnCachePut` is nice to have so the caller can override any caching per-item options but the others might be not necesssary. We can still generate the resilience events from these though.\r\n\r\n",
+        "createdAt": "2023-05-02T07:06:37Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1530988046",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5eglDX",
+        "author": {
+          "login": "martintmk"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "Based on the recent sync, the caching strategy won't be a part of the initial V8 release. If they're is a demand from community we might induce it in a next minor release. \n\nThe reason to not include: \n\n- There is not much data about usability of such strategy or whatever it really belongs in a core resilience package.\n- There is a work pending on the next set of caching libraries and we do not want to duplicate the work  or be based on older abstractions.\n\ncc @martincostello ,@joelhulen \n\n\n",
+        "createdAt": "2023-06-10T10:23:40Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 2
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1585598679",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5ehpKR",
+        "author": {
+          "login": "joelhulen"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "> Based on the recent sync, the caching strategy won't be a part of the initial V8 release. If they're is a demand from community we might induce it in a next minor release.\r\n> \r\n> The reason to not include:\r\n> \r\n> * There is not much data about usability of such strategy or whatever it really belongs in a core resilience package.\r\n> * There is a work pending on the next set of caching libraries and we do not want to duplicate the work  or be based on older abstractions.\r\n> \r\n> cc @martincostello ,@joelhulen\r\n\r\nPer our conversation on Thursday, I agree that we can exclude the Polly v7 caching policy from v8. If we find that excluding the caching policy impacts a lot of people (no data on whether this is the case), then we can either find a way to implement it or provide some alternatives like the upcoming set of caching libraries.",
+        "createdAt": "2023-06-11T00:38:58Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 1
+            }
+          },
+          {
+            "content": "CONFUSED",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1585877649",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5fD8A2",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "If/when we get to this issue, consider the use case in #834 and #660.",
+        "createdAt": "2023-06-16T15:24:16Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1594867766",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5kIGhV",
+        "author": {
+          "login": "github-actions"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "This issue is stale because it has been open for 60 days with no activity. It will be automatically closed in 14 days if no further updates are made.",
+        "createdAt": "2023-08-16T01:44:25Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1679845461",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5teCWb",
+        "author": {
+          "login": "TallBaldGeek"
+        },
+        "authorAssociation": "NONE",
+        "body": "I was directed here by [Martin Tomka](https://devblogs.microsoft.com/dotnet/author/martintomka/) after I commented on the blog post [Building resilient cloud services with .NET 8](https://devblogs.microsoft.com/dotnet/building-resilient-cloud-services-with-dotnet-8/#comment-20134). \r\n\r\nI work on a large enterprise application that is currently ASP.NET using Framework 4.8, with an effort underway to migrate to .NET 8+. We’re using the `IHttpClientFactory` to maintain a registry of named http clients with Polly v7 policies defined. \r\n\r\nWe use a Polly `AsyncCachePolicy` on 6 of the ~75 named http clients we have defined for connecting to external APIs. This policy is backed by an `IAsyncCacheProvider` which is wired to use a Singleton `MemoryCacheProvider` in our DI container. The cache policy will serialize an HttpResponseMessage and cache that serialized representation in memory per-server.  In the case of a cache hit, we deserialize back to an HttpResponseMessage and return that. \r\n\r\nWe knew there were trade-offs in this approach such as having to still `ReadAsAsync<T>` on the resulting `HttpResponseMessage` to further deserialize it into a DTO, but we felt the convenience of being able to define a generic caching policy to apply to a named http client was worth it in these cases. (In other words, we were aware of the guidance “[Is caching at the `HttpResponseMessage` level the right fit?](https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory#is-caching-at-the-httpresponsemessage-level-the-right-fit)” )\r\n\r\nIn addition, we do have a handful of areas in our application where we use Polly’s Policy<T>.Execute() syntax with a caching policy to cache a DTO at a higher level than the http pipeline. \r\n\r\nTo further complicate things, on the clients where we’re using the `AsyncCachePolicy`, it’s part of a Policy Wrap with `Polly.Contrib.DuplicateRequestCollapser` in order to avoid cache repopulation storms. There is an [issue on that package](https://github.com/Polly-Contrib/Polly.Contrib.DuplicateRequestCollapser/issues/8) that is in the process of being resolved where it initially didn’t support Polly v8. It looks like support for v8 is being added, but not Polly.Core. \r\n\r\nTo recap, if my team wants to migrate from v7 to Polly.Core, in addition to the standard stuff outlined in the migration guide we’ll need to account for:\r\n* Polly.Core not currently supporting a Cache strategy\r\n* Polly.Core not providing an equivalent of `Polly.Contrib.DuplicateRequestCollapser`\r\n\r\nThanks,\r\n-Brett.\r\n",
+        "createdAt": "2023-12-01T18:32:49Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1836590491",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5thIN3",
+        "author": {
+          "login": "martintmk"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "> I was directed here by [Martin Tomka](https://devblogs.microsoft.com/dotnet/author/martintomka/) after I commented on the blog post [Building resilient cloud services with .NET 8](https://devblogs.microsoft.com/dotnet/building-resilient-cloud-services-with-dotnet-8/#comment-20134).\r\n> \r\n> I work on a large enterprise application that is currently ASP.NET using Framework 4.8, with an effort underway to migrate to .NET 8+. We’re using the `IHttpClientFactory` to maintain a registry of named http clients with Polly v7 policies defined.\r\n> \r\n> We use a Polly `AsyncCachePolicy` on 6 of the ~75 named http clients we have defined for connecting to external APIs. This policy is backed by an `IAsyncCacheProvider` which is wired to use a Singleton `MemoryCacheProvider` in our DI container. The cache policy will serialize an HttpResponseMessage and cache that serialized representation in memory per-server. In the case of a cache hit, we deserialize back to an HttpResponseMessage and return that.\r\n> \r\n> We knew there were trade-offs in this approach such as having to still `ReadAsAsync<T>` on the resulting `HttpResponseMessage` to further deserialize it into a DTO, but we felt the convenience of being able to define a generic caching policy to apply to a named http client was worth it in these cases. (In other words, we were aware of the guidance “[Is caching at the `HttpResponseMessage` level the right fit?](https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory#is-caching-at-the-httpresponsemessage-level-the-right-fit)” )\r\n> \r\n> In addition, we do have a handful of areas in our application where we use Polly’s Policy.Execute() syntax with a caching policy to cache a DTO at a higher level than the http pipeline.\r\n> \r\n> To further complicate things, on the clients where we’re using the `AsyncCachePolicy`, it’s part of a Policy Wrap with `Polly.Contrib.DuplicateRequestCollapser` in order to avoid cache repopulation storms. There is an [issue on that package](https://github.com/Polly-Contrib/Polly.Contrib.DuplicateRequestCollapser/issues/8) that is in the process of being resolved where it initially didn’t support Polly v8. It looks like support for v8 is being added, but not Polly.Core.\r\n> \r\n> To recap, if my team wants to migrate from v7 to Polly.Core, in addition to the standard stuff outlined in the migration guide we’ll need to account for:\r\n> \r\n> * Polly.Core not currently supporting a Cache strategy\r\n> * Polly.Core not providing an equivalent of `Polly.Contrib.DuplicateRequestCollapser`\r\n> \r\n> Thanks, -Brett.\r\n\r\n@TallBaldGeek, the caching strategy is relative simple to implement. For example:\r\n\r\n``` csharp\r\npublic static class CachingKey\r\n{\r\n    public static readonly ResiliencePropertyKey<string> Id = new(\"Resilience.CachingKey\");\r\n}\r\n\r\ninternal class CachingStrategy(IMemoryCache cache) : ResilienceStrategy\r\n{\r\n    protected override async ValueTask<Outcome<TResult>> ExecuteCore<TResult, TState>(\r\n        Func<ResilienceContext, TState, ValueTask<Outcome<TResult>>> callback,\r\n        ResilienceContext context,\r\n        TState state)\r\n    {\r\n        if (!context.Properties.TryGetValue(CachingKey.Id, out var key))\r\n        {\r\n            return await callback(context, state);\r\n        }\r\n\r\n        if (cache.TryGetValue<TResult>(key, out var cachedValue))\r\n        {\r\n            return Outcome.FromResult(cachedValue!);\r\n        }\r\n\r\n        var outcome = await callback(context, state);\r\n\r\n        if (outcome.Exception is null)\r\n        {\r\n            cache.Set(key, outcome.Result);\r\n        }\r\n\r\n        return outcome;\r\n    }\r\n}\r\n```\r\n\r\nAnd to use it:\r\n\r\n``` csharp\r\nResilienceContext context = ResilienceContextPool.Shared.Get();\r\ncontext.Properties.Set(CachingKey.Id, \"some-key\");\r\nresiliencePipeline.ExecuteAsync(context, c => SomeExpensiveCacheableStringOperation(), context);\r\n```\r\n\r\nThe strategy is based on pro-reactive implementation guidelines:\r\nhttps://www.pollydocs.org/extensibility/proactive-strategy.html\r\n\r\nSo if you are blocked by this, you can do your own caching strategy in your project. If there is more Community-feedback and demand, we might introduce built-in caching strategy later. The challenge is not to duplicate and reinvent other caching API such as:\r\n\r\n- `IMemoryCache`\r\n- `IDistributedCache`\r\n- Proposal for LRU cache: https://github.com/dotnet/extensions/issues/4766\r\n\r\nInstead, what we would want is to expose APIs that allows integrating various caches implementations easily, without us implementing our own caching layers. I am thinking of something very similar of what we did with `RateLimiting`, where we just created a thin layer over `System.Threading.RateLimiting` APIs.",
+        "createdAt": "2023-12-03T07:56:09Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1837400951",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5thV5Z",
+        "author": {
+          "login": "jodydonetti"
+        },
+        "authorAssociation": "NONE",
+        "body": "If you are interested I may implement a policy based on [FusionCache](https://github.com/ZiggyCreatures/FusionCache), which in turn can be configured to seamlessly work with both in memory and distributed caches (it has full support for both sync/async programming model, without the usual sync-over-async trick which does have its issues).\r\n\r\nHonestly it was on my todo list for some time (I mean adding FusionCache support to Polly), but first I was waiting for Polly V8 to be released and then I've been sidetracked with some other stuff recently.",
+        "createdAt": "2023-12-03T11:49:36Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1837456985",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5tkPgD",
+        "author": {
+          "login": "martintmk"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "@jodydonetti \r\n\r\nMi thinking about cache is to introduce some low-level layer into `Polly.Core`:\r\n\r\n```csharp\r\npublic readonly struct CacheStoreArguments<TValue>\r\n{\r\n    public Outcome<TValue> Outcome { get; }\r\n\r\n    public ResilienceContext Context { get; }\r\n\r\n    public string Key { get; }\r\n}\r\n\r\npublic readonly struct CacheRetrieveArguments\r\n{\r\n    public ResilienceContext Context { get; }\r\n\r\n    public string Key { get; }\r\n}\r\n\r\npublic class CachingOptions<TValue> :ResilienceStrategyOptions\r\n{\r\n    [Required]\r\n    public Func<CacheRetrieveArguments, ValueTask<Outcome<TValue>?>>? Retrieve { get; set; }\r\n\r\n    [Required]\r\n    public Func<CacheStoreArguments<TValue>, ValueTask<bool>>? Store { get; set; }\r\n}\r\n\r\npublic static class CacheResiliencePipelineBuilderExtensions\r\n{\r\n    public static ResiliencePipelineBuilder AddCache<TValue>(\r\n        this ResiliencePipelineBuilder<TValue> builder,\r\n        CachingOptions<TValue> options)\r\n    {\r\n        throw new NotImplementedException();\r\n    }\r\n}\r\n```\r\n\r\nThe strategy will use the delegates to retrieve and store items into cache. It will also reports hit misses and any cache actions. The implementation would reside in `Polly.Core`. It is really a minimal bare-bones resilience strategy.\r\n\r\nThen we can expose some convenience overloads in `Polly.Extensions` that just specify their own retrieve/store delegates:\r\n\r\n``` csharp\r\npublic static class CacheResiliencePipelineBuilderExtensions\r\n{\r\n    public static ResiliencePipelineBuilder AddMemoryCache<TValue>(\r\n        this ResiliencePipelineBuilder<TValue> builder,\r\n        IMemoryCache memoryCache)\r\n    {\r\n        return builder.AddCaching(new()\r\n        {\r\n            Retrieve = args =>\r\n            {\r\n                if (memoryCache.TryGetValue<TValue>(args.Key, out var cachedValue))\r\n                {\r\n                    return new ValueTask<Outcome<TValue>?>(Outcome.FromResult(cachedValue));\r\n                }\r\n\r\n                return ValueTask.FromResult<Outcome<TValue>?>(null!);\r\n            },\r\n            Store = args =>\r\n            {\r\n                if (args.Outcome.Exception is null)\r\n                {\r\n                    memoryCache.Set(args.Key, args.Outcome.Result);\r\n                    return ValueTask.FromResult(true);\r\n                }\r\n\r\n                return ValueTask.FromResult(false);\r\n\r\n            }\r\n        });\r\n    }\r\n\r\n    public static ResiliencePipelineBuilder AddDistributedCache<TValue>(\r\n        this ResiliencePipelineBuilder<TValue> builder,\r\n        IDistributedCache distributedCache)\r\n    {\r\n        return builder.AddCaching(new()\r\n        {\r\n            Retrieve = async args =>\r\n            {\r\n                if (await distributedCache.GetAsync(args.Key) is { } cachedData)\r\n                {\r\n                    // deserialize and return the result\r\n                }\r\n\r\n                return null;\r\n            },\r\n            Store = async args =>\r\n            {\r\n                if (args.Outcome.Exception is null)\r\n                {\r\n                    // Serialize the result\r\n                    byte[] data = ... ;\r\n\r\n                    await distributedCache.SetAsync(args.Key, data, args.Context.CancellationToken);\r\n                    return ValueTask.FromResult(true);\r\n                }\r\n\r\n                return ValueTask.FromResult(false);\r\n            }\r\n        });\r\n    }\r\n}\r\n```\r\nThis way we can reduce our coupling to particular caching technology and make it really easy to integrate their own cache into Polly. This applies to FusionCache as well, then can just expose their own `AddFusionCache` extensions that leverages the core infra. \r\n\r\nWdyt?\r\n\r\ncc @martincostello, @joelhulen\r\n",
+        "createdAt": "2023-12-04T10:07:04Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 2
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1838217219",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5tkSOc",
+        "author": {
+          "login": "jodydonetti"
+        },
+        "authorAssociation": "NONE",
+        "body": "Hi @martintmk , I totally agree, I was not suggesting to add a hard link to FusionCache, that would be crazy.\r\n\r\nThe idea iwould be to have a caching abstraction specific for Polly with the specific requirements needed for Polly itself, so that various impl (including but of course not limited to FusionCache) can be made.\r\n\r\nIf, btw, there's currently no time to create such abstraction now, another possibility would be to start without the abstraction and try to see if it would be possible to get the caching feature as an external third party package, in this case tightly coupled with FusionCache, to get the feature out. Then, if and when the common abstraction will arrive, the package would be updated to work with the common abstraction. Just an idea.\r\n\r\nOf course I would prefer the first approach, if possible.\r\n\r\nps: I'll look at your sample code asap, will let you know.",
+        "createdAt": "2023-12-04T10:13:13Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1838228380",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5tohEp",
+        "author": {
+          "login": "TallBaldGeek"
+        },
+        "authorAssociation": "NONE",
+        "body": "@martintmk & @jodydonetti - Thanks for the quick responses and for reopening this issue for discussion. \r\n\r\nWould your proposed approaches be something that would eventually make their way into the `Microsoft.Extensions.Http.Resilience` package so they could be added to an HTTP Client definition? Or is the intent only to allow a cache strategy to be defined and incorporated into a standalone resilience pipeline that would be defined outside of the HTTP Client factory?\r\n\r\nI was hoping to have both approaches available so that we could continue to do caching at either the http message level or \"one level up\" to operate on a DTO. \r\n",
+        "createdAt": "2023-12-04T19:31:28Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1839337769",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5to0BB",
+        "author": {
+          "login": "martintmk"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "> Would your proposed approaches be something that would eventually make their way into the Microsoft.Extensions.Http.Resilience package so they could be added to an HTTP Client definition? Or is the intent only to allow a cache strategy to be defined and incorporated into a standalone resilience pipeline that would be defined outside of the HTTP Client factory?\r\n\r\nAny new API added to Polly is automatically available in `Microsoft.Extensions.Http.Resilience`. This applies for caching too. When using `AddResilienceHandler` extension, the `AddCache` extension would be visible for `ResiliencePipelineBuilder<HttpResponseMessage>`.\r\n\r\nOne gotcha is that we can't serve the same instance of  `HttpResponseMessage` so some cloning/custom handling would possibly be required.",
+        "createdAt": "2023-12-04T20:23:26Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1839415361",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5uFKx8",
+        "author": {
+          "login": "jodydonetti"
+        },
+        "authorAssociation": "NONE",
+        "body": "> One gotcha is that we can't serve the same instance of `HttpResponseMessage` so some cloning/custom handling would possibly be required.\r\n\r\nMakes sense, and I think the approach would be similar to the one taken by OutputCache which basically does more or less the same thing (it caches http responses and serve a copy of them later).\r\n\r\nAnyway if a discussion starts on the shape of the generic cache api for Polly, I'm available to discuss the details of it and provide a first implementation based on FusionCache as a third-party package.",
+        "createdAt": "2023-12-08T09:27:57Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1846848636",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5zGjxR",
+        "author": {
+          "login": "github-actions"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "This issue is stale because it has been open for 60 days with no activity. It will be automatically closed in 14 days if no further updates are made.",
+        "createdAt": "2024-02-07T01:44:17Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1931099217",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s5zH8Sl",
+        "author": {
+          "login": "jodydonetti"
+        },
+        "authorAssociation": "NONE",
+        "body": "Hi, since this has been marked as stale and I'm on the verge of releasing v1.0 of FusionCache, I feel it can be a good time to give it a try and make an attempt at creating a first caching policy for Polly V8, at least to see how it would work out.\nIs there anybody willing to have a chat in the next weeks about how to better approach that?\nThanks!",
+        "createdAt": "2024-02-07T07:48:05Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-1931461797",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s55sjCH",
+        "author": {
+          "login": "github-actions"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "This issue is stale because it has been open for 60 days with no activity. It will be automatically closed in 14 days if no further updates are made.",
+        "createdAt": "2024-04-08T01:45:31Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2041720967",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s55tX-W",
+        "author": {
+          "login": "OskarKlintrot"
+        },
+        "authorAssociation": "NONE",
+        "body": "Not stale, I hope? ",
+        "createdAt": "2024-04-08T06:11:31Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2041937814",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6AfibC",
+        "author": {
+          "login": "github-actions"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "This issue is stale because it has been open for 60 days with no activity. It will be automatically closed in 14 days if no further updates are made.",
+        "createdAt": "2024-06-08T01:47:22Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2155751106",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6AgBG6",
+        "author": {
+          "login": "OskarKlintrot"
+        },
+        "authorAssociation": "NONE",
+        "body": "Not stale, I hope? ",
+        "createdAt": "2024-06-08T08:42:11Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2155876794",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6AgBga",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "No one is actively working on it, so it basically is.",
+        "createdAt": "2024-06-08T08:47:57Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2155878426",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6HlnF9",
+        "author": {
+          "login": "github-actions"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "This issue is stale because it has been open for 60 days with no activity. It will be automatically closed in 14 days if no further updates are made.",
+        "createdAt": "2024-08-08T01:52:17Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2274783613",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6HnyMt",
+        "author": {
+          "login": "CesarD"
+        },
+        "authorAssociation": "NONE",
+        "body": "No news about this one?",
+        "createdAt": "2024-08-08T09:20:51Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2275353389",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6Hn8M2",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "No, otherwise there'd be some comments or linked activity.\r\n\r\nAt this stage I'm very tempted to close this off as won't do.\r\n\r\nIt's been over a year since the initial proposal, and the lack of activity seems to suggest that people aren't clamouring for this functionality in Polly.Core.\r\n",
+        "createdAt": "2024-08-08T09:40:53Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "CONFUSED",
+            "users": {
+              "totalCount": 3
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2275394358",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6HqY0x",
+        "author": {
+          "login": "jodydonetti"
+        },
+        "authorAssociation": "NONE",
+        "body": "Hi, since there was interest I tried start a conversation about it:\r\n\r\n> Is there anybody willing to have a chat in the next weeks about how to better approach that?\r\n\r\nbut I haven't heard back anyone, so 🤷",
+        "createdAt": "2024-08-08T14:55:56Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "CONFUSED",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2276035889",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6HqhfG",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "Sorry about that - for me, the best place to discuss this is here in this issue asynchronously, not synchronously in a call somewhere. I guess that's why I didn't respond (and then no one else did either regardless of their preferences for discussion).\r\n\r\nIf you have a proposal on what this would entail we can take a look at it (or submit a draft PR for comments).\r\n\r\nI'm still not fully convinced on the need for us to bake in caching as a first-class Polly primitive for the v8 API, given that it would basically just be an abstraction without any real implementations (which we'd delegate to the community), but if there's enough motivating cases to _need_ that I could be persuaded.\r\n\r\nMaybe a better first step is to try and implement your own FusionCache-based resilience policy using [the extensibility](https://www.pollydocs.org/extensibility/index.html). Then it's _a_ way to do caching with Polly v8 on top of the Core API. Then if over time there's interest in other caching-related resilience implementations (in-memory, `IMemoryCache`, `IDistributedMemoryCache`, etc.) that's the point where there's enough information and usage ideas to come up with an abstraction in the Core that could be plugged into?\r\n",
+        "createdAt": "2024-08-08T15:11:30Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "HEART",
+            "users": {
+              "totalCount": 2
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2276071366",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6HzR1j",
+        "author": {
+          "login": "jodydonetti"
+        },
+        "authorAssociation": "NONE",
+        "body": "> Sorry about that - for me, the best place to discuss this is here in this issue asynchronously, not synchronously in a call somewhere. I guess that's why I didn't respond (and then no one else did either regardless of their preferences for discussion).\r\n\r\nNo worries! I said \"have a chat\" but I did not necessarily mean a private one, more like _\"let's start discussing it\"_, but I totally get your point.\r\n\r\n> I'm still not fully convinced on the need for us to bake in caching as a first-class Polly primitive for the v8 API, given that it would basically just be an abstraction without any real implementations (which we'd delegate to the community), but if there's enough motivating cases to _need_ that I could be persuaded.\r\n> \r\n> Maybe a better first step is to try and implement your own FusionCache-based resilience policy using [the extensibility](https://www.pollydocs.org/extensibility/index.html). Then it's _a_ way to do caching with Polly v8 on top of the Core API.\r\n\r\nSounds good to me, and thanks for pointing out https://www.pollydocs.org/extensibility/index.html as a starting point, that is what I was looking for.\r\n\r\n> Then if over time there's interest in other caching-related resilience implementations (in-memory, `IMemoryCache`, `IDistributedMemoryCache`, etc.) that's the point where there's enough information and usage ideas to come up with an abstraction in the Core that could be plugged into?\r\n\r\nMakes sense, but I'd like to highlight something about the _\"memory cache/distributed cache alternatives\"_, for people not familiar with FusionCache: FusionCache already uses `IMemoryCache` as the L1 and any existing `IDistributedCache` impl as the (optional) L2, see [here](https://github.com/ZiggyCreatures/FusionCache/blob/main/docs/CacheLevels.md).\r\nWhat I mean is that the hypothetical FusionCache-based policy would already work both in-memory only or combined with any distributed cache out there.\r\n\r\nSo anyway: I'll start playing with a policy based on FusionCache and will update with what I come up with.\r\n\r\nMeanwhile any suggestion/example/tutorial/blueprint or anything else to create a custom policy, it would be much appreciated.\r\n\r\nThanks all!",
+        "createdAt": "2024-08-09T16:58:55Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "ROCKET",
+            "users": {
+              "totalCount": 2
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2278366563",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6IOqcX",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "> Makes sense, but I'd like to highlight something about the \"memory cache/distributed cache alternatives\", for people not familiar with FusionCache: FusionCache already uses IMemoryCache as the L1 and any existing IDistributedCache impl as the (optional) L2, see [here](https://github.com/ZiggyCreatures/FusionCache/blob/main/docs/CacheLevels.md).\r\nWhat I mean is that the hypothetical FusionCache-based policy would already work both in-memory only or combined with any distributed cache out there.\r\n\r\nThanks for the explanation - I'm not familiar with FusionCache, so didn't realise it was a layer on top.\r\n\r\n> Meanwhile any suggestion/example/tutorial/blueprint or anything else to create a custom policy\r\n\r\nI _think_ you're actually the first person to try that I'm aware of 😄\r\n",
+        "createdAt": "2024-08-13T07:30:09Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2285545239",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6ImGSf",
+        "author": {
+          "login": "jodydonetti"
+        },
+        "authorAssociation": "NONE",
+        "body": "> Thanks for the explanation - I'm not familiar with FusionCache, so didn't realise it was a layer on top.\r\n\r\nAnd if you happen to become more familiar and have some questions, you know who to ask to 😬\r\n\r\n> I _think_ you're actually the first person to try that I'm aware of 😄\r\n\r\nGood!\r\n\r\n![image](https://github.com/user-attachments/assets/306f6a43-035c-44f3-94a7-33dea61655d9)\r\n\r\nWill update as soon as I have something to show.",
+        "createdAt": "2024-08-15T16:38:41Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 2
+            }
+          },
+          {
+            "content": "LAUGH",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2291688607",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6PzkGd",
+        "author": {
+          "login": "github-actions"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "This issue is stale because it has been open for 60 days with no activity. It will be automatically closed in 14 days if no further updates are made.",
+        "createdAt": "2024-10-15T02:00:10Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2412659101",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6Qi3SO",
+        "author": {
+          "login": "CesarD"
+        },
+        "authorAssociation": "NONE",
+        "body": "Bump to keep it open?",
+        "createdAt": "2024-10-20T15:48:36Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 2
+            }
+          },
+          {
+            "content": "THUMBS_DOWN",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2425058446",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6RT7SC",
+        "author": {
+          "login": "SeanFarrow"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "I'd definitely like to work on this if a PR would be accepted?",
+        "createdAt": "2024-10-25T14:13:11Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2437919874",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6RVhkz",
+        "author": {
+          "login": "jodydonetti"
+        },
+        "authorAssociation": "NONE",
+        "body": "Just FYI, for anyone interested since I wanted to tackle the caching policy: currently I'm on [this monumental beast](https://github.com/ZiggyCreatures/FusionCache/issues/319). When I'll be finished with it, and so `v2.0` will be released, I'll most probably move to this issue.",
+        "createdAt": "2024-10-25T16:57:15Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 2
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2438338867",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6XjfS8",
+        "author": {
+          "login": "maksionkin"
+        },
+        "authorAssociation": "NONE",
+        "body": "I created a caching strategy for Hybrid Cache as it looks like a path forward for caching.\r\n[Axion.Extensions.Polly.Caching.Hybrid](https://www.nuget.org/packages/Axion.Extensions.Polly.Caching.Hybrid)",
+        "createdAt": "2024-12-14T02:05:41Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2542662844",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6XlWx8",
+        "author": {
+          "login": "jodydonetti"
+        },
+        "authorAssociation": "NONE",
+        "body": "Hi @maksionkin nice, will look into that!\r\n\r\nOne thing: you (probably) don't need the dependency on the Microsoft.Extensions.Caching.Hybrid package [here](https://github.com/maksionkin/Axion.Extensions/blob/4681089e456921f439cd83201f40347e97e985f8/src/Axion.Extensions.Polly.Caching.Hybrid/Axion.Extensions.Polly.Caching.Hybrid.csproj#L8), since you only care about the `HybridCache` abstraction (abstract class) and not `DefaultHybridCache`, which is the default implementation from Microsoft (concrete class).\r\n\r\nI know because I initially did the same 😅, see [here](https://github.com/ZiggyCreatures/FusionCache/issues/340).\r\n\r\nAnyway, since we're here: I recently released [preview-3](https://github.com/ZiggyCreatures/FusionCache/releases/tag/v2.0.0-preview-3) of FusionCache v2, which includes the HybridCache integration: this means you can use FusionCache as an implementation of HybridCache, to get most of the extra features of FusionCache even when you need/want to use HybridCache as the abstraction to depend on.\r\nYou can read more [here](https://github.com/ZiggyCreatures/FusionCache/discussions/266#discussioncomment-9915972) if interested.\r\n(If you try the combo let me know how it went 🙏)\r\n\r\nHope this helps.",
+        "createdAt": "2024-12-14T15:23:00Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2543152252",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6XlXCJ",
+        "author": {
+          "login": "jodydonetti"
+        },
+        "authorAssociation": "NONE",
+        "body": "PS: I think I'll also create one specifically for FusionCache anyway, to have 100% granular control over each FusionCache feature even on a call-by-call basis. But first, I need to have `v2` out in GA (soon).",
+        "createdAt": "2024-12-14T15:25:05Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2543153289",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6XyqMe",
+        "author": {
+          "login": "martintmk"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "Hey folks, just checking what's happening on the caching side. I must say that the `HybridCache` sounds pretty interesting. Do I understand that correctly that `FusionCache` can be implementation of `HybridCache`?\r\n\r\nIf that's true, what we could do (if `HybridCache` becomes popular), is to introduce `Polly.HybridCache` package with APIs tied to `HybridCache` abstractions.\r\n\r\nOne downside I see is that `HybridCache` does not expose synchronous APIs but we could bridge that by blocking.",
+        "createdAt": "2024-12-16T20:16:50Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2546639646",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6X1rxK",
+        "author": {
+          "login": "SeanFarrow"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "@martintmk  The other thing hybrid cache does not allow is caches to introduce there own features. Therefore I think having a resilience strategy for caching would be a good thing in Polly.Core, even if it is no-op. I'm sure you came up with a prototype a while ago but can't find it.\r\n\r\nThen Polly could provide a Polly.HybridCache package allowing @jodydonetti to provide a package specifically dedicated to Fusion Cache.",
+        "createdAt": "2024-12-17T03:31:31Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2547432522",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6X3uC4",
+        "author": {
+          "login": "jodydonetti"
+        },
+        "authorAssociation": "NONE",
+        "body": "> Hey folks, just checking what's happening on the caching side. I must say that the `HybridCache` sounds pretty interesting. Do I understand that correctly that `FusionCache` can be implementation of `HybridCache`?\r\n\r\nHi @martintmk , basically yes but to be more precise: FusionCache will remain independent, it will not be reimplemented on top of HybridCache or depend on it, but it will **also** be available as an implementation of HybridCache (via an adapter class).\r\nIf interested, you can read about my thoughts about all of this [here](https://github.com/ZiggyCreatures/FusionCache/discussions/266#discussioncomment-9915972).\r\n\r\nThe upcoming [v2](https://github.com/ZiggyCreatures/FusionCache/milestone/15) will contain this and way more, and I recently released [preview-3](https://github.com/ZiggyCreatures/FusionCache/releases/tag/v2.0.0-preview-3) which contains the adapter class.\r\nNitpicking corner: currently in preview-3 there is a separate package, but I'll probably end up including the adapter in the main FusionCache package, but this is just a detail.\r\n\r\nIf you happen to play with it, please let me know!\r\n\r\n> If that's true, what we could do (if `HybridCache` becomes popular), is to introduce `Polly.HybridCache` package with APIs tied to `HybridCache` abstractions.\r\n\r\nThat is one of the potential outcome, yes: as stated in my tought, if `HybridCache` becomes a shared abstraction for hybrid caches in .NET, packages may depend on it and then pick either the default Microsoft implementation **or** one of the available 3rd party ones, like FusionCache.\r\n\r\n> One downside I see is that `HybridCache` does not expose synchronous APIs but we could bridge that by blocking.\r\n\r\nYup, that is one limitation.\r\n\r\nAnother one is that, even when using the FusionCache-based implementation through the HybridCache adapter, on one hand most FusionCache features will be available (like [fail-safe](https://github.com/ZiggyCreatures/FusionCache/blob/main/docs/FailSafe.md), [soft timeouts](https://github.com/ZiggyCreatures/FusionCache/blob/main/docs/Timeouts.md), etc), **but** on the other hand they will not be granularly controllable on a call-by-call basis since I'm limited by the `HybridCacheEntryOptions` class and what it offers (and that is why I'm planning a specific Polly implementation tied specifically for FusionCache, when you need more granular control).\r\n\r\nLong answer, I know, but I wanted to give a clear enough overview in one place.\r\n\r\nHope this helps.",
+        "createdAt": "2024-12-17T09:44:52Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2547966136",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6X3zjr",
+        "author": {
+          "login": "jodydonetti"
+        },
+        "authorAssociation": "NONE",
+        "body": "> @martintmk The other thing hybrid cache does not allow is caches to introduce there own features.\r\n\r\nKinda: as stated above new features may be introduced, but they'll be configurable only globally (eg: at setup time) and not on a call-by-call basis because of the `HybridCacheEntryOptions` limitations.",
+        "createdAt": "2024-12-17T09:53:57Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2547988715",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6bx768",
+        "author": {
+          "login": "jodydonetti"
+        },
+        "authorAssociation": "NONE",
+        "body": "> I created a caching strategy for Hybrid Cache as it looks like a path forward for caching. [Axion.Extensions.Polly.Caching.Hybrid](https://www.nuget.org/packages/Axion.Extensions.Polly.Caching.Hybrid)\n\nHi @maksionkin , now that FusionCache v2 [has been released](https://github.com/ZiggyCreatures/FusionCache/releases/tag/v2.0.0), and since is both fully [compatible](https://github.com/ZiggyCreatures/FusionCache/blob/main/docs/MicrosoftHybridCache.md) with Microsoft HybridCache and the [very first](https://x.com/jodydonetti/status/1881135481645339003) implementation of it that is [production-ready](https://x.com/stebets/status/1881361994340839832), would you mind checking if everything looks good with your caching strategy?\n\nIt may become a really useful addition to the toolset of Polly v8 users.\n\nLet me know if I can be of help, thanks!",
+        "createdAt": "2025-01-24T23:01:17Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "HOORAY",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2613558972",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6kGEF4",
+        "author": {
+          "login": "github-actions"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "This issue is stale because it has been open for 60 days with no activity. It will be automatically closed in 14 days if no further updates are made.",
+        "createdAt": "2025-03-26T02:04:11Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2753053048",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6mLwc7",
+        "author": {
+          "login": "github-actions"
+        },
+        "authorAssociation": "CONTRIBUTOR",
+        "body": "This issue was closed because it has been inactive for 14 days since being marked as stale.",
+        "createdAt": "2025-04-09T02:05:12Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2788099899",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s6s_W-x",
+        "author": {
+          "login": "martincostello"
+        },
+        "authorAssociation": "MEMBER",
+        "body": "Re-opening after question in #2626, but marking as `help wanted`.\n",
+        "createdAt": "2025-05-22T19:12:12Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 2
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-2902290353",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s7FpbyK",
+        "author": {
+          "login": "phatcher"
+        },
+        "authorAssociation": "NONE",
+        "body": "One additional consideration here is that `HybridCache` is an abstract implementation so you would likely use something like `FusionCache` as the actual implementation, so far, so good.\n\n`FusionCache` already has stampede protection, however this only works at the L1 layer, i.e. 10 calls to Polly will result in only one going through to the API, but this does not address when you have multiple nodes, since these aren't aware of each other.\n\nTo solve this, you need the concept of a distributed lock, an example is [DistributedLock](https://www.nuget.org/packages/DistributedLock/) , now you can wrap the call to HttpClient in one of these, but it might be better to allow this as part of the Polly caching concept, so that it is all together.",
+        "createdAt": "2025-09-21T12:44:57Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-3315973258",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOAJaD5s7Fpi0s",
+        "author": {
+          "login": "maksionkin"
+        },
+        "authorAssociation": "NONE",
+        "body": "@phatcher look at [Axion.Extensions.Polly.DuplicateRequestCollapsing.Caching.Hybrid](https://www.nuget.org/packages/Axion.Extensions.Polly.DuplicateRequestCollapsing.Caching.Hybrid), it allows any distributed lock provider where a lock implements `IAsyncDisposable`, ex. [DistributedLock](https://www.nuget.org/packages/DistributedLock/) \n(the tests in fact are using DistributedLock )\n\nif you need that behavior to be incorporated into `HttpClient` resilience pipeline use [Axion.Extensions.Http.Resilience.DuplicateRequestCollapsing.Caching.Hybrid](https://www.nuget.org/packages/Axion.Extensions.Http.Resilience.DuplicateRequestCollapsing.Caching.Hybrid)",
+        "createdAt": "2025-09-21T13:38:52Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 2
+            }
+          }
+        ],
+        "url": "https://github.com/App-vNext/Polly/issues/1127#issuecomment-3316002092",
+        "viewerDidAuthor": false
+      }
+    ],
+    "createdAt": "2023-04-14T09:34:23Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzODQ3NjkwNw==",
+        "name": "enhancement",
+        "description": "",
+        "color": "c2e0c6"
+      },
+      {
+        "id": "MDU6TGFiZWwyOTQ2MDQxODE=",
+        "name": "up-for-grabs",
+        "description": "",
+        "color": "5319e7"
+      },
+      {
+        "id": "MDU6TGFiZWwzOTA3ODA3MzU=",
+        "name": "feature",
+        "description": "",
+        "color": "0052cc"
+      },
+      {
+        "id": "LA_kwDOAJaD5s7ezDD2",
+        "name": "help wanted",
+        "description": "A change up for grabs for contributions from the community",
+        "color": "4BC938"
+      }
+    ],
+    "number": 1127,
+    "title": "Polly.Core Caching policy"
+  }
+]

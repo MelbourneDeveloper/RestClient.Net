@@ -1,0 +1,6910 @@
+[
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-10-23T16:01:52Z",
+    "deletions": 3,
+    "mergedAt": "2025-10-23T17:18:26Z",
+    "number": 2775,
+    "title": "Bump github/codeql-action from 4.30.8 to 4.30.9"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-10-23T16:01:40Z",
+    "deletions": 1,
+    "mergedAt": "2025-10-23T17:18:46Z",
+    "number": 2774,
+    "title": "Bump anchore/sbom-action from 0.20.8 to 0.20.9"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-10-16T16:01:49Z",
+    "deletions": 1,
+    "mergedAt": "2025-10-16T16:17:39Z",
+    "number": 2773,
+    "title": "Bump actions/dependency-review-action from 4.8.0 to 4.8.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-10-16T16:01:45Z",
+    "deletions": 1,
+    "mergedAt": "2025-10-16T22:42:17Z",
+    "number": 2772,
+    "title": "Bump martincostello/update-dotnet-sdk from 4.0.0 to 5.0.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-10-16T16:01:40Z",
+    "deletions": 1,
+    "mergedAt": "2025-10-16T22:52:40Z",
+    "number": 2771,
+    "title": "Bump anchore/sbom-action from 0.20.6 to 0.20.8"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-10-16T16:01:35Z",
+    "deletions": 3,
+    "mergedAt": "2025-10-16T16:16:09Z",
+    "number": 2770,
+    "title": "Bump github/codeql-action from 4.30.7 to 4.30.8"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-10-16T07:47:36Z",
+    "deletions": 9,
+    "mergedAt": "2025-10-16T08:13:37Z",
+    "number": 2769,
+    "title": "Refactor cake script"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-10-14T19:19:43Z",
+    "deletions": 1,
+    "mergedAt": "2025-10-14T19:20:11Z",
+    "number": 2768,
+    "title": "Update .NET SDK to 10.0.100-rc.2.25502.107"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-10-14T19:01:06Z",
+    "deletions": 1,
+    "mergedAt": "2025-10-14T19:10:19Z",
+    "number": 2767,
+    "title": "Update .NET SDK to 9.0.306"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-10-11T16:17:07Z",
+    "deletions": 5,
+    "mergedAt": "2025-10-11T16:25:59Z",
+    "number": 2765,
+    "title": "Suppress S2094 warning"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-10-09T16:03:44Z",
+    "deletions": 1,
+    "mergedAt": "2025-10-09T16:16:00Z",
+    "number": 2764,
+    "title": "Bump actions/stale from 10.0.0 to 10.1.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-10-09T16:03:39Z",
+    "deletions": 3,
+    "mergedAt": "2025-10-09T16:15:22Z",
+    "number": 2763,
+    "title": "Bump github/codeql-action from 3.30.6 to 4.30.7"
+  },
+  {
+    "additions": 29,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-10-09T15:32:10Z",
+    "deletions": 2,
+    "mergedAt": "2025-10-09T16:09:12Z",
+    "number": 2762,
+    "title": "Extend NuGet package validation"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-10-02T16:12:02Z",
+    "deletions": 1,
+    "mergedAt": "2025-10-02T16:21:54Z",
+    "number": 2760,
+    "title": "Bump the xunit group with 1 update"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-10-02T16:02:28Z",
+    "deletions": 1,
+    "mergedAt": "2025-10-02T16:42:17Z",
+    "number": 2759,
+    "title": "Bump peter-evans/repository-dispatch from 3.0.0 to 4.0.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-10-02T16:02:25Z",
+    "deletions": 1,
+    "mergedAt": "2025-10-02T16:16:19Z",
+    "number": 2758,
+    "title": "Bump actions/dependency-review-action from 4.7.3 to 4.8.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-10-02T16:02:21Z",
+    "deletions": 1,
+    "mergedAt": "2025-10-02T16:36:10Z",
+    "number": 2757,
+    "title": "Bump ossf/scorecard-action from 2.4.2 to 2.4.3"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-10-02T16:02:16Z",
+    "deletions": 3,
+    "mergedAt": "2025-10-02T16:10:42Z",
+    "number": 2756,
+    "title": "Bump github/codeql-action from 3.30.4 to 3.30.6"
+  },
+  {
+    "additions": 21,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-09-26T08:55:38Z",
+    "deletions": 1,
+    "mergedAt": "2025-09-26T14:58:31Z",
+    "number": 2754,
+    "title": "Bump version and update CHANGELOG"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-09-25T16:02:56Z",
+    "deletions": 3,
+    "mergedAt": "2025-09-25T16:12:18Z",
+    "number": 2753,
+    "title": "Bump github/codeql-action from 3.30.3 to 3.30.4"
+  },
+  {
+    "additions": 123,
+    "author": {
+      "id": "MDQ6VXNlcjU3MTgzNjkz",
+      "is_bot": false,
+      "login": "peter-csala",
+      "name": ""
+    },
+    "changedFiles": 4,
+    "createdAt": "2025-09-25T10:12:13Z",
+    "deletions": 51,
+    "mergedAt": "2025-09-25T17:39:58Z",
+    "number": 2752,
+    "title": "Respect override for PipelineExecuting and PipelineExecuted"
+  },
+  {
+    "additions": 10,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-09-22T20:20:39Z",
+    "deletions": 1,
+    "mergedAt": "2025-09-22T20:57:33Z",
+    "number": 2751,
+    "title": "Use NuGet Trusted Publishing"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-09-18T16:02:03Z",
+    "deletions": 1,
+    "mergedAt": "2025-09-19T07:49:06Z",
+    "number": 2749,
+    "title": "Bump zizmorcore/zizmor-action from 0.1.2 to 0.2.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-09-18T16:01:59Z",
+    "deletions": 1,
+    "mergedAt": "2025-09-18T16:12:25Z",
+    "number": 2748,
+    "title": "Bump anchore/sbom-action from 0.20.5 to 0.20.6"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 5,
+    "createdAt": "2025-09-18T16:01:54Z",
+    "deletions": 5,
+    "mergedAt": "2025-09-18T16:10:26Z",
+    "number": 2747,
+    "title": "Bump actions/create-github-app-token from 2.1.1 to 2.1.4"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-09-15T13:44:06Z",
+    "deletions": 1,
+    "mergedAt": "2025-09-15T14:11:45Z",
+    "number": 2746,
+    "title": "Update zizmor"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-09-11T16:02:16Z",
+    "deletions": 1,
+    "mergedAt": "2025-09-11T16:14:33Z",
+    "number": 2745,
+    "title": "Bump actions/stale from 9.1.0 to 10.0.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-09-11T16:02:13Z",
+    "deletions": 1,
+    "mergedAt": "2025-09-11T16:18:19Z",
+    "number": 2744,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.51.0 to 0.52.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-09-11T16:02:09Z",
+    "deletions": 3,
+    "mergedAt": "2025-09-11T16:10:02Z",
+    "number": 2743,
+    "title": "Bump github/codeql-action from 3.30.0 to 3.30.3"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-09-09T17:14:49Z",
+    "deletions": 1,
+    "mergedAt": "2025-09-09T17:24:35Z",
+    "number": 2741,
+    "title": "Update .NET SDK to 9.0.305"
+  },
+  {
+    "additions": 105,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 29,
+    "createdAt": "2025-09-06T11:42:32Z",
+    "deletions": 80,
+    "mergedAt": "2025-09-06T14:01:50Z",
+    "number": 2740,
+    "title": "Simplify code"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-09-04T16:29:08Z",
+    "deletions": 1,
+    "mergedAt": "2025-09-04T16:59:36Z",
+    "number": 2739,
+    "title": "Bump dotnet-stryker to 4.8.1"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-09-04T16:26:21Z",
+    "deletions": 5,
+    "mergedAt": "2025-09-04T16:43:01Z",
+    "number": 2738,
+    "title": "Bump NuGet packages"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 5,
+    "createdAt": "2025-09-04T16:23:15Z",
+    "deletions": 11,
+    "mergedAt": "2025-09-04T16:43:53Z",
+    "number": 2737,
+    "title": "Bump actions/setup-dotnet from 4.3.1 to 5.0.0"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-09-04T16:14:24Z",
+    "deletions": 0,
+    "mergedAt": "2025-09-04T16:23:42Z",
+    "number": 2736,
+    "title": "Update Dependabot auto-merge conditions"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-09-04T16:02:46Z",
+    "deletions": 1,
+    "mergedAt": "2025-09-04T17:14:14Z",
+    "number": 2735,
+    "title": "Bump martincostello/update-dotnet-sdk from 3.8.2 to 4.0.0"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 4,
+    "createdAt": "2025-09-04T16:02:43Z",
+    "deletions": 5,
+    "mergedAt": "2025-09-04T17:13:36Z",
+    "number": 2734,
+    "title": "Bump actions/github-script from 7.0.1 to 8.0.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-09-04T16:02:36Z",
+    "deletions": 1,
+    "mergedAt": "2025-09-04T16:16:35Z",
+    "number": 2733,
+    "title": "Bump codecov/codecov-action from 5.5.0 to 5.5.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-09-04T16:02:31Z",
+    "deletions": 1,
+    "mergedAt": "2025-09-04T16:25:54Z",
+    "number": 2732,
+    "title": "Bump actions/attest-build-provenance from 2.4.0 to 3.0.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-09-04T16:02:27Z",
+    "deletions": 3,
+    "mergedAt": "2025-09-04T17:14:22Z",
+    "number": 2731,
+    "title": "Bump github/codeql-action from 3.29.11 to 3.30.0"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-28T06:52:50Z",
+    "deletions": 4,
+    "mergedAt": "2025-08-28T07:03:24Z",
+    "number": 2730,
+    "title": "Delete actionlint config"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-27T15:32:09Z",
+    "deletions": 37,
+    "mergedAt": "2025-08-27T15:45:35Z",
+    "number": 2729,
+    "title": "Remove moderation workflow"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-27T15:29:01Z",
+    "deletions": 1,
+    "mergedAt": "2025-08-27T15:41:28Z",
+    "number": 2728,
+    "title": "Bump actions/dependency-review-action from 4.7.1 to 4.7.3"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-08-27T15:28:56Z",
+    "deletions": 3,
+    "mergedAt": "2025-08-27T15:38:55Z",
+    "number": 2727,
+    "title": "Bump github/codeql-action from 3.29.9 to 3.29.11"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-27T15:28:45Z",
+    "deletions": 1,
+    "mergedAt": "2025-08-27T15:37:15Z",
+    "number": 2726,
+    "title": "Bump codecov/codecov-action from 5.4.3 to 5.5.0"
+  },
+  {
+    "additions": 41,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-08-27T15:02:26Z",
+    "deletions": 0,
+    "mergedAt": "2025-08-27T15:15:09Z",
+    "number": 2725,
+    "title": "Add moderation workflow"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-27T08:49:10Z",
+    "deletions": 0,
+    "mergedAt": "2025-08-27T09:01:57Z",
+    "number": 2724,
+    "title": "Add summary NuGet badges"
+  },
+  {
+    "additions": 323,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 128,
+    "createdAt": "2025-08-23T12:51:25Z",
+    "deletions": 261,
+    "mergedAt": "2025-08-23T13:06:47Z",
+    "number": 2723,
+    "title": "xunit v3 preparation"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-22T15:51:55Z",
+    "deletions": 1,
+    "mergedAt": "2025-08-22T16:15:02Z",
+    "number": 2722,
+    "title": "Bump sign tool"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-22T15:50:29Z",
+    "deletions": 1,
+    "mergedAt": "2025-08-22T16:05:40Z",
+    "number": 2721,
+    "title": "Bump MartinCostello.WaitForNuGetPackage"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-08-22T15:46:16Z",
+    "deletions": 2,
+    "mergedAt": "2025-08-22T15:56:13Z",
+    "number": 2720,
+    "title": "Update the code-snippets in the documentation"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-22T15:41:14Z",
+    "deletions": 1,
+    "mergedAt": "2025-08-22T15:49:38Z",
+    "number": 2718,
+    "title": "Bump the xunit group with 1 update"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-22T14:50:01Z",
+    "deletions": 0,
+    "mergedAt": "2025-08-22T15:19:27Z",
+    "number": 2717,
+    "title": "Fix flaky mutants"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-22T13:44:00Z",
+    "deletions": 3,
+    "mergedAt": "2025-08-22T14:17:21Z",
+    "number": 2716,
+    "title": "Update the code-snippets in the documentation"
+  },
+  {
+    "additions": 71,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 19,
+    "createdAt": "2025-08-22T13:14:02Z",
+    "deletions": 52,
+    "mergedAt": "2025-08-22T13:42:57Z",
+    "number": 2715,
+    "title": "Use collection expressions"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 3,
+    "createdAt": "2025-08-22T11:39:47Z",
+    "deletions": 3,
+    "mergedAt": "2025-08-22T11:57:48Z",
+    "number": 2714,
+    "title": "Fix after-release and update CHANGELOG"
+  },
+  {
+    "additions": 73,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 17,
+    "createdAt": "2025-08-22T09:27:29Z",
+    "deletions": 73,
+    "mergedAt": "2025-08-22T10:44:04Z",
+    "number": 2713,
+    "title": "Update benchmarks"
+  },
+  {
+    "additions": 128,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 17,
+    "createdAt": "2025-08-22T08:36:16Z",
+    "deletions": 128,
+    "mergedAt": "2025-08-22T08:44:19Z",
+    "number": 2712,
+    "title": "Update benchmarks"
+  },
+  {
+    "additions": 62,
+    "author": {
+      "id": "MDQ6VXNlcjUzOTkzMDM5",
+      "is_bot": false,
+      "login": "mohammed-saalim",
+      "name": "Mohammed Saalim K"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-21T23:44:00Z",
+    "deletions": 0,
+    "mergedAt": "2025-08-29T10:10:23Z",
+    "number": 2711,
+    "title": "RateLimiting: add typed builder/guard tests and external limiter lifetime test"
+  },
+  {
+    "additions": 138,
+    "author": {
+      "id": "MDQ6VXNlcjUzNTExNjAx",
+      "is_bot": false,
+      "login": "carvex21",
+      "name": "Tasos Val"
+    },
+    "changedFiles": 8,
+    "createdAt": "2025-08-20T19:30:01Z",
+    "deletions": 32,
+    "mergedAt": "2025-08-22T15:44:40Z",
+    "number": 2710,
+    "title": "fix documentation for ExecuteOutcomeAsync (#2680)"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-14T16:13:30Z",
+    "deletions": 1,
+    "mergedAt": "2025-08-14T16:23:47Z",
+    "number": 2708,
+    "title": "Bump anchore/sbom-action from 0.20.4 to 0.20.5"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-14T13:16:12Z",
+    "deletions": 1,
+    "mergedAt": "2025-08-14T13:27:41Z",
+    "number": 2707,
+    "title": "Update zizmor"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-14T09:43:17Z",
+    "deletions": 1,
+    "mergedAt": "2025-08-14T09:55:03Z",
+    "number": 2706,
+    "title": "Update Cake.Sdk"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-14T07:30:14Z",
+    "deletions": 1,
+    "mergedAt": "2025-08-14T07:43:15Z",
+    "number": 2705,
+    "title": "Update stale configuration"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-13T15:21:12Z",
+    "deletions": 1,
+    "mergedAt": "2025-08-13T15:30:17Z",
+    "number": 2704,
+    "title": "Bump zizmorcore/zizmor-action from 0.1.1 to 0.1.2"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-12T17:01:10Z",
+    "deletions": 2,
+    "mergedAt": "2025-08-12T17:16:15Z",
+    "number": 2703,
+    "title": "Run mutation tests for .NET vNext"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-12T16:27:48Z",
+    "deletions": 1,
+    "mergedAt": "2025-08-12T16:38:49Z",
+    "number": 2702,
+    "title": "Add docker image label"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 13,
+    "createdAt": "2025-08-12T13:44:28Z",
+    "deletions": 13,
+    "mergedAt": "2025-08-12T13:58:42Z",
+    "number": 2701,
+    "title": "Bump actions/checkout from 4.2.2 to 5.0.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-08-12T13:44:13Z",
+    "deletions": 3,
+    "mergedAt": "2025-08-12T13:53:55Z",
+    "number": 2700,
+    "title": "Bump github/codeql-action from 3.29.6 to 3.29.9"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 5,
+    "createdAt": "2025-08-12T13:44:02Z",
+    "deletions": 5,
+    "mergedAt": "2025-08-12T13:59:45Z",
+    "number": 2699,
+    "title": "Bump actions/create-github-app-token from 2.0.6 to 2.1.1"
+  },
+  {
+    "additions": 25,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 12,
+    "createdAt": "2025-08-12T13:34:18Z",
+    "deletions": 10,
+    "mergedAt": "2025-08-12T13:42:48Z",
+    "number": 2698,
+    "title": "Add zizmor"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-08-12T11:35:51Z",
+    "deletions": 7,
+    "mergedAt": "2025-08-12T17:01:31Z",
+    "number": 2697,
+    "title": "Update to .NET 10 preview 7"
+  },
+  {
+    "additions": 45,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 14,
+    "createdAt": "2025-08-12T10:20:15Z",
+    "deletions": 60,
+    "mergedAt": "2025-08-12T10:36:57Z",
+    "number": 2696,
+    "title": "Refactor project dependencies"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 3,
+    "createdAt": "2025-08-11T16:04:21Z",
+    "deletions": 0,
+    "mergedAt": "2025-08-11T16:15:48Z",
+    "number": 2695,
+    "title": "Add GitHub sponsorship"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-08-11T15:11:07Z",
+    "deletions": 2,
+    "mergedAt": "2025-08-11T15:21:04Z",
+    "number": 2694,
+    "title": "Sign-off commits"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-08-07T16:54:12Z",
+    "deletions": 3,
+    "mergedAt": "2025-08-07T17:06:27Z",
+    "number": 2692,
+    "title": "Bump github/codeql-action from 3.29.5 to 3.29.6"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-07T16:54:01Z",
+    "deletions": 1,
+    "mergedAt": "2025-08-07T17:19:24Z",
+    "number": 2691,
+    "title": "Bump actions/cache from 4.2.3 to 4.2.4"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-08-07T16:53:57Z",
+    "deletions": 7,
+    "mergedAt": "2025-08-07T17:04:22Z",
+    "number": 2690,
+    "title": "Bump actions/download-artifact from 4.3.0 to 5.0.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-05T18:59:18Z",
+    "deletions": 1,
+    "mergedAt": "2025-08-05T19:07:29Z",
+    "number": 2689,
+    "title": "Update .NET SDK to 9.0.304"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-07-31T16:45:09Z",
+    "deletions": 3,
+    "mergedAt": "2025-07-31T16:52:58Z",
+    "number": 2686,
+    "title": "Bump github/codeql-action from 3.29.4 to 3.29.5"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-07-24T16:08:13Z",
+    "deletions": 3,
+    "mergedAt": "2025-07-24T16:18:31Z",
+    "number": 2683,
+    "title": "Bump github/codeql-action from 3.29.2 to 3.29.4"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-07-24T16:08:02Z",
+    "deletions": 1,
+    "mergedAt": "2025-07-24T16:18:36Z",
+    "number": 2682,
+    "title": "Bump anchore/sbom-action from 0.20.2 to 0.20.4"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 3,
+    "createdAt": "2025-07-24T13:29:44Z",
+    "deletions": 8,
+    "mergedAt": "2025-07-24T13:54:52Z",
+    "number": 2681,
+    "title": "Bump System.Text.Json from 8.0.0 to 9.0.7"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-07-22T11:13:16Z",
+    "deletions": 20,
+    "mergedAt": "2025-07-22T11:26:22Z",
+    "number": 2679,
+    "title": "Simplify release workflow"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-07-22T10:46:05Z",
+    "deletions": 0,
+    "mergedAt": "2025-07-22T10:55:58Z",
+    "number": 2678,
+    "title": "Add release notes configuration"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-07-22T08:40:32Z",
+    "deletions": 3,
+    "mergedAt": "2025-07-22T08:50:21Z",
+    "number": 2677,
+    "title": "Sort versions"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjE2NDcyOTQ=",
+      "is_bot": false,
+      "login": "devlead",
+      "name": "Mattias Karlsson"
+    },
+    "changedFiles": 4,
+    "createdAt": "2025-07-21T18:38:30Z",
+    "deletions": 11,
+    "mergedAt": "2025-07-22T08:37:12Z",
+    "number": 2676,
+    "title": "Migrate from Cake .NET tool to Cake .NET SDK"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-07-17T18:11:28Z",
+    "deletions": 1,
+    "mergedAt": "2025-07-17T18:57:19Z",
+    "number": 2675,
+    "title": "Update .NET SDK to 9.0.303"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-07-17T17:00:35Z",
+    "deletions": 1,
+    "mergedAt": "2025-07-17T17:08:37Z",
+    "number": 2674,
+    "title": "Bump the xunit group with 1 update"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-07-15T15:26:30Z",
+    "deletions": 2,
+    "mergedAt": "2025-07-15T15:38:00Z",
+    "number": 2673,
+    "title": "Update to .NET 10 preview 6"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-07-10T12:32:52Z",
+    "deletions": 1,
+    "mergedAt": "2025-07-11T12:05:17Z",
+    "number": 2672,
+    "title": "Bump version and update CHANGELOG"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-07-10T10:30:24Z",
+    "deletions": 2,
+    "mergedAt": "2025-07-10T10:42:55Z",
+    "number": 2671,
+    "title": "Bump stryker to 4.7.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-07-08T18:43:01Z",
+    "deletions": 1,
+    "mergedAt": "2025-07-08T21:40:55Z",
+    "number": 2670,
+    "title": "Update .NET SDK to 9.0.302"
+  },
+  {
+    "additions": 109,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 17,
+    "createdAt": "2025-07-08T15:57:14Z",
+    "deletions": 109,
+    "mergedAt": "2025-07-08T16:09:33Z",
+    "number": 2669,
+    "title": "Update benchmark results"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-07-08T14:31:47Z",
+    "deletions": 6,
+    "mergedAt": "2025-07-08T15:09:12Z",
+    "number": 2668,
+    "title": "Update dependencies"
+  },
+  {
+    "additions": 162,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 23,
+    "createdAt": "2025-07-08T12:57:44Z",
+    "deletions": 167,
+    "mergedAt": "2025-07-08T14:25:53Z",
+    "number": 2667,
+    "title": "Performance tweaks"
+  },
+  {
+    "additions": 589,
+    "author": {
+      "id": "MDQ6VXNlcjI2NDQyNg==",
+      "is_bot": false,
+      "login": "pentp",
+      "name": "Pent Ploompuu"
+    },
+    "changedFiles": 58,
+    "createdAt": "2025-07-04T10:23:53Z",
+    "deletions": 974,
+    "mergedAt": "2025-08-22T08:47:00Z",
+    "number": 2664,
+    "title": "Reduce async overhead"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-07-03T16:28:49Z",
+    "deletions": 3,
+    "mergedAt": "2025-07-03T16:37:46Z",
+    "number": 2663,
+    "title": "Bump github/codeql-action from 3.29.0 to 3.29.2"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-07-03T16:28:38Z",
+    "deletions": 1,
+    "mergedAt": "2025-07-03T16:39:14Z",
+    "number": 2662,
+    "title": "Bump anchore/sbom-action from 0.20.1 to 0.20.2"
+  },
+  {
+    "additions": 319,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-06-30T20:26:57Z",
+    "deletions": 2,
+    "mergedAt": "2025-06-30T20:37:24Z",
+    "number": 2661,
+    "title": "Add incident response plan"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-26T16:57:56Z",
+    "deletions": 1,
+    "mergedAt": "2025-06-26T17:43:22Z",
+    "number": 2658,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.50.0 to 0.51.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-19T16:57:14Z",
+    "deletions": 1,
+    "mergedAt": "2025-06-19T17:08:40Z",
+    "number": 2656,
+    "title": "Bump the xunit group with 1 update"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-19T16:10:38Z",
+    "deletions": 1,
+    "mergedAt": "2025-06-19T16:35:21Z",
+    "number": 2655,
+    "title": "Bump anchore/sbom-action from 0.20.0 to 0.20.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-19T16:10:34Z",
+    "deletions": 1,
+    "mergedAt": "2025-06-19T16:20:29Z",
+    "number": 2654,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.49.0 to 0.50.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-16T17:42:17Z",
+    "deletions": 1,
+    "mergedAt": "2025-06-16T17:51:54Z",
+    "number": 2652,
+    "title": "Increase timeout"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-16T17:19:05Z",
+    "deletions": 0,
+    "mergedAt": "2025-06-16T19:00:28Z",
+    "number": 2651,
+    "title": "Add environments"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-06-16T16:32:34Z",
+    "deletions": 1,
+    "mergedAt": "2025-06-16T18:17:07Z",
+    "number": 2650,
+    "title": "Bump version and update CHANGELOG"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-16T16:05:28Z",
+    "deletions": 1,
+    "mergedAt": "2025-06-16T16:22:49Z",
+    "number": 2649,
+    "title": "Fix permissions"
+  },
+  {
+    "additions": 36,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-16T15:07:16Z",
+    "deletions": 0,
+    "mergedAt": "2025-06-16T15:30:21Z",
+    "number": 2647,
+    "title": "Attest artifacts"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-16T14:37:28Z",
+    "deletions": 3,
+    "mergedAt": "2025-06-16T14:58:07Z",
+    "number": 2646,
+    "title": "Refactor SBOM generation"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-06-12T16:24:51Z",
+    "deletions": 3,
+    "mergedAt": "2025-06-12T16:33:09Z",
+    "number": 2642,
+    "title": "Bump github/codeql-action from 3.28.19 to 3.29.0"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-12T16:04:17Z",
+    "deletions": 0,
+    "mergedAt": "2025-06-12T16:16:32Z",
+    "number": 2641,
+    "title": "Specify allowed licenses"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-12T15:36:34Z",
+    "deletions": 0,
+    "mergedAt": "2025-06-12T15:59:32Z",
+    "number": 2640,
+    "title": "Generate SBOM"
+  },
+  {
+    "additions": 10,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 3,
+    "createdAt": "2025-06-11T12:54:21Z",
+    "deletions": 2,
+    "mergedAt": "2025-06-11T13:02:36Z",
+    "number": 2639,
+    "title": "Suppress CA2025"
+  },
+  {
+    "additions": 28,
+    "author": {
+      "id": "MDQ6VXNlcjMyNDY5MDYw",
+      "is_bot": false,
+      "login": "ahusseini",
+      "name": "Ahmad Husseini"
+    },
+    "changedFiles": 4,
+    "createdAt": "2025-06-10T21:33:11Z",
+    "deletions": 1,
+    "mergedAt": "2025-06-10T22:29:51Z",
+    "number": 2638,
+    "title": "Update maxQueuingCompounded in BulkheadSemaphoreFactory"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-10T18:28:25Z",
+    "deletions": 1,
+    "mergedAt": "2025-06-10T18:53:40Z",
+    "number": 2636,
+    "title": "Update .NET SDK to 9.0.301"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-10T17:01:14Z",
+    "deletions": 1,
+    "mergedAt": "2025-06-10T17:01:41Z",
+    "number": 2635,
+    "title": "Update .NET SDK to 10.0.100-preview.5.25277.114"
+  },
+  {
+    "additions": 41,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 4,
+    "createdAt": "2025-06-05T17:36:00Z",
+    "deletions": 3,
+    "mergedAt": "2025-06-10T15:57:46Z",
+    "number": 2634,
+    "title": "Bump version and update CHANGELOG"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-05T16:04:25Z",
+    "deletions": 1,
+    "mergedAt": "2025-06-05T17:05:26Z",
+    "number": 2633,
+    "title": "Bump ossf/scorecard-action from 2.4.1 to 2.4.2"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-06-05T16:04:21Z",
+    "deletions": 3,
+    "mergedAt": "2025-06-05T16:14:14Z",
+    "number": 2632,
+    "title": "Bump github/codeql-action from 3.28.18 to 3.28.19"
+  },
+  {
+    "additions": 16,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-06-01T13:22:53Z",
+    "deletions": 5,
+    "mergedAt": "2025-06-05T17:24:27Z",
+    "number": 2631,
+    "title": "Fix package signing"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-29T16:12:43Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-29T17:28:49Z",
+    "number": 2629,
+    "title": "Bump codecov/test-results-action from 1.1.0 to 1.1.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-29T16:12:40Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-29T21:21:17Z",
+    "number": 2628,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.48.0 to 0.49.0"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjMxNDA1NTcy",
+      "is_bot": false,
+      "login": "lchaoer",
+      "name": "lchaoer"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-29T09:09:37Z",
+    "deletions": 2,
+    "mergedAt": "2025-06-03T07:29:55Z",
+    "number": 2627,
+    "title": "Update OnRetryArguments.cs"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-22T16:37:31Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-22T16:46:15Z",
+    "number": 2625,
+    "title": "Bump martincostello/update-dotnet-sdk from 3.8.1 to 3.8.2"
+  },
+  {
+    "additions": 78,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 9,
+    "createdAt": "2025-05-20T11:07:20Z",
+    "deletions": 315,
+    "mergedAt": "2025-05-20T11:19:10Z",
+    "number": 2623,
+    "title": "Migrate to slnx"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-20T10:55:09Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-20T11:04:31Z",
+    "number": 2622,
+    "title": "Bump codecov/codecov-action from 5.4.2 to 5.4.3"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-05-20T10:55:07Z",
+    "deletions": 3,
+    "mergedAt": "2025-05-20T11:04:18Z",
+    "number": 2621,
+    "title": "Bump github/codeql-action from 3.28.17 to 3.28.18"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 6,
+    "createdAt": "2025-05-16T13:16:47Z",
+    "deletions": 2,
+    "mergedAt": "2025-05-16T13:32:49Z",
+    "number": 2620,
+    "title": ".NET 10 preparation"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-15T16:34:06Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-15T16:45:43Z",
+    "number": 2619,
+    "title": "Bump actions/dependency-review-action from 4.6.0 to 4.7.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-15T16:34:01Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-15T16:44:16Z",
+    "number": 2618,
+    "title": "Bump DavidAnson/markdownlint-cli2-action from 19.1.0 to 20.0.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-15T16:33:58Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-15T16:41:51Z",
+    "number": 2617,
+    "title": "Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-13T18:29:11Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-14T12:15:07Z",
+    "number": 2616,
+    "title": "Update .NET SDK to 9.0.300"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-13T17:34:50Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-13T17:35:16Z",
+    "number": 2615,
+    "title": "Update .NET SDK to 10.0.100-preview.4.25258.110"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-08T16:48:50Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-08T17:07:04Z",
+    "number": 2614,
+    "title": "Bump ReportGenerator from 5.4.5 to 5.4.6"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-08T16:36:55Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-08T17:06:37Z",
+    "number": 2613,
+    "title": "Bump xunit.runner.visualstudio from 3.0.2 to 3.1.0 in the xunit group"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-05-08T16:12:28Z",
+    "deletions": 3,
+    "mergedAt": "2025-05-08T16:22:43Z",
+    "number": 2612,
+    "title": "Bump github/codeql-action from 3.28.16 to 3.28.17"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 5,
+    "createdAt": "2025-05-08T16:12:21Z",
+    "deletions": 5,
+    "mergedAt": "2025-05-08T16:22:26Z",
+    "number": 2611,
+    "title": "Bump actions/create-github-app-token from 2.0.3 to 2.0.6"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-04T13:42:30Z",
+    "deletions": 2,
+    "mergedAt": "2025-05-04T14:02:49Z",
+    "number": 2609,
+    "title": "Bump version"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-01T17:03:03Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-01T21:38:05Z",
+    "number": 2608,
+    "title": "Bump sign from 0.9.1-beta.25181.2 to 0.9.1-beta.25228.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-01T17:01:35Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-01T21:35:33Z",
+    "number": 2607,
+    "title": "Bump SonarAnalyzer.CSharp from 10.8.0.113526 to 10.9.0.115408"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-05-01T16:38:56Z",
+    "deletions": 6,
+    "mergedAt": "2025-05-01T16:50:15Z",
+    "number": 2606,
+    "title": "Bump actions/download-artifact from 4.2.1 to 4.3.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-01T16:38:50Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-01T21:31:00Z",
+    "number": 2605,
+    "title": "Bump martincostello/update-dotnet-sdk from 3.8.0 to 3.8.1"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 5,
+    "createdAt": "2025-05-01T16:38:48Z",
+    "deletions": 5,
+    "mergedAt": "2025-05-01T21:31:39Z",
+    "number": 2604,
+    "title": "Bump actions/create-github-app-token from 2.0.2 to 2.0.3"
+  },
+  {
+    "additions": 73,
+    "author": {
+      "id": "MDQ6VXNlcjU3MTgzNjkz",
+      "is_bot": false,
+      "login": "peter-csala",
+      "name": ""
+    },
+    "changedFiles": 7,
+    "createdAt": "2025-04-30T15:11:33Z",
+    "deletions": 5,
+    "mergedAt": "2025-05-04T13:36:48Z",
+    "number": 2603,
+    "title": "Add AttemptNumber to HedgingPredicateArguments"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-25T08:40:27Z",
+    "deletions": 2,
+    "mergedAt": "2025-04-25T08:49:03Z",
+    "number": 2601,
+    "title": "Emit annotation for packages"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-04-24T16:03:30Z",
+    "deletions": 3,
+    "mergedAt": "2025-04-24T16:12:25Z",
+    "number": 2600,
+    "title": "Bump github/codeql-action from 3.28.15 to 3.28.16"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-21T14:14:23Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-21T14:24:26Z",
+    "number": 2599,
+    "title": "Use tip instead of important"
+  },
+  {
+    "additions": 55,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-04-21T13:58:54Z",
+    "deletions": 0,
+    "mergedAt": "2025-04-21T14:08:06Z",
+    "number": 2598,
+    "title": "Add note about context/state mix-ups"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-04-18T09:19:29Z",
+    "deletions": 3,
+    "mergedAt": "2025-04-18T09:26:45Z",
+    "number": 2596,
+    "title": "Simplify test analytics"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-17T16:18:34Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-17T16:26:15Z",
+    "number": 2595,
+    "title": "Bump codecov/codecov-action from 5.4.0 to 5.4.2"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-17T16:18:27Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-17T17:21:56Z",
+    "number": 2594,
+    "title": "Bump martincostello/update-dotnet-sdk from 3.7.0 to 3.8.0"
+  },
+  {
+    "additions": 12,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 4,
+    "createdAt": "2025-04-17T14:13:52Z",
+    "deletions": 2,
+    "mergedAt": "2025-04-17T14:25:56Z",
+    "number": 2593,
+    "title": "Add test analytics"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-04-17T13:51:56Z",
+    "deletions": 15,
+    "mergedAt": "2025-04-17T14:00:44Z",
+    "number": 2592,
+    "title": "Dedupe links"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-04-15T14:07:30Z",
+    "deletions": 2,
+    "mergedAt": "2025-04-15T21:38:49Z",
+    "number": 2590,
+    "title": "Update LICENSE metadata"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjEzNDE0NDY=",
+      "is_bot": false,
+      "login": "slang25",
+      "name": "Stuart Lang"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-14T15:27:31Z",
+    "deletions": 2,
+    "mergedAt": "2025-04-14T15:48:01Z",
+    "number": 2589,
+    "title": "Improve mutation tests performance by ensuring solution file isn't discovered"
+  },
+  {
+    "additions": 348,
+    "author": {
+      "id": "MDQ6VXNlcjU3MTgzNjkz",
+      "is_bot": false,
+      "login": "peter-csala",
+      "name": ""
+    },
+    "changedFiles": 6,
+    "createdAt": "2025-04-14T08:42:23Z",
+    "deletions": 0,
+    "mergedAt": "2025-04-17T13:41:08Z",
+    "number": 2587,
+    "title": "[DOCS] Add HTTP client integration samples"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-10T20:08:49Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-10T20:09:25Z",
+    "number": 2586,
+    "title": "Update .NET SDK to 10.0.100-preview.3.25201.16"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-10T17:05:57Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-10T17:35:05Z",
+    "number": 2584,
+    "title": "Bump SonarAnalyzer.CSharp from 10.7.0.110445 to 10.8.0.113526"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-10T16:59:19Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-10T17:16:01Z",
+    "number": 2583,
+    "title": "Bump dotnet-validate from 0.0.1-preview.304 to 0.0.1-preview.537"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-10T16:35:14Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-10T17:02:02Z",
+    "number": 2581,
+    "title": "Bump martincostello/update-dotnet-sdk from 3.6.0 to 3.7.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-04-10T16:35:10Z",
+    "deletions": 3,
+    "mergedAt": "2025-04-10T16:49:47Z",
+    "number": 2580,
+    "title": "Bump github/codeql-action from 3.28.13 to 3.28.15"
+  },
+  {
+    "additions": 173,
+    "author": {
+      "id": "MDQ6VXNlcjU3MTgzNjkz",
+      "is_bot": false,
+      "login": "peter-csala",
+      "name": ""
+    },
+    "changedFiles": 3,
+    "createdAt": "2025-04-10T08:27:49Z",
+    "deletions": 0,
+    "mergedAt": "2025-04-11T11:31:37Z",
+    "number": 2578,
+    "title": "[Docs] Dispose registry which contains rate limiters"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-08T20:35:55Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-08T21:02:24Z",
+    "number": 2576,
+    "title": "Update .NET SDK to 9.0.203"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-04-07T09:24:38Z",
+    "deletions": 6,
+    "mergedAt": "2025-04-07T09:43:15Z",
+    "number": 2575,
+    "title": "Tweak docs formatting"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-07T07:37:55Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-07T07:57:28Z",
+    "number": 2574,
+    "title": "Update the code-snippets in the documentation"
+  },
+  {
+    "additions": 17,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-06T15:26:04Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-06T15:55:39Z",
+    "number": 2573,
+    "title": "Move .NET to D drive on Windows runner"
+  },
+  {
+    "additions": 25,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 5,
+    "createdAt": "2025-04-04T14:32:27Z",
+    "deletions": 20,
+    "mergedAt": "2025-04-04T14:59:34Z",
+    "number": 2572,
+    "title": "Use actions/create-github-app-token"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-03T17:07:04Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-03T17:33:16Z",
+    "number": 2571,
+    "title": "Bump sign from 0.9.1-beta.25169.2 to 0.9.1-beta.25181.2"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-03T16:51:56Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-03T17:22:55Z",
+    "number": 2570,
+    "title": "Bump actions/dependency-review-action from 4.5.0 to 4.6.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-03T16:51:53Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-03T17:10:12Z",
+    "number": 2569,
+    "title": "Bump martincostello/update-dotnet-sdk from 3.4.2 to 3.6.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-03T16:51:51Z",
+    "deletions": 1,
+    "mergedAt": "2025-04-03T17:10:30Z",
+    "number": 2568,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.47.0 to 0.48.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-03-27T16:51:08Z",
+    "deletions": 1,
+    "mergedAt": "2025-03-27T18:08:04Z",
+    "number": 2566,
+    "title": "Bump ReportGenerator from 5.4.4 to 5.4.5"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-03-27T16:09:36Z",
+    "deletions": 3,
+    "mergedAt": "2025-03-27T16:34:43Z",
+    "number": 2565,
+    "title": "Bump github/codeql-action from 3.28.12 to 3.28.13"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-03-20T16:57:49Z",
+    "deletions": 3,
+    "mergedAt": "2025-03-20T17:25:02Z",
+    "number": 2563,
+    "title": "Bump github/codeql-action from 3.28.11 to 3.28.12"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 5,
+    "createdAt": "2025-03-20T16:57:41Z",
+    "deletions": 11,
+    "mergedAt": "2025-03-20T17:30:25Z",
+    "number": 2562,
+    "title": "Bump actions/setup-dotnet from 4.3.0 to 4.3.1"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 4,
+    "createdAt": "2025-03-20T16:57:39Z",
+    "deletions": 7,
+    "mergedAt": "2025-03-20T17:23:04Z",
+    "number": 2561,
+    "title": "Bump actions/upload-artifact from 4.6.1 to 4.6.2"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-03-20T16:57:33Z",
+    "deletions": 6,
+    "mergedAt": "2025-03-20T17:29:28Z",
+    "number": 2560,
+    "title": "Bump actions/download-artifact from 4.1.9 to 4.2.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-03-20T16:57:29Z",
+    "deletions": 1,
+    "mergedAt": "2025-03-20T17:16:29Z",
+    "number": 2559,
+    "title": "Bump actions/cache from 4.2.2 to 4.2.3"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-03-20T09:02:05Z",
+    "deletions": 1,
+    "mergedAt": "2025-03-20T10:10:33Z",
+    "number": 2558,
+    "title": "Bump sign from 0.9.1-beta.24529.1 to 0.9.1-beta.25169.2"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-03-18T18:59:30Z",
+    "deletions": 1,
+    "mergedAt": "2025-03-18T19:24:13Z",
+    "number": 2557,
+    "title": "Revert \"Fix broken CI\""
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-03-18T17:51:04Z",
+    "deletions": 1,
+    "mergedAt": "2025-03-18T17:51:38Z",
+    "number": 2556,
+    "title": "Update .NET SDK to 10.0.100-preview.2.25164.34"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-03-18T17:25:38Z",
+    "deletions": 1,
+    "mergedAt": "2025-03-18T17:43:53Z",
+    "number": 2555,
+    "title": "Update .NET SDK to 9.0.202"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-03-18T17:16:16Z",
+    "deletions": 3,
+    "mergedAt": "2025-03-18T17:47:45Z",
+    "number": 2554,
+    "title": "Fix baseline script if no nullable header"
+  },
+  {
+    "additions": 23,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-03-14T18:41:52Z",
+    "deletions": 40,
+    "mergedAt": "2025-03-14T20:11:32Z",
+    "number": 2553,
+    "title": "Use AuthenticodeLint"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-03-13T16:43:17Z",
+    "deletions": 3,
+    "mergedAt": "2025-03-13T17:08:33Z",
+    "number": 2552,
+    "title": "Bump github/codeql-action from 3.28.10 to 3.28.11"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-03-13T16:43:10Z",
+    "deletions": 1,
+    "mergedAt": "2025-03-13T17:32:41Z",
+    "number": 2551,
+    "title": "Bump martincostello/update-dotnet-sdk from 3.4.1 to 3.4.2"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-03-13T16:10:07Z",
+    "deletions": 1,
+    "mergedAt": "2025-03-13T16:27:57Z",
+    "number": 2549,
+    "title": "Bump sign from 0.9.1-beta.25114.1 to 0.9.1-beta.25157.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-03-11T17:37:05Z",
+    "deletions": 1,
+    "mergedAt": "2025-03-11T18:16:27Z",
+    "number": 2546,
+    "title": "Update .NET SDK to 9.0.201"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-03-10T16:44:48Z",
+    "deletions": 2,
+    "mergedAt": "2025-03-10T17:10:55Z",
+    "number": 2545,
+    "title": "Remove leftover FluentAssertions references"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-03-10T09:46:46Z",
+    "deletions": 1,
+    "mergedAt": "2025-03-10T10:05:50Z",
+    "number": 2544,
+    "title": "Bump PackageValidationBaselineVersion"
+  },
+  {
+    "additions": 41,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-03-07T15:43:04Z",
+    "deletions": 1,
+    "mergedAt": "2025-03-07T16:20:45Z",
+    "number": 2543,
+    "title": "Fix test summary reliability"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-03-06T18:11:19Z",
+    "deletions": 1,
+    "mergedAt": "2025-03-06T18:31:00Z",
+    "number": 2542,
+    "title": "Bump SonarAnalyzer.CSharp from 10.6.0.109712 to 10.7.0.110445"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-03-06T18:02:42Z",
+    "deletions": 1,
+    "mergedAt": "2025-03-06T18:30:39Z",
+    "number": 2541,
+    "title": "Bump sign from 0.9.1-beta.24529.1 to 0.9.1-beta.25114.1"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-03-06T17:53:30Z",
+    "deletions": 6,
+    "mergedAt": "2025-03-06T18:22:27Z",
+    "number": 2540,
+    "title": "Bump actions/download-artifact from 4.1.8 to 4.1.9"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-27T17:56:49Z",
+    "deletions": 1,
+    "mergedAt": "2025-02-27T18:36:42Z",
+    "number": 2537,
+    "title": "Bump actions/cache from 4.2.1 to 4.2.2"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-27T17:56:46Z",
+    "deletions": 1,
+    "mergedAt": "2025-02-27T18:20:43Z",
+    "number": 2536,
+    "title": "Bump ossf/scorecard-action from 2.4.0 to 2.4.1"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-02-27T17:56:43Z",
+    "deletions": 3,
+    "mergedAt": "2025-02-27T18:29:00Z",
+    "number": 2535,
+    "title": "Bump github/codeql-action from 3.28.9 to 3.28.10"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-27T17:56:36Z",
+    "deletions": 1,
+    "mergedAt": "2025-02-27T18:16:20Z",
+    "number": 2534,
+    "title": "Bump codecov/codecov-action from 5.3.1 to 5.4.0"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 4,
+    "createdAt": "2025-02-27T17:56:32Z",
+    "deletions": 7,
+    "mergedAt": "2025-02-27T18:23:42Z",
+    "number": 2533,
+    "title": "Bump actions/upload-artifact from 4.6.0 to 4.6.1"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 3,
+    "createdAt": "2025-02-27T16:19:32Z",
+    "deletions": 3,
+    "mergedAt": "2025-02-27T16:40:14Z",
+    "number": 2532,
+    "title": "Remove System.Text.Json reference"
+  },
+  {
+    "additions": 17,
+    "author": {
+      "id": "MDQ6VXNlcjI1NTk0NjM2",
+      "is_bot": false,
+      "login": "marcrocny",
+      "name": "Marc Lewandowski"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-02-22T07:26:32Z",
+    "deletions": 14,
+    "mergedAt": "2025-04-07T07:36:55Z",
+    "number": 2527,
+    "title": "Fix Retry strategy ShouldHandle in example code"
+  },
+  {
+    "additions": 759,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 43,
+    "createdAt": "2025-02-21T16:21:03Z",
+    "deletions": 445,
+    "mergedAt": "2025-02-21T19:24:54Z",
+    "number": 2526,
+    "title": "Improve coverage"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjEzNDE0NDY=",
+      "is_bot": false,
+      "login": "slang25",
+      "name": "Stuart Lang"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-02-21T00:06:55Z",
+    "deletions": 1,
+    "mergedAt": "2025-02-21T09:11:09Z",
+    "number": 2520,
+    "title": "Improve mutation test perf"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-20T17:28:17Z",
+    "deletions": 1,
+    "mergedAt": "2025-02-20T18:19:55Z",
+    "number": 2519,
+    "title": "Bump actions/cache from 4.2.0 to 4.2.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-20T17:21:04Z",
+    "deletions": 1,
+    "mergedAt": "2025-02-20T18:05:21Z",
+    "number": 2518,
+    "title": "Bump docfx from 2.78.2 to 2.78.3"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-20T17:17:41Z",
+    "deletions": 1,
+    "mergedAt": "2025-02-20T17:55:34Z",
+    "number": 2517,
+    "title": "Bump Microsoft.NET.Test.Sdk from 17.12.0 to 17.13.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-20T17:15:04Z",
+    "deletions": 1,
+    "mergedAt": "2025-02-20T18:12:18Z",
+    "number": 2516,
+    "title": "Bump ReportGenerator from 5.4.3 to 5.4.4"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-20T17:12:21Z",
+    "deletions": 1,
+    "mergedAt": "2025-02-20T18:09:26Z",
+    "number": 2515,
+    "title": "Bump xunit.runner.visualstudio from 3.0.1 to 3.0.2 in the xunit group"
+  },
+  {
+    "additions": 164,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 13,
+    "createdAt": "2025-02-19T15:22:04Z",
+    "deletions": 95,
+    "mergedAt": "2025-02-19T16:50:25Z",
+    "number": 2514,
+    "title": "Add missing coverage"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-19T13:57:47Z",
+    "deletions": 3,
+    "mergedAt": "2025-02-19T14:27:56Z",
+    "number": 2513,
+    "title": "Remove dotnet tool restore"
+  },
+  {
+    "additions": 1075,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 23,
+    "createdAt": "2025-02-17T13:19:00Z",
+    "deletions": 670,
+    "mergedAt": "2025-02-17T16:30:46Z",
+    "number": 2508,
+    "title": "Add missing mutations"
+  },
+  {
+    "additions": 21,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 3,
+    "createdAt": "2025-02-17T11:47:25Z",
+    "deletions": 21,
+    "mergedAt": "2025-02-17T12:19:35Z",
+    "number": 2507,
+    "title": "Workflow refactoring"
+  },
+  {
+    "additions": 1868,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 57,
+    "createdAt": "2025-02-16T12:39:30Z",
+    "deletions": 264,
+    "mergedAt": "2025-02-16T20:37:25Z",
+    "number": 2506,
+    "title": "Improve mutation score"
+  },
+  {
+    "additions": 886,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 41,
+    "createdAt": "2025-02-15T17:45:20Z",
+    "deletions": 57,
+    "mergedAt": "2025-02-15T18:26:12Z",
+    "number": 2505,
+    "title": "Improve Polly coverage"
+  },
+  {
+    "additions": 172,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 16,
+    "createdAt": "2025-02-15T14:42:15Z",
+    "deletions": 126,
+    "mergedAt": "2025-02-15T15:51:00Z",
+    "number": 2504,
+    "title": "Lint PowerShell scripts"
+  },
+  {
+    "additions": 78,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 3,
+    "createdAt": "2025-02-15T14:22:28Z",
+    "deletions": 32,
+    "mergedAt": "2025-02-15T14:59:52Z",
+    "number": 2503,
+    "title": "Fix Polly.Testing mutations"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-02-14T18:12:17Z",
+    "deletions": 2,
+    "mergedAt": "2025-02-14T18:42:03Z",
+    "number": 2501,
+    "title": "Remove .NET 6 SDK"
+  },
+  {
+    "additions": 129,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 17,
+    "createdAt": "2025-02-14T17:18:24Z",
+    "deletions": 25,
+    "mergedAt": "2025-02-15T11:47:44Z",
+    "number": 2500,
+    "title": "Use Stryker Mutator Dashboard"
+  },
+  {
+    "additions": 25,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-14T16:43:13Z",
+    "deletions": 7,
+    "mergedAt": "2025-02-16T20:59:11Z",
+    "number": 2498,
+    "title": "Run CodeQL for GitHub Actions"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-02-14T09:54:40Z",
+    "deletions": 7,
+    "mergedAt": "2025-02-14T10:28:37Z",
+    "number": 2497,
+    "title": "Fix broken CI"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-13T17:51:59Z",
+    "deletions": 1,
+    "mergedAt": "2025-02-14T11:26:13Z",
+    "number": 2493,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.46.0 to 0.47.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-02-13T17:51:55Z",
+    "deletions": 3,
+    "mergedAt": "2025-02-14T11:41:12Z",
+    "number": 2492,
+    "title": "Bump github/codeql-action from 3.28.8 to 3.28.9"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-11T19:19:42Z",
+    "deletions": 1,
+    "mergedAt": "2025-02-11T20:05:15Z",
+    "number": 2486,
+    "title": "Update .NET SDK to 9.0.200"
+  },
+  {
+    "additions": 73,
+    "author": {
+      "id": "MDQ6VXNlcjU3MTgzNjkz",
+      "is_bot": false,
+      "login": "peter-csala",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-07T15:54:37Z",
+    "deletions": 0,
+    "mergedAt": "2025-02-08T09:29:46Z",
+    "number": 2484,
+    "title": "Add diagram for the main chaos page sample"
+  },
+  {
+    "additions": 32,
+    "author": {
+      "id": "MDQ6VXNlcjIyNjQ3NTg=",
+      "is_bot": false,
+      "login": "caigen",
+      "name": "caigen"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-02-07T05:31:51Z",
+    "deletions": 13,
+    "mergedAt": "2025-02-07T12:16:12Z",
+    "number": 2482,
+    "title": "Fix chaos example issue and enrich notes & diagram"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-04T13:06:32Z",
+    "deletions": 1,
+    "mergedAt": "2025-02-04T13:50:18Z",
+    "number": 2476,
+    "title": "Bump Stryker"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 3,
+    "createdAt": "2025-02-04T11:45:17Z",
+    "deletions": 2,
+    "mergedAt": "2025-02-04T13:13:05Z",
+    "number": 2475,
+    "title": "Bump version and update CHANGELOG"
+  },
+  {
+    "additions": 12,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 5,
+    "createdAt": "2025-01-30T17:54:57Z",
+    "deletions": 12,
+    "mergedAt": "2025-01-30T18:38:04Z",
+    "number": 2474,
+    "title": "Bump actions/setup-dotnet from 4.2.0 to 4.3.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-01-30T17:54:53Z",
+    "deletions": 3,
+    "mergedAt": "2025-01-30T18:33:31Z",
+    "number": 2473,
+    "title": "Bump github/codeql-action from 3.28.4 to 3.28.8"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-30T17:54:45Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-30T18:45:50Z",
+    "number": 2472,
+    "title": "Bump codecov/codecov-action from 5.2.0 to 5.3.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-30T17:54:40Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-30T18:26:23Z",
+    "number": 2471,
+    "title": "Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 5,
+    "createdAt": "2025-01-30T17:54:36Z",
+    "deletions": 5,
+    "mergedAt": "2025-01-30T18:26:08Z",
+    "number": 2470,
+    "title": "Bump peter-murray/workflow-application-token-action from 4.0.0 to 4.0.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-30T17:14:44Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-30T17:44:48Z",
+    "number": 2469,
+    "title": "Bump SonarAnalyzer.CSharp from 10.5.0.109200 to 10.6.0.109712"
+  },
+  {
+    "additions": 240,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 34,
+    "createdAt": "2025-01-28T10:37:03Z",
+    "deletions": 148,
+    "mergedAt": "2025-01-28T11:22:22Z",
+    "number": 2467,
+    "title": "Cleanup the Polly and Polly.Specs codebase"
+  },
+  {
+    "additions": 152,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 52,
+    "createdAt": "2025-01-27T17:38:27Z",
+    "deletions": 213,
+    "mergedAt": "2025-01-27T18:32:25Z",
+    "number": 2466,
+    "title": "Tidy up code in Polly.Specs"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-23T17:32:36Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-23T19:46:06Z",
+    "number": 2465,
+    "title": "Bump Shouldly from 4.2.1 to 4.3.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-01-23T17:16:42Z",
+    "deletions": 3,
+    "mergedAt": "2025-01-23T18:07:50Z",
+    "number": 2464,
+    "title": "Bump github/codeql-action from 3.28.1 to 3.28.4"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-23T17:16:34Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-23T18:03:18Z",
+    "number": 2463,
+    "title": "Bump actions/stale from 9.0.0 to 9.1.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-23T17:16:31Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-23T17:48:53Z",
+    "number": 2462,
+    "title": "Bump codecov/codecov-action from 5.1.2 to 5.2.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-20T10:51:21Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-20T11:17:18Z",
+    "number": 2461,
+    "title": "Bump coverlet.msbuild from 6.0.3 to 6.0.4"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-20T10:48:08Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-20T11:15:49Z",
+    "number": 2460,
+    "title": "Bump DavidAnson/markdownlint-cli2-action from 19.0.0 to 19.1.0"
+  },
+  {
+    "additions": 7679,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 98,
+    "createdAt": "2025-01-19T18:58:22Z",
+    "deletions": 8867,
+    "mergedAt": "2025-01-19T20:03:35Z",
+    "number": 2459,
+    "title": "Remove FluentAssertions"
+  },
+  {
+    "additions": 1951,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 165,
+    "createdAt": "2025-01-18T15:42:02Z",
+    "deletions": 2110,
+    "mergedAt": "2025-01-18T17:15:26Z",
+    "number": 2458,
+    "title": "Use Shouldly in all test projects except Polly.Specs"
+  },
+  {
+    "additions": 19,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 3,
+    "createdAt": "2025-01-18T10:43:58Z",
+    "deletions": 6,
+    "mergedAt": "2025-01-18T12:57:04Z",
+    "number": 2457,
+    "title": "Fix flaky test"
+  },
+  {
+    "additions": 122,
+    "author": {
+      "id": "MDQ6VXNlcjQzODYyODAx",
+      "is_bot": false,
+      "login": "kmcclellan",
+      "name": "Kyle McClellan"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-01-18T02:54:53Z",
+    "deletions": 28,
+    "mergedAt": "2025-02-04T08:43:29Z",
+    "number": 2456,
+    "title": "Fix for retry cancellation"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-16T18:00:30Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-16T18:54:45Z",
+    "number": 2455,
+    "title": "Bump SonarAnalyzer.CSharp from 10.4.0.108396 to 10.5.0.109200"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-16T17:57:10Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-16T18:46:53Z",
+    "number": 2454,
+    "title": "Bump martincostello/update-dotnet-sdk from 3.4.0 to 3.4.1"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-01-16T17:57:06Z",
+    "deletions": 3,
+    "mergedAt": "2025-01-16T18:27:00Z",
+    "number": 2453,
+    "title": "Bump github/codeql-action from 3.28.0 to 3.28.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-16T17:53:18Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-16T18:43:07Z",
+    "number": 2451,
+    "title": "Bump xunit.runner.visualstudio from 3.0.0 to 3.0.1 in the xunit group"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjUzMjA1MTc=",
+      "is_bot": false,
+      "login": "jernejg",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-14T21:35:38Z",
+    "deletions": 2,
+    "mergedAt": "2025-01-15T09:19:57Z",
+    "number": 2447,
+    "title": "Fix Registry vs. Provider Migration doc typo"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-14T19:04:46Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-14T19:45:23Z",
+    "number": 2446,
+    "title": "Update .NET SDK to 9.0.102"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-01-14T11:25:45Z",
+    "deletions": 2,
+    "mergedAt": "2025-01-14T11:50:31Z",
+    "number": 2445,
+    "title": "Fix build badges"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-01-13T17:37:57Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-13T18:39:42Z",
+    "number": 2444,
+    "title": "Bump version and update CHANGELOG"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-13T14:53:17Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-13T15:18:36Z",
+    "number": 2443,
+    "title": "Fix package validation"
+  },
+  {
+    "additions": 875,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 103,
+    "createdAt": "2025-01-10T17:53:37Z",
+    "deletions": 581,
+    "mergedAt": "2025-01-10T18:52:40Z",
+    "number": 2442,
+    "title": "xunit v3 preparation"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-10T17:02:25Z",
+    "deletions": 3,
+    "mergedAt": "2025-01-10T17:47:35Z",
+    "number": 2441,
+    "title": "Bump cake tools"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjU3MTgzNjkz",
+      "is_bot": false,
+      "login": "peter-csala",
+      "name": ""
+    },
+    "changedFiles": 6,
+    "createdAt": "2025-01-10T11:37:42Z",
+    "deletions": 0,
+    "mergedAt": "2025-01-10T12:22:22Z",
+    "number": 2437,
+    "title": "Fix sliding window ratelimiter examples"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-09T17:58:41Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-09T18:38:04Z",
+    "number": 2436,
+    "title": "Bump martincostello/update-dotnet-sdk from 3.3.0 to 3.4.0"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 4,
+    "createdAt": "2025-01-09T17:58:39Z",
+    "deletions": 7,
+    "mergedAt": "2025-01-09T18:18:26Z",
+    "number": 2435,
+    "title": "Bump actions/upload-artifact from 4.5.0 to 4.6.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-09T17:58:36Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-09T18:16:21Z",
+    "number": 2434,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.45.0 to 0.46.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-09T17:50:25Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-09T18:32:32Z",
+    "number": 2433,
+    "title": "Bump xunit from 2.9.2 to 2.9.3 in the xunit group"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-02T17:07:10Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-02T17:36:06Z",
+    "number": 2432,
+    "title": "Bump ReportGenerator from 5.4.2 to 5.4.3"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-02T17:04:57Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-02T18:44:29Z",
+    "number": 2431,
+    "title": "Bump coverlet.msbuild from 6.0.2 to 6.0.3"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-01-02T17:04:45Z",
+    "deletions": 1,
+    "mergedAt": "2025-01-02T17:29:00Z",
+    "number": 2430,
+    "title": "Bump DavidAnson/markdownlint-cli2-action from 18.0.0 to 19.0.0"
+  },
+  {
+    "additions": 12,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 5,
+    "createdAt": "2025-01-02T17:04:43Z",
+    "deletions": 12,
+    "mergedAt": "2025-01-02T17:30:36Z",
+    "number": 2429,
+    "title": "Bump actions/setup-dotnet from 4.1.0 to 4.2.0"
+  },
+  {
+    "additions": 198,
+    "author": {
+      "id": "MDQ6VXNlcjQzODYyODAx",
+      "is_bot": false,
+      "login": "kmcclellan",
+      "name": "Kyle McClellan"
+    },
+    "changedFiles": 19,
+    "createdAt": "2025-01-01T00:10:41Z",
+    "deletions": 148,
+    "mergedAt": "2025-01-13T16:45:50Z",
+    "number": 2428,
+    "title": "Synchronize access to `System.ComponentModel.DataAnnotations.Validator`"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-12-26T17:34:30Z",
+    "deletions": 1,
+    "mergedAt": "2024-12-26T19:20:10Z",
+    "number": 2427,
+    "title": "Bump ReportGenerator from 5.4.1 to 5.4.2"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-12-26T17:22:57Z",
+    "deletions": 3,
+    "mergedAt": "2024-12-26T17:40:07Z",
+    "number": 2426,
+    "title": "Bump github/codeql-action from 3.27.9 to 3.28.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-12-19T17:44:06Z",
+    "deletions": 1,
+    "mergedAt": "2024-12-19T18:02:06Z",
+    "number": 2424,
+    "title": "Bump codecov/codecov-action from 5.1.1 to 5.1.2"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-12-19T17:44:03Z",
+    "deletions": 3,
+    "mergedAt": "2024-12-19T18:22:02Z",
+    "number": 2423,
+    "title": "Bump github/codeql-action from 3.27.7 to 3.27.9"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 4,
+    "createdAt": "2024-12-19T17:43:56Z",
+    "deletions": 7,
+    "mergedAt": "2024-12-19T18:02:34Z",
+    "number": 2422,
+    "title": "Bump actions/upload-artifact from 4.4.3 to 4.5.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-12-19T17:29:34Z",
+    "deletions": 1,
+    "mergedAt": "2024-12-19T18:14:31Z",
+    "number": 2421,
+    "title": "Bump SonarAnalyzer.CSharp from 9.32.0.97167 to 10.4.0.108396"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-12-19T17:24:24Z",
+    "deletions": 1,
+    "mergedAt": "2024-12-19T18:35:59Z",
+    "number": 2420,
+    "title": "Bump xunit.runner.visualstudio from 2.8.2 to 3.0.0 in the xunit group"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-12-18T11:53:32Z",
+    "deletions": 1,
+    "mergedAt": "2024-12-18T12:13:28Z",
+    "number": 2418,
+    "title": "Allow roll-forward for dotnet-validate"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-12-18T11:26:50Z",
+    "deletions": 2,
+    "mergedAt": "2024-12-18T11:47:41Z",
+    "number": 2417,
+    "title": "Remove DOTNET_ROLL_FORWARD"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-12-12T17:53:58Z",
+    "deletions": 3,
+    "mergedAt": "2024-12-12T18:25:41Z",
+    "number": 2414,
+    "title": "Bump github/codeql-action from 3.27.6 to 3.27.7"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-12-12T17:53:50Z",
+    "deletions": 1,
+    "mergedAt": "2024-12-13T12:18:20Z",
+    "number": 2413,
+    "title": "Bump codecov/codecov-action from 5.0.7 to 5.1.1"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-12-05T17:53:30Z",
+    "deletions": 2,
+    "mergedAt": "2024-12-05T18:10:44Z",
+    "number": 2410,
+    "title": "Bump actions/cache from 4.1.2 to 4.2.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-12-05T17:53:26Z",
+    "deletions": 3,
+    "mergedAt": "2024-12-05T18:10:58Z",
+    "number": 2409,
+    "title": "Bump github/codeql-action from 3.27.5 to 3.27.6"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-12-03T19:05:40Z",
+    "deletions": 1,
+    "mergedAt": "2024-12-03T19:25:05Z",
+    "number": 2407,
+    "title": "Update .NET SDK to 9.0.101"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-28T17:36:11Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-28T18:34:16Z",
+    "number": 2405,
+    "title": "Bump docfx from 2.78.1 to 2.78.2"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-25T14:59:42Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-25T15:16:19Z",
+    "number": 2404,
+    "title": "Simplify workflow"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-21T17:47:12Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-21T18:51:40Z",
+    "number": 2402,
+    "title": "Bump docfx from 2.77.0 to 2.78.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-21T17:46:32Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-21T19:00:34Z",
+    "number": 2401,
+    "title": "Bump Microsoft.NET.Test.Sdk from 17.11.1 to 17.12.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-21T17:29:32Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-21T19:01:56Z",
+    "number": 2400,
+    "title": "Bump codecov/codecov-action from 5.0.0 to 5.0.7"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-11-21T17:29:28Z",
+    "deletions": 3,
+    "mergedAt": "2024-11-21T17:48:57Z",
+    "number": 2399,
+    "title": "Bump github/codeql-action from 3.27.4 to 3.27.5"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-21T17:29:21Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-21T17:51:13Z",
+    "number": 2398,
+    "title": "Bump actions/dependency-review-action from 4.4.0 to 4.5.0"
+  },
+  {
+    "additions": 83,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-11-15T10:31:46Z",
+    "deletions": 47,
+    "mergedAt": "2025-01-11T15:49:29Z",
+    "number": 2395,
+    "title": "Parallelise mutation tests"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-15T09:24:33Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-15T10:03:58Z",
+    "number": 2394,
+    "title": "Bump FluentAssertions from 6.12.1 to 6.12.2"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-15T09:21:12Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-15T09:38:27Z",
+    "number": 2393,
+    "title": "Bump DavidAnson/markdownlint-cli2-action from 17.0.0 to 18.0.0"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-15T08:52:48Z",
+    "deletions": 0,
+    "mergedAt": "2024-11-15T09:20:22Z",
+    "number": 2392,
+    "title": "Update dependabot config"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-14T17:53:28Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-14T18:13:57Z",
+    "number": 2391,
+    "title": "Bump cake.tool from 4.2.0 to 5.0.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-14T17:52:24Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-14T18:11:04Z",
+    "number": 2389,
+    "title": "Bump ReportGenerator from 5.3.11 to 5.4.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-14T17:49:24Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-14T18:36:46Z",
+    "number": 2387,
+    "title": "Bump MartinCostello.WaitForNuGetPackage from 1.0.2 to 1.1.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-14T17:41:58Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-14T18:23:18Z",
+    "number": 2386,
+    "title": "Bump codecov/codecov-action from 4.6.0 to 5.0.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-11-14T17:41:54Z",
+    "deletions": 3,
+    "mergedAt": "2024-11-14T18:24:03Z",
+    "number": 2385,
+    "title": "Bump github/codeql-action from 3.27.0 to 3.27.4"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-12T22:45:35Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-12T23:29:26Z",
+    "number": 2380,
+    "title": "Bump Stryker"
+  },
+  {
+    "additions": 28,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 4,
+    "createdAt": "2024-11-12T21:00:47Z",
+    "deletions": 7,
+    "mergedAt": "2024-11-12T21:39:09Z",
+    "number": 2379,
+    "title": "Bump version and update CHANGELOG"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-11-08T15:39:40Z",
+    "deletions": 4,
+    "mergedAt": "2024-11-11T09:34:13Z",
+    "number": 2373,
+    "title": "Extend snippet explanation"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-07T17:47:41Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-07T18:04:43Z",
+    "number": 2372,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.44.0 to 0.45.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-07T17:43:05Z",
+    "deletions": 2,
+    "mergedAt": "2024-11-08T10:49:44Z",
+    "number": 2371,
+    "title": "Bump Microsoft.Extensions.TimeProvider.Testing from 8.7.0 to 8.10.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-10-31T16:16:18Z",
+    "deletions": 3,
+    "mergedAt": "2024-10-31T16:42:31Z",
+    "number": 2369,
+    "title": "Bump github/codeql-action from 3.26.13 to 3.27.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-31T16:16:10Z",
+    "deletions": 1,
+    "mergedAt": "2024-10-31T17:03:37Z",
+    "number": 2368,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.43.1 to 0.44.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-31T16:16:07Z",
+    "deletions": 1,
+    "mergedAt": "2024-10-31T16:34:18Z",
+    "number": 2367,
+    "title": "Bump actions/dependency-review-action from 4.3.5 to 4.4.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-10-31T16:14:11Z",
+    "deletions": 4,
+    "mergedAt": "2024-11-13T22:30:55Z",
+    "number": 2366,
+    "title": "Bump sign from 0.9.1-beta.24312.3 to 0.9.1-beta.24529.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-31T16:13:51Z",
+    "deletions": 1,
+    "mergedAt": "2024-10-31T17:09:49Z",
+    "number": 2365,
+    "title": "Bump NSubstitute from 5.1.0 to 5.3.0"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 13,
+    "createdAt": "2024-10-24T16:59:02Z",
+    "deletions": 14,
+    "mergedAt": "2024-10-24T17:44:34Z",
+    "number": 2361,
+    "title": "Bump actions/checkout from 4.2.1 to 4.2.2"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-24T16:58:56Z",
+    "deletions": 1,
+    "mergedAt": "2024-10-24T17:41:32Z",
+    "number": 2360,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.43.0 to 0.43.1"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-10-24T16:58:53Z",
+    "deletions": 2,
+    "mergedAt": "2024-10-24T17:54:14Z",
+    "number": 2359,
+    "title": "Bump actions/cache from 4.1.1 to 4.1.2"
+  },
+  {
+    "additions": 12,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 5,
+    "createdAt": "2024-10-24T16:58:49Z",
+    "deletions": 12,
+    "mergedAt": "2024-10-24T17:15:52Z",
+    "number": 2358,
+    "title": "Bump actions/setup-dotnet from 4.0.1 to 4.1.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-24T16:58:45Z",
+    "deletions": 1,
+    "mergedAt": "2024-10-24T17:16:51Z",
+    "number": 2357,
+    "title": "Bump actions/dependency-review-action from 4.3.4 to 4.3.5"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-24T16:11:11Z",
+    "deletions": 2,
+    "mergedAt": "2024-10-24T16:32:55Z",
+    "number": 2356,
+    "title": "Bump cake.tool from 4.0.0 to 4.2.0"
+  },
+  {
+    "additions": 138,
+    "author": {
+      "id": "MDQ6VXNlcjU3MTgzNjkz",
+      "is_bot": false,
+      "login": "peter-csala",
+      "name": ""
+    },
+    "changedFiles": 6,
+    "createdAt": "2024-10-24T09:23:38Z",
+    "deletions": 37,
+    "mergedAt": "2024-10-24T14:36:58Z",
+    "number": 2355,
+    "title": "Document TelemetrySource property of the ExecutionRejectedException"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 5,
+    "createdAt": "2024-10-17T16:41:33Z",
+    "deletions": 5,
+    "mergedAt": "2024-10-17T17:26:17Z",
+    "number": 2350,
+    "title": "Bump peter-murray/workflow-application-token-action from 3.0.0 to 4.0.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-10-17T16:41:30Z",
+    "deletions": 3,
+    "mergedAt": "2024-10-17T17:32:21Z",
+    "number": 2349,
+    "title": "Bump github/codeql-action from 3.26.12 to 3.26.13"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjU3MTgzNjkz",
+      "is_bot": false,
+      "login": "peter-csala",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-16T06:54:24Z",
+    "deletions": 1,
+    "mergedAt": "2024-10-16T08:38:47Z",
+    "number": 2347,
+    "title": "Update Microsoft.Extensions.Caching.Memory"
+  },
+  {
+    "additions": 171,
+    "author": {
+      "id": "MDQ6VXNlcjU3MTgzNjkz",
+      "is_bot": false,
+      "login": "peter-csala",
+      "name": ""
+    },
+    "changedFiles": 12,
+    "createdAt": "2024-10-15T14:22:14Z",
+    "deletions": 43,
+    "mergedAt": "2024-10-23T12:38:59Z",
+    "number": 2346,
+    "title": "Add TelemetrySource to ExecutionRejectedException"
+  },
+  {
+    "additions": 79,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-10-13T11:34:59Z",
+    "deletions": 0,
+    "mergedAt": "2024-10-13T12:17:39Z",
+    "number": 2344,
+    "title": "Add chained rate limiter example"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-10T16:56:33Z",
+    "deletions": 1,
+    "mergedAt": "2024-10-10T18:09:54Z",
+    "number": 2339,
+    "title": "Bump ReportGenerator from 5.3.10 to 5.3.11"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-10T16:53:54Z",
+    "deletions": 1,
+    "mergedAt": "2024-10-10T17:50:20Z",
+    "number": 2338,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.42.0 to 0.43.0"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 13,
+    "createdAt": "2024-10-10T16:53:52Z",
+    "deletions": 14,
+    "mergedAt": "2024-10-10T17:51:45Z",
+    "number": 2337,
+    "title": "Bump actions/checkout from 4.2.0 to 4.2.1"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 4,
+    "createdAt": "2024-10-10T16:53:47Z",
+    "deletions": 7,
+    "mergedAt": "2024-10-10T17:45:02Z",
+    "number": 2336,
+    "title": "Bump actions/upload-artifact from 4.4.0 to 4.4.3"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-10-10T16:53:43Z",
+    "deletions": 2,
+    "mergedAt": "2024-10-10T17:43:05Z",
+    "number": 2335,
+    "title": "Bump actions/cache from 4.0.2 to 4.1.1"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-10-10T16:53:40Z",
+    "deletions": 3,
+    "mergedAt": "2024-10-10T17:55:58Z",
+    "number": 2334,
+    "title": "Bump github/codeql-action from 3.26.10 to 3.26.12"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-08T17:07:32Z",
+    "deletions": 1,
+    "mergedAt": "2024-10-08T17:07:56Z",
+    "number": 2333,
+    "title": "Update .NET SDK to 9.0.100-rc.2.24474.11"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-08T16:40:02Z",
+    "deletions": 1,
+    "mergedAt": "2024-10-08T17:59:52Z",
+    "number": 2332,
+    "title": "Update .NET SDK to 8.0.403"
+  },
+  {
+    "additions": 124,
+    "author": {
+      "id": "MDQ6VXNlcjEzNTEzNjkw",
+      "is_bot": false,
+      "login": "ShawnWu33",
+      "name": "Shawn Wu"
+    },
+    "changedFiles": 4,
+    "createdAt": "2024-10-07T22:48:24Z",
+    "deletions": 64,
+    "mergedAt": "2024-10-10T17:18:49Z",
+    "number": 2331,
+    "title": "Seperate mutation tests"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjEzNTEzNjkw",
+      "is_bot": false,
+      "login": "ShawnWu33",
+      "name": "Shawn Wu"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-10-07T03:48:22Z",
+    "deletions": 3,
+    "mergedAt": "2024-10-07T06:25:03Z",
+    "number": 2329,
+    "title": "Supress S4039, CA1010 in Context.Dictionary"
+  },
+  {
+    "additions": 10,
+    "author": {
+      "id": "MDQ6VXNlcjEzNTEzNjkw",
+      "is_bot": false,
+      "login": "ShawnWu33",
+      "name": "Shawn Wu"
+    },
+    "changedFiles": 4,
+    "createdAt": "2024-10-05T14:08:47Z",
+    "deletions": 10,
+    "mergedAt": "2024-10-05T15:30:42Z",
+    "number": 2328,
+    "title": "Fix S2184, S2104 in Polly.Spec"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-03T16:25:27Z",
+    "deletions": 1,
+    "mergedAt": "2024-10-03T17:00:05Z",
+    "number": 2327,
+    "title": "Bump codecov/codecov-action from 4.5.0 to 4.6.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-03T16:25:22Z",
+    "deletions": 1,
+    "mergedAt": "2024-10-03T16:55:39Z",
+    "number": 2326,
+    "title": "Bump martincostello/update-dotnet-sdk from 3.2.3 to 3.3.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-10-03T16:25:20Z",
+    "deletions": 3,
+    "mergedAt": "2024-10-03T17:12:06Z",
+    "number": 2325,
+    "title": "Bump github/codeql-action from 3.26.9 to 3.26.10"
+  },
+  {
+    "additions": 218,
+    "author": {
+      "id": "MDQ6VXNlcjEwNzM5ODE5",
+      "is_bot": false,
+      "login": "DL444",
+      "name": "David Lee"
+    },
+    "changedFiles": 9,
+    "createdAt": "2024-10-02T23:39:58Z",
+    "deletions": 36,
+    "mergedAt": "2024-10-05T19:18:06Z",
+    "number": 2324,
+    "title": "Add `RetryAfter` to `BrokenCircuitException`."
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-01T11:57:44Z",
+    "deletions": 4,
+    "mergedAt": "2024-10-01T12:41:28Z",
+    "number": 2323,
+    "title": "Update signing workflow"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjU3MTgzNjkz",
+      "is_bot": false,
+      "login": "peter-csala",
+      "name": ""
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-10-01T06:34:39Z",
+    "deletions": 5,
+    "mergedAt": "2024-10-01T13:40:29Z",
+    "number": 2321,
+    "title": "Fix hedging failing test"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-30T19:44:48Z",
+    "deletions": 1,
+    "mergedAt": "2024-09-30T20:31:40Z",
+    "number": 2320,
+    "title": "Bump ReportGenerator from 5.3.9 to 5.3.10"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-30T19:42:34Z",
+    "deletions": 1,
+    "mergedAt": "2024-09-30T20:14:53Z",
+    "number": 2318,
+    "title": "Bump xunit from 2.9.1 to 2.9.2 in the xunit group"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjQyNTg2OTQ1",
+      "is_bot": false,
+      "login": "gabidabet",
+      "name": ""
+    },
+    "changedFiles": 4,
+    "createdAt": "2024-09-28T13:13:10Z",
+    "deletions": 1,
+    "mergedAt": "2024-09-29T15:57:02Z",
+    "number": 2317,
+    "title": "Remove CA1816 NoWarn"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjQyNTg2OTQ1",
+      "is_bot": false,
+      "login": "gabidabet",
+      "name": ""
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-09-28T11:09:39Z",
+    "deletions": 1,
+    "mergedAt": "2024-09-28T11:57:46Z",
+    "number": 2316,
+    "title": "Remove CA2211 NoWarn"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjQyNTg2OTQ1",
+      "is_bot": false,
+      "login": "gabidabet",
+      "name": ""
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-09-26T23:47:44Z",
+    "deletions": 11,
+    "mergedAt": "2024-09-28T06:41:42Z",
+    "number": 2313,
+    "title": "Fix issue 2288"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjQyNTg2OTQ1",
+      "is_bot": false,
+      "login": "gabidabet",
+      "name": ""
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-09-26T19:16:52Z",
+    "deletions": 13,
+    "mergedAt": "2024-09-26T19:49:15Z",
+    "number": 2312,
+    "title": "Clean the Polly.Utils.ObjectPool class"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-26T16:32:58Z",
+    "deletions": 1,
+    "mergedAt": "2024-09-26T17:21:17Z",
+    "number": 2311,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.41.0 to 0.42.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-09-26T16:32:54Z",
+    "deletions": 3,
+    "mergedAt": "2024-09-26T18:11:43Z",
+    "number": 2310,
+    "title": "Bump github/codeql-action from 3.26.8 to 3.26.9"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 12,
+    "createdAt": "2024-09-26T16:32:48Z",
+    "deletions": 13,
+    "mergedAt": "2024-09-26T17:10:28Z",
+    "number": 2309,
+    "title": "Bump actions/checkout from 4.1.7 to 4.2.0"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-09-26T16:31:05Z",
+    "deletions": 2,
+    "mergedAt": "2024-09-26T18:12:41Z",
+    "number": 2307,
+    "title": "Bump xunit from 2.9.0 to 2.9.1 in the xunit group"
+  },
+  {
+    "additions": 66,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-09-26T16:29:45Z",
+    "deletions": 1,
+    "mergedAt": "2024-09-26T17:50:50Z",
+    "number": 2306,
+    "title": "Bump version and update CHANGELOG"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-26T14:58:05Z",
+    "deletions": 2,
+    "mergedAt": "2024-09-26T15:50:07Z",
+    "number": 2305,
+    "title": "Downgrade sign tool"
+  },
+  {
+    "additions": 19,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-26T14:30:45Z",
+    "deletions": 15,
+    "mergedAt": "2024-09-26T14:59:33Z",
+    "number": 2304,
+    "title": "Fail if signing fails"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "id": "MDQ6VXNlcjQyNTg2OTQ1",
+      "is_bot": false,
+      "login": "gabidabet",
+      "name": ""
+    },
+    "changedFiles": 7,
+    "createdAt": "2024-09-25T20:40:44Z",
+    "deletions": 11,
+    "mergedAt": "2024-09-25T22:03:00Z",
+    "number": 2302,
+    "title": "Fix ide0002 style rule"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-24T16:38:55Z",
+    "deletions": 1,
+    "mergedAt": "2024-09-24T17:07:42Z",
+    "number": 2301,
+    "title": "Update .NET SDK to 8.0.402"
+  },
+  {
+    "additions": 40,
+    "author": {
+      "id": "MDQ6VXNlcjEwNDMxMDIx",
+      "is_bot": false,
+      "login": "iliar-turdushev",
+      "name": "Iliar Turdushev"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-09-20T13:32:32Z",
+    "deletions": 3,
+    "mergedAt": "2024-09-26T11:54:27Z",
+    "number": 2300,
+    "title": "Update ResilienceProperties to correctly handle null values"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-09-19T16:28:58Z",
+    "deletions": 3,
+    "mergedAt": "2024-09-19T17:01:08Z",
+    "number": 2296,
+    "title": "Bump github/codeql-action from 3.26.6 to 3.26.8"
+  },
+  {
+    "additions": 23,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 5,
+    "createdAt": "2024-09-17T17:10:30Z",
+    "deletions": 9,
+    "mergedAt": "2024-10-14T13:49:58Z",
+    "number": 2293,
+    "title": "Update cake tools"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-17T17:06:47Z",
+    "deletions": 0,
+    "mergedAt": "2024-09-17T18:08:05Z",
+    "number": 2292,
+    "title": "Suppress S3234 warnings"
+  },
+  {
+    "additions": 151,
+    "author": {
+      "id": "MDQ6VXNlcjU3MTgzNjkz",
+      "is_bot": false,
+      "login": "peter-csala",
+      "name": ""
+    },
+    "changedFiles": 7,
+    "createdAt": "2024-09-17T14:26:15Z",
+    "deletions": 19,
+    "mergedAt": "2024-09-18T08:40:37Z",
+    "number": 2291,
+    "title": "Report last attempt as error if it would be handled"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 5,
+    "createdAt": "2024-09-17T10:22:18Z",
+    "deletions": 6,
+    "mergedAt": "2024-09-17T10:55:30Z",
+    "number": 2290,
+    "title": "Update the code-snippets in the documentation"
+  },
+  {
+    "additions": 39,
+    "author": {
+      "id": "MDQ6VXNlcjExOTYxMjM=",
+      "is_bot": false,
+      "login": "Henr1k80",
+      "name": "Henrik"
+    },
+    "changedFiles": 31,
+    "createdAt": "2024-09-17T08:56:40Z",
+    "deletions": 38,
+    "mergedAt": "2024-09-17T10:21:44Z",
+    "number": 2289,
+    "title": "Put dotnet_diagnostic.CA1852.severity = warning into effect. Fix the resulting warnings"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-12T17:02:40Z",
+    "deletions": 1,
+    "mergedAt": "2024-09-12T17:33:11Z",
+    "number": 2287,
+    "title": "Bump FluentAssertions from 6.12.0 to 6.12.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-12T16:57:12Z",
+    "deletions": 1,
+    "mergedAt": "2024-09-12T17:31:47Z",
+    "number": 2286,
+    "title": "Bump DavidAnson/markdownlint-cli2-action from 16.0.0 to 17.0.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-10T18:23:20Z",
+    "deletions": 1,
+    "mergedAt": "2024-09-10T18:23:45Z",
+    "number": 2285,
+    "title": "Update .NET SDK to 9.0.100-rc.1.24452.12"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-09-05T16:52:54Z",
+    "deletions": 7,
+    "mergedAt": "2024-09-05T17:30:29Z",
+    "number": 2283,
+    "title": "Bump actions/upload-artifact from 4.3.6 to 4.4.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-05T16:37:00Z",
+    "deletions": 1,
+    "mergedAt": "2024-09-05T18:08:27Z",
+    "number": 2282,
+    "title": "Bump Microsoft.NET.Test.Sdk from 17.11.0 to 17.11.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-05T16:35:13Z",
+    "deletions": 1,
+    "mergedAt": "2024-09-05T17:08:14Z",
+    "number": 2281,
+    "title": "Bump ReportGenerator from 5.3.8 to 5.3.9"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-05T16:33:28Z",
+    "deletions": 1,
+    "mergedAt": "2024-09-05T17:05:04Z",
+    "number": 2280,
+    "title": "Bump MinVer from 5.0.0 to 6.0.0"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-09-04T17:53:37Z",
+    "deletions": 6,
+    "mergedAt": "2024-09-04T18:23:16Z",
+    "number": 2279,
+    "title": "Fix NuGet badges"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-08-29T16:59:50Z",
+    "deletions": 3,
+    "mergedAt": "2024-08-29T17:33:20Z",
+    "number": 2276,
+    "title": "Bump github/codeql-action from 3.26.4 to 3.26.6"
+  },
+  {
+    "additions": 38,
+    "author": {
+      "id": "MDQ6VXNlcjU3MTgzNjkz",
+      "is_bot": false,
+      "login": "peter-csala",
+      "name": ""
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-08-26T09:04:47Z",
+    "deletions": 4,
+    "mergedAt": "2024-08-26T10:22:15Z",
+    "number": 2275,
+    "title": "Fix Timeout's TimeoutGenerator documentation"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-08-22T16:40:47Z",
+    "deletions": 1,
+    "mergedAt": "2024-08-22T17:24:51Z",
+    "number": 2273,
+    "title": "Bump Microsoft.NET.Test.Sdk from 17.10.0 to 17.11.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-08-22T16:08:33Z",
+    "deletions": 3,
+    "mergedAt": "2024-08-22T16:40:15Z",
+    "number": 2272,
+    "title": "Bump github/codeql-action from 3.26.2 to 3.26.4"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-08-15T17:32:18Z",
+    "deletions": 1,
+    "mergedAt": "2024-08-15T18:03:05Z",
+    "number": 2271,
+    "title": "Update .NET SDK to 8.0.401"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-08-15T16:46:05Z",
+    "deletions": 1,
+    "mergedAt": "2024-08-15T17:18:29Z",
+    "number": 2270,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.40.0 to 0.41.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-08-15T16:46:01Z",
+    "deletions": 3,
+    "mergedAt": "2024-08-15T17:18:59Z",
+    "number": 2269,
+    "title": "Bump github/codeql-action from 3.26.0 to 3.26.2"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-08-15T16:36:38Z",
+    "deletions": 1,
+    "mergedAt": "2024-08-15T17:36:03Z",
+    "number": 2268,
+    "title": "Bump SonarAnalyzer.CSharp from 9.31.0.96804 to 9.32.0.97167"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-08-13T17:53:02Z",
+    "deletions": 1,
+    "mergedAt": "2024-08-13T17:54:26Z",
+    "number": 2267,
+    "title": "Update .NET SDK to 9.0.100-preview.7.24407.12"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-08-13T16:47:55Z",
+    "deletions": 1,
+    "mergedAt": "2024-08-13T17:19:58Z",
+    "number": 2265,
+    "title": "Update .NET SDK to 8.0.400"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-08-08T16:14:34Z",
+    "deletions": 3,
+    "mergedAt": "2024-08-09T05:56:41Z",
+    "number": 2263,
+    "title": "Bump github/codeql-action from 3.25.15 to 3.26.0"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-08-08T16:14:28Z",
+    "deletions": 7,
+    "mergedAt": "2024-08-08T16:47:08Z",
+    "number": 2262,
+    "title": "Bump actions/upload-artifact from 4.3.4 to 4.3.6"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-08-08T16:11:12Z",
+    "deletions": 1,
+    "mergedAt": "2024-08-08T16:43:21Z",
+    "number": 2261,
+    "title": "Bump BenchmarkDotNet from 0.13.12 to 0.14.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-08-08T16:09:45Z",
+    "deletions": 1,
+    "mergedAt": "2024-08-08T16:44:22Z",
+    "number": 2260,
+    "title": "Bump sign from 0.9.1-beta.24361.2 to 0.9.1-beta.24406.1"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-08-08T16:09:31Z",
+    "deletions": 1,
+    "mergedAt": "2024-08-08T16:44:07Z",
+    "number": 2259,
+    "title": "Bump SonarAnalyzer.CSharp from 9.30.0.95878 to 9.31.0.96804"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-08-01T16:05:45Z",
+    "deletions": 1,
+    "mergedAt": "2024-08-01T17:06:57Z",
+    "number": 2257,
+    "title": "Bump ossf/scorecard-action from 2.3.3 to 2.4.0"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-08-01T16:05:40Z",
+    "deletions": 3,
+    "mergedAt": "2024-08-01T17:07:07Z",
+    "number": 2256,
+    "title": "Bump github/codeql-action from 3.25.14 to 3.25.15"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-31T11:22:42Z",
+    "deletions": 2,
+    "mergedAt": "2024-07-31T12:12:33Z",
+    "number": 2255,
+    "title": "Re-enable failing tests"
+  },
+  {
+    "additions": 74,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 24,
+    "createdAt": "2024-07-31T11:06:02Z",
+    "deletions": 21,
+    "mergedAt": "2024-10-16T11:29:01Z",
+    "number": 2254,
+    "title": "Use [DebuggerDisableUserUnhandledExceptions]"
+  },
+  {
+    "additions": 130,
+    "author": {
+      "id": "MDQ6VXNlcjM0NDAwNjM5",
+      "is_bot": false,
+      "login": "sukreshmanda",
+      "name": "sukreshmanda"
+    },
+    "changedFiles": 29,
+    "createdAt": "2024-07-29T16:56:19Z",
+    "deletions": 128,
+    "mergedAt": "2024-07-30T16:40:54Z",
+    "number": 2253,
+    "title": "Fix S4225 warnings of extension methods for object class"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjM0NDAwNjM5",
+      "is_bot": false,
+      "login": "sukreshmanda",
+      "name": "sukreshmanda"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-29T10:58:27Z",
+    "deletions": 6,
+    "mergedAt": "2024-07-29T12:20:47Z",
+    "number": 2252,
+    "title": "Fix warnings for s6603"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjM0NDAwNjM5",
+      "is_bot": false,
+      "login": "sukreshmanda",
+      "name": "sukreshmanda"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-29T10:13:38Z",
+    "deletions": 3,
+    "mergedAt": "2024-07-29T10:54:16Z",
+    "number": 2251,
+    "title": "Fix S3878"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjM0NDAwNjM5",
+      "is_bot": false,
+      "login": "sukreshmanda",
+      "name": "sukreshmanda"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-28T16:45:38Z",
+    "deletions": 4,
+    "mergedAt": "2024-07-29T08:03:12Z",
+    "number": 2250,
+    "title": "Fix 0162 warnings"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-27T07:48:46Z",
+    "deletions": 16,
+    "mergedAt": "2024-07-27T08:23:51Z",
+    "number": 2249,
+    "title": "Remove build from CodeQL"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-25T16:32:21Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-25T20:39:45Z",
+    "number": 2248,
+    "title": "Bump SonarAnalyzer.CSharp from 9.29.0.95321 to 9.30.0.95878"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-25T16:23:04Z",
+    "deletions": 4,
+    "mergedAt": "2024-07-25T16:58:15Z",
+    "number": 2247,
+    "title": "Bump github/codeql-action from 3.25.12 to 3.25.14"
+  },
+  {
+    "additions": 1000,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-24T19:38:07Z",
+    "deletions": 42,
+    "mergedAt": "2024-07-25T08:39:29Z",
+    "number": 2246,
+    "title": "Validate arguments of public methods"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-23T13:56:25Z",
+    "deletions": 3,
+    "mergedAt": "2024-07-27T07:38:45Z",
+    "number": 2245,
+    "title": "Remove code analysis hack"
+  },
+  {
+    "additions": 211,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-22T23:48:02Z",
+    "deletions": 19,
+    "mergedAt": "2024-07-23T07:12:53Z",
+    "number": 2243,
+    "title": "Fix warning CA1062#AsyncCacheTResultSyntax"
+  },
+  {
+    "additions": 267,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-22T23:20:32Z",
+    "deletions": 14,
+    "mergedAt": "2024-07-23T07:15:16Z",
+    "number": 2242,
+    "title": "Fix warning CA1062#AsyncCacheSyntax"
+  },
+  {
+    "additions": 168,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-22T23:06:31Z",
+    "deletions": 17,
+    "mergedAt": "2024-07-23T07:11:43Z",
+    "number": 2241,
+    "title": "Fix warning CA1062#CacheTResultSyntax"
+  },
+  {
+    "additions": 272,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-22T22:25:24Z",
+    "deletions": 14,
+    "mergedAt": "2024-07-23T07:52:51Z",
+    "number": 2240,
+    "title": "Fix warning CA1062#CacheSyntax"
+  },
+  {
+    "additions": 131,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-22T20:24:13Z",
+    "deletions": 8,
+    "mergedAt": "2024-07-23T07:09:15Z",
+    "number": 2239,
+    "title": "Fix warning CA1062#AsyncCachePolicy"
+  },
+  {
+    "additions": 123,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-22T19:27:18Z",
+    "deletions": 8,
+    "mergedAt": "2024-07-23T07:09:56Z",
+    "number": 2238,
+    "title": "Fix warning CA1062#CachePolicy"
+  },
+  {
+    "additions": 95,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-22T19:06:12Z",
+    "deletions": 6,
+    "mergedAt": "2024-07-23T07:08:29Z",
+    "number": 2237,
+    "title": "Fix warning CA1062#AsyncBulkheadPolicy"
+  },
+  {
+    "additions": 84,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-22T18:54:37Z",
+    "deletions": 5,
+    "mergedAt": "2024-07-23T07:42:29Z",
+    "number": 2236,
+    "title": "Fix warning CA1062#BulkheadPolicy"
+  },
+  {
+    "additions": 50,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-22T18:41:43Z",
+    "deletions": 4,
+    "mergedAt": "2024-07-23T07:06:18Z",
+    "number": 2235,
+    "title": "Fix warning CA1062#AsyncCircuitBreakerPolicy"
+  },
+  {
+    "additions": 46,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-22T18:34:01Z",
+    "deletions": 3,
+    "mergedAt": "2024-07-23T08:21:32Z",
+    "number": 2234,
+    "title": "Fix warning CA1062#CircuitBreakerPolicy"
+  },
+  {
+    "additions": 40,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-22T18:18:46Z",
+    "deletions": 4,
+    "mergedAt": "2024-07-23T07:04:38Z",
+    "number": 2233,
+    "title": "Fix warning CA1062#AsyncFallbackPolicy"
+  },
+  {
+    "additions": 36,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-22T18:10:01Z",
+    "deletions": 3,
+    "mergedAt": "2024-07-23T07:04:08Z",
+    "number": 2232,
+    "title": "Fix warning CA1062#FallbackPolicy"
+  },
+  {
+    "additions": 30,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-22T17:48:35Z",
+    "deletions": 5,
+    "mergedAt": "2024-07-23T07:35:39Z",
+    "number": 2231,
+    "title": "Fix warning CA1062#IAsyncPolicyPolicyWrapExtensions"
+  },
+  {
+    "additions": 35,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-22T17:37:58Z",
+    "deletions": 7,
+    "mergedAt": "2024-07-23T07:01:28Z",
+    "number": 2230,
+    "title": "Fix warning CA1062#ISyncPolicyPolicyWrapExtensions"
+  },
+  {
+    "additions": 32,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-22T17:26:10Z",
+    "deletions": 14,
+    "mergedAt": "2024-07-23T06:59:51Z",
+    "number": 2229,
+    "title": "Fix warning CA1062#IPolicyWrapExtension"
+  },
+  {
+    "additions": 73,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-22T17:03:07Z",
+    "deletions": 5,
+    "mergedAt": "2024-07-22T17:40:16Z",
+    "number": 2228,
+    "title": "Fix warning CA1062#AsyncTimeoutPolicy"
+  },
+  {
+    "additions": 73,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-22T16:50:40Z",
+    "deletions": 5,
+    "mergedAt": "2024-07-22T17:31:23Z",
+    "number": 2227,
+    "title": "Fix warning CA1062#TimeoutPolicy"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-21T21:36:09Z",
+    "deletions": 4,
+    "mergedAt": "2024-07-22T17:09:01Z",
+    "number": 2226,
+    "title": " Specs is at the end of the test class"
+  },
+  {
+    "additions": 77,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-21T21:26:15Z",
+    "deletions": 4,
+    "mergedAt": "2024-07-22T07:47:08Z",
+    "number": 2225,
+    "title": "Fix warning CA1062#AsyncRetryPolicy"
+  },
+  {
+    "additions": 73,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-21T21:12:19Z",
+    "deletions": 3,
+    "mergedAt": "2024-07-22T07:44:25Z",
+    "number": 2224,
+    "title": "Fix warning CA1062#RetryPolicy"
+  },
+  {
+    "additions": 94,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 5,
+    "createdAt": "2024-07-21T20:43:13Z",
+    "deletions": 9,
+    "mergedAt": "2024-07-22T08:14:18Z",
+    "number": 2223,
+    "title": "Fix warning CA1062#AsyncRateLimitPolicy"
+  },
+  {
+    "additions": 70,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-21T20:23:32Z",
+    "deletions": 5,
+    "mergedAt": "2024-07-21T20:53:16Z",
+    "number": 2222,
+    "title": "Fix warning CA1062#RateLimitPolicy"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjY1OTYyNjAy",
+      "is_bot": false,
+      "login": "Fanatic-off",
+      "name": "Eugene"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-21T18:59:15Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-21T20:24:14Z",
+    "number": 2221,
+    "title": "fix warning CA1805"
+  },
+  {
+    "additions": 55,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-21T18:21:28Z",
+    "deletions": 5,
+    "mergedAt": "2024-07-21T18:52:26Z",
+    "number": 2220,
+    "title": "Fix warning CA1062#AsyncNoOpPolicy"
+  },
+  {
+    "additions": 54,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-21T16:56:35Z",
+    "deletions": 5,
+    "mergedAt": "2024-07-21T18:22:54Z",
+    "number": 2219,
+    "title": "Fix warning CA1062#NoOpPolicy"
+  },
+  {
+    "additions": 17,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-21T13:33:59Z",
+    "deletions": 3,
+    "mergedAt": "2024-07-21T14:18:09Z",
+    "number": 2218,
+    "title": "Fix warning CA1062#DefaultCacheKeyStrategy"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-20T07:49:48Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-20T08:22:17Z",
+    "number": 2217,
+    "title": "Fix warning CA1062#ContextualTtl"
+  },
+  {
+    "additions": 26,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 26,
+    "createdAt": "2024-07-19T22:46:31Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-20T07:13:52Z",
+    "number": 2216,
+    "title": "Warning Suppression CA1062"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 27,
+    "createdAt": "2024-07-19T21:54:40Z",
+    "deletions": 27,
+    "mergedAt": "2024-07-20T06:41:36Z",
+    "number": 2214,
+    "title": "#nullable enable remove extra empty line"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-18T22:44:11Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-19T06:34:10Z",
+    "number": 2213,
+    "title": "Fix warning CA1710"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-18T22:09:15Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-18T23:04:43Z",
+    "number": 2212,
+    "title": "Fix warning CA1716"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-18T21:52:33Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-18T22:24:54Z",
+    "number": 2211,
+    "title": "Fix warning CA1815"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-18T16:58:41Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-18T17:33:25Z",
+    "number": 2210,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.38.0 to 0.40.0"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-18T16:58:38Z",
+    "deletions": 4,
+    "mergedAt": "2024-07-18T17:29:56Z",
+    "number": 2209,
+    "title": "Bump github/codeql-action from 3.25.11 to 3.25.12"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-18T16:58:31Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-18T17:34:02Z",
+    "number": 2208,
+    "title": "Bump actions/dependency-review-action from 4.3.3 to 4.3.4"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-18T16:14:21Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-18T18:07:31Z",
+    "number": 2207,
+    "title": "Bump SonarAnalyzer.CSharp from 9.28.0.94264 to 9.29.0.95321"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-18T16:10:00Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-18T16:44:13Z",
+    "number": 2206,
+    "title": "Bump ReportGenerator from 5.3.7 to 5.3.8"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-18T16:08:18Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-18T16:39:56Z",
+    "number": 2205,
+    "title": "Bump sign from 0.9.1-beta.24325.5 to 0.9.1-beta.24361.2"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-17T22:33:16Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-18T07:45:44Z",
+    "number": 2204,
+    "title": "Fix S3246 warning"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-17T22:22:29Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-18T05:51:44Z",
+    "number": 2203,
+    "title": "Fix S3971 warning"
+  },
+  {
+    "additions": 108,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-17T22:13:17Z",
+    "deletions": 53,
+    "mergedAt": "2024-07-18T08:21:44Z",
+    "number": 2202,
+    "title": "Fix S4457 warning"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-12T23:19:33Z",
+    "deletions": 12,
+    "mergedAt": "2024-07-13T07:40:54Z",
+    "number": 2197,
+    "title": "Fix S3878 warning"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 7,
+    "createdAt": "2024-07-12T22:54:20Z",
+    "deletions": 7,
+    "mergedAt": "2024-07-13T08:11:39Z",
+    "number": 2196,
+    "title": "Fix S103 warning "
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-12T21:51:28Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-12T22:26:29Z",
+    "number": 2195,
+    "title": "Fix S4049 warning"
+  },
+  {
+    "additions": 103,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 5,
+    "createdAt": "2024-07-12T15:49:20Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-13T08:13:56Z",
+    "number": 2194,
+    "title": "Fix CA1032 warning"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-12T15:48:30Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-12T20:31:16Z",
+    "number": 2193,
+    "title": "Fix CA1033 warning"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-11T16:38:37Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-11T17:08:14Z",
+    "number": 2192,
+    "title": "Bump dependabot/fetch-metadata from 2.1.0 to 2.2.0"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-11T16:38:34Z",
+    "deletions": 7,
+    "mergedAt": "2024-07-11T17:40:51Z",
+    "number": 2191,
+    "title": "Bump actions/upload-artifact from 4.3.3 to 4.3.4"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 5,
+    "createdAt": "2024-07-11T16:38:30Z",
+    "deletions": 11,
+    "mergedAt": "2024-07-11T17:10:21Z",
+    "number": 2190,
+    "title": "Bump actions/setup-dotnet from 4.0.0 to 4.0.1"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-11T16:38:24Z",
+    "deletions": 6,
+    "mergedAt": "2024-07-11T17:06:59Z",
+    "number": 2189,
+    "title": "Bump actions/download-artifact from 4.1.7 to 4.1.8"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-11T16:07:00Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-11T17:41:56Z",
+    "number": 2188,
+    "title": "Bump MartinCostello.WaitForNuGetPackage from 1.0.1 to 1.0.2"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-11T08:35:10Z",
+    "deletions": 2,
+    "mergedAt": "2024-09-16T08:53:39Z",
+    "number": 2186,
+    "title": "Bump the xunit group across 1 directory with 2 updates"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-11T08:21:48Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-11T09:10:32Z",
+    "number": 2185,
+    "title": "Bump MicrosoftExtensionsTimeProviderVersion from 8.6.0 to 8.7.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-09T17:34:36Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-09T17:35:11Z",
+    "number": 2184,
+    "title": "Update .NET SDK to 9.0.100-preview.6.24328.19"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-09T16:21:29Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-09T16:49:59Z",
+    "number": 2183,
+    "title": "Update .NET SDK to 8.0.303"
+  },
+  {
+    "additions": 190,
+    "author": {
+      "id": "MDQ6VXNlcjMwMjQzMzg=",
+      "is_bot": false,
+      "login": "iamdmitrij",
+      "name": "Dmitrij"
+    },
+    "changedFiles": 39,
+    "createdAt": "2024-07-08T16:43:10Z",
+    "deletions": 140,
+    "mergedAt": "2024-07-08T21:11:10Z",
+    "number": 2182,
+    "title": "Fix CA1068 warning"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-04T16:34:59Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-04T17:06:18Z",
+    "number": 2180,
+    "title": "Bump ReportGenerator from 5.3.6 to 5.3.7"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-04T16:27:13Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-04T16:54:58Z",
+    "number": 2179,
+    "title": "Bump docfx from 2.76.0 to 2.77.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-04T16:25:43Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-04T16:56:15Z",
+    "number": 2178,
+    "title": "Bump sign from 0.9.1-beta.24312.3 to 0.9.1-beta.24325.5"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-04T16:21:51Z",
+    "deletions": 4,
+    "mergedAt": "2024-07-04T16:52:55Z",
+    "number": 2177,
+    "title": "Bump github/codeql-action from 3.25.10 to 3.25.11"
+  },
+  {
+    "additions": 287,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 7,
+    "createdAt": "2024-07-03T18:45:02Z",
+    "deletions": 285,
+    "mergedAt": "2024-07-04T06:59:15Z",
+    "number": 2173,
+    "title": "Fix SA1649 warning"
+  },
+  {
+    "additions": 10,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 5,
+    "createdAt": "2024-07-03T16:24:05Z",
+    "deletions": 3,
+    "mergedAt": "2024-07-03T18:50:02Z",
+    "number": 2172,
+    "title": "Fix SA1414 warning "
+  },
+  {
+    "additions": 131,
+    "author": {
+      "id": "MDQ6VXNlcjUyMDE2ODMy",
+      "is_bot": false,
+      "login": "Zombach",
+      "name": "ZLoo"
+    },
+    "changedFiles": 21,
+    "createdAt": "2024-07-03T14:51:09Z",
+    "deletions": 29,
+    "mergedAt": "2024-07-03T15:33:24Z",
+    "number": 2171,
+    "title": "Fix IDE0011 warning"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-01T15:19:24Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-01T15:51:18Z",
+    "number": 2170,
+    "title": "Tweak sponsorship details"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-06-29T08:16:29Z",
+    "deletions": 3,
+    "mergedAt": "2024-06-29T08:49:14Z",
+    "number": 2169,
+    "title": "Update sponsors"
+  },
+  {
+    "additions": 17,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-06-28T09:51:18Z",
+    "deletions": 1,
+    "mergedAt": "2024-06-28T14:25:34Z",
+    "number": 2168,
+    "title": "Bump version and update CHANGELOG"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-06-27T16:26:13Z",
+    "deletions": 6,
+    "mergedAt": "2024-06-28T08:01:25Z",
+    "number": 2167,
+    "title": "Bump SonarAnalyzer.CSharp from 9.27.0.93347 to 9.28.0.94264"
+  },
+  {
+    "additions": 104,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-06-26T08:51:59Z",
+    "deletions": 37,
+    "mergedAt": "2024-06-28T09:20:42Z",
+    "number": 2166,
+    "title": "Handle nested inner exceptions"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-06-25T10:34:50Z",
+    "deletions": 3,
+    "mergedAt": "2024-06-25T12:20:16Z",
+    "number": 2165,
+    "title": "Bump cake tools"
+  },
+  {
+    "additions": 151,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 5,
+    "createdAt": "2024-06-25T09:40:07Z",
+    "deletions": 13,
+    "mergedAt": "2024-06-25T12:17:47Z",
+    "number": 2164,
+    "title": "Fix retry delay going negative for large retries with exponential delays"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-06-13T17:22:18Z",
+    "deletions": 1,
+    "mergedAt": "2024-06-13T17:53:59Z",
+    "number": 2157,
+    "title": "Bump SonarAnalyzer.CSharp from 9.26.0.92422 to 9.27.0.93347"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-06-13T16:26:14Z",
+    "deletions": 4,
+    "mergedAt": "2024-06-13T17:01:20Z",
+    "number": 2156,
+    "title": "Bump github/codeql-action from 3.25.8 to 3.25.10"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-06-13T16:26:04Z",
+    "deletions": 1,
+    "mergedAt": "2024-06-13T16:55:25Z",
+    "number": 2155,
+    "title": "Bump codecov/codecov-action from 4.4.1 to 4.5.0"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 12,
+    "createdAt": "2024-06-13T16:26:01Z",
+    "deletions": 13,
+    "mergedAt": "2024-06-13T16:57:24Z",
+    "number": 2154,
+    "title": "Bump actions/checkout from 4.1.6 to 4.1.7"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-06-13T16:25:53Z",
+    "deletions": 1,
+    "mergedAt": "2024-06-13T16:56:16Z",
+    "number": 2153,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.37.0 to 0.38.0"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-06-13T16:25:12Z",
+    "deletions": 2,
+    "mergedAt": "2024-06-13T16:57:51Z",
+    "number": 2152,
+    "title": "Bump sign from 0.9.1-beta.24170.3 to 0.9.1-beta.24312.3"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-06-13T16:24:10Z",
+    "deletions": 1,
+    "mergedAt": "2024-06-13T17:04:20Z",
+    "number": 2151,
+    "title": "Bump MicrosoftExtensionsTimeProviderVersion from 8.5.0 to 8.6.0"
+  },
+  {
+    "additions": 44,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 9,
+    "createdAt": "2024-06-11T18:55:50Z",
+    "deletions": 14,
+    "mergedAt": "2024-06-12T08:58:41Z",
+    "number": 2150,
+    "title": "Update .NET SDK to 9.0.100-preview.5.24307.3"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-06-11T16:56:00Z",
+    "deletions": 1,
+    "mergedAt": "2024-06-11T17:27:40Z",
+    "number": 2149,
+    "title": "Update .NET SDK to 8.0.302"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjUxMzgwNzgz",
+      "is_bot": false,
+      "login": "henriqueholtz",
+      "name": "Henrique Holtz"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-06-07T08:27:47Z",
+    "deletions": 2,
+    "mergedAt": "2024-06-07T09:01:11Z",
+    "number": 2148,
+    "title": "Removing Warnings SA1108 and SA1118 from NoWarn list"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-06-06T16:42:18Z",
+    "deletions": 1,
+    "mergedAt": "2024-06-06T17:13:55Z",
+    "number": 2147,
+    "title": "Bump martincostello/update-dotnet-sdk from 3.2.2 to 3.2.3"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-06-06T16:42:16Z",
+    "deletions": 1,
+    "mergedAt": "2024-06-06T17:14:22Z",
+    "number": 2146,
+    "title": "Bump actions/dependency-review-action from 4.3.2 to 4.3.3"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-06-06T16:42:11Z",
+    "deletions": 1,
+    "mergedAt": "2024-06-06T17:14:10Z",
+    "number": 2145,
+    "title": "Bump rojopolis/spellcheck-github-actions from 0.36.0 to 0.37.0"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-06-06T16:42:07Z",
+    "deletions": 4,
+    "mergedAt": "2024-06-06T17:13:33Z",
+    "number": 2144,
+    "title": "Bump github/codeql-action from 3.25.6 to 3.25.8"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-06-06T16:28:40Z",
+    "deletions": 1,
+    "mergedAt": "2024-06-06T17:31:48Z",
+    "number": 2143,
+    "title": "Bump SonarAnalyzer.CSharp from 9.25.1.91650 to 9.26.0.92422"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-06-06T16:22:22Z",
+    "deletions": 1,
+    "mergedAt": "2024-06-06T16:53:03Z",
+    "number": 2142,
+    "title": "Bump ReportGenerator from 5.3.4 to 5.3.6"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-30T17:40:04Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-31T05:54:12Z",
+    "number": 2141,
+    "title": "Bump ReportGenerator from 5.3.0 to 5.3.4"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-30T16:43:09Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-30T22:24:43Z",
+    "number": 2139,
+    "title": "Bump GitHubActionsTestLogger from 2.3.3 to 2.4.1"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-05-29T12:45:57Z",
+    "deletions": 3,
+    "mergedAt": "2024-05-31T07:59:01Z",
+    "number": 2138,
+    "title": "Fix package validation"
+  },
+  {
+    "additions": 255,
+    "author": {
+      "id": "MDQ6VXNlcjE0MzkzNDE=",
+      "is_bot": false,
+      "login": "martincostello",
+      "name": "Martin Costello"
+    },
+    "changedFiles": 4,
+    "createdAt": "2024-05-29T10:34:21Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-29T13:34:48Z",
+    "number": 2137,
+    "title": "Issue comment automation"
+  },
+  {
+    "additions": 63,
+    "author": {
+      "id": "MDQ6VXNlcjU3MTgzNjkz",
+      "is_bot": false,
+      "login": "peter-csala",
+      "name": ""
+    },
+    "changedFiles": 9,
+    "createdAt": "2024-05-29T07:11:08Z",
+    "deletions": 65,
+    "mergedAt": "2024-05-29T08:30:19Z",
+    "number": 2136,
+    "title": "[Docs] Fix pollydocs menu"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-28T21:38:57Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-28T22:09:37Z",
+    "number": 2135,
+    "title": "Update .NET SDK to 8.0.301"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-23T16:41:40Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-23T17:56:22Z",
+    "number": 2131,
+    "title": "Bump MicrosoftExtensionsTimeProviderVersion from 8.4.0 to 8.5.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-23T16:40:12Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-23T17:43:37Z",
+    "number": 2130,
+    "title": "Bump sign from 0.9.1-beta.23530.1 to 0.9.1-beta.24170.3"
+  },
+  {
+    "additions": 27,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 7,
+    "createdAt": "2024-05-23T16:39:39Z",
+    "deletions": 15,
+    "mergedAt": "2024-05-25T12:33:05Z",
+    "number": 2129,
+    "title": "Bump SonarAnalyzer.CSharp from 9.20.0.85982 to 9.25.1.91650"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-23T16:33:56Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-23T17:05:27Z",
+    "number": 2128,
+    "title": "Bump Microsoft.NET.Test.Sdk from 17.9.0 to 17.10.0"
+  },
+  {
+    "additions": 12,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 11,
+    "createdAt": "2024-05-23T16:29:16Z",
+    "deletions": 12,
+    "mergedAt": "2024-05-23T17:00:17Z",
+    "number": 2127,
+    "title": "Bump actions/checkout from 4.1.5 to 4.1.6"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-23T16:29:09Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-23T17:05:08Z",
+    "number": 2126,
+    "title": "Bump codecov/codecov-action from 4.4.0 to 4.4.1"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-05-23T16:29:06Z",
+    "deletions": 4,
+    "mergedAt": "2024-05-23T17:02:25Z",
+    "number": 2125,
+    "title": "Bump github/codeql-action from 3.25.5 to 3.25.6"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "is_bot": true,
+      "login": "app/polly-updater-bot"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-05-21T15:08:55Z",
+    "deletions": 3,
+    "mergedAt": "2024-05-21T17:29:33Z",
+    "number": 2123,
+    "title": "Update .NET SDK to 9.0.100-preview.4.24267.66"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-16T17:25:47Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-16T17:58:55Z",
+    "number": 2121,
+    "title": "Bump ReportGenerator from 5.2.2 to 5.3.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-16T17:18:20Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-16T17:48:24Z",
+    "number": 2120,
+    "title": "Bump MinVer from 4.3.0 to 5.0.0"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-16T17:10:12Z",
+    "deletions": 2,
+    "mergedAt": "2024-05-16T17:44:14Z",
+    "number": 2119,
+    "title": "Bump docfx from 2.75.3 to 2.76.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-16T17:09:36Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-16T17:41:29Z",
+    "number": 2118,
+    "title": "Bump coverlet.msbuild from 6.0.1 to 6.0.2"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-16T16:06:07Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-16T16:37:24Z",
+    "number": 2116,
+    "title": "Bump ossf/scorecard-action from 2.3.1 to 2.3.3"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-16T16:06:03Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-16T16:37:32Z",
+    "number": 2115,
+    "title": "Bump codecov/codecov-action from 4.3.1 to 4.4.0"
+  }
+]

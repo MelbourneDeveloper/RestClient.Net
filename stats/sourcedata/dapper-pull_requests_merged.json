@@ -1,0 +1,5533 @@
+[
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjEzMjEwNDgz",
+      "is_bot": false,
+      "login": "kbth",
+      "name": "kabaome"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-04-30T13:21:46Z",
+    "deletions": 3,
+    "mergedAt": "2025-04-30T19:31:41Z",
+    "number": 2163,
+    "title": "CI: serialize DB-dependent tests"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjEzMjEwNDgz",
+      "is_bot": false,
+      "login": "kbth",
+      "name": "kabaome"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-04-27T13:07:19Z",
+    "deletions": 3,
+    "mergedAt": "2025-04-27T18:34:36Z",
+    "number": 2160,
+    "title": "CI: use preinstalled sdk"
+  },
+  {
+    "additions": 29,
+    "author": {
+      "id": "MDQ6VXNlcjcwMDk5OTQ3",
+      "is_bot": false,
+      "login": "ri-rgb",
+      "name": ""
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-04-06T18:48:18Z",
+    "deletions": 0,
+    "mergedAt": "2025-04-08T10:07:45Z",
+    "number": 2156,
+    "title": "OutputExpression wasn't working for methods that use QueryRowAsync"
+  },
+  {
+    "additions": 26,
+    "author": {
+      "id": "MDQ6VXNlcjQ1MDQxNzY5",
+      "is_bot": false,
+      "login": "jnoordsij",
+      "name": "Jesper Noordsij"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-19T13:45:58Z",
+    "deletions": 5,
+    "mergedAt": "2025-04-08T10:01:52Z",
+    "number": 2149,
+    "title": "Fix and clarify OrWhere caveats in SqlBuilder docs"
+  },
+  {
+    "additions": 116,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 34,
+    "createdAt": "2025-01-25T14:49:49Z",
+    "deletions": 79,
+    "mergedAt": "2025-02-06T12:11:31Z",
+    "number": 2144,
+    "title": "normalize async API surface over all TFMs"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-01T00:24:43Z",
+    "deletions": 7,
+    "mergedAt": "2024-11-01T00:38:20Z",
+    "number": 2130,
+    "title": "Build: Update Postgres script"
+  },
+  {
+    "additions": 48,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-10-31T06:05:15Z",
+    "deletions": 28,
+    "mergedAt": "2024-10-31T07:23:22Z",
+    "number": 2129,
+    "title": "Mark AddTypeHandlerImpl as obsolete and prevent lost updates via AddTypeHandler"
+  },
+  {
+    "additions": 40,
+    "author": {
+      "id": "U_kgDOCZC4Ag",
+      "is_bot": false,
+      "login": "alatanza",
+      "name": "Andrea Latanza"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-10-12T09:59:46Z",
+    "deletions": 4,
+    "mergedAt": "2024-10-13T08:31:25Z",
+    "number": 2122,
+    "title": "Properly handle value types when setting properties on dynamic objects returned by Dapper queries"
+  },
+  {
+    "additions": 208,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 6,
+    "createdAt": "2024-10-08T13:35:04Z",
+    "deletions": 54,
+    "mergedAt": "2024-10-09T10:15:29Z",
+    "number": 2121,
+    "title": "Improve performance of \"queryunbuffered\", and correctness of \"first\" APIs"
+  },
+  {
+    "additions": 43,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 4,
+    "createdAt": "2024-10-08T11:39:24Z",
+    "deletions": 26,
+    "mergedAt": "2024-10-08T12:23:00Z",
+    "number": 2120,
+    "title": "update package refs and fixup"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-10-07T09:48:12Z",
+    "deletions": 2,
+    "mergedAt": "2024-10-07T11:50:43Z",
+    "number": 2119,
+    "title": "CI - update pgsql to 13"
+  },
+  {
+    "additions": 42,
+    "author": {
+      "id": "MDQ6VXNlcjM3MDk0MzQ=",
+      "is_bot": false,
+      "login": "goerch",
+      "name": ""
+    },
+    "changedFiles": 4,
+    "createdAt": "2024-10-03T10:05:05Z",
+    "deletions": 12,
+    "mergedAt": "2024-10-07T12:00:15Z",
+    "number": 2118,
+    "title": "Fix #2113"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjY1OTkxNDI=",
+      "is_bot": false,
+      "login": "robertsilen",
+      "name": "Robert Silén"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-09-24T16:45:55Z",
+    "deletions": 2,
+    "mergedAt": "2024-10-08T12:23:18Z",
+    "number": 2116,
+    "title": "add mention of MariaDB to Readme.md"
+  },
+  {
+    "additions": 158,
+    "author": {
+      "id": "MDQ6VXNlcjUxMzYz",
+      "is_bot": false,
+      "login": "0xced",
+      "name": "Cédric Luthi"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-03T12:02:25Z",
+    "deletions": 2,
+    "mergedAt": "2024-07-03T12:32:18Z",
+    "number": 2100,
+    "title": "Do not close the inner reader when disposing wrapped data readers"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-04-30T19:23:45Z",
+    "deletions": 2,
+    "mergedAt": "2024-04-30T19:23:51Z",
+    "number": 2083,
+    "title": "change dapper-plus citation"
+  },
+  {
+    "additions": 24,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-04-26T07:50:37Z",
+    "deletions": 6,
+    "mergedAt": "2024-04-26T08:02:37Z",
+    "number": 2080,
+    "title": "disable DateOnly / TimeOnly support"
+  },
+  {
+    "additions": 32,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-04-12T09:34:26Z",
+    "deletions": 18,
+    "mergedAt": "2024-04-12T10:13:05Z",
+    "number": 2070,
+    "title": "revert #2050 - see #2049 for more details"
+  },
+  {
+    "additions": 34,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 10,
+    "createdAt": "2024-04-12T07:58:55Z",
+    "deletions": 9,
+    "mergedAt": "2024-04-12T08:13:24Z",
+    "number": 2069,
+    "title": "Dapper Plus"
+  },
+  {
+    "additions": 109,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 6,
+    "createdAt": "2024-03-07T12:05:39Z",
+    "deletions": 24,
+    "mergedAt": "2024-03-07T12:19:30Z",
+    "number": 2051,
+    "title": "implement DateOnly/TimeOnly"
+  },
+  {
+    "additions": 19,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 5,
+    "createdAt": "2024-03-06T18:15:42Z",
+    "deletions": 11,
+    "mergedAt": "2024-03-06T20:58:21Z",
+    "number": 2050,
+    "title": "string and byte[] : add UseGetFieldValue"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-02-23T10:02:05Z",
+    "deletions": 1,
+    "mergedAt": "2024-03-06T14:59:19Z",
+    "number": 2048,
+    "title": "add REVERT to CommandText checklist"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE4NzcxOTA=",
+      "is_bot": false,
+      "login": "idormenco",
+      "name": "Ion Dormenco"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-02-18T10:30:29Z",
+    "deletions": 1,
+    "mergedAt": "2024-02-18T15:14:08Z",
+    "number": 2047,
+    "title": "Fix the path to Dapper.Rainbow readme"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjQzMzA4OTc=",
+      "is_bot": false,
+      "login": "DarylJtn",
+      "name": "Daryl Johnston"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-02-17T03:37:39Z",
+    "deletions": 1,
+    "mergedAt": "2024-02-17T08:03:01Z",
+    "number": 2045,
+    "title": "Fix build error caused by read only property #2044"
+  },
+  {
+    "additions": 119,
+    "author": {
+      "id": "MDQ6VXNlcjE2MTYzMzg=",
+      "is_bot": false,
+      "login": "kbilsted",
+      "name": "Kasper B. Graversen"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-02-16T20:30:45Z",
+    "deletions": 1,
+    "mergedAt": "2024-02-17T00:16:42Z",
+    "number": 2043,
+    "title": "dapper.rainbow guide"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-02-13T16:09:25Z",
+    "deletions": 14,
+    "mergedAt": "2024-02-13T16:27:00Z",
+    "number": 2042,
+    "title": "CI: use preinstalled sdk"
+  },
+  {
+    "additions": 23,
+    "author": {
+      "id": "MDQ6VXNlcjE2MTYzMzg=",
+      "is_bot": false,
+      "login": "kbilsted",
+      "name": "Kasper B. Graversen"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-02-05T20:46:04Z",
+    "deletions": 17,
+    "mergedAt": "2024-02-15T07:30:52Z",
+    "number": 2038,
+    "title": "Exposing the transaction used in class Database."
+  },
+  {
+    "additions": 47,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 11,
+    "createdAt": "2024-01-02T15:17:56Z",
+    "deletions": 27,
+    "mergedAt": "2024-01-02T15:32:04Z",
+    "number": 2022,
+    "title": "fix codegen error in value-type multimap #2005"
+  },
+  {
+    "additions": 99,
+    "author": {
+      "id": "MDQ6VXNlcjQyNTcwNzk=",
+      "is_bot": false,
+      "login": "kant2002",
+      "name": "Andrii Kurdiumov"
+    },
+    "changedFiles": 6,
+    "createdAt": "2023-12-18T09:10:36Z",
+    "deletions": 49,
+    "mergedAt": "2023-12-18T12:21:48Z",
+    "number": 2016,
+    "title": "Update benchmarks with latest results."
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEwMDkwMjk=",
+      "is_bot": false,
+      "login": "ronwarner",
+      "name": "Ron"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-12-07T22:48:37Z",
+    "deletions": 1,
+    "mergedAt": "2023-12-07T23:20:02Z",
+    "number": 2010,
+    "title": "Update SqlMapper.cs"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjU0OTE2NTM5",
+      "is_bot": false,
+      "login": "0nly1ken0bi",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-12-02T23:09:43Z",
+    "deletions": 1,
+    "mergedAt": "2023-12-03T09:40:54Z",
+    "number": 2008,
+    "title": "Fixed documentation to read better"
+  },
+  {
+    "additions": 59,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 4,
+    "createdAt": "2023-11-23T08:45:19Z",
+    "deletions": 3,
+    "mergedAt": "2023-11-23T08:58:18Z",
+    "number": 2003,
+    "title": "Improve null handling on ICustomQueryParameter (and add new DbString .ctor)"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjQ5NTAz",
+      "is_bot": false,
+      "login": "billrob",
+      "name": "Bill Robertson"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-11-21T03:46:23Z",
+    "deletions": 1,
+    "mergedAt": "2023-11-21T06:50:02Z",
+    "number": 2002,
+    "title": "chore: Update Readme.md"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-11-13T12:14:19Z",
+    "deletions": 3,
+    "mergedAt": "2023-11-13T13:00:27Z",
+    "number": 1998,
+    "title": "AppVeyor: Restore MySQL"
+  },
+  {
+    "additions": 84,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-11-11T08:38:09Z",
+    "deletions": 1,
+    "mergedAt": "2023-11-11T08:51:05Z",
+    "number": 1997,
+    "title": "fix #1993 - prefer non-normalized property name"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-11-11T07:45:48Z",
+    "deletions": 2,
+    "mergedAt": "2023-11-11T07:57:56Z",
+    "number": 1996,
+    "title": "mysql on CI has gone rogue; disable?"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-11-10T19:16:35Z",
+    "deletions": 3,
+    "mergedAt": "2023-11-10T19:17:10Z",
+    "number": 1995,
+    "title": "add commmit and rollback to \"text\" exclusion list"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjI2NTgzOA==",
+      "is_bot": false,
+      "login": "tingham",
+      "name": "Thomas Ingham"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-11-09T09:26:56Z",
+    "deletions": 1,
+    "mergedAt": "2023-11-09T14:16:55Z",
+    "number": 1994,
+    "title": "Update Readme.md"
+  },
+  {
+    "additions": 110,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 13,
+    "createdAt": "2023-10-20T08:13:14Z",
+    "deletions": 33,
+    "mergedAt": "2023-10-20T08:24:01Z",
+    "number": 1989,
+    "title": "expand auto-sproc detection to handle more scenarios and explicit exclusions"
+  },
+  {
+    "additions": 19,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-10-19T11:13:41Z",
+    "deletions": 3,
+    "mergedAt": "2023-10-19T11:25:11Z",
+    "number": 1987,
+    "title": "whitespace for auto-SP detection: use unicode spec via regex"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjMxNTk4Njk2",
+      "is_bot": false,
+      "login": "DeagleGross",
+      "name": "Korolev Dmitry"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-10-14T20:49:28Z",
+    "deletions": 1,
+    "mergedAt": "2023-10-22T07:54:13Z",
+    "number": 1982,
+    "title": "include ExplicitConstructorAttribute's targets to constructor&method "
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-10-13T06:09:42Z",
+    "deletions": 0,
+    "mergedAt": "2023-10-13T06:11:10Z",
+    "number": 1980,
+    "title": "change NRT for ITypeMap.GetConstructorParameter"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-10-13T05:06:47Z",
+    "deletions": 1,
+    "mergedAt": "2023-10-13T06:01:56Z",
+    "number": 1979,
+    "title": "Revert $ check for OLEDB anonymous parameters"
+  },
+  {
+    "additions": 140,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 8,
+    "createdAt": "2023-10-10T13:38:38Z",
+    "deletions": 37,
+    "mergedAt": "2023-10-10T14:06:22Z",
+    "number": 1975,
+    "title": "auto-detect stored procedures as anything without whitespace"
+  },
+  {
+    "additions": 49,
+    "author": {
+      "id": "MDQ6VXNlcjU4MDc0OQ==",
+      "is_bot": false,
+      "login": "Giorgi",
+      "name": "Giorgi Dalakishvili"
+    },
+    "changedFiles": 5,
+    "createdAt": "2023-10-10T08:36:57Z",
+    "deletions": 2,
+    "mergedAt": "2023-10-11T12:10:00Z",
+    "number": 1974,
+    "title": "Add a setting to turn off Ole Db \"smell check\""
+  },
+  {
+    "additions": 69,
+    "author": {
+      "id": "MDQ6VXNlcjU4MDc0OQ==",
+      "is_bot": false,
+      "login": "Giorgi",
+      "name": "Giorgi Dalakishvili"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-10-03T13:22:33Z",
+    "deletions": 0,
+    "mergedAt": "2023-10-11T11:41:07Z",
+    "number": 1970,
+    "title": "Add DuckDB tests"
+  },
+  {
+    "additions": 143,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 8,
+    "createdAt": "2023-09-13T20:25:17Z",
+    "deletions": 17,
+    "mergedAt": "2023-09-13T20:43:14Z",
+    "number": 1960,
+    "title": "assert that type handlers don't need object?"
+  },
+  {
+    "additions": 28,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 4,
+    "createdAt": "2023-09-13T13:50:57Z",
+    "deletions": 2,
+    "mergedAt": "2023-09-13T13:58:12Z",
+    "number": 1958,
+    "title": "add missing ReadUnbufferedAsync untyped API"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjU4MDc0OQ==",
+      "is_bot": false,
+      "login": "Giorgi",
+      "name": "Giorgi Dalakishvili"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-08-23T19:38:11Z",
+    "deletions": 3,
+    "mergedAt": "2023-09-03T13:48:12Z",
+    "number": 1952,
+    "title": "Support $ as a parameter prefix"
+  },
+  {
+    "additions": 42,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 4,
+    "createdAt": "2023-08-21T10:29:33Z",
+    "deletions": 3,
+    "mergedAt": "2023-08-21T10:29:38Z",
+    "number": 1951,
+    "title": "answer #1950 using BDN"
+  },
+  {
+    "additions": 103,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 15,
+    "createdAt": "2023-08-18T20:54:43Z",
+    "deletions": 58,
+    "mergedAt": "2023-08-18T20:54:52Z",
+    "number": 1949,
+    "title": "use central package management"
+  },
+  {
+    "additions": 476,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 22,
+    "createdAt": "2023-08-18T10:47:30Z",
+    "deletions": 0,
+    "mergedAt": "2023-08-18T10:47:37Z",
+    "number": 1948,
+    "title": "add Microsoft.CodeAnalysis.PublicApiAnalyzers on the main libs"
+  },
+  {
+    "additions": 123,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 4,
+    "createdAt": "2023-08-17T15:29:00Z",
+    "deletions": 12,
+    "mergedAt": "2023-08-17T16:30:35Z",
+    "number": 1947,
+    "title": "Underscore handling "
+  },
+  {
+    "additions": 47,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 4,
+    "createdAt": "2023-08-16T20:06:03Z",
+    "deletions": 4,
+    "mergedAt": "2023-08-17T19:14:10Z",
+    "number": 1946,
+    "title": "Add FetchSize global setting"
+  },
+  {
+    "additions": 521,
+    "author": {
+      "id": "MDQ6VXNlcjE3NzcxMzc1",
+      "is_bot": false,
+      "login": "Lehonti",
+      "name": "Lehonti Ramos"
+    },
+    "changedFiles": 13,
+    "createdAt": "2023-07-19T19:47:00Z",
+    "deletions": 634,
+    "mergedAt": "2023-08-24T12:12:33Z",
+    "number": 1939,
+    "title": "Removed block nesting levels in a few tests by using block-scoped `using` statements"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-07-08T15:25:34Z",
+    "deletions": 4,
+    "mergedAt": "2023-07-08T15:43:59Z",
+    "number": 1936,
+    "title": "Tests: Upgrade dependencies for Dependabot"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-07-08T14:19:51Z",
+    "deletions": 3,
+    "mergedAt": "2023-07-08T14:28:19Z",
+    "number": 1935,
+    "title": "Builds: Bump library versions"
+  },
+  {
+    "additions": 1736,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 112,
+    "createdAt": "2023-06-26T16:11:59Z",
+    "deletions": 1509,
+    "mergedAt": "2023-09-12T14:58:49Z",
+    "number": 1928,
+    "title": "attempt NRT makeover"
+  },
+  {
+    "additions": 44,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 7,
+    "createdAt": "2023-06-20T12:26:48Z",
+    "deletions": 11,
+    "mergedAt": "2023-06-20T12:33:43Z",
+    "number": 1925,
+    "title": "Add missing non-generic QueryUnbufferedAsync API"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjUxMzYz",
+      "is_bot": false,
+      "login": "0xced",
+      "name": "Cédric Luthi"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-06-13T14:11:45Z",
+    "deletions": 1,
+    "mergedAt": "2023-06-13T16:11:13Z",
+    "number": 1919,
+    "title": "Enable the `Issue552_SignedUnsignedBooleans` test"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjUxMzYz",
+      "is_bot": false,
+      "login": "0xced",
+      "name": "Cédric Luthi"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-06-13T14:01:21Z",
+    "deletions": 0,
+    "mergedAt": "2023-06-13T16:06:30Z",
+    "number": 1918,
+    "title": "Document how to run docker for db tests (Firebird + MySQL + PostgreSQL)"
+  },
+  {
+    "additions": 199,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 6,
+    "createdAt": "2023-06-09T20:10:35Z",
+    "deletions": 51,
+    "mergedAt": "2023-06-20T12:31:56Z",
+    "number": 1913,
+    "title": "reinstate support for `IDataReader`"
+  },
+  {
+    "additions": 256,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 5,
+    "createdAt": "2023-06-09T14:17:13Z",
+    "deletions": 31,
+    "mergedAt": "2023-06-09T15:22:25Z",
+    "number": 1912,
+    "title": "add missing QueryUnbufferedAsync<T> API"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-06-09T13:10:48Z",
+    "deletions": 2,
+    "mergedAt": "2023-06-09T13:35:00Z",
+    "number": 1911,
+    "title": "[Builds] AppVeyor: use Visual Studio 2022 image"
+  },
+  {
+    "additions": 586,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 14,
+    "createdAt": "2023-06-09T12:23:42Z",
+    "deletions": 208,
+    "mergedAt": "2023-06-09T13:02:07Z",
+    "number": 1910,
+    "title": "add support for fetching values via GetFieldValue<T>"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjY0MjgzODEw",
+      "is_bot": false,
+      "login": "williycole",
+      "name": "William Cole Boren "
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-09-28T19:48:38Z",
+    "deletions": 1,
+    "mergedAt": "2023-08-24T11:56:24Z",
+    "number": 1830,
+    "title": "Missing curly brace from code example "
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjc2Nzk3MjA=",
+      "is_bot": false,
+      "login": "IEvangelist",
+      "name": "David Pine"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-07-18T19:59:23Z",
+    "deletions": 1,
+    "mergedAt": "2022-08-21T17:26:05Z",
+    "number": 1806,
+    "title": "Update index.md"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjE1ODMzNzg=",
+      "is_bot": false,
+      "login": "olivier-spinelli",
+      "name": "Olivier Spinelli"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-07-10T12:21:42Z",
+    "deletions": 4,
+    "mergedAt": "2022-08-21T17:27:09Z",
+    "number": 1801,
+    "title": "Fixed case sensitivity issues."
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjM5ODQ5MDIx",
+      "is_bot": false,
+      "login": "samir-dahal",
+      "name": "Samir Dahal"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-07-08T11:26:17Z",
+    "deletions": 2,
+    "mergedAt": "2022-08-21T17:27:30Z",
+    "number": 1800,
+    "title": "fix typos"
+  },
+  {
+    "additions": 41,
+    "author": {
+      "id": "MDQ6VXNlcjExMzg4MTM4",
+      "is_bot": false,
+      "login": "rukpet",
+      "name": "Ohorodniichuk Dmytro"
+    },
+    "changedFiles": 2,
+    "createdAt": "2022-07-02T14:26:06Z",
+    "deletions": 4,
+    "mergedAt": "2024-01-07T21:42:09Z",
+    "number": 1795,
+    "title": "Fix issue #1164 - arithmetic overflow for unsigned integer mapping "
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE5MzU5NjA=",
+      "is_bot": false,
+      "login": "Tyrrrz",
+      "name": "Oleksii Holub"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-05-30T15:59:53Z",
+    "deletions": 1,
+    "mergedAt": "2022-08-21T17:28:03Z",
+    "number": 1781,
+    "title": "Update GitHubActionsTestLogger"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 0,
+    "createdAt": "2021-11-03T14:02:49Z",
+    "deletions": 0,
+    "mergedAt": "2021-11-03T14:05:40Z",
+    "number": 1724,
+    "title": "Support for snowflake"
+  },
+  {
+    "additions": 73,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 5,
+    "createdAt": "2021-11-03T13:41:12Z",
+    "deletions": 36,
+    "mergedAt": "2021-11-03T14:01:16Z",
+    "number": 1723,
+    "title": "Don't specify dbtype for DateTime et al; fixed npgsql 6 issue"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "id": "MDQ6VXNlcjk1NDQ1Mw==",
+      "is_bot": false,
+      "login": "RSid",
+      "name": "Alla Hoffman"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-10-15T19:51:43Z",
+    "deletions": 1,
+    "mergedAt": "2022-03-03T01:04:43Z",
+    "number": 1718,
+    "title": "Adding notes on the sub-packages' purpose to the readme"
+  },
+  {
+    "additions": 34,
+    "author": {
+      "id": "MDQ6VXNlcjg4MDc5Mg==",
+      "is_bot": false,
+      "login": "SergerGood",
+      "name": "Sergei Khlebnikov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2021-09-26T11:11:59Z",
+    "deletions": 6,
+    "mergedAt": "2021-10-10T13:29:56Z",
+    "number": 1710,
+    "title": "Added more use cases RepoDB benchmarks"
+  },
+  {
+    "additions": 24,
+    "author": {
+      "id": "MDQ6VXNlcjM4ODM4MTQ=",
+      "is_bot": false,
+      "login": "bigjonroberts",
+      "name": "Jon Roberts"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-09-22T19:16:05Z",
+    "deletions": 1,
+    "mergedAt": "2022-01-04T13:56:32Z",
+    "number": 1707,
+    "title": "Document usage of IDynamicParameters in more detail"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjQyMTk4Mg==",
+      "is_bot": false,
+      "login": "CaringDev",
+      "name": "Raphael Schweizer"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-08-30T07:03:57Z",
+    "deletions": 1,
+    "mergedAt": "2022-01-04T13:54:20Z",
+    "number": 1700,
+    "title": "EF Core benchmarks for connections w/ passwords"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjQyMTk4Mg==",
+      "is_bot": false,
+      "login": "CaringDev",
+      "name": "Raphael Schweizer"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-08-30T06:38:35Z",
+    "deletions": 1,
+    "mergedAt": "2022-01-04T13:57:07Z",
+    "number": 1699,
+    "title": "Fix NETSDK1174"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjYxNDM5NTc3",
+      "is_bot": false,
+      "login": "GitHubPang",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-08-18T23:58:29Z",
+    "deletions": 2,
+    "mergedAt": "2022-01-04T14:24:35Z",
+    "number": 1696,
+    "title": "Fix grammar and formatting in readme"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjg5OTg3OA==",
+      "is_bot": false,
+      "login": "PureKrome",
+      "name": "Justin Adler"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-07-26T12:53:27Z",
+    "deletions": 0,
+    "mergedAt": "2021-07-27T08:11:38Z",
+    "number": 1690,
+    "title": "📝 Another example: Execute a command Multiple Times"
+  },
+  {
+    "additions": 99,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 4,
+    "createdAt": "2021-07-26T10:37:04Z",
+    "deletions": 2,
+    "mergedAt": "2021-07-27T08:11:16Z",
+    "number": 1689,
+    "title": "Enables \"snowflake\" connection"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjIyOTE0ODUw",
+      "is_bot": false,
+      "login": "hankovich",
+      "name": "Sviataslau Hankovich"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-07-12T14:19:46Z",
+    "deletions": 3,
+    "mergedAt": "2021-07-27T08:11:04Z",
+    "number": 1683,
+    "title": "Fix signatures in readme"
+  },
+  {
+    "additions": 107,
+    "author": {
+      "id": "MDQ6VXNlcjEyNzI5MTg0",
+      "is_bot": false,
+      "login": "shps951023",
+      "name": "Wei Lin"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-07-02T01:33:52Z",
+    "deletions": 0,
+    "mergedAt": "2021-07-04T12:12:52Z",
+    "number": 1679,
+    "title": "Add Documentation for Dapper.SqlBuilder (Issue #688, #480)"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjU5NjU5OTU4",
+      "is_bot": false,
+      "login": "derickstinson",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-06-14T21:05:31Z",
+    "deletions": 14,
+    "mergedAt": "2021-07-27T08:13:00Z",
+    "number": 1675,
+    "title": "Update Documentation Comments for SqlMapper.cs"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjQyNTcwNzk=",
+      "is_bot": false,
+      "login": "kant2002",
+      "name": "Andrii Kurdiumov"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-05-10T11:50:36Z",
+    "deletions": 1,
+    "mergedAt": "2021-05-10T12:44:40Z",
+    "number": 1666,
+    "title": "Update version of SqlMarshal to fix warnings"
+  },
+  {
+    "additions": 27,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 3,
+    "createdAt": "2021-05-10T02:36:47Z",
+    "deletions": 1,
+    "mergedAt": "2021-05-10T02:46:53Z",
+    "number": 1665,
+    "title": "Add DbString.ToString() overload"
+  },
+  {
+    "additions": 16,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 3,
+    "createdAt": "2021-05-10T01:51:47Z",
+    "deletions": 6,
+    "mergedAt": "2021-05-10T01:56:53Z",
+    "number": 1664,
+    "title": "SplitOn: improve error message"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 17,
+    "createdAt": "2021-05-09T00:36:31Z",
+    "deletions": 3445,
+    "mergedAt": "2021-05-10T12:58:59Z",
+    "number": 1662,
+    "title": "Dapper.Contrib: removal (repo split)"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjYxNDM5NTc3",
+      "is_bot": false,
+      "login": "GitHubPang",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-05-03T04:47:57Z",
+    "deletions": 1,
+    "mergedAt": "2021-05-06T02:19:27Z",
+    "number": 1659,
+    "title": "Fix typo in index.md"
+  },
+  {
+    "additions": 26,
+    "author": {
+      "id": "MDQ6VXNlcjQyNTcwNzk=",
+      "is_bot": false,
+      "login": "kant2002",
+      "name": "Andrii Kurdiumov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2021-04-07T04:33:23Z",
+    "deletions": 0,
+    "mergedAt": "2021-04-27T21:55:52Z",
+    "number": 1646,
+    "title": "[Benchmarks] Add SqlMarshal benhmarks"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjQyNTcwNzk=",
+      "is_bot": false,
+      "login": "kant2002",
+      "name": "Andrii Kurdiumov"
+    },
+    "changedFiles": 3,
+    "createdAt": "2021-04-01T02:42:25Z",
+    "deletions": 26,
+    "mergedAt": "2021-04-27T21:58:28Z",
+    "number": 1642,
+    "title": "As far as I aware, Soma related code no longer in this project."
+  },
+  {
+    "additions": 27,
+    "author": {
+      "id": "MDQ6VXNlcjE5NTg5Ng==",
+      "is_bot": false,
+      "login": "SteveDesmond-ca",
+      "name": "Steve Desmond"
+    },
+    "changedFiles": 2,
+    "createdAt": "2021-02-17T19:33:35Z",
+    "deletions": 0,
+    "mergedAt": "2021-04-27T22:30:54Z",
+    "number": 1626,
+    "title": "Add basic RepoDB benchmark"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjQ2NDEwNjMw",
+      "is_bot": false,
+      "login": "Rollerss",
+      "name": ""
+    },
+    "changedFiles": 2,
+    "createdAt": "2021-02-02T06:03:01Z",
+    "deletions": 3,
+    "mergedAt": "2021-04-27T21:48:07Z",
+    "number": 1615,
+    "title": "Corrected typos"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjYxNDM5NTc3",
+      "is_bot": false,
+      "login": "GitHubPang",
+      "name": ""
+    },
+    "changedFiles": 3,
+    "createdAt": "2021-01-09T04:40:13Z",
+    "deletions": 18,
+    "mergedAt": "2021-01-09T13:47:12Z",
+    "number": 1604,
+    "title": "Fix typos"
+  },
+  {
+    "additions": 20,
+    "author": {
+      "id": "MDQ6VXNlcjQzNTU2Nzc=",
+      "is_bot": false,
+      "login": "Zubaloo",
+      "name": "Alexandr Buzadji"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-01-01T17:54:20Z",
+    "deletions": 21,
+    "mergedAt": "2021-05-06T02:24:33Z",
+    "number": 1603,
+    "title": "Belgrade benchmark bug fix."
+  },
+  {
+    "additions": 42,
+    "author": {
+      "id": "MDQ6VXNlcjIwNjAwNDc=",
+      "is_bot": false,
+      "login": "vbilopav",
+      "name": "Vedran Bilopavlović"
+    },
+    "changedFiles": 2,
+    "createdAt": "2020-12-29T11:02:04Z",
+    "deletions": 0,
+    "mergedAt": "2021-05-09T12:02:09Z",
+    "number": 1602,
+    "title": "Add performance benchmarks tests for Norm ORM"
+  },
+  {
+    "additions": 20,
+    "author": {
+      "id": "MDQ6VXNlcjI1NDI2MDk=",
+      "is_bot": false,
+      "login": "DarkWanderer",
+      "name": "Oleg V. Kozlyuk"
+    },
+    "changedFiles": 2,
+    "createdAt": "2020-12-20T08:16:43Z",
+    "deletions": 1,
+    "mergedAt": "2021-05-09T13:08:41Z",
+    "number": 1598,
+    "title": "Add support for Array return value (i.e.: QueryAsync<int[]>))"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjIwNjc4MTk4",
+      "is_bot": false,
+      "login": "royal",
+      "name": "Sam Royal"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-12-17T14:14:34Z",
+    "deletions": 1,
+    "mergedAt": "2020-12-19T20:58:13Z",
+    "number": 1596,
+    "title": "Update Readme.md"
+  },
+  {
+    "additions": 41,
+    "author": {
+      "id": "MDQ6VXNlcjE5NDYyODg0",
+      "is_bot": false,
+      "login": "zqlovejyc",
+      "name": "zhangq"
+    },
+    "changedFiles": 4,
+    "createdAt": "2020-11-19T08:09:00Z",
+    "deletions": 24,
+    "mergedAt": "2021-05-10T12:58:31Z",
+    "number": 1575,
+    "title": "GridReader.ReadAsync normalization: Convert.ChangeType like other paths"
+  },
+  {
+    "additions": 425,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 49,
+    "createdAt": "2020-11-16T15:21:35Z",
+    "deletions": 340,
+    "mergedAt": "2020-11-17T09:57:18Z",
+    "number": 1572,
+    "title": ".Net 5"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE5MzU5NjA=",
+      "is_bot": false,
+      "login": "Tyrrrz",
+      "name": "Oleksii Holub"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-10-29T00:21:18Z",
+    "deletions": 2,
+    "mergedAt": "2020-11-14T10:12:25Z",
+    "number": 1563,
+    "title": "Update GitHubActionsTestLogger"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE4Mzk5MDk2",
+      "is_bot": false,
+      "login": "wswind",
+      "name": "Vincent Wang"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-10-19T02:43:56Z",
+    "deletions": 1,
+    "mergedAt": "2020-10-23T20:10:08Z",
+    "number": 1560,
+    "title": "Update Readme.md"
+  },
+  {
+    "additions": 90,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 4,
+    "createdAt": "2020-10-17T12:59:17Z",
+    "deletions": 1,
+    "mergedAt": "2020-10-23T20:10:34Z",
+    "number": 1559,
+    "title": "Docker: initial build setup for GitHub Actions"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjI3ODI2Mg==",
+      "is_bot": false,
+      "login": "paul42",
+      "name": "Paul.42"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-10-16T22:07:57Z",
+    "deletions": 1,
+    "mergedAt": "2020-10-17T12:56:57Z",
+    "number": 1558,
+    "title": "update tests link in readme"
+  },
+  {
+    "additions": 92,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 103,
+    "createdAt": "2020-10-11T18:57:37Z",
+    "deletions": 31,
+    "mergedAt": "2020-10-12T15:31:35Z",
+    "number": 1556,
+    "title": "Tests: move into folders"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjI2MzE0ODk2",
+      "is_bot": false,
+      "login": "dogac00",
+      "name": "Dogac Akyıldız"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-07-27T07:26:20Z",
+    "deletions": 1,
+    "mergedAt": "2020-07-31T20:39:57Z",
+    "number": 1508,
+    "title": "Fix Typo."
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjI0NzU5ODAy",
+      "is_bot": false,
+      "login": "imba-tjd",
+      "name": "谭九鼎"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-07-27T05:59:46Z",
+    "deletions": 1,
+    "mergedAt": "2020-07-31T20:42:10Z",
+    "number": 1507,
+    "title": "Readme: Fix Syntax error"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjI1NDI2MDk=",
+      "is_bot": false,
+      "login": "DarkWanderer",
+      "name": "Oleg V. Kozlyuk"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-05-11T22:14:02Z",
+    "deletions": 1,
+    "mergedAt": "2020-07-31T20:45:20Z",
+    "number": 1462,
+    "title": "Add correct feature flag for ClickHouse"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjg1ODA1MjU=",
+      "is_bot": false,
+      "login": "DamirAinullin",
+      "name": "Damir Ainullin"
+    },
+    "changedFiles": 5,
+    "createdAt": "2020-05-09T23:13:11Z",
+    "deletions": 18,
+    "mergedAt": "2020-05-10T10:52:07Z",
+    "number": 1459,
+    "title": "Replace empty array with Array.Empty<T>, add compound assignment, fix…"
+  },
+  {
+    "additions": 28,
+    "author": {
+      "id": "MDQ6VXNlcjg1ODA1MjU=",
+      "is_bot": false,
+      "login": "DamirAinullin",
+      "name": "Damir Ainullin"
+    },
+    "changedFiles": 11,
+    "createdAt": "2020-05-08T20:23:02Z",
+    "deletions": 28,
+    "mergedAt": "2020-05-09T20:00:24Z",
+    "number": 1458,
+    "title": "Fixes of grammar typos"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjg1ODA1MjU=",
+      "is_bot": false,
+      "login": "DamirAinullin",
+      "name": "Damir Ainullin"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-05-08T18:37:30Z",
+    "deletions": 3,
+    "mergedAt": "2020-05-08T22:01:03Z",
+    "number": 1457,
+    "title": "Replace sync methods calls with async analogs"
+  },
+  {
+    "additions": 144,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 3,
+    "createdAt": "2020-05-03T15:49:39Z",
+    "deletions": 55,
+    "mergedAt": "2020-05-07T11:21:40Z",
+    "number": 1453,
+    "title": "Normalize deserialization errors for bad data"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjg1ODA1MjU=",
+      "is_bot": false,
+      "login": "DamirAinullin",
+      "name": "Damir Ainullin"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-05-03T15:33:16Z",
+    "deletions": 5,
+    "mergedAt": "2020-05-07T11:22:26Z",
+    "number": 1452,
+    "title": "Removed excessive casts"
+  },
+  {
+    "additions": 67,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 6,
+    "createdAt": "2020-05-02T15:04:34Z",
+    "deletions": 59,
+    "mergedAt": "2020-05-02T15:12:59Z",
+    "number": 1451,
+    "title": "Update benchmarks"
+  },
+  {
+    "additions": 104,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 23,
+    "createdAt": "2020-05-02T00:16:54Z",
+    "deletions": 147,
+    "mergedAt": "2020-05-02T11:52:40Z",
+    "number": 1450,
+    "title": "AppVeyor: Build tweaks & misc fixes"
+  },
+  {
+    "additions": 24,
+    "author": {
+      "id": "MDQ6VXNlcjg1ODA1MjU=",
+      "is_bot": false,
+      "login": "DamirAinullin",
+      "name": "Damir Ainullin"
+    },
+    "changedFiles": 6,
+    "createdAt": "2020-05-01T22:00:26Z",
+    "deletions": 24,
+    "mergedAt": "2020-05-02T12:15:47Z",
+    "number": 1449,
+    "title": "Set initial capacity for collections"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE3MjIxMzE=",
+      "is_bot": false,
+      "login": "BlackjacketMack",
+      "name": "Rob Mackenzie"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-04-29T15:27:12Z",
+    "deletions": 1,
+    "mergedAt": "2020-05-01T21:24:41Z",
+    "number": 1446,
+    "title": "Updated InListStringSplitCount comment to GTE."
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjg1ODA1MjU=",
+      "is_bot": false,
+      "login": "DamirAinullin",
+      "name": "Damir Ainullin"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-04-28T18:20:52Z",
+    "deletions": 3,
+    "mergedAt": "2020-04-28T18:59:13Z",
+    "number": 1443,
+    "title": "Replaced constant with index in loop"
+  },
+  {
+    "additions": 34,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 10,
+    "createdAt": "2020-04-05T11:16:49Z",
+    "deletions": 23,
+    "mergedAt": "2020-04-05T12:43:32Z",
+    "number": 1433,
+    "title": "Enable deterministic build"
+  },
+  {
+    "additions": 58,
+    "author": {
+      "id": "MDQ6VXNlcjE4MzA0Ng==",
+      "is_bot": false,
+      "login": "cdonnellytx",
+      "name": "Chris Donnelly"
+    },
+    "changedFiles": 3,
+    "createdAt": "2020-01-24T15:49:10Z",
+    "deletions": 1,
+    "mergedAt": "2020-05-01T21:27:12Z",
+    "number": 1407,
+    "title": "Mighty ORM benchmarks"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjMwNDI5OTkw",
+      "is_bot": false,
+      "login": "brendangooden",
+      "name": "Brendan Gooden"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-01-21T01:30:59Z",
+    "deletions": 2,
+    "mergedAt": "2021-05-09T23:12:03Z",
+    "number": 1405,
+    "title": "Allow checking for custom handlers outside Dapper library"
+  },
+  {
+    "additions": 43,
+    "author": {
+      "id": "MDQ6VXNlcjEyNzI5MTg0",
+      "is_bot": false,
+      "login": "shps951023",
+      "name": "Wei Lin"
+    },
+    "changedFiles": 2,
+    "createdAt": "2020-01-20T06:09:28Z",
+    "deletions": 1,
+    "mergedAt": "2020-05-01T23:25:13Z",
+    "number": 1404,
+    "title": "SqlBuilder Support Update Set"
+  },
+  {
+    "additions": 96,
+    "author": {
+      "id": "MDQ6VXNlcjE2OTQ5MDU=",
+      "is_bot": false,
+      "login": "JulianRooze",
+      "name": ""
+    },
+    "changedFiles": 2,
+    "createdAt": "2020-01-14T17:32:36Z",
+    "deletions": 2,
+    "mergedAt": "2020-05-01T22:16:24Z",
+    "number": 1400,
+    "title": "Fix handling of selecting nullable value tuples (fixes issue #1399) "
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEzMTQzOTE=",
+      "is_bot": false,
+      "login": "bryancrosby",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-11-27T18:03:14Z",
+    "deletions": 1,
+    "mergedAt": "2020-05-01T21:36:35Z",
+    "number": 1381,
+    "title": "Fix typo in Snapshotter"
+  },
+  {
+    "additions": 47,
+    "author": {
+      "id": "MDQ6VXNlcjEyNzI5MTg0",
+      "is_bot": false,
+      "login": "shps951023",
+      "name": "Wei Lin"
+    },
+    "changedFiles": 2,
+    "createdAt": "2019-11-05T05:55:55Z",
+    "deletions": 0,
+    "mergedAt": "2019-12-24T19:14:14Z",
+    "number": 1369,
+    "title": "Add unit test for SqlBuilder with Dapper query"
+  },
+  {
+    "additions": 44,
+    "author": {
+      "id": "MDQ6VXNlcjExNjU4MDU=",
+      "is_bot": false,
+      "login": "sebastienros",
+      "name": "Sébastien Ros"
+    },
+    "changedFiles": 2,
+    "createdAt": "2019-10-24T22:51:28Z",
+    "deletions": 2,
+    "mergedAt": "2019-10-25T07:10:25Z",
+    "number": 1363,
+    "title": "Use InvariantCulture in FlexibleConvert"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjIzMzU5NjA5",
+      "is_bot": false,
+      "login": "alexbagnolini",
+      "name": "Alex Bagnolini"
+    },
+    "changedFiles": 4,
+    "createdAt": "2019-10-24T10:21:39Z",
+    "deletions": 9,
+    "mergedAt": "2020-05-01T22:03:53Z",
+    "number": 1361,
+    "title": "Added EF6 performance tests back in netcoreapp3.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE3MDUxMTI=",
+      "is_bot": false,
+      "login": "jawn",
+      "name": "Bernard Vander Beken"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-10-22T14:26:20Z",
+    "deletions": 1,
+    "mergedAt": "2019-11-03T15:34:01Z",
+    "number": 1357,
+    "title": "Use consistent punctuation in XML comment"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE3MDUxMTI=",
+      "is_bot": false,
+      "login": "jawn",
+      "name": "Bernard Vander Beken"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-09-27T07:42:38Z",
+    "deletions": 1,
+    "mergedAt": "2019-09-27T09:42:55Z",
+    "number": 1340,
+    "title": "Fix spelling"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjg1ODA1MjU=",
+      "is_bot": false,
+      "login": "DamirAinullin",
+      "name": "Damir Ainullin"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-09-25T21:15:14Z",
+    "deletions": 3,
+    "mergedAt": "2019-09-27T09:42:46Z",
+    "number": 1339,
+    "title": "Replaced ContainsKey and [] with TryGetValue"
+  },
+  {
+    "additions": 32,
+    "author": {
+      "id": "MDQ6VXNlcjg1ODA1MjU=",
+      "is_bot": false,
+      "login": "DamirAinullin",
+      "name": "Damir Ainullin"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-09-22T12:48:26Z",
+    "deletions": 18,
+    "mergedAt": "2019-09-22T13:33:59Z",
+    "number": 1337,
+    "title": "Replaced Connection with GetClosedConnection in some unit tests in ac…"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjg1ODA1MjU=",
+      "is_bot": false,
+      "login": "DamirAinullin",
+      "name": "Damir Ainullin"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-09-22T11:35:43Z",
+    "deletions": 4,
+    "mergedAt": "2019-09-22T11:55:05Z",
+    "number": 1335,
+    "title": "Replaced WriteLine with WriteLineColor"
+  },
+  {
+    "additions": 16,
+    "author": {
+      "id": "MDQ6VXNlcjg1ODA1MjU=",
+      "is_bot": false,
+      "login": "DamirAinullin",
+      "name": "Damir Ainullin"
+    },
+    "changedFiles": 4,
+    "createdAt": "2019-09-21T20:57:15Z",
+    "deletions": 12,
+    "mergedAt": "2019-09-27T09:41:50Z",
+    "number": 1334,
+    "title": "Use loop variable instead of 0"
+  },
+  {
+    "additions": 243,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 38,
+    "createdAt": "2019-09-21T18:39:55Z",
+    "deletions": 338,
+    "mergedAt": "2019-09-26T23:47:56Z",
+    "number": 1333,
+    "title": "Tooling and project updates"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0MTczMDYx",
+      "is_bot": false,
+      "login": "andresrsanchez",
+      "name": "Andrés"
+    },
+    "changedFiles": 2,
+    "createdAt": "2019-09-19T17:01:43Z",
+    "deletions": 2,
+    "mergedAt": "2019-09-22T12:12:23Z",
+    "number": 1331,
+    "title": "Fix performance tests"
+  },
+  {
+    "additions": 36,
+    "author": {
+      "id": "MDQ6VXNlcjM2Njk2NjQ=",
+      "is_bot": false,
+      "login": "jjonescz",
+      "name": "Jan Jones"
+    },
+    "changedFiles": 2,
+    "createdAt": "2019-09-10T07:56:22Z",
+    "deletions": 4,
+    "mergedAt": "2019-09-10T08:21:51Z",
+    "number": 1326,
+    "title": "Handle PostgreSQL chars correctly"
+  },
+  {
+    "additions": 633,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 56,
+    "createdAt": "2019-08-22T16:30:41Z",
+    "deletions": 568,
+    "mergedAt": "2019-08-28T14:07:32Z",
+    "number": 1313,
+    "title": "Lib updates and prepare for Microsoft.Data.SqlClient"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjQ5MTI2OTgx",
+      "is_bot": false,
+      "login": "james-hester",
+      "name": "Jimmy Hester"
+    },
+    "changedFiles": 2,
+    "createdAt": "2019-08-15T23:24:20Z",
+    "deletions": 4,
+    "mergedAt": "2019-09-21T13:16:35Z",
+    "number": 1309,
+    "title": "Fix issue #418 for DeleteAsync"
+  },
+  {
+    "additions": 96,
+    "author": {
+      "id": "MDQ6VXNlcjgwNDAzNjc=",
+      "is_bot": false,
+      "login": "jnm2",
+      "name": "Joseph Musser"
+    },
+    "changedFiles": 3,
+    "createdAt": "2019-07-12T02:35:36Z",
+    "deletions": 15,
+    "mergedAt": "2019-08-27T15:52:44Z",
+    "number": 1295,
+    "title": "Add ExecuteReaderAsync overloads that return Task<DbDataReader>"
+  },
+  {
+    "additions": 48,
+    "author": {
+      "id": "MDQ6VXNlcjgwNDAzNjc=",
+      "is_bot": false,
+      "login": "jnm2",
+      "name": "Joseph Musser"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-06-15T01:52:41Z",
+    "deletions": 104,
+    "mergedAt": "2019-08-27T16:01:35Z",
+    "number": 1282,
+    "title": "Use LocalBuilders rather than hardcoding or passing local indexes"
+  },
+  {
+    "additions": 20,
+    "author": {
+      "id": "MDQ6VXNlcjgwNDAzNjc=",
+      "is_bot": false,
+      "login": "jnm2",
+      "name": "Joseph Musser"
+    },
+    "changedFiles": 2,
+    "createdAt": "2019-06-13T00:23:13Z",
+    "deletions": 4,
+    "mergedAt": "2019-06-13T06:37:42Z",
+    "number": 1280,
+    "title": "Stop setting current index local which is nonexistent in ValueTuple deserializer"
+  },
+  {
+    "additions": 368,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 27,
+    "createdAt": "2019-06-12T13:41:12Z",
+    "deletions": 68,
+    "mergedAt": "2019-06-12T13:41:26Z",
+    "number": 1278,
+    "title": "Marc/wrapped async reader"
+  },
+  {
+    "additions": 38,
+    "author": {
+      "id": "MDQ6VXNlcjEwNTEyNg==",
+      "is_bot": false,
+      "login": "jchannon",
+      "name": "Jonathan Channon"
+    },
+    "changedFiles": 3,
+    "createdAt": "2019-06-03T12:28:56Z",
+    "deletions": 38,
+    "mergedAt": "2019-06-03T13:05:13Z",
+    "number": 1271,
+    "title": "Remove '.NET 45' in XML docs"
+  },
+  {
+    "additions": 836,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 37,
+    "createdAt": "2019-05-10T14:29:33Z",
+    "deletions": 328,
+    "mergedAt": "2019-06-12T15:24:39Z",
+    "number": 1262,
+    "title": "Make Dapper happy with Microsoft.Data.SqlClient"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjU4MDQ2MA==",
+      "is_bot": false,
+      "login": "dmytro-gokun",
+      "name": "Dmytro Gokun"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-05-06T14:36:42Z",
+    "deletions": 0,
+    "mergedAt": "2019-08-27T16:33:15Z",
+    "number": 1257,
+    "title": "Expose the underlying connection from Rainbow Database so it's easier to use Dapper alongside other DB frameworks"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjU4MDQ2MA==",
+      "is_bot": false,
+      "login": "dmytro-gokun",
+      "name": "Dmytro Gokun"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-05-06T14:22:40Z",
+    "deletions": 1,
+    "mergedAt": "2019-08-27T16:32:52Z",
+    "number": 1256,
+    "title": "Add ability to override Dispose() in the derived class"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjU4MDQ2MA==",
+      "is_bot": false,
+      "login": "dmytro-gokun",
+      "name": "Dmytro Gokun"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-05-06T10:59:29Z",
+    "deletions": 4,
+    "mergedAt": "2021-05-09T23:06:30Z",
+    "number": 1254,
+    "title": "Fix Rainbow Database.Dispose() so that it never throws and not overrides the active exception (if any)"
+  },
+  {
+    "additions": 276,
+    "author": {
+      "id": "MDQ6VXNlcjgwNDAzNjc=",
+      "is_bot": false,
+      "login": "jnm2",
+      "name": "Joseph Musser"
+    },
+    "changedFiles": 2,
+    "createdAt": "2019-04-20T21:22:55Z",
+    "deletions": 136,
+    "mergedAt": "2019-06-12T15:16:46Z",
+    "number": 1242,
+    "title": "Fixes mapping for C# tuples with more than seven elements"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 5,
+    "createdAt": "2019-04-05T09:55:05Z",
+    "deletions": 5,
+    "mergedAt": "2019-04-05T10:39:04Z",
+    "number": 1229,
+    "title": "fix #1228 - rev sqlclient to 4.6.0"
+  },
+  {
+    "additions": 696,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 15,
+    "createdAt": "2019-03-26T10:39:09Z",
+    "deletions": 9,
+    "mergedAt": "2019-03-27T09:12:06Z",
+    "number": 1216,
+    "title": "support the descriptor (component-model) API"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjc0NjcwNjI=",
+      "is_bot": false,
+      "login": "say25",
+      "name": "Steven Yeh"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-03-26T07:22:36Z",
+    "deletions": 1,
+    "mergedAt": "2019-03-26T09:16:21Z",
+    "number": 1215,
+    "title": "Fix Typo"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjQ4NTcxNTA=",
+      "is_bot": false,
+      "login": "yesmey",
+      "name": "Jesper Meyer"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-03-08T13:43:00Z",
+    "deletions": 19,
+    "mergedAt": "2019-09-22T12:40:07Z",
+    "number": 1206,
+    "title": "Updated Hand Coded benchmarks"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-02-24T09:13:52Z",
+    "deletions": 2,
+    "mergedAt": "2019-02-25T15:05:22Z",
+    "number": 1198,
+    "title": "Bump version to 1.60.0"
+  },
+  {
+    "additions": 53,
+    "author": {
+      "id": "MDQ6VXNlcjY0NDU1MzQ=",
+      "is_bot": false,
+      "login": "NRKirby",
+      "name": "Nick Kirby"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-02-20T13:37:22Z",
+    "deletions": 53,
+    "mergedAt": "2019-02-20T14:29:19Z",
+    "number": 1195,
+    "title": "Release notes issue links"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjc5MTE3OTM=",
+      "is_bot": false,
+      "login": "jkulubya",
+      "name": "James"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-11-07T07:51:16Z",
+    "deletions": 1,
+    "mergedAt": "2019-01-27T13:45:28Z",
+    "number": 1155,
+    "title": "Fix typo"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjU1OTM2NDQ=",
+      "is_bot": false,
+      "login": "Wixely",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-11-06T11:30:33Z",
+    "deletions": 1,
+    "mergedAt": "2019-02-09T12:19:34Z",
+    "number": 1154,
+    "title": "Improve Exception message"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjI0MDUwMTE=",
+      "is_bot": false,
+      "login": "yvesmh",
+      "name": "Yves Mancera"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-10-27T19:31:03Z",
+    "deletions": 0,
+    "mergedAt": "2019-01-27T13:50:09Z",
+    "number": 1149,
+    "title": "Mention how to use user defined variables"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjM0MTczMDYx",
+      "is_bot": false,
+      "login": "andresrsanchez",
+      "name": "Andrés"
+    },
+    "changedFiles": 2,
+    "createdAt": "2018-10-19T08:17:24Z",
+    "deletions": 2,
+    "mergedAt": "2019-08-27T16:03:49Z",
+    "number": 1146,
+    "title": "Fixed issue #569 with IN and other condition."
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE2OTUxNjgz",
+      "is_bot": false,
+      "login": "codeapologist",
+      "name": "Andrew Sumido"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-10-19T04:44:16Z",
+    "deletions": 2,
+    "mergedAt": "2018-11-02T00:56:06Z",
+    "number": 1144,
+    "title": "Corrected class name from PostcresqlTests to PostgresqlTests"
+  },
+  {
+    "additions": 113,
+    "author": {
+      "id": "MDQ6VXNlcjM4ODA0NDA2",
+      "is_bot": false,
+      "login": "maksimkarpenko",
+      "name": "Maksim Karpenko"
+    },
+    "changedFiles": 4,
+    "createdAt": "2018-09-19T13:08:58Z",
+    "deletions": 0,
+    "mergedAt": "2018-11-02T00:58:50Z",
+    "number": 1131,
+    "title": "Add the eXpress Persistent Objects (XPO) benchmark"
+  },
+  {
+    "additions": 79,
+    "author": {
+      "id": "MDQ6VXNlcjM1ODQwNjY=",
+      "is_bot": false,
+      "login": "markjerz",
+      "name": ""
+    },
+    "changedFiles": 5,
+    "createdAt": "2018-09-11T21:20:37Z",
+    "deletions": 1,
+    "mergedAt": "2018-09-11T21:44:35Z",
+    "number": 1126,
+    "title": "Added Dashing Benchmarks"
+  },
+  {
+    "additions": 106,
+    "author": {
+      "id": "MDQ6VXNlcjExNDA0NzQ=",
+      "is_bot": false,
+      "login": "ifle",
+      "name": "ifle"
+    },
+    "changedFiles": 6,
+    "createdAt": "2018-09-11T14:39:30Z",
+    "deletions": 1,
+    "mergedAt": "2018-09-11T21:39:12Z",
+    "number": 1125,
+    "title": "Added Linq2DB benchmarks"
+  },
+  {
+    "additions": 155,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 12,
+    "createdAt": "2018-09-10T15:24:33Z",
+    "deletions": 161,
+    "mergedAt": "2018-09-11T00:22:11Z",
+    "number": 1123,
+    "title": "Benchmarks:  updating libs and overall runner"
+  },
+  {
+    "additions": 29,
+    "author": {
+      "id": "MDQ6VXNlcjU1NTA5",
+      "is_bot": false,
+      "login": "davidglassborow",
+      "name": "David Glassborow"
+    },
+    "changedFiles": 3,
+    "createdAt": "2018-08-31T11:37:21Z",
+    "deletions": 2,
+    "mergedAt": "2018-09-07T00:33:28Z",
+    "number": 1112,
+    "title": "Fix: Inconsistent deserialisation between normal Query<T> and SqlMapper.Parse<T> #1111"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjMzNzMyNDk=",
+      "is_bot": false,
+      "login": "johnmwright",
+      "name": "John Wright"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-08-20T17:05:01Z",
+    "deletions": 1,
+    "mergedAt": "2018-08-22T13:00:02Z",
+    "number": 1100,
+    "title": "More detailed error message on unsupported literal type"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjMzNjU4NjQ5",
+      "is_bot": false,
+      "login": "pug-pelle-p",
+      "name": "Pelle Branden"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-08-14T10:45:09Z",
+    "deletions": 2,
+    "mergedAt": "2018-08-14T10:47:17Z",
+    "number": 1098,
+    "title": "Fixed indentation in Readme.md"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM3MDY5OQ==",
+      "is_bot": false,
+      "login": "tompazourek",
+      "name": "Tom Pažourek"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-07-09T17:43:51Z",
+    "deletions": 1,
+    "mergedAt": "2018-08-14T10:48:25Z",
+    "number": 1067,
+    "title": "Typo in readme"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjExNTY1ODI=",
+      "is_bot": false,
+      "login": "JocaPC",
+      "name": "Jovan Popovic"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-07-08T23:12:12Z",
+    "deletions": 6,
+    "mergedAt": "2018-07-19T19:30:23Z",
+    "number": 1066,
+    "title": "Configured Belgrade Sql client to return data"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjI3NDU0MDE=",
+      "is_bot": false,
+      "login": "faradzen",
+      "name": "Maletin Nikita"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-06-19T07:33:06Z",
+    "deletions": 1,
+    "mergedAt": "2018-07-01T10:21:15Z",
+    "number": 1050,
+    "title": "upd comment for query t7 method - need more, use query with Type[]  p…"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjIxMDMzNTU=",
+      "is_bot": false,
+      "login": "alexwiese",
+      "name": "Alex Wiese"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-06-19T02:26:35Z",
+    "deletions": 2,
+    "mergedAt": "2018-07-01T10:22:13Z",
+    "number": 1048,
+    "title": "Fix #418 in `UpdateAsync`"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjIxMDMzNTU=",
+      "is_bot": false,
+      "login": "alexwiese",
+      "name": "Alex Wiese"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-06-18T07:52:23Z",
+    "deletions": 1,
+    "mergedAt": "2018-07-01T10:29:37Z",
+    "number": 1046,
+    "title": "DeleteAsync - use adapter to format column name equals statement."
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjIxMDMzNTU=",
+      "is_bot": false,
+      "login": "alexwiese",
+      "name": "Alex Wiese"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-06-18T07:24:49Z",
+    "deletions": 2,
+    "mergedAt": "2018-06-18T18:20:21Z",
+    "number": 1045,
+    "title": "build.ps1 is not handling pre-release build number correctly."
+  },
+  {
+    "additions": 28,
+    "author": {
+      "id": "MDQ6VXNlcjQwMTQ2Mjg0",
+      "is_bot": false,
+      "login": "Nij4t2",
+      "name": "Nigel"
+    },
+    "changedFiles": 3,
+    "createdAt": "2018-06-10T17:06:58Z",
+    "deletions": 3,
+    "mergedAt": "2019-03-27T09:18:06Z",
+    "number": 1038,
+    "title": "DbGeometry and DbGeography SRIDs"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjE1NzMzNg==",
+      "is_bot": false,
+      "login": "benmccallum",
+      "name": "Ben McCallum"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-04-10T08:05:24Z",
+    "deletions": 13,
+    "mergedAt": "2018-04-10T17:17:27Z",
+    "number": 999,
+    "title": "Readme.md misc tidying"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE1OTQ3MzQw",
+      "is_bot": false,
+      "login": "Charles-Isaac",
+      "name": "Charles-Isaac Côté"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-04-09T19:59:27Z",
+    "deletions": 1,
+    "mergedAt": "2018-04-09T20:37:32Z",
+    "number": 998,
+    "title": "Fixed dead link in Readme.md"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjE3MTk3MjM=",
+      "is_bot": false,
+      "login": "mikemccaughan",
+      "name": "Mike McCaughan"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-04-03T21:42:52Z",
+    "deletions": 2,
+    "mergedAt": "2018-04-03T23:48:04Z",
+    "number": 993,
+    "title": "Remove reference to Stack Overflow docs"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjEzMjIyNTkz",
+      "is_bot": false,
+      "login": "develax",
+      "name": "Joe"
+    },
+    "changedFiles": 2,
+    "createdAt": "2018-03-30T18:12:53Z",
+    "deletions": 6,
+    "mergedAt": "2018-03-30T21:32:28Z",
+    "number": 989,
+    "title": "Removing unjustified use of AppendFormat in StringBuilder class"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE1NzMzNg==",
+      "is_bot": false,
+      "login": "benmccallum",
+      "name": "Ben McCallum"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-03-30T14:42:44Z",
+    "deletions": 2,
+    "mergedAt": "2018-03-31T13:22:46Z",
+    "number": 987,
+    "title": "Tweaking error messages and supporting IDbConnection implementations …"
+  },
+  {
+    "additions": 50,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-03-30T12:36:46Z",
+    "deletions": 20,
+    "mergedAt": "2018-04-04T00:33:05Z",
+    "number": 986,
+    "title": "Better error messages for .*Async methods when not using  DbConnection"
+  },
+  {
+    "additions": 78,
+    "author": {
+      "id": "MDQ6VXNlcjUwOTUzMw==",
+      "is_bot": false,
+      "login": "jamescrowley",
+      "name": "James Crowley"
+    },
+    "changedFiles": 2,
+    "createdAt": "2018-02-20T18:06:36Z",
+    "deletions": 4,
+    "mergedAt": "2021-05-09T12:48:19Z",
+    "number": 952,
+    "title": "Allow parameters passed by ICustomQueryParameter/IDynamicParameters to be reused"
+  },
+  {
+    "additions": 34,
+    "author": {
+      "id": "MDQ6VXNlcjEwMTgwNzE=",
+      "is_bot": false,
+      "login": "bdrupieski",
+      "name": "Brian Drupieski"
+    },
+    "changedFiles": 4,
+    "createdAt": "2018-02-17T18:54:37Z",
+    "deletions": 6,
+    "mergedAt": "2018-03-30T01:12:47Z",
+    "number": 948,
+    "title": "fix Insert<T> when T is declared as IEnumerable<T>"
+  },
+  {
+    "additions": 58,
+    "author": {
+      "id": "MDQ6VXNlcjIzMzIyNTcx",
+      "is_bot": false,
+      "login": "DominikHerold",
+      "name": "Dominik Herold"
+    },
+    "changedFiles": 8,
+    "createdAt": "2018-02-12T20:38:06Z",
+    "deletions": 58,
+    "mergedAt": "2018-02-14T02:22:51Z",
+    "number": 944,
+    "title": "fix equal tests"
+  },
+  {
+    "additions": 106,
+    "author": {
+      "id": "MDQ6VXNlcjM1MTAwNDM1",
+      "is_bot": false,
+      "login": "JaseRandall",
+      "name": "Jase"
+    },
+    "changedFiles": 5,
+    "createdAt": "2018-02-03T04:19:32Z",
+    "deletions": 4,
+    "mergedAt": "2018-03-09T14:41:02Z",
+    "number": 936,
+    "title": "Change to GetAll to allow the usage of a nullable type in T when T is an interface… #933"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjQyNjQyNjc=",
+      "is_bot": false,
+      "login": "aidmsu",
+      "name": "Andrei Dorokhov"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-02-01T10:47:03Z",
+    "deletions": 3,
+    "mergedAt": "2018-02-01T23:33:25Z",
+    "number": 932,
+    "title": "Fix benchmark description typos"
+  },
+  {
+    "additions": 36,
+    "author": {
+      "id": "MDQ6VXNlcjU0MzM3Mg==",
+      "is_bot": false,
+      "login": "marcelltoth",
+      "name": "Marcell Toth"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-01-04T11:26:55Z",
+    "deletions": 0,
+    "mergedAt": "2018-03-07T07:17:47Z",
+    "number": 913,
+    "title": "Make DapperRow implement IReadOnlyDictionary<string, object>"
+  },
+  {
+    "additions": 59,
+    "author": {
+      "id": "MDQ6VXNlcjY1ODU5Njc=",
+      "is_bot": false,
+      "login": "hstefanov",
+      "name": "Hristo Stefanov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2017-12-14T09:47:18Z",
+    "deletions": 2,
+    "mergedAt": "2018-07-01T20:08:54Z",
+    "number": 900,
+    "title": "Fixed issue with empty sqldatarecord list as a table valued parameter."
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjI4MjEyMDU=",
+      "is_bot": false,
+      "login": "alexeyzimarev",
+      "name": "Alexey Zimarev"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-12-08T07:46:08Z",
+    "deletions": 3,
+    "mergedAt": "2018-03-07T07:13:13Z",
+    "number": 896,
+    "title": "Code formatting fix (tabs to spaces)"
+  },
+  {
+    "additions": 134,
+    "author": {
+      "id": "MDQ6VXNlcjEwMTgwNzE=",
+      "is_bot": false,
+      "login": "bdrupieski",
+      "name": "Brian Drupieski"
+    },
+    "changedFiles": 4,
+    "createdAt": "2017-11-26T15:34:33Z",
+    "deletions": 4,
+    "mergedAt": "2018-05-14T10:44:12Z",
+    "number": 887,
+    "title": "when updating and deleting, check if type implements IEnumerable<T> before using generic type as entity's type"
+  },
+  {
+    "additions": 87,
+    "author": {
+      "id": "MDQ6VXNlcjEwMTgwNzE=",
+      "is_bot": false,
+      "login": "bdrupieski",
+      "name": "Brian Drupieski"
+    },
+    "changedFiles": 5,
+    "createdAt": "2017-11-11T23:37:19Z",
+    "deletions": 3,
+    "mergedAt": "2017-11-26T01:37:20Z",
+    "number": 880,
+    "title": "when inserting, check if type implements IEnumerable<T> to determine if it's a collection"
+  },
+  {
+    "additions": 10,
+    "author": {
+      "id": "MDQ6VXNlcjI0MDUwMTE=",
+      "is_bot": false,
+      "login": "yvesmh",
+      "name": "Yves Mancera"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-10-31T21:20:47Z",
+    "deletions": 0,
+    "mergedAt": "2017-11-01T09:12:40Z",
+    "number": 873,
+    "title": "Add literal replacement example to readme"
+  },
+  {
+    "additions": 111,
+    "author": {
+      "id": "MDQ6VXNlcjEzMjQ4MTAz",
+      "is_bot": false,
+      "login": "ydango",
+      "name": "Bill Rivers"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-10-29T00:51:03Z",
+    "deletions": 40,
+    "mergedAt": "2017-11-06T01:07:14Z",
+    "number": 871,
+    "title": "Test DateTime2 StoredProcedure calling"
+  },
+  {
+    "additions": 1251,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 36,
+    "createdAt": "2017-08-21T10:45:09Z",
+    "deletions": 1259,
+    "mergedAt": "2017-08-21T10:46:17Z",
+    "number": 837,
+    "title": "Netstandard2.0 Followup Cleanup"
+  },
+  {
+    "additions": 547,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 62,
+    "createdAt": "2017-08-20T19:59:49Z",
+    "deletions": 517,
+    "mergedAt": "2017-08-21T10:44:01Z",
+    "number": 836,
+    "title": ".NET Standard 2.0, for great justice."
+  },
+  {
+    "additions": 40,
+    "author": {
+      "id": "MDQ6VXNlcjkyMjY2MA==",
+      "is_bot": false,
+      "login": "verysimplenick",
+      "name": "bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-08-08T23:34:17Z",
+    "deletions": 18,
+    "mergedAt": "2017-08-21T20:00:46Z",
+    "number": 827,
+    "title": "Micro optimizations for CreateParamInfoGenerator"
+  },
+  {
+    "additions": 61,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 5,
+    "createdAt": "2017-06-15T10:07:54Z",
+    "deletions": 104,
+    "mergedAt": "2017-06-15T10:08:19Z",
+    "number": 803,
+    "title": "Revert \"Enable SqlDataRecord TVPs on corefx.\""
+  },
+  {
+    "additions": 358,
+    "author": {
+      "id": "MDQ6VXNlcjE3NTk1NjY=",
+      "is_bot": false,
+      "login": "sergiivolchkov",
+      "name": "Sergii Volchkov"
+    },
+    "changedFiles": 16,
+    "createdAt": "2017-06-14T14:32:59Z",
+    "deletions": 293,
+    "mergedAt": "2017-08-15T16:56:33Z",
+    "number": 802,
+    "title": "Enable SqlDataRecord TVPs on netstandard1.3."
+  },
+  {
+    "additions": 104,
+    "author": {
+      "id": "MDQ6VXNlcjE3NTk1NjY=",
+      "is_bot": false,
+      "login": "sergiivolchkov",
+      "name": "Sergii Volchkov"
+    },
+    "changedFiles": 5,
+    "createdAt": "2017-06-12T22:55:36Z",
+    "deletions": 61,
+    "mergedAt": "2017-06-15T10:06:26Z",
+    "number": 801,
+    "title": "Enable SqlDataRecord TVPs on corefx."
+  },
+  {
+    "additions": 26,
+    "author": {
+      "id": "MDQ6VXNlcjEyNzQ1ODk5",
+      "is_bot": false,
+      "login": "Ffloriel",
+      "name": "Floriel"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-06-12T22:20:34Z",
+    "deletions": 96,
+    "mergedAt": "2017-06-14T01:10:11Z",
+    "number": 800,
+    "title": "Markdown tables"
+  },
+  {
+    "additions": 28,
+    "author": {
+      "id": "MDQ6VXNlcjE4MTgyMjU=",
+      "is_bot": false,
+      "login": "jiabiao",
+      "name": ""
+    },
+    "changedFiles": 2,
+    "createdAt": "2017-05-20T09:52:53Z",
+    "deletions": 3,
+    "mergedAt": "2017-08-21T12:17:47Z",
+    "number": 782,
+    "title": "AddDynamicParameters repeated should work  while paramtype is DbString "
+  },
+  {
+    "additions": 64,
+    "author": {
+      "id": "MDQ6VXNlcjE3NDU2OTYy",
+      "is_bot": false,
+      "login": "alterius",
+      "name": "James Law"
+    },
+    "changedFiles": 3,
+    "createdAt": "2017-05-15T11:19:57Z",
+    "deletions": 0,
+    "mergedAt": "2017-06-02T15:24:39Z",
+    "number": 778,
+    "title": "Added EntityFrameworkCore performance tests"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjM2MTY3Nw==",
+      "is_bot": false,
+      "login": "vcsjones",
+      "name": "Kevin Jones"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-05-14T01:36:21Z",
+    "deletions": 2,
+    "mergedAt": "2017-05-14T01:46:52Z",
+    "number": 776,
+    "title": "Minor README tweaks."
+  },
+  {
+    "additions": 10,
+    "author": {
+      "id": "MDQ6VXNlcjE4ODEyOQ==",
+      "is_bot": false,
+      "login": "bgrainger",
+      "name": "Bradley Grainger"
+    },
+    "changedFiles": 2,
+    "createdAt": "2017-05-12T22:08:10Z",
+    "deletions": 10,
+    "mergedAt": "2017-05-12T22:18:34Z",
+    "number": 774,
+    "title": "Fix MySQL tests"
+  },
+  {
+    "additions": 140,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 12,
+    "createdAt": "2017-05-05T02:17:15Z",
+    "deletions": 39,
+    "mergedAt": "2017-05-06T19:42:46Z",
+    "number": 766,
+    "title": "VS 2017 Build - Making things work"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjYzMDYxMw==",
+      "is_bot": false,
+      "login": "perlun",
+      "name": "Per Lundberg"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-05-04T19:55:45Z",
+    "deletions": 1,
+    "mergedAt": "2017-05-04T19:59:43Z",
+    "number": 764,
+    "title": "Readme.md: Fixed link to test suite"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjExMzQzNDE=",
+      "is_bot": false,
+      "login": "newbyca",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-04-11T22:39:06Z",
+    "deletions": 1,
+    "mergedAt": "2017-04-29T18:32:55Z",
+    "number": 739,
+    "title": "Fix Readme typos"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjY4MjM0OA==",
+      "is_bot": false,
+      "login": "Kruithne",
+      "name": "Kruithne"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-03-25T23:48:22Z",
+    "deletions": 1,
+    "mergedAt": "2017-03-26T11:39:41Z",
+    "number": 732,
+    "title": "Correct minor typographical error in Readme.md"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjg1MTgyMzU=",
+      "is_bot": false,
+      "login": "hexawyz",
+      "name": "Fabien Barbier"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-03-23T10:59:34Z",
+    "deletions": 1,
+    "mergedAt": "2018-07-01T10:38:09Z",
+    "number": 730,
+    "title": "Fix handling of empty table-valued parameters for SqlDataRecord."
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjIwNTkzMzA0",
+      "is_bot": false,
+      "login": "jovanpop-msft",
+      "name": "Jovan Popovic (MSFT)"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-03-14T08:55:23Z",
+    "deletions": 1,
+    "mergedAt": "2017-03-14T10:55:24Z",
+    "number": 723,
+    "title": "Fixed test issue in Simple.Data performance test"
+  },
+  {
+    "additions": 33,
+    "author": {
+      "id": "MDQ6VXNlcjIwNTkzMzA0",
+      "is_bot": false,
+      "login": "jovanpop-msft",
+      "name": "Jovan Popovic (MSFT)"
+    },
+    "changedFiles": 2,
+    "createdAt": "2017-02-22T13:35:50Z",
+    "deletions": 3,
+    "mergedAt": "2017-03-14T02:27:09Z",
+    "number": 707,
+    "title": "Added Belgrade SqlClient library in the performance benchmark"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjEwOTk5NQ==",
+      "is_bot": false,
+      "login": "vondruska",
+      "name": "Steven Vondruska"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-02-12T21:41:43Z",
+    "deletions": 2,
+    "mergedAt": "2017-03-14T02:28:08Z",
+    "number": 701,
+    "title": "Update readme to remove notice about requiring open connections"
+  },
+  {
+    "additions": 44,
+    "author": {
+      "id": "MDQ6VXNlcjM2MDgyNjA=",
+      "is_bot": false,
+      "login": "bretcope",
+      "name": "Bret Copeland"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-02-06T21:10:51Z",
+    "deletions": 0,
+    "mergedAt": "2017-02-06T21:17:14Z",
+    "number": 693,
+    "title": "Add GetRowParser documentation/example"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjI1NDc1MzI3",
+      "is_bot": false,
+      "login": "GermanTikhonov23",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-02-01T07:56:10Z",
+    "deletions": 2,
+    "mergedAt": "2017-05-14T03:17:11Z",
+    "number": 689,
+    "title": "Fix for InsertAsync in PostgresAdapter"
+  },
+  {
+    "additions": 36,
+    "author": {
+      "id": "MDQ6VXNlcjQ4MzQ3MA==",
+      "is_bot": false,
+      "login": "markashleybell",
+      "name": "Mark Bell"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-01-19T11:25:02Z",
+    "deletions": 7,
+    "mergedAt": "2017-01-27T03:14:38Z",
+    "number": 679,
+    "title": "Update README with documentation for [ExplicitKey] attribute"
+  },
+  {
+    "additions": 33,
+    "author": {
+      "id": "MDQ6VXNlcjc1Mzcz",
+      "is_bot": false,
+      "login": "pdesterlich",
+      "name": "Phelipe de Sterlich"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-12-01T10:39:25Z",
+    "deletions": 0,
+    "mergedAt": "2017-01-28T13:27:28Z",
+    "number": 651,
+    "title": "added firebird support"
+  },
+  {
+    "additions": 77,
+    "author": {
+      "id": "MDQ6VXNlcjkyMjY2MA==",
+      "is_bot": false,
+      "login": "verysimplenick",
+      "name": "bot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-11-28T09:07:37Z",
+    "deletions": 0,
+    "mergedAt": "2016-11-28T10:47:45Z",
+    "number": 646,
+    "title": "Add test DiscriminatedUnionWithMultiMapping"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEwNzc0NTUx",
+      "is_bot": false,
+      "login": "AArayeshi",
+      "name": "Amir"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-11-18T05:23:56Z",
+    "deletions": 1,
+    "mergedAt": "2016-11-18T09:30:31Z",
+    "number": 643,
+    "title": "Update Readme.md"
+  },
+  {
+    "additions": 62,
+    "author": {
+      "id": "MDQ6VXNlcjcxNzg0OA==",
+      "is_bot": false,
+      "login": "hakon1912",
+      "name": "Håkon Wikene"
+    },
+    "changedFiles": 2,
+    "createdAt": "2016-11-05T13:12:44Z",
+    "deletions": 0,
+    "mergedAt": "2017-01-27T03:18:02Z",
+    "number": 638,
+    "title": "Add SqlMapper.RemoveTypeMap() method"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjM4MzI4MjA=",
+      "is_bot": false,
+      "login": "jods4",
+      "name": "jods"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-10-05T17:27:37Z",
+    "deletions": 8,
+    "mergedAt": "2016-10-06T10:45:56Z",
+    "number": 625,
+    "title": "Non-greedy match for comments regex"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjEwMDA2NTU=",
+      "is_bot": false,
+      "login": "azyobuzin",
+      "name": "Takuya Sakurai"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-09-21T12:53:20Z",
+    "deletions": 0,
+    "mergedAt": "2016-11-04T12:25:20Z",
+    "number": 618,
+    "title": "GridReader.IsConsumed wouldn't be true"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE2MTU4NDE3",
+      "is_bot": false,
+      "login": "hdwatts",
+      "name": "Howard Dean Watts"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-09-16T16:21:48Z",
+    "deletions": 1,
+    "mergedAt": "2016-09-16T18:43:32Z",
+    "number": 615,
+    "title": "Update readme.md"
+  },
+  {
+    "additions": 63,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 4,
+    "createdAt": "2016-09-08T10:31:52Z",
+    "deletions": 25,
+    "mergedAt": "2016-09-09T11:33:11Z",
+    "number": 602,
+    "title": "Make CommandBehavior optimizations more configurable"
+  },
+  {
+    "additions": 56,
+    "author": {
+      "id": "MDQ6VXNlcjc5ODk1NDk=",
+      "is_bot": false,
+      "login": "Tornhoof",
+      "name": "Stefan"
+    },
+    "changedFiles": 2,
+    "createdAt": "2016-09-07T13:25:17Z",
+    "deletions": 1,
+    "mergedAt": "2016-09-07T15:12:42Z",
+    "number": 600,
+    "title": "Add CommandDefinitions versions for async Query API"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEzOTY2NQ==",
+      "is_bot": false,
+      "login": "rvlieshout",
+      "name": "Rick van Lieshout"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-08-24T19:28:17Z",
+    "deletions": 1,
+    "mergedAt": "2016-09-06T16:08:46Z",
+    "number": 588,
+    "title": "Operate on db records instead of files."
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-07-30T22:32:42Z",
+    "deletions": 1,
+    "mergedAt": "2016-09-06T15:58:07Z",
+    "number": 577,
+    "title": "Fix #573 - OrWhere yielding AndWhere statement"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjExNjMxNA==",
+      "is_bot": false,
+      "login": "cremor",
+      "name": ""
+    },
+    "changedFiles": 3,
+    "createdAt": "2016-06-16T07:05:03Z",
+    "deletions": 3,
+    "mergedAt": "2016-06-29T10:21:21Z",
+    "number": 538,
+    "title": "Fixed some syntax errors in project.json files"
+  },
+  {
+    "additions": 1543,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 28,
+    "createdAt": "2016-05-19T12:58:21Z",
+    "deletions": 422,
+    "mergedAt": "2016-05-19T13:34:20Z",
+    "number": 518,
+    "title": "RC2 Upgrade!"
+  },
+  {
+    "additions": 285,
+    "author": {
+      "id": "MDQ6VXNlcjE0MjcyODQ=",
+      "is_bot": false,
+      "login": "clairernovotny",
+      "name": "Claire Novotny"
+    },
+    "changedFiles": 10,
+    "createdAt": "2016-04-17T01:58:34Z",
+    "deletions": 361,
+    "mergedAt": "2016-04-17T01:59:40Z",
+    "number": 508,
+    "title": "Get building"
+  },
+  {
+    "additions": 35,
+    "author": {
+      "id": "MDQ6VXNlcjI0MDM2OA==",
+      "is_bot": false,
+      "login": "shrayasr",
+      "name": "Shrayas Rajagopal"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-04-09T09:53:37Z",
+    "deletions": 1,
+    "mergedAt": "2016-11-04T12:28:12Z",
+    "number": 499,
+    "title": "Readme: Better explanation for multi mapping"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjExNjU4MDU=",
+      "is_bot": false,
+      "login": "sebastienros",
+      "name": "Sébastien Ros"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-04-04T23:04:20Z",
+    "deletions": 5,
+    "mergedAt": "2016-04-04T23:10:48Z",
+    "number": 495,
+    "title": "Bumping dependencies version numbers"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM5MjUzNTU=",
+      "is_bot": false,
+      "login": "OsmanMElsayed",
+      "name": "Osman M Elsayed"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-02-20T12:53:53Z",
+    "deletions": 1,
+    "mergedAt": "2016-02-27T00:42:06Z",
+    "number": 464,
+    "title": "Readme.md: update performance benchmarks tests broken link"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEzMDY3NDc=",
+      "is_bot": false,
+      "login": "jdanyow",
+      "name": "Jeremy Danyow"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-02-17T12:43:12Z",
+    "deletions": 1,
+    "mergedAt": "2016-02-17T12:46:29Z",
+    "number": 462,
+    "title": "Fix typos in the comments for PadListExpansions"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjE0NTQ0MA==",
+      "is_bot": false,
+      "login": "chilversc",
+      "name": "Chris Chilvers"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-02-13T00:19:14Z",
+    "deletions": 3,
+    "mergedAt": "2016-02-13T00:20:25Z",
+    "number": 459,
+    "title": "actual/expected in asserts are the wrong way round"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjE1MjEyMDc=",
+      "is_bot": false,
+      "login": "henkmollema",
+      "name": "Henk Mollema"
+    },
+    "changedFiles": 3,
+    "createdAt": "2016-02-09T20:35:57Z",
+    "deletions": 3,
+    "mergedAt": "2016-02-10T10:35:37Z",
+    "number": 454,
+    "title": "Target net451 rather than dnx451"
+  },
+  {
+    "additions": 12,
+    "author": {
+      "id": "MDQ6VXNlcjI0MDM2OA==",
+      "is_bot": false,
+      "login": "shrayasr",
+      "name": "Shrayas Rajagopal"
+    },
+    "changedFiles": 2,
+    "createdAt": "2016-01-29T12:27:32Z",
+    "deletions": 12,
+    "mergedAt": "2016-01-29T12:28:16Z",
+    "number": 445,
+    "title": "Fix small typo in contrib"
+  },
+  {
+    "additions": 122,
+    "author": {
+      "id": "MDQ6VXNlcjQ0MjgzNg==",
+      "is_bot": false,
+      "login": "joncloud",
+      "name": "Jonathan Berube"
+    },
+    "changedFiles": 4,
+    "createdAt": "2015-12-25T18:53:03Z",
+    "deletions": 17,
+    "mergedAt": "2015-12-30T00:46:21Z",
+    "number": 428,
+    "title": "Added checks to make sure that arrays get the appropriate type when d…"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjE3MjIxMzE=",
+      "is_bot": false,
+      "login": "BlackjacketMack",
+      "name": "Rob Mackenzie"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-12-16T20:33:06Z",
+    "deletions": 7,
+    "mergedAt": "2015-12-16T21:09:10Z",
+    "number": 422,
+    "title": "Snapshotter now supports private properties."
+  },
+  {
+    "additions": 31,
+    "author": {
+      "id": "MDQ6VXNlcjUyNzAzNw==",
+      "is_bot": false,
+      "login": "johandanforth",
+      "name": "Johan Danforth"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-12-06T10:37:58Z",
+    "deletions": 2,
+    "mergedAt": "2015-12-07T11:53:32Z",
+    "number": 420,
+    "title": "Fix and test for issue #418"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-11-28T14:06:01Z",
+    "deletions": 1,
+    "mergedAt": "2015-11-28T23:42:38Z",
+    "number": 416,
+    "title": "Fix for #281 - Change CommandBehavior on ExecuteReaderAsync to match sync version"
+  },
+  {
+    "additions": 19,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 3,
+    "createdAt": "2015-11-26T16:35:25Z",
+    "deletions": 16,
+    "mergedAt": "2015-11-26T20:15:31Z",
+    "number": 415,
+    "title": "Use single-row/single-result hint when possible"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjU1NzY5NTA=",
+      "is_bot": false,
+      "login": "fjunqueira",
+      "name": "Fábio Junqueira"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-11-26T12:51:43Z",
+    "deletions": 1,
+    "mergedAt": "2015-11-26T14:02:31Z",
+    "number": 414,
+    "title": "Fix the URL to the Tests file in Readme"
+  },
+  {
+    "additions": 187,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 6,
+    "createdAt": "2015-11-26T12:40:09Z",
+    "deletions": 15,
+    "mergedAt": "2015-11-26T15:01:40Z",
+    "number": 413,
+    "title": "MySQL Test Suite for Contrib"
+  },
+  {
+    "additions": 475,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 10,
+    "createdAt": "2015-11-26T10:44:04Z",
+    "deletions": 74,
+    "mergedAt": "2015-11-26T12:07:16Z",
+    "number": 412,
+    "title": "Add {Query|Read}FirstOrDefault methods with optimized paths"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE1MjEyMDc=",
+      "is_bot": false,
+      "login": "henkmollema",
+      "name": "Henk Mollema"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-11-25T14:32:44Z",
+    "deletions": 1,
+    "mergedAt": "2015-11-25T15:53:28Z",
+    "number": 411,
+    "title": "Make DefaultTypeMap public again"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjQ0MjgzNg==",
+      "is_bot": false,
+      "login": "joncloud",
+      "name": "Jonathan Berube"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-11-24T22:40:49Z",
+    "deletions": 2,
+    "mergedAt": "2015-11-25T00:21:25Z",
+    "number": 410,
+    "title": "Provided a name for MySql LAST_INSERT_ID call to allow the result to …"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjQ0MjgzNg==",
+      "is_bot": false,
+      "login": "joncloud",
+      "name": "Jonathan Berube"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-11-24T21:09:21Z",
+    "deletions": 1,
+    "mergedAt": "2015-11-24T21:40:55Z",
+    "number": 409,
+    "title": "Updated link to performance tests."
+  },
+  {
+    "additions": 2350,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 489,
+    "createdAt": "2015-11-22T21:06:04Z",
+    "deletions": 447119,
+    "mergedAt": "2015-11-24T23:23:03Z",
+    "number": 407,
+    "title": "A full CoreCLR/DNX friendly conversion"
+  },
+  {
+    "additions": 2525,
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "changedFiles": 12,
+    "createdAt": "2015-11-19T04:18:06Z",
+    "deletions": 2102,
+    "mergedAt": "2015-11-19T07:37:12Z",
+    "number": 403,
+    "title": "Port tests to xUnit"
+  },
+  {
+    "additions": 71,
+    "author": {
+      "id": "MDQ6VXNlcjExNjU4MDU=",
+      "is_bot": false,
+      "login": "sebastienros",
+      "name": "Sébastien Ros"
+    },
+    "changedFiles": 35,
+    "createdAt": "2015-11-19T01:17:36Z",
+    "deletions": 101,
+    "mergedAt": "2015-11-19T01:48:33Z",
+    "number": 402,
+    "title": "Upgrading platform monikers"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE1MzY3NDg0",
+      "is_bot": false,
+      "login": "ReadmeCritic",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-11-18T21:45:43Z",
+    "deletions": 2,
+    "mergedAt": "2015-11-18T23:59:36Z",
+    "number": 399,
+    "title": "Update README URLs based on HTTP redirects"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE1NzkxNzU=",
+      "is_bot": false,
+      "login": "MrJerB",
+      "name": "Jeremy Borg"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-11-15T09:14:54Z",
+    "deletions": 2,
+    "mergedAt": "2015-11-15T13:30:40Z",
+    "number": 395,
+    "title": "Increase extensibility of SqlBuilder."
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjE1MjEyMDc=",
+      "is_bot": false,
+      "login": "henkmollema",
+      "name": "Henk Mollema"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-11-11T12:44:26Z",
+    "deletions": 3,
+    "mergedAt": "2015-11-11T13:02:56Z",
+    "number": 392,
+    "title": "Add `System.Xml` framework assembly"
+  },
+  {
+    "additions": 275,
+    "author": {
+      "id": "MDQ6VXNlcjE1MjEyMDc=",
+      "is_bot": false,
+      "login": "henkmollema",
+      "name": "Henk Mollema"
+    },
+    "changedFiles": 21,
+    "createdAt": "2015-11-11T08:52:48Z",
+    "deletions": 377,
+    "mergedAt": "2015-11-11T14:24:51Z",
+    "number": 391,
+    "title": "Code cleanup - take 2"
+  },
+  {
+    "additions": 37,
+    "author": {
+      "id": "MDQ6VXNlcjE1MjEyMDc=",
+      "is_bot": false,
+      "login": "henkmollema",
+      "name": "Henk Mollema"
+    },
+    "changedFiles": 8,
+    "createdAt": "2015-11-06T09:19:25Z",
+    "deletions": 36,
+    "mergedAt": "2015-11-06T15:15:46Z",
+    "number": 384,
+    "title": "DNX improvements"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjUyNzAzNw==",
+      "is_bot": false,
+      "login": "johandanforth",
+      "name": "Johan Danforth"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-11-04T22:09:25Z",
+    "deletions": 6,
+    "mergedAt": "2015-11-22T22:53:03Z",
+    "number": 382,
+    "title": "Fixed missing check for explicit key in Contrib GetaAync()"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjExNjU4MDU=",
+      "is_bot": false,
+      "login": "sebastienros",
+      "name": "Sébastien Ros"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-11-03T19:41:17Z",
+    "deletions": 6883,
+    "mergedAt": "2015-11-06T22:11:11Z",
+    "number": 378,
+    "title": "Removing project.lock.json files."
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjY1NTQ3NzU=",
+      "is_bot": false,
+      "login": "janzakrzewskipl",
+      "name": ""
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-10-28T11:03:11Z",
+    "deletions": 4,
+    "mergedAt": "2015-11-11T02:44:02Z",
+    "number": 371,
+    "title": "fixed GetAll when used with ExplicitKey"
+  },
+  {
+    "additions": 39,
+    "author": {
+      "id": "MDQ6VXNlcjUyNzAzNw==",
+      "is_bot": false,
+      "login": "johandanforth",
+      "name": "Johan Danforth"
+    },
+    "changedFiles": 5,
+    "createdAt": "2015-10-27T14:22:32Z",
+    "deletions": 2,
+    "mergedAt": "2015-11-26T20:50:36Z",
+    "number": 370,
+    "title": "bug in keypropertiescache (contrib)"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjUyNzAzNw==",
+      "is_bot": false,
+      "login": "johandanforth",
+      "name": "Johan Danforth"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-10-27T14:21:48Z",
+    "deletions": 9,
+    "mergedAt": "2015-11-26T20:34:45Z",
+    "number": 368,
+    "title": "Fix for issue #361"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjUxMDE4ODQ=",
+      "is_bot": false,
+      "login": "Atvaark",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-10-20T08:43:49Z",
+    "deletions": 1,
+    "mergedAt": "2015-10-24T12:37:09Z",
+    "number": 358,
+    "title": "Fix broken link in README"
+  },
+  {
+    "additions": 890,
+    "author": {
+      "id": "MDQ6VXNlcjUyNzAzNw==",
+      "is_bot": false,
+      "login": "johandanforth",
+      "name": "Johan Danforth"
+    },
+    "changedFiles": 19,
+    "createdAt": "2015-10-13T20:46:43Z",
+    "deletions": 94,
+    "mergedAt": "2015-10-15T13:56:12Z",
+    "number": 352,
+    "title": "Fixes for issue #351 and #336"
+  },
+  {
+    "additions": 17,
+    "author": {
+      "id": "MDQ6VXNlcjE1Nzk1MzU=",
+      "is_bot": false,
+      "login": "Nigrimmist",
+      "name": "Nikita Vasilevsky"
+    },
+    "changedFiles": 7,
+    "createdAt": "2015-10-01T22:40:34Z",
+    "deletions": 31,
+    "mergedAt": "2015-10-11T23:57:16Z",
+    "number": 349,
+    "title": "- code improvements"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjEyNDY2MTQ=",
+      "is_bot": false,
+      "login": "perliedman",
+      "name": "Per Liedman"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-10-01T07:27:43Z",
+    "deletions": 1,
+    "mergedAt": "2015-10-12T00:09:24Z",
+    "number": 347,
+    "title": "Only set UdtTypeName when value isn't DBNull"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "id": "MDQ6VXNlcjExMDE2OTE=",
+      "is_bot": false,
+      "login": "phnx47",
+      "name": "Serge K"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-09-10T23:04:11Z",
+    "deletions": 1,
+    "mergedAt": "2015-10-10T00:52:41Z",
+    "number": 338,
+    "title": "fix Cast at QueryAsync<T>"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjcwMjEzNTg=",
+      "is_bot": false,
+      "login": "tangruixing",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-09-10T03:29:52Z",
+    "deletions": 2,
+    "mergedAt": "2015-10-12T00:08:57Z",
+    "number": 337,
+    "title": "Update SqlMapper.cs"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjExMDAwNDE4",
+      "is_bot": false,
+      "login": "xiaokangz88",
+      "name": "Xiaokang"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-09-06T15:48:07Z",
+    "deletions": 4,
+    "mergedAt": "2015-09-06T18:10:08Z",
+    "number": 335,
+    "title": "Little changes :)"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0Mjg2OA==",
+      "is_bot": false,
+      "login": "mjul",
+      "name": "Martin Jul"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-08-06T10:51:08Z",
+    "deletions": 2,
+    "mergedAt": "2015-08-25T10:47:28Z",
+    "number": 325,
+    "title": "Fix capitalization in README"
+  },
+  {
+    "additions": 10,
+    "author": {
+      "id": "MDQ6VXNlcjI4ODgxMg==",
+      "is_bot": false,
+      "login": "gjsduarte",
+      "name": "Guilherme Duarte"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-08-05T10:03:53Z",
+    "deletions": 1,
+    "mergedAt": "2015-10-15T15:52:52Z",
+    "number": 324,
+    "title": "Added basic support for custom type maps in collection parameters"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjI1MzIxMTI=",
+      "is_bot": false,
+      "login": "dkempner",
+      "name": "Daniel Kempner"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-07-24T23:22:14Z",
+    "deletions": 1,
+    "mergedAt": "2015-08-25T10:47:44Z",
+    "number": 320,
+    "title": "Language correction on Readme"
+  },
+  {
+    "additions": 1361,
+    "author": {
+      "id": "MDQ6VXNlcjEzMjE=",
+      "is_bot": false,
+      "login": "aggieben",
+      "name": "Ben Collins"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-07-06T21:19:30Z",
+    "deletions": 1610,
+    "mergedAt": "2015-08-28T10:35:15Z",
+    "number": 311,
+    "title": "Runtime dependency"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjEzMjE=",
+      "is_bot": false,
+      "login": "aggieben",
+      "name": "Ben Collins"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-07-06T21:16:48Z",
+    "deletions": 9,
+    "mergedAt": "2015-08-25T10:47:57Z",
+    "number": 310,
+    "title": "remove commented json so dnx tooling doesn't break"
+  },
+  {
+    "additions": 26,
+    "author": {
+      "id": "MDQ6VXNlcjEwNjUwNzIy",
+      "is_bot": false,
+      "login": "NikolayGlynchak",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-06-26T23:43:49Z",
+    "deletions": 0,
+    "mergedAt": "2015-10-15T15:09:36Z",
+    "number": 308,
+    "title": "Added the GridReader.Read method with Type [] types and …"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjI0MDM2OA==",
+      "is_bot": false,
+      "login": "shrayasr",
+      "name": "Shrayas Rajagopal"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-06-10T13:29:22Z",
+    "deletions": 1,
+    "mergedAt": "2015-06-11T08:48:48Z",
+    "number": 302,
+    "title": "Update Contrib README with small nuance about Delete"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjI0MDM2OA==",
+      "is_bot": false,
+      "login": "shrayasr",
+      "name": "Shrayas Rajagopal"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-06-10T02:01:37Z",
+    "deletions": 0,
+    "mergedAt": "2015-06-10T07:15:48Z",
+    "number": 301,
+    "title": "Adding section about SQLite limitation"
+  },
+  {
+    "additions": 50,
+    "author": {
+      "id": "MDQ6VXNlcjI0MDM2OA==",
+      "is_bot": false,
+      "login": "shrayasr",
+      "name": "Shrayas Rajagopal"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-06-09T18:47:38Z",
+    "deletions": 19,
+    "mergedAt": "2015-06-09T20:04:47Z",
+    "number": 299,
+    "title": "Better Dapper.Contrib README"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjI5NDU2MDc=",
+      "is_bot": false,
+      "login": "Tewr",
+      "name": "Tewr"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-06-09T13:15:37Z",
+    "deletions": 3,
+    "mergedAt": "2015-06-09T13:58:03Z",
+    "number": 298,
+    "title": "Brackets around property names in Update & Delete"
+  },
+  {
+    "additions": 30,
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-05-12T17:21:59Z",
+    "deletions": 0,
+    "mergedAt": "2015-08-25T10:48:47Z",
+    "number": 284,
+    "title": "SqlMapper global/default CommandTimeout"
+  },
+  {
+    "additions": 138,
+    "author": {
+      "id": "MDQ6VXNlcjc5NTUyNzg=",
+      "is_bot": false,
+      "login": "Obalix",
+      "name": "Axel Eckenberger"
+    },
+    "changedFiles": 4,
+    "createdAt": "2015-04-08T13:19:45Z",
+    "deletions": 0,
+    "mergedAt": "2015-04-08T15:05:46Z",
+    "number": 267,
+    "title": "Added Dapper.SqlBuilder NET45 project."
+  },
+  {
+    "additions": 172,
+    "author": {
+      "id": "MDQ6VXNlcjE1MjEyMDc=",
+      "is_bot": false,
+      "login": "henkmollema",
+      "name": "Henk Mollema"
+    },
+    "changedFiles": 3,
+    "createdAt": "2015-03-20T10:56:55Z",
+    "deletions": 34,
+    "mergedAt": "2015-10-12T14:24:15Z",
+    "number": 256,
+    "title": "SqlBuilder for .NET 3.5"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMzczNDE=",
+      "is_bot": false,
+      "login": "josephwoodward",
+      "name": "Joseph Woodward"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-01-27T13:02:12Z",
+    "deletions": 1,
+    "mergedAt": "2015-03-18T13:21:03Z",
+    "number": 240,
+    "title": "Updated dead link"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjIxMzIzMw==",
+      "is_bot": false,
+      "login": "mburbea",
+      "name": "Michael Burbea"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-01-14T15:33:24Z",
+    "deletions": 7,
+    "mergedAt": "2015-03-18T13:22:30Z",
+    "number": 235,
+    "title": "QueryAsync<Dynamic> should return an IEnumerable<DapperRow>"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjMyMTY4ODk=",
+      "is_bot": false,
+      "login": "tukaef",
+      "name": "Aleksandr Tukaev"
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-12-16T04:31:45Z",
+    "deletions": 2,
+    "mergedAt": "2014-12-16T09:22:29Z",
+    "number": 221,
+    "title": "Case-insensitive matching support for where-in pseudo parameters"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjc2MjQ3MQ==",
+      "is_bot": false,
+      "login": "twhitbeck",
+      "name": "Tim Whitbeck"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-12-10T16:54:58Z",
+    "deletions": 1,
+    "mergedAt": "2015-03-18T13:31:53Z",
+    "number": 219,
+    "title": "Tiny typo"
+  },
+  {
+    "additions": 47,
+    "author": {
+      "id": "MDQ6VXNlcjYyMTYwNQ==",
+      "is_bot": false,
+      "login": "aidapsibr",
+      "name": "AIDA"
+    },
+    "changedFiles": 4,
+    "createdAt": "2014-12-04T10:53:40Z",
+    "deletions": 4,
+    "mergedAt": "2015-03-18T13:32:38Z",
+    "number": 217,
+    "title": "Adding Susanoo benchmarks"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE5MzU4NA==",
+      "is_bot": false,
+      "login": "otac0n",
+      "name": "John Gietzen"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-11-28T21:38:30Z",
+    "deletions": 1,
+    "mergedAt": "2015-06-11T08:51:35Z",
+    "number": 211,
+    "title": "Tweak to readme."
+  },
+  {
+    "additions": 21,
+    "author": {
+      "id": "MDQ6VXNlcjEwNDY1MA==",
+      "is_bot": false,
+      "login": "jdaigle",
+      "name": "Joseph Daigle"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-11-20T18:34:20Z",
+    "deletions": 18,
+    "mergedAt": "2015-10-15T16:47:36Z",
+    "number": 207,
+    "title": "fix for https://github.com/StackExchange/dapper-dot-net/issues/203"
+  },
+  {
+    "additions": 23,
+    "author": {
+      "id": "MDQ6VXNlcjk4NDc5OTU=",
+      "is_bot": false,
+      "login": "BrannJoly",
+      "name": "Brann Joly"
+    },
+    "changedFiles": 3,
+    "createdAt": "2014-11-20T12:38:17Z",
+    "deletions": 3,
+    "mergedAt": "2015-05-05T12:25:01Z",
+    "number": 205,
+    "title": "Adding support for f# record types containing enums (and other classes with an explicit constructor defined)"
+  },
+  {
+    "additions": 21,
+    "author": {
+      "id": "MDQ6VXNlcjQyNzExMzU=",
+      "is_bot": false,
+      "login": "ofirgeller",
+      "name": "Ofir Geller"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-11-16T13:06:10Z",
+    "deletions": 21,
+    "mergedAt": "2014-11-16T13:11:55Z",
+    "number": 204,
+    "title": "Spell Checking"
+  },
+  {
+    "additions": 131,
+    "author": {
+      "id": "MDQ6VXNlcjEyMTk0Njc=",
+      "is_bot": false,
+      "login": "kevin-montrose",
+      "name": ""
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-10-28T18:12:16Z",
+    "deletions": 10,
+    "mergedAt": "2014-10-30T13:04:27Z",
+    "number": 197,
+    "title": "whack at an explicit constructor attribute"
+  },
+  {
+    "additions": 76,
+    "author": {
+      "id": "MDQ6VXNlcjg4Nzk3OTI=",
+      "is_bot": false,
+      "login": "sqmgh",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-10-22T18:33:47Z",
+    "deletions": 6,
+    "mergedAt": "2015-10-15T15:30:43Z",
+    "number": 194,
+    "title": "Adding support for TVP using List<SqlDataRecord>"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjg4MzAzNTQ=",
+      "is_bot": false,
+      "login": "petsuter",
+      "name": "Peter Suter"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-09-22T12:29:00Z",
+    "deletions": 1,
+    "mergedAt": "2014-09-22T13:11:59Z",
+    "number": 180,
+    "title": "Mention PostgreSQL"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjM3NzI0OTg=",
+      "is_bot": false,
+      "login": "matwilko",
+      "name": "Matt Wilkinson"
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-09-22T05:49:52Z",
+    "deletions": 4,
+    "mergedAt": "2014-09-22T07:01:44Z",
+    "number": 179,
+    "title": "Allow passing an IDictionary<string, object> as parameter object"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjk5NDI3MA==",
+      "is_bot": false,
+      "login": "programcsharp",
+      "name": "Chris Hynes"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-09-17T15:33:31Z",
+    "deletions": 1,
+    "mergedAt": "2014-10-09T07:13:47Z",
+    "number": 173,
+    "title": "Actually pass IsInclusive param to Clause so OrWhere can work"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-09-15T19:30:49Z",
+    "deletions": 3,
+    "mergedAt": "2014-09-15T19:30:54Z",
+    "number": 171,
+    "title": "Revert \"Escape column names\""
+  },
+  {
+    "additions": 16,
+    "author": {
+      "id": "MDQ6VXNlcjQ4NTM1NDA=",
+      "is_bot": false,
+      "login": "tuespetre",
+      "name": "Derek Gray"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-09-15T14:12:18Z",
+    "deletions": 10,
+    "mergedAt": "2014-09-15T18:27:09Z",
+    "number": 170,
+    "title": "Fixed regression with sproc tests"
+  },
+  {
+    "additions": 59,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 3,
+    "createdAt": "2014-09-15T12:44:32Z",
+    "deletions": 5,
+    "mergedAt": "2014-09-15T12:44:37Z",
+    "number": 169,
+    "title": "Investigate issue 157 (unable to reproduce) - but also found and fixed i..."
+  },
+  {
+    "additions": 27,
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-09-15T12:26:20Z",
+    "deletions": 25,
+    "mergedAt": "2014-09-15T12:26:32Z",
+    "number": 168,
+    "title": "Fix detached head"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjE2MTI3NTI=",
+      "is_bot": false,
+      "login": "jpmarques",
+      "name": "João Pedro Marques"
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-09-14T20:44:04Z",
+    "deletions": 3,
+    "mergedAt": "2014-09-15T12:46:10Z",
+    "number": 167,
+    "title": "Escape column names"
+  },
+  {
+    "additions": 273,
+    "author": {
+      "id": "MDQ6VXNlcjQ4NTM1NDA=",
+      "is_bot": false,
+      "login": "tuespetre",
+      "name": "Derek Gray"
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-09-12T04:11:27Z",
+    "deletions": 9,
+    "mergedAt": "2014-09-15T09:11:48Z",
+    "number": 165,
+    "title": "Added support for expression-based output parameter setting"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjkyMTMyNA==",
+      "is_bot": false,
+      "login": "ronindev",
+      "name": "Igor Shuvalov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-09-11T12:43:50Z",
+    "deletions": 1,
+    "mergedAt": "2014-09-15T13:13:50Z",
+    "number": 164,
+    "title": "Fix improper oledb parameter regex detection"
+  },
+  {
+    "additions": 219,
+    "author": {
+      "id": "MDQ6VXNlcjgyOA==",
+      "is_bot": false,
+      "login": "joergbattermann",
+      "name": "Jörg Battermann"
+    },
+    "changedFiles": 6,
+    "createdAt": "2014-09-07T22:55:38Z",
+    "deletions": 10,
+    "mergedAt": "2014-09-15T13:15:41Z",
+    "number": 162,
+    "title": "Added async/await to Dapper.Rainbow - .Net 4.5 Hooray \\o/"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjEyMTYzNzU=",
+      "is_bot": false,
+      "login": "gregmac",
+      "name": "Greg MacLellan"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-09-02T19:12:58Z",
+    "deletions": 2,
+    "mergedAt": "2014-09-15T12:46:52Z",
+    "number": 159,
+    "title": "Project URL updated to point at github"
+  },
+  {
+    "additions": 9081,
+    "author": {
+      "id": "MDQ6VXNlcjM4MzI1OTE=",
+      "is_bot": false,
+      "login": "jamesholwell",
+      "name": "James Holwell"
+    },
+    "changedFiles": 9,
+    "createdAt": "2014-09-02T16:16:46Z",
+    "deletions": 0,
+    "mergedAt": "2014-09-15T13:07:36Z",
+    "number": 158,
+    "title": "Add support for arbitrary length multi-mapping"
+  },
+  {
+    "additions": 1499,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzA0NTU=",
+      "is_bot": false,
+      "login": "adam-szabo",
+      "name": "Adam Szabo"
+    },
+    "changedFiles": 10,
+    "createdAt": "2014-08-08T15:08:27Z",
+    "deletions": 4,
+    "mergedAt": "2014-09-15T13:26:41Z",
+    "number": 144,
+    "title": "Async CRUD extension methods added to Dapper.Contrib .NET 4.5"
+  },
+  {
+    "additions": 8816,
+    "author": {
+      "id": "MDQ6VXNlcjM4MzI1OTE=",
+      "is_bot": false,
+      "login": "jamesholwell",
+      "name": "James Holwell"
+    },
+    "changedFiles": 5,
+    "createdAt": "2014-08-06T18:23:11Z",
+    "deletions": 0,
+    "mergedAt": "2014-09-15T12:47:57Z",
+    "number": 143,
+    "title": "Issue 138: FSharp.Core references, plus fix up a prompt on Dapper.Contrib.Tests"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjI0NDE0NjQ=",
+      "is_bot": false,
+      "login": "mkonstan",
+      "name": ""
+    },
+    "changedFiles": 4,
+    "createdAt": "2014-08-05T12:53:45Z",
+    "deletions": 4,
+    "mergedAt": "2014-08-05T16:13:20Z",
+    "number": 141,
+    "title": "It does not look like we need above if since we are typecasting value to..."
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjM5NTI1MzI=",
+      "is_bot": false,
+      "login": "brramos",
+      "name": "Billy Ramos"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-07-24T22:48:04Z",
+    "deletions": 0,
+    "mergedAt": "2014-08-05T16:14:18Z",
+    "number": 135,
+    "title": "IsConsumed bool field for MultiQuery"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjYyMzcwMw==",
+      "is_bot": false,
+      "login": "et1975",
+      "name": "Eugene Tolmachev"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-07-22T18:51:39Z",
+    "deletions": 0,
+    "mergedAt": "2014-08-06T10:30:07Z",
+    "number": 134,
+    "title": "Query returning empty results should not throw exception"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjc3NDc5MQ==",
+      "is_bot": false,
+      "login": "DavidKarlas",
+      "name": "David Karlaš"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-07-18T22:17:59Z",
+    "deletions": 1,
+    "mergedAt": "2014-08-05T12:45:14Z",
+    "number": 131,
+    "title": "Removing xapfest.com from Readme"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjUzMjQ3MzU=",
+      "is_bot": false,
+      "login": "jhngrant",
+      "name": "John Grant"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-07-09T13:23:23Z",
+    "deletions": 1,
+    "mergedAt": "2014-07-09T13:36:27Z",
+    "number": 128,
+    "title": "Update Tests.cs"
+  },
+  {
+    "additions": 27,
+    "author": {
+      "id": "MDQ6VXNlcjc5NjUxNTM=",
+      "is_bot": false,
+      "login": "nilpunning",
+      "name": "David O'Meara"
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-06-23T18:25:44Z",
+    "deletions": 1,
+    "mergedAt": "2014-07-01T10:18:51Z",
+    "number": 126,
+    "title": "AmbiguousMatchException with multiple indexers"
+  },
+  {
+    "additions": 26,
+    "author": {
+      "id": "MDQ6VXNlcjc4MDYyODA=",
+      "is_bot": false,
+      "login": "AndrewMSpencer",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-06-05T14:36:05Z",
+    "deletions": 2,
+    "mergedAt": "2014-08-06T10:24:30Z",
+    "number": 124,
+    "title": "Inclusive/Exclusive Where Clauses and Intersect"
+  },
+  {
+    "additions": 116,
+    "author": {
+      "id": "MDQ6VXNlcjM1ODQwNjY=",
+      "is_bot": false,
+      "login": "markjerz",
+      "name": ""
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-06-02T13:00:54Z",
+    "deletions": 53,
+    "mergedAt": "2014-06-02T13:41:00Z",
+    "number": 123,
+    "title": "Re-worked GenerateDeserializers to support new test"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjg5NTYyOQ==",
+      "is_bot": false,
+      "login": "phillip-haydon",
+      "name": "Phillip Haydon"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-05-07T15:19:14Z",
+    "deletions": 12,
+    "mergedAt": "2014-05-08T11:24:10Z",
+    "number": 121,
+    "title": "Removing random Class1"
+  },
+  {
+    "additions": 21,
+    "author": {
+      "id": "MDQ6VXNlcjExODIyNTE=",
+      "is_bot": false,
+      "login": "simonkang",
+      "name": ""
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-02-27T06:11:30Z",
+    "deletions": 3,
+    "mergedAt": "2014-08-05T15:49:09Z",
+    "number": 117,
+    "title": "Added method to use AnsiString as Default"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM2NTUwNDc=",
+      "is_bot": false,
+      "login": "tallesl",
+      "name": "Talles L"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-02-19T19:14:14Z",
+    "deletions": 1,
+    "mergedAt": "2014-05-07T12:30:31Z",
+    "number": 114,
+    "title": "Fixed broken link"
+  },
+  {
+    "additions": 10,
+    "author": {
+      "id": "MDQ6VXNlcjU3NDE4OQ==",
+      "is_bot": false,
+      "login": "ssboisen",
+      "name": "Simon Stender Boisen"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-01-16T14:43:54Z",
+    "deletions": 18,
+    "mergedAt": "2014-05-07T13:00:29Z",
+    "number": 111,
+    "title": "Cleaned up some nesting"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjEzOTIzNzE=",
+      "is_bot": false,
+      "login": "garyhuntddn",
+      "name": "Gary Hunt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-01-14T14:32:52Z",
+    "deletions": 1,
+    "mergedAt": "2015-10-15T16:25:21Z",
+    "number": 110,
+    "title": "Simple Func to allow provision of TypeMaps automatically"
+  },
+  {
+    "additions": 22,
+    "author": {
+      "id": "MDQ6VXNlcjY1NjI4OA==",
+      "is_bot": false,
+      "login": "majorsilence",
+      "name": "Peter Gill"
+    },
+    "changedFiles": 1,
+    "createdAt": "2013-12-20T23:48:41Z",
+    "deletions": 2,
+    "mergedAt": "2014-05-07T12:46:23Z",
+    "number": 109,
+    "title": "Add SQLiteAdapter"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjYyMDU0NjQ=",
+      "is_bot": false,
+      "login": "maurocerutti",
+      "name": "Mauro Cerutti"
+    },
+    "changedFiles": 1,
+    "createdAt": "2013-12-17T13:42:23Z",
+    "deletions": 2,
+    "mergedAt": "2014-09-15T18:42:09Z",
+    "number": 108,
+    "title": "Fixed ArgumentException with DbString parameter list on Oracle"
+  },
+  {
+    "additions": 26,
+    "author": {
+      "id": "MDQ6VXNlcjEzMjE=",
+      "is_bot": false,
+      "login": "aggieben",
+      "name": "Ben Collins"
+    },
+    "changedFiles": 1,
+    "createdAt": "2013-12-08T05:43:20Z",
+    "deletions": 7,
+    "mergedAt": "2014-05-07T12:33:35Z",
+    "number": 106,
+    "title": "add ComputedAttribute to allow support for computed columns on Insert"
+  },
+  {
+    "additions": 102,
+    "author": {
+      "id": "MDQ6VXNlcjU2NDk1OTU=",
+      "is_bot": false,
+      "login": "JJoe2",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2013-11-07T16:54:34Z",
+    "deletions": 0,
+    "mergedAt": "2014-05-07T13:08:06Z",
+    "number": 103,
+    "title": "Added ExecuteReader method"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "id": "MDQ6VXNlcjU0NzEyMA==",
+      "is_bot": false,
+      "login": "youngpay",
+      "name": "YoungPay"
+    },
+    "changedFiles": 1,
+    "createdAt": "2013-11-05T10:22:18Z",
+    "deletions": 6,
+    "mergedAt": "2014-05-07T13:36:24Z",
+    "number": 102,
+    "title": "ThrowDataException is not Complete"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjE3MjIxMzE=",
+      "is_bot": false,
+      "login": "BlackjacketMack",
+      "name": "Rob Mackenzie"
+    },
+    "changedFiles": 1,
+    "createdAt": "2013-10-27T22:28:25Z",
+    "deletions": 2,
+    "mergedAt": "2014-05-07T12:43:44Z",
+    "number": 100,
+    "title": "Added support for ICustomQueryParameters to be members of a dictionary t..."
+  },
+  {
+    "additions": 13,
+    "author": {
+      "id": "MDQ6VXNlcjQ0OTAwNg==",
+      "is_bot": false,
+      "login": "tms",
+      "name": "Tim Stone"
+    },
+    "changedFiles": 2,
+    "createdAt": "2013-10-24T17:25:13Z",
+    "deletions": 10,
+    "mergedAt": "2014-05-07T13:43:24Z",
+    "number": 99,
+    "title": "Make parameter filtering truly culture-insensitive"
+  },
+  {
+    "additions": 30,
+    "author": {
+      "id": "MDQ6VXNlcjE0Mjg2OA==",
+      "is_bot": false,
+      "login": "mjul",
+      "name": "Martin Jul"
+    },
+    "changedFiles": 2,
+    "createdAt": "2013-08-27T11:25:34Z",
+    "deletions": 0,
+    "mergedAt": "2014-05-07T13:48:52Z",
+    "number": 94,
+    "title": "Added DeleteAll method to easily delete all entities in a table"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM5MzA4Ng==",
+      "is_bot": false,
+      "login": "danzel",
+      "name": "Dave Leaver"
+    },
+    "changedFiles": 1,
+    "createdAt": "2013-08-21T02:32:34Z",
+    "deletions": 1,
+    "mergedAt": "2013-09-12T01:56:57Z",
+    "number": 92,
+    "title": "Dapper.Contrib - Fix broken properties cache."
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjE3NzYwOA==",
+      "is_bot": false,
+      "login": "augustoproiete",
+      "name": "C. Augusto Proiete"
+    },
+    "changedFiles": 2,
+    "createdAt": "2013-07-19T00:05:51Z",
+    "deletions": 3,
+    "mergedAt": "2014-08-05T16:20:42Z",
+    "number": 90,
+    "title": "Add mapping for query fields containing underscores to properties with the same name without underscores"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE3NzQ3Ng==",
+      "is_bot": false,
+      "login": "techniq",
+      "name": "Sean Lynch"
+    },
+    "changedFiles": 1,
+    "createdAt": "2013-07-02T15:34:48Z",
+    "deletions": 1,
+    "mergedAt": "2014-05-07T12:45:12Z",
+    "number": 88,
+    "title": "Fix single file (SqlMapper.cs) link"
+  },
+  {
+    "additions": 81,
+    "author": {
+      "id": "MDQ6VXNlcjcwNTQ3Ng==",
+      "is_bot": false,
+      "login": "fbdegroot",
+      "name": "Fabian de Groot"
+    },
+    "changedFiles": 4,
+    "createdAt": "2013-05-02T13:02:23Z",
+    "deletions": 6,
+    "mergedAt": "2013-05-23T14:08:47Z",
+    "number": 81,
+    "title": "Added support for TVP in anonymous objects"
+  },
+  {
+    "additions": 22,
+    "author": {
+      "id": "MDQ6VXNlcjg3MDkyMQ==",
+      "is_bot": false,
+      "login": "vonbv",
+      "name": ""
+    },
+    "changedFiles": 3,
+    "createdAt": "2013-04-01T03:53:51Z",
+    "deletions": 1,
+    "mergedAt": "2014-05-07T13:47:47Z",
+    "number": 79,
+    "title": "Support for \"ignoring Navigation Property\""
+  },
+  {
+    "additions": 54,
+    "author": {
+      "id": "MDQ6VXNlcjM2OTk0Ng==",
+      "is_bot": false,
+      "login": "kppullin",
+      "name": "Kevin Pullin"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-12-15T04:36:39Z",
+    "deletions": 1,
+    "mergedAt": "2015-10-15T15:49:11Z",
+    "number": 70,
+    "title": "Support a default value for DbString.IsAnsi"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjE1ODM1NjQ=",
+      "is_bot": false,
+      "login": "KorsG",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2012-12-10T09:46:44Z",
+    "deletions": 0,
+    "mergedAt": "2013-05-23T13:55:36Z",
+    "number": 69,
+    "title": "DapperRow dynamic invocation fails in Visual basic - fix"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjQ0OTAwNg==",
+      "is_bot": false,
+      "login": "tms",
+      "name": "Tim Stone"
+    },
+    "changedFiles": 1,
+    "createdAt": "2012-12-05T19:56:45Z",
+    "deletions": 3,
+    "mergedAt": "2012-12-06T01:05:17Z",
+    "number": 68,
+    "title": "Updated Table methods to better support multi-DB"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE0NDQ3NjY=",
+      "is_bot": false,
+      "login": "rayjezek",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2012-12-04T21:17:39Z",
+    "deletions": 0,
+    "mergedAt": "2012-12-06T01:06:16Z",
+    "number": 66,
+    "title": "Rainbow: Ignore Id property when calling Table.Insert "
+  },
+  {
+    "additions": 28,
+    "author": {
+      "id": "MDQ6VXNlcjY5NjgyNw==",
+      "is_bot": false,
+      "login": "seburgi",
+      "name": "Seb Burgstaller"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-11-23T11:17:15Z",
+    "deletions": 4,
+    "mergedAt": "2012-11-27T21:11:54Z",
+    "number": 63,
+    "title": "Added database schema support to Dapper.Rainbow"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjExOTM4MQ==",
+      "is_bot": false,
+      "login": "paaschpa",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2012-11-16T23:13:09Z",
+    "deletions": 1,
+    "mergedAt": "2012-11-27T21:10:24Z",
+    "number": 62,
+    "title": "Bug fix for \"Invalid attempt to call MetaData when reader is closed\""
+  },
+  {
+    "additions": 19,
+    "author": {
+      "id": "MDQ6VXNlcjE3NzUwNjc=",
+      "is_bot": false,
+      "login": "TheDavester",
+      "name": ""
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-11-15T17:39:12Z",
+    "deletions": 1,
+    "mergedAt": "2012-11-27T21:12:43Z",
+    "number": 61,
+    "title": "Fixed DapperTable issue"
+  },
+  {
+    "additions": 23,
+    "author": {
+      "id": "MDQ6VXNlcjg5ODU5MA==",
+      "is_bot": false,
+      "login": "bundy845",
+      "name": "Rick Bundren"
+    },
+    "changedFiles": 3,
+    "createdAt": "2012-11-15T17:29:25Z",
+    "deletions": 2,
+    "mergedAt": "2012-11-16T01:45:32Z",
+    "number": 60,
+    "title": "Allows a class to have a reserved word as a column name."
+  },
+  {
+    "additions": 380,
+    "author": {
+      "id": "MDQ6VXNlcjI0OTE4OTE=",
+      "is_bot": false,
+      "login": "mrange",
+      "name": "Mårten Rånge"
+    },
+    "changedFiles": 3,
+    "createdAt": "2012-10-21T18:52:58Z",
+    "deletions": 65,
+    "mergedAt": "2012-10-21T19:04:53Z",
+    "number": 58,
+    "title": "Dapper row"
+  },
+  {
+    "additions": 55,
+    "author": {
+      "id": "MDQ6VXNlcjI0OTE4OTE=",
+      "is_bot": false,
+      "login": "mrange",
+      "name": "Mårten Rånge"
+    },
+    "changedFiles": 1,
+    "createdAt": "2012-10-06T09:25:01Z",
+    "deletions": 15,
+    "mergedAt": "2012-10-08T07:12:50Z",
+    "number": 54,
+    "title": "Applied partial to all Dapper classes and interfaces in order to improve extensibility"
+  },
+  {
+    "additions": 20,
+    "author": {
+      "id": "MDQ6VXNlcjE3NDQ0MTE=",
+      "is_bot": false,
+      "login": "teamyudin",
+      "name": "Voidray"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-10-05T20:40:10Z",
+    "deletions": 1,
+    "mergedAt": "2012-10-07T13:25:22Z",
+    "number": 53,
+    "title": "Multi-Mapping issue with SplitOn"
+  },
+  {
+    "additions": 22,
+    "author": {
+      "id": "MDQ6VXNlcjIxNDM1ODc=",
+      "is_bot": false,
+      "login": "azhmur",
+      "name": "Anatoly Zhmur"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-09-18T11:59:51Z",
+    "deletions": 1,
+    "mergedAt": "2012-09-19T05:35:10Z",
+    "number": 51,
+    "title": "Fixed issue with incorrect generated ParamReader when it has indexing properties declared."
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjQ2MjY0OQ==",
+      "is_bot": false,
+      "login": "romanych",
+      "name": "Roman Gomolko"
+    },
+    "changedFiles": 1,
+    "createdAt": "2012-09-07T08:36:43Z",
+    "deletions": 4,
+    "mergedAt": "2012-09-09T23:35:35Z",
+    "number": 48,
+    "title": "Support of types for Id column in Dapper.Rainbow"
+  },
+  {
+    "additions": 479,
+    "author": {
+      "id": "MDQ6VXNlcjIxNDM1ODc=",
+      "is_bot": false,
+      "login": "azhmur",
+      "name": "Anatoly Zhmur"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-08-14T12:33:41Z",
+    "deletions": 87,
+    "mergedAt": "2012-09-04T07:57:04Z",
+    "number": 47,
+    "title": "Added support for custom property/field mapping in TypeDeserializer"
+  },
+  {
+    "additions": 16,
+    "author": {
+      "id": "MDQ6VXNlcjE3NzUyNDc=",
+      "is_bot": false,
+      "login": "jkonecki",
+      "name": "Jakub Konecki"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-08-06T17:40:11Z",
+    "deletions": 3,
+    "mergedAt": "2012-08-07T10:33:21Z",
+    "number": 45,
+    "title": "Fix for issue #70 (support for TimeSpan)"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjc0OTg3Ng==",
+      "is_bot": false,
+      "login": "garjitech",
+      "name": "Garrett Wolf"
+    },
+    "changedFiles": 1,
+    "createdAt": "2012-07-15T00:20:53Z",
+    "deletions": 1,
+    "mergedAt": "2012-07-15T12:07:40Z",
+    "number": 42,
+    "title": "Capitalize \"id\" to maintain consitency"
+  },
+  {
+    "additions": 68,
+    "author": {
+      "id": "MDQ6VXNlcjM4MTcxOA==",
+      "is_bot": false,
+      "login": "joaomatossilva",
+      "name": "Joao Matos Silva"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-07-12T19:28:40Z",
+    "deletions": 2,
+    "mergedAt": "2012-08-07T10:28:43Z",
+    "number": 40,
+    "title": "Added dynamic query like for CSharp30."
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE2OTYwMTU=",
+      "is_bot": false,
+      "login": "SwissCheeze",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2012-07-02T18:27:21Z",
+    "deletions": 0,
+    "mergedAt": "2012-07-02T23:47:16Z",
+    "number": 39,
+    "title": "sql_variant support query parameters and SQL Server"
+  },
+  {
+    "additions": 81,
+    "author": {
+      "id": "MDQ6VXNlcjEwMTUwODA=",
+      "is_bot": false,
+      "login": "RichCzyzewski",
+      "name": "Rich"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-06-21T15:24:38Z",
+    "deletions": 0,
+    "mergedAt": "2012-06-21T23:02:30Z",
+    "number": 38,
+    "title": "Updated DynamicParameters to allow inheritance of the AddParameters"
+  },
+  {
+    "additions": 84,
+    "author": {
+      "id": "MDQ6VXNlcjM4MTcxOA==",
+      "is_bot": false,
+      "login": "joaomatossilva",
+      "name": "Joao Matos Silva"
+    },
+    "changedFiles": 1,
+    "createdAt": "2012-06-11T16:20:45Z",
+    "deletions": 1,
+    "mergedAt": "2012-06-13T05:21:07Z",
+    "number": 37,
+    "title": "Adding some common used overloads for Query, Execute and QueryMultiple"
+  },
+  {
+    "additions": 24,
+    "author": {
+      "id": "MDQ6VXNlcjE3NzUyNDc=",
+      "is_bot": false,
+      "login": "jkonecki",
+      "name": "Jakub Konecki"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-05-28T22:44:53Z",
+    "deletions": 0,
+    "mergedAt": "2012-08-07T10:36:00Z",
+    "number": 36,
+    "title": "Replicated a bug 'Dapper MultiMap doesn't work with splitOn with NULL value'"
+  },
+  {
+    "additions": 49,
+    "author": {
+      "id": "MDQ6VXNlcjEzOTY=",
+      "is_bot": false,
+      "login": "anaisbetts",
+      "name": "Ani Betts"
+    },
+    "changedFiles": 1,
+    "createdAt": "2012-05-28T19:03:20Z",
+    "deletions": 0,
+    "mergedAt": "2012-05-28T23:53:24Z",
+    "number": 35,
+    "title": "Add a .gitattributes"
+  },
+  {
+    "additions": 356,
+    "author": {
+      "id": "MDQ6VXNlcjc4MDUyMQ==",
+      "is_bot": false,
+      "login": "michael-wolfenden",
+      "name": "Michael Wolfenden"
+    },
+    "changedFiles": 1,
+    "createdAt": "2012-05-11T03:33:01Z",
+    "deletions": 1,
+    "mergedAt": "2012-05-11T05:59:40Z",
+    "number": 34,
+    "title": "Updated Readme"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjg2ODk0NQ==",
+      "is_bot": false,
+      "login": "xps",
+      "name": "Xavier Poinas"
+    },
+    "changedFiles": 1,
+    "createdAt": "2012-04-25T02:52:31Z",
+    "deletions": 2,
+    "mergedAt": "2012-04-26T23:02:51Z",
+    "number": 33,
+    "title": "Fixed a NullReferenceException when merging DynamicParameters"
+  },
+  {
+    "additions": 179,
+    "author": {
+      "id": "MDQ6VXNlcjUxOTI1",
+      "is_bot": false,
+      "login": "brannon",
+      "name": "Brannon Jones"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-04-18T21:54:24Z",
+    "deletions": 37,
+    "mergedAt": "2012-04-26T23:02:11Z",
+    "number": 32,
+    "title": "Add support for dictionaries/expandos to DynamicParameters + Refactoring"
+  },
+  {
+    "additions": 12221,
+    "author": {
+      "id": "MDQ6VXNlcjUxOTI1",
+      "is_bot": false,
+      "login": "brannon",
+      "name": "Brannon Jones"
+    },
+    "changedFiles": 11,
+    "createdAt": "2012-03-30T22:29:26Z",
+    "deletions": 2,
+    "mergedAt": "2012-04-03T00:59:55Z",
+    "number": 31,
+    "title": "Add Npgsql nuget package"
+  },
+  {
+    "additions": 175,
+    "author": {
+      "id": "MDQ6VXNlcjQ4NDQ0Mg==",
+      "is_bot": false,
+      "login": "jedidja",
+      "name": "Jedidja"
+    },
+    "changedFiles": 3,
+    "createdAt": "2012-03-23T13:05:48Z",
+    "deletions": 116,
+    "mergedAt": "2012-03-25T23:39:43Z",
+    "number": 30,
+    "title": "SQL Compact 4 support"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjM5MzA4Ng==",
+      "is_bot": false,
+      "login": "danzel",
+      "name": "Dave Leaver"
+    },
+    "changedFiles": 1,
+    "createdAt": "2012-03-22T22:50:58Z",
+    "deletions": 0,
+    "mergedAt": "2012-03-23T03:40:42Z",
+    "number": 29,
+    "title": "Throw an exception when asked to Delete<MyType>(null)"
+  },
+  {
+    "additions": 413,
+    "author": {
+      "id": "MDQ6VXNlcjQ4NDQ0Mg==",
+      "is_bot": false,
+      "login": "jedidja",
+      "name": "Jedidja"
+    },
+    "changedFiles": 3,
+    "createdAt": "2012-03-20T15:43:45Z",
+    "deletions": 354,
+    "mergedAt": "2012-08-07T11:15:14Z",
+    "number": 28,
+    "title": "SQL Compact 4"
+  },
+  {
+    "additions": 54,
+    "author": {
+      "id": "MDQ6VXNlcjEwMzEyNDY=",
+      "is_bot": false,
+      "login": "greygeek",
+      "name": "David Chell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-03-12T01:06:05Z",
+    "deletions": 2,
+    "mergedAt": "2012-03-12T01:17:52Z",
+    "number": 27,
+    "title": "Added test for Posgresql Array parameters"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjEwMzEyNDY=",
+      "is_bot": false,
+      "login": "greygeek",
+      "name": "David Chell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-03-11T23:59:21Z",
+    "deletions": 8,
+    "mergedAt": "2012-03-12T00:01:40Z",
+    "number": 26,
+    "title": "Added test for insert updating object's key"
+  },
+  {
+    "additions": 107,
+    "author": {
+      "id": "MDQ6VXNlcjEwMzEyNDY=",
+      "is_bot": false,
+      "login": "greygeek",
+      "name": "David Chell"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-03-11T22:51:20Z",
+    "deletions": 52,
+    "mergedAt": "2012-03-11T23:36:49Z",
+    "number": 25,
+    "title": "Update object's key(s) after insert and array parameter support."
+  },
+  {
+    "additions": 287,
+    "author": {
+      "id": "MDQ6VXNlcjEyMDYzNzY=",
+      "is_bot": false,
+      "login": "vosen",
+      "name": "Andrzej Janik"
+    },
+    "changedFiles": 2,
+    "createdAt": "2012-03-05T12:13:18Z",
+    "deletions": 46,
+    "mergedAt": "2012-08-07T10:26:36Z",
+    "number": 23,
+    "title": "Materialization of objects with constructor matching values returned by query."
+  },
+  {
+    "additions": 56,
+    "author": {
+      "id": "MDQ6VXNlcjg2ODk0NQ==",
+      "is_bot": false,
+      "login": "xps",
+      "name": "Xavier Poinas"
+    },
+    "changedFiles": 3,
+    "createdAt": "2012-02-17T11:14:09Z",
+    "deletions": 0,
+    "mergedAt": "2012-02-17T11:15:23Z",
+    "number": 22,
+    "title": "Small but useful (I think) additions"
+  },
+  {
+    "additions": 99,
+    "author": {
+      "id": "MDQ6VXNlcjEwMzEyNDY=",
+      "is_bot": false,
+      "login": "greygeek",
+      "name": "David Chell"
+    },
+    "changedFiles": 1,
+    "createdAt": "2011-09-06T21:48:42Z",
+    "deletions": 20,
+    "mergedAt": "2012-01-22T23:15:30Z",
+    "number": 15,
+    "title": "Added postresql support for Insert to return primary key of inserted row."
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjk1OTExMA==",
+      "is_bot": false,
+      "login": "andrxs",
+      "name": "andres Jara"
+    },
+    "changedFiles": 1,
+    "createdAt": "2011-09-03T02:47:44Z",
+    "deletions": 11,
+    "mergedAt": "2011-09-05T00:15:19Z",
+    "number": 14,
+    "title": "Dapper.Contrib Insert Fails"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjg2NjM4OQ==",
+      "is_bot": false,
+      "login": "DmitryNaumov",
+      "name": "Dmitry Naumov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2011-06-22T09:58:25Z",
+    "deletions": 2,
+    "mergedAt": "2011-06-22T11:42:03Z",
+    "number": 9,
+    "title": "Added NHibernate test"
+  },
+  {
+    "additions": 104,
+    "author": {
+      "id": "MDQ6VXNlcjI3OTU0MA==",
+      "is_bot": false,
+      "login": "nberardi",
+      "name": "Nick Berardi"
+    },
+    "changedFiles": 1,
+    "createdAt": "2011-05-18T19:26:01Z",
+    "deletions": 1,
+    "mergedAt": "2011-05-19T03:09:13Z",
+    "number": 5,
+    "title": "Adding IDictionary<string,object> to FastExpando"
+  },
+  {
+    "additions": 12,
+    "author": {
+      "id": "MDQ6VXNlcjYzODQ4",
+      "is_bot": false,
+      "login": "mcliment",
+      "name": "Marc Climent"
+    },
+    "changedFiles": 1,
+    "createdAt": "2011-05-05T11:03:34Z",
+    "deletions": 0,
+    "mergedAt": "2011-05-08T23:27:04Z",
+    "number": 3,
+    "title": "More NHibernate tests"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjE3ODI0Mg==",
+      "is_bot": false,
+      "login": "ThatRendle",
+      "name": "Rendle"
+    },
+    "changedFiles": 6,
+    "createdAt": "2011-04-18T10:21:39Z",
+    "deletions": 0,
+    "mergedAt": "2011-04-19T00:24:44Z",
+    "number": 2,
+    "title": "Simple.Data"
+  }
+]

@@ -1,0 +1,3099 @@
+[
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk0NTE2OA==",
+      "is_bot": false,
+      "login": "EdCharbeneau",
+      "name": "Ed Charbeneau"
+    },
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2025-10-21T12:21:49Z",
+    "labels": [],
+    "number": 143,
+    "state": "OPEN",
+    "title": "More control over HTTP is needed"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk0NTE2OA==",
+      "is_bot": false,
+      "login": "EdCharbeneau",
+      "name": "Ed Charbeneau"
+    },
+    "closedAt": "2025-10-22T10:29:37Z",
+    "comments": [
+      {
+        "id": "IC_kwDOCLowCc7MgH9C",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "Looking into it @EdCharbeneau ",
+        "createdAt": "2025-10-22T08:08:43Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/142#issuecomment-3430973250",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "IC_kwDOCLowCc7Mirp3",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "Should be fixed now @EdCharbeneau ",
+        "createdAt": "2025-10-22T10:30:20Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "HOORAY",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/142#issuecomment-3431643767",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2025-10-21T12:13:34Z",
+    "labels": [],
+    "number": 142,
+    "state": "CLOSED",
+    "title": "Generated models resolve to `object` and do not include children. Some are incorrect."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4NDQ1MTA1",
+      "is_bot": false,
+      "login": "BlueWings98",
+      "name": "Sebastian Novoa"
+    },
+    "closedAt": "2024-10-19T08:41:02Z",
+    "comments": [
+      {
+        "id": "IC_kwDOCLowCc6Qdq-i",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@BlueWings98 thanks. The pipelines currently don't run. This library has been on standstill for a while. I'm hoping to do a new version soon, and when that happens, I'll run the tests on GitHub actions. \r\n\r\n",
+        "createdAt": "2024-10-19T08:41:02Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/137#issuecomment-2423697314",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "IC_kwDOCLowCc6QpFOx",
+        "author": {
+          "login": "BlueWings98"
+        },
+        "authorAssociation": "NONE",
+        "body": "@MelbourneDeveloper I think the best next move would be to try to make this project more open-source friendly, that way you wouldnt be alone developing this. Creating a better readme would be a great first step.",
+        "createdAt": "2024-10-21T13:28:46Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/137#issuecomment-2426688433",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "IC_kwDOCLowCc6QtNwU",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@BlueWings98 what's the issue with the readme?",
+        "createdAt": "2024-10-21T21:34:20Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/137#issuecomment-2427771924",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "IC_kwDOCLowCc6QystY",
+        "author": {
+          "login": "BlueWings98"
+        },
+        "authorAssociation": "NONE",
+        "body": "@MelbourneDeveloper \r\nFirst, one of the images link is broken.\r\n<img width=\"255\" alt=\"image\" src=\"https://github.com/user-attachments/assets/62eb456d-030a-405f-8220-b7cf45d2906d\">\r\n\r\nDoesn't really tell you how to install and run the project.\r\nThe contribution section is hidden at the very end and could be expanded.\r\nIt would be very helpful to have a rundown of the design of the project, to understand how everything is organized, specially because an analizing software that I used picked up many projects within the solution. Many of them just generating noise. \r\n**TLDR:** If we want people to help the project we need to make them unsderstand the project easiest as possible, in order to reduce the cognitive complexity.",
+        "createdAt": "2024-10-22T12:54:55Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/137#issuecomment-2429209432",
+        "viewerDidAuthor": false
+      }
+    ],
+    "createdAt": "2024-04-15T15:34:04Z",
+    "labels": [],
+    "number": 137,
+    "state": "CLOSED",
+    "title": "Typo on Workflows File"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4NDQ1MTA1",
+      "is_bot": false,
+      "login": "BlueWings98",
+      "name": "Sebastian Novoa"
+    },
+    "closedAt": "2024-04-24T21:40:37Z",
+    "comments": [
+      {
+        "id": "IC_kwDOCLowCc57u6PN",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "None of these are in the core libraries that get deployed to NuGet so I'm not worried about them",
+        "createdAt": "2024-04-24T21:40:37Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/136#issuecomment-2075894733",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2024-03-27T18:37:42Z",
+    "labels": [],
+    "number": 136,
+    "state": "CLOSED",
+    "title": "Snyk.io Automated Vulnerabilities Testing Results"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4NDQ1MTA1",
+      "is_bot": false,
+      "login": "BlueWings98",
+      "name": "Sebastian Novoa"
+    },
+    "closedAt": "2024-04-24T21:39:30Z",
+    "comments": [
+      {
+        "id": "IC_kwDOCLowCc57u56g",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@BlueWings98 these are examples and don't affect the packages. Some legacy stuff here is for .NET framework support. Won't be changing these any time soon.",
+        "createdAt": "2024-04-24T21:39:30Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/135#issuecomment-2075893408",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2024-03-27T18:04:09Z",
+    "labels": [],
+    "number": 135,
+    "state": "CLOSED",
+    "title": "Need to update Packages on the Main Branch"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwMTY1ODU2",
+      "is_bot": false,
+      "login": "foximoxi",
+      "name": "Mikolaj Kowalski"
+    },
+    "closedAt": "2022-10-28T07:52:05Z",
+    "comments": [],
+    "createdAt": "2022-10-28T07:45:25Z",
+    "labels": [],
+    "number": 122,
+    "state": "CLOSED",
+    "title": "Empty body when server returns error"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2022-04-10T00:38:43Z",
+    "labels": [],
+    "number": 107,
+    "state": "OPEN",
+    "title": "Typed Clients"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjkzOTQ3Ng==",
+      "is_bot": false,
+      "login": "crichmond",
+      "name": ""
+    },
+    "closedAt": "2022-04-01T23:51:19Z",
+    "comments": [],
+    "createdAt": "2022-03-26T14:32:58Z",
+    "labels": [],
+    "number": 106,
+    "state": "CLOSED",
+    "title": "Is this project pure .NET or does it rely on any 3rd party/external DLL's?  "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3OTAzNTc=",
+      "is_bot": false,
+      "login": "DrLeh",
+      "name": "Devon Lehman"
+    },
+    "closedAt": "2022-04-09T03:14:49Z",
+    "comments": [
+      {
+        "id": "IC_kwDOCLowCc41hc37",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@DrLeh thanks for reporting. I will get to this and the PR soon.",
+        "createdAt": "2021-08-12T20:55:38Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/98#issuecomment-897961467",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "IC_kwDOCLowCc5BL3mg",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "Hi @DrLeh . I thought you might like to know that I finally addressed the issue you logged here. I used part of your unit test from another branch, but I did not follow the same path to fix the issue. You can see how the problem was solved here:\r\n\r\nhttps://github.com/MelbourneDeveloper/RestClient.Net/blob/4f57df1d8d489f53b6d5acd37d7aa3e952faea51/src/RestClient.Net.UnitTests/MicrosoftDependencyInjectionTests2.cs#L82\r\n\r\n",
+        "createdAt": "2022-04-09T03:14:48Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/98#issuecomment-1093630368",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2021-08-11T16:34:07Z",
+    "labels": [],
+    "number": 98,
+    "state": "CLOSED",
+    "title": "Overload for dependency injection that accepts Action<CreateClientOptions, IServiceProvider>"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQwNzU4MzM3",
+      "is_bot": false,
+      "login": "TipluKevin",
+      "name": "Kevin Holst"
+    },
+    "closedAt": "2021-05-28T07:07:03Z",
+    "comments": [],
+    "createdAt": "2021-05-28T06:41:39Z",
+    "labels": [],
+    "number": 97,
+    "state": "CLOSED",
+    "title": "ProtobufSerializationAdapter cannot get resolved"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-03-20T04:02:12Z",
+    "comments": [],
+    "createdAt": "2020-11-21T20:33:48Z",
+    "labels": [],
+    "number": 82,
+    "state": "CLOSED",
+    "title": "Wrong Http Method Logged"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-03-20T04:02:22Z",
+    "comments": [],
+    "createdAt": "2020-11-07T04:17:11Z",
+    "labels": [],
+    "number": 81,
+    "state": "CLOSED",
+    "title": "Uri Concatenation Issue"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0OTE3Nw==",
+      "is_bot": false,
+      "login": "benjamingb",
+      "name": "ßεηjαmιη"
+    },
+    "closedAt": "2020-11-20T22:19:29Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDcyMzMzMjA3NA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@benjamingb if you want to manually deserialize, just return a string:\r\n\r\n```cs\r\nawait client.GetAsync<string>();\r\n```",
+        "createdAt": "2020-11-06T22:40:52Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/80#issuecomment-723332074",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDcyMzM4ODg5NA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@benjamingb Hi. This issue will be closed soon. Please let me know if this doesn't solve your issue.",
+        "createdAt": "2020-11-07T04:15:40Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/80#issuecomment-723388894",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-11-06T22:39:29Z",
+    "labels": [],
+    "number": 80,
+    "state": "CLOSED",
+    "title": "Desearialize manually?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2020-10-30T22:22:02Z",
+    "comments": [],
+    "createdAt": "2020-10-30T22:18:37Z",
+    "labels": [],
+    "number": 79,
+    "state": "CLOSED",
+    "title": "Use ILogger with Generics"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzMzkzNDA=",
+      "is_bot": false,
+      "login": "CodeRedPaul",
+      "name": "Paul M Sorauer"
+    },
+    "closedAt": "2021-05-26T21:17:27Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDcxMzA5NjU1Ng==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@CodeRedPaul sorry about this. I never ended up releasing this NuGet because it only ended up being a couple of classes. You can see them here:\r\n\r\nhttps://github.com/MelbourneDeveloper/RestClient.Net/tree/main/src/RestClient.Net.DependencyInjection\r\n\r\nThe easiest thing for you would be to simply add the Microsoft NuGet packages. I think they are \r\n\r\nMicrosoft.Extensions.Http and maybe\r\nMicrosoft.Extensions.DependencyInjection\r\n\r\nThen, just drop the two classes above in to your project. Let me know how it goes and I may update the documentation for other people as well.\r\n\r\n",
+        "createdAt": "2020-10-20T19:44:14Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/78#issuecomment-713096556",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-10-20T11:51:13Z",
+    "labels": [],
+    "number": 78,
+    "state": "CLOSED",
+    "title": "Where is RestClient.Net.DependencyInjection?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYwODkxMDUw",
+      "is_bot": false,
+      "login": "gecko2308",
+      "name": ""
+    },
+    "closedAt": "2021-03-20T04:03:11Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY5NTg4MDU3Nw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@gcogneau Hi. Please post the code that relates to RestClient.Net.",
+        "createdAt": "2020-09-21T03:01:41Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/77#issuecomment-695880577",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY5NjA2NzIxOA==",
+        "author": {
+          "login": "gecko2308"
+        },
+        "authorAssociation": "NONE",
+        "body": "    Async Function api_global() As Task(Of Response)\r\n        ServicePointManager.ServerCertificateValidationCallback = AddressOf AcceptAllCertifications\r\n        Dim client = New Client(New JsonSerializationAdapter(), New Uri(\"https://192.168.2.222:8443/api/v2/cmdb/system/global?access_token=qd578y9mczfj40Q1rcf4n50fzGG1mN\"))\r\n\r\n        Try\r\n            Dim response = Await client.GetAsync(Of api_global)()\r\n            Console.WriteLine(response.IsSuccess)\r\n            Return response\r\n\r\n        Catch ex As Exception\r\n            Console.WriteLine(ex.Message)\r\n            Return Nothing\r\n        End Try\r\n    End Function\r\n\r\n-------------------------------------------------\r\n\r\nImports System.Runtime.Serialization\r\nImports Newtonsoft.Json\r\n\r\nPublic Class api_global\r\n    Public Property http_method As String\r\n    Public Property revision As String\r\n    Public Property results As Results\r\n    Public Property vdom As String\r\n    Public Property path As String\r\n    Public Property name As String\r\n    Public Property status As String\r\n    Public Property http_status As Integer\r\n    Public Property serial As String\r\n    Public Property version As String\r\n    Public Property build As Integer\r\nEnd Class\r\n\r\nPublic Class Results\r\n    Public Property language As String\r\n\r\n    <JsonProperty(PropertyName:=\"gui-ipv6\")>\r\n    Public Property guiipv6 As String\r\n    Public Property gui_certificates As String\r\n    Public Property guicustomlanguage As String\r\n    Public Property guiwirelessopensecurity As String\r\n    Public Property guidisplayhostname As String\r\n    Public Property guifortisandboxcloud As String\r\n\r\n\r\n    Public Property guilinesperpage As Integer\r\n\r\n    <JsonProperty(PropertyName:=\"admin-https-ssl-versions\")>\r\n    Public Property adminhttpssslversions As String\r\n    Public Property admintimeout As Integer\r\n    Public Property adminconsoletimeout As Integer\r\n    Public Property ssdtrimfreq As String\r\n    Public Property ssdtrimhour As Integer\r\n    Public Property ssdtrimmin As Integer\r\n    Public Property ssdtrimweekday As String\r\n    Public Property ssdtrimdate As Integer\r\n    Public Property adminconcurrent As String\r\n    Public Property adminlockoutthreshold As Integer\r\n    Public Property adminlockoutduration As Integer\r\n    Public Property refresh As Integer\r\n    Public Property interval As Integer\r\n    Public Property failtime As Integer\r\n    Public Property dailyrestart As String\r\n    Public Property restarttime As String\r\n    Public Property radiusport As Integer\r\n    Public Property adminloginmax As Integer\r\n    Public Property remoteauthtimeout As Integer\r\n    Public Property ldapconntimeout As Integer\r\n    Public Property batchcmdb As String\r\n    Public Property multifactorauthentication As String\r\n    Public Property sslminprotoversion As String\r\n    Public Property autorunlogfsck As String\r\n    Public Property dst As String\r\n    Public Property timezone As String\r\n    Public Property trafficpriority As String\r\n    Public Property trafficprioritylevel As String\r\n    Public Property antireplay As String\r\n    Public Property sendpmtuicmp As String\r\n    Public Property honordf As String\r\n    Public Property revisionimageautobackup As String\r\n    Public Property revisionbackuponlogout As String\r\n    Public Property managementvdom As String\r\n    Public Property hostname As String\r\n    Public Property guiallowdefaulthostname As String\r\n    Public Property _alias As String\r\n    Public Property strongcrypto As String\r\n    Public Property sshcbccipher As String\r\n    Public Property sshhmacmd5 As String\r\n    Public Property sshkexsha1 As String\r\n    Public Property sshmacweak As String\r\n    Public Property sslstatickeyciphers As String\r\n    Public Property snatroutechange As String\r\n    Public Property cliauditlog As String\r\n    Public Property dhparams As String\r\n    Public Property fdsstatistics As String\r\n    Public Property fdsstatisticsperiod As Integer\r\n    Public Property tcpoption As String\r\n    Public Property lldptransmission As String\r\n    Public Property lldpreception As String\r\n    Public Property proxyauthtimeout As Integer\r\n    Public Property proxyreauthenticationmode As String\r\n    Public Property proxyauthlifetime As String\r\n    Public Property proxyauthlifetimetimeout As Integer\r\n    Public Property sysperfloginterval As Integer\r\n    Public Property checkprotocolheader As String\r\n    Public Property viparprange As String\r\n    Public Property resetsessionlesstcp As String\r\n    Public Property allowtrafficredirect As String\r\n    Public Property strictdirtysessioncheck As String\r\n    Public Property tcphalfclosetimer As Integer\r\n    Public Property tcphalfopentimer As Integer\r\n    Public Property tcptimewaittimer As Integer\r\n    Public Property udpidletimer As Integer\r\n    Public Property blocksessiontimer As Integer\r\n    Public Property ipsrcportrange As String\r\n    Public Property preloginbanner As String\r\n    Public Property postloginbanner As String\r\n    Public Property tftp As String\r\n    Public Property avfailopen As String\r\n    Public Property avfailopensession As String\r\n    Public Property memoryusethresholdextreme As Integer\r\n    Public Property memoryusethresholdred As Integer\r\n    Public Property memoryusethresholdgreen As Integer\r\n    Public Property cpuusethreshold As Integer\r\n    Public Property checkresetrange As String\r\n    Public Property vdommode As String\r\n    Public Property vdomadmin As String\r\n    Public Property longvdomname As String\r\n    Public Property adminport As Integer\r\n    Public Property adminsport As Integer\r\n    Public Property adminhttpsredirect As String\r\n    Public Property adminhstsmaxage As Integer\r\n    Public Property adminsshpassword As String\r\n    Public Property adminrestrictlocal As String\r\n    Public Property adminsshport As Integer\r\n    Public Property adminsshgracetime As Integer\r\n    Public Property adminsshv1 As String\r\n    Public Property admintelnet As String\r\n    Public Property admintelnetport As Integer\r\n    Public Property defaultservicesourceport As String\r\n    Public Property adminmaintainer As String\r\n    Public Property adminservercert As String\r\n    Public Property userservercert As String\r\n    Public Property adminhttpspkirequired As String\r\n    Public Property wificertificate As String\r\n    Public Property wificacertificate As String\r\n    Public Property authhttpport As Integer\r\n    Public Property authhttpsport As Integer\r\n    Public Property authkeepalive As String\r\n    Public Property policyauthconcurrent As Integer\r\n    Public Property authsessionlimit As String\r\n    Public Property authcert As String\r\n    Public Property cltcertreq As String\r\n    Public Property fortiserviceport As Integer\r\n    Public Property cfgsave As String\r\n    Public Property cfgreverttimeout As Integer\r\n    Public Property rebootuponconfigrestore As String\r\n    Public Property adminscp As String\r\n    Public Property securityratingresultsubmission As String\r\n    Public Property securityratingrunonschedule As String\r\n    Public Property wirelesscontroller As String\r\n    Public Property wirelesscontrollerport As Integer\r\n    Public Property fortiextenderdataport As Integer\r\n    Public Property fortiextender As String\r\n    Public Property fortiextendervlanmode As String\r\n    Public Property switchcontroller As String\r\n    Public Property switchcontrollerreservednetwork As String\r\n    Public Property dnsproxyworkercount As Integer\r\n    Public Property urlfiltercount As Integer\r\n    Public Property proxyworkercount As Integer\r\n    Public Property scanunitcount As Integer\r\n    Public Property proxykxphardwareacceleration As String\r\n    Public Property proxycipherhardwareacceleration As String\r\n    Public Property fgdalertsubscription As String\r\n    Public Property ipsechmacoffload As String\r\n    Public Property ipv6acceptdad As Integer\r\n    Public Property ipv6allowanycastprobe As String\r\n    Public Property csrcaattribute As String\r\n    Public Property wimax4gusb As String\r\n    Public Property certchainmax As Integer\r\n    Public Property sslvpnmaxworkercount As Integer\r\n    Public Property sslvpnpluginversioncheck As String\r\n    Public Property twofactorftkexpiry As Integer\r\n    Public Property twofactoremailexpiry As Integer\r\n    Public Property twofactorsmsexpiry As Integer\r\n    Public Property twofactorfacexpiry As Integer\r\n    Public Property twofactorftmexpiry As Integer\r\n    Public Property peruserbwl As String\r\n    Public Property virtualservercount As Integer\r\n    Public Property virtualserverhardwareacceleration As String\r\n    Public Property wadworkercount As Integer\r\n    Public Property wadcsvccscount As Integer\r\n    Public Property wadcsvcdbcount As Integer\r\n    Public Property wadsourceaffinity As String\r\n    Public Property wadmemorychangegranularity As Integer\r\n    Public Property logintimestamp As String\r\n    Public Property miglogdchildren As Integer\r\n    Public Property specialfile23support As String\r\n    Public Property loguuidpolicy As String\r\n    Public Property loguuidaddress As String\r\n    Public Property logsslconnection As String\r\n    Public Property arpmaxentry As Integer\r\n    Public Property avaffinity As String\r\n    Public Property wadaffinity As String\r\n    Public Property ipsaffinity As String\r\n    Public Property miglogaffinity As String\r\n    Public Property urlfilteraffinity As String\r\n    Public Property ndpmaxentry As Integer\r\n    Public Property brfdbmaxentry As Integer\r\n    Public Property maxroutecachesize As Integer\r\n    Public Property ipsecasicoffload As String\r\n    Public Property ipsecsoftdecasync As String\r\n    Public Property deviceidletimeout As Integer\r\n    Public Property guidevicelatitude As String\r\n    Public Property guidevicelongitude As String\r\n    Public Property privatedataencryption As String\r\n    Public Property autoauthextensiondevice As String\r\n    Public Property guitheme As String\r\n    Public Property guidateformat As String\r\n    Public Property guidatetimesource As String\r\n    Public Property igmpstatelimit As Integer\r\n    Public Property cloudcommunication As String\r\n    Public Property fecport As Integer\r\n    Public Property fortitokencloud As String\r\nEnd Class\r\n\r\n-----------------------------------------------------------------------\r\nJSON RESPONSE:\r\n\r\n{\r\n  \"http_method\":\"GET\",\r\n  \"revision\":\"f38252d751a447443410a7639e54d791\",\r\n  \"results\":{\r\n    \"language\":\"english\",\r\n    \"gui-ipv6\":\"disable\",\r\n    \"gui-certificates\":\"enable\",\r\n    \"gui-custom-language\":\"disable\",\r\n    \"gui-wireless-opensecurity\":\"disable\",\r\n    \"gui-display-hostname\":\"disable\",\r\n    \"gui-fortisandbox-cloud\":\"disable\",\r\n    \"gui-lines-per-page\":50,\r\n    \"admin-https-ssl-versions\":\"tlsv1-1 tlsv1-2 tlsv1-3\",\r\n    \"admintimeout\":5,\r\n    \"admin-console-timeout\":0,\r\n    \"ssd-trim-freq\":\"weekly\",\r\n    \"ssd-trim-hour\":1,\r\n    \"ssd-trim-min\":60,\r\n    \"ssd-trim-weekday\":\"sunday\",\r\n    \"ssd-trim-date\":1,\r\n    \"admin-concurrent\":\"enable\",\r\n    \"admin-lockout-threshold\":3,\r\n    \"admin-lockout-duration\":60,\r\n    \"refresh\":0,\r\n    \"interval\":5,\r\n    \"failtime\":5,\r\n    \"daily-restart\":\"disable\",\r\n    \"restart-time\":\"00:00\",\r\n    \"radius-port\":1812,\r\n    \"admin-login-max\":100,\r\n    \"remoteauthtimeout\":5,\r\n    \"ldapconntimeout\":500,\r\n    \"batch-cmdb\":\"enable\",\r\n    \"multi-factor-authentication\":\"optional\",\r\n    \"ssl-min-proto-version\":\"TLSv1-2\",\r\n    \"autorun-log-fsck\":\"disable\",\r\n    \"dst\":\"enable\",\r\n    \"timezone\":\"12\",\r\n    \"traffic-priority\":\"tos\",\r\n    \"traffic-priority-level\":\"medium\",\r\n    \"anti-replay\":\"strict\",\r\n    \"send-pmtu-icmp\":\"enable\",\r\n    \"honor-df\":\"enable\",\r\n    \"revision-image-auto-backup\":\"disable\",\r\n    \"revision-backup-on-logout\":\"disable\",\r\n    \"management-vdom\":\"root\",\r\n    \"hostname\":\"test\",\r\n    \"gui-allow-default-hostname\":\"disable\",\r\n    \"alias\":\"FortiGate-VM64\",\r\n    \"strong-crypto\":\"enable\",\r\n    \"ssh-cbc-cipher\":\"enable\",\r\n    \"ssh-hmac-md5\":\"enable\",\r\n    \"ssh-kex-sha1\":\"enable\",\r\n    \"ssh-mac-weak\":\"enable\",\r\n    \"ssl-static-key-ciphers\":\"enable\",\r\n    \"snat-route-change\":\"disable\",\r\n    \"cli-audit-log\":\"disable\",\r\n    \"dh-params\":\"2048\",\r\n    \"fds-statistics\":\"enable\",\r\n    \"fds-statistics-period\":60,\r\n    \"tcp-option\":\"enable\",\r\n    \"lldp-transmission\":\"disable\",\r\n    \"lldp-reception\":\"disable\",\r\n    \"proxy-auth-timeout\":10,\r\n    \"proxy-re-authentication-mode\":\"session\",\r\n    \"proxy-auth-lifetime\":\"disable\",\r\n    \"proxy-auth-lifetime-timeout\":480,\r\n    \"sys-perf-log-interval\":5,\r\n    \"check-protocol-header\":\"loose\",\r\n    \"vip-arp-range\":\"restricted\",\r\n    \"reset-sessionless-tcp\":\"disable\",\r\n    \"allow-traffic-redirect\":\"enable\",\r\n    \"strict-dirty-session-check\":\"enable\",\r\n    \"tcp-halfclose-timer\":120,\r\n    \"tcp-halfopen-timer\":10,\r\n    \"tcp-timewait-timer\":1,\r\n    \"udp-idle-timer\":180,\r\n    \"block-session-timer\":30,\r\n    \"ip-src-port-range\":\"1024-25000\",\r\n    \"pre-login-banner\":\"disable\",\r\n    \"post-login-banner\":\"disable\",\r\n    \"tftp\":\"enable\",\r\n    \"av-failopen\":\"pass\",\r\n    \"av-failopen-session\":\"disable\",\r\n    \"memory-use-threshold-extreme\":95,\r\n    \"memory-use-threshold-red\":88,\r\n    \"memory-use-threshold-green\":82,\r\n    \"cpu-use-threshold\":90,\r\n    \"check-reset-range\":\"disable\",\r\n    \"vdom-mode\":\"no-vdom\",\r\n    \"vdom-admin\":\"\",\r\n    \"long-vdom-name\":\"disable\",\r\n    \"admin-port\":80,\r\n    \"admin-sport\":8443,\r\n    \"admin-https-redirect\":\"enable\",\r\n    \"admin-hsts-max-age\":15552000,\r\n    \"admin-ssh-password\":\"enable\",\r\n    \"admin-restrict-local\":\"disable\",\r\n    \"admin-ssh-port\":22,\r\n    \"admin-ssh-grace-time\":120,\r\n    \"admin-ssh-v1\":\"disable\",\r\n    \"admin-telnet\":\"enable\",\r\n    \"admin-telnet-port\":23,\r\n    \"default-service-source-port\":\"1-65535\",\r\n    \"admin-maintainer\":\"enable\",\r\n    \"admin-server-cert\":\"self-sign\",\r\n    \"user-server-cert\":\"Fortinet_Factory\",\r\n    \"admin-https-pki-required\":\"disable\",\r\n    \"wifi-certificate\":\"Fortinet_Wifi\",\r\n    \"wifi-ca-certificate\":\"Fortinet_Wifi_CA\",\r\n    \"auth-http-port\":1000,\r\n    \"auth-https-port\":1003,\r\n    \"auth-keepalive\":\"disable\",\r\n    \"policy-auth-concurrent\":0,\r\n    \"auth-session-limit\":\"block-new\",\r\n    \"auth-cert\":\"Fortinet_Factory\",\r\n    \"clt-cert-req\":\"disable\",\r\n    \"fortiservice-port\":8013,\r\n    \"cfg-save\":\"automatic\",\r\n    \"cfg-revert-timeout\":600,\r\n    \"reboot-upon-config-restore\":\"enable\",\r\n    \"admin-scp\":\"disable\",\r\n    \"security-rating-result-submission\":\"enable\",\r\n    \"security-rating-run-on-schedule\":\"enable\",\r\n    \"wireless-controller\":\"enable\",\r\n    \"wireless-controller-port\":5246,\r\n    \"fortiextender-data-port\":25246,\r\n    \"fortiextender\":\"disable\",\r\n    \"fortiextender-vlan-mode\":\"disable\",\r\n    \"switch-controller\":\"disable\",\r\n    \"switch-controller-reserved-network\":\"169.254.0.0 255.255.0.0\",\r\n    \"dnsproxy-worker-count\":1,\r\n    \"url-filter-count\":1,\r\n    \"proxy-worker-count\":0,\r\n    \"scanunit-count\":0,\r\n    \"proxy-kxp-hardware-acceleration\":\"enable\",\r\n    \"proxy-cipher-hardware-acceleration\":\"enable\",\r\n    \"fgd-alert-subscription\":\"\",\r\n    \"ipsec-hmac-offload\":\"enable\",\r\n    \"ipv6-accept-dad\":1,\r\n    \"ipv6-allow-anycast-probe\":\"disable\",\r\n    \"csr-ca-attribute\":\"enable\",\r\n    \"wimax-4g-usb\":\"disable\",\r\n    \"cert-chain-max\":8,\r\n    \"sslvpn-max-worker-count\":0,\r\n    \"sslvpn-plugin-version-check\":\"enable\",\r\n    \"two-factor-ftk-expiry\":60,\r\n    \"two-factor-email-expiry\":60,\r\n    \"two-factor-sms-expiry\":60,\r\n    \"two-factor-fac-expiry\":60,\r\n    \"two-factor-ftm-expiry\":72,\r\n    \"per-user-bwl\":\"disable\",\r\n    \"virtual-server-count\":0,\r\n    \"virtual-server-hardware-acceleration\":\"enable\",\r\n    \"wad-worker-count\":0,\r\n    \"wad-csvc-cs-count\":1,\r\n    \"wad-csvc-db-count\":0,\r\n    \"wad-source-affinity\":\"enable\",\r\n    \"wad-memory-change-granularity\":10,\r\n    \"login-timestamp\":\"disable\",\r\n    \"miglogd-children\":0,\r\n    \"special-file-23-support\":\"disable\",\r\n    \"log-uuid-policy\":\"enable\",\r\n    \"log-uuid-address\":\"disable\",\r\n    \"log-ssl-connection\":\"disable\",\r\n    \"arp-max-entry\":131072,\r\n    \"av-affinity\":\"0\",\r\n    \"wad-affinity\":\"0\",\r\n    \"ips-affinity\":\"0\",\r\n    \"miglog-affinity\":\"0\",\r\n    \"url-filter-affinity\":\"0\",\r\n    \"ndp-max-entry\":0,\r\n    \"br-fdb-max-entry\":8192,\r\n    \"max-route-cache-size\":0,\r\n    \"ipsec-asic-offload\":\"enable\",\r\n    \"ipsec-soft-dec-async\":\"disable\",\r\n    \"device-idle-timeout\":300,\r\n    \"gui-device-latitude\":\"\",\r\n    \"gui-device-longitude\":\"\",\r\n    \"private-data-encryption\":\"disable\",\r\n    \"auto-auth-extension-device\":\"enable\",\r\n    \"gui-theme\":\"green\",\r\n    \"gui-date-format\":\"yyyy\\/MM\\/dd\",\r\n    \"gui-date-time-source\":\"system\",\r\n    \"igmp-state-limit\":3200,\r\n    \"cloud-communication\":\"enable\",\r\n    \"fec-port\":50000,\r\n    \"fortitoken-cloud\":\"enable\"\r\n  },\r\n  \"vdom\":\"root\",\r\n  \"path\":\"system\",\r\n  \"name\":\"global\",\r\n  \"status\":\"success\",\r\n  \"http_status\":200,\r\n  \"serial\":\"FGVM2VTM20002896\",\r\n  \"version\":\"v6.2.5\",\r\n  \"build\":1142\r\n}",
+        "createdAt": "2020-09-21T11:56:06Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/77#issuecomment-696067218",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY5Njk3MzI0Mg==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@gcogneau  what is the error message or problem that you get?",
+        "createdAt": "2020-09-22T20:51:25Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/77#issuecomment-696973242",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY5Njk5MzkzNQ==",
+        "author": {
+          "login": "gecko2308"
+        },
+        "authorAssociation": "NONE",
+        "body": "If we take for example just this two properties in the result \r\n\"language\":\"english\",\r\n\"gui-ipv6\":\"disable\",\r\n\r\nLanguage property is populated like it does in the api_global object but gui-ipv6 don't populate the object because the property in the class is guiipv6.\r\nThere is no \"-\" because we can't have \"-\" in a property.\r\nI have tried to use \r\n<JsonProperty(PropertyName:=\"gui-ipv6\")>\r\nPublic Property guiipv6 As String\r\n\r\nBut had no effect.\r\nSo the problem is that all property with \"-\" don't populate my object with the data...",
+        "createdAt": "2020-09-22T21:32:39Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/77#issuecomment-696993935",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY5NzAyMTE5NQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@gcogneau this is all specific to Json serialization. It has nothing to do with RestClient.Net.",
+        "createdAt": "2020-09-22T22:44:06Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/77#issuecomment-697021195",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY5NzAyMTQ5MQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@gcogneau why don't you try [Newtonsoft Serialization](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-With-ISerializationAdapter#newtonsoft)?",
+        "createdAt": "2020-09-22T22:45:11Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/77#issuecomment-697021491",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY5NzAzMzA1NA==",
+        "author": {
+          "login": "gecko2308"
+        },
+        "authorAssociation": "NONE",
+        "body": "Ok but I was thinking that as you use newtonsoft in your code you had a solution or a way to get property with \"-\" working. I will check for another solution ",
+        "createdAt": "2020-09-22T23:22:20Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/77#issuecomment-697033054",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY5NzAzOTUwNg==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@MelbourneDeveloper Yes. Try newtonsoft serialization.",
+        "createdAt": "2020-09-22T23:45:24Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/77#issuecomment-697039506",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-09-21T03:00:04Z",
+    "labels": [],
+    "number": 77,
+    "state": "CLOSED",
+    "title": "unable to deserialize result with property name with dashes"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2020-08-08T00:48:14Z",
+    "comments": [],
+    "createdAt": "2020-08-07T22:01:22Z",
+    "labels": [],
+    "number": 76,
+    "state": "CLOSED",
+    "title": "Reconfigure FxCop"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4NjQ4MDQ=",
+      "is_bot": false,
+      "login": "egarim",
+      "name": "Jose Ojeda"
+    },
+    "closedAt": "2020-08-08T16:24:02Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY3MDgxOTQyNw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim yes, this is by design. .NET 4.5 doesn't support `System.Text.Json` serialization which is the default serialization method. \r\n\r\nI have updated the documentation [here](https://github.com/MelbourneDeveloper/RestClient.Net/wiki/Serialization-and-Deserialization-With-ISerializationAdapter) to give more detail about this.\r\n\r\nI recommend using Newtsonsoft serialization if you are targetting .NET 4.5 and need JSON serialization. \r\n\r\nDoes this resolve your issue?",
+        "createdAt": "2020-08-08T03:57:42Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/75#issuecomment-670819427",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY3MDgyMDA2Ng==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim .NET 4.6.2 does seem to support `System.Text.Json` but RestClient.Net doesn't target 4.6.2. Do you need to use `System.Text.Json`  on 4.6.2? Couldn't you use Newtsonsoft instead?",
+        "createdAt": "2020-08-08T04:04:30Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/75#issuecomment-670820066",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY3MDk0NzI2Nw==",
+        "author": {
+          "login": "egarim"
+        },
+        "authorAssociation": "NONE",
+        "body": "@MelbourneDeveloper yes I can use newtonsoft instead, I was just wondering if that was an expected behavior ",
+        "createdAt": "2020-08-08T16:24:02Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/75#issuecomment-670947267",
+        "viewerDidAuthor": false
+      }
+    ],
+    "createdAt": "2020-08-07T02:11:41Z",
+    "labels": [],
+    "number": 75,
+    "state": "CLOSED",
+    "title": "RestClient 4.0.0  requires a serialization adapter for Net462 but netcore does not"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4OTI4Mjk=",
+      "is_bot": false,
+      "login": "AartBluestoke",
+      "name": "Andrew Hill"
+    },
+    "closedAt": "2021-05-26T21:22:17Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY2MjIwMzkxMw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@AartBluestoke this is what the [`sendHttpRequestFunc`](https://github.com/MelbourneDeveloper/RestClient.Net/blob/6a2cbd27a6a2fca395ddb70a7659eed8db134063/src/RestClient.Net/Client.cs#L190) parameter on `Client` is for.\r\n\r\nI'm just working on a unit test to make sure it fits your scenario.",
+        "createdAt": "2020-07-22T02:24:38Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/74#issuecomment-662203913",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY2MjIwOTM3Nw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@AartBluestoke another approach is to implement [`IRequestConverter`](https://github.com/MelbourneDeveloper/RestClient.Net/blob/main/src/RestClient.Net/IRequestConverter.cs) . This contains the method whish rensposible for converting the `Request` in to a `HttpRequestMessage`  . You can then inject implementation in to the `Client`. This is the [default one](https://github.com/MelbourneDeveloper/RestClient.Net/blob/6a2cbd27a6a2fca395ddb70a7659eed8db134063/src/RestClient.Net/DefaultRequestConverter.cs#L16).",
+        "createdAt": "2020-07-22T02:44:13Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/74#issuecomment-662209377",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY2MjIwOTcxMQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@AartBluestoke `IRequestConverter` will be dumped in favor of a delegate in version 5.",
+        "createdAt": "2020-07-22T02:45:26Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/74#issuecomment-662209711",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY2MjIzNzgzNg==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@AartBluestoke I believe I have a solution for you. I created a branch and created a class that should manage this. Here is the [class](https://github.com/MelbourneDeveloper/RestClient.Net/blob/86a0f23516a7be54112f7560e410eecf8a8ebb2c/src/RestClient.Net.UnitTests/ManagedTokenSender.cs#L14)\r\n\r\nHere is a [unit test](https://github.com/MelbourneDeveloper/RestClient.Net/blob/86a0f23516a7be54112f7560e410eecf8a8ebb2c/src/RestClient.Net.UnitTests/TestManagedTokenSender.cs#L28) for testing thread safety.\r\n\r\n[This](https://github.com/MelbourneDeveloper/RestClient.Net/blob/86a0f23516a7be54112f7560e410eecf8a8ebb2c/src/RestClient.Net.UnitTests/TestManagedTokenSender.cs#L35) is where you can inject the logic for refreshing the token.\r\n\r\nI'm keen to see if you think the unit test does actually validate the logic. ",
+        "createdAt": "2020-07-22T04:44:23Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/74#issuecomment-662237836",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY2MjI1MjYwOQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@AartBluestoke I fixed a performance issue [here](https://github.com/MelbourneDeveloper/RestClient.Net/blob/57748c6530e82c18f456794598f5207b26587d34/src/RestClient.Net.UnitTests/ManagedTokenSender.cs#L59)",
+        "createdAt": "2020-07-22T05:39:45Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/74#issuecomment-662252609",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDg0OTEyNzg3MA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "Version 5 will have immutable default headers. This will mean that if you want to change the default headers, you will need to use the `With` methods for non-destructive mutation or regenerate the client. If you use IHttpClientFactory dependency injection, the `HttpClient`'s handler should not be disposed. It should be retained so there should be no performance loss.\r\n\r\nAnother approach could be to send the header on every call instead of the default headers collection.",
+        "createdAt": "2021-05-26T21:22:17Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/74#issuecomment-849127870",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-07-22T01:46:58Z",
+    "labels": [],
+    "number": 74,
+    "state": "CLOSED",
+    "title": "Can not change authorization header on token expiry in a thread-safe manner."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2020-07-21T00:33:47Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzYzOTA0Mzgz",
+        "name": "Note Only",
+        "description": "This is not an issue. This is here as a reminder",
+        "color": "e99695"
+      }
+    ],
+    "number": 73,
+    "state": "OPEN",
+    "title": "HttpCompletionOption"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-03-20T04:04:01Z",
+    "comments": [],
+    "createdAt": "2020-06-27T07:45:36Z",
+    "labels": [],
+    "number": 72,
+    "state": "CLOSED",
+    "title": "Missing Null Check"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4NjQ4MDQ=",
+      "is_bot": false,
+      "login": "egarim",
+      "name": "Jose Ojeda"
+    },
+    "closedAt": "2020-06-27T07:57:48Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NTU2MDY1Ng==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim actually the overload was not removed. The parameter has changed from IHttpClientFactory to a delegate called CreateHttpClient. Sorry for not communicating this well.\r\n\r\nHere is a blog about the changes in this version:\r\nhttps://christianfindlay.com/2020/06/17/restclient-net-4-0/\r\n\r\nImportantly, this version is an attempt to allow users to inject factories with delegates instead of interfaces. Please have a read of this article: https://christianfindlay.com/2020/05/15/c-delegates-with-ioc-containers-and-dependency-injection/. It helps to decrease code while still allowing the same functionality from IHttpClientFactory. The main point is that you do not need to implement the whole interface.\r\n\r\nAll of the unit tests have been replaced with the new approach. You can still use any existing implementations of IHttpClientFactory - but they don't need to implement the interface. \r\n\r\nHere are some examples:\r\n\r\nhttps://github.com/MelbourneDeveloper/RestClient.Net/blob/ee2f7e845b54f722e62d97250d358524946952ba/src/RestClient.Net.UnitTests/UnitTests.cs#L164\r\n\r\nhttps://github.com/MelbourneDeveloper/RestClient.Net/blob/ee2f7e845b54f722e62d97250d358524946952ba/src/RestClient.Net.UnitTests/UnitTests.cs#L441\r\n\r\nThis is the most straight forward way to inject the creation of http clients in to the client:\r\n\r\n```cs\r\n            var client = new Client(\r\n                baseUri: new Uri(\"https://restcountries.eu/rest/v2/name/australia\"),\r\n                createHttpClient: (name) => new HttpClient());\r\n```\r\n\r\nPlease let me know if this fixes your issue.",
+        "createdAt": "2020-06-17T18:58:26Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/71#issuecomment-645560656",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NTU5ODQ2NA==",
+        "author": {
+          "login": "egarim"
+        },
+        "authorAssociation": "NONE",
+        "body": "Thanks, now my unit test are working again \r\n![UnitTest](https://user-images.githubusercontent.com/2864804/84945259-ec5a9400-b09b-11ea-8456-3b0ff8e1d1cb.png)\r\n",
+        "createdAt": "2020-06-17T20:11:09Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/71#issuecomment-645598464",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NTYzNTQ1MQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim great. Can I close this issue?",
+        "createdAt": "2020-06-17T21:30:07Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/71#issuecomment-645635451",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NTY0NTkzNg==",
+        "author": {
+          "login": "egarim"
+        },
+        "authorAssociation": "NONE",
+        "body": "Sure close it and thanks again\n\nOn Wed, Jun 17, 2020, 2:30 PM Christian Findlay <notifications@github.com>\nwrote:\n\n> @egarim <https://github.com/egarim> great. Can I close this issue?\n>\n> —\n> You are receiving this because you were mentioned.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/MelbourneDeveloper/RestClient.Net/issues/71#issuecomment-645635451>,\n> or unsubscribe\n> <https://github.com/notifications/unsubscribe-auth/AAV3NJHWA6TTCU3WB3Y67WDRXEYWZANCNFSM4OAXHEFQ>\n> .\n>\n",
+        "createdAt": "2020-06-17T21:54:57Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/71#issuecomment-645645936",
+        "viewerDidAuthor": false
+      }
+    ],
+    "createdAt": "2020-06-17T15:43:43Z",
+    "labels": [],
+    "number": 71,
+    "state": "CLOSED",
+    "title": "Missing overload constructor in the client after upgrading to version 4"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-03-20T04:04:08Z",
+    "comments": [],
+    "createdAt": "2020-06-17T07:05:48Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxMDM3NzM3MjM5",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      }
+    ],
+    "number": 70,
+    "state": "CLOSED",
+    "title": "Don't Use String Interpolation with ILogger, Don't use Trace state"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2020-06-17T07:57:27Z",
+    "comments": [],
+    "createdAt": "2020-06-17T01:51:03Z",
+    "labels": [],
+    "number": 69,
+    "state": "CLOSED",
+    "title": "Breaking Change - Use Delegates Instead of Interfaces for Factories"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4NjQ4MDQ=",
+      "is_bot": false,
+      "login": "egarim",
+      "name": "Jose Ojeda"
+    },
+    "closedAt": "2020-06-27T07:57:56Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NDU1MjAzMA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim there are two ways to handle this. You can catch the exception, or you can turn exceptions off and get the response code from the result.",
+        "createdAt": "2020-06-16T06:08:31Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/68#issuecomment-644552030",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NDU1MjQ5MQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim  here is an example of getting the response without and exception:\r\n\r\nhttps://github.com/MelbourneDeveloper/RestClient.Net/blob/695f1dceeed7988a79065917ba37d4b9e6ca8066/RestClient.Net.UnitTests/UnitTests.cs#L588",
+        "createdAt": "2020-06-16T06:09:52Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/68#issuecomment-644552491",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NDU1MzAxMg==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim however I do see your point! The serialization adapter doesn't have access to the response code so it's impossible to know that the response text is actually an error. I will see what I can do about that.",
+        "createdAt": "2020-06-16T06:11:17Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/68#issuecomment-644553012",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NDc0MzQ5NQ==",
+        "author": {
+          "login": "egarim"
+        },
+        "authorAssociation": "NONE",
+        "body": "> @egarim here is an example of getting the response without and exception:\r\n> \r\n> https://github.com/MelbourneDeveloper/RestClient.Net/blob/695f1dceeed7988a79065917ba37d4b9e6ca8066/RestClient.Net.UnitTests/UnitTests.cs#L588\r\n\r\nHi, I Have tried this \"client.ThrowExceptionOnFailure = false; \" and it still breaks on the deserialization, I think the best way to handle this case is to have access to the response so you can decide to proceed or to break the request gracefully ",
+        "createdAt": "2020-06-16T12:53:45Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/68#issuecomment-644743495",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NDk1MDE4OQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim I'll try to recreate the problem and get back to you. ",
+        "createdAt": "2020-06-16T18:53:29Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/68#issuecomment-644950189",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NDk2MzY4MQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim any chance you could use fiddler to capture the exact response payload? Please include response headers. ",
+        "createdAt": "2020-06-16T19:19:34Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/68#issuecomment-644963681",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NTA1NTEzNw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim I can recreate the problem. I will try to fix it.",
+        "createdAt": "2020-06-16T23:05:37Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/68#issuecomment-645055137",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NTA2MTM3Ng==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim thanks for your patience and taking the time to report this. This is my highest priority right now. I will get back to you ASAP.",
+        "createdAt": "2020-06-16T23:26:38Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/68#issuecomment-645061376",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NTA4ODI2Mg==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim the bug was that it was trying to deserialize even when the response was not successful. I fixed the bug in the develop branch. I put a [unit test here](https://github.com/MelbourneDeveloper/RestClient.Net/blob/dab3900b1ea55bb725f26055aa20117c2dda2e91/RestClient.Net.UnitTests/UnitTests.cs#L133) to reproduce the problem and make sure it doesn't come back.\r\n\r\nNote that the [signature for the serialization adapter has changed](https://github.com/MelbourneDeveloper/RestClient.Net/blob/dab3900b1ea55bb725f26055aa20117c2dda2e91/RestClient.Net.Samples.Uno/RestClient.Net.Samples.Uno.Shared/NewtonsoftSerializationAdapter.cs#L12).\r\n\r\nThis is a breaking change so I will release this in version 4.0. I still have another small refactor I want to make before I release this version. I will let you know when 4.0 is released.",
+        "createdAt": "2020-06-17T01:09:16Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/68#issuecomment-645088262",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NTI3NjAwOA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim version 4.0.0 has been released. The exception should be `HttpStatusException ` now. And if you turn `ThrowExceptionOnFailure` off you should be able to get the status code in the result without it trying to deserialize. Please let me know if this fixes your issue. ",
+        "createdAt": "2020-06-17T09:54:52Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/68#issuecomment-645276008",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NTQ1NTYzNA==",
+        "author": {
+          "login": "egarim"
+        },
+        "authorAssociation": "NONE",
+        "body": "Thanks, Christian, I already updated  and the new signature contains enough to handle my flow, right now I'm facing other problems after updating, I already reported it \r\n\r\nhttps://github.com/MelbourneDeveloper/RestClient.Net/issues/71",
+        "createdAt": "2020-06-17T15:45:12Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/68#issuecomment-645455634",
+        "viewerDidAuthor": false
+      }
+    ],
+    "createdAt": "2020-06-16T06:07:05Z",
+    "labels": [],
+    "number": 68,
+    "state": "CLOSED",
+    "title": "How should I handle 503 Service Unavailable"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2020-06-17T06:31:11Z",
+    "comments": [],
+    "createdAt": "2020-05-23T03:56:45Z",
+    "labels": [],
+    "number": 67,
+    "state": "CLOSED",
+    "title": "Move source to src folder"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYxNjUxMjU3",
+      "is_bot": false,
+      "login": "rogers228",
+      "name": "rogers Lu"
+    },
+    "closedAt": "2020-06-17T09:59:54Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDYyNjAzMzkyNA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@rogers228 in the catch block, write the exception to the console, and check the console in your browser",
+        "createdAt": "2020-05-08T21:43:20Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/66#issuecomment-626033924",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-05-08T14:49:50Z",
+    "labels": [],
+    "number": 66,
+    "state": "CLOSED",
+    "title": "How to Blazor wsam call api?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU2NzAzMDM2",
+      "is_bot": false,
+      "login": "intech-paul",
+      "name": ""
+    },
+    "closedAt": "2020-06-17T10:00:35Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDYyNTUyODkzMA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@intech-paul that's a very loaded question. Firstly, it's not good practice to send SQL over HTTP. I'd recommend building a GraphQL endpoint and then querying that end point. However, this is how you would do a POST\r\n\r\n```cs\r\nvar client = new Client(new NewtonsoftSerializationAdapter(), new Uri(baseUri, resourceLink));\r\nclient.DefaultRequestHeaders.Add(\"x-ms-date\", utc_date);\r\nclient.DefaultRequestHeaders.Add(\"x-ms-version\", \"2015-08-06\");\r\nclient.DefaultRequestHeaders.Add(\"authorization\", authHeader);\r\nclient.DefaultRequestHeaders.Add(\"x-ms-max-item-count\", \"5\");\r\nvar response = await client.PostAsync<string, string>(\"SELECT * FROM SOMETABLE\");\r\n```\r\n\r\nI've removed the resource because it looks like you are passing that in the base url.\r\n\r\nUse Fiddler to make sure the transfer looks correct to you.\r\n\r\n\r\n",
+        "createdAt": "2020-05-07T22:28:44Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/65#issuecomment-625528930",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDYyNTU0OTU4MQ==",
+        "author": {
+          "login": "intech-paul"
+        },
+        "authorAssociation": "NONE",
+        "body": "Thank you, I have made those changes, I am getting the same error as my code that uses HttpClient, a header authorization message. It is the same header as the GET, except the verb is changed to POST. I wonder if this is a problem with the azure emulator 2.9.2.\r\n\r\nIs there some other DB you know of that I can test the POST against ?\r\n\r\n{\"code\":\"Unauthorized\",\"message\":\"Required Header authorization is missing. Ensure a valid Authorization token is passed., Microsoft.Azure.Documents.Common/2.9.2\"}",
+        "createdAt": "2020-05-07T23:36:29Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/65#issuecomment-625549581",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDYyNTU1NDM3OQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@intech-paul what authorization header does the API expect?\r\n\r\nUse fiddler to check what header is being sent",
+        "createdAt": "2020-05-07T23:53:49Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/65#issuecomment-625554379",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDYyNTY0NjAwNQ==",
+        "author": {
+          "login": "intech-paul"
+        },
+        "authorAssociation": "NONE",
+        "body": "I found a powerscript example of a REST POST, and the only difference I found was the addition of a Content-Type, so I have added this and am now getting different errors (I am adding data rather than a query as a test).\r\n\r\n`            byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes(System.Text.Json.JsonSerializer.Serialize(myData));\r\n            HttpContent content = new ByteArrayContent(messageBytes);\r\n            content.Headers.Add(\"Content-Type\", \"application/json\");\r\n            content.Headers.Add(\"x-ms-documentdb-partitionkey\",\"[\\\"\"+myData.dateTime.ToLongDateString()+\"\\\"]\");          \r\n           \r\n            var response = await client.PostAsync(uri, content);\r\n            var result = await response.Content.ReadAsStringAsync();`\r\n\r\n\r\nthe error I am getting now is\r\n{\"code\":\"BadRequest\",\"message\":\"Message: {\\\"Errors\\\":[\\\"**PartitionKey extracted from document doesn't match the one specified in the header****\\\"]}\\r\\nActivityId: fbd98f54-9267-4b69-bb1c-9e9d078d8f1e, Request URI: /apps/DocDbApp/services/DocDbServer3/partitions/a4cb494f-38c8-11e6-8106-8cdcd42c33be/replicas/1p/, RequestStats: \\r\\nRequestStartTime: 2020-05-08T05:51:49.8005379Z, RequestEndTime: 2020-05-08T05:51:49.8015388Z, Number of regions attempted:1\\r\\nResponseTime: 2020-05-08T05:51:49.8015388Z, StoreResult: StorePhysicalAddress: rntbd://127.0.0.1:10253/apps/DocDbApp/services/DocDbServer3/partitions/a4cb494f-38c8-11e6-8106-8cdcd42c33be/replicas/1p/, LSN: 278, GlobalCommittedLsn: -1, PartitionKeyRangeId: 0, IsValid: True, StatusCode: 400, SubStatusCode: 1001, RequestCharge: 1.24, ItemLSN: -1, SessionToken: 278, UsingLocalLSN: False, TransportException: null, ResourceType: Document, OperationType: Create\\r\\n, SDK: Microsoft.Azure.Documents.Common/2.9.2\"}\r\n\r\nbut the blazor wasm console error in chrome is still reporting the same authorization error !\r\n{\"code\":\"Unauthorized\",\"message\":\"Required Header authorization is missing. Ensure a valid Authorization token is passed.\\r\\nActivityId: 9a747baf-01b4-4613-86b8-40e9a60748e7, Microsoft.Azure.Documents.Common/2.9.2\"}\r\n\r\n\r\n",
+        "createdAt": "2020-05-08T05:57:33Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/65#issuecomment-625646005",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDYyNjAzNjEzNw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@intech-paul \r\n\r\n> I found was the addition of a Content-Type, so I have added this and am now getting different errors (I am adding data rather than a query as a test).\r\n\r\nYes. You're right. The quickstart guide is missing this line. It adds the json content type. It's usually needed for post.\r\n\r\n```cs\r\nclient.SetJsonContentTypeHeader();\r\n```\r\n\r\n>the error I am getting now is\r\n{\"code\":\"BadRequest\",\"message\":\"M\r\n\r\nRestClient.Net is working exactly as expected. The server is telling you that you have not specified a header correctly.",
+        "createdAt": "2020-05-08T21:50:01Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/65#issuecomment-626036137",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-05-07T22:05:03Z",
+    "labels": [],
+    "number": 65,
+    "state": "CLOSED",
+    "title": "Example to PostQuery to cosmos DB blazor wasm"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU2NzAzMDM2",
+      "is_bot": false,
+      "login": "intech-paul",
+      "name": ""
+    },
+    "closedAt": "2020-06-27T07:58:09Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDYyNTUyMDU1Ng==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@intech-paul thanks for the heads up. Will try to do this soon. ",
+        "createdAt": "2020-05-07T22:05:27Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/64#issuecomment-625520556",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDYyNTUyMDc3NQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@intech-paul would you do a pull request?",
+        "createdAt": "2020-05-07T22:06:05Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/64#issuecomment-625520775",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NTE4MDE1Nw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@intech-paul this works fine for me. Could you please post the exact error message?",
+        "createdAt": "2020-06-17T06:31:54Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/64#issuecomment-645180157",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY0NjQxODk3OQ==",
+        "author": {
+          "login": "intech-paul"
+        },
+        "authorAssociation": "NONE",
+        "body": "The source files have been moved from the original locations I linked above, so can't compare to what I originally posted the issue about. Im not working on blazor at the moment but will look at when I do. Paul",
+        "createdAt": "2020-06-19T03:45:41Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/64#issuecomment-646418979",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY1MDUxODg2OA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@intech-paul no problem. It definitely does work, but I will upgrade Blazor at some point in the future.",
+        "createdAt": "2020-06-27T07:58:48Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/64#issuecomment-650518868",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-05-07T22:02:08Z",
+    "labels": [],
+    "number": 64,
+    "state": "CLOSED",
+    "title": "Blazor wasm won't compile - needs to be updated to latest blazor version"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-03-20T04:04:15Z",
+    "comments": [],
+    "createdAt": "2020-04-28T20:39:20Z",
+    "labels": [],
+    "number": 63,
+    "state": "CLOSED",
+    "title": "Use MockHttp For Unit Tests"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2020-06-17T07:57:18Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDYxOTQ0NjUxNA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "https://www.nuget.org/packages/System.Text.Json/\r\n\r\nAlso should support .NET 4.7...",
+        "createdAt": "2020-04-25T22:01:20Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/62#issuecomment-619446514",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-04-25T22:00:24Z",
+    "labels": [],
+    "number": 62,
+    "state": "CLOSED",
+    "title": "Add .NET Standard 2.1 and .NET 4.6.1 For System.Json.Text"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2020-08-08T00:52:17Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY1MTM3MjE0NQ==",
+        "author": {
+          "login": "egarim"
+        },
+        "authorAssociation": "NONE",
+        "body": "Something like this still happens there is a bug when you send the headers but it seam to happen only on release, I have been searching like crazy before I post an Issue but the but is still happening \r\n\r\nif you execute the following in release you will get a duplicated key exception in the headers, is there a way to fix this? I can give you a hand and fix it myself if you point me in the right direction \r\n\r\n  var result = await client.PostAsync<DataResult, IDataParameters>(Parameters, resource, Headers);\r\n\r\n\r\n\r\n\r\n",
+        "createdAt": "2020-06-29T21:17:24Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/61#issuecomment-651372145",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY1MTM3NTczMQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim ,\r\n\r\nFirstly, I haven't confirmed that this is a bug. I have a feeling that this is not an issue anymore. I don't think the code is putting default http headers on the HttpClient. You should use Fiddler to check what headers are being sent to the server.\r\n\r\nThis is the code that I think is relevant:\r\nhttps://github.com/MelbourneDeveloper/RestClient.Net/blob/f1c247ac3b51f301fdb07de99b817769d817efcc/src/RestClient.Net/DefaultRequestConverter.cs#L91\r\n\r\nPlease let me know how you go",
+        "createdAt": "2020-06-29T21:24:11Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/61#issuecomment-651375731",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY1MTM3NzE1Ng==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim \r\n\r\n> you will get a duplicated key exception in the headers\r\n\r\nDo you perhaps have duplicate keys in the headers somehow? Can you send a screenshot and stack trace of the error you see?",
+        "createdAt": "2020-06-29T21:26:55Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/61#issuecomment-651377156",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY1MTQwODc4MA==",
+        "author": {
+          "login": "egarim"
+        },
+        "authorAssociation": "NONE",
+        "body": "I will make a reproduction project I have been tracking this bug for 2 weeks ",
+        "createdAt": "2020-06-29T22:48:09Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/61#issuecomment-651408780",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY1MTQxMTI1OA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim thankyou! \n\nI'd you can point me to code that breaks, I will do my best to fix it. \n\nIf you can write a failing unit test, even better.",
+        "createdAt": "2020-06-29T22:56:37Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/61#issuecomment-651411258",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY3MDI2MDEyNA==",
+        "author": {
+          "login": "egarim"
+        },
+        "authorAssociation": "NONE",
+        "body": "Hi Christian\r\nI have new information on this topic, but I need to create a unit test to prove my theory, so what I found so far is that the error happens when you reuse the headers\r\nfor example \r\n\r\n                var Headers = new RequestHeadersCollection();\r\n              \r\n\r\n                var result1 = await client.PostAsync<DataResult, IDataParameters>(Parameters, resource, Headers);\r\n                var result2 = await client.PostAsync<DataResult, IDataParameters>(Parameters, resource, Headers);\r\n\r\nI use a new instance of headers on each request the problem does not seem to happen, here my question is should headers be reusable or should I create a new instance every time I do a request?\r\n\r\n",
+        "createdAt": "2020-08-07T00:45:03Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/61#issuecomment-670260124",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY3MDI2MDY1MA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim thanks for the information. I might be able to look at this soon. So, you are saying that this code fails with an exception? ",
+        "createdAt": "2020-08-07T00:47:28Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/61#issuecomment-670260650",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY3MDU4Mzk3MA==",
+        "author": {
+          "login": "egarim"
+        },
+        "authorAssociation": "NONE",
+        "body": "@MelbourneDeveloper  a code like that will reproduce the issue, I'm reusing the headers but I really don't know if that's allowed, the exception does not happen if you create a new instance of the headers for each request  ",
+        "createdAt": "2020-08-07T15:50:53Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/61#issuecomment-670583970",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY3MDYzNzc5Mw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "This sounds like a bug. If so, it should be easy enough to fix. Thankyou!",
+        "createdAt": "2020-08-07T17:57:11Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/61#issuecomment-670637793",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY3MDcyNTQzNg==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim I can recreate the issue. Fix on its way.\r\n\r\nYou can see the failing unit test in this commit: https://github.com/MelbourneDeveloper/RestClient.Net/commit/1a7065c75114ea003617375b47d956000bec4692#diff-e85b635cb1750ff7a20a4e42cc61e1a6R304",
+        "createdAt": "2020-08-07T21:46:06Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/61#issuecomment-670725436",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY3MDgwMDUyNg==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim the fix in [this nuget package](https://www.nuget.org/packages/RestClient.NET/4.1.0)\r\n\r\nThere are also some new unit tests to make sure this bug doesn't creep back, and to make sure that general header management is working correctly. ",
+        "createdAt": "2020-08-08T01:03:23Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/61#issuecomment-670800526",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY3MDgwNTk2NA==",
+        "author": {
+          "login": "egarim"
+        },
+        "authorAssociation": "NONE",
+        "body": "@MelbourneDeveloper  Thanks  Christian ",
+        "createdAt": "2020-08-08T01:46:11Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/61#issuecomment-670805964",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDY3MDgwNjA4Ng==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@egarim does this resolve your issue?",
+        "createdAt": "2020-08-08T01:47:30Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/61#issuecomment-670806086",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-03-18T02:05:34Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyMTY5OTc5MTAx",
+        "name": "unconfirmed",
+        "description": "",
+        "color": "bfdadc"
+      }
+    ],
+    "number": 61,
+    "state": "CLOSED",
+    "title": "Call modifies headers collection"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2020-06-17T06:58:08Z",
+    "comments": [],
+    "createdAt": "2020-03-17T04:02:35Z",
+    "labels": [],
+    "number": 60,
+    "state": "CLOSED",
+    "title": "Requests and Responses Require Too Many Argument and are Hard to Mock"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-05-26T21:22:41Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU5NjAwNTMxMA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "Actually, even if a Get returns empty string, an error will occur",
+        "createdAt": "2020-03-06T23:19:30Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/59#issuecomment-596005310",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU5NjAwNzIxMg==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "This seems to be more of a problem with the default deserializer. If the json is \"\", it will throw an exception. It should just return null.",
+        "createdAt": "2020-03-06T23:27:56Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/59#issuecomment-596007212",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-03-06T23:13:54Z",
+    "labels": [],
+    "number": 59,
+    "state": "CLOSED",
+    "title": "Deserialization Error On Delete"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNDA4ODEw",
+      "is_bot": false,
+      "login": "PrasannaJP",
+      "name": ""
+    },
+    "closedAt": "2020-01-26T09:21:15Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU3NzI1MDMzMQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@PrasannaJP Hi. You can just change it. \r\n\r\nThe property is here\r\nhttps://github.com/MelbourneDeveloper/RestClient.Net/blob/7214acb5846e10878b58e4db7cb3f78b0ee27628/RestClient.Net/Client.cs#L71",
+        "createdAt": "2020-01-22T15:48:53Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/58#issuecomment-577250331",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU3NzM1NzM1OA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@PrasannaJP that's because of the underlying HttpClient. If you want to use a different base address, also set the Name of the client to the same as the base address. That means a new HttpClient will be created every time there is a new base url. But this is not the recommended practice.\r\n\r\nThe recommended practice is to use ClientFactory and use a different name for each base url. ",
+        "createdAt": "2020-01-22T19:53:48Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/58#issuecomment-577357358",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU3ODM5OTAxOA==",
+        "author": {
+          "login": "PrasannaJP"
+        },
+        "authorAssociation": "NONE",
+        "body": "I looked into the unit tests, but I am unable fond refrence code for below \r\n\r\nHow to create Client Factory for 5 URI and should be getting Client by name for futher usage(how). below code I am trying in test initalize \r\nSharedVariables._restClient = new Client(new DefaultAdapter(), baseUri: new Uri(ServiceURI._api1), httpClientFactory: GetClientFactory.GetAPITestFactory(), name: \"api1\");\r\n\r\nFactory is created as below \r\npublic static TestClientFactory GetAPITestFactory()\r\n        {\r\n            TestClientFactory .CreateClient(\"api1\");\r\n            TestClientFactory .CreateClient(\"api2\");\r\n            TestClientFactory .CreateClient(\"smartserver\"); \r\n            TestClientFactory .CreateClient(\"upload\"); \r\n            TestClientFactory .CreateClient(\"microservice\"); \r\n            return TestClientFactory ;\r\n        }\r\n\r\nMy only requirement is should be creating 5 Client of diffrent URI and once I logged in I should be using Client depending on the URI for API calls",
+        "createdAt": "2020-01-25T11:36:59Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/58#issuecomment-578399018",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU3ODQ4NDQyMw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@PrasannaJP just create 5 clients with 5 different names and set the baseurl on each one. ",
+        "createdAt": "2020-01-26T09:19:40Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/58#issuecomment-578484423",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU3ODQ4NDUxNQ==",
+        "author": {
+          "login": "PrasannaJP"
+        },
+        "authorAssociation": "NONE",
+        "body": "But we cant make static, I have trid but not successfull. \r\n",
+        "createdAt": "2020-01-26T09:21:15Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/58#issuecomment-578484515",
+        "viewerDidAuthor": false
+      }
+    ],
+    "createdAt": "2020-01-22T12:52:24Z",
+    "labels": [],
+    "number": 58,
+    "state": "CLOSED",
+    "title": "Want to extent RestClient to Functional API Testing on integration with Specflow"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2020-01-18T22:23:46Z",
+    "comments": [],
+    "createdAt": "2020-01-14T11:18:34Z",
+    "labels": [],
+    "number": 57,
+    "state": "CLOSED",
+    "title": "HttpClients Shouldn't Be Reused By Default"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2020-01-07T10:41:51Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxMDM3NzM3MjQx",
+        "name": "help wanted",
+        "description": "Extra attention is needed",
+        "color": "008672"
+      },
+      {
+        "id": "MDU6TGFiZWwzMDM0MzE4OTky",
+        "name": "Feature",
+        "description": "",
+        "color": "f9d0c4"
+      }
+    ],
+    "number": 56,
+    "state": "OPEN",
+    "title": "Caching Policies"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUzOTEwMg==",
+      "is_bot": false,
+      "login": "Jalroka",
+      "name": "Alma Jensen"
+    },
+    "closedAt": "2020-01-07T02:00:38Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU3MTM5NjEzMA==",
+        "author": {
+          "login": "Jalroka"
+        },
+        "authorAssociation": "NONE",
+        "body": "This should fix it if added to MiscExtensions \r\n        public static void SetCustomHeader(this IClient restClient, string header, string value)\r\n        {\r\n            if (restClient == null) throw new ArgumentNullException(nameof(restClient));\r\n            if (string.IsNullOrEmpty(header) || string.IsNullOrEmpty(value))\r\n                throw new ValidationException(Messages.HeaderOrValueNull);\r\n            if (!restClient.DefaultRequestHeaders.Contains(header))\r\n            {\r\n                restClient.DefaultRequestHeaders.Add(header, value);\r\n            }\r\n        }\r\n\r\nAnd then to Messages\r\n\r\npublic const string HeaderOrValueNull = \"The Content-Type header or value is null or empty\";",
+        "createdAt": "2020-01-07T01:50:18Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/55#issuecomment-571396130",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU3MTM5ODMzNg==",
+        "author": {
+          "login": "Jalroka"
+        },
+        "authorAssociation": "NONE",
+        "body": "Looks like I found another way to do what I wanted that I missed earlier.\r\n\r\napiclient.DefaultRequestHeaders.Add(apiKeyHeader, apiKey);",
+        "createdAt": "2020-01-07T02:00:35Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/55#issuecomment-571398336",
+        "viewerDidAuthor": false
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU3Mjg1MDEwMQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@Jalroka thanks for reporting. I'm glad you could the issue. Let me know if there's anything else you need help with. ",
+        "createdAt": "2020-01-10T02:52:45Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/55#issuecomment-572850101",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-01-07T01:29:40Z",
+    "labels": [],
+    "number": 55,
+    "state": "CLOSED",
+    "title": "Support for custom headers"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2020-01-06T04:45:32Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxMDM3NzM3MjQx",
+        "name": "help wanted",
+        "description": "Extra attention is needed",
+        "color": "008672"
+      },
+      {
+        "id": "MDU6TGFiZWwzMDM0MzE4OTky",
+        "name": "Feature",
+        "description": "",
+        "color": "f9d0c4"
+      }
+    ],
+    "number": 54,
+    "state": "OPEN",
+    "title": "Multipart Forms With Files"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-05-26T21:22:57Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDg0OTEyODgzMA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "Urls does this",
+        "createdAt": "2021-05-26T21:22:57Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/53#issuecomment-849128830",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-01-05T06:43:29Z",
+    "labels": [],
+    "number": 53,
+    "state": "CLOSED",
+    "title": "Query String Shortcuts"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2025-10-15T09:40:44Z",
+    "comments": [
+      {
+        "id": "IC_kwDOCLowCc7K--fc",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "Done",
+        "createdAt": "2025-10-15T09:40:44Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/51#issuecomment-3405506524",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-01-04T06:42:49Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzYzNzAxNzc2",
+        "name": "Low Priority",
+        "description": "",
+        "color": "0052cc"
+      }
+    ],
+    "number": 51,
+    "state": "CLOSED",
+    "title": "Swagger To RestClient.Net"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-03-20T07:54:26Z",
+    "comments": [],
+    "createdAt": "2020-01-04T01:40:43Z",
+    "labels": [],
+    "number": 49,
+    "state": "CLOSED",
+    "title": "Wasm Protobuf Sample"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-05-26T21:23:29Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDg0OTEyOTgxMQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "Fixed",
+        "createdAt": "2021-05-26T21:23:29Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/48#issuecomment-849129811",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-01-03T06:20:04Z",
+    "labels": [],
+    "number": 48,
+    "state": "CLOSED",
+    "title": "Content Headers"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2020-01-03T06:19:43Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxMDM3NzM3MjQx",
+        "name": "help wanted",
+        "description": "Extra attention is needed",
+        "color": "008672"
+      },
+      {
+        "id": "MDU6TGFiZWwxMDM3NzM3MjQz",
+        "name": "good first issue",
+        "description": "Good for newcomers",
+        "color": "7057ff"
+      },
+      {
+        "id": "MDU6TGFiZWwzMDM0MzE4OTky",
+        "name": "Feature",
+        "description": "",
+        "color": "f9d0c4"
+      }
+    ],
+    "number": 47,
+    "state": "OPEN",
+    "title": "Cookies"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2020-01-02T03:30:30Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU3MDExMDkyOQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "VS automatically drops back to 4.5 references so this is not necessary",
+        "createdAt": "2020-01-02T03:30:30Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/46#issuecomment-570110929",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-01-02T03:22:41Z",
+    "labels": [],
+    "number": 46,
+    "state": "CLOSED",
+    "title": ".NET 4.6"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-05-26T21:23:49Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU3MDgyOTk0Nw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "https://github.com/DalSoft/DalSoft.RestClient\r\n\r\nhttps://github.com/restsharp/RestSharp\r\nhttps://stackoverflow.com/questions/21779206/how-to-use-restsharp-with-async-await\r\n\r\nhttps://github.com/tmenier/Flurl\r\n\r\nhttps://github.com/jgiacomini/Tiny.RestClient\r\n\r\nhttps://github.com/IEnterprise/Easy-HTTP",
+        "createdAt": "2020-01-04T23:46:30Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/45#issuecomment-570829947",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDg0OTEzMDA3Mg==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "Done",
+        "createdAt": "2021-05-26T21:23:49Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/45#issuecomment-849130072",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2020-01-01T22:54:17Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzYzOTA0Mzgz",
+        "name": "Note Only",
+        "description": "This is not an issue. This is here as a reminder",
+        "color": "e99695"
+      }
+    ],
+    "number": 45,
+    "state": "CLOSED",
+    "title": "Urls"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-03-20T07:55:07Z",
+    "comments": [],
+    "createdAt": "2020-01-01T07:31:37Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzYzNzAxNzc2",
+        "name": "Low Priority",
+        "description": "",
+        "color": "0052cc"
+      }
+    ],
+    "number": 44,
+    "state": "CLOSED",
+    "title": "Unit Test For Changing Properties Between Calls"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2020-01-02T03:12:12Z",
+    "comments": [],
+    "createdAt": "2019-12-31T23:00:31Z",
+    "labels": [],
+    "number": 43,
+    "state": "CLOSED",
+    "title": "Fix iOS Sample"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2020-01-02T01:54:56Z",
+    "comments": [],
+    "createdAt": "2019-12-31T22:55:12Z",
+    "labels": [],
+    "number": 42,
+    "state": "CLOSED",
+    "title": "Xml Doc"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-05-26T21:24:12Z",
+    "comments": [],
+    "createdAt": "2019-12-31T22:27:45Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzYzNzAxNzc2",
+        "name": "Low Priority",
+        "description": "",
+        "color": "0052cc"
+      }
+    ],
+    "number": 41,
+    "state": "CLOSED",
+    "title": "Move String Literals To Resources"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-05-26T21:29:16Z",
+    "comments": [],
+    "createdAt": "2019-12-31T03:31:49Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyODM5MTg0ODA3",
+        "name": "High Priority",
+        "description": "",
+        "color": "81200A"
+      }
+    ],
+    "number": 40,
+    "state": "CLOSED",
+    "title": "Per Call Timeout"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-31T04:21:06Z",
+    "comments": [],
+    "createdAt": "2019-12-31T01:53:22Z",
+    "labels": [],
+    "number": 39,
+    "state": "CLOSED",
+    "title": ".NET 4.7"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-03-20T07:56:29Z",
+    "comments": [],
+    "createdAt": "2019-12-31T00:08:47Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzYzNzAxNzc2",
+        "name": "Low Priority",
+        "description": "",
+        "color": "0052cc"
+      }
+    ],
+    "number": 38,
+    "state": "CLOSED",
+    "title": "Fix the Wasm Sample / Use Protobuf"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-31T00:21:09Z",
+    "comments": [],
+    "createdAt": "2019-12-30T22:34:25Z",
+    "labels": [],
+    "number": 37,
+    "state": "CLOSED",
+    "title": "Rename HttpVerb to HttpMethod"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2020-01-02T00:11:13Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU3MDAyOTE4Nw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "The problem is that the rest client factory is not holding on to instances by name",
+        "createdAt": "2020-01-01T07:11:18Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/36#issuecomment-570029187",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2019-12-30T04:54:10Z",
+    "labels": [],
+    "number": 36,
+    "state": "CLOSED",
+    "title": "Named Instances"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-29T20:50:33Z",
+    "comments": [],
+    "createdAt": "2019-12-28T20:13:05Z",
+    "labels": [],
+    "number": 34,
+    "state": "CLOSED",
+    "title": "Constructor Order"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-30T04:53:39Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU2OTU4MzA2Nw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "Not necessary. Can map for DI as per the tests",
+        "createdAt": "2019-12-30T04:53:39Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/33#issuecomment-569583067",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2019-12-28T09:21:11Z",
+    "labels": [],
+    "number": 33,
+    "state": "CLOSED",
+    "title": "IHttpClientFactory on .NET Core"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-31T00:21:21Z",
+    "comments": [],
+    "createdAt": "2019-12-28T08:51:38Z",
+    "labels": [],
+    "number": 32,
+    "state": "CLOSED",
+    "title": "Logging with ILogger"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-31T00:38:16Z",
+    "comments": [],
+    "createdAt": "2019-12-28T04:36:38Z",
+    "labels": [],
+    "number": 31,
+    "state": "CLOSED",
+    "title": "Put, Patch Extensions"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-28T21:41:39Z",
+    "comments": [],
+    "createdAt": "2019-12-28T04:32:40Z",
+    "labels": [],
+    "number": 30,
+    "state": "CLOSED",
+    "title": "Concurrency Unit Tests"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-31T03:32:07Z",
+    "comments": [],
+    "createdAt": "2019-12-28T04:26:12Z",
+    "labels": [],
+    "number": 29,
+    "state": "CLOSED",
+    "title": "Extension Methods With Headers"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-28T21:41:29Z",
+    "comments": [],
+    "createdAt": "2019-12-28T04:25:54Z",
+    "labels": [],
+    "number": 28,
+    "state": "CLOSED",
+    "title": "Extension Parameter Ordering"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-28T21:41:15Z",
+    "comments": [],
+    "createdAt": "2019-12-28T04:17:49Z",
+    "labels": [],
+    "number": 27,
+    "state": "CLOSED",
+    "title": "Retries"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-31T01:19:37Z",
+    "comments": [],
+    "createdAt": "2019-12-28T04:16:53Z",
+    "labels": [],
+    "number": 26,
+    "state": "CLOSED",
+    "title": "Tracing on Exceptions"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2021-05-26T21:25:13Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU2OTk5OTI3Ng==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "This can be fixed by using a non-default send func where the headers get put back on the second try",
+        "createdAt": "2019-12-31T22:25:01Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/25#issuecomment-569999276",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDg0OTEzMDgxMQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "This should no longer affect Rest Client .Net \r\n\r\nHowever, there is a question of whether RestClient .Net should follow the same behavior.",
+        "createdAt": "2021-05-26T21:25:13Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/25#issuecomment-849130811",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2019-12-28T03:56:54Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzYzNzAxNzc2",
+        "name": "Low Priority",
+        "description": "",
+        "color": "0052cc"
+      }
+    ],
+    "number": 25,
+    "state": "CLOSED",
+    "title": "Authorization Header on Redirect"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-28T03:52:35Z",
+    "comments": [],
+    "createdAt": "2019-12-24T23:55:11Z",
+    "labels": [],
+    "number": 24,
+    "state": "CLOSED",
+    "title": "CreateHttpClient on SingletonHttpClientFactory"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2020-01-01T00:38:39Z",
+    "comments": [],
+    "createdAt": "2019-12-20T22:05:12Z",
+    "labels": [],
+    "number": 23,
+    "state": "CLOSED",
+    "title": "New Namespace?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-31T22:22:01Z",
+    "comments": [],
+    "createdAt": "2019-12-20T22:04:33Z",
+    "labels": [],
+    "number": 22,
+    "state": "CLOSED",
+    "title": "Authentication Tests"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-22T20:45:42Z",
+    "comments": [],
+    "createdAt": "2019-12-20T22:04:20Z",
+    "labels": [],
+    "number": 21,
+    "state": "CLOSED",
+    "title": "Header Unit Tests"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-21T02:58:43Z",
+    "comments": [],
+    "createdAt": "2019-12-20T22:04:04Z",
+    "labels": [],
+    "number": 20,
+    "state": "CLOSED",
+    "title": "Headers Are a Mess"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-22T20:45:34Z",
+    "comments": [],
+    "createdAt": "2019-12-20T21:56:27Z",
+    "labels": [],
+    "number": 19,
+    "state": "CLOSED",
+    "title": "Unit Tests For Errors"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-21T02:59:03Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU2ODEwNDQ4OA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "How bout always returning RestResponse<T> which will evaluate to T but also has the response information?",
+        "createdAt": "2019-12-20T22:03:51Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/18#issuecomment-568104488",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2019-12-20T21:56:10Z",
+    "labels": [],
+    "number": 18,
+    "state": "CLOSED",
+    "title": "Success Status Codes And Response Headers Are Hidden"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-21T01:28:09Z",
+    "comments": [],
+    "createdAt": "2019-12-15T04:13:44Z",
+    "labels": [],
+    "number": 17,
+    "state": "CLOSED",
+    "title": "Tracing"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-12-15T04:13:35Z",
+    "comments": [],
+    "createdAt": "2019-12-14T02:15:20Z",
+    "labels": [],
+    "number": 16,
+    "state": "CLOSED",
+    "title": "NuGet Dependencies"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3Mzc2MDkw",
+      "is_bot": false,
+      "login": "Silic0nS0ldier",
+      "name": "Jordan"
+    },
+    "closedAt": "2019-12-15T04:13:27Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU1ODc5Mzg0MA==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@Silic0nS0ldier I've looked at this PR and fixed the compilation issue locally.\r\n\r\nIt's a bit annoying to deal with an extra type parameter but I think I can see why it's necessary based on this issue description. I will keep looking over it, and also consider other options. But, I think this might be a good change.",
+        "createdAt": "2019-11-26T19:59:01Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/14#issuecomment-558793840",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2019-11-24T21:15:58Z",
+    "labels": [],
+    "number": 14,
+    "state": "CLOSED",
+    "title": "Request body type not passed to serialization adapter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwNjg4NjM=",
+      "is_bot": false,
+      "login": "vincentsels",
+      "name": "Vincent Sels"
+    },
+    "closedAt": "2019-12-24T08:48:39Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU1ODc5MzE3Mg==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "Yes, @vincentsels something like this needs to be done.\r\n\r\nAgain, I'm open to suggestions. I think you're right that there should probably be a parameter that takes a `Dictionary<string,string>` on each call. But, relating to your previous issue, headers are not always that simple. The HttpClient is actually pretty frustrating to work with and validates some headers",
+        "createdAt": "2019-11-26T19:56:55Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/13#issuecomment-558793172",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU2ODE1MjAxOQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@vincentsels I had a good look at this today. The unfortunate problem is that the underlying HttpClient class doesn't have this functionality. So, in order to achieve it, I'd have to shuffle the headers on to the client, and then pull them off again. That's really nasty and would end up causing all kinds of unexpected behaviour when in a multi-threaded environment. \r\n\r\nThis comes right back to the poor design of HttpClient which is why I'm building RestClient.Net in the first place.\r\n\r\nThis won't make it in to 3.0 but as soon as there's a good solution - like finding an alternative to HttpClient, I'll implement this.",
+        "createdAt": "2019-12-21T04:43:18Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/13#issuecomment-568152019",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU2ODY5NjYzNw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@vincentsels I was wrong! It is possible, and I've implemented in the develop branch. V3 is very close. Thanks for your contribution!",
+        "createdAt": "2019-12-24T08:48:39Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/13#issuecomment-568696637",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU3MDg4ODcyNg==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@vincentsels this has been included in version three which has been released on NuGet. Version three is a complete overhaul. There are samples in the unit tests. ",
+        "createdAt": "2020-01-05T08:18:29Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/13#issuecomment-570888726",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2019-10-24T08:32:34Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxMDM3NzM3MjQx",
+        "name": "help wanted",
+        "description": "Extra attention is needed",
+        "color": "008672"
+      }
+    ],
+    "number": 13,
+    "state": "CLOSED",
+    "title": "Allow adding more headers on individual requests"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwNjg4NjM=",
+      "is_bot": false,
+      "login": "vincentsels",
+      "name": "Vincent Sels"
+    },
+    "closedAt": "2019-12-22T20:45:17Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU0NTgzMDA4Nw==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@vincentsels I would like to do something along those lines but probably not exactly that. Basic authentication is not so basic. What if it requires a bearer token?\r\n\r\nThere are issues around headers in general that need to be addressed. You can see it in the difference between put and post. \r\n\r\nI'm open to suggestions at this point but not rushing in to anything. ",
+        "createdAt": "2019-10-24T09:23:55Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/12#issuecomment-545830087",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU2ODMwMTU2MQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@vincentsels you were right about this one. Great idea. It's the develop branch and will be released as part of V3 soon.",
+        "createdAt": "2019-12-22T20:45:17Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/12#issuecomment-568301561",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDU3MDg4ODY1Ng==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@vincentsels this has been included in version three which has been released on NuGet. Version three is a complete overhaul. ",
+        "createdAt": "2020-01-05T08:17:06Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/12#issuecomment-570888656",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2019-10-24T08:30:46Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxMDM3NzM3MjQx",
+        "name": "help wanted",
+        "description": "Extra attention is needed",
+        "color": "008672"
+      }
+    ],
+    "number": 12,
+    "state": "CLOSED",
+    "title": "Add method to easily set authentication headers"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": null,
+    "comments": [],
+    "createdAt": "2019-04-23T23:53:51Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzYzOTA0Mzgz",
+        "name": "Note Only",
+        "description": "This is not an issue. This is here as a reminder",
+        "color": "e99695"
+      }
+    ],
+    "number": 11,
+    "state": "OPEN",
+    "title": "HttpClient Best Practices"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-04-24T10:33:53Z",
+    "comments": [],
+    "createdAt": "2019-04-22T05:45:13Z",
+    "labels": [],
+    "number": 10,
+    "state": "CLOSED",
+    "title": "Timeouts"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-04-24T08:56:07Z",
+    "comments": [],
+    "createdAt": "2019-04-22T05:41:27Z",
+    "labels": [],
+    "number": 9,
+    "state": "CLOSED",
+    "title": "Overload Cleanup"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-04-24T10:20:52Z",
+    "comments": [],
+    "createdAt": "2019-03-28T19:48:04Z",
+    "labels": [],
+    "number": 7,
+    "state": "CLOSED",
+    "title": "Abstraction For Dependency Injection"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-04-24T10:14:46Z",
+    "comments": [],
+    "createdAt": "2019-03-28T01:24:16Z",
+    "labels": [],
+    "number": 6,
+    "state": "CLOSED",
+    "title": "No Cancellation Token Overloads"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-04-22T05:19:05Z",
+    "comments": [],
+    "createdAt": "2019-03-20T03:59:56Z",
+    "labels": [],
+    "number": 5,
+    "state": "CLOSED",
+    "title": "Can't Get Http Status Code From Exception"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNTUxNTI2",
+      "is_bot": false,
+      "login": "Tam66662",
+      "name": ""
+    },
+    "closedAt": "2019-03-20T15:33:33Z",
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDQ3NDU2MzEwNg==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@tam66662\r\n\r\nAh yes. This is because signing is turned on. I will turn it off. Meantime, just go in to properties and switch off the Sign Assembly checkbox. ",
+        "createdAt": "2019-03-19T20:17:23Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/4#issuecomment-474563106",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDQ3NDU4NzY3Mg==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "@Tam66662 this has been fixed in the **develop** branch. Please check that branch out. You must compile in Debug mode. Compiling in Release mode will cause the error you have experience. This will be rolled in to master at the next release. Please let me know if it fixes your issue.",
+        "createdAt": "2019-03-19T21:15:52Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [
+          {
+            "content": "THUMBS_UP",
+            "users": {
+              "totalCount": 1
+            }
+          }
+        ],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/4#issuecomment-474587672",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDQ3NDg4NzU1OQ==",
+        "author": {
+          "login": "Tam66662"
+        },
+        "authorAssociation": "NONE",
+        "body": "@MelbourneDeveloper  That fixed it in the developer branch.  Thanks!",
+        "createdAt": "2019-03-20T15:33:33Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/4#issuecomment-474887559",
+        "viewerDidAuthor": false
+      }
+    ],
+    "createdAt": "2019-03-19T19:49:54Z",
+    "labels": [],
+    "number": 4,
+    "state": "CLOSED",
+    "title": "Can't get code to compile due to StrongNameKey.pfx"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": "2019-04-22T05:08:56Z",
+    "comments": [],
+    "createdAt": "2019-02-15T20:58:55Z",
+    "labels": [],
+    "number": 3,
+    "state": "CLOSED",
+    "title": "FxCop Code Rules"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "closedAt": null,
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDQ2Mzc5NDQ3NQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "Here is the first stab at performance testing: https://github.com/MelbourneDeveloper/RestClient.Net/blob/develop/RestClient.Net.UnitTests/PerformanceTests.cs",
+        "createdAt": "2019-02-14T21:01:09Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/2#issuecomment-463794475",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDQ2Mzc5NDg1NQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "RestClient is the clear winner for Get on .NET Core - even in debug mode (while RestSharp is presumably optimiszed).\r\n\r\n![image](https://user-images.githubusercontent.com/16697547/52817483-10007980-30f8-11e9-91b5-35df7b63f42d.png)\r\n\r\n",
+        "createdAt": "2019-02-14T21:02:13Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/2#issuecomment-463794855",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2019-02-14T19:45:36Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzYzNzAxNzc2",
+        "name": "Low Priority",
+        "description": "",
+        "color": "0052cc"
+      }
+    ],
+    "number": 2,
+    "state": "OPEN",
+    "title": "Performance Testing"
+  }
+]

@@ -999,7 +999,7 @@ public static class ExtensionMethodGenerator
 
         if (successResponse?.Value?.Content == null)
         {
-            return "object";
+            return "Unit";
         }
 
         var content = successResponse.Value.Value.Content.FirstOrDefault();

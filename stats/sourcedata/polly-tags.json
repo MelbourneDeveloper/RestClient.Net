@@ -1,0 +1,612 @@
+[
+  {
+    "name": "v5.6.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/v5.6.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/v5.6.0",
+    "commit": {
+      "sha": "9c133b6303ca70d2879fddf16fb201c209eb6fd2",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/9c133b6303ca70d2879fddf16fb201c209eb6fd2"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvdjUuNi4w"
+  },
+  {
+    "name": "v5.4.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/v5.4.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/v5.4.0",
+    "commit": {
+      "sha": "0b733fd8a98e993b7e9856eb6e274d073990bf16",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/0b733fd8a98e993b7e9856eb6e274d073990bf16"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvdjUuNC4w"
+  },
+  {
+    "name": "v5.3.1",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/v5.3.1",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/v5.3.1",
+    "commit": {
+      "sha": "eeb03842fd3dbad10557873abd9af26b9abd6707",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/eeb03842fd3dbad10557873abd9af26b9abd6707"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvdjUuMy4x"
+  },
+  {
+    "name": "v5.3.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/v5.3.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/v5.3.0",
+    "commit": {
+      "sha": "f4ee7442ac9cabfb54eb8b2d327e7025a643dacf",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/f4ee7442ac9cabfb54eb8b2d327e7025a643dacf"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvdjUuMy4w"
+  },
+  {
+    "name": "v5.2.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/v5.2.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/v5.2.0",
+    "commit": {
+      "sha": "d1bf4aeef9010a66b14c85d341b1e34694522a62",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/d1bf4aeef9010a66b14c85d341b1e34694522a62"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvdjUuMi4w"
+  },
+  {
+    "name": "v5.1.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/v5.1.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/v5.1.0",
+    "commit": {
+      "sha": "e41321d03c3b2ce8e2d2a506f4a6a2dc1ab504e4",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/e41321d03c3b2ce8e2d2a506f4a6a2dc1ab504e4"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvdjUuMS4w"
+  },
+  {
+    "name": "v5.0.6",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/v5.0.6",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/v5.0.6",
+    "commit": {
+      "sha": "1a3bf7bf33cfeccce2e224f29cb273e7d333528c",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/1a3bf7bf33cfeccce2e224f29cb273e7d333528c"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvdjUuMC42"
+  },
+  {
+    "name": "v5.0.5",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/v5.0.5",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/v5.0.5",
+    "commit": {
+      "sha": "4733b20d20d3bccb30804882f387e8194fff38dc",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/4733b20d20d3bccb30804882f387e8194fff38dc"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvdjUuMC41"
+  },
+  {
+    "name": "v1.1.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/v1.1.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/v1.1.0",
+    "commit": {
+      "sha": "f5b44eb3588de3d2b5d274a4b6c733217bd295be",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/f5b44eb3588de3d2b5d274a4b6c733217bd295be"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvdjEuMS4w"
+  },
+  {
+    "name": "v1.0.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/v1.0.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/v1.0.0",
+    "commit": {
+      "sha": "3e2d2d1620994a6e2388a48915508cbda53b3319",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/3e2d2d1620994a6e2388a48915508cbda53b3319"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvdjEuMC4w"
+  },
+  {
+    "name": "8.6.4",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.6.4",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.6.4",
+    "commit": {
+      "sha": "5f9462dc28e42c8ecacde41b208fdd0ed17b34ec",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/5f9462dc28e42c8ecacde41b208fdd0ed17b34ec"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC42LjQ="
+  },
+  {
+    "name": "8.6.3",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.6.3",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.6.3",
+    "commit": {
+      "sha": "cf50bc52196f3153ca8ca7b2f6900d8d451a4a92",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/cf50bc52196f3153ca8ca7b2f6900d8d451a4a92"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC42LjM="
+  },
+  {
+    "name": "8.6.2",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.6.2",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.6.2",
+    "commit": {
+      "sha": "e36381ea1c9ae077f6de303ec446c5ad5b975f34",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/e36381ea1c9ae077f6de303ec446c5ad5b975f34"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC42LjI="
+  },
+  {
+    "name": "8.6.1",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.6.1",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.6.1",
+    "commit": {
+      "sha": "b5a1aa4557d2a2a99496bebf1fa81e79678ce01f",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/b5a1aa4557d2a2a99496bebf1fa81e79678ce01f"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC42LjE="
+  },
+  {
+    "name": "8.6.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.6.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.6.0",
+    "commit": {
+      "sha": "cbd6dc098889a4a594212fed78f80705d2a9e475",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/cbd6dc098889a4a594212fed78f80705d2a9e475"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC42LjA="
+  },
+  {
+    "name": "8.5.2",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.5.2",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.5.2",
+    "commit": {
+      "sha": "a953ba8119074d7f63cc69643d4ef1d1de52ee3f",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/a953ba8119074d7f63cc69643d4ef1d1de52ee3f"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC41LjI="
+  },
+  {
+    "name": "8.5.1",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.5.1",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.5.1",
+    "commit": {
+      "sha": "f982bb6f28b70ec846a22f83cf9d2c8934b4ad74",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/f982bb6f28b70ec846a22f83cf9d2c8934b4ad74"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC41LjE="
+  },
+  {
+    "name": "8.5.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.5.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.5.0",
+    "commit": {
+      "sha": "520ee38ce6d199c3dfc75c87188a0857880edc94",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/520ee38ce6d199c3dfc75c87188a0857880edc94"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC41LjA="
+  },
+  {
+    "name": "8.4.2",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.4.2",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.4.2",
+    "commit": {
+      "sha": "077cf388fc5a85a7f6cd0fdcb2b68d17a898019e",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/077cf388fc5a85a7f6cd0fdcb2b68d17a898019e"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC40LjI="
+  },
+  {
+    "name": "8.4.1",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.4.1",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.4.1",
+    "commit": {
+      "sha": "2b44e7a655e4cf24f5135efcce50ac713c13abea",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/2b44e7a655e4cf24f5135efcce50ac713c13abea"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC40LjE="
+  },
+  {
+    "name": "8.4.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.4.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.4.0",
+    "commit": {
+      "sha": "11f84b28c5fb7e02ef0f208914498fc10df9ea7f",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/11f84b28c5fb7e02ef0f208914498fc10df9ea7f"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC40LjA="
+  },
+  {
+    "name": "8.3.1",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.3.1",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.3.1",
+    "commit": {
+      "sha": "010a8cfb1aee55ab12a4334c5301c53eb234ca47",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/010a8cfb1aee55ab12a4334c5301c53eb234ca47"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4zLjE="
+  },
+  {
+    "name": "8.3.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.3.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.3.0",
+    "commit": {
+      "sha": "ede127ff7f3a7a4e44e34efeb8685e4491438816",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/ede127ff7f3a7a4e44e34efeb8685e4491438816"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4zLjA="
+  },
+  {
+    "name": "8.2.1",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.2.1",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.2.1",
+    "commit": {
+      "sha": "da1a7b91998daf794553b7962b63c82a68026ccb",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/da1a7b91998daf794553b7962b63c82a68026ccb"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4yLjE="
+  },
+  {
+    "name": "8.2.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.2.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.2.0",
+    "commit": {
+      "sha": "a2559b1ab7bf9c1e12c71183ce2dfa937bc9c7a6",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/a2559b1ab7bf9c1e12c71183ce2dfa937bc9c7a6"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4yLjA="
+  },
+  {
+    "name": "8.1.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.1.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.1.0",
+    "commit": {
+      "sha": "4d2dd5ac2a270708b63b42de7c4272efc012d55c",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/4d2dd5ac2a270708b63b42de7c4272efc012d55c"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4xLjA="
+  },
+  {
+    "name": "8.0.0",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.0.0",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.0.0",
+    "commit": {
+      "sha": "49dea3c96ec70ccf8e8e26a72eb908b7dee5f5e3",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/49dea3c96ec70ccf8e8e26a72eb908b7dee5f5e3"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4wLjA="
+  },
+  {
+    "name": "8.0.0-beta.2",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.0.0-beta.2",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.0.0-beta.2",
+    "commit": {
+      "sha": "a0e77356a8ae74f98d4da8e70edbe677e21eec8e",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/a0e77356a8ae74f98d4da8e70edbe677e21eec8e"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4wLjAtYmV0YS4y"
+  },
+  {
+    "name": "8.0.0-beta.1",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.0.0-beta.1",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.0.0-beta.1",
+    "commit": {
+      "sha": "a7cb07c96449a5098813f6f077c145416d445696",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/a7cb07c96449a5098813f6f077c145416d445696"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4wLjAtYmV0YS4x"
+  },
+  {
+    "name": "8.0.0-alpha.9",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.0.0-alpha.9",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.0.0-alpha.9",
+    "commit": {
+      "sha": "58c8fac5d4756f353d77cd104268c32f8ce2033c",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/58c8fac5d4756f353d77cd104268c32f8ce2033c"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4wLjAtYWxwaGEuOQ=="
+  },
+  {
+    "name": "8.0.0-alpha.8",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.0.0-alpha.8",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.0.0-alpha.8",
+    "commit": {
+      "sha": "e8c33db56da18fae9c55c026718a83eaf6ea8b08",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/e8c33db56da18fae9c55c026718a83eaf6ea8b08"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4wLjAtYWxwaGEuOA=="
+  },
+  {
+    "name": "8.0.0-alpha.7",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.0.0-alpha.7",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.0.0-alpha.7",
+    "commit": {
+      "sha": "b38e6c43bd4647a6e34b4e636f62c674139a22f5",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/b38e6c43bd4647a6e34b4e636f62c674139a22f5"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4wLjAtYWxwaGEuNw=="
+  },
+  {
+    "name": "8.0.0-alpha.6",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.0.0-alpha.6",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.0.0-alpha.6",
+    "commit": {
+      "sha": "572558a23e0170914ca90bac12b4f8ee10102a1f",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/572558a23e0170914ca90bac12b4f8ee10102a1f"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4wLjAtYWxwaGEuNg=="
+  },
+  {
+    "name": "8.0.0-alpha.5",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.0.0-alpha.5",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.0.0-alpha.5",
+    "commit": {
+      "sha": "a806318b4cc7f81eeefd2f91fccf393cd9680bbd",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/a806318b4cc7f81eeefd2f91fccf393cd9680bbd"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4wLjAtYWxwaGEuNQ=="
+  },
+  {
+    "name": "8.0.0-alpha.4",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.0.0-alpha.4",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.0.0-alpha.4",
+    "commit": {
+      "sha": "8f5dc6c65435ac30db7a014054f7c6fe3f827584",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/8f5dc6c65435ac30db7a014054f7c6fe3f827584"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4wLjAtYWxwaGEuNA=="
+  },
+  {
+    "name": "8.0.0-alpha.3",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.0.0-alpha.3",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.0.0-alpha.3",
+    "commit": {
+      "sha": "a9bf3e95a37ff9c98ca02c8ca395f91645ffe5d8",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/a9bf3e95a37ff9c98ca02c8ca395f91645ffe5d8"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4wLjAtYWxwaGEuMw=="
+  },
+  {
+    "name": "8.0.0-alpha.2",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.0.0-alpha.2",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.0.0-alpha.2",
+    "commit": {
+      "sha": "12b66c293c18c7c1c1c60d46b739359a07d5e119",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/12b66c293c18c7c1c1c60d46b739359a07d5e119"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4wLjAtYWxwaGEuMg=="
+  },
+  {
+    "name": "8.0.0-alpha.1",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/8.0.0-alpha.1",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/8.0.0-alpha.1",
+    "commit": {
+      "sha": "833ad99c1a8d497609ef7ba103641a7fe82f6c57",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/833ad99c1a8d497609ef7ba103641a7fe82f6c57"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvOC4wLjAtYWxwaGEuMQ=="
+  },
+  {
+    "name": "7.2.4",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/7.2.4",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/7.2.4",
+    "commit": {
+      "sha": "b1a5a17de8ef5d0bc86e5a4502ad30891e674379",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/b1a5a17de8ef5d0bc86e5a4502ad30891e674379"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNy4yLjQ="
+  },
+  {
+    "name": "7.2.3+24",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/7.2.3+24",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/7.2.3+24",
+    "commit": {
+      "sha": "c27faf89ef459fd9a8e0131ae1d4cd835ca4f31d",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/c27faf89ef459fd9a8e0131ae1d4cd835ca4f31d"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNy4yLjMrMjQ="
+  },
+  {
+    "name": "7.2.3-v731-or-v740.1+25",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/7.2.3-v731-or-v740.1+25",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/7.2.3-v731-or-v740.1+25",
+    "commit": {
+      "sha": "1b8983921ad0dac602bfced5ff9df687c27a3d19",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/1b8983921ad0dac602bfced5ff9df687c27a3d19"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNy4yLjMtdjczMS1vci12NzQwLjErMjU="
+  },
+  {
+    "name": "7.2.2+9",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/7.2.2+9",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/7.2.2+9",
+    "commit": {
+      "sha": "174cc53e17bf02da5e1f2c0d74dffb4f23aa99c0",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/174cc53e17bf02da5e1f2c0d74dffb4f23aa99c0"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNy4yLjIrOQ=="
+  },
+  {
+    "name": "7.2.1+7",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/7.2.1+7",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/7.2.1+7",
+    "commit": {
+      "sha": "52968c25f2e13e2708898174c15aafc9cb915020",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/52968c25f2e13e2708898174c15aafc9cb915020"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNy4yLjErNw=="
+  },
+  {
+    "name": "7.2.0+37",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/7.2.0+37",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/7.2.0+37",
+    "commit": {
+      "sha": "d95959fe1449407603c8605282fbba97041fd026",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/d95959fe1449407603c8605282fbba97041fd026"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNy4yLjArMzc="
+  },
+  {
+    "name": "7.1.1",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/7.1.1",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/7.1.1",
+    "commit": {
+      "sha": "7129e726d75086ab5eb270c798afc53b41f5dcbc",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/7129e726d75086ab5eb270c798afc53b41f5dcbc"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNy4xLjE="
+  },
+  {
+    "name": "7.1.0+21",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/7.1.0+21",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/7.1.0+21",
+    "commit": {
+      "sha": "521728bc19d8390a9dd043d77b13096d3b49326e",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/521728bc19d8390a9dd043d77b13096d3b49326e"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNy4xLjArMjE="
+  },
+  {
+    "name": "7.0.3+4",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/7.0.3+4",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/7.0.3+4",
+    "commit": {
+      "sha": "8d25944c31a261c78f65a8801cbe269416c66ef3",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/8d25944c31a261c78f65a8801cbe269416c66ef3"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNy4wLjMrNA=="
+  },
+  {
+    "name": "7.0.2+3",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/7.0.2+3",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/7.0.2+3",
+    "commit": {
+      "sha": "8a1fe6b6d72ac2d457f1a1f066d45f3fd1512fe4",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/8a1fe6b6d72ac2d457f1a1f066d45f3fd1512fe4"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNy4wLjIrMw=="
+  },
+  {
+    "name": "7.0.1+1",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/7.0.1+1",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/7.0.1+1",
+    "commit": {
+      "sha": "d4ec6f43fd29d75f058302c58c4e04c8444b9287",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/d4ec6f43fd29d75f058302c58c4e04c8444b9287"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNy4wLjErMQ=="
+  },
+  {
+    "name": "7.0.1-v710.1+47",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/7.0.1-v710.1+47",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/7.0.1-v710.1+47",
+    "commit": {
+      "sha": "b148a849c24bc3637e95d36c61ce4dcedfd3bb69",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/b148a849c24bc3637e95d36c61ce4dcedfd3bb69"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNy4wLjEtdjcxMC4xKzQ3"
+  },
+  {
+    "name": "7.0.0+46",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/7.0.0+46",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/7.0.0+46",
+    "commit": {
+      "sha": "1a351a85950864be53914408f55f279e037c856b",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/1a351a85950864be53914408f55f279e037c856b"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNy4wLjArNDY="
+  },
+  {
+    "name": "6.1.2+4",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/6.1.2+4",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/6.1.2+4",
+    "commit": {
+      "sha": "57a82e8e43e23935778aef8a944b88d17ccf0cc7",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/57a82e8e43e23935778aef8a944b88d17ccf0cc7"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNi4xLjIrNA=="
+  },
+  {
+    "name": "6.1.1+19",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/6.1.1+19",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/6.1.1+19",
+    "commit": {
+      "sha": "cf63bdbe59eb187c748ffc3cc6f32088d68d5759",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/cf63bdbe59eb187c748ffc3cc6f32088d68d5759"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNi4xLjErMTk="
+  },
+  {
+    "name": "6.1.0+31",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/6.1.0+31",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/6.1.0+31",
+    "commit": {
+      "sha": "dec0b028c944774c7ade6ed2414e766d0f3b1198",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/dec0b028c944774c7ade6ed2414e766d0f3b1198"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNi4xLjArMzE="
+  },
+  {
+    "name": "6.0.1+18",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/6.0.1+18",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/6.0.1+18",
+    "commit": {
+      "sha": "dc4a8049f35d0f3628f6051930931c63ffddf283",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/dc4a8049f35d0f3628f6051930931c63ffddf283"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNi4wLjErMTg="
+  },
+  {
+    "name": "6.0.0-v6alpha.1+17",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/6.0.0-v6alpha.1+17",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/6.0.0-v6alpha.1+17",
+    "commit": {
+      "sha": "4185b22fdc7770b5d1a533dffe856b98098763dd",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/4185b22fdc7770b5d1a533dffe856b98098763dd"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNi4wLjAtdjZhbHBoYS4xKzE3"
+  },
+  {
+    "name": "5.9.0+33-(Build-596)",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/5.9.0+33-(Build-596)",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/5.9.0+33-(Build-596)",
+    "commit": {
+      "sha": "72f59a19d8b8302d58688a9905957f09ef7f125b",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/72f59a19d8b8302d58688a9905957f09ef7f125b"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNS45LjArMzMtKEJ1aWxkLTU5Nik="
+  },
+  {
+    "name": "5.8.0+8-(Build-554)",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/5.8.0+8-(Build-554)",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/5.8.0+8-(Build-554)",
+    "commit": {
+      "sha": "919e37101a43fa0532c74cb0587ee2742bd3a9cf",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/919e37101a43fa0532c74cb0587ee2742bd3a9cf"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNS44LjArOC0oQnVpbGQtNTU0KQ=="
+  },
+  {
+    "name": "5.7.0+17-(Build-537)",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/5.7.0+17-(Build-537)",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/5.7.0+17-(Build-537)",
+    "commit": {
+      "sha": "32c62287cf58c4c94a8225b2195b14b1bbdaa4c0",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/32c62287cf58c4c94a8225b2195b14b1bbdaa4c0"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNS43LjArMTctKEJ1aWxkLTUzNyk="
+  },
+  {
+    "name": "5.6.1+4-(Build-513)",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/5.6.1+4-(Build-513)",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/5.6.1+4-(Build-513)",
+    "commit": {
+      "sha": "64b21c82d79c2b441be566d06f2dfb5bcfddd338",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/64b21c82d79c2b441be566d06f2dfb5bcfddd338"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNS42LjErNC0oQnVpbGQtNTEzKQ=="
+  },
+  {
+    "name": "5.5.0+5-(Build-444)",
+    "zipball_url": "https://api.github.com/repos/App-vNext/Polly/zipball/refs/tags/5.5.0+5-(Build-444)",
+    "tarball_url": "https://api.github.com/repos/App-vNext/Polly/tarball/refs/tags/5.5.0+5-(Build-444)",
+    "commit": {
+      "sha": "5790df9c525b8c3f77229c511aac8e8267fa6bc5",
+      "url": "https://api.github.com/repos/App-vNext/Polly/commits/5790df9c525b8c3f77229c511aac8e8267fa6bc5"
+    },
+    "node_id": "MDM6UmVmOTg2NDE2NjpyZWZzL3RhZ3MvNS41LjArNS0oQnVpbGQtNDQ0KQ=="
+  }
+]

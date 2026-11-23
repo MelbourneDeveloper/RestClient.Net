@@ -1,0 +1,24 @@
+{
+  "collected_at": "2025-10-26T08:04:15.056327",
+  "repository": "JamesNK/Newtonsoft.Json",
+  "files_collected": [
+    "newtonsoft-json-commits.json",
+    "newtonsoft-json-contributors.json",
+    "newtonsoft-json-downloads.json",
+    "newtonsoft-json-forks.json",
+    "newtonsoft-json-issues_all.json",
+    "newtonsoft-json-issues_closed.json",
+    "newtonsoft-json-issues_open.json",
+    "newtonsoft-json-languages.json",
+    "newtonsoft-json-participation.json",
+    "newtonsoft-json-pull_requests_all.json",
+    "newtonsoft-json-pull_requests_merged.json",
+    "newtonsoft-json-releases.json",
+    "newtonsoft-json-repo_info.json",
+    "newtonsoft-json-stats.json",
+    "newtonsoft-json-tags.json",
+    "newtonsoft-json-workflow_runs.json",
+    "newtonsoft-json-workflows.json"
+  ],
+  "total_files": 17
+}

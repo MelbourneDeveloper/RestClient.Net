@@ -1,0 +1,24 @@
+{
+  "collected_at": "2025-10-26T08:06:43.906213",
+  "repository": "serilog/serilog",
+  "files_collected": [
+    "serilog-commits.json",
+    "serilog-contributors.json",
+    "serilog-downloads.json",
+    "serilog-forks.json",
+    "serilog-issues_all.json",
+    "serilog-issues_closed.json",
+    "serilog-issues_open.json",
+    "serilog-languages.json",
+    "serilog-participation.json",
+    "serilog-pull_requests_all.json",
+    "serilog-pull_requests_merged.json",
+    "serilog-releases.json",
+    "serilog-repo_info.json",
+    "serilog-stats.json",
+    "serilog-tags.json",
+    "serilog-workflow_runs.json",
+    "serilog-workflows.json"
+  ],
+  "total_files": 17
+}

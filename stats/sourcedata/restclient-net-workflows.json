@@ -1,0 +1,53 @@
+{
+  "total_count": 4,
+  "workflows": [
+    {
+      "id": 198073693,
+      "node_id": "W_kwDOCLowCc4Lzl1d",
+      "name": "PR Build",
+      "path": ".github/workflows/pr-build.yml",
+      "state": "active",
+      "created_at": "2025-10-15T20:28:13.000+11:00",
+      "updated_at": "2025-10-15T20:28:13.000+11:00",
+      "url": "https://api.github.com/repos/MelbourneDeveloper/RestClient.Net/actions/workflows/198073693",
+      "html_url": "https://github.com/MelbourneDeveloper/RestClient.Net/blob/main/.github/workflows/pr-build.yml",
+      "badge_url": "https://github.com/MelbourneDeveloper/RestClient.Net/workflows/PR%20Build/badge.svg"
+    },
+    {
+      "id": 198073694,
+      "node_id": "W_kwDOCLowCc4Lzl1e",
+      "name": "Publish Exhaustion Analyzer to NuGet",
+      "path": ".github/workflows/publish-exhaustion.yml",
+      "state": "active",
+      "created_at": "2025-10-15T20:28:13.000+11:00",
+      "updated_at": "2025-10-15T20:28:13.000+11:00",
+      "url": "https://api.github.com/repos/MelbourneDeveloper/RestClient.Net/actions/workflows/198073694",
+      "html_url": "https://github.com/MelbourneDeveloper/RestClient.Net/blob/main/.github/workflows/publish-exhaustion.yml",
+      "badge_url": "https://github.com/MelbourneDeveloper/RestClient.Net/workflows/Publish%20Exhaustion%20Analyzer%20to%20NuGet/badge.svg"
+    },
+    {
+      "id": 198073695,
+      "node_id": "W_kwDOCLowCc4Lzl1f",
+      "name": "Publish Outcome to NuGet",
+      "path": ".github/workflows/publish-outcome.yml",
+      "state": "active",
+      "created_at": "2025-10-15T20:28:13.000+11:00",
+      "updated_at": "2025-10-15T20:28:13.000+11:00",
+      "url": "https://api.github.com/repos/MelbourneDeveloper/RestClient.Net/actions/workflows/198073695",
+      "html_url": "https://github.com/MelbourneDeveloper/RestClient.Net/blob/main/.github/workflows/publish-outcome.yml",
+      "badge_url": "https://github.com/MelbourneDeveloper/RestClient.Net/workflows/Publish%20Outcome%20to%20NuGet/badge.svg"
+    },
+    {
+      "id": 198073696,
+      "node_id": "W_kwDOCLowCc4Lzl1g",
+      "name": "Publish RestClient.Net to NuGet",
+      "path": ".github/workflows/publish-restclient.yml",
+      "state": "active",
+      "created_at": "2025-10-15T20:28:13.000+11:00",
+      "updated_at": "2025-10-15T20:28:13.000+11:00",
+      "url": "https://api.github.com/repos/MelbourneDeveloper/RestClient.Net/actions/workflows/198073696",
+      "html_url": "https://github.com/MelbourneDeveloper/RestClient.Net/blob/main/.github/workflows/publish-restclient.yml",
+      "badge_url": "https://github.com/MelbourneDeveloper/RestClient.Net/workflows/Publish%20RestClient.Net%20to%20NuGet/badge.svg"
+    }
+  ]
+}

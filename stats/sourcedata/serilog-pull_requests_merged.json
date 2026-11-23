@@ -1,0 +1,7498 @@
+[
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjI1ODc2NjU=",
+      "is_bot": false,
+      "login": "timothycoleman",
+      "name": "Tim Coleman"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-09-24T15:38:13Z",
+    "deletions": 4,
+    "mergedAt": "2025-09-26T23:43:48Z",
+    "number": 2203,
+    "title": "Remove backpressure from XMLDoc"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjQ2NDU4MA==",
+      "is_bot": false,
+      "login": "karpinsn",
+      "name": "Nik Karpinsky"
+    },
+    "changedFiles": 2,
+    "createdAt": "2025-09-04T20:31:39Z",
+    "deletions": 2,
+    "mergedAt": "2025-09-05T07:56:10Z",
+    "number": 2198,
+    "title": "Remove char[] allocation"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "U_kgDOBj6Xzg",
+      "is_bot": false,
+      "login": "krisbiradar",
+      "name": "Kris"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-08-28T18:57:35Z",
+    "deletions": 1,
+    "mergedAt": "2025-09-04T22:41:56Z",
+    "number": 2197,
+    "title": "Handle Exception.ToString failures in text formatter"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-05-19T22:59:53Z",
+    "deletions": 1,
+    "mergedAt": "2025-05-20T05:56:24Z",
+    "number": 2183,
+    "title": "remove SourceLink"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjUxNTc3NA==",
+      "is_bot": false,
+      "login": "agocke",
+      "name": "Andy Gocke"
+    },
+    "changedFiles": 3,
+    "createdAt": "2025-05-14T04:24:40Z",
+    "deletions": 0,
+    "mergedAt": "2025-05-14T05:02:33Z",
+    "number": 2179,
+    "title": "Reference targets file from tests"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjUxNTc3NA==",
+      "is_bot": false,
+      "login": "agocke",
+      "name": "Andy Gocke"
+    },
+    "changedFiles": 3,
+    "createdAt": "2025-05-14T03:29:43Z",
+    "deletions": 3,
+    "mergedAt": "2025-05-14T03:39:33Z",
+    "number": 2178,
+    "title": "Move trim option to targets file"
+  },
+  {
+    "additions": 208,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 18,
+    "createdAt": "2025-05-10T21:27:22Z",
+    "deletions": 24,
+    "mergedAt": "2025-05-18T21:20:48Z",
+    "number": 2177,
+    "title": "4.3.0 Release"
+  },
+  {
+    "additions": 52,
+    "author": {
+      "id": "MDQ6VXNlcjUxNTc3NA==",
+      "is_bot": false,
+      "login": "agocke",
+      "name": "Andy Gocke"
+    },
+    "changedFiles": 8,
+    "createdAt": "2025-05-10T04:10:26Z",
+    "deletions": 16,
+    "mergedAt": "2025-05-10T21:25:41Z",
+    "number": 2175,
+    "title": "Fix AOT compatibility"
+  },
+  {
+    "additions": 113,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 4,
+    "createdAt": "2025-03-11T04:59:40Z",
+    "deletions": 3,
+    "mergedAt": "2025-03-18T05:16:59Z",
+    "number": 2163,
+    "title": "allow pushing a IEnumerable of ILogEventEnricher"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjM5NDcwNjM=",
+      "is_bot": false,
+      "login": "TimHess",
+      "name": "Tim Hess"
+    },
+    "changedFiles": 1,
+    "createdAt": "2025-02-10T17:33:34Z",
+    "deletions": 3,
+    "mergedAt": "2025-02-10T20:53:17Z",
+    "number": 2158,
+    "title": "Use HTTPS in README.md images and links"
+  },
+  {
+    "additions": 32,
+    "author": {
+      "id": "MDQ6VXNlcjIzNzM3MDkw",
+      "is_bot": false,
+      "login": "vanni-giachin",
+      "name": "Vanni Giachin"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-12-19T13:14:13Z",
+    "deletions": 1,
+    "mergedAt": "2024-12-29T09:22:36Z",
+    "number": 2149,
+    "title": "Property factory as AddPropertyIfAbsent parameter"
+  },
+  {
+    "additions": 369,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 22,
+    "createdAt": "2024-11-28T22:52:17Z",
+    "deletions": 95,
+    "mergedAt": "2024-12-06T04:09:07Z",
+    "number": 2142,
+    "title": "4.2.0 Release"
+  },
+  {
+    "additions": 81,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 4,
+    "createdAt": "2024-11-27T23:56:53Z",
+    "deletions": 58,
+    "mergedAt": "2024-11-28T20:13:30Z",
+    "number": 2141,
+    "title": "Stabilize and fully-implement dotted property names in message templates"
+  },
+  {
+    "additions": 54,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 11,
+    "createdAt": "2024-11-16T21:16:32Z",
+    "deletions": 36,
+    "mergedAt": "2024-11-18T08:28:41Z",
+    "number": 2138,
+    "title": ".NET 9 SDK and TFM updates"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjUzNzkzMjU=",
+      "is_bot": false,
+      "login": "erichiller",
+      "name": "Eric Hiller"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-11-16T02:40:34Z",
+    "deletions": 1,
+    "mergedAt": "2024-11-16T19:39:29Z",
+    "number": 2136,
+    "title": "Update ILogEventSink.cs"
+  },
+  {
+    "additions": 223,
+    "author": {
+      "id": "MDQ6VXNlcjYxNDQwMTQ0",
+      "is_bot": false,
+      "login": "WAcry",
+      "name": "David Zhang"
+    },
+    "changedFiles": 4,
+    "createdAt": "2024-10-30T06:23:16Z",
+    "deletions": 5,
+    "mergedAt": "2024-10-30T23:51:48Z",
+    "number": 2132,
+    "title": "Extend Support for Multi-Dimensional Arrays"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-10-19T21:31:41Z",
+    "deletions": 6,
+    "mergedAt": "2024-10-19T21:36:23Z",
+    "number": 2131,
+    "title": "Give up on skipping sync builds for now"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-10-19T20:55:35Z",
+    "deletions": 2,
+    "mergedAt": "2024-10-19T21:07:54Z",
+    "number": 2130,
+    "title": "Attempt to avoid building PR syncs, number 2"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-10-19T20:15:52Z",
+    "deletions": 2,
+    "mergedAt": "2024-10-19T20:38:36Z",
+    "number": 2129,
+    "title": "Never publish from PRs, even within the same repo"
+  },
+  {
+    "additions": 148,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 16,
+    "createdAt": "2024-10-18T02:08:09Z",
+    "deletions": 106,
+    "mergedAt": "2024-10-19T19:51:39Z",
+    "number": 2127,
+    "title": "An initial Actions-based CI build and publishing workflow"
+  },
+  {
+    "additions": 842,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 36,
+    "createdAt": "2024-10-04T06:17:03Z",
+    "deletions": 285,
+    "mergedAt": "2024-10-22T03:30:26Z",
+    "number": 2123,
+    "title": "4.1.0 Release"
+  },
+  {
+    "additions": 169,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 7,
+    "createdAt": "2024-10-01T08:51:26Z",
+    "deletions": 78,
+    "mergedAt": "2024-10-02T04:15:17Z",
+    "number": 2120,
+    "title": "Add `BatchingOptions.RetryTimeLimit`"
+  },
+  {
+    "additions": 176,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 14,
+    "createdAt": "2024-09-27T20:29:53Z",
+    "deletions": 13554,
+    "mergedAt": "2024-09-28T21:21:01Z",
+    "number": 2118,
+    "title": "4.0.2 Release"
+  },
+  {
+    "additions": 95,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 6,
+    "createdAt": "2024-09-26T06:49:02Z",
+    "deletions": 23,
+    "mergedAt": "2024-09-27T20:22:41Z",
+    "number": 2116,
+    "title": "Fall back to `IDisposable` in `Log.CloseAndFlushAsync()` when the target logger is not `IAsyncDisposable`"
+  },
+  {
+    "additions": 529,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 15,
+    "createdAt": "2024-08-30T12:03:06Z",
+    "deletions": 101,
+    "mergedAt": "2024-10-01T02:38:46Z",
+    "number": 2108,
+    "title": "Failure listeners and fallback sinks"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-08-21T00:19:19Z",
+    "deletions": 1,
+    "mergedAt": "2024-08-26T03:58:44Z",
+    "number": 2103,
+    "title": "Don't capture properties with private `get` accessors"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-07-25T11:02:12Z",
+    "deletions": 13526,
+    "mergedAt": "2024-07-25T14:03:26Z",
+    "number": 2095,
+    "title": "Remove junk file"
+  },
+  {
+    "additions": 64,
+    "author": {
+      "id": "MDQ6VXNlcjgxNDA0ODM=",
+      "is_bot": false,
+      "login": "epeshk",
+      "name": "Eugene Peshkov"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-25T09:59:52Z",
+    "deletions": 2,
+    "mergedAt": "2024-08-20T04:38:52Z",
+    "number": 2094,
+    "title": "Removed boxing and string allocations in MessageTemplateTextFormatter"
+  },
+  {
+    "additions": 13526,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-07-25T00:34:24Z",
+    "deletions": 7,
+    "mergedAt": "2024-07-25T00:43:25Z",
+    "number": 2093,
+    "title": "Drop macOS CI target; too slow to run successfully"
+  },
+  {
+    "additions": 13730,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 12,
+    "createdAt": "2024-07-24T23:15:26Z",
+    "deletions": 176,
+    "mergedAt": "2024-07-25T02:48:00Z",
+    "number": 2092,
+    "title": "4.0.1 Release"
+  },
+  {
+    "additions": 174,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 8,
+    "createdAt": "2024-07-23T04:06:44Z",
+    "deletions": 160,
+    "mergedAt": "2024-07-24T22:28:33Z",
+    "number": 2090,
+    "title": "Reuse `HashSet` instances, reduce LINQ usage, avoid reallocating `StructureValue._properties`"
+  },
+  {
+    "additions": 23,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-22T23:20:25Z",
+    "deletions": 23,
+    "mergedAt": "2024-07-24T06:29:12Z",
+    "number": 2089,
+    "title": "Allow non-anonymous-type destructuring when trimmed"
+  },
+  {
+    "additions": 22,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-07-10T04:00:37Z",
+    "deletions": 1,
+    "mergedAt": "2024-07-11T21:16:16Z",
+    "number": 2083,
+    "title": "Version `Serilog.dll` as `Major.Minor.0.0`"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2024-05-30T00:44:59Z",
+    "deletions": 1,
+    "mergedAt": "2024-05-30T01:27:36Z",
+    "number": 2070,
+    "title": "Attempt to make tests more robust on slow CI machines by increasing time steps"
+  },
+  {
+    "additions": 40,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 10,
+    "createdAt": "2024-05-27T05:42:55Z",
+    "deletions": 27,
+    "mergedAt": "2024-05-28T23:17:08Z",
+    "number": 2069,
+    "title": "Update all dependencies, fix new xUnit lints"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-05-27T05:27:36Z",
+    "deletions": 6,
+    "mergedAt": "2024-05-28T23:16:23Z",
+    "number": 2068,
+    "title": "Move `TrimConfiguration` to `Serilog.Capturing` namespace"
+  },
+  {
+    "additions": 1694,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 83,
+    "createdAt": "2024-05-26T23:34:02Z",
+    "deletions": 480,
+    "mergedAt": "2024-06-01T04:38:57Z",
+    "number": 2067,
+    "title": "4.0.0 Release"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjc2MDY0Njk=",
+      "is_bot": false,
+      "login": "Insomniak47",
+      "name": "Chris Nantau"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-05-24T01:23:12Z",
+    "deletions": 14,
+    "mergedAt": "2024-05-27T05:28:55Z",
+    "number": 2065,
+    "title": "fix: allows all non-'}' characters as format values"
+  },
+  {
+    "additions": 17,
+    "author": {
+      "id": "MDQ6VXNlcjc2MDY0Njk=",
+      "is_bot": false,
+      "login": "Insomniak47",
+      "name": "Chris Nantau"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-05-19T21:05:10Z",
+    "deletions": 25,
+    "mergedAt": "2024-05-22T03:23:46Z",
+    "number": 2064,
+    "title": "fix: message templates alignment compliance"
+  },
+  {
+    "additions": 137,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 4,
+    "createdAt": "2024-05-17T21:37:03Z",
+    "deletions": 69,
+    "mergedAt": "2024-05-22T21:55:07Z",
+    "number": 2063,
+    "title": "`MessageTemplateParser` refactor incl. experimental `.` support"
+  },
+  {
+    "additions": 150,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 7,
+    "createdAt": "2024-05-10T22:33:56Z",
+    "deletions": 166,
+    "mergedAt": "2024-05-16T05:34:53Z",
+    "number": 2060,
+    "title": "Redesign `LoggerSinkConfiguration.Wrap()`, and introduce `LoggerSinkConfiguration.CreateSink()`"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-05-07T05:02:20Z",
+    "deletions": 18,
+    "mergedAt": "2024-05-08T00:34:21Z",
+    "number": 2058,
+    "title": "Fix the namespace of the new `BatchingOptions` type"
+  },
+  {
+    "additions": 1006,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 41,
+    "createdAt": "2024-05-02T00:13:27Z",
+    "deletions": 113,
+    "mergedAt": "2024-05-05T00:58:48Z",
+    "number": 2055,
+    "title": "`WriteTo.Sink(IBatchedLogEventSink, BatchingOptions, ...)`"
+  },
+  {
+    "additions": 22,
+    "author": {
+      "id": "MDQ6VXNlcjExNDY1MDI1",
+      "is_bot": false,
+      "login": "MatthewHays",
+      "name": ""
+    },
+    "changedFiles": 4,
+    "createdAt": "2024-04-21T15:12:24Z",
+    "deletions": 0,
+    "mergedAt": "2024-04-23T23:58:33Z",
+    "number": 2051,
+    "title": "Add a UtcTimestamp token and a small unit test"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjExNTY1NzE=",
+      "is_bot": false,
+      "login": "tillig",
+      "name": "Travis Illig"
+    },
+    "changedFiles": 2,
+    "createdAt": "2024-04-05T13:56:59Z",
+    "deletions": 2,
+    "mergedAt": "2024-04-23T23:58:02Z",
+    "number": 2045,
+    "title": "Level override check is case-insensitive."
+  },
+  {
+    "additions": 93,
+    "author": {
+      "id": "MDQ6VXNlcjExNTY1NzE=",
+      "is_bot": false,
+      "login": "tillig",
+      "name": "Travis Illig"
+    },
+    "changedFiles": 9,
+    "createdAt": "2024-04-04T18:29:34Z",
+    "deletions": 34,
+    "mergedAt": "2024-04-04T23:04:29Z",
+    "number": 2044,
+    "title": "Build updates for compatibility"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 3,
+    "createdAt": "2024-03-19T08:13:17Z",
+    "deletions": 3,
+    "mergedAt": "2024-10-25T05:44:38Z",
+    "number": 2028,
+    "title": "Some edits after reviewing latest changes"
+  },
+  {
+    "additions": 60,
+    "author": {
+      "id": "MDQ6VXNlcjUxNTc3NA==",
+      "is_bot": false,
+      "login": "agocke",
+      "name": "Andy Gocke"
+    },
+    "changedFiles": 11,
+    "createdAt": "2024-03-18T03:23:51Z",
+    "deletions": 2,
+    "mergedAt": "2024-05-07T07:40:18Z",
+    "number": 2027,
+    "title": "Finish trim annotation"
+  },
+  {
+    "additions": 76,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 6,
+    "createdAt": "2024-03-01T05:18:02Z",
+    "deletions": 2,
+    "mergedAt": "2024-03-11T23:18:33Z",
+    "number": 2018,
+    "title": "Add `LogEvent.UnstableAssembleFromParts()`"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 6,
+    "createdAt": "2024-02-24T03:40:47Z",
+    "deletions": 25,
+    "mergedAt": "2024-03-01T03:48:57Z",
+    "number": 2016,
+    "title": "Update TFMs for Serilog 4.0"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 5,
+    "createdAt": "2024-02-24T02:59:58Z",
+    "deletions": 5,
+    "mergedAt": "2024-02-25T22:00:14Z",
+    "number": 2015,
+    "title": "Set dev branch version to `4.0.0-*`, unpin `[AssemblyVersion]`"
+  },
+  {
+    "additions": 54,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-11-10T20:30:51Z",
+    "deletions": 1,
+    "mergedAt": "2023-11-17T07:12:17Z",
+    "number": 1979,
+    "title": "Add tests for `ReusableStringWriter` not covered on other paths"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-11-10T12:21:02Z",
+    "deletions": 2,
+    "mergedAt": "2023-11-10T12:39:29Z",
+    "number": 1978,
+    "title": "3.1.1 Release"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-11-10T12:02:54Z",
+    "deletions": 1,
+    "mergedAt": "2023-11-10T12:19:35Z",
+    "number": 1977,
+    "title": "Don't stack overflow when disposing `ReusableStringWriter`"
+  },
+  {
+    "additions": 585,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 37,
+    "createdAt": "2023-11-03T21:01:03Z",
+    "deletions": 521,
+    "mergedAt": "2023-11-09T06:12:43Z",
+    "number": 1975,
+    "title": "3.1.0 Release"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjIwNjY2OA==",
+      "is_bot": false,
+      "login": "bartelink",
+      "name": "Ruben Bartelink"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-10-21T18:21:00Z",
+    "deletions": 12,
+    "mergedAt": "2023-10-22T22:49:01Z",
+    "number": 1971,
+    "title": "chore: Drop test coverage for out of support .NET Core vers"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjIwNjY2OA==",
+      "is_bot": false,
+      "login": "bartelink",
+      "name": "Ruben Bartelink"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-10-21T16:34:59Z",
+    "deletions": 7,
+    "mergedAt": "2023-10-26T23:45:31Z",
+    "number": 1969,
+    "title": "chore(docs): Markdown housekeeping"
+  },
+  {
+    "additions": 12,
+    "author": {
+      "id": "U_kgDOBu36ew",
+      "is_bot": false,
+      "login": "Jakimar",
+      "name": "dtabakaev"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-10-09T15:46:13Z",
+    "deletions": 1,
+    "mergedAt": "2023-10-09T22:38:38Z",
+    "number": 1964,
+    "title": "ReusableStringWriter: Dispose instance with too big buffer"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjgxNDA0ODM=",
+      "is_bot": false,
+      "login": "epeshk",
+      "name": "Eugene Peshkov"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-10-02T17:49:02Z",
+    "deletions": 1,
+    "mergedAt": "2023-10-03T02:42:40Z",
+    "number": 1960,
+    "title": "Added missing DynamicallyAccessedMembers in PropertyValueConverter"
+  },
+  {
+    "additions": 42,
+    "author": {
+      "id": "MDQ6VXNlcjgxNDA0ODM=",
+      "is_bot": false,
+      "login": "epeshk",
+      "name": "Eugene Peshkov"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-09-30T12:16:16Z",
+    "deletions": 5,
+    "mergedAt": "2023-10-02T04:55:20Z",
+    "number": 1959,
+    "title": "PropertyValueConverter optimization: avoiding hashset lookup for primitive types"
+  },
+  {
+    "additions": 259,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 17,
+    "createdAt": "2023-09-19T01:19:41Z",
+    "deletions": 49,
+    "mergedAt": "2023-10-02T05:38:23Z",
+    "number": 1955,
+    "title": "Collect and propagate current trace and span ids through `LogEvent`"
+  },
+  {
+    "additions": 168,
+    "author": {
+      "id": "MDQ6VXNlcjgxNDA0ODM=",
+      "is_bot": false,
+      "login": "epeshk",
+      "name": "Eugene Peshkov"
+    },
+    "changedFiles": 6,
+    "createdAt": "2023-08-21T19:48:40Z",
+    "deletions": 6,
+    "mergedAt": "2023-10-03T22:30:51Z",
+    "number": 1948,
+    "title": "Removed temporary array allocations for properties"
+  },
+  {
+    "additions": 47,
+    "author": {
+      "id": "MDQ6VXNlcjgxNDA0ODM=",
+      "is_bot": false,
+      "login": "epeshk",
+      "name": "Eugene Peshkov"
+    },
+    "changedFiles": 4,
+    "createdAt": "2023-08-21T19:12:18Z",
+    "deletions": 3,
+    "mergedAt": "2023-10-09T07:05:14Z",
+    "number": 1947,
+    "title": "By reference string comparison in template cache"
+  },
+  {
+    "additions": 22,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 4,
+    "createdAt": "2023-07-31T11:38:55Z",
+    "deletions": 22,
+    "mergedAt": "2023-08-01T11:27:48Z",
+    "number": 1942,
+    "title": "remove some redundant GetTypeInfo"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-07-07T03:30:18Z",
+    "deletions": 1,
+    "mergedAt": "2023-07-10T04:04:11Z",
+    "number": 1936,
+    "title": "Update upgrading instructions in README.md"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-07-06T11:34:06Z",
+    "deletions": 396,
+    "mergedAt": "2023-07-06T16:27:56Z",
+    "number": 1935,
+    "title": "Remove Changes.md"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-06-21T21:22:56Z",
+    "deletions": 2,
+    "mergedAt": "2023-06-21T21:45:04Z",
+    "number": 1927,
+    "title": "3.0.1 Release"
+  },
+  {
+    "additions": 17,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-06-21T21:08:21Z",
+    "deletions": 1,
+    "mergedAt": "2023-06-21T21:21:54Z",
+    "number": 1926,
+    "title": "Fixes #1924 - JsonFormatter produces malformed JSON when renderMessage = true"
+  },
+  {
+    "additions": 23,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-06-19T23:07:32Z",
+    "deletions": 19,
+    "mergedAt": "2023-09-13T04:34:40Z",
+    "number": 1922,
+    "title": "Modernize the README a little more"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-06-19T05:02:37Z",
+    "deletions": 1,
+    "mergedAt": "2023-06-19T05:15:36Z",
+    "number": 1919,
+    "title": "Serve README.md logo from raw.github.com so that it will be displayed on NuGet.org"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-06-13T05:18:18Z",
+    "deletions": 12,
+    "mergedAt": "2023-06-19T04:02:32Z",
+    "number": 1916,
+    "title": "Include `README.md` in the NuGet package for display on nuget.org"
+  },
+  {
+    "additions": 55,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-05-26T02:19:13Z",
+    "deletions": 346,
+    "mergedAt": "2023-05-31T01:59:01Z",
+    "number": 1911,
+    "title": "Use `JsonValueFormatter` to implement classic `JsonFormatter`"
+  },
+  {
+    "additions": 41,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-05-26T02:02:49Z",
+    "deletions": 0,
+    "mergedAt": "2023-05-29T00:34:30Z",
+    "number": 1910,
+    "title": "Add `LevelAlias.Off`; fixes #1684"
+  },
+  {
+    "additions": 91,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 5,
+    "createdAt": "2023-05-08T07:05:00Z",
+    "deletions": 2,
+    "mergedAt": "2023-05-24T04:24:34Z",
+    "number": 1908,
+    "title": "Add LoggingLevelSwitch.MinimumLevelChanged"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-05-07T08:08:43Z",
+    "deletions": 2,
+    "mergedAt": "2023-05-09T06:58:58Z",
+    "number": 1907,
+    "title": "Annotate WithProperty"
+  },
+  {
+    "additions": 68,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 10,
+    "createdAt": "2023-05-07T07:57:20Z",
+    "deletions": 14,
+    "mergedAt": "2023-05-24T21:08:40Z",
+    "number": 1906,
+    "title": "Add Destructure.AsDictionary<T>()"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-05-05T00:27:44Z",
+    "deletions": 15,
+    "mergedAt": "2023-05-05T22:04:41Z",
+    "number": 1905,
+    "title": "add net47"
+  },
+  {
+    "additions": 45,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-05-03T01:32:09Z",
+    "deletions": 4,
+    "mergedAt": "2023-05-24T04:25:51Z",
+    "number": 1903,
+    "title": "Fix #1464, don't log parameter count mismatch message incorrectly"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-05-03T00:42:59Z",
+    "deletions": 5,
+    "mergedAt": "2023-05-03T03:07:16Z",
+    "number": 1902,
+    "title": "Accept/pass through the standard `levelSwitch` option in `WriteTo.Logger()`"
+  },
+  {
+    "additions": 2347,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 137,
+    "createdAt": "2023-05-03T00:15:25Z",
+    "deletions": 1453,
+    "mergedAt": "2023-06-19T22:57:38Z",
+    "number": 1901,
+    "title": "3.0.0 Release"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-05-01T06:48:29Z",
+    "deletions": 2,
+    "mergedAt": "2023-05-02T10:37:06Z",
+    "number": 1900,
+    "title": "remove redundant idictionary cast"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 7,
+    "createdAt": "2023-04-29T10:41:36Z",
+    "deletions": 9,
+    "mergedAt": "2023-05-01T04:56:43Z",
+    "number": 1898,
+    "title": "avoid some alloc with Array.Empty"
+  },
+  {
+    "additions": 25,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-04-29T05:43:26Z",
+    "deletions": 5,
+    "mergedAt": "2023-05-01T04:58:41Z",
+    "number": 1897,
+    "title": "Destructure ReadOnlyDictionary as Dictionary"
+  },
+  {
+    "additions": 99,
+    "author": {
+      "id": "MDQ6VXNlcjIzMzI1MTc=",
+      "is_bot": false,
+      "login": "srogovtsev",
+      "name": "Sergei Rogovtcev"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-04-08T14:19:28Z",
+    "deletions": 2,
+    "mergedAt": "2023-05-03T00:28:50Z",
+    "number": 1890,
+    "title": "Adding ability to dispose nested loggers in WriteTo.Logger"
+  },
+  {
+    "additions": 35,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 4,
+    "createdAt": "2023-03-30T01:02:42Z",
+    "deletions": 6,
+    "mergedAt": "2023-03-30T21:31:36Z",
+    "number": 1889,
+    "title": "Reinstate `LoggerSinkConfiguration.Sink(ILogEventSink, LogEventLevel)`"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-03-29T22:11:55Z",
+    "deletions": 18,
+    "mergedAt": "2023-03-30T16:32:04Z",
+    "number": 1888,
+    "title": "Suppress some warnings, tidy up some namespacing"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-03-29T04:20:09Z",
+    "deletions": 3,
+    "mergedAt": "2023-03-29T22:11:02Z",
+    "number": 1887,
+    "title": "Throw, rather than exit, when any command in the build script fails"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-03-28T08:30:38Z",
+    "deletions": 16,
+    "mergedAt": "2023-03-29T02:45:23Z",
+    "number": 1886,
+    "title": "remove redundant CallerArgumentExpressionAttribute"
+  },
+  {
+    "additions": 134,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 63,
+    "createdAt": "2023-03-27T21:10:08Z",
+    "deletions": 130,
+    "mergedAt": "2023-03-28T00:50:13Z",
+    "number": 1885,
+    "title": "Add space settings"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 5,
+    "createdAt": "2023-03-27T21:03:53Z",
+    "deletions": 8,
+    "mergedAt": "2023-03-29T02:45:01Z",
+    "number": 1884,
+    "title": "Make Alignment and LevelOverride readonly"
+  },
+  {
+    "additions": 17,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 5,
+    "createdAt": "2023-03-26T23:02:01Z",
+    "deletions": 46,
+    "mergedAt": "2023-03-29T04:16:26Z",
+    "number": 1882,
+    "title": "remove MessageTemplateToken.StartIndex"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-03-10T16:27:06Z",
+    "deletions": 2,
+    "mergedAt": "2023-03-13T06:43:48Z",
+    "number": 1878,
+    "title": "Avoid creating SafeAggregateSink wrapper around empty list"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-03-09T02:00:11Z",
+    "deletions": 1,
+    "mergedAt": "2023-03-12T10:28:43Z",
+    "number": 1877,
+    "title": "PublicApiGenerator v11"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 7,
+    "createdAt": "2023-03-04T16:38:48Z",
+    "deletions": 177,
+    "mergedAt": "2023-03-26T21:43:12Z",
+    "number": 1874,
+    "title": "Remove obsolete classes"
+  },
+  {
+    "additions": 21,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 8,
+    "createdAt": "2023-03-04T13:44:26Z",
+    "deletions": 9,
+    "mergedAt": "2023-05-03T01:32:54Z",
+    "number": 1872,
+    "title": "Optimize AddPropertyIfAbsent"
+  },
+  {
+    "additions": 38,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 15,
+    "createdAt": "2023-03-04T13:19:44Z",
+    "deletions": 37,
+    "mergedAt": "2023-03-12T10:29:28Z",
+    "number": 1871,
+    "title": "Use langword in xml comments"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-03-02T21:22:29Z",
+    "deletions": 2,
+    "mergedAt": "2023-03-03T05:49:26Z",
+    "number": 1869,
+    "title": "missing PolySharp changes"
+  },
+  {
+    "additions": 36,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-02-28T11:15:53Z",
+    "deletions": 18,
+    "mergedAt": "2023-02-28T19:54:41Z",
+    "number": 1868,
+    "title": "use char delimiters"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-02-28T11:04:10Z",
+    "deletions": 2,
+    "mergedAt": "2023-02-28T11:39:16Z",
+    "number": 1867,
+    "title": "remove redundant GetPackagingOutputs"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-02-28T11:03:36Z",
+    "deletions": 2,
+    "mergedAt": "2023-02-28T20:11:46Z",
+    "number": 1866,
+    "title": "Remove redundant reference assemblies"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 5,
+    "createdAt": "2023-02-28T10:13:33Z",
+    "deletions": 56,
+    "mergedAt": "2023-03-03T22:37:14Z",
+    "number": 1865,
+    "title": "simplify build scripts"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-02-25T11:31:25Z",
+    "deletions": 15,
+    "mergedAt": "2023-02-25T12:26:53Z",
+    "number": 1864,
+    "title": "simplify PublicApi_Should_Not_Change_Unintentionally"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-02-25T11:21:43Z",
+    "deletions": 6,
+    "mergedAt": "2023-02-27T23:13:53Z",
+    "number": 1863,
+    "title": "move from net461 to net462"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-02-25T11:15:52Z",
+    "deletions": 7,
+    "mergedAt": "2023-03-29T04:16:38Z",
+    "number": 1862,
+    "title": "Microsoft.NET.Test.Sdk 17.5.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-02-25T11:14:44Z",
+    "deletions": 1,
+    "mergedAt": "2023-02-25T11:34:20Z",
+    "number": 1861,
+    "title": "BenchmarkDotNet 0.13.5"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-02-25T04:08:32Z",
+    "deletions": 0,
+    "mergedAt": "2023-02-25T06:04:27Z",
+    "number": 1860,
+    "title": "run tests on mac"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-02-25T03:59:54Z",
+    "deletions": 1,
+    "mergedAt": "2023-02-25T11:39:29Z",
+    "number": 1859,
+    "title": "cache empty text token"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-02-25T03:05:43Z",
+    "deletions": 0,
+    "mergedAt": "2023-02-25T03:56:02Z",
+    "number": 1858,
+    "title": "macOS CI"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-02-03T23:34:45Z",
+    "deletions": 4,
+    "mergedAt": "2023-02-03T23:46:29Z",
+    "number": 1851,
+    "title": "remove FEATURE_GETCURRENTMETHOD const"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-02-03T23:01:06Z",
+    "deletions": 1,
+    "mergedAt": "2023-02-03T23:13:19Z",
+    "number": 1849,
+    "title": "Net471 supports ITuple"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-02-03T22:38:59Z",
+    "deletions": 0,
+    "mergedAt": "2023-02-03T22:58:18Z",
+    "number": 1848,
+    "title": "missing api approval"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-02-03T22:26:17Z",
+    "deletions": 1,
+    "mergedAt": "2023-02-03T22:48:12Z",
+    "number": 1847,
+    "title": "fix 461 TargetFramework constants in tests"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-02-03T22:06:45Z",
+    "deletions": 1,
+    "mergedAt": "2023-02-03T22:15:01Z",
+    "number": 1846,
+    "title": "fix net471 DisableImplicitFrameworkReferences"
+  },
+  {
+    "additions": 28,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 7,
+    "createdAt": "2023-02-03T16:21:12Z",
+    "deletions": 67,
+    "mergedAt": "2023-03-02T20:59:33Z",
+    "number": 1845,
+    "title": "Introduce PolySharp"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-30T08:27:09Z",
+    "deletions": 4,
+    "mergedAt": "2023-01-30T19:59:51Z",
+    "number": 1842,
+    "title": "Use correct overload with char in JsonFormatter"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-01-30T05:14:25Z",
+    "deletions": 14,
+    "mergedAt": "2023-01-30T05:43:44Z",
+    "number": 1841,
+    "title": "avoid casting enum to int where possible"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-30T04:55:24Z",
+    "deletions": 5,
+    "mergedAt": "2023-01-30T05:42:46Z",
+    "number": 1840,
+    "title": "no point putting _minimumLevel and _levelSwitch on stack"
+  },
+  {
+    "additions": 23,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-30T04:15:55Z",
+    "deletions": 15,
+    "mergedAt": "2023-01-30T05:46:03Z",
+    "number": 1839,
+    "title": "Leverage null char in JsonFormatter"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-30T04:07:13Z",
+    "deletions": 6,
+    "mergedAt": "2023-01-30T04:16:53Z",
+    "number": 1838,
+    "title": "var in JsonFormatter"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-01-30T03:07:36Z",
+    "deletions": 21,
+    "mergedAt": "2023-01-30T05:18:13Z",
+    "number": 1837,
+    "title": "remove obsolete SelfLog.Out"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-01-30T03:04:01Z",
+    "deletions": 16,
+    "mergedAt": "2023-01-30T05:41:58Z",
+    "number": 1836,
+    "title": "remove obsolete PushProperties"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-30T03:01:14Z",
+    "deletions": 16,
+    "mergedAt": "2023-01-30T03:57:40Z",
+    "number": 1835,
+    "title": "cleanup JsonValueFormatter"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-01-30T02:58:12Z",
+    "deletions": 34,
+    "mergedAt": "2023-01-30T05:41:34Z",
+    "number": 1834,
+    "title": "remove Obsolete JsonFormatter omitEnclosingObject overload"
+  },
+  {
+    "additions": 17,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-27T11:42:28Z",
+    "deletions": 20,
+    "mergedAt": "2023-01-28T02:15:29Z",
+    "number": 1832,
+    "title": "avoid repeated GetType in PropertyValueConverter"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-27T11:19:05Z",
+    "deletions": 6,
+    "mergedAt": "2023-01-28T02:29:03Z",
+    "number": 1831,
+    "title": "Use array instead of list when we know the size in PropertyValueConverter"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-01-27T02:27:06Z",
+    "deletions": 7,
+    "mergedAt": "2023-01-28T02:20:09Z",
+    "number": 1830,
+    "title": "Leverage dictionary TryAdd and items constructor"
+  },
+  {
+    "additions": 10,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-27T00:36:17Z",
+    "deletions": 0,
+    "mergedAt": "2023-01-27T07:04:47Z",
+    "number": 1828,
+    "title": "comments on Hashtable in MessageTemplateCache"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 4,
+    "createdAt": "2023-01-26T23:48:16Z",
+    "deletions": 23,
+    "mergedAt": "2023-01-30T03:04:23Z",
+    "number": 1827,
+    "title": "Move net46 to net461"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-26T10:14:59Z",
+    "deletions": 1,
+    "mergedAt": "2023-01-26T17:23:27Z",
+    "number": 1825,
+    "title": "use is Enum for enum check in EnumScalarConversionPolicy"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-26T09:29:57Z",
+    "deletions": 14,
+    "mergedAt": "2023-01-27T07:13:08Z",
+    "number": 1824,
+    "title": "Remove GetTypeInfo from PropertyValueConverter"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-01-25T22:14:06Z",
+    "deletions": 23,
+    "mergedAt": "2023-01-25T22:26:37Z",
+    "number": 1823,
+    "title": "remove FEATURE_HASHTABLE"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 3,
+    "createdAt": "2023-01-25T21:36:23Z",
+    "deletions": 30,
+    "mergedAt": "2023-01-25T22:11:45Z",
+    "number": 1822,
+    "title": "remove FEATURE_ASYNCLOCAL"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-01-25T11:34:25Z",
+    "deletions": 16,
+    "mergedAt": "2023-01-25T21:22:37Z",
+    "number": 1819,
+    "title": "Remove obsolete PropertyToken constructor"
+  },
+  {
+    "additions": 20,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 4,
+    "createdAt": "2023-01-25T11:24:50Z",
+    "deletions": 32,
+    "mergedAt": "2023-01-25T21:40:08Z",
+    "number": 1818,
+    "title": "thoughts on switch expressions?"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-25T10:58:11Z",
+    "deletions": 1,
+    "mergedAt": "2023-01-25T12:30:07Z",
+    "number": 1817,
+    "title": "Remove redundant GetTypeInfo in LoadConfigurationAssemblies"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-25T10:56:46Z",
+    "deletions": 1,
+    "mergedAt": "2023-01-25T13:24:39Z",
+    "number": 1816,
+    "title": "Remove redundant GetTypeInfo in EnumScalarConversionPolicy"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-25T10:51:41Z",
+    "deletions": 5,
+    "mergedAt": "2023-01-25T13:21:42Z",
+    "number": 1815,
+    "title": "Remove typeinfo from FindConfigurationMethods"
+  },
+  {
+    "additions": 22,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-25T10:44:54Z",
+    "deletions": 23,
+    "mergedAt": "2023-01-25T21:48:21Z",
+    "number": 1814,
+    "title": "Simplify reflection in SettingValueConversions"
+  },
+  {
+    "additions": 12,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-25T10:23:08Z",
+    "deletions": 13,
+    "mergedAt": "2023-01-25T21:49:46Z",
+    "number": 1813,
+    "title": "Improve GetPropertiesRecursive performance"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-25T05:27:18Z",
+    "deletions": 2,
+    "mergedAt": "2023-01-25T09:39:25Z",
+    "number": 1812,
+    "title": "Remove duplicate Wheres in FindConfigurationMethods"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 7,
+    "createdAt": "2023-01-25T04:56:32Z",
+    "deletions": 159,
+    "mergedAt": "2023-01-25T12:29:04Z",
+    "number": 1811,
+    "title": "Remove net45 support"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 7,
+    "createdAt": "2023-01-25T04:21:22Z",
+    "deletions": 15,
+    "mergedAt": "2023-01-25T04:36:49Z",
+    "number": 1810,
+    "title": "remove redundant nullable suppressions"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-25T02:50:42Z",
+    "deletions": 20,
+    "mergedAt": "2023-01-25T03:33:53Z",
+    "number": 1809,
+    "title": "re verify API"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-24T23:42:32Z",
+    "deletions": 43,
+    "mergedAt": "2023-01-25T01:13:22Z",
+    "number": 1808,
+    "title": "Remove the obsolete `RawFormatter` type"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-24T09:28:58Z",
+    "deletions": 9,
+    "mergedAt": "2023-01-24T22:15:40Z",
+    "number": 1807,
+    "title": "Drop netstandard1.3 and netstandard1.0 support"
+  },
+  {
+    "additions": 24,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 8,
+    "createdAt": "2023-01-24T06:08:49Z",
+    "deletions": 15,
+    "mergedAt": "2023-01-25T01:25:30Z",
+    "number": 1806,
+    "title": "Attempt 4 at SDK 7"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-24T05:40:19Z",
+    "deletions": 11,
+    "mergedAt": "2023-01-25T02:31:47Z",
+    "number": 1805,
+    "title": "Remove OutputProperties.GetOutputProperties"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-01-24T05:36:43Z",
+    "deletions": 26,
+    "mergedAt": "2023-01-24T22:18:05Z",
+    "number": 1804,
+    "title": "Remove JsonFormatter.Escape"
+  },
+  {
+    "additions": 28,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 4,
+    "createdAt": "2023-01-24T05:33:02Z",
+    "deletions": 28,
+    "mergedAt": "2023-01-24T22:18:43Z",
+    "number": 1803,
+    "title": "use WriteLine char"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2023-01-24T02:07:08Z",
+    "deletions": 94,
+    "mergedAt": "2023-01-24T22:20:37Z",
+    "number": 1801,
+    "title": "Remove Extension of JsonFormatter by subclassing"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-24T01:54:10Z",
+    "deletions": 38,
+    "mergedAt": "2023-01-24T22:20:55Z",
+    "number": 1800,
+    "title": "Remove redundant overrides from LoggerSinkConfiguration"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2023-01-23T23:49:55Z",
+    "deletions": 1,
+    "mergedAt": "2023-01-24T03:48:11Z",
+    "number": 1798,
+    "title": "Major version bump; opens dev for v3 development"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "is_bot": true,
+      "login": "app/dependabot"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-12-08T15:02:13Z",
+    "deletions": 1,
+    "mergedAt": "2022-12-13T23:21:14Z",
+    "number": 1787,
+    "title": "Bump Newtonsoft.Json from 13.0.1 to 13.0.2 in /test/Serilog.Tests"
+  },
+  {
+    "additions": 32,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2022-12-04T21:40:46Z",
+    "deletions": 1,
+    "mergedAt": "2022-12-13T04:45:13Z",
+    "number": 1785,
+    "title": "Avoid iterator allocations when working with SequenceValue"
+  },
+  {
+    "additions": 1002,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 6,
+    "createdAt": "2022-12-04T16:22:39Z",
+    "deletions": 0,
+    "mergedAt": "2022-12-13T04:48:36Z",
+    "number": 1783,
+    "title": "Add API approval test"
+  },
+  {
+    "additions": 56,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 4,
+    "createdAt": "2022-12-04T15:14:46Z",
+    "deletions": 8,
+    "mergedAt": "2023-01-24T22:21:42Z",
+    "number": 1782,
+    "title": "Avoid StringWriter.ToString() calls"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-12-03T22:42:00Z",
+    "deletions": 1,
+    "mergedAt": "2022-12-14T23:15:16Z",
+    "number": 1778,
+    "title": "Tokens -> TokenArray"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 3,
+    "createdAt": "2022-12-03T22:01:47Z",
+    "deletions": 5,
+    "mergedAt": "2023-01-25T21:54:54Z",
+    "number": 1776,
+    "title": "Use Convert.ToHexString in ByteArrayScalarConversionPolicy"
+  },
+  {
+    "additions": 292,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2022-12-03T21:29:39Z",
+    "deletions": 10,
+    "mergedAt": "2023-01-25T21:47:16Z",
+    "number": 1775,
+    "title": "Do not allocate strings for TextWriter.Write"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 4,
+    "createdAt": "2022-12-02T22:58:34Z",
+    "deletions": 2,
+    "mergedAt": "2022-12-14T23:13:08Z",
+    "number": 1774,
+    "title": "Introduce ScalarValue.Null"
+  },
+  {
+    "additions": 63,
+    "author": {
+      "id": "MDQ6VXNlcjUzMDY2OTk=",
+      "is_bot": false,
+      "login": "igor84",
+      "name": "Igor Stojković"
+    },
+    "changedFiles": 7,
+    "createdAt": "2022-11-30T17:36:00Z",
+    "deletions": 5,
+    "mergedAt": "2023-03-09T05:51:30Z",
+    "number": 1771,
+    "title": "Added ReusableStringWriter"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjUzMDY2OTk=",
+      "is_bot": false,
+      "login": "igor84",
+      "name": "Igor Stojković"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-11-30T08:19:30Z",
+    "deletions": 1,
+    "mergedAt": "2022-11-30T21:26:38Z",
+    "number": 1770,
+    "title": "Avoided IEnumerator allocation (#1769)"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-10-24T21:04:53Z",
+    "deletions": 2,
+    "mergedAt": "2022-10-24T21:40:13Z",
+    "number": 1762,
+    "title": "Change exception message"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-09-13T01:12:42Z",
+    "deletions": 1,
+    "mergedAt": "2022-09-13T01:32:35Z",
+    "number": 1751,
+    "title": "Fix nullability of LogContext.PushProperty value arg"
+  },
+  {
+    "additions": 510,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 29,
+    "createdAt": "2022-09-09T00:20:31Z",
+    "deletions": 109,
+    "mergedAt": "2022-09-12T07:35:50Z",
+    "number": 1750,
+    "title": "Initial support for `IAsyncDisposable` sinks"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2022-09-03T10:58:36Z",
+    "deletions": 5,
+    "mergedAt": "2022-09-05T06:26:52Z",
+    "number": 1747,
+    "title": "refs"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 6,
+    "createdAt": "2022-09-03T10:50:05Z",
+    "deletions": 17,
+    "mergedAt": "2022-09-05T06:26:16Z",
+    "number": 1746,
+    "title": "minor cleanups"
+  },
+  {
+    "additions": 140,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 12,
+    "createdAt": "2022-09-03T10:44:01Z",
+    "deletions": 140,
+    "mergedAt": "2022-09-05T06:30:00Z",
+    "number": 1745,
+    "title": "remove redundant LogEventLevel"
+  },
+  {
+    "additions": 235,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 57,
+    "createdAt": "2022-09-01T00:27:40Z",
+    "deletions": 151,
+    "mergedAt": "2022-09-09T03:03:44Z",
+    "number": 1742,
+    "title": "guard against null"
+  },
+  {
+    "additions": 34,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 13,
+    "createdAt": "2022-08-31T23:27:45Z",
+    "deletions": 33,
+    "mergedAt": "2022-09-06T23:07:04Z",
+    "number": 1741,
+    "title": "remove redundant type names"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 5,
+    "createdAt": "2022-08-31T21:52:34Z",
+    "deletions": 8,
+    "mergedAt": "2022-09-01T00:07:32Z",
+    "number": 1739,
+    "title": "we love us some patterns"
+  },
+  {
+    "additions": 126,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 174,
+    "createdAt": "2022-08-26T01:57:49Z",
+    "deletions": 937,
+    "mergedAt": "2022-08-31T21:19:15Z",
+    "number": 1736,
+    "title": "global usings"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 5,
+    "createdAt": "2022-08-26T00:35:48Z",
+    "deletions": 6,
+    "mergedAt": "2022-08-26T21:17:58Z",
+    "number": 1735,
+    "title": "forgot to remove some Nullable>enable"
+  },
+  {
+    "additions": 15526,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 145,
+    "createdAt": "2022-08-25T05:56:33Z",
+    "deletions": 15670,
+    "mergedAt": "2022-08-25T21:36:54Z",
+    "number": 1734,
+    "title": "file scoped namespaces"
+  },
+  {
+    "additions": 42,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 4,
+    "createdAt": "2022-08-25T01:45:36Z",
+    "deletions": 10,
+    "mergedAt": "2022-08-30T23:08:06Z",
+    "number": 1733,
+    "title": "leverage ITuple interface"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 4,
+    "createdAt": "2022-08-23T23:19:33Z",
+    "deletions": 5,
+    "mergedAt": "2022-08-25T01:15:02Z",
+    "number": 1732,
+    "title": "use some compound assignments"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 3,
+    "createdAt": "2022-08-23T23:15:50Z",
+    "deletions": 10,
+    "mergedAt": "2022-08-25T01:14:20Z",
+    "number": 1731,
+    "title": "use some lambda expressions"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-08-23T23:11:12Z",
+    "deletions": 0,
+    "mergedAt": "2022-08-25T00:40:32Z",
+    "number": 1730,
+    "title": "suppress CheckEolTargetFramework"
+  },
+  {
+    "additions": 31,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 82,
+    "createdAt": "2022-08-23T23:02:57Z",
+    "deletions": 101,
+    "mergedAt": "2022-08-25T00:07:49Z",
+    "number": 1729,
+    "title": "Finish nullable. now enabled globally"
+  },
+  {
+    "additions": 30,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2022-08-23T02:51:58Z",
+    "deletions": 29,
+    "mergedAt": "2022-08-23T22:40:43Z",
+    "number": 1728,
+    "title": "rename ImmutableStack<ILogEventEnricher> to EnricherStack"
+  },
+  {
+    "additions": 957,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 35,
+    "createdAt": "2022-08-08T06:00:44Z",
+    "deletions": 988,
+    "mergedAt": "2022-08-09T08:02:32Z",
+    "number": 1725,
+    "title": "Introduce file-scoped namespaces"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 5,
+    "createdAt": "2022-08-08T00:59:54Z",
+    "deletions": 20,
+    "mergedAt": "2022-08-09T08:03:39Z",
+    "number": 1724,
+    "title": "update xunit"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2022-08-02T05:49:33Z",
+    "deletions": 12,
+    "mergedAt": "2022-08-09T08:05:56Z",
+    "number": 1723,
+    "title": "use some auto properties"
+  },
+  {
+    "additions": 42,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2022-08-02T05:40:14Z",
+    "deletions": 43,
+    "mergedAt": "2022-08-09T08:12:13Z",
+    "number": 1722,
+    "title": "nullable in MessageTemplateParser"
+  },
+  {
+    "additions": 21,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 3,
+    "createdAt": "2022-08-02T04:08:41Z",
+    "deletions": 33,
+    "mergedAt": "2022-08-17T06:44:03Z",
+    "number": 1721,
+    "title": "SettingValueConversions.ConvertToType() value cant be null"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 8,
+    "createdAt": "2022-08-02T04:02:51Z",
+    "deletions": 6,
+    "mergedAt": "2022-08-17T21:54:30Z",
+    "number": 1720,
+    "title": "some more nullables"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2022-08-01T21:59:20Z",
+    "deletions": 9,
+    "mergedAt": "2022-08-01T23:21:27Z",
+    "number": 1719,
+    "title": "remove ! operator from nulls in conditions"
+  },
+  {
+    "additions": 44,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 4,
+    "createdAt": "2022-07-29T00:05:16Z",
+    "deletions": 39,
+    "mergedAt": "2022-08-02T02:35:09Z",
+    "number": 1717,
+    "title": "nullables in SettingValueConversions CallableConfigurationMethodFinde…"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 5,
+    "createdAt": "2022-07-28T23:47:01Z",
+    "deletions": 10,
+    "mergedAt": "2022-07-29T03:32:30Z",
+    "number": 1716,
+    "title": "out ScalarValue can be null"
+  },
+  {
+    "additions": 44,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 15,
+    "createdAt": "2022-07-28T23:32:08Z",
+    "deletions": 35,
+    "mergedAt": "2022-08-02T02:55:35Z",
+    "number": 1715,
+    "title": "format  and formatProvider can be null"
+  },
+  {
+    "additions": 27,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 5,
+    "createdAt": "2022-07-28T22:45:25Z",
+    "deletions": 19,
+    "mergedAt": "2022-07-28T23:16:01Z",
+    "number": 1713,
+    "title": "ScalarValue.Value can be null"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 5,
+    "createdAt": "2022-07-28T22:24:48Z",
+    "deletions": 19,
+    "mergedAt": "2022-08-02T02:58:39Z",
+    "number": 1712,
+    "title": "minor csproj cleanup"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2022-07-27T06:01:16Z",
+    "deletions": 6,
+    "mergedAt": "2022-07-27T23:06:20Z",
+    "number": 1711,
+    "title": "add missing VALUETUPLE check"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 4,
+    "createdAt": "2022-07-27T05:00:30Z",
+    "deletions": 5,
+    "mergedAt": "2022-07-27T09:44:49Z",
+    "number": 1709,
+    "title": "update Microsoft.NET.Test.Sdk and Nullable packages"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-07-27T04:57:53Z",
+    "deletions": 1,
+    "mergedAt": "2022-07-27T09:40:32Z",
+    "number": 1708,
+    "title": "remove BuildNativeUWP.ps1 from sln files"
+  },
+  {
+    "additions": 35,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-07-26T22:33:14Z",
+    "deletions": 35,
+    "mergedAt": "2022-07-27T23:04:42Z",
+    "number": 1707,
+    "title": "Bring Log.* methods exception nullability into line with ILogger"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2022-07-25T21:55:28Z",
+    "deletions": 9,
+    "mergedAt": "2022-07-25T21:55:54Z",
+    "number": 1706,
+    "title": "Revert \"Remove ! operator from nulls in conditions\""
+  },
+  {
+    "additions": 17086,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 217,
+    "createdAt": "2022-07-25T21:53:46Z",
+    "deletions": 17876,
+    "mergedAt": "2022-09-13T04:17:33Z",
+    "number": 1705,
+    "title": "2.12.0 Release"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2022-07-25T21:52:28Z",
+    "deletions": 3,
+    "mergedAt": "2022-07-25T22:09:10Z",
+    "number": 1704,
+    "title": "Fix #1686 - nullable annotations for PropertyEnricher"
+  },
+  {
+    "additions": 12,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 21,
+    "createdAt": "2022-07-25T03:29:15Z",
+    "deletions": 379,
+    "mergedAt": "2022-07-25T21:24:01Z",
+    "number": 1703,
+    "title": "add explicit net6 target"
+  },
+  {
+    "additions": 113,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 8,
+    "createdAt": "2022-07-25T03:24:20Z",
+    "deletions": 3,
+    "mergedAt": "2022-07-26T05:10:52Z",
+    "number": 1702,
+    "title": "DateOnly and TimeOnly support"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-07-19T05:29:14Z",
+    "deletions": 15,
+    "mergedAt": "2022-07-25T21:42:19Z",
+    "number": 1700,
+    "title": "More nullable annotation updates"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2022-07-15T15:12:24Z",
+    "deletions": 5,
+    "mergedAt": "2022-07-25T21:33:38Z",
+    "number": 1699,
+    "title": "Remove wrong tag"
+  },
+  {
+    "additions": 104,
+    "author": {
+      "id": "MDQ6VXNlcjUxNTc3NA==",
+      "is_bot": false,
+      "login": "agocke",
+      "name": "Andy Gocke"
+    },
+    "changedFiles": 9,
+    "createdAt": "2022-06-17T06:16:27Z",
+    "deletions": 15,
+    "mergedAt": "2023-02-03T05:43:12Z",
+    "number": 1690,
+    "title": "Annotate Serilog for trimming"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2022-06-16T21:59:35Z",
+    "deletions": 9,
+    "mergedAt": "2022-07-25T21:34:53Z",
+    "number": 1689,
+    "title": "Remove ! operator from nulls in conditions"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 3,
+    "createdAt": "2022-05-04T05:42:41Z",
+    "deletions": 6,
+    "mergedAt": "2022-05-04T06:25:28Z",
+    "number": 1674,
+    "title": "update refs"
+  },
+  {
+    "additions": 150,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 5,
+    "createdAt": "2022-04-23T03:35:18Z",
+    "deletions": 152,
+    "mergedAt": "2022-04-23T23:44:20Z",
+    "number": 1669,
+    "title": "Fix nullable annotation on Log.ForContext(); minor nullability tweaks"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-04-22T22:26:22Z",
+    "deletions": 128,
+    "mergedAt": "2022-04-23T02:37:42Z",
+    "number": 1668,
+    "title": "Revert \"Update ILogger XML documentation\""
+  },
+  {
+    "additions": 128,
+    "author": {
+      "id": "MDQ6VXNlcjUzNzkzMjU=",
+      "is_bot": false,
+      "login": "erichiller",
+      "name": "Eric Hiller"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-04-03T11:12:30Z",
+    "deletions": 1,
+    "mergedAt": "2022-04-07T22:41:53Z",
+    "number": 1664,
+    "title": "Update ILogger XML documentation"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjQ4OTIxMTE0",
+      "is_bot": false,
+      "login": "KZedan",
+      "name": "Kareem Zedan"
+    },
+    "changedFiles": 1,
+    "createdAt": "2022-01-23T21:23:34Z",
+    "deletions": 1,
+    "mergedAt": "2022-01-23T22:43:43Z",
+    "number": 1652,
+    "title": "Fixed issue"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0OTkzOTU4",
+      "is_bot": false,
+      "login": "JinsPeter",
+      "name": "Jins Peter"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-12-06T13:54:51Z",
+    "deletions": 2,
+    "mergedAt": "2021-12-08T01:13:27Z",
+    "number": 1641,
+    "title": "Corrected Example in MessageTemplateFormatMethod documentation comments"
+  },
+  {
+    "additions": 154,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 4,
+    "createdAt": "2021-11-15T15:33:09Z",
+    "deletions": 4,
+    "mergedAt": "2021-12-02T07:11:51Z",
+    "number": 1635,
+    "title": "(ReadOnly)Memory<byte> scalar policy; NotSupportedExeption handling for PropertyValueConverter"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjE3NzYwOA==",
+      "is_bot": false,
+      "login": "augustoproiete",
+      "name": "C. Augusto Proiete"
+    },
+    "changedFiles": 2,
+    "createdAt": "2021-09-08T17:27:52Z",
+    "deletions": 16,
+    "mergedAt": "2021-09-08T23:06:50Z",
+    "number": 1625,
+    "title": "Update issue template to point to \"Usage help\" wiki page"
+  },
+  {
+    "additions": 1277,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 130,
+    "createdAt": "2021-08-20T00:06:20Z",
+    "deletions": 943,
+    "mergedAt": "2022-04-24T00:02:56Z",
+    "number": 1614,
+    "title": "2.11.0 Release"
+  },
+  {
+    "additions": 144,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 47,
+    "createdAt": "2021-06-24T12:02:59Z",
+    "deletions": 98,
+    "mergedAt": "2021-08-19T23:31:24Z",
+    "number": 1597,
+    "title": "Moar nullables"
+  },
+  {
+    "additions": 41,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 9,
+    "createdAt": "2021-06-23T01:59:19Z",
+    "deletions": 36,
+    "mergedAt": "2021-06-23T04:42:54Z",
+    "number": 1596,
+    "title": "Fix testing of net5.0 target; disallow warnings in test projects"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-06-22T22:56:10Z",
+    "deletions": 2,
+    "mergedAt": "2021-06-23T01:14:09Z",
+    "number": 1595,
+    "title": "Make Nullable a private dependency; squeeze in a net5.0 target"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2021-06-22T04:29:22Z",
+    "deletions": 3,
+    "mergedAt": "2021-06-22T05:02:36Z",
+    "number": 1594,
+    "title": "move to assert false"
+  },
+  {
+    "additions": 17,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 5,
+    "createdAt": "2021-06-22T03:59:11Z",
+    "deletions": 17,
+    "mergedAt": "2021-06-23T04:32:17Z",
+    "number": 1593,
+    "title": "use some pattern matching"
+  },
+  {
+    "additions": 39,
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "changedFiles": 2,
+    "createdAt": "2021-06-21T05:11:40Z",
+    "deletions": 2,
+    "mergedAt": "2021-06-22T04:27:21Z",
+    "number": 1592,
+    "title": "Write to SelfLog to warn about settings with missing assembly references"
+  },
+  {
+    "additions": 150,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 20,
+    "createdAt": "2021-06-21T00:34:18Z",
+    "deletions": 125,
+    "mergedAt": "2021-06-22T05:02:06Z",
+    "number": 1591,
+    "title": "make tests nullable"
+  },
+  {
+    "additions": 231,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 6,
+    "createdAt": "2021-06-15T04:03:34Z",
+    "deletions": 222,
+    "mergedAt": "2021-06-21T00:00:58Z",
+    "number": 1588,
+    "title": "add nullable for ilogger and implementations"
+  },
+  {
+    "additions": 37,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-06-15T01:57:25Z",
+    "deletions": 35,
+    "mergedAt": "2021-06-15T04:31:58Z",
+    "number": 1587,
+    "title": "make MethodOverloadConventionTests nullable"
+  },
+  {
+    "additions": 33,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 12,
+    "createdAt": "2021-06-15T01:34:26Z",
+    "deletions": 31,
+    "mergedAt": "2021-06-15T04:28:00Z",
+    "number": 1586,
+    "title": "use nullable in Serilog.PerformanceTests"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 8,
+    "createdAt": "2021-06-15T01:18:35Z",
+    "deletions": 15,
+    "mergedAt": "2021-06-20T23:10:14Z",
+    "number": 1585,
+    "title": "make TestDummies use nullable"
+  },
+  {
+    "additions": 107,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 43,
+    "createdAt": "2021-05-15T03:25:59Z",
+    "deletions": 109,
+    "mergedAt": "2021-05-17T22:32:24Z",
+    "number": 1576,
+    "title": "move to target typed new"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-05-11T10:26:28Z",
+    "deletions": 0,
+    "mergedAt": "2021-05-11T10:35:30Z",
+    "number": 1574,
+    "title": "CI fixes"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 6,
+    "createdAt": "2021-05-11T07:16:20Z",
+    "deletions": 10,
+    "mergedAt": "2021-05-11T07:23:55Z",
+    "number": 1573,
+    "title": ".NET 5.0.202 SDK, main branch change"
+  },
+  {
+    "additions": 47,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 10,
+    "createdAt": "2021-05-04T01:38:01Z",
+    "deletions": 63,
+    "mergedAt": "2021-05-05T01:52:00Z",
+    "number": 1568,
+    "title": "remove some redundant variables"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 2,
+    "createdAt": "2021-05-04T01:28:05Z",
+    "deletions": 9,
+    "mergedAt": "2021-05-05T01:50:20Z",
+    "number": 1567,
+    "title": "update some references"
+  },
+  {
+    "additions": 58,
+    "author": {
+      "id": "MDQ6VXNlcjEyNTExMDg1",
+      "is_bot": false,
+      "login": "stochmal",
+      "name": "Tomasz Stochmal"
+    },
+    "changedFiles": 2,
+    "createdAt": "2021-04-20T12:33:03Z",
+    "deletions": 2,
+    "mergedAt": "2021-08-19T04:57:59Z",
+    "number": 1561,
+    "title": "Add support for collections/`string[]` to key-value settings"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjcxNzYxNzYz",
+      "is_bot": false,
+      "login": "Avisss",
+      "name": "Никита Avis"
+    },
+    "changedFiles": 1,
+    "createdAt": "2021-02-08T06:41:58Z",
+    "deletions": 1,
+    "mergedAt": "2021-02-09T08:06:01Z",
+    "number": 1533,
+    "title": "more precise logevent timestamp"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjQ2MTU3OQ==",
+      "is_bot": false,
+      "login": "julealgon",
+      "name": "Juliano Leal Goncalves"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-12-10T22:06:48Z",
+    "deletions": 2,
+    "mergedAt": "2020-12-10T23:17:46Z",
+    "number": 1513,
+    "title": "Fix miswording on 'AsScalar' destructuring methods"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 4,
+    "createdAt": "2020-11-03T23:59:25Z",
+    "deletions": 8,
+    "mergedAt": "2020-11-04T21:46:21Z",
+    "number": 1503,
+    "title": "make some local functions static to avoid scope capture"
+  },
+  {
+    "additions": 2034,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 85,
+    "createdAt": "2020-08-02T04:53:28Z",
+    "deletions": 843,
+    "mergedAt": "2020-09-10T02:19:40Z",
+    "number": 1473,
+    "title": "2.10.0 Release"
+  },
+  {
+    "additions": 24,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 5,
+    "createdAt": "2020-07-31T12:22:03Z",
+    "deletions": 31,
+    "mergedAt": "2020-08-02T04:49:01Z",
+    "number": 1472,
+    "title": "Don't inherit parent Minimum Level for inline sublogger configuration"
+  },
+  {
+    "additions": 17,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 4,
+    "createdAt": "2020-07-26T02:42:08Z",
+    "deletions": 360,
+    "mergedAt": "2020-07-30T09:24:06Z",
+    "number": 1467,
+    "title": "A null result from ToString() stringifies as an empty string instead of null"
+  },
+  {
+    "additions": 144,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 18,
+    "createdAt": "2020-07-26T02:30:45Z",
+    "deletions": 119,
+    "mergedAt": "2020-07-30T08:47:21Z",
+    "number": 1466,
+    "title": "Refactor wrapper sinks"
+  },
+  {
+    "additions": 164,
+    "author": {
+      "id": "MDQ6VXNlcjY3NDczNzY=",
+      "is_bot": false,
+      "login": "JanEggers",
+      "name": ""
+    },
+    "changedFiles": 6,
+    "createdAt": "2020-07-21T18:04:16Z",
+    "deletions": 23,
+    "mergedAt": "2020-07-25T23:49:31Z",
+    "number": 1465,
+    "title": "Fix #1463 - LoggerSinkConfiguration.Wrap() fails to dispose wrapped sinks in some scenarios "
+  },
+  {
+    "additions": 78,
+    "author": {
+      "id": "MDQ6VXNlcjUwMjI4Mg==",
+      "is_bot": false,
+      "login": "rafaelsc",
+      "name": "Rafael Sliveira Cordeiro"
+    },
+    "changedFiles": 4,
+    "createdAt": "2020-06-27T06:55:48Z",
+    "deletions": 3,
+    "mergedAt": "2020-09-09T23:21:14Z",
+    "number": 1452,
+    "title": "Record stringified property as `\"\"` when `ToString()` returns `null` in JsonFormatters"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE3NzYwOA==",
+      "is_bot": false,
+      "login": "augustoproiete",
+      "name": "C. Augusto Proiete"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-06-18T01:56:51Z",
+    "deletions": 1,
+    "mergedAt": "2020-07-30T08:47:24Z",
+    "number": 1449,
+    "title": "Update `LoggerSinkConfiguration.Wrap()` to use `AggregateSink` ..."
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjI2NjQ1NDMx",
+      "is_bot": false,
+      "login": "JakenVeina",
+      "name": "Jake Meiergerd"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-06-10T01:55:32Z",
+    "deletions": 1,
+    "mergedAt": "2020-06-12T00:08:45Z",
+    "number": 1445,
+    "title": "Updated docs regarding LoggerMinimumLevelConfiguration.Override()"
+  },
+  {
+    "additions": 191,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 9,
+    "createdAt": "2020-06-01T22:08:38Z",
+    "deletions": 15,
+    "mergedAt": "2020-07-25T06:27:11Z",
+    "number": 1442,
+    "title": "Source context matching optimize"
+  },
+  {
+    "additions": 823,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 24,
+    "createdAt": "2020-05-19T22:31:06Z",
+    "deletions": 219,
+    "mergedAt": "2020-05-26T00:16:38Z",
+    "number": 1435,
+    "title": "Default ILogger implementations (netstandard 2.1)"
+  },
+  {
+    "additions": 179,
+    "author": {
+      "id": "MDQ6VXNlcjUwMjI4Mg==",
+      "is_bot": false,
+      "login": "rafaelsc",
+      "name": "Rafael Sliveira Cordeiro"
+    },
+    "changedFiles": 36,
+    "createdAt": "2020-05-02T01:15:29Z",
+    "deletions": 63,
+    "mergedAt": "2020-05-05T02:02:31Z",
+    "number": 1429,
+    "title": "Improves XML documentation"
+  },
+  {
+    "additions": 22,
+    "author": {
+      "id": "MDQ6VXNlcjUwMjI4Mg==",
+      "is_bot": false,
+      "login": "rafaelsc",
+      "name": "Rafael Sliveira Cordeiro"
+    },
+    "changedFiles": 2,
+    "createdAt": "2020-04-30T02:03:14Z",
+    "deletions": 1,
+    "mergedAt": "2020-04-30T03:03:21Z",
+    "number": 1427,
+    "title": "Record stringified property as `null` when `ToString()` returns `null`"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2020-01-06T21:50:37Z",
+    "deletions": 1,
+    "mergedAt": "2020-04-23T22:23:02Z",
+    "number": 1392,
+    "title": "Reenable NuGet symbol publishing"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-10-29T04:07:33Z",
+    "deletions": 1,
+    "mergedAt": "2019-10-29T04:16:21Z",
+    "number": 1378,
+    "title": "Follow redirect to download dotnet-install.sh"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjQwNjMwODY=",
+      "is_bot": false,
+      "login": "morgankenyon",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-10-25T17:41:29Z",
+    "deletions": 1,
+    "mergedAt": "2019-10-29T01:00:38Z",
+    "number": 1377,
+    "title": "Fixing up for grabs link."
+  },
+  {
+    "additions": 60,
+    "author": {
+      "id": "MDQ6VXNlcjUwMjI4Mg==",
+      "is_bot": false,
+      "login": "rafaelsc",
+      "name": "Rafael Sliveira Cordeiro"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-10-21T20:27:35Z",
+    "deletions": 0,
+    "mergedAt": "2019-11-25T01:55:15Z",
+    "number": 1374,
+    "title": "Improve Serilog.Parsing Unit Tests and Code Coverage - Take 2"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjI4ODA3NzY=",
+      "is_bot": false,
+      "login": "perjahn",
+      "name": "Per"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-10-16T21:57:53Z",
+    "deletions": 1,
+    "mergedAt": "2019-10-16T23:34:58Z",
+    "number": 1371,
+    "title": "Documentation clarification."
+  },
+  {
+    "additions": 210,
+    "author": {
+      "id": "MDQ6VXNlcjUwMjI4Mg==",
+      "is_bot": false,
+      "login": "rafaelsc",
+      "name": "Rafael Sliveira Cordeiro"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-10-15T02:03:31Z",
+    "deletions": 5,
+    "mergedAt": "2019-10-15T06:00:47Z",
+    "number": 1370,
+    "title": "Improve Serilog.Parsing Unit Tests and Code Coverage"
+  },
+  {
+    "additions": 1352,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 133,
+    "createdAt": "2019-10-12T19:45:08Z",
+    "deletions": 830,
+    "mergedAt": "2019-10-13T21:01:25Z",
+    "number": 1369,
+    "title": "2.9.0 Release"
+  },
+  {
+    "additions": 16,
+    "author": {
+      "id": "MDQ6VXNlcjExNjk3OTA=",
+      "is_bot": false,
+      "login": "martinh2011",
+      "name": "Martin Hüser"
+    },
+    "changedFiles": 2,
+    "createdAt": "2019-10-05T00:37:20Z",
+    "deletions": 1,
+    "mergedAt": "2019-10-05T08:59:04Z",
+    "number": 1366,
+    "title": "Fix custom format string parsing"
+  },
+  {
+    "additions": 31,
+    "author": {
+      "id": "MDQ6VXNlcjg5Mzc3MTk=",
+      "is_bot": false,
+      "login": "rob-earwaker",
+      "name": "Rob Earwaker"
+    },
+    "changedFiles": 2,
+    "createdAt": "2019-08-30T09:53:37Z",
+    "deletions": 2,
+    "mergedAt": "2019-08-31T01:37:54Z",
+    "number": 1357,
+    "title": "Update summary for default destructuring depth"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-07-29T04:50:15Z",
+    "deletions": 0,
+    "mergedAt": "2019-07-29T11:24:06Z",
+    "number": 1348,
+    "title": "INFLUENCES.md"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjc2MDQ2NDg=",
+      "is_bot": false,
+      "login": "WeihanLi",
+      "name": "Weihan Li"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-07-10T08:44:22Z",
+    "deletions": 3,
+    "mergedAt": "2019-07-11T22:01:20Z",
+    "number": 1342,
+    "title": "remove unnecessary System.Collections.NonGeneric dependency for netstandard2.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0NjY0MDA3",
+      "is_bot": false,
+      "login": "TysonMN",
+      "name": "Tyson Williams"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-06-24T11:33:58Z",
+    "deletions": 1,
+    "mergedAt": "2019-06-24T21:51:01Z",
+    "number": 1330,
+    "title": "made formatProvider optional in the constructor of MessageTemplateTextFormatter"
+  },
+  {
+    "additions": 33,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2019-06-20T17:20:54Z",
+    "deletions": 1,
+    "mergedAt": "2019-06-22T13:15:09Z",
+    "number": 1325,
+    "title": "Respect explicit format specifiers even when JSON defaults are selected"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjEyNjU5MjUx",
+      "is_bot": false,
+      "login": "teo-tsirpanis",
+      "name": "Theodore Tsirpanis"
+    },
+    "changedFiles": 4,
+    "createdAt": "2019-06-14T22:11:38Z",
+    "deletions": 11,
+    "mergedAt": "2019-06-21T08:39:09Z",
+    "number": 1320,
+    "title": "Use snupkg symbol packages."
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 15,
+    "createdAt": "2019-05-31T01:13:06Z",
+    "deletions": 22,
+    "mergedAt": "2019-05-31T01:49:03Z",
+    "number": 1317,
+    "title": "use var for out"
+  },
+  {
+    "additions": 339,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 12,
+    "createdAt": "2019-05-29T07:31:43Z",
+    "deletions": 13,
+    "mergedAt": "2019-06-03T02:46:27Z",
+    "number": 1316,
+    "title": "Wrapped enrichers, conditional/leveled enrichers, conditional sinks"
+  },
+  {
+    "additions": 381,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 33,
+    "createdAt": "2019-05-26T11:50:34Z",
+    "deletions": 81,
+    "mergedAt": "2019-05-29T02:08:39Z",
+    "number": 1315,
+    "title": "Struct alternative to LogEventProperty; optimizations"
+  },
+  {
+    "additions": 32,
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "changedFiles": 14,
+    "createdAt": "2019-05-23T23:35:51Z",
+    "deletions": 34,
+    "mergedAt": "2019-05-24T01:11:12Z",
+    "number": 1314,
+    "title": "Some very minor cleanup"
+  },
+  {
+    "additions": 416,
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "changedFiles": 103,
+    "createdAt": "2019-05-16T21:27:45Z",
+    "deletions": 643,
+    "mergedAt": "2019-05-19T22:32:36Z",
+    "number": 1312,
+    "title": "Code cleanup"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjgzODk4Njc=",
+      "is_bot": false,
+      "login": "dahlsailrunner",
+      "name": "Erik Dahl"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-04-28T11:48:56Z",
+    "deletions": 0,
+    "mergedAt": "2019-04-29T23:59:27Z",
+    "number": 1300,
+    "title": "added link to search of ps courses on readme"
+  },
+  {
+    "additions": 23,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 6,
+    "createdAt": "2019-04-04T09:19:52Z",
+    "deletions": 22,
+    "mergedAt": "2019-04-22T03:23:25Z",
+    "number": 1296,
+    "title": "Replace TravisCI with AppVeyor for Linux builds"
+  },
+  {
+    "additions": 1111,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 45,
+    "createdAt": "2019-01-16T02:42:50Z",
+    "deletions": 90,
+    "mergedAt": "2019-01-16T23:24:02Z",
+    "number": 1271,
+    "title": "2.8.0 Release"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-01-10T00:49:04Z",
+    "deletions": 3,
+    "mergedAt": "2019-01-14T01:05:52Z",
+    "number": 1269,
+    "title": "Add .NET Standard 2.0 target"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2019-01-04T18:24:43Z",
+    "deletions": 1,
+    "mergedAt": "2019-05-29T06:05:06Z",
+    "number": 1266,
+    "title": "Update Nuget package license format to new format"
+  },
+  {
+    "additions": 47,
+    "author": {
+      "id": "MDQ6VXNlcjY2NDg4OQ==",
+      "is_bot": false,
+      "login": "Pliner",
+      "name": "Pliner"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-12-10T16:33:58Z",
+    "deletions": 10,
+    "mergedAt": "2019-04-26T08:12:46Z",
+    "number": 1255,
+    "title": "Handwritten implementation of IEnumerator to avoid allocations"
+  },
+  {
+    "additions": 46,
+    "author": {
+      "id": "MDQ6VXNlcjY2NDg4OQ==",
+      "is_bot": false,
+      "login": "Pliner",
+      "name": "Pliner"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-12-10T13:07:45Z",
+    "deletions": 41,
+    "mergedAt": "2019-04-26T08:02:09Z",
+    "number": 1254,
+    "title": "Reduce LogEventLevel boxing"
+  },
+  {
+    "additions": 76,
+    "author": {
+      "id": "MDQ6VXNlcjIxMDA2MzQx",
+      "is_bot": false,
+      "login": "balayoglu",
+      "name": "NAZIM BALAYOGLU"
+    },
+    "changedFiles": 3,
+    "createdAt": "2018-10-17T15:30:45Z",
+    "deletions": 2,
+    "mergedAt": "2019-01-10T01:46:12Z",
+    "number": 1236,
+    "title": "Fix on GetPropertiesRecursive method not to generate exception on the… "
+  },
+  {
+    "additions": 72,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-10-13T13:02:13Z",
+    "deletions": 2,
+    "mergedAt": "2018-10-15T07:38:33Z",
+    "number": 1234,
+    "title": "Add tests around support of custom `IFormatProvider`"
+  },
+  {
+    "additions": 16,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2018-10-12T20:51:17Z",
+    "deletions": 2,
+    "mergedAt": "2018-10-14T22:00:47Z",
+    "number": 1233,
+    "title": "Fix output template padding of non-String values"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjIwOTM4NA==",
+      "is_bot": false,
+      "login": "MaximRouiller",
+      "name": "Maxime Rouiller"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-09-21T14:19:29Z",
+    "deletions": 0,
+    "mergedAt": "2018-09-22T00:11:28Z",
+    "number": 1220,
+    "title": "fixing repository url"
+  },
+  {
+    "additions": 345,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 10,
+    "createdAt": "2018-07-29T12:03:11Z",
+    "deletions": 59,
+    "mergedAt": "2018-08-01T06:37:47Z",
+    "number": 1198,
+    "title": "Config method support"
+  },
+  {
+    "additions": 21,
+    "author": {
+      "id": "MDQ6VXNlcjc1NTAwNjI=",
+      "is_bot": false,
+      "login": "ie-zero",
+      "name": "I. Evangelinos"
+    },
+    "changedFiles": 5,
+    "createdAt": "2018-07-28T15:56:08Z",
+    "deletions": 5,
+    "mergedAt": "2018-07-31T10:30:18Z",
+    "number": 1197,
+    "title": "Allow SilentLogger to be contructed as singleton"
+  },
+  {
+    "additions": 49,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 5,
+    "createdAt": "2018-07-17T16:44:37Z",
+    "deletions": 0,
+    "mergedAt": "2018-07-17T21:21:18Z",
+    "number": 1192,
+    "title": "Add support for Destructure.With(IDestructuringPolicy policy) in settings"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 3,
+    "createdAt": "2018-07-09T06:43:26Z",
+    "deletions": 27,
+    "mergedAt": "2018-07-09T06:59:30Z",
+    "number": 1189,
+    "title": "Renew certificate for UWP test project"
+  },
+  {
+    "additions": 67,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 6,
+    "createdAt": "2018-06-13T18:09:06Z",
+    "deletions": 4,
+    "mergedAt": "2018-06-29T21:22:10Z",
+    "number": 1179,
+    "title": "Support for .Destructure.AsScalar(scalarType) in KeyValueSettings"
+  },
+  {
+    "additions": 218,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 7,
+    "createdAt": "2018-06-07T17:42:33Z",
+    "deletions": 11,
+    "mergedAt": "2018-06-13T07:11:42Z",
+    "number": 1174,
+    "title": "Add partial support for .Destructure.XXX() methods in `KeyValuePairSettings`"
+  },
+  {
+    "additions": 224,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 14,
+    "createdAt": "2018-05-18T04:00:07Z",
+    "deletions": 4,
+    "mergedAt": "2018-10-15T00:11:31Z",
+    "number": 1169,
+    "title": "Update Performance Tests to NetCoreApp2"
+  },
+  {
+    "additions": 24,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 2,
+    "createdAt": "2018-05-13T15:03:06Z",
+    "deletions": 8,
+    "mergedAt": "2018-05-13T22:04:04Z",
+    "number": 1166,
+    "title": "Created Logger should not hold reference to its configuration"
+  },
+  {
+    "additions": 109,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 4,
+    "createdAt": "2018-05-13T09:23:26Z",
+    "deletions": 27,
+    "mergedAt": "2018-05-13T22:25:27Z",
+    "number": 1165,
+    "title": "Fixes a number of issues with `LoggerSinkConfiguration.Wrap()`"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 4,
+    "createdAt": "2018-05-11T12:44:39Z",
+    "deletions": 4,
+    "mergedAt": "2018-05-12T04:47:29Z",
+    "number": 1163,
+    "title": "SourceLink v2 support added"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-05-08T01:03:31Z",
+    "deletions": 1,
+    "mergedAt": "2018-05-08T03:02:08Z",
+    "number": 1160,
+    "title": "Updated NuGet API Key."
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjU3MDQ3MA==",
+      "is_bot": false,
+      "login": "adamchester",
+      "name": "Adam Chester"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-05-07T03:35:16Z",
+    "deletions": 2,
+    "mergedAt": "2018-05-07T23:25:42Z",
+    "number": 1158,
+    "title": "Enable OSX builds on travis again"
+  },
+  {
+    "additions": 127,
+    "author": {
+      "id": "MDQ6VXNlcjU3MDQ3MA==",
+      "is_bot": false,
+      "login": "adamchester",
+      "name": "Adam Chester"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-05-07T03:17:53Z",
+    "deletions": 16,
+    "mergedAt": "2018-05-13T09:15:16Z",
+    "number": 1157,
+    "title": "Update gitignore"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjY2NDg4OQ==",
+      "is_bot": false,
+      "login": "Pliner",
+      "name": "Pliner"
+    },
+    "changedFiles": 2,
+    "createdAt": "2018-03-23T05:23:10Z",
+    "deletions": 7,
+    "mergedAt": "2018-03-24T00:17:38Z",
+    "number": 1141,
+    "title": "Fix #1133"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 2,
+    "createdAt": "2018-03-20T23:25:17Z",
+    "deletions": 2,
+    "mergedAt": "2018-03-21T01:01:48Z",
+    "number": 1137,
+    "title": "Fix OSX/*nix build #1136"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-03-20T04:09:31Z",
+    "deletions": 1,
+    "mergedAt": "2018-03-20T06:13:15Z",
+    "number": 1134,
+    "title": "Update of README badges to include downloads and tests."
+  },
+  {
+    "additions": 43,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-02-21T09:08:21Z",
+    "deletions": 20,
+    "mergedAt": "2018-02-21T22:23:58Z",
+    "number": 1113,
+    "title": "`ContextPropertiesCrossAsyncCalls` test failure fix on CI:"
+  },
+  {
+    "additions": 21,
+    "author": {
+      "id": "MDQ6VXNlcjEzMTQ0Nzc=",
+      "is_bot": false,
+      "login": "IanYates",
+      "name": "Ian Yates"
+    },
+    "changedFiles": 2,
+    "createdAt": "2018-02-19T09:30:35Z",
+    "deletions": 0,
+    "mergedAt": "2018-02-20T21:52:59Z",
+    "number": 1110,
+    "title": "Fixes #1105 - add a static None property to the Logger class"
+  },
+  {
+    "additions": 657,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 37,
+    "createdAt": "2018-01-28T02:17:23Z",
+    "deletions": 279,
+    "mergedAt": "2018-05-18T08:45:38Z",
+    "number": 1094,
+    "title": "Release 2.7.1"
+  },
+  {
+    "additions": 200,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 23,
+    "createdAt": "2018-01-23T10:01:58Z",
+    "deletions": 182,
+    "mergedAt": "2018-01-28T01:52:25Z",
+    "number": 1091,
+    "title": "Improvements to {Properties} handling in output templates"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2018-01-14T21:55:36Z",
+    "deletions": 3,
+    "mergedAt": "2018-01-22T03:24:11Z",
+    "number": 1083,
+    "title": "Update package metadata URLs"
+  },
+  {
+    "additions": 88,
+    "author": {
+      "id": "MDQ6VXNlcjI2NTIwMTg0",
+      "is_bot": false,
+      "login": "joostas",
+      "name": "Justas"
+    },
+    "changedFiles": 3,
+    "createdAt": "2017-12-29T19:09:48Z",
+    "deletions": 2,
+    "mergedAt": "2017-12-29T21:08:55Z",
+    "number": 1075,
+    "title": "#1073 Overload Wrap() to accept LogEventLevel and LoggingLevelSwitch."
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE0NjIyMTc=",
+      "is_bot": false,
+      "login": "nikolaybobrovskiy",
+      "name": "Nikolay Bobrovskiy"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-11-27T00:20:59Z",
+    "deletions": 5,
+    "mergedAt": "2017-11-27T06:25:29Z",
+    "number": 1068,
+    "title": "Fixes #1067"
+  },
+  {
+    "additions": 2124,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 64,
+    "createdAt": "2017-11-23T21:21:51Z",
+    "deletions": 77,
+    "mergedAt": "2017-12-04T04:05:08Z",
+    "number": 1066,
+    "title": "2.6.0 Release"
+  },
+  {
+    "additions": 304,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 13,
+    "createdAt": "2017-11-17T07:06:16Z",
+    "deletions": 5,
+    "mergedAt": "2017-11-23T21:23:05Z",
+    "number": 1064,
+    "title": "Add support for reference to public static properties in settings"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjEwMzI3NTU=",
+      "is_bot": false,
+      "login": "pardahlman",
+      "name": "Pär Dahlman"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-11-15T18:49:26Z",
+    "deletions": 0,
+    "mergedAt": "2017-11-15T21:27:26Z",
+    "number": 1063,
+    "title": "Move LoggerExtension so that namespace and folder matches"
+  },
+  {
+    "additions": 40,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2017-11-08T06:53:37Z",
+    "deletions": 1,
+    "mergedAt": "2017-11-08T23:44:20Z",
+    "number": 1059,
+    "title": "Add support for abstract class parameters in settings"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-11-07T07:05:24Z",
+    "deletions": 3,
+    "mergedAt": "2017-11-07T10:02:46Z",
+    "number": 1055,
+    "title": "Remove more ReSharper warnings"
+  },
+  {
+    "additions": 45,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2017-10-23T18:36:46Z",
+    "deletions": 15,
+    "mergedAt": "2017-11-10T05:46:22Z",
+    "number": 1051,
+    "title": "KeyValuePairSettings - IReadOnlyDictionary / latest setting win"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-10-23T18:31:31Z",
+    "deletions": 4,
+    "mergedAt": "2017-10-23T22:45:34Z",
+    "number": 1050,
+    "title": "Fix last ReSharper warning"
+  },
+  {
+    "additions": 34,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 15,
+    "createdAt": "2017-10-16T06:29:01Z",
+    "deletions": 18,
+    "mergedAt": "2017-10-19T00:23:38Z",
+    "number": 1042,
+    "title": "Make Resharper green again"
+  },
+  {
+    "additions": 93,
+    "author": {
+      "id": "MDQ6VXNlcjEwMzI3NTU=",
+      "is_bot": false,
+      "login": "pardahlman",
+      "name": "Pär Dahlman"
+    },
+    "changedFiles": 2,
+    "createdAt": "2017-09-29T18:37:30Z",
+    "deletions": 0,
+    "mergedAt": "2017-10-11T00:07:41Z",
+    "number": 1034,
+    "title": "Add log level conditioned 'ForContext'"
+  },
+  {
+    "additions": 438,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 7,
+    "createdAt": "2017-09-28T19:24:27Z",
+    "deletions": 161,
+    "mergedAt": "2017-10-09T21:29:59Z",
+    "number": 1033,
+    "title": "Make it clear that Sub-logger MinimumLevel.Override is not supported"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-09-22T17:48:19Z",
+    "deletions": 1,
+    "mergedAt": "2017-09-23T02:36:20Z",
+    "number": 1030,
+    "title": "Add test to prove proper support for TimeSpan in AppSettings"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-09-16T11:50:40Z",
+    "deletions": 1,
+    "mergedAt": "2017-09-17T03:20:05Z",
+    "number": 1026,
+    "title": "Meta PR to fix PR Template"
+  },
+  {
+    "additions": 255,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-09-16T11:35:51Z",
+    "deletions": 0,
+    "mergedAt": "2017-09-17T03:23:08Z",
+    "number": 1025,
+    "title": "Added more (passing) tests about Child Loggers and overrides"
+  },
+  {
+    "additions": 302,
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU0NA==",
+      "is_bot": false,
+      "login": "tsimbalar",
+      "name": "Thibaud Desodt"
+    },
+    "changedFiles": 5,
+    "createdAt": "2017-09-01T08:40:10Z",
+    "deletions": 7,
+    "mergedAt": "2017-09-20T21:32:08Z",
+    "number": 1020,
+    "title": "Support for LevelSwith in KeyValuePairSettings"
+  },
+  {
+    "additions": 120,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 5,
+    "createdAt": "2017-08-31T10:38:08Z",
+    "deletions": 2,
+    "mergedAt": "2017-09-04T22:34:45Z",
+    "number": 1019,
+    "title": "Code of Conduct, Contributing Guide & templates for issues and PRs"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-08-30T00:34:23Z",
+    "deletions": 1,
+    "mergedAt": "2017-09-20T03:37:12Z",
+    "number": 1018,
+    "title": "Include source in package builds"
+  },
+  {
+    "additions": 84,
+    "author": {
+      "id": "MDQ6VXNlcjE2MjU2MjY=",
+      "is_bot": false,
+      "login": "mariozski",
+      "name": ""
+    },
+    "changedFiles": 2,
+    "createdAt": "2017-07-27T23:33:45Z",
+    "deletions": 2,
+    "mergedAt": "2017-07-28T21:37:18Z",
+    "number": 1007,
+    "title": "Implementation of #1006 "
+  },
+  {
+    "additions": 396,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 19,
+    "createdAt": "2017-07-03T18:50:02Z",
+    "deletions": 1,
+    "mergedAt": "2017-07-04T21:54:23Z",
+    "number": 996,
+    "title": "Enable .NET Native on AppVeyor + workaround on compiler error for #993"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjc4NTEzMQ==",
+      "is_bot": false,
+      "login": "blachniet",
+      "name": "Brian Lachniet"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-07-02T13:42:04Z",
+    "deletions": 1,
+    "mergedAt": "2017-07-02T22:10:49Z",
+    "number": 994,
+    "title": "Remove Rager releases badge"
+  },
+  {
+    "additions": 125,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 2,
+    "createdAt": "2017-07-01T15:21:58Z",
+    "deletions": 3,
+    "mergedAt": "2017-07-02T22:30:48Z",
+    "number": 992,
+    "title": "LogContext's remoting issue fix for .NET 4.5"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-06-21T07:55:16Z",
+    "deletions": 6,
+    "mergedAt": "2017-06-21T22:20:48Z",
+    "number": 988,
+    "title": "Travis CI Image - use edge group "
+  },
+  {
+    "additions": 350,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 17,
+    "createdAt": "2017-06-06T08:16:54Z",
+    "deletions": 151,
+    "mergedAt": "2017-06-06T22:26:59Z",
+    "number": 981,
+    "title": "PropertyValueConverter improvements"
+  },
+  {
+    "additions": 1936,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 98,
+    "createdAt": "2017-06-05T00:42:28Z",
+    "deletions": 831,
+    "mergedAt": "2017-06-21T00:24:37Z",
+    "number": 980,
+    "title": "2.5.0 Release"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-06-03T04:53:49Z",
+    "deletions": 9,
+    "mergedAt": "2017-06-04T21:08:36Z",
+    "number": 979,
+    "title": "Tooling Cleanup - Rely on Travis.yml for Build requirements"
+  },
+  {
+    "additions": 7,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-06-02T23:08:47Z",
+    "deletions": 0,
+    "mergedAt": "2017-06-04T21:10:15Z",
+    "number": 978,
+    "title": "Independent Build for Perf Tests."
+  },
+  {
+    "additions": 758,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 58,
+    "createdAt": "2017-05-31T04:12:36Z",
+    "deletions": 384,
+    "mergedAt": "2017-06-13T07:50:01Z",
+    "number": 977,
+    "title": "Output and rendering improvements"
+  },
+  {
+    "additions": 142,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 4,
+    "createdAt": "2017-05-30T23:54:29Z",
+    "deletions": 28,
+    "mergedAt": "2017-06-03T01:21:19Z",
+    "number": 976,
+    "title": "ValueTuple to sequence value conversion"
+  },
+  {
+    "additions": 137,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 4,
+    "createdAt": "2017-05-27T22:38:47Z",
+    "deletions": 30,
+    "mergedAt": "2017-05-28T21:35:40Z",
+    "number": 974,
+    "title": "LogContext Push() and Clone()"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 2,
+    "createdAt": "2017-05-20T22:39:36Z",
+    "deletions": 8,
+    "mergedAt": "2017-05-28T21:14:17Z",
+    "number": 972,
+    "title": "VS2017 Appveyor image and 1.0.4 SDK for Travis"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2017-04-07T22:18:21Z",
+    "deletions": 2,
+    "mergedAt": "2017-04-07T23:06:54Z",
+    "number": 961,
+    "title": "Parsing longer property tokens with zero-length names"
+  },
+  {
+    "additions": 94,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 4,
+    "createdAt": "2017-04-07T22:03:51Z",
+    "deletions": 8,
+    "mergedAt": "2017-06-01T03:52:11Z",
+    "number": 960,
+    "title": "Output template formatting harness"
+  },
+  {
+    "additions": 108,
+    "author": {
+      "id": "MDQ6VXNlcjExMzY0Mg==",
+      "is_bot": false,
+      "login": "johnduhart",
+      "name": "John Du Hart"
+    },
+    "changedFiles": 4,
+    "createdAt": "2017-03-27T15:17:12Z",
+    "deletions": 2,
+    "mergedAt": "2017-04-02T08:26:16Z",
+    "number": 955,
+    "title": "Sink wrapping"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-03-22T04:40:25Z",
+    "deletions": 0,
+    "mergedAt": "2017-03-22T07:32:21Z",
+    "number": 951,
+    "title": "Missing list for 2.4 for changes.md"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-03-10T05:07:51Z",
+    "deletions": 1,
+    "mergedAt": "2017-03-10T07:47:05Z",
+    "number": 947,
+    "title": "Cache the {NewLine} literal property to avoid an allocation on each render"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjU3MDQ3MA==",
+      "is_bot": false,
+      "login": "adamchester",
+      "name": "Adam Chester"
+    },
+    "changedFiles": 4,
+    "createdAt": "2017-03-09T20:44:58Z",
+    "deletions": 7,
+    "mergedAt": "2017-03-10T04:14:02Z",
+    "number": 946,
+    "title": "Use dotnet core sdk 1.0.1"
+  },
+  {
+    "additions": 128,
+    "author": {
+      "id": "MDQ6VXNlcjY2NDg4OQ==",
+      "is_bot": false,
+      "login": "Pliner",
+      "name": "Pliner"
+    },
+    "changedFiles": 5,
+    "createdAt": "2017-03-06T19:41:00Z",
+    "deletions": 4,
+    "mergedAt": "2017-04-05T22:17:47Z",
+    "number": 944,
+    "title": "Support {Properties} in output templates"
+  },
+  {
+    "additions": 295,
+    "author": {
+      "id": "MDQ6VXNlcjU3MDQ3MA==",
+      "is_bot": false,
+      "login": "adamchester",
+      "name": "Adam Chester"
+    },
+    "changedFiles": 22,
+    "createdAt": "2017-02-11T02:20:23Z",
+    "deletions": 309,
+    "mergedAt": "2017-03-09T02:46:35Z",
+    "number": 939,
+    "title": "VS 2017 / dotnet 1.0.0 tooling"
+  },
+  {
+    "additions": 2299,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 42,
+    "createdAt": "2017-01-30T01:46:36Z",
+    "deletions": 419,
+    "mergedAt": "2017-02-03T01:14:52Z",
+    "number": 934,
+    "title": "2.4.0 Release"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2017-01-28T03:53:14Z",
+    "deletions": 39,
+    "mergedAt": "2017-01-29T21:42:24Z",
+    "number": 932,
+    "title": "Enable builds for OSX on Travis #824"
+  },
+  {
+    "additions": 263,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 6,
+    "createdAt": "2017-01-04T06:19:51Z",
+    "deletions": 213,
+    "mergedAt": "2017-01-19T05:07:03Z",
+    "number": 925,
+    "title": "Refactor key-value settings to consistently apply configuration methods"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-11-29T01:18:00Z",
+    "deletions": 2,
+    "mergedAt": "2016-11-29T05:01:20Z",
+    "number": 913,
+    "title": "Include AssemblyInformationalVersion attribute to the with commit hash"
+  },
+  {
+    "additions": 879,
+    "author": {
+      "id": "MDQ6VXNlcjM5NDYxNzg=",
+      "is_bot": false,
+      "login": "clarkis117",
+      "name": "January Clark"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-11-24T04:09:10Z",
+    "deletions": 309,
+    "mergedAt": "2016-11-30T21:37:16Z",
+    "number": 909,
+    "title": "Added tests for the rest of ILogger and added support for SilentLogger to Method Overload tests"
+  },
+  {
+    "additions": 101,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 3,
+    "createdAt": "2016-11-23T23:21:43Z",
+    "deletions": 67,
+    "mergedAt": "2016-11-23T23:45:16Z",
+    "number": 907,
+    "title": "Dispose audit sinks on ILogger.Dispose()"
+  },
+  {
+    "additions": 17,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 6,
+    "createdAt": "2016-11-23T02:24:47Z",
+    "deletions": 55,
+    "mergedAt": "2016-11-23T06:42:13Z",
+    "number": 905,
+    "title": "Disable parallel test execution"
+  },
+  {
+    "additions": 16,
+    "author": {
+      "id": "MDQ6VXNlcjM5NDYxNzg=",
+      "is_bot": false,
+      "login": "clarkis117",
+      "name": "January Clark"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-11-18T05:46:38Z",
+    "deletions": 0,
+    "mergedAt": "2016-11-23T06:47:39Z",
+    "number": 903,
+    "title": "ILogger API conformance fixes in Serilog.Log"
+  },
+  {
+    "additions": 374,
+    "author": {
+      "id": "MDQ6VXNlcjM5NDYxNzg=",
+      "is_bot": false,
+      "login": "clarkis117",
+      "name": "January Clark"
+    },
+    "changedFiles": 3,
+    "createdAt": "2016-11-16T00:59:06Z",
+    "deletions": 278,
+    "mergedAt": "2016-11-17T23:54:09Z",
+    "number": 902,
+    "title": "Moved convention tests, and added support for other ILogger based classes"
+  },
+  {
+    "additions": 283,
+    "author": {
+      "id": "MDQ6VXNlcjM5NDYxNzg=",
+      "is_bot": false,
+      "login": "clarkis117",
+      "name": "January Clark"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-11-04T12:29:05Z",
+    "deletions": 1,
+    "mergedAt": "2016-11-08T04:33:20Z",
+    "number": 896,
+    "title": "Convention tests for log level write methods in Serilog.Core.Logger"
+  },
+  {
+    "additions": 38,
+    "author": {
+      "id": "MDQ6VXNlcjc2NzAwMQ==",
+      "is_bot": false,
+      "login": "optical",
+      "name": "Jared Klopper"
+    },
+    "changedFiles": 2,
+    "createdAt": "2016-10-30T08:13:53Z",
+    "deletions": 0,
+    "mergedAt": "2016-10-30T23:50:45Z",
+    "number": 888,
+    "title": "Allow overriding log level via config files"
+  },
+  {
+    "additions": 55,
+    "author": {
+      "id": "MDQ6VXNlcjM5NDYxNzg=",
+      "is_bot": false,
+      "login": "clarkis117",
+      "name": "January Clark"
+    },
+    "changedFiles": 2,
+    "createdAt": "2016-10-28T23:28:53Z",
+    "deletions": 10,
+    "mergedAt": "2016-11-02T03:02:28Z",
+    "number": 887,
+    "title": "fix for Issue #885, formatting floating point special values NaN/PositiveInfinity/NegativeInfinity as JSON strings and unit tests"
+  },
+  {
+    "additions": 472,
+    "author": {
+      "id": "MDQ6VXNlcjE1MDkwOTg0",
+      "is_bot": false,
+      "login": "skomis-mm",
+      "name": "Sergey Komisarchik"
+    },
+    "changedFiles": 14,
+    "createdAt": "2016-10-19T21:13:56Z",
+    "deletions": 11,
+    "mergedAt": "2016-10-20T06:13:02Z",
+    "number": 883,
+    "title": "Improve MessageTemplateCache performance"
+  },
+  {
+    "additions": 120,
+    "author": {
+      "id": "MDQ6VXNlcjM5OTg2NjY=",
+      "is_bot": false,
+      "login": "krajek",
+      "name": "Artur Krajewski"
+    },
+    "changedFiles": 8,
+    "createdAt": "2016-10-10T20:00:49Z",
+    "deletions": 87,
+    "mergedAt": "2016-11-10T21:46:08Z",
+    "number": 877,
+    "title": "Payload limiting - collection limit"
+  },
+  {
+    "additions": 101,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-10-05T04:32:44Z",
+    "deletions": 7,
+    "mergedAt": "2016-10-05T23:53:41Z",
+    "number": 873,
+    "title": "A more informative and welcoming README"
+  },
+  {
+    "additions": 299,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 16,
+    "createdAt": "2016-10-04T01:45:36Z",
+    "deletions": 65,
+    "mergedAt": "2016-10-05T01:36:52Z",
+    "number": 872,
+    "title": "2.3.0 Release"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjIyNjA1MTIz",
+      "is_bot": false,
+      "login": "wengfatt",
+      "name": ""
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-10-04T00:26:26Z",
+    "deletions": 1,
+    "mergedAt": "2016-10-04T00:42:41Z",
+    "number": 871,
+    "title": "Update RestrictedSink.cs"
+  },
+  {
+    "additions": 215,
+    "author": {
+      "id": "MDQ6VXNlcjM5OTg2NjY=",
+      "is_bot": false,
+      "login": "krajek",
+      "name": "Artur Krajewski"
+    },
+    "changedFiles": 8,
+    "createdAt": "2016-09-24T06:13:32Z",
+    "deletions": 8,
+    "mergedAt": "2016-10-05T05:39:17Z",
+    "number": 866,
+    "title": "Payload limiting "
+  },
+  {
+    "additions": 43,
+    "author": {
+      "id": "MDQ6VXNlcjk0NzU1",
+      "is_bot": false,
+      "login": "goenning",
+      "name": "Guilherme Oenning"
+    },
+    "changedFiles": 2,
+    "createdAt": "2016-09-09T21:38:39Z",
+    "deletions": 4,
+    "mergedAt": "2016-09-19T23:03:06Z",
+    "number": 858,
+    "title": "Fix for issue #852"
+  },
+  {
+    "additions": 80,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2016-09-07T22:45:37Z",
+    "deletions": 23,
+    "mergedAt": "2016-09-08T02:24:24Z",
+    "number": 856,
+    "title": "Fix #855 - use ICustomFormatter"
+  },
+  {
+    "additions": 169,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 9,
+    "createdAt": "2016-08-30T23:33:30Z",
+    "deletions": 36,
+    "mergedAt": "2016-09-07T22:45:16Z",
+    "number": 841,
+    "title": "Support `audit-to` in key-value and thus in <appSettings> settings"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-08-30T21:52:31Z",
+    "deletions": 1,
+    "mergedAt": "2016-09-07T22:45:28Z",
+    "number": 840,
+    "title": "Ensure the per-AppDomain LogContext property name is unique across processes"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2016-08-29T08:22:33Z",
+    "deletions": 3,
+    "mergedAt": "2016-08-29T08:57:31Z",
+    "number": 837,
+    "title": "Release 2.2.1"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2016-08-27T21:36:08Z",
+    "deletions": 2,
+    "mergedAt": "2016-08-28T22:13:21Z",
+    "number": 836,
+    "title": "Use AsyncLocal rather than LogicalCallContext on .NET 4.6"
+  },
+  {
+    "additions": 957,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 43,
+    "createdAt": "2016-08-26T04:17:33Z",
+    "deletions": 498,
+    "mergedAt": "2016-08-26T06:17:02Z",
+    "number": 834,
+    "title": "2.2.0 Release"
+  },
+  {
+    "additions": 547,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 28,
+    "createdAt": "2016-08-19T07:19:48Z",
+    "deletions": 457,
+    "mergedAt": "2016-08-19T11:35:42Z",
+    "number": 830,
+    "title": "Updated benchmarks"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-08-12T09:05:07Z",
+    "deletions": 1,
+    "mergedAt": "2016-08-12T09:32:25Z",
+    "number": 827,
+    "title": "Attempt to fix build under macOS"
+  },
+  {
+    "additions": 369,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 13,
+    "createdAt": "2016-08-12T06:40:54Z",
+    "deletions": 38,
+    "mergedAt": "2016-08-15T21:53:08Z",
+    "number": 826,
+    "title": "Audit-style logging"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjU4MDgzNzc=",
+      "is_bot": false,
+      "login": "304NotModified",
+      "name": "Julian Verdurmen"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-08-06T14:36:10Z",
+    "deletions": 1,
+    "mergedAt": "2016-10-12T01:46:25Z",
+    "number": 821,
+    "title": "Added codecov.io integration"
+  },
+  {
+    "additions": 41,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-07-28T02:18:20Z",
+    "deletions": 2,
+    "mergedAt": "2016-08-11T04:20:04Z",
+    "number": 819,
+    "title": "Deprecate virtual extension points of JsonFormatter (WIP)"
+  },
+  {
+    "additions": 25,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2016-07-22T10:07:31Z",
+    "deletions": 2,
+    "mergedAt": "2016-07-22T23:57:12Z",
+    "number": 816,
+    "title": "Fixes #815 - increasing level through overrides"
+  },
+  {
+    "additions": 243,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 14,
+    "createdAt": "2016-07-06T03:41:22Z",
+    "deletions": 34,
+    "mergedAt": "2016-07-26T04:37:56Z",
+    "number": 800,
+    "title": "2.1.0 Release"
+  },
+  {
+    "additions": 78,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 4,
+    "createdAt": "2016-07-06T00:08:48Z",
+    "deletions": 9,
+    "mergedAt": "2016-07-06T03:18:46Z",
+    "number": 799,
+    "title": "Select configuration methods based on matched parameter count"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 2,
+    "createdAt": "2016-06-27T01:56:08Z",
+    "deletions": 5,
+    "mergedAt": "2016-06-27T22:39:58Z",
+    "number": 792,
+    "title": "Use env vars for clarity. Also ensure OSX and *nix using same version"
+  },
+  {
+    "additions": 35,
+    "author": {
+      "id": "MDQ6VXNlcjU3MDQ3MA==",
+      "is_bot": false,
+      "login": "adamchester",
+      "name": "Adam Chester"
+    },
+    "changedFiles": 7,
+    "createdAt": "2016-06-26T04:56:23Z",
+    "deletions": 33,
+    "mergedAt": "2016-06-26T10:55:38Z",
+    "number": 789,
+    "title": "dotnet cli preview2 and core RTM"
+  },
+  {
+    "additions": 7501,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 218,
+    "createdAt": "2016-06-21T01:15:44Z",
+    "deletions": 8635,
+    "mergedAt": "2016-06-27T22:22:59Z",
+    "number": 783,
+    "title": "2.0 Release"
+  },
+  {
+    "additions": 22,
+    "author": {
+      "id": "MDQ6VXNlcjU3MDQ3MA==",
+      "is_bot": false,
+      "login": "adamchester",
+      "name": "Adam Chester"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-06-20T04:54:19Z",
+    "deletions": 0,
+    "mergedAt": "2016-07-05T04:40:31Z",
+    "number": 782,
+    "title": "Provide `ByTransformingWhere` for more complex transformations"
+  },
+  {
+    "additions": 43,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2016-06-20T04:41:13Z",
+    "deletions": 8,
+    "mergedAt": "2016-06-20T22:26:54Z",
+    "number": 781,
+    "title": "Support setting values of interface types where a fully-qualified type name is supplied"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjU3MDQ3MA==",
+      "is_bot": false,
+      "login": "adamchester",
+      "name": "Adam Chester"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-06-20T03:01:16Z",
+    "deletions": 0,
+    "mergedAt": "2016-06-25T23:55:57Z",
+    "number": 780,
+    "title": "Add resharper auto-added setting"
+  },
+  {
+    "additions": 82,
+    "author": {
+      "id": "MDQ6VXNlcjU3MDQ3MA==",
+      "is_bot": false,
+      "login": "adamchester",
+      "name": "Adam Chester"
+    },
+    "changedFiles": 2,
+    "createdAt": "2016-06-20T00:57:29Z",
+    "deletions": 2,
+    "mergedAt": "2016-07-05T09:17:55Z",
+    "number": 779,
+    "title": "Capture additional params (named) not in template"
+  },
+  {
+    "additions": 285,
+    "author": {
+      "id": "MDQ6VXNlcjU3MDQ3MA==",
+      "is_bot": false,
+      "login": "adamchester",
+      "name": "Adam Chester"
+    },
+    "changedFiles": 4,
+    "createdAt": "2016-06-18T23:48:50Z",
+    "deletions": 0,
+    "mergedAt": "2016-06-19T23:27:43Z",
+    "number": 778,
+    "title": "Cover property capturing with better tests"
+  },
+  {
+    "additions": 20,
+    "author": {
+      "id": "MDQ6VXNlcjU3MDQ3MA==",
+      "is_bot": false,
+      "login": "adamchester",
+      "name": "Adam Chester"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-06-18T05:12:21Z",
+    "deletions": 2,
+    "mergedAt": "2016-06-18T21:57:57Z",
+    "number": 776,
+    "title": "Improve message template construction performance"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-06-17T05:00:23Z",
+    "deletions": 1,
+    "mergedAt": "2016-06-17T05:14:59Z",
+    "number": 775,
+    "title": "Add tagging/GitHub releases support to build via AppVeyor"
+  },
+  {
+    "additions": 89,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2016-06-14T11:48:20Z",
+    "deletions": 79,
+    "mergedAt": "2016-06-15T05:54:21Z",
+    "number": 774,
+    "title": "Switch from ,n level width specifiers to :tn"
+  },
+  {
+    "additions": 822,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 8,
+    "createdAt": "2016-06-13T00:59:07Z",
+    "deletions": 108,
+    "mergedAt": "2016-06-17T05:29:47Z",
+    "number": 772,
+    "title": "LogEventPropertyValue visitor implementations"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjcxMTA4ODQ=",
+      "is_bot": false,
+      "login": "Suchiman",
+      "name": "Robin Sue"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-06-11T13:38:19Z",
+    "deletions": 5,
+    "mergedAt": "2016-06-12T22:47:30Z",
+    "number": 770,
+    "title": "Remove template parser redundancy and nano optimizations"
+  },
+  {
+    "additions": 626,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 14,
+    "createdAt": "2016-06-11T07:28:33Z",
+    "deletions": 0,
+    "mergedAt": "2016-06-15T05:55:30Z",
+    "number": 769,
+    "title": "Revive Performance Tests for RC2"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 9,
+    "createdAt": "2016-06-07T04:21:57Z",
+    "deletions": 308,
+    "mergedAt": "2016-06-07T04:39:31Z",
+    "number": 767,
+    "title": "Remove the old/unused test projects"
+  },
+  {
+    "additions": 25,
+    "author": {
+      "id": "MDQ6VXNlcjU4MjQ4Nw==",
+      "is_bot": false,
+      "login": "khellang",
+      "name": "Kristian Hellang"
+    },
+    "changedFiles": 10,
+    "createdAt": "2016-06-02T08:53:02Z",
+    "deletions": 9,
+    "mergedAt": "2016-06-02T21:41:30Z",
+    "number": 764,
+    "title": "Some cleanup"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjU4MjQ4Nw==",
+      "is_bot": false,
+      "login": "khellang",
+      "name": "Kristian Hellang"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-05-31T22:14:52Z",
+    "deletions": 1,
+    "mergedAt": "2016-05-31T22:15:23Z",
+    "number": 763,
+    "title": "Don't run build twice"
+  },
+  {
+    "additions": 238,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 6,
+    "createdAt": "2016-05-31T05:39:05Z",
+    "deletions": 37,
+    "mergedAt": "2016-05-31T23:22:28Z",
+    "number": 761,
+    "title": "MinimumLevel.Override()"
+  },
+  {
+    "additions": 60,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 3,
+    "createdAt": "2016-05-30T22:46:03Z",
+    "deletions": 17,
+    "mergedAt": "2016-05-31T22:03:16Z",
+    "number": 760,
+    "title": "New Travis Build"
+  },
+  {
+    "additions": 93,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2016-05-30T02:39:34Z",
+    "deletions": 8,
+    "mergedAt": "2016-05-30T06:04:16Z",
+    "number": 758,
+    "title": "Enable(action) for SelfLog"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-05-26T00:15:33Z",
+    "deletions": 13,
+    "mergedAt": "2016-05-26T05:22:24Z",
+    "number": 756,
+    "title": "Bash script for dotnet core."
+  },
+  {
+    "additions": 2261,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 5,
+    "createdAt": "2016-05-23T04:11:55Z",
+    "deletions": 94,
+    "mergedAt": "2016-05-25T09:49:08Z",
+    "number": 752,
+    "title": "Add allocation-saving generic overloads to ILogger"
+  },
+  {
+    "additions": 191,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 6,
+    "createdAt": "2016-05-23T02:56:34Z",
+    "deletions": 11,
+    "mergedAt": "2016-05-26T00:33:44Z",
+    "number": 751,
+    "title": "Add BindMessageTemplate() and BindProperty() to ILogger"
+  },
+  {
+    "additions": 190,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 9,
+    "createdAt": "2016-05-23T01:33:15Z",
+    "deletions": 42,
+    "mergedAt": "2016-05-25T23:02:13Z",
+    "number": 750,
+    "title": "Optimize ForContext() by removing allocations"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-05-22T23:39:55Z",
+    "deletions": 1,
+    "mergedAt": "2016-05-22T23:56:44Z",
+    "number": 749,
+    "title": "Corrected script path to match new structure in dotnet/cli"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2016-05-20T10:26:21Z",
+    "deletions": 6,
+    "mergedAt": "2016-05-22T22:01:47Z",
+    "number": 747,
+    "title": "Removes a redundant `ToArray()` call from `ForContext()`"
+  },
+  {
+    "additions": 404,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 27,
+    "createdAt": "2016-05-16T23:53:17Z",
+    "deletions": 257,
+    "mergedAt": "2016-05-17T02:42:55Z",
+    "number": 742,
+    "title": "Code/test port to .NET Core RC2"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 10,
+    "createdAt": "2016-05-05T10:34:37Z",
+    "deletions": 381,
+    "mergedAt": "2016-05-05T12:19:48Z",
+    "number": 734,
+    "title": "Remove Serilog.Settings.AppSettings from 2.0"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjg2NjM4OQ==",
+      "is_bot": false,
+      "login": "DmitryNaumov",
+      "name": "Dmitry Naumov"
+    },
+    "changedFiles": 3,
+    "createdAt": "2016-05-05T08:24:01Z",
+    "deletions": 145,
+    "mergedAt": "2016-06-19T23:14:53Z",
+    "number": 733,
+    "title": "Prevent LogContext.Enrichers serialization when doing cross-domain calls"
+  },
+  {
+    "additions": 86,
+    "author": {
+      "id": "MDQ6VXNlcjU3MDQ3MA==",
+      "is_bot": false,
+      "login": "adamchester",
+      "name": "Adam Chester"
+    },
+    "changedFiles": 4,
+    "createdAt": "2016-04-30T06:19:17Z",
+    "deletions": 7,
+    "mergedAt": "2016-05-02T08:20:27Z",
+    "number": 728,
+    "title": "Allow destructuring policies to transform reflection types"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-04-29T06:10:03Z",
+    "deletions": 1,
+    "mergedAt": "2016-04-29T21:07:57Z",
+    "number": 727,
+    "title": "Internalize IScalarConversionPolicy, since no API allows one to be plugged in"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 3,
+    "createdAt": "2016-04-18T06:30:28Z",
+    "deletions": 18,
+    "mergedAt": "2016-04-20T04:00:11Z",
+    "number": 719,
+    "title": "Make the return value of `LoggerConfiguration.CreateLogger()` concrete"
+  },
+  {
+    "additions": 283,
+    "author": {
+      "id": "MDQ6VXNlcjc5MjA3Nw==",
+      "is_bot": false,
+      "login": "iamkoch",
+      "name": "Antony Koch"
+    },
+    "changedFiles": 10,
+    "createdAt": "2016-04-04T19:09:57Z",
+    "deletions": 26,
+    "mergedAt": "2016-04-19T22:39:44Z",
+    "number": 711,
+    "title": "Fixed width functionality for output level names"
+  },
+  {
+    "additions": 5,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 19,
+    "createdAt": "2016-03-18T03:28:38Z",
+    "deletions": 521,
+    "mergedAt": "2016-03-18T22:59:29Z",
+    "number": 700,
+    "title": "Removed enricher projects."
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 40,
+    "createdAt": "2016-03-17T04:34:12Z",
+    "deletions": 2509,
+    "mergedAt": "2016-03-18T00:52:31Z",
+    "number": 699,
+    "title": "Removed remaining sinks and specific sink tests."
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 12,
+    "createdAt": "2016-03-16T06:47:27Z",
+    "deletions": 471,
+    "mergedAt": "2016-03-16T07:09:37Z",
+    "number": 698,
+    "title": "Move sinks with no test impact"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 6,
+    "createdAt": "2016-03-15T05:55:17Z",
+    "deletions": 138,
+    "mergedAt": "2016-03-15T06:16:48Z",
+    "number": 696,
+    "title": "Removed console sink to new repo "
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjc4NTEzMQ==",
+      "is_bot": false,
+      "login": "blachniet",
+      "name": "Brian Lachniet"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-03-14T01:02:30Z",
+    "deletions": 1,
+    "mergedAt": "2016-03-14T05:26:53Z",
+    "number": 693,
+    "title": "Add rager releases badge to README.md"
+  },
+  {
+    "additions": 58,
+    "author": {
+      "id": "MDQ6VXNlcjEyNjI5Nw==",
+      "is_bot": false,
+      "login": "jonorossi",
+      "name": "Jonathon Rossi"
+    },
+    "changedFiles": 13,
+    "createdAt": "2016-03-11T15:10:41Z",
+    "deletions": 10,
+    "mergedAt": "2016-03-13T03:15:23Z",
+    "number": 689,
+    "title": "Mark assemblies CLSCompliant again"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjQ3MDQ0MTE=",
+      "is_bot": false,
+      "login": "Pvlerick",
+      "name": "Philippe Vlérick"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-02-23T07:07:27Z",
+    "deletions": 2,
+    "mergedAt": "2016-02-25T23:16:25Z",
+    "number": 678,
+    "title": "Fixing ColoredConsoleSink to prevent printing empty properties"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-02-22T00:20:55Z",
+    "deletions": 12,
+    "mergedAt": "2016-02-22T00:28:56Z",
+    "number": 677,
+    "title": "Change to Build.ps1 to use separate package folders"
+  },
+  {
+    "additions": 257,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 17,
+    "createdAt": "2016-02-19T22:33:34Z",
+    "deletions": 58,
+    "mergedAt": "2016-02-21T22:12:01Z",
+    "number": 674,
+    "title": "Moved enrichers to new projects. "
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-02-18T02:27:26Z",
+    "deletions": 1,
+    "mergedAt": "2016-02-18T10:42:45Z",
+    "number": 671,
+    "title": "A tiny internal change - make `Logger` implement `ILogEventSink` explicitly"
+  },
+  {
+    "additions": 314,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 30,
+    "createdAt": "2016-02-18T00:55:06Z",
+    "deletions": 294,
+    "mergedAt": "2016-02-19T05:57:33Z",
+    "number": 670,
+    "title": "Moved AppSettings support to Serilog.Settings.AppSettings"
+  },
+  {
+    "additions": 94,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 5,
+    "createdAt": "2016-02-17T23:43:37Z",
+    "deletions": 99,
+    "mergedAt": "2016-02-18T20:38:28Z",
+    "number": 669,
+    "title": "Move `FromLogContext` to `LoggerEnrichmentConfiguration`, tidy some ifdefs"
+  },
+  {
+    "additions": 18,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 13,
+    "createdAt": "2016-02-09T03:32:01Z",
+    "deletions": 203,
+    "mergedAt": "2016-02-09T03:39:34Z",
+    "number": 659,
+    "title": "Fixes #635 - remove .NET 4.0 conditionals."
+  },
+  {
+    "additions": 25,
+    "author": {
+      "id": "MDQ6VXNlcjQ3MDQ0MTE=",
+      "is_bot": false,
+      "login": "Pvlerick",
+      "name": "Philippe Vlérick"
+    },
+    "changedFiles": 4,
+    "createdAt": "2016-02-04T07:38:27Z",
+    "deletions": 8,
+    "mergedAt": "2016-02-11T22:12:01Z",
+    "number": 656,
+    "title": "Adding buffered boolean param to FileSink and RollingFileSink"
+  },
+  {
+    "additions": 82,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 5,
+    "createdAt": "2016-02-01T21:45:23Z",
+    "deletions": 6,
+    "mergedAt": "2016-02-09T03:33:14Z",
+    "number": 654,
+    "title": "Less surprising \"child logger\" level configuration"
+  },
+  {
+    "additions": 134,
+    "author": {
+      "id": "MDQ6VXNlcjE4MDUzNzg=",
+      "is_bot": false,
+      "login": "colin-young",
+      "name": "Colin Young"
+    },
+    "changedFiles": 10,
+    "createdAt": "2016-01-26T23:06:42Z",
+    "deletions": 54,
+    "mergedAt": "2016-02-16T07:12:39Z",
+    "number": 648,
+    "title": "Enable LogContext for .Net Core."
+  },
+  {
+    "additions": 968,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 47,
+    "createdAt": "2016-01-21T05:53:09Z",
+    "deletions": 468,
+    "mergedAt": "2016-01-26T00:54:19Z",
+    "number": 643,
+    "title": "Migrate remaining sinks to new projects"
+  },
+  {
+    "additions": 206,
+    "author": {
+      "id": "MDQ6VXNlcjM5OTQ4ODk=",
+      "is_bot": false,
+      "login": "johncrn",
+      "name": "John Crnjanin"
+    },
+    "changedFiles": 5,
+    "createdAt": "2016-01-16T12:39:53Z",
+    "deletions": 28,
+    "mergedAt": "2016-01-20T22:03:09Z",
+    "number": 636,
+    "title": "Enable event enrichers from config"
+  },
+  {
+    "additions": 95,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 8,
+    "createdAt": "2016-01-12T05:07:09Z",
+    "deletions": 28,
+    "mergedAt": "2016-01-14T10:30:09Z",
+    "number": 630,
+    "title": "Package Refactoring - Split Console Sink to new project"
+  },
+  {
+    "additions": 43,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 12,
+    "createdAt": "2016-01-10T22:36:31Z",
+    "deletions": 14,
+    "mergedAt": "2016-01-12T02:58:22Z",
+    "number": 627,
+    "title": "Enable strong naming on CoreCLR builds"
+  },
+  {
+    "additions": 12,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2016-01-10T22:00:54Z",
+    "deletions": 6,
+    "mergedAt": "2016-01-11T00:31:40Z",
+    "number": 626,
+    "title": "Use round-trippable floating point formatting in JSON"
+  },
+  {
+    "additions": 16,
+    "author": {
+      "id": "MDQ6VXNlcjg2NjM4OQ==",
+      "is_bot": false,
+      "login": "DmitryNaumov",
+      "name": "Dmitry Naumov"
+    },
+    "changedFiles": 1,
+    "createdAt": "2016-01-07T11:21:02Z",
+    "deletions": 8,
+    "mergedAt": "2016-03-01T21:46:09Z",
+    "number": 623,
+    "title": "Replace state transitions under lock with Interlocked operations"
+  },
+  {
+    "additions": 33,
+    "author": {
+      "id": "MDQ6VXNlcjQ3MDQ0MTE=",
+      "is_bot": false,
+      "login": "Pvlerick",
+      "name": "Philippe Vlérick"
+    },
+    "changedFiles": 3,
+    "createdAt": "2016-01-06T18:01:56Z",
+    "deletions": 2,
+    "mergedAt": "2016-01-14T11:29:41Z",
+    "number": 622,
+    "title": "Added function to detect anonymous types and appropriate tests"
+  },
+  {
+    "additions": 443,
+    "author": {
+      "id": "MDQ6VXNlcjU4MjQ4Nw==",
+      "is_bot": false,
+      "login": "khellang",
+      "name": "Kristian Hellang"
+    },
+    "changedFiles": 90,
+    "createdAt": "2015-12-22T00:58:46Z",
+    "deletions": 617,
+    "mergedAt": "2015-12-23T10:32:33Z",
+    "number": 617,
+    "title": "Kill some trailing whitespace, update to C# 6"
+  },
+  {
+    "additions": 156,
+    "author": {
+      "id": "MDQ6VXNlcjU4MjQ4Nw==",
+      "is_bot": false,
+      "login": "khellang",
+      "name": "Kristian Hellang"
+    },
+    "changedFiles": 34,
+    "createdAt": "2015-12-21T23:43:23Z",
+    "deletions": 142,
+    "mergedAt": "2015-12-26T01:30:04Z",
+    "number": 616,
+    "title": "Replaced Profile259 with dotnet5.1"
+  },
+  {
+    "additions": 15,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-12-13T22:16:32Z",
+    "deletions": 4,
+    "mergedAt": "2015-12-28T09:49:52Z",
+    "number": 608,
+    "title": "Attempt to fix intermittent hang during CoreCLR test runs"
+  },
+  {
+    "additions": 84,
+    "author": {
+      "id": "MDQ6VXNlcjU4MjQ4Nw==",
+      "is_bot": false,
+      "login": "khellang",
+      "name": "Kristian Hellang"
+    },
+    "changedFiles": 18,
+    "createdAt": "2015-12-02T16:46:42Z",
+    "deletions": 5139,
+    "mergedAt": "2015-12-02T22:30:04Z",
+    "number": 600,
+    "title": "Update to RC1"
+  },
+  {
+    "additions": 7136,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 173,
+    "createdAt": "2015-11-17T21:47:01Z",
+    "deletions": 4756,
+    "mergedAt": "2015-11-20T12:18:16Z",
+    "number": 591,
+    "title": "Move dev branch to \"v2\" (VS2015/.NET Core)"
+  },
+  {
+    "additions": 28,
+    "author": {
+      "id": "MDQ6VXNlcjExMzkzMDAz",
+      "is_bot": false,
+      "login": "inosik",
+      "name": "Ilja Nosik"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-11-09T18:51:04Z",
+    "deletions": 2,
+    "mergedAt": "2015-11-13T11:17:47Z",
+    "number": 572,
+    "title": "Allow to add and override custom writers"
+  },
+  {
+    "additions": 13,
+    "author": {
+      "id": "MDQ6VXNlcjEwMjA0MDc=",
+      "is_bot": false,
+      "login": "daveaglick",
+      "name": "Dave Glick"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-11-08T01:30:55Z",
+    "deletions": 0,
+    "mergedAt": "2015-11-20T21:02:59Z",
+    "number": 571,
+    "title": "LoggerConfiguration.CreateLogger() now throws if called more than once"
+  },
+  {
+    "additions": 97,
+    "author": {
+      "id": "MDQ6VXNlcjE3NzYwOA==",
+      "is_bot": false,
+      "login": "augustoproiete",
+      "name": "C. Augusto Proiete"
+    },
+    "changedFiles": 5,
+    "createdAt": "2015-11-07T00:44:29Z",
+    "deletions": 0,
+    "mergedAt": "2015-11-07T22:14:12Z",
+    "number": 570,
+    "title": "Add EnvironmentUserNameEnricher + unit test"
+  },
+  {
+    "additions": 186,
+    "author": {
+      "id": "MDQ6VXNlcjExMzY0Mg==",
+      "is_bot": false,
+      "login": "johnduhart",
+      "name": "John Du Hart"
+    },
+    "changedFiles": 4,
+    "createdAt": "2015-11-06T01:36:36Z",
+    "deletions": 1,
+    "mergedAt": "2015-11-07T22:28:39Z",
+    "number": 568,
+    "title": "Log.CloseAndFlush()"
+  },
+  {
+    "additions": 45,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 3,
+    "createdAt": "2015-11-03T10:15:23Z",
+    "deletions": 8,
+    "mergedAt": "2015-11-07T23:21:35Z",
+    "number": 564,
+    "title": "Apply #562 to dev-v2"
+  },
+  {
+    "additions": 14,
+    "author": {
+      "id": "MDQ6VXNlcjY3NjEyNg==",
+      "is_bot": false,
+      "login": "horsdal",
+      "name": "Christian Horsdal"
+    },
+    "changedFiles": 3,
+    "createdAt": "2015-11-02T22:08:14Z",
+    "deletions": 0,
+    "mergedAt": "2015-11-03T10:01:17Z",
+    "number": 562,
+    "title": "use silent logger when creating a logger and there are no sinks in the configuration"
+  },
+  {
+    "additions": 4863,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 110,
+    "createdAt": "2015-10-31T12:27:58Z",
+    "deletions": 817,
+    "mergedAt": "2015-11-17T21:25:34Z",
+    "number": 557,
+    "title": ".NET Core/v2 updates"
+  },
+  {
+    "additions": 34,
+    "author": {
+      "id": "MDQ6VXNlcjE3NzYwOA==",
+      "is_bot": false,
+      "login": "augustoproiete",
+      "name": "C. Augusto Proiete"
+    },
+    "changedFiles": 3,
+    "createdAt": "2015-10-25T20:00:04Z",
+    "deletions": 3,
+    "mergedAt": "2015-10-31T11:25:58Z",
+    "number": 551,
+    "title": "Add support for multiple sets of AppSettings using custom prefixes (in v2)"
+  },
+  {
+    "additions": 62,
+    "author": {
+      "id": "MDQ6VXNlcjE3NzYwOA==",
+      "is_bot": false,
+      "login": "augustoproiete",
+      "name": "C. Augusto Proiete"
+    },
+    "changedFiles": 4,
+    "createdAt": "2015-10-25T19:32:21Z",
+    "deletions": 3,
+    "mergedAt": "2015-11-08T21:49:38Z",
+    "number": 550,
+    "title": "Add support for multiple sets of AppSettings using custom prefixes"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjcxNjE4ODg=",
+      "is_bot": false,
+      "login": "russdaygh",
+      "name": "Russell Day"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-10-02T16:22:02Z",
+    "deletions": 0,
+    "mergedAt": "2015-10-03T00:27:17Z",
+    "number": 542,
+    "title": "Marked assembly as CLS Compliant per #538"
+  },
+  {
+    "additions": 149,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 10,
+    "createdAt": "2015-09-22T21:33:21Z",
+    "deletions": 41,
+    "mergedAt": "2015-10-12T11:47:22Z",
+    "number": 540,
+    "title": "Fixes #532 - adds `WriteTo.Logger()` accepting `ILogger`"
+  },
+  {
+    "additions": 12,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-09-04T22:12:51Z",
+    "deletions": 2,
+    "mergedAt": "2015-09-05T05:25:31Z",
+    "number": 524,
+    "title": "Exclude large strings from the internal message template cache (fixes 523)"
+  },
+  {
+    "additions": 154,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 6,
+    "createdAt": "2015-08-19T21:49:33Z",
+    "deletions": 37,
+    "mergedAt": "2015-08-27T11:54:48Z",
+    "number": 515,
+    "title": "Add a `levelSwitch` parameter to all sink configuration methods (v2)"
+  },
+  {
+    "additions": 22,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-08-19T21:44:08Z",
+    "deletions": 0,
+    "mergedAt": "2015-08-27T12:10:09Z",
+    "number": 514,
+    "title": "PeriodicBatchingSink hook for processing on ticks even when the batch is empty"
+  },
+  {
+    "additions": 807,
+    "author": {
+      "id": "MDQ6VXNlcjU4MjQ4Nw==",
+      "is_bot": false,
+      "login": "khellang",
+      "name": "Kristian Hellang"
+    },
+    "changedFiles": 40,
+    "createdAt": "2015-08-17T14:59:45Z",
+    "deletions": 911,
+    "mergedAt": "2015-08-19T10:20:25Z",
+    "number": 512,
+    "title": "Run tests on DNX"
+  },
+  {
+    "additions": 302,
+    "author": {
+      "id": "MDQ6VXNlcjU4MjQ4Nw==",
+      "is_bot": false,
+      "login": "khellang",
+      "name": "Kristian Hellang"
+    },
+    "changedFiles": 4,
+    "createdAt": "2015-08-17T10:53:24Z",
+    "deletions": 148,
+    "mergedAt": "2015-08-18T22:08:40Z",
+    "number": 510,
+    "title": "Added initial build script for DNX-based builds"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjU4MjQ4Nw==",
+      "is_bot": false,
+      "login": "khellang",
+      "name": "Kristian Hellang"
+    },
+    "changedFiles": 4,
+    "createdAt": "2015-08-17T10:41:44Z",
+    "deletions": 6,
+    "mergedAt": "2015-08-17T11:11:13Z",
+    "number": 509,
+    "title": "Fix build"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 8,
+    "createdAt": "2015-08-17T07:41:37Z",
+    "deletions": 474,
+    "mergedAt": "2015-08-17T09:31:52Z",
+    "number": 508,
+    "title": "Removed obsolete VS2015 solution artifacts"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-07-24T23:10:57Z",
+    "deletions": 2,
+    "mergedAt": "2015-07-27T09:42:41Z",
+    "number": 497,
+    "title": "Changed to use branch specific badges"
+  },
+  {
+    "additions": 670,
+    "author": {
+      "id": "MDQ6VXNlcjcxMDU5OA==",
+      "is_bot": false,
+      "login": "justinvp",
+      "name": "Justin Van Patten"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-07-08T14:56:40Z",
+    "deletions": 8,
+    "mergedAt": "2015-07-09T09:26:11Z",
+    "number": 484,
+    "title": "Add Log overloads that help avoid array and boxing allocations"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjM3NzkyMjM=",
+      "is_bot": false,
+      "login": "ldemidov",
+      "name": "Lev Demidov"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-06-16T21:16:08Z",
+    "deletions": 1,
+    "mergedAt": "2015-06-16T22:00:37Z",
+    "number": 471,
+    "title": "Including logging level in Trace logger"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-06-05T23:25:37Z",
+    "deletions": 1,
+    "mergedAt": "2015-06-06T01:39:10Z",
+    "number": 467,
+    "title": "Added NuGet Badge"
+  },
+  {
+    "additions": 35,
+    "author": {
+      "id": "MDQ6VXNlcjE3NzYwOA==",
+      "is_bot": false,
+      "login": "augustoproiete",
+      "name": "C. Augusto Proiete"
+    },
+    "changedFiles": 4,
+    "createdAt": "2015-06-02T23:13:09Z",
+    "deletions": 19,
+    "mergedAt": "2015-06-06T02:03:12Z",
+    "number": 463,
+    "title": "AppSettings: Update the unit test that checks environment variable expansion is supported"
+  },
+  {
+    "additions": 286,
+    "author": {
+      "id": "MDQ6VXNlcjM1MDA2NQ==",
+      "is_bot": false,
+      "login": "tsvayer",
+      "name": "Vitaliy Tsvayer"
+    },
+    "changedFiles": 6,
+    "createdAt": "2015-05-28T14:42:29Z",
+    "deletions": 0,
+    "mergedAt": "2015-05-30T00:59:19Z",
+    "number": 456,
+    "title": "backport KeyValuePairSettings and AppSettings to net40"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjMyMTI2",
+      "is_bot": false,
+      "login": "coding4food",
+      "name": "Anatoly Medvedkov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-05-06T12:29:17Z",
+    "deletions": 3,
+    "mergedAt": "2015-05-06T21:32:26Z",
+    "number": 442,
+    "title": "Fixes #441 - KeyValuePairSettings.ConvertToType does not work with Nullable<System.TimeSpan>"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-04-24T09:11:42Z",
+    "deletions": 1,
+    "mergedAt": "2015-04-24T09:33:53Z",
+    "number": 433,
+    "title": "Revert the default destructuring depth back to 10"
+  },
+  {
+    "additions": 661,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 27,
+    "createdAt": "2015-04-08T10:40:23Z",
+    "deletions": 442,
+    "mergedAt": "2015-04-09T11:15:30Z",
+    "number": 422,
+    "title": "Merge Serilog.Extras.AppSettings into the core, in line with #402"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 16,
+    "createdAt": "2015-02-20T22:42:55Z",
+    "deletions": 977,
+    "mergedAt": "2015-02-20T23:24:43Z",
+    "number": 393,
+    "title": "Removed Splunk sinks ready for move to new repo"
+  },
+  {
+    "additions": 469,
+    "author": {
+      "id": "MDQ6VXNlcjMyOTY4",
+      "is_bot": false,
+      "login": "mookid8000",
+      "name": "Mogens Heller Grabe"
+    },
+    "changedFiles": 9,
+    "createdAt": "2015-02-18T08:50:43Z",
+    "deletions": 8,
+    "mergedAt": "2015-02-28T11:37:59Z",
+    "number": 391,
+    "title": "ElasticSearch sink durability mode"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjMyOTY4",
+      "is_bot": false,
+      "login": "mookid8000",
+      "name": "Mogens Heller Grabe"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-02-17T13:38:12Z",
+    "deletions": 3,
+    "mergedAt": "2015-02-17T21:33:26Z",
+    "number": 389,
+    "title": "Bug es uri"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjU2MzIwNg==",
+      "is_bot": false,
+      "login": "ThomasArdal",
+      "name": "Thomas Ardal"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-02-15T18:55:08Z",
+    "deletions": 1,
+    "mergedAt": "2015-02-15T21:31:27Z",
+    "number": 388,
+    "title": "Newest elmah.io package"
+  },
+  {
+    "additions": 21,
+    "author": {
+      "id": "MDQ6VXNlcjE3NzYwOA==",
+      "is_bot": false,
+      "login": "augustoproiete",
+      "name": "C. Augusto Proiete"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-02-14T20:41:27Z",
+    "deletions": 1,
+    "mergedAt": "2015-02-15T21:49:52Z",
+    "number": 387,
+    "title": "#386 Expand environment variables on Extras.AppSettings values"
+  },
+  {
+    "additions": 68,
+    "author": {
+      "id": "MDQ6VXNlcjE1NDM3MzI=",
+      "is_bot": false,
+      "login": "STRUDSO",
+      "name": "Søren Trudsø Mahon"
+    },
+    "changedFiles": 4,
+    "createdAt": "2015-02-13T09:17:34Z",
+    "deletions": 5,
+    "mergedAt": "2015-02-16T22:27:35Z",
+    "number": 385,
+    "title": "Added IndexDecider Func to allow for a custom index pr logevent"
+  },
+  {
+    "additions": 195,
+    "author": {
+      "id": "MDQ6VXNlcjgwOTM2Mw==",
+      "is_bot": false,
+      "login": "steven-dawkins",
+      "name": "Steven Dawkins"
+    },
+    "changedFiles": 7,
+    "createdAt": "2015-02-10T14:38:11Z",
+    "deletions": 1,
+    "mergedAt": "2015-02-12T21:26:51Z",
+    "number": 382,
+    "title": "Fixes support for using multiple CounterMeasure"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjk2NTQzOQ==",
+      "is_bot": false,
+      "login": "adamvoss",
+      "name": "Adam Voss"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-02-07T22:00:40Z",
+    "deletions": 1,
+    "mergedAt": "2015-02-07T22:14:30Z",
+    "number": 379,
+    "title": "Corrects a minor spelling mistake in the description of the MSOwin nuget package"
+  },
+  {
+    "additions": 46,
+    "author": {
+      "id": "MDQ6VXNlcjU1NTgx",
+      "is_bot": false,
+      "login": "tetious",
+      "name": "Greg Lincoln"
+    },
+    "changedFiles": 3,
+    "createdAt": "2015-02-05T18:22:06Z",
+    "deletions": 7,
+    "mergedAt": "2015-02-08T01:31:46Z",
+    "number": 376,
+    "title": "Wait for Loggly client to submit the log event."
+  },
+  {
+    "additions": 52,
+    "author": {
+      "id": "MDQ6VXNlcjQ0ODcyNg==",
+      "is_bot": false,
+      "login": "Jaben",
+      "name": "Jaben Cargman"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-02-03T02:51:09Z",
+    "deletions": 39,
+    "mergedAt": "2015-02-07T22:06:44Z",
+    "number": 374,
+    "title": "Non-breaking improvement for issue #30"
+  },
+  {
+    "additions": 8,
+    "author": {
+      "id": "MDQ6VXNlcjExOTA3MTA=",
+      "is_bot": false,
+      "login": "davidpeden3",
+      "name": "David Peden"
+    },
+    "changedFiles": 3,
+    "createdAt": "2015-01-31T03:18:36Z",
+    "deletions": 6,
+    "mergedAt": "2015-02-01T01:30:08Z",
+    "number": 373,
+    "title": "upgrade Raygun from 2.0.4 to 4.2.0"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjE2NzM4ODc=",
+      "is_bot": false,
+      "login": "jensbengtsson",
+      "name": "Jens Bengtsson"
+    },
+    "changedFiles": 1,
+    "createdAt": "2015-01-28T11:55:26Z",
+    "deletions": 1,
+    "mergedAt": "2015-01-28T21:45:50Z",
+    "number": 369,
+    "title": "[Elasticsearch Sink] Log message should be named \"message\" instead of \"r..."
+  },
+  {
+    "additions": 61,
+    "author": {
+      "id": "MDQ6VXNlcjQzNDE0MA==",
+      "is_bot": false,
+      "login": "aaronpowell",
+      "name": "Aaron Powell"
+    },
+    "changedFiles": 5,
+    "createdAt": "2015-01-27T06:14:52Z",
+    "deletions": 25,
+    "mergedAt": "2015-01-28T21:50:17Z",
+    "number": 367,
+    "title": "Updating the MongoDB sink to work with the MongoDB c# v2 driver preview"
+  },
+  {
+    "additions": 12,
+    "author": {
+      "id": "MDQ6VXNlcjQwMzQyOA==",
+      "is_bot": false,
+      "login": "chuwik",
+      "name": "Enrique Moreno"
+    },
+    "changedFiles": 2,
+    "createdAt": "2015-01-26T01:03:44Z",
+    "deletions": 0,
+    "mergedAt": "2015-03-08T01:46:25Z",
+    "number": 366,
+    "title": "#357 PeriodicBatchingSink now flushes on unhandled exceptions"
+  },
+  {
+    "additions": 80,
+    "author": {
+      "id": "MDQ6VXNlcjgyOA==",
+      "is_bot": false,
+      "login": "joergbattermann",
+      "name": "Jörg Battermann"
+    },
+    "changedFiles": 7,
+    "createdAt": "2015-01-23T21:29:42Z",
+    "deletions": 145,
+    "mergedAt": "2015-02-01T02:27:25Z",
+    "number": 365,
+    "title": "Updated Serilog.Sinks.ApplicationInsights"
+  },
+  {
+    "additions": 152,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 5,
+    "createdAt": "2015-01-14T21:30:07Z",
+    "deletions": 0,
+    "mergedAt": "2015-01-16T08:31:59Z",
+    "number": 354,
+    "title": "Adds Serilog.Extras.FSharp"
+  },
+  {
+    "additions": 651,
+    "author": {
+      "id": "MDQ6VXNlcjE1MTc2MDQ=",
+      "is_bot": false,
+      "login": "BenGale",
+      "name": "Ben Gale"
+    },
+    "changedFiles": 12,
+    "createdAt": "2015-01-10T15:08:17Z",
+    "deletions": 0,
+    "mergedAt": "2015-01-13T00:08:47Z",
+    "number": 351,
+    "title": "Created a sink for Azure Event Hubs."
+  },
+  {
+    "additions": 20,
+    "author": {
+      "id": "MDQ6VXNlcjE0NTQwNzM=",
+      "is_bot": false,
+      "login": "TrevorPilley",
+      "name": "Trevor Pilley"
+    },
+    "changedFiles": 4,
+    "createdAt": "2014-12-27T13:21:23Z",
+    "deletions": 4,
+    "mergedAt": "2015-01-06T21:25:08Z",
+    "number": 347,
+    "title": "Updated to SignalR 2.1.0"
+  },
+  {
+    "additions": 28,
+    "author": {
+      "id": "MDQ6VXNlcjk1NzczMA==",
+      "is_bot": false,
+      "login": "mharen",
+      "name": "Michael H"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-12-24T14:32:09Z",
+    "deletions": 14,
+    "mergedAt": "2015-01-06T21:19:24Z",
+    "number": 346,
+    "title": "pass context properties along to nlog"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjg0NDMxNDM=",
+      "is_bot": false,
+      "login": "richiej84",
+      "name": "Rich Johnston"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-12-17T00:53:33Z",
+    "deletions": 1,
+    "mergedAt": "2014-12-18T08:26:01Z",
+    "number": 342,
+    "title": "Change LogContext.PushProperties to accept ILogEventEnrichers rather tha..."
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjUyNjUx",
+      "is_bot": false,
+      "login": "paulblamire",
+      "name": "Paul Blamire"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-12-16T20:01:10Z",
+    "deletions": 1,
+    "mergedAt": "2014-12-18T22:04:38Z",
+    "number": 341,
+    "title": "Feature application life cycle module request logging level"
+  },
+  {
+    "additions": 10,
+    "author": {
+      "id": "MDQ6VXNlcjI1MjEyNg==",
+      "is_bot": false,
+      "login": "object",
+      "name": "Vagif Abilov"
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-12-12T15:01:57Z",
+    "deletions": 4,
+    "mergedAt": "2014-12-14T22:12:08Z",
+    "number": 340,
+    "title": "Added optional Encoding parameter to RollingFileSink and FileSink ctors"
+  },
+  {
+    "additions": 9,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-12-11T02:52:07Z",
+    "deletions": 4,
+    "mergedAt": "2014-12-11T20:47:58Z",
+    "number": 336,
+    "title": "Changed to use stream for HTTP in Splunk (#215)"
+  },
+  {
+    "additions": 2,
+    "author": {
+      "id": "MDQ6VXNlcjM0MjcxMg==",
+      "is_bot": false,
+      "login": "nblumhardt",
+      "name": "Nicholas Blumhardt"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-12-10T10:48:49Z",
+    "deletions": 3,
+    "mergedAt": "2014-12-11T01:31:59Z",
+    "number": 335,
+    "title": "First checklist item from #125 - remove `dynamic`"
+  },
+  {
+    "additions": 1484,
+    "author": {
+      "id": "MDQ6VXNlcjExMDEwNTg=",
+      "is_bot": false,
+      "login": "bragma",
+      "name": "Bragma"
+    },
+    "changedFiles": 21,
+    "createdAt": "2014-12-09T17:33:54Z",
+    "deletions": 28,
+    "mergedAt": "2014-12-21T22:15:58Z",
+    "number": 329,
+    "title": "Improved Azure Table Storage Sink"
+  },
+  {
+    "additions": 92,
+    "author": {
+      "id": "MDQ6VXNlcjU4MjQ4Nw==",
+      "is_bot": false,
+      "login": "khellang",
+      "name": "Kristian Hellang"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-12-07T16:00:31Z",
+    "deletions": 88,
+    "mergedAt": "2014-12-07T22:03:36Z",
+    "number": 327,
+    "title": "Added EditorBrowsable attributes to Obsolete methods"
+  },
+  {
+    "additions": 1,
+    "author": {
+      "id": "MDQ6VXNlcjQ2MDkxNzk=",
+      "is_bot": false,
+      "login": "StephenHynes7",
+      "name": "Stephen Hynes"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-12-04T09:47:59Z",
+    "deletions": 36,
+    "mergedAt": "2014-12-07T22:37:16Z",
+    "number": 315,
+    "title": "Remove SSL cert pinning"
+  },
+  {
+    "additions": 53,
+    "author": {
+      "id": "MDQ6VXNlcjMyOTY4",
+      "is_bot": false,
+      "login": "mookid8000",
+      "name": "Mogens Heller Grabe"
+    },
+    "changedFiles": 3,
+    "createdAt": "2014-12-01T09:12:40Z",
+    "deletions": 2,
+    "mergedAt": "2014-12-07T22:37:16Z",
+    "number": 311,
+    "title": "changed EmailSink to accept a comma-and-or-semicolon separated list of recipients"
+  },
+  {
+    "additions": 210,
+    "author": {
+      "id": "MDQ6VXNlcjE2OTEwNjI=",
+      "is_bot": false,
+      "login": "gertjvr",
+      "name": "Gert Jansen van Rensburg"
+    },
+    "changedFiles": 5,
+    "createdAt": "2014-11-26T06:38:02Z",
+    "deletions": 4,
+    "mergedAt": "2015-02-01T02:27:25Z",
+    "number": 306,
+    "title": "Fix for #196 LogContext to work cross-domain"
+  },
+  {
+    "additions": 11,
+    "author": {
+      "id": "MDQ6VXNlcjYzNzI5OA==",
+      "is_bot": false,
+      "login": "merbla",
+      "name": "Matthew Erbs"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-11-21T23:41:52Z",
+    "deletions": 11,
+    "mergedAt": "2014-11-23T22:18:20Z",
+    "number": 301,
+    "title": "Extras.Web - Change to LogRequest and Message Template on Error"
+  },
+  {
+    "additions": 6,
+    "author": {
+      "id": "MDQ6VXNlcjYxNjI0OQ==",
+      "is_bot": false,
+      "login": "johnkattenhorn",
+      "name": "John Kattenhorn"
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-11-20T07:28:13Z",
+    "deletions": 8,
+    "mergedAt": "2014-11-21T09:27:00Z",
+    "number": 297,
+    "title": "UPDATED: loggly-csharp packages to the latest versions."
+  },
+  {
+    "additions": 1207,
+    "author": {
+      "id": "MDQ6VXNlcjI0NTI3NQ==",
+      "is_bot": false,
+      "login": "Mpdreamz",
+      "name": "Martijn Laarman"
+    },
+    "changedFiles": 23,
+    "createdAt": "2014-11-16T12:05:53Z",
+    "deletions": 418,
+    "mergedAt": "2014-11-26T22:31:06Z",
+    "number": 289,
+    "title": "Elasticsearch sink improvements"
+  },
+  {
+    "additions": 631,
+    "author": {
+      "id": "MDQ6VXNlcjE0NDE5MDk=",
+      "is_bot": false,
+      "login": "kanchanm",
+      "name": "Kanchan Mehrotra"
+    },
+    "changedFiles": 22,
+    "createdAt": "2014-11-12T03:52:12Z",
+    "deletions": 1,
+    "mergedAt": "2014-11-23T22:18:20Z",
+    "number": 283,
+    "title": "Port Serilog to support ASP.NET vNext"
+  },
+  {
+    "additions": 0,
+    "author": {
+      "id": "MDQ6VXNlcjQ5MzY2",
+      "is_bot": false,
+      "login": "jjschlesinger",
+      "name": "Josh Schlesinger"
+    },
+    "changedFiles": 0,
+    "createdAt": "2014-11-04T00:45:01Z",
+    "deletions": 0,
+    "mergedAt": "2014-11-04T02:08:19Z",
+    "number": 269,
+    "title": "Included public/non-static fields when destructuring"
+  },
+  {
+    "additions": 213,
+    "author": {
+      "id": "MDQ6VXNlcjU4MjQ4Nw==",
+      "is_bot": false,
+      "login": "khellang",
+      "name": "Kristian Hellang"
+    },
+    "changedFiles": 102,
+    "createdAt": "2014-10-27T23:10:37Z",
+    "deletions": 281,
+    "mergedAt": "2014-11-16T01:28:29Z",
+    "number": 264,
+    "title": "Added missing versions to nuspec dependencies"
+  },
+  {
+    "additions": 61,
+    "author": {
+      "id": "MDQ6VXNlcjEzMDMxMzE=",
+      "is_bot": false,
+      "login": "neutmute",
+      "name": "neutmute"
+    },
+    "changedFiles": 5,
+    "createdAt": "2014-10-26T07:02:00Z",
+    "deletions": 38,
+    "mergedAt": "2014-11-02T22:14:59Z",
+    "number": 259,
+    "title": "loggly update to 3.5.1"
+  },
+  {
+    "additions": 493,
+    "author": {
+      "id": "MDQ6VXNlcjU1OTMyMTQ=",
+      "is_bot": false,
+      "login": "XSockets",
+      "name": "We Are Real Time"
+    },
+    "changedFiles": 12,
+    "createdAt": "2014-10-25T12:43:54Z",
+    "deletions": 6,
+    "mergedAt": "2014-11-02T21:39:57Z",
+    "number": 257,
+    "title": "XSockets.NET Sink for Serilog"
+  },
+  {
+    "additions": 100,
+    "author": {
+      "id": "MDQ6VXNlcjU4MjQ4Nw==",
+      "is_bot": false,
+      "login": "khellang",
+      "name": "Kristian Hellang"
+    },
+    "changedFiles": 8,
+    "createdAt": "2014-10-22T17:53:55Z",
+    "deletions": 1,
+    "mergedAt": "2014-10-23T21:33:47Z",
+    "number": 253,
+    "title": "Add LoggerMethodAttribute"
+  },
+  {
+    "additions": 88,
+    "author": {
+      "id": "MDQ6VXNlcjM0NzU0MA==",
+      "is_bot": false,
+      "login": "IanMercer",
+      "name": "Ian Mercer"
+    },
+    "changedFiles": 2,
+    "createdAt": "2014-10-21T19:35:46Z",
+    "deletions": 16,
+    "mergedAt": "2014-10-23T21:40:49Z",
+    "number": 250,
+    "title": "Allow the MongoDB sink to be configured with an existing MongoDatabase instance"
+  },
+  {
+    "additions": 143,
+    "author": {
+      "id": "MDQ6VXNlcjU4MjQ4Nw==",
+      "is_bot": false,
+      "login": "khellang",
+      "name": "Kristian Hellang"
+    },
+    "changedFiles": 8,
+    "createdAt": "2014-10-21T17:30:52Z",
+    "deletions": 16,
+    "mergedAt": "2014-10-23T20:59:38Z",
+    "number": 249,
+    "title": "Added StartIndex and EndIndex to MessageTemplateToken"
+  },
+  {
+    "additions": 4,
+    "author": {
+      "id": "MDQ6VXNlcjU1OTQwOQ==",
+      "is_bot": false,
+      "login": "prasannavl",
+      "name": "Prasanna Loganathar"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-10-15T22:09:08Z",
+    "deletions": 3,
+    "mergedAt": "2014-10-28T21:11:54Z",
+    "number": 246,
+    "title": "Update PCL with Profile259"
+  },
+  {
+    "additions": 179,
+    "author": {
+      "id": "MDQ6VXNlcjE1OTQ3Nzc=",
+      "is_bot": false,
+      "login": "gmarz",
+      "name": "Greg Marzouka"
+    },
+    "changedFiles": 6,
+    "createdAt": "2014-10-12T21:06:08Z",
+    "deletions": 64,
+    "mergedAt": "2014-10-22T21:53:49Z",
+    "number": 244,
+    "title": "Use Elasticsearch.Net instead of NEST"
+  },
+  {
+    "additions": 3,
+    "author": {
+      "id": "MDQ6VXNlcjE2NDkwNTE=",
+      "is_bot": false,
+      "login": "nslowes",
+      "name": "Nick Slowes"
+    },
+    "changedFiles": 1,
+    "createdAt": "2014-10-09T00:43:31Z",
+    "deletions": 1,
+    "mergedAt": "2014-10-09T21:44:27Z",
+    "number": 242,
+    "title": "Update NLogSink to map Verbose level to Trace level in NLog"
+  }
+]

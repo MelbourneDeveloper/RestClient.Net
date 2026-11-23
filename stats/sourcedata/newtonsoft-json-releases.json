@@ -1,0 +1,530 @@
+[
+  {
+    "createdAt": "2025-09-16T07:54:19Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "13.0.4",
+    "publishedAt": "2025-09-17T01:37:08Z",
+    "tagName": "13.0.4"
+  },
+  {
+    "createdAt": "2023-03-08T07:00:25Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "13.0.3",
+    "publishedAt": "2023-03-08T14:22:45Z",
+    "tagName": "13.0.3"
+  },
+  {
+    "createdAt": "2022-11-24T02:02:04Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "13.0.2",
+    "publishedAt": "2022-11-24T03:14:45Z",
+    "tagName": "13.0.2"
+  },
+  {
+    "createdAt": "2021-03-17T19:55:07Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "13.0.1",
+    "publishedAt": "2021-03-22T20:27:37Z",
+    "tagName": "13.0.1"
+  },
+  {
+    "createdAt": "2019-11-09T00:48:42Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "12.0.3",
+    "publishedAt": "2019-11-09T01:22:40Z",
+    "tagName": "12.0.3"
+  },
+  {
+    "createdAt": "2019-04-22T00:52:43Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "12.0.2",
+    "publishedAt": "2019-04-22T01:36:11Z",
+    "tagName": "12.0.2"
+  },
+  {
+    "createdAt": "2018-11-27T17:53:07Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "12.0.1",
+    "publishedAt": "2018-11-27T18:13:31Z",
+    "tagName": "12.0.1"
+  },
+  {
+    "createdAt": "2018-03-23T03:17:55Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "11.0.2",
+    "publishedAt": "2018-03-24T20:04:24Z",
+    "tagName": "11.0.2"
+  },
+  {
+    "createdAt": "2018-02-17T20:39:17Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "11.0.1",
+    "publishedAt": "2018-02-17T21:04:20Z",
+    "tagName": "11.0.1"
+  },
+  {
+    "createdAt": "2017-06-18T01:55:15Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "10.0.3",
+    "publishedAt": "2017-06-18T02:14:43Z",
+    "tagName": "10.0.3"
+  },
+  {
+    "createdAt": "2017-04-02T05:40:31Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "10.0.2",
+    "publishedAt": "2017-04-02T06:49:25Z",
+    "tagName": "10.0.2"
+  },
+  {
+    "createdAt": "2017-03-20T07:00:49Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "10.0.1",
+    "publishedAt": "2017-03-20T07:29:29Z",
+    "tagName": "10.0.1"
+  },
+  {
+    "createdAt": "2016-06-13T11:03:56Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "9.0.1",
+    "publishedAt": "2016-06-27T12:43:55Z",
+    "tagName": "9.0.1"
+  },
+  {
+    "createdAt": "2016-03-14T08:28:16Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "8.0.3",
+    "publishedAt": "2016-03-14T09:01:49Z",
+    "tagName": "8.0.3"
+  },
+  {
+    "createdAt": "2016-01-09T00:46:57Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "8.0.2",
+    "publishedAt": "2016-01-09T01:08:45Z",
+    "tagName": "8.0.2"
+  },
+  {
+    "createdAt": "2015-12-28T23:34:20Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "8.0.1",
+    "publishedAt": "2015-12-29T01:08:02Z",
+    "tagName": "8.0.1"
+  },
+  {
+    "createdAt": "2015-06-22T10:48:49Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "7.0.1",
+    "publishedAt": "2015-06-22T11:15:24Z",
+    "tagName": "7.0.1"
+  },
+  {
+    "createdAt": "2015-01-11T06:46:39Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "6.0.8",
+    "publishedAt": "2015-01-12T04:12:56Z",
+    "tagName": "6.0.8"
+  },
+  {
+    "createdAt": "2014-12-22T22:58:22Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "6.0.7",
+    "publishedAt": "2014-12-23T00:17:46Z",
+    "tagName": "6.0.7"
+  },
+  {
+    "createdAt": "2014-10-20T07:18:22Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "6.0.6",
+    "publishedAt": "2014-11-03T17:44:29Z",
+    "tagName": "6.0.6"
+  },
+  {
+    "createdAt": "2014-09-06T22:34:07Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "6.0.5",
+    "publishedAt": "2014-11-03T18:02:04Z",
+    "tagName": "6.0.5"
+  },
+  {
+    "createdAt": "2014-08-03T08:28:50Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:02:40Z",
+    "tagName": "6.0.4"
+  },
+  {
+    "createdAt": "2014-04-27T03:05:22Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:03:33Z",
+    "tagName": "6.0.3"
+  },
+  {
+    "createdAt": "2014-04-03T02:05:18Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:04:07Z",
+    "tagName": "6.0.2"
+  },
+  {
+    "createdAt": "2014-02-01T00:49:11Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:04:35Z",
+    "tagName": "6.0.1"
+  },
+  {
+    "createdAt": "2013-10-16T23:47:48Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:05:21Z",
+    "tagName": "5.0.8"
+  },
+  {
+    "createdAt": "2013-10-14T06:33:30Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:06:05Z",
+    "tagName": "5.0.7"
+  },
+  {
+    "createdAt": "2013-06-07T07:34:55Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:07:10Z",
+    "tagName": "5.0.6"
+  },
+  {
+    "createdAt": "2013-05-08T08:26:32Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:08:30Z",
+    "tagName": "5.0.5"
+  },
+  {
+    "createdAt": "2013-04-25T03:38:29Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:09:14Z",
+    "tagName": "5.0.4"
+  },
+  {
+    "createdAt": "2013-04-14T01:01:43Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:12:20Z",
+    "tagName": "5.0.3"
+  },
+  {
+    "createdAt": "2013-04-08T11:21:50Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:12:53Z",
+    "tagName": "5.0.2"
+  },
+  {
+    "createdAt": "2013-04-07T06:17:49Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:13:26Z",
+    "tagName": "5.0.1"
+  },
+  {
+    "createdAt": "2012-11-20T09:44:07Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:14:20Z",
+    "tagName": "4.5.11"
+  },
+  {
+    "createdAt": "2012-10-07T09:46:38Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:16:50Z",
+    "tagName": "4.5.10"
+  },
+  {
+    "createdAt": "2012-09-08T09:57:14Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.5.9",
+    "publishedAt": "2014-11-03T18:17:17Z",
+    "tagName": "4.5.9"
+  },
+  {
+    "createdAt": "2012-08-05T02:21:01Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T18:18:32Z",
+    "tagName": "4.5.8"
+  },
+  {
+    "createdAt": "2012-06-09T03:23:35Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.5.7",
+    "publishedAt": "2014-11-03T18:19:45Z",
+    "tagName": "4.5.7"
+  },
+  {
+    "createdAt": "2012-05-30T07:21:43Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.5.6",
+    "publishedAt": "2014-11-03T18:20:48Z",
+    "tagName": "4.5.6"
+  },
+  {
+    "createdAt": "2012-05-08T08:08:21Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.5.5",
+    "publishedAt": "2014-11-03T18:21:29Z",
+    "tagName": "4.5.5"
+  },
+  {
+    "createdAt": "2012-04-24T21:32:32Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.5.4",
+    "publishedAt": "2014-11-03T18:23:28Z",
+    "tagName": "4.5.4"
+  },
+  {
+    "createdAt": "2012-04-13T13:24:00Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.5.3",
+    "publishedAt": "2014-11-03T18:24:07Z",
+    "tagName": "4.5.3"
+  },
+  {
+    "createdAt": "2012-04-11T10:16:10Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.5.2",
+    "publishedAt": "2014-11-03T18:25:03Z",
+    "tagName": "4.5.2"
+  },
+  {
+    "createdAt": "2012-03-20T06:33:07Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.5.1",
+    "publishedAt": "2014-11-03T18:26:21Z",
+    "tagName": "4.5.1"
+  },
+  {
+    "createdAt": "2012-02-12T01:08:20Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.0.8",
+    "publishedAt": "2014-11-03T18:29:31Z",
+    "tagName": "4.0.8"
+  },
+  {
+    "createdAt": "2012-01-24T09:12:32Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.0.7",
+    "publishedAt": "2014-11-03T18:30:04Z",
+    "tagName": "4.0.7"
+  },
+  {
+    "createdAt": "2012-01-23T07:22:17Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.0.6",
+    "publishedAt": "2014-11-03T18:30:47Z",
+    "tagName": "4.0.6"
+  },
+  {
+    "createdAt": "2011-12-10T12:09:52Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.0.5",
+    "publishedAt": "2014-11-03T18:32:24Z",
+    "tagName": "4.0.5"
+  },
+  {
+    "createdAt": "2011-11-19T09:10:38Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.0.4",
+    "publishedAt": "2014-11-03T18:33:15Z",
+    "tagName": "4.0.4"
+  },
+  {
+    "createdAt": "2011-10-01T23:32:54Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.0.3",
+    "publishedAt": "2014-11-03T18:34:22Z",
+    "tagName": "4.0.3"
+  },
+  {
+    "createdAt": "2011-04-22T03:11:42Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.0.2",
+    "publishedAt": "2014-11-03T18:35:14Z",
+    "tagName": "4.0.2"
+  },
+  {
+    "createdAt": "2011-01-04T01:05:52Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "4.0.1",
+    "publishedAt": "2014-11-03T18:36:25Z",
+    "tagName": "4.0.1"
+  },
+  {
+    "createdAt": "2010-08-14T02:10:47Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "3.5.8",
+    "publishedAt": "2014-11-03T18:39:11Z",
+    "tagName": "3.5.8"
+  },
+  {
+    "createdAt": "2010-04-20T07:51:33Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "3.5.7",
+    "publishedAt": "2014-11-03T18:40:15Z",
+    "tagName": "3.5.7"
+  },
+  {
+    "createdAt": "2009-12-27T03:30:43Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "3.5.6",
+    "publishedAt": "2014-11-03T18:41:00Z",
+    "tagName": "3.5.6"
+  },
+  {
+    "createdAt": "2009-10-11T04:23:35Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "3.5.5",
+    "publishedAt": "2014-11-03T18:41:35Z",
+    "tagName": "3.5.5"
+  },
+  {
+    "createdAt": "2009-07-06T09:36:03Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "3.5.4",
+    "publishedAt": "2014-11-03T18:45:53Z",
+    "tagName": "3.5.4"
+  },
+  {
+    "createdAt": "2009-03-21T09:19:16Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "3.5.3",
+    "publishedAt": "2014-11-03T18:46:30Z",
+    "tagName": "3.5.3"
+  },
+  {
+    "createdAt": "2009-01-04T08:52:04Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "3.5.2",
+    "publishedAt": "2014-11-03T18:47:27Z",
+    "tagName": "3.5.2"
+  },
+  {
+    "createdAt": "2008-10-27T09:36:55Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "3.5.1",
+    "publishedAt": "2014-11-03T18:49:47Z",
+    "tagName": "3.5.1"
+  },
+  {
+    "createdAt": "2008-08-24T11:23:19Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "3.0.1",
+    "publishedAt": "2014-11-03T18:50:53Z",
+    "tagName": "3.0.1"
+  },
+  {
+    "createdAt": "2008-05-04T03:16:34Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "2.0.4",
+    "publishedAt": "2014-11-03T18:52:05Z",
+    "tagName": "2.0.4"
+  },
+  {
+    "createdAt": "2008-04-08T08:56:32Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "2.0.3",
+    "publishedAt": "2014-11-03T18:52:45Z",
+    "tagName": "2.0.3"
+  },
+  {
+    "createdAt": "2008-03-02T06:57:47Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "2.0.2",
+    "publishedAt": "2014-11-03T18:55:26Z",
+    "tagName": "2.0.2"
+  },
+  {
+    "createdAt": "2008-02-10T10:56:19Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "2.0.1",
+    "publishedAt": "2014-11-03T18:56:20Z",
+    "tagName": "2.0.1"
+  },
+  {
+    "createdAt": "2007-09-10T11:01:42Z",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "",
+    "publishedAt": "2014-11-03T17:38:21Z",
+    "tagName": "1.3.1"
+  }
+]

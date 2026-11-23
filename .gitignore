@@ -15,3 +15,5 @@ coverage.cobertura.xml
 final-check/
 test-output-final
 nupkgs/
+
+.vscode/code-navigator/

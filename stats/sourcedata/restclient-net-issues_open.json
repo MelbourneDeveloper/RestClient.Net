@@ -1,0 +1,203 @@
+[
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk0NTE2OA==",
+      "is_bot": false,
+      "login": "EdCharbeneau",
+      "name": "Ed Charbeneau"
+    },
+    "comments": [],
+    "createdAt": "2025-10-21T12:21:49Z",
+    "labels": [],
+    "number": 143,
+    "title": "More control over HTTP is needed"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "comments": [],
+    "createdAt": "2022-04-10T00:38:43Z",
+    "labels": [],
+    "number": 107,
+    "title": "Typed Clients"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "comments": [],
+    "createdAt": "2020-07-21T00:33:47Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzYzOTA0Mzgz",
+        "name": "Note Only",
+        "description": "This is not an issue. This is here as a reminder",
+        "color": "e99695"
+      }
+    ],
+    "number": 73,
+    "title": "HttpCompletionOption"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "comments": [],
+    "createdAt": "2020-01-07T10:41:51Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxMDM3NzM3MjQx",
+        "name": "help wanted",
+        "description": "Extra attention is needed",
+        "color": "008672"
+      },
+      {
+        "id": "MDU6TGFiZWwzMDM0MzE4OTky",
+        "name": "Feature",
+        "description": "",
+        "color": "f9d0c4"
+      }
+    ],
+    "number": 56,
+    "title": "Caching Policies"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "comments": [],
+    "createdAt": "2020-01-06T04:45:32Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxMDM3NzM3MjQx",
+        "name": "help wanted",
+        "description": "Extra attention is needed",
+        "color": "008672"
+      },
+      {
+        "id": "MDU6TGFiZWwzMDM0MzE4OTky",
+        "name": "Feature",
+        "description": "",
+        "color": "f9d0c4"
+      }
+    ],
+    "number": 54,
+    "title": "Multipart Forms With Files"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "comments": [],
+    "createdAt": "2020-01-03T06:19:43Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxMDM3NzM3MjQx",
+        "name": "help wanted",
+        "description": "Extra attention is needed",
+        "color": "008672"
+      },
+      {
+        "id": "MDU6TGFiZWwxMDM3NzM3MjQz",
+        "name": "good first issue",
+        "description": "Good for newcomers",
+        "color": "7057ff"
+      },
+      {
+        "id": "MDU6TGFiZWwzMDM0MzE4OTky",
+        "name": "Feature",
+        "description": "",
+        "color": "f9d0c4"
+      }
+    ],
+    "number": 47,
+    "title": "Cookies"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "comments": [],
+    "createdAt": "2019-04-23T23:53:51Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzYzOTA0Mzgz",
+        "name": "Note Only",
+        "description": "This is not an issue. This is here as a reminder",
+        "color": "e99695"
+      }
+    ],
+    "number": 11,
+    "title": "HttpClient Best Practices"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njk3NTQ3",
+      "is_bot": false,
+      "login": "MelbourneDeveloper",
+      "name": "Christian Findlay"
+    },
+    "comments": [
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDQ2Mzc5NDQ3NQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "Here is the first stab at performance testing: https://github.com/MelbourneDeveloper/RestClient.Net/blob/develop/RestClient.Net.UnitTests/PerformanceTests.cs",
+        "createdAt": "2019-02-14T21:01:09Z",
+        "includesCreatedEdit": false,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/2#issuecomment-463794475",
+        "viewerDidAuthor": true
+      },
+      {
+        "id": "MDEyOklzc3VlQ29tbWVudDQ2Mzc5NDg1NQ==",
+        "author": {
+          "login": "MelbourneDeveloper"
+        },
+        "authorAssociation": "OWNER",
+        "body": "RestClient is the clear winner for Get on .NET Core - even in debug mode (while RestSharp is presumably optimiszed).\r\n\r\n![image](https://user-images.githubusercontent.com/16697547/52817483-10007980-30f8-11e9-91b5-35df7b63f42d.png)\r\n\r\n",
+        "createdAt": "2019-02-14T21:02:13Z",
+        "includesCreatedEdit": true,
+        "isMinimized": false,
+        "minimizedReason": "",
+        "reactionGroups": [],
+        "url": "https://github.com/MelbourneDeveloper/RestClient.Net/issues/2#issuecomment-463794855",
+        "viewerDidAuthor": true
+      }
+    ],
+    "createdAt": "2019-02-14T19:45:36Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxNzYzNzAxNzc2",
+        "name": "Low Priority",
+        "description": "",
+        "color": "0052cc"
+      }
+    ],
+    "number": 2,
+    "title": "Performance Testing"
+  }
+]

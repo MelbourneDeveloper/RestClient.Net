@@ -1,0 +1,6497 @@
+[
+  {
+    "author": {
+      "id": "U_kgDODcGNgQ",
+      "is_bot": false,
+      "login": "nayakprabhatnayakprabhatbhai-beep",
+      "name": ""
+    },
+    "closedAt": "2025-09-07T21:36:27Z",
+    "createdAt": "2025-09-07T19:35:23Z",
+    "labels": [],
+    "number": 3077,
+    "title": "zarwes.py"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBcmFAg",
+      "is_bot": false,
+      "login": "reengineeringdevops",
+      "name": "Reengineering S.r.L."
+    },
+    "closedAt": "2025-09-01T15:58:21Z",
+    "createdAt": "2025-08-22T21:53:27Z",
+    "labels": [],
+    "number": 3075,
+    "title": "Version 13.0.3 vulnerable"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ0OTk1MTgx",
+      "is_bot": false,
+      "login": "bairog",
+      "name": ""
+    },
+    "closedAt": "2025-07-17T14:55:42Z",
+    "createdAt": "2025-07-11T11:52:55Z",
+    "labels": [],
+    "number": 3069,
+    "title": "Serialize/deserialize a ReferenceLoop of ISerializable objects with Newtonsoft.JSON (Json.NET)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ0OTk1MTgx",
+      "is_bot": false,
+      "login": "bairog",
+      "name": ""
+    },
+    "closedAt": "2025-07-11T11:18:36Z",
+    "createdAt": "2025-07-11T10:42:47Z",
+    "labels": [],
+    "number": 3068,
+    "title": "Project status?"
+  },
+  {
+    "author": {
+      "id": "U_kgDOCjUV-w",
+      "is_bot": false,
+      "login": "podosta1",
+      "name": ""
+    },
+    "closedAt": "2025-07-02T14:41:29Z",
+    "createdAt": "2025-07-02T10:52:59Z",
+    "labels": [],
+    "number": 3066,
+    "title": "In JSONPath parentesis are not allowed in boolean expression"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg2NTUyMTg=",
+      "is_bot": false,
+      "login": "manfred-brands",
+      "name": "Manfred Brands"
+    },
+    "closedAt": "2025-06-18T00:53:48Z",
+    "createdAt": "2025-06-17T11:33:16Z",
+    "labels": [],
+    "number": 3064,
+    "title": "Add support for Int64 to JsonReader"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMjU0NjM3",
+      "is_bot": false,
+      "login": "drpdrp",
+      "name": ""
+    },
+    "closedAt": "2025-07-07T04:02:46Z",
+    "createdAt": "2025-05-28T12:45:37Z",
+    "labels": [],
+    "number": 3056,
+    "title": "Duplicate attribute error on nested arrays with writeArrayAttribute set to true"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc2ODg3OTQ=",
+      "is_bot": false,
+      "login": "Marc477",
+      "name": "Marc D"
+    },
+    "closedAt": "2025-05-23T19:41:49Z",
+    "createdAt": "2025-05-23T16:38:34Z",
+    "labels": [],
+    "number": 3054,
+    "title": "IgnoreAndPopulate populates Properties even if ignored with Contract Resolver"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc2ODg3OTQ=",
+      "is_bot": false,
+      "login": "Marc477",
+      "name": "Marc D"
+    },
+    "closedAt": "2025-05-20T19:24:30Z",
+    "createdAt": "2025-05-19T01:59:32Z",
+    "labels": [],
+    "number": 3050,
+    "title": "Why is this code not working ?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjkxMzQ0NDEz",
+      "is_bot": false,
+      "login": "NotQuiteLoona",
+      "name": ""
+    },
+    "closedAt": "2025-05-08T21:14:00Z",
+    "createdAt": "2025-05-08T18:03:32Z",
+    "labels": [],
+    "number": 3045,
+    "title": "System.ArgumentException : The value \"CataSharp.Core.Data.JsonSchemas.ModInfo+Content[]\" is not of type \"CataSharp.Core.Data.JsonSchemas.ModInfo+Content\" and cannot be used in this generic collection. (Parameter 'value')"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwNjU5MjU0",
+      "is_bot": false,
+      "login": "amine2050",
+      "name": ""
+    },
+    "closedAt": "2025-04-04T14:15:32Z",
+    "createdAt": "2025-04-04T10:36:36Z",
+    "labels": [],
+    "number": 3039,
+    "title": "Deserialized objects reuse and alter an immutable instance"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgyNjE4NzU=",
+      "is_bot": false,
+      "login": "astrohart",
+      "name": "Brian"
+    },
+    "closedAt": "2025-04-01T18:55:13Z",
+    "createdAt": "2025-04-01T18:37:02Z",
+    "labels": [],
+    "number": 3038,
+    "title": "Enhancement: Add Attribute or Setting to Preserve Non-Null Defaults on Deserialization"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ0OTI5MjAz",
+      "is_bot": false,
+      "login": "safronov-dmitrii",
+      "name": "Safronov Dmitrii"
+    },
+    "closedAt": "2025-03-19T12:15:12Z",
+    "createdAt": "2025-03-19T09:18:39Z",
+    "labels": [],
+    "number": 3037,
+    "title": "Unexpected behavior of ToObject() method"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBrQ_QA",
+      "is_bot": false,
+      "login": "ChristofColle-VIVES",
+      "name": ""
+    },
+    "closedAt": "2025-03-19T11:03:44Z",
+    "createdAt": "2025-03-18T14:27:19Z",
+    "labels": [],
+    "number": 3035,
+    "title": "MergeArrayHandling for arrays of complex object types"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc0MTM3MTA=",
+      "is_bot": false,
+      "login": "romanett",
+      "name": ""
+    },
+    "closedAt": "2025-03-12T06:25:11Z",
+    "createdAt": "2025-03-11T14:13:21Z",
+    "labels": [],
+    "number": 3034,
+    "title": "DataContract Attribute affects Json Serialization -> fix use [DataMember] Attribute or Custom Converter "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIxMTkyNTg1",
+      "is_bot": false,
+      "login": "Skyaero42",
+      "name": "SkyAero"
+    },
+    "closedAt": "2025-02-26T12:52:05Z",
+    "createdAt": "2025-02-26T09:56:43Z",
+    "labels": [],
+    "number": 3024,
+    "title": "[Bug?] DeserializeObject fails if class contains a property object with JsonConstructor and no property setter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NTIzNjA2",
+      "is_bot": false,
+      "login": "yi-Xu-0100",
+      "name": "yi_Xu"
+    },
+    "closedAt": "2025-02-24T07:18:18Z",
+    "createdAt": "2025-02-24T06:47:44Z",
+    "labels": [],
+    "number": 3021,
+    "title": "Unexpected result when deserializing and serializing a JSON object with an initialized array in C# console App"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNjY3Mzc4",
+      "is_bot": false,
+      "login": "wyattduber",
+      "name": "Wyatt Duberstein"
+    },
+    "closedAt": "2025-02-07T16:25:04Z",
+    "createdAt": "2025-02-05T23:31:38Z",
+    "labels": [],
+    "number": 3015,
+    "title": "JsonConvert.SerializeObject() Not ignoring default DateOnly type when JsonSerializer settings are set"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM0MDA0MzY3",
+      "is_bot": false,
+      "login": "dumprop",
+      "name": ""
+    },
+    "closedAt": "2025-01-31T13:36:15Z",
+    "createdAt": "2025-01-29T19:39:35Z",
+    "labels": [],
+    "number": 3014,
+    "title": "How to handle all possible exceptions for JsonConvert.DeserializeObject ?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwNTUyNDM5",
+      "is_bot": false,
+      "login": "ppilev",
+      "name": ""
+    },
+    "closedAt": "2025-01-17T15:26:36Z",
+    "createdAt": "2025-01-16T14:10:00Z",
+    "labels": [],
+    "number": 3011,
+    "title": "Class static field of same type is overridden during de-serialization"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc4NTE3NDMy",
+      "is_bot": false,
+      "login": "HankRocha",
+      "name": ""
+    },
+    "closedAt": "2025-01-20T14:18:17Z",
+    "createdAt": "2025-01-10T20:38:27Z",
+    "labels": [],
+    "number": 3008,
+    "title": "DateTimeOffset Formatting is not working "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM3OTQ2OQ==",
+      "is_bot": false,
+      "login": "derekm",
+      "name": "Derek P. Moore"
+    },
+    "closedAt": "2024-12-11T19:23:25Z",
+    "createdAt": "2024-12-11T18:13:42Z",
+    "labels": [],
+    "number": 3005,
+    "title": "AutoWrapperExtension reprocesses JSON, converting zoned dates into the application's local timezone"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMyNDE4OTMw",
+      "is_bot": false,
+      "login": "TactiTac0z",
+      "name": ""
+    },
+    "closedAt": "2024-11-25T06:36:13Z",
+    "createdAt": "2024-11-25T05:58:02Z",
+    "labels": [],
+    "number": 3001,
+    "title": "No strong name nuget package"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwNDMwMTYy",
+      "is_bot": false,
+      "login": "CodeMasterYi",
+      "name": "Codeoverflow"
+    },
+    "closedAt": "2024-11-28T05:09:06Z",
+    "createdAt": "2024-11-15T04:12:08Z",
+    "labels": [],
+    "number": 2999,
+    "title": "[Feature Request] Will Newtonsoft.Json support 'System.Numerics.BigInteger' in future?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0Mjc5NTA3",
+      "is_bot": false,
+      "login": "WelliSolutions",
+      "name": "WelliSolutions"
+    },
+    "closedAt": "2024-10-22T18:15:55Z",
+    "createdAt": "2024-10-21T18:22:19Z",
+    "labels": [],
+    "number": 2991,
+    "title": "Deserializing JSON with SupportMultipleContent requires an extra Read() operation"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyOTM3MTU4",
+      "is_bot": false,
+      "login": "CBurberry",
+      "name": "CBurberry"
+    },
+    "closedAt": "2024-10-17T15:36:35Z",
+    "createdAt": "2024-10-17T09:23:32Z",
+    "labels": [],
+    "number": 2988,
+    "title": "`StringEnumConverter` throws `JsonSerializationException` when passed `JToken.CreateReader()` as SetToken() is never called."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc3MjU2MQ==",
+      "is_bot": false,
+      "login": "tonyqus",
+      "name": "Tony Q."
+    },
+    "closedAt": "2025-03-25T18:46:13Z",
+    "createdAt": "2024-09-19T23:37:31Z",
+    "labels": [],
+    "number": 2982,
+    "title": "Rewrite JSON.NET with Span or Memory"
+  },
+  {
+    "author": {
+      "id": "U_kgDOB2WC0A",
+      "is_bot": false,
+      "login": "SNBSLibs",
+      "name": "Ted Swenner"
+    },
+    "closedAt": "2024-08-22T17:25:33Z",
+    "createdAt": "2024-08-20T20:52:59Z",
+    "labels": [],
+    "number": 2978,
+    "title": "JsonConverter is called despite that CanConvert returns false, and despite that the target type isn't decorated with JsonConverterAttribute"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBYCWCQ",
+      "is_bot": false,
+      "login": "GuyDayannn",
+      "name": ""
+    },
+    "closedAt": "2024-07-16T10:21:23Z",
+    "createdAt": "2024-07-16T06:22:56Z",
+    "labels": [],
+    "number": 2972,
+    "title": "Deserializing object of missing class as it's Base class (C#)"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBXoEHQ",
+      "is_bot": false,
+      "login": "DSW-DWA",
+      "name": "Andrei"
+    },
+    "closedAt": "2024-07-04T13:39:55Z",
+    "createdAt": "2024-07-04T12:31:44Z",
+    "labels": [],
+    "number": 2970,
+    "title": "Problem with Deserialize number like 0...8 and 0...9"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgwMTI1MDkz",
+      "is_bot": false,
+      "login": "benjamin-achouche",
+      "name": "Benjamin Achouche"
+    },
+    "closedAt": "2024-07-02T20:13:01Z",
+    "createdAt": "2024-07-02T12:44:23Z",
+    "labels": [],
+    "number": 2969,
+    "title": "Could not create an instance of type X. Type is an interface or abstract class and cannot be instantiated."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgwMTI1MDkz",
+      "is_bot": false,
+      "login": "benjamin-achouche",
+      "name": "Benjamin Achouche"
+    },
+    "closedAt": "2024-06-27T14:25:47Z",
+    "createdAt": "2024-06-27T13:44:58Z",
+    "labels": [],
+    "number": 2966,
+    "title": "JsonConvert.DeserializeObject appends value for no reason"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxMjQ3NjQ1",
+      "is_bot": false,
+      "login": "ahmetkoprulu",
+      "name": "Ahmet Köprülü"
+    },
+    "closedAt": "2024-06-26T17:49:22Z",
+    "createdAt": "2024-06-26T09:24:37Z",
+    "labels": [],
+    "number": 2964,
+    "title": "Ignoring JsonProperty Name"
+  },
+  {
+    "author": {
+      "id": "U_kgDOCeVRBA",
+      "is_bot": false,
+      "login": "RinaAndersHansen",
+      "name": ""
+    },
+    "closedAt": "2024-06-26T11:04:49Z",
+    "createdAt": "2024-06-26T07:21:24Z",
+    "labels": [],
+    "number": 2963,
+    "title": "NullReferenceException in JsonSerializer.GetMatchingConverter(IList<JsonConverter> converters, Type objectType)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3NTA2ODA=",
+      "is_bot": false,
+      "login": "Draco18s",
+      "name": ""
+    },
+    "closedAt": "2024-07-01T16:48:10Z",
+    "createdAt": "2024-06-24T21:34:44Z",
+    "labels": [],
+    "number": 2962,
+    "title": "Unity cyclic references of Unity objects"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzODQzMjg=",
+      "is_bot": false,
+      "login": "slavapvf",
+      "name": "Vyacheslav Platukhin"
+    },
+    "closedAt": "2024-05-27T13:01:24Z",
+    "createdAt": "2024-05-27T12:08:40Z",
+    "labels": [],
+    "number": 2958,
+    "title": "Exception during deserialization with TypeNameHandling = TypeNameHandling.All a json that was saved by browser"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIxMjAzOQ==",
+      "is_bot": false,
+      "login": "serialseb",
+      "name": "Sebastien Lambla"
+    },
+    "closedAt": "2024-05-20T03:27:00Z",
+    "createdAt": "2024-05-18T06:39:38Z",
+    "labels": [],
+    "number": 2955,
+    "title": "Json.NET deserializes nested types using only the last entry in the nested array"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzNjc0NTA3",
+      "is_bot": false,
+      "login": "hipparchus2000",
+      "name": "Jeff Davies"
+    },
+    "closedAt": "2024-04-30T08:39:35Z",
+    "createdAt": "2024-04-29T15:46:45Z",
+    "labels": [],
+    "number": 2949,
+    "title": "Serialized C# class numeric string is partially converted to float on serialization and deserialization (used to be fine)  version 13.0.0.0"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3ODAxMjcw",
+      "is_bot": false,
+      "login": "sylvainrodrigue",
+      "name": ""
+    },
+    "closedAt": "2024-04-20T08:06:05Z",
+    "createdAt": "2024-04-19T11:36:58Z",
+    "labels": [],
+    "number": 2946,
+    "title": "Can't de-serialise decimals having no leading zero (regression between NewtonSoft.Json 9.0.1 and 10.0.1)"
+  },
+  {
+    "author": {
+      "id": "U_kgDOCUZwxQ",
+      "is_bot": false,
+      "login": "IXChinmayD",
+      "name": ""
+    },
+    "closedAt": "2024-03-26T06:14:02Z",
+    "createdAt": "2024-03-26T06:12:16Z",
+    "labels": [],
+    "number": 2942,
+    "title": "Json data parsing in MAUI .NET 8"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY1ODg2NQ==",
+      "is_bot": false,
+      "login": "AndrewSav",
+      "name": "Andrew Savinykh"
+    },
+    "closedAt": "2024-03-09T00:37:37Z",
+    "createdAt": "2024-03-08T23:42:24Z",
+    "labels": [],
+    "number": 2938,
+    "title": "Documentation web site is down"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjkwMTg2MDk=",
+      "is_bot": false,
+      "login": "bwilliams1",
+      "name": "Brian P Williams"
+    },
+    "closedAt": "2024-03-20T12:45:37Z",
+    "createdAt": "2024-03-07T14:32:29Z",
+    "labels": [],
+    "number": 2937,
+    "title": ".NET 9.0 and Binary Formatter being removed"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg1NTgwMTI=",
+      "is_bot": false,
+      "login": "mikolaj-milewski",
+      "name": ""
+    },
+    "closedAt": "2024-02-29T08:57:22Z",
+    "createdAt": "2024-02-28T09:36:20Z",
+    "labels": [],
+    "number": 2936,
+    "title": "Deserialization of derived type works only when \"$type\" is first attribute in JSON object"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM4MDQwNjY=",
+      "is_bot": false,
+      "login": "x3igh7",
+      "name": "Conner Smith"
+    },
+    "closedAt": "2024-09-18T20:23:09Z",
+    "createdAt": "2024-02-08T16:52:44Z",
+    "labels": [],
+    "number": 2934,
+    "title": "Deserializing JSON with JsonProperty(\"$type\") not working"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU0NTA1MTc0",
+      "is_bot": false,
+      "login": "gpoon21",
+      "name": ""
+    },
+    "closedAt": "2024-02-06T14:05:05Z",
+    "createdAt": "2024-02-06T12:20:10Z",
+    "labels": [],
+    "number": 2932,
+    "title": "Object duplication when deserializing class with initial static value assigned."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUyNjI3MzU=",
+      "is_bot": false,
+      "login": "XtremeOwnageDotCom",
+      "name": "XtremeOwnage"
+    },
+    "closedAt": "2024-01-19T13:54:27Z",
+    "createdAt": "2024-01-18T18:37:46Z",
+    "labels": [],
+    "number": 2929,
+    "title": "Generic Attributes -> Generic types are not valid."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg5NTE0NzQ=",
+      "is_bot": false,
+      "login": "DanStory",
+      "name": "Daniel Story"
+    },
+    "closedAt": "2024-01-10T07:04:20Z",
+    "createdAt": "2024-01-10T02:31:35Z",
+    "labels": [],
+    "number": 2927,
+    "title": "Multiple JsonSerializerSettings are sharing same CamelCasePropertyNamesContractResolver cache"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY2MDgyMzE=",
+      "is_bot": false,
+      "login": "Abrynos",
+      "name": "Sebastian Göls"
+    },
+    "closedAt": "2025-10-06T10:50:05Z",
+    "createdAt": "2023-12-11T13:34:42Z",
+    "labels": [],
+    "number": 2923,
+    "title": "Non-Null default value leads to invalid cache value being assigned"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNTc1",
+      "is_bot": false,
+      "login": "Porges",
+      "name": "George Pollard"
+    },
+    "closedAt": "2023-12-07T00:31:01Z",
+    "createdAt": "2023-12-06T23:29:27Z",
+    "labels": [],
+    "number": 2921,
+    "title": "Unexpected exceptions during deserialization due to missing constructor name"
+  },
+  {
+    "author": {
+      "id": "U_kgDOCPEIjg",
+      "is_bot": false,
+      "login": "paulhickman-ec",
+      "name": ""
+    },
+    "closedAt": "2023-12-06T16:45:35Z",
+    "createdAt": "2023-12-04T16:12:30Z",
+    "labels": [],
+    "number": 2920,
+    "title": "JsonTextWriter produces invalid JSON when Unicode char \\u201d present in string"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MjY2MjIx",
+      "is_bot": false,
+      "login": "GABowers",
+      "name": ""
+    },
+    "closedAt": "2023-12-02T17:19:42Z",
+    "createdAt": "2023-12-02T16:58:29Z",
+    "labels": [],
+    "number": 2917,
+    "title": "String Property With Math Function Not Deserialized Correctly"
+  },
+  {
+    "author": {
+      "id": "U_kgDOCIW_AQ",
+      "is_bot": false,
+      "login": "kelilive",
+      "name": ""
+    },
+    "closedAt": "2023-12-28T07:23:30Z",
+    "createdAt": "2023-11-30T15:13:34Z",
+    "labels": [],
+    "number": 2915,
+    "title": "Read JObject Property: System.Security.VerificationException: Operation could destabilize the runtime"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0MTYwODk=",
+      "is_bot": false,
+      "login": "aymanabollo",
+      "name": ""
+    },
+    "closedAt": "2023-10-19T20:25:54Z",
+    "createdAt": "2023-10-19T19:05:14Z",
+    "labels": [],
+    "number": 2908,
+    "title": "Filter where Array contains value using JSONPATH "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgxNTUzODA=",
+      "is_bot": false,
+      "login": "ZLVincent",
+      "name": ""
+    },
+    "closedAt": "2023-10-09T06:31:04Z",
+    "createdAt": "2023-10-09T05:46:17Z",
+    "labels": [],
+    "number": 2907,
+    "title": "ParseReadString OOM"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2OTI5NDMx",
+      "is_bot": false,
+      "login": "samuelcavendish",
+      "name": ""
+    },
+    "closedAt": "2023-10-02T20:08:08Z",
+    "createdAt": "2023-10-02T16:20:59Z",
+    "labels": [],
+    "number": 2905,
+    "title": "FloatParseHandling for Serialising data"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY1OTk0MTI=",
+      "is_bot": false,
+      "login": "lamnouar",
+      "name": "Abdelhak Lamnouar"
+    },
+    "closedAt": "2024-01-04T20:37:03Z",
+    "createdAt": "2023-09-21T03:19:16Z",
+    "labels": [],
+    "number": 2903,
+    "title": "Security issue related to Umbraco CMS CVE-2022-22690"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwNzI1Mjg3",
+      "is_bot": false,
+      "login": "64J0",
+      "name": "Vinícius Gajo"
+    },
+    "closedAt": "2023-09-21T11:55:40Z",
+    "createdAt": "2023-09-20T18:40:40Z",
+    "labels": [],
+    "number": 2901,
+    "title": "JToken parse is returning empty `seq`s"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExMzU2MzA0",
+      "is_bot": false,
+      "login": "jdfurlan",
+      "name": ""
+    },
+    "closedAt": "2023-09-11T23:36:21Z",
+    "createdAt": "2023-09-11T17:24:46Z",
+    "labels": [],
+    "number": 2897,
+    "title": "Newtonsoft.Json 13.0.3 NuGet fails to install to .NET Framework 4.8 projects"
+  },
+  {
+    "author": {
+      "id": "U_kgDOB5BrNQ",
+      "is_bot": false,
+      "login": "NCLnclNCL",
+      "name": ""
+    },
+    "closedAt": "2024-03-06T12:45:52Z",
+    "createdAt": "2023-09-08T18:08:47Z",
+    "labels": [],
+    "number": 2895,
+    "title": "Needs nativeaot compatibility"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBrz0rw",
+      "is_bot": false,
+      "login": "mcgill-sfeng",
+      "name": "Shuzhao Feng"
+    },
+    "closedAt": "2023-09-03T17:50:30Z",
+    "createdAt": "2023-09-03T17:36:09Z",
+    "labels": [],
+    "number": 2894,
+    "title": "`SelectToken` Uncaught Invalid JsonPath Format"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ5MDU4NjM3",
+      "is_bot": false,
+      "login": "RDUser-dev",
+      "name": ""
+    },
+    "closedAt": "2023-10-05T12:24:34Z",
+    "createdAt": "2023-08-25T14:03:22Z",
+    "labels": [],
+    "number": 2889,
+    "title": "JObject does not deserialize double correctly"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwNTY2ODAy",
+      "is_bot": false,
+      "login": "smhmhmd",
+      "name": "Samiullah Mohammed"
+    },
+    "closedAt": "2023-08-15T06:10:14Z",
+    "createdAt": "2023-08-14T19:13:46Z",
+    "labels": [],
+    "number": 2884,
+    "title": "NRE in JsonValidatingReader() when invoked without a schema"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0MTQ5OTM=",
+      "is_bot": false,
+      "login": "mlorbetske",
+      "name": "Mike Lorbetske"
+    },
+    "closedAt": "2024-08-21T17:42:18Z",
+    "createdAt": "2023-07-17T22:00:52Z",
+    "labels": [],
+    "number": 2876,
+    "title": "JsonReader.ReadAsString() doesn't return the contents of JsonToken.Raw tokens"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBuj-7w",
+      "is_bot": false,
+      "login": "eradzh87",
+      "name": "Эрадж "
+    },
+    "closedAt": "2023-06-28T23:21:13Z",
+    "createdAt": "2023-06-28T23:12:42Z",
+    "labels": [],
+    "number": 2870,
+    "title": "Eradzh "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU1NTE0OTA2",
+      "is_bot": false,
+      "login": "dayadam",
+      "name": "Adam Day"
+    },
+    "closedAt": "2023-05-02T10:39:53Z",
+    "createdAt": "2023-04-19T14:21:22Z",
+    "labels": [],
+    "number": 2849,
+    "title": "JToken failing to return after successfully parsing "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0Mjc4MTA2",
+      "is_bot": false,
+      "login": "danny-zegel-zocdoc",
+      "name": ""
+    },
+    "closedAt": "2023-03-23T21:16:54Z",
+    "createdAt": "2023-03-22T13:48:49Z",
+    "labels": [],
+    "number": 2841,
+    "title": "Parameter support for `JsonIgnoreAttribute`"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBrsEAg",
+      "is_bot": false,
+      "login": "Lucho100789",
+      "name": "lucho"
+    },
+    "closedAt": "2023-04-18T08:08:20Z",
+    "createdAt": "2023-03-12T03:57:46Z",
+    "labels": [],
+    "number": 2829,
+    "title": "[]()"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBmy_fg",
+      "is_bot": false,
+      "login": "nadav-legit",
+      "name": ""
+    },
+    "closedAt": "2023-03-09T07:40:04Z",
+    "createdAt": "2023-03-08T15:10:31Z",
+    "labels": [],
+    "number": 2828,
+    "title": "Bugs and issues found"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQxNDQ0OTYz",
+      "is_bot": false,
+      "login": "dave-yotta",
+      "name": "Dave Higgins"
+    },
+    "closedAt": "2023-03-08T14:31:37Z",
+    "createdAt": "2023-03-08T13:25:20Z",
+    "labels": [],
+    "number": 2827,
+    "title": "Missing release notes for v13.0.3"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyNDU5MDM=",
+      "is_bot": false,
+      "login": "Ansssss",
+      "name": ""
+    },
+    "closedAt": "2023-06-19T13:42:28Z",
+    "createdAt": "2023-02-21T21:05:03Z",
+    "labels": [],
+    "number": 2822,
+    "title": "JsonConvert.DeserializeObject<JToken> creates \"undefined\" literal rather than null for property with missing value"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzOTgxNTk=",
+      "is_bot": false,
+      "login": "waleywu",
+      "name": ""
+    },
+    "closedAt": "2023-02-16T12:54:10Z",
+    "createdAt": "2023-02-16T02:01:59Z",
+    "labels": [],
+    "number": 2817,
+    "title": "If the type file is stored separately in a cs file, OnDeserialized is invalid"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQzMjUwNTY=",
+      "is_bot": false,
+      "login": "dwfrancis",
+      "name": "David W. Francis"
+    },
+    "closedAt": "2025-09-18T22:16:06Z",
+    "createdAt": "2023-02-07T19:06:22Z",
+    "labels": [],
+    "number": 2810,
+    "title": "Deserialization of TimeOnly fails for \"HH:mm\" formatted times"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM2ODYyMDE5",
+      "is_bot": false,
+      "login": "atakanertrk",
+      "name": "Atakan Erturk"
+    },
+    "closedAt": "2023-01-25T21:22:57Z",
+    "createdAt": "2023-01-25T20:31:11Z",
+    "labels": [],
+    "number": 2809,
+    "title": "Inherited class properties are not serialized if main class has DataContract attribute but inherited class doesn't"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc1MzM5MzQ=",
+      "is_bot": false,
+      "login": "Coder3333",
+      "name": ""
+    },
+    "closedAt": "2023-01-23T18:49:36Z",
+    "createdAt": "2023-01-20T15:06:18Z",
+    "labels": [],
+    "number": 2803,
+    "title": "Removing comments from Json"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY1NDMyMzE0",
+      "is_bot": false,
+      "login": "tacosontitan",
+      "name": "Hazel"
+    },
+    "closedAt": "2023-07-14T20:48:58Z",
+    "createdAt": "2023-01-08T23:51:28Z",
+    "labels": [],
+    "number": 2788,
+    "title": "Default behavior on deserialization of `List<T>` is to append to the collection instead of replacing it."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUyMzA3Mzg0",
+      "is_bot": false,
+      "login": "xiaomazz",
+      "name": ""
+    },
+    "closedAt": "2022-12-30T01:58:38Z",
+    "createdAt": "2022-12-29T07:13:01Z",
+    "labels": [],
+    "number": 2784,
+    "title": "当jtoken为数组时，while(await reader.ReadAsync())只能读取[0],也就是说只能循环一次"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM3NDI3NTg5",
+      "is_bot": false,
+      "login": "Eli-Black-Work",
+      "name": ""
+    },
+    "closedAt": "2022-12-23T07:52:27Z",
+    "createdAt": "2022-12-22T10:17:58Z",
+    "labels": [],
+    "number": 2780,
+    "title": "DefaultDateFormatString should use fffffff instead of FFFFFFF"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBiyIjQ",
+      "is_bot": false,
+      "login": "obourdagesbell",
+      "name": "Olivier Bourdages"
+    },
+    "closedAt": "2022-12-15T14:30:06Z",
+    "createdAt": "2022-12-14T19:57:52Z",
+    "labels": [],
+    "number": 2776,
+    "title": "Enum serialization inside class with DataContractAttribute"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY1MjkyNzYz",
+      "is_bot": false,
+      "login": "robert-thorne",
+      "name": "Robert Thorne"
+    },
+    "closedAt": "2023-01-16T09:08:16Z",
+    "createdAt": "2022-12-12T16:06:17Z",
+    "labels": [],
+    "number": 2775,
+    "title": "Null String being reported as String rather than JTokenType.Null"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNDcwNzA5",
+      "is_bot": false,
+      "login": "ophirKatz",
+      "name": "Ophir Katz"
+    },
+    "closedAt": "2022-12-08T09:04:43Z",
+    "createdAt": "2022-12-08T08:43:25Z",
+    "labels": [],
+    "number": 2770,
+    "title": "Polymorphic deserialization requires type discriminator to be at beginning of the object"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxNjU4NTM1",
+      "is_bot": false,
+      "login": "marcovisserFurore",
+      "name": "Marco Visser"
+    },
+    "closedAt": "2022-12-08T13:51:01Z",
+    "createdAt": "2022-12-06T16:47:55Z",
+    "labels": [],
+    "number": 2768,
+    "title": "Parsing 0.0 (decimal) different in 13.0.2"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NDQ4Njc=",
+      "is_bot": false,
+      "login": "agowa",
+      "name": "Klaus Frank"
+    },
+    "closedAt": "2022-12-04T02:29:32Z",
+    "createdAt": "2022-12-01T09:17:07Z",
+    "labels": [],
+    "number": 2764,
+    "title": "Support CSV with serializer"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2MjE0OTk=",
+      "is_bot": false,
+      "login": "nojaf",
+      "name": "Florian Verdonck"
+    },
+    "closedAt": "2022-11-09T12:57:30Z",
+    "createdAt": "2022-11-09T10:20:36Z",
+    "labels": [],
+    "number": 2758,
+    "title": "Cannot serialize F# struct with dotnet 7 SDK "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY3MzI2NjU=",
+      "is_bot": false,
+      "login": "BlitzkriegSoftware",
+      "name": "stuart williams"
+    },
+    "closedAt": "2022-12-29T17:25:43Z",
+    "createdAt": "2022-11-07T21:22:24Z",
+    "labels": [],
+    "number": 2756,
+    "title": "Documentation Page Seems to be Missing Info on Encoding"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBrsEAg",
+      "is_bot": false,
+      "login": "Lucho100789",
+      "name": "lucho"
+    },
+    "closedAt": "2023-07-06T20:31:37Z",
+    "createdAt": "2022-10-24T19:55:25Z",
+    "labels": [],
+    "number": 2748,
+    "title": "JSON "
+  },
+  {
+    "author": {
+      "id": "U_kgDOBbsgdg",
+      "is_bot": false,
+      "login": "fasteddys",
+      "name": ""
+    },
+    "closedAt": "2022-10-21T06:22:59Z",
+    "createdAt": "2022-10-05T01:05:45Z",
+    "labels": [],
+    "number": 2745,
+    "title": "How to Custom Data-AttributesJsonConverter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyMjA3Mjcx",
+      "is_bot": false,
+      "login": "ayakael",
+      "name": "Antoine Martin"
+    },
+    "closedAt": "2022-10-02T17:23:58Z",
+    "createdAt": "2022-10-02T06:15:42Z",
+    "labels": [],
+    "number": 2744,
+    "title": "`System.InsufficientExecutionStackException` on `linux-musl-s390x`"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMDI1NTc2",
+      "is_bot": false,
+      "login": "iansaviour",
+      "name": "Putu Septian Primadewa"
+    },
+    "closedAt": "2022-09-19T09:50:03Z",
+    "createdAt": "2022-09-19T09:28:35Z",
+    "labels": [],
+    "number": 2739,
+    "title": "DeserializeObject to datatable, decimal value is gone if have no decimal value in first array"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBsLCXA",
+      "is_bot": false,
+      "login": "Sunlit-ms",
+      "name": ""
+    },
+    "closedAt": "2022-09-14T00:57:21Z",
+    "createdAt": "2022-09-13T08:56:43Z",
+    "labels": [],
+    "number": 2737,
+    "title": "Collection was modified Error"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwMzIwMQ==",
+      "is_bot": false,
+      "login": "JamesNK",
+      "name": "James Newton-King"
+    },
+    "closedAt": "2022-09-13T00:08:03Z",
+    "createdAt": "2022-09-12T23:45:39Z",
+    "labels": [],
+    "number": 2735,
+    "title": "MaxDepth not being used with ISerializable deserialization"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5MjU2Mzgy",
+      "is_bot": false,
+      "login": "david-c-stein",
+      "name": "David"
+    },
+    "closedAt": "2022-09-13T11:55:35Z",
+    "createdAt": "2022-09-12T17:15:57Z",
+    "labels": [],
+    "number": 2734,
+    "title": "Serialize and Deserialize to/from struct in net6+"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM5NDA0NzI3",
+      "is_bot": false,
+      "login": "rere43",
+      "name": ""
+    },
+    "closedAt": "2022-09-10T12:51:19Z",
+    "createdAt": "2022-09-08T04:09:37Z",
+    "labels": [],
+    "number": 2729,
+    "title": "Deserialise a list with default value, get a combined list."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NjA0MjE5",
+      "is_bot": false,
+      "login": "xutongqing",
+      "name": "xutongqing"
+    },
+    "closedAt": "2022-08-08T02:45:10Z",
+    "createdAt": "2022-08-05T09:42:40Z",
+    "labels": [],
+    "number": 2712,
+    "title": "Add some extra values "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDgxMw==",
+      "is_bot": false,
+      "login": "NickCraver",
+      "name": "Nick Craver"
+    },
+    "closedAt": "2022-08-04T07:02:56Z",
+    "createdAt": "2022-07-20T17:06:30Z",
+    "labels": [],
+    "number": 2708,
+    "title": "Break from 12.0.3 to 13.0.1 with [JsonExtensionData]"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4NTUyNDQ1",
+      "is_bot": false,
+      "login": "ElvisChen1986",
+      "name": "Liang Chen"
+    },
+    "closedAt": "2022-07-14T13:39:33Z",
+    "createdAt": "2022-07-13T08:00:52Z",
+    "labels": [],
+    "number": 2706,
+    "title": "Question regarding the behavior of the JsonConvert.DeserializeObject API"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwMzIwMQ==",
+      "is_bot": false,
+      "login": "JamesNK",
+      "name": "James Newton-King"
+    },
+    "closedAt": "2022-06-16T09:32:34Z",
+    "createdAt": "2022-06-16T01:58:19Z",
+    "labels": [],
+    "number": 2694,
+    "title": "Add IAsyncDisposable to JsonReader and JsonWriter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0MDM4NjI4",
+      "is_bot": false,
+      "login": "b1b2b3b4b5b6",
+      "name": "ChenZhangHao"
+    },
+    "closedAt": "2022-06-12T00:55:41Z",
+    "createdAt": "2022-06-11T16:05:43Z",
+    "labels": [],
+    "number": 2693,
+    "title": "JsonConvert.DeserializeObject output wrong value"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgzNjQ4NjU2",
+      "is_bot": false,
+      "login": "melinyi",
+      "name": "YiLin"
+    },
+    "closedAt": "2022-06-06T09:48:49Z",
+    "createdAt": "2022-06-06T07:17:41Z",
+    "labels": [],
+    "number": 2690,
+    "title": "Deserialization of JSON array failed"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMjY2Ng==",
+      "is_bot": false,
+      "login": "SimonCropp",
+      "name": "Simon Cropp"
+    },
+    "closedAt": "2022-05-27T08:35:47Z",
+    "createdAt": "2022-05-23T03:12:01Z",
+    "labels": [],
+    "number": 2684,
+    "title": "Should WriteValue(DateOnly/TimeOnly) be added to JsonWriter?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY0Mjg5MDQ2",
+      "is_bot": false,
+      "login": "NonyLoberts",
+      "name": ""
+    },
+    "closedAt": "2022-05-20T20:58:29Z",
+    "createdAt": "2022-05-20T09:41:36Z",
+    "labels": [],
+    "number": 2682,
+    "title": "Deserialise not respecting type passed in for JsonPatchDocument<T>"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQyNDkzNzIy",
+      "is_bot": false,
+      "login": "liuweilhy",
+      "name": "Liu Wei"
+    },
+    "closedAt": "2022-05-17T07:16:37Z",
+    "createdAt": "2022-05-15T15:59:23Z",
+    "labels": [],
+    "number": 2675,
+    "title": "Issue About deserializing with type name handling on assemblies loaded with Assembly.Load(Byte[])"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ3MzkwNjgw",
+      "is_bot": false,
+      "login": "valepe",
+      "name": ""
+    },
+    "closedAt": "2022-05-03T08:21:07Z",
+    "createdAt": "2022-05-02T10:15:38Z",
+    "labels": [],
+    "number": 2672,
+    "title": "Crash in Windows 11 (last update)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM4NDYwOA==",
+      "is_bot": false,
+      "login": "LeeVermeulen",
+      "name": "Lee Vermeulen"
+    },
+    "closedAt": "2022-04-20T16:53:27Z",
+    "createdAt": "2022-04-17T17:39:15Z",
+    "labels": [],
+    "number": 2670,
+    "title": "Get PropertyType in ResolveReference"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0MTM1MTM4",
+      "is_bot": false,
+      "login": "MasoudShah",
+      "name": "Masoud"
+    },
+    "closedAt": "2022-04-07T21:34:53Z",
+    "createdAt": "2022-04-06T11:56:05Z",
+    "labels": [],
+    "number": 2665,
+    "title": "ReferenceLoopHandling.Ignore not working properly"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgyNDcxNzY=",
+      "is_bot": false,
+      "login": "JacksReacher",
+      "name": "Joseph Peavey"
+    },
+    "closedAt": "2022-03-30T19:55:55Z",
+    "createdAt": "2022-03-29T16:52:10Z",
+    "labels": [],
+    "number": 2660,
+    "title": "MissingMemberHandling does not work on inner properties. #974"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBe32oQ",
+      "is_bot": false,
+      "login": "muramas4",
+      "name": ""
+    },
+    "closedAt": "2022-03-29T13:42:41Z",
+    "createdAt": "2022-03-29T12:43:47Z",
+    "labels": [],
+    "number": 2659,
+    "title": "Invalid behavior when deserializing ulong or long values "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NDYzMDU=",
+      "is_bot": false,
+      "login": "Kimi-Arthur",
+      "name": ""
+    },
+    "closedAt": "2022-03-27T10:12:18Z",
+    "createdAt": "2022-03-25T13:02:23Z",
+    "labels": [],
+    "number": 2656,
+    "title": "Using JsonConvert in Equals will cause stack overflow"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwODQ4MjE=",
+      "is_bot": false,
+      "login": "zaneclaes",
+      "name": "Zane Claes"
+    },
+    "closedAt": "2022-03-21T12:28:16Z",
+    "createdAt": "2022-03-20T23:36:15Z",
+    "labels": [],
+    "number": 2653,
+    "title": "JObject's \"Remove\" function does not actually remove anything"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0MTM2NTgy",
+      "is_bot": false,
+      "login": "senbar",
+      "name": "Bartosz Sendek"
+    },
+    "closedAt": "2022-03-03T10:17:00Z",
+    "createdAt": "2022-03-01T21:14:36Z",
+    "labels": [],
+    "number": 2650,
+    "title": "Add copy constructor for JsonSerializerSettings"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ4NjYwNjg=",
+      "is_bot": false,
+      "login": "erionpc",
+      "name": ""
+    },
+    "closedAt": "2022-07-04T16:38:10Z",
+    "createdAt": "2022-02-12T01:23:41Z",
+    "labels": [],
+    "number": 2649,
+    "title": "JsonSerializationException when using $select OData queries"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYwNTI1ODc=",
+      "is_bot": false,
+      "login": "zhenlinyang",
+      "name": "Zhenlin Yang"
+    },
+    "closedAt": "2022-02-10T08:47:42Z",
+    "createdAt": "2022-02-10T08:18:02Z",
+    "labels": [],
+    "number": 2648,
+    "title": "Which branch is 'JSON .NET For Unity' built?"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBb5G4w",
+      "is_bot": false,
+      "login": "Itami-Youji",
+      "name": ""
+    },
+    "closedAt": "2022-02-09T19:46:36Z",
+    "createdAt": "2022-02-09T19:14:47Z",
+    "labels": [],
+    "number": 2647,
+    "title": "Connect to TCP IP but why ? "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2MjQ5MTgw",
+      "is_bot": false,
+      "login": "JiaHenry",
+      "name": "Henry Jia"
+    },
+    "closedAt": "2022-02-10T01:06:55Z",
+    "createdAt": "2022-02-09T09:25:07Z",
+    "labels": [],
+    "number": 2646,
+    "title": "Deserialize of Dicionary will get wrong result / exception if key is $id when the value is / not a simple type"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3Mjk0MTg=",
+      "is_bot": false,
+      "login": "mwinkler",
+      "name": "Matthias Winkler"
+    },
+    "closedAt": "2022-01-27T21:29:23Z",
+    "createdAt": "2022-01-27T12:55:50Z",
+    "labels": [],
+    "number": 2644,
+    "title": "UnixDateTimeConverter throws \"Value to add was out of range\" exception"
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2022-01-20T03:16:26Z",
+    "createdAt": "2022-01-18T09:07:19Z",
+    "labels": [],
+    "number": 2640,
+    "title": "Error CS1705: which has a higher version than referenced assembly 'Newtonsoft.Json'"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3MzI4",
+      "is_bot": false,
+      "login": "mgravell",
+      "name": "Marc Gravell"
+    },
+    "closedAt": "2022-05-15T14:08:18Z",
+    "createdAt": "2022-01-14T11:58:05Z",
+    "labels": [],
+    "number": 2638,
+    "title": "Memory usage suggestion : reduce unnecessary boxes"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBcV-pQ",
+      "is_bot": false,
+      "login": "maheshkumar1989",
+      "name": ""
+    },
+    "closedAt": "2021-12-31T12:54:33Z",
+    "createdAt": "2021-12-29T13:48:22Z",
+    "labels": [],
+    "number": 2631,
+    "title": "Newtonsoft.Json.JsonConvert.DeserializeObject is not working in iOS15 when application is killed"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjkxMTY1MzU5",
+      "is_bot": false,
+      "login": "pkimike",
+      "name": ""
+    },
+    "closedAt": "2021-12-16T20:25:54Z",
+    "createdAt": "2021-12-16T15:21:01Z",
+    "labels": [],
+    "number": 2627,
+    "title": "Reference Loop detected erroneously"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1OTM4NTk1",
+      "is_bot": false,
+      "login": "Kirschi94",
+      "name": "Kirschi"
+    },
+    "closedAt": "2021-12-15T15:26:59Z",
+    "createdAt": "2021-12-14T21:54:11Z",
+    "labels": [],
+    "number": 2623,
+    "title": "Infinite loop sometimes when deserializing"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2MzM4NDA5",
+      "is_bot": false,
+      "login": "xenicle",
+      "name": "Tony \"Xenicle\" Cuny"
+    },
+    "closedAt": "2021-12-06T10:57:45Z",
+    "createdAt": "2021-12-06T08:50:21Z",
+    "labels": [],
+    "number": 2621,
+    "title": "Get error Could not load file or assembly 'System.Security.Permissions, Version=0.0.0.0, Culture=neutral"
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2021-12-01T00:48:44Z",
+    "createdAt": "2021-11-30T08:23:01Z",
+    "labels": [],
+    "number": 2617,
+    "title": "Deserialize bool bug"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1ODA3NTky",
+      "is_bot": false,
+      "login": "rasert",
+      "name": "Jackson Diógenes Neves Mourão"
+    },
+    "closedAt": "2021-10-22T17:18:20Z",
+    "createdAt": "2021-10-22T13:04:55Z",
+    "labels": [],
+    "number": 2600,
+    "title": "JsonPath does not work with array wildcard index JObject.Values<T>(\"$.foo.array[*].bar\")"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQwNDE4NjUy",
+      "is_bot": false,
+      "login": "MatthiasByLin",
+      "name": ""
+    },
+    "closedAt": "2021-10-12T09:51:23Z",
+    "createdAt": "2021-10-12T09:12:41Z",
+    "labels": [],
+    "number": 2594,
+    "title": "JsonIgnore doesn't work with Version 13.0.1"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUyNTc3NzQ0",
+      "is_bot": false,
+      "login": "MatthiasBae",
+      "name": "Matthias"
+    },
+    "closedAt": "2022-07-24T19:44:58Z",
+    "createdAt": "2021-10-07T12:31:53Z",
+    "labels": [],
+    "number": 2592,
+    "title": "Can't read Json with a list called \"Sets\" - Error \"Unexpected character encountered while parsing value\""
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY2NjU5MTYy",
+      "is_bot": false,
+      "login": "Perpete",
+      "name": "Jacky"
+    },
+    "closedAt": "2022-10-30T15:43:12Z",
+    "createdAt": "2021-10-04T10:31:51Z",
+    "labels": [],
+    "number": 2591,
+    "title": "Type interpretation error for arrays of more than 2 dimensions in a serialized class."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzNTU1NzY4",
+      "is_bot": false,
+      "login": "alex-jitbit",
+      "name": "Alexander Yumashev"
+    },
+    "closedAt": "2021-09-20T19:55:30Z",
+    "createdAt": "2021-09-20T17:51:50Z",
+    "labels": [],
+    "number": 2586,
+    "title": "cast JValue \"as\" nullable valuetype does not work"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ3NjA3OTY=",
+      "is_bot": false,
+      "login": "MangelMaxime",
+      "name": "Maxime Mangel"
+    },
+    "closedAt": "2021-09-16T09:41:41Z",
+    "createdAt": "2021-09-11T18:58:43Z",
+    "labels": [],
+    "number": 2585,
+    "title": "Array with missing [ is considered a valid JSON"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY2NjU5MTYy",
+      "is_bot": false,
+      "login": "Perpete",
+      "name": "Jacky"
+    },
+    "closedAt": "2021-08-11T16:56:18Z",
+    "createdAt": "2021-08-10T16:56:02Z",
+    "labels": [],
+    "number": 2574,
+    "title": "Could not load file or assembly 'Newtonsoft.Json with the use of a dll."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjczNzk0MQ==",
+      "is_bot": false,
+      "login": "loic-sharma",
+      "name": "Loïc Sharma"
+    },
+    "closedAt": "2021-11-12T22:07:47Z",
+    "createdAt": "2021-07-31T23:50:16Z",
+    "labels": [],
+    "number": 2571,
+    "title": "Add README to NuGet packages"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwMzI0MzAw",
+      "is_bot": false,
+      "login": "ainuo5213",
+      "name": "孙永刚"
+    },
+    "closedAt": "2021-07-29T04:13:40Z",
+    "createdAt": "2021-07-29T03:14:05Z",
+    "labels": [],
+    "number": 2569,
+    "title": "DeserializeObject cannot work"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4NjU4NDk4",
+      "is_bot": false,
+      "login": "vibs2006",
+      "name": ""
+    },
+    "closedAt": "2021-07-28T15:50:34Z",
+    "createdAt": "2021-07-28T13:41:36Z",
+    "labels": [],
+    "number": 2568,
+    "title": "<delete this issue>"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Njc2MjU=",
+      "is_bot": false,
+      "login": "rashidbilgrami",
+      "name": "Rashid Imran Bilgrami"
+    },
+    "closedAt": "2021-07-25T13:29:30Z",
+    "createdAt": "2021-07-25T05:13:24Z",
+    "labels": [],
+    "number": 2564,
+    "title": "How arabic content support in JsonConvert.SerializeObject"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMjQwOTA=",
+      "is_bot": false,
+      "login": "lockelost",
+      "name": "Bruce Wang"
+    },
+    "closedAt": "2021-07-23T18:43:51Z",
+    "createdAt": "2021-07-22T19:53:04Z",
+    "labels": [],
+    "number": 2563,
+    "title": "StackOcverflow exception in JsonConvert.SerializeObject(). (Asp.Net core)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1MTUyMDcx",
+      "is_bot": false,
+      "login": "aaronggi",
+      "name": "Aaron Gilbert"
+    },
+    "closedAt": "2021-07-28T14:17:48Z",
+    "createdAt": "2021-07-20T20:07:00Z",
+    "labels": [],
+    "number": 2560,
+    "title": "Json pair '\"obj\":,'  deserializes without issue?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4MjQxODc=",
+      "is_bot": false,
+      "login": "mwpowellhtx",
+      "name": "Michael W Powell"
+    },
+    "closedAt": "2021-07-14T16:43:21Z",
+    "createdAt": "2021-07-14T16:17:57Z",
+    "labels": [],
+    "number": 2559,
+    "title": "Serializing DateTime to O format deliberately"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExOTIzMTU=",
+      "is_bot": false,
+      "login": "jeffpatton1971",
+      "name": "Jeff Patton"
+    },
+    "closedAt": "2021-06-14T21:33:44Z",
+    "createdAt": "2021-06-14T19:50:58Z",
+    "labels": [],
+    "number": 2546,
+    "title": "jsonschema.parse not following $ref"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwNDc4MTc1",
+      "is_bot": false,
+      "login": "ryanfalzon",
+      "name": "Ryan Falzon"
+    },
+    "closedAt": "2021-06-10T17:26:03Z",
+    "createdAt": "2021-06-10T14:40:47Z",
+    "labels": [],
+    "number": 2544,
+    "title": "Base class containing property with same name."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY2NjU5MTYy",
+      "is_bot": false,
+      "login": "Perpete",
+      "name": "Jacky"
+    },
+    "closedAt": "2021-06-11T05:12:59Z",
+    "createdAt": "2021-06-10T09:02:23Z",
+    "labels": [],
+    "number": 2543,
+    "title": "Dimension error of multi-dimensional arrays at serialization"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1Mjc1ODk2",
+      "is_bot": false,
+      "login": "yakupgezdirici",
+      "name": "Yakup Gezdirici"
+    },
+    "closedAt": "2021-05-27T14:37:41Z",
+    "createdAt": "2021-05-27T09:31:37Z",
+    "labels": [],
+    "number": 2537,
+    "title": "JRaw rounds double values when reading!  0.79054582118988037 >  0.7905458211898804"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwNTU0NDQ=",
+      "is_bot": false,
+      "login": "rekcah1986",
+      "name": "Rekc@h"
+    },
+    "closedAt": "2021-05-18T07:25:28Z",
+    "createdAt": "2021-05-18T06:42:29Z",
+    "labels": [],
+    "number": 2533,
+    "title": "How to override the initialization value of a list？"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUxMTMyNDk=",
+      "is_bot": false,
+      "login": "FstTesla",
+      "name": "Filippo Mineo"
+    },
+    "closedAt": "2021-05-14T23:40:12Z",
+    "createdAt": "2021-05-14T14:51:13Z",
+    "labels": [],
+    "number": 2529,
+    "title": "Exception deserializing JArray on JToken-typed property pre-initialized with JValue"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NTM3MDc=",
+      "is_bot": false,
+      "login": "Shadowblitz16",
+      "name": ""
+    },
+    "closedAt": "2021-05-14T23:16:42Z",
+    "createdAt": "2021-05-13T19:55:29Z",
+    "labels": [],
+    "number": 2528,
+    "title": "Add IJsonConverter and IJsonConverter<T> for explicit implimenation "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzODk3Njc5",
+      "is_bot": false,
+      "login": "armanraina",
+      "name": "Arman Raina"
+    },
+    "closedAt": "2021-05-14T23:17:58Z",
+    "createdAt": "2021-05-11T22:22:07Z",
+    "labels": [],
+    "number": 2526,
+    "title": "DynamicValueProvider missing from dot net standard"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1MTA5ODQ=",
+      "is_bot": false,
+      "login": "GF-Huang",
+      "name": "GFHuang"
+    },
+    "closedAt": "2021-05-14T23:16:58Z",
+    "createdAt": "2021-05-07T11:12:04Z",
+    "labels": [],
+    "number": 2524,
+    "title": "How to ignore base class property when serialization?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzMTQ4Nzgx",
+      "is_bot": false,
+      "login": "AndreasGaus",
+      "name": "Andreas Gaus"
+    },
+    "closedAt": "2021-05-14T23:20:42Z",
+    "createdAt": "2021-05-06T10:46:31Z",
+    "labels": [],
+    "number": 2523,
+    "title": "$type attribute not generated for single objects using Newtonsoft.Json.TypeNameHandling.Auto; mode"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgzNzU1MTQ2",
+      "is_bot": false,
+      "login": "JasonRDT",
+      "name": ""
+    },
+    "closedAt": "2021-05-14T23:21:28Z",
+    "createdAt": "2021-05-06T08:43:28Z",
+    "labels": [],
+    "number": 2522,
+    "title": "Calling JToken.Value<string> on a JTokenType.Date token ignores local culture settings."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzOTYzODg=",
+      "is_bot": false,
+      "login": "mattjohnsonpint",
+      "name": "Matt Johnson-Pint"
+    },
+    "closedAt": "2022-05-16T13:02:57Z",
+    "createdAt": "2021-05-06T00:02:19Z",
+    "labels": [],
+    "number": 2521,
+    "title": "Support new DateOnly and TimeOnly structs in .NET 6"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM3NzAyODk=",
+      "is_bot": false,
+      "login": "Digitalroot",
+      "name": "Digitalroot"
+    },
+    "closedAt": "2021-05-14T23:18:41Z",
+    "createdAt": "2021-05-03T06:02:54Z",
+    "labels": [],
+    "number": 2518,
+    "title": "Question, Semantic Versioning?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk1ODY1MzM=",
+      "is_bot": false,
+      "login": "omnilogix",
+      "name": ""
+    },
+    "closedAt": "2021-05-14T23:25:50Z",
+    "createdAt": "2021-04-16T23:27:23Z",
+    "labels": [],
+    "number": 2515,
+    "title": "Question - Microsoft.AspNetCore.OData needs support for Newtonsoft.Json"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM4NjExNDYx",
+      "is_bot": false,
+      "login": "angelaki",
+      "name": "Tristan"
+    },
+    "closedAt": "2021-05-14T23:31:04Z",
+    "createdAt": "2021-04-16T10:56:17Z",
+    "labels": [],
+    "number": 2514,
+    "title": "CreateProperties ignored for IEnumerables"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyOTY2NDg2",
+      "is_bot": false,
+      "login": "ArturChe",
+      "name": "Artur Cherniak"
+    },
+    "closedAt": "2021-04-16T12:28:25Z",
+    "createdAt": "2021-04-15T07:13:27Z",
+    "labels": [],
+    "number": 2513,
+    "title": "EscapeNonAscii setting does not work in SerializeObject or DeserializeObject"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5Nzc5Nw==",
+      "is_bot": false,
+      "login": "ejball",
+      "name": "Ed Ball"
+    },
+    "closedAt": "2021-05-14T23:28:44Z",
+    "createdAt": "2021-04-14T17:52:52Z",
+    "labels": [],
+    "number": 2512,
+    "title": "Populate fails to overwrite JToken value with mismatched type"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQwNjMwNjQy",
+      "is_bot": false,
+      "login": "bonk-dev",
+      "name": "Dawid Pągowski"
+    },
+    "closedAt": "2021-04-10T12:23:59Z",
+    "createdAt": "2021-04-10T12:18:01Z",
+    "labels": [],
+    "number": 2511,
+    "title": "Deserializing a Dictionary<string, string> throws JsonReaderException"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY3NjkxMTY=",
+      "is_bot": false,
+      "login": "mtissington",
+      "name": "michael"
+    },
+    "closedAt": "2021-05-14T23:25:26Z",
+    "createdAt": "2021-04-09T16:03:30Z",
+    "labels": [],
+    "number": 2510,
+    "title": "False posiive with Malwarebytes"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg0OTA3NDQ=",
+      "is_bot": false,
+      "login": "LukAss741",
+      "name": ""
+    },
+    "closedAt": "2021-05-14T23:26:07Z",
+    "createdAt": "2021-04-05T12:44:58Z",
+    "labels": [],
+    "number": 2508,
+    "title": "long JToken numbers are trimmed"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5OTE5NjMx",
+      "is_bot": false,
+      "login": "afunc233",
+      "name": "afunc"
+    },
+    "closedAt": "2021-03-29T07:35:33Z",
+    "createdAt": "2021-03-25T07:01:13Z",
+    "labels": [],
+    "number": 2502,
+    "title": "i want ignore the initialize-ListValue in DeserializeObject,what should i do"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxMzgwMDU=",
+      "is_bot": false,
+      "login": "Smaug123",
+      "name": "Patrick Stevens"
+    },
+    "closedAt": "2021-03-31T02:57:25Z",
+    "createdAt": "2021-03-24T09:09:41Z",
+    "labels": [],
+    "number": 2501,
+    "title": "MaxDepth default value of `null` or `100` is not respected"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExMjQ1MzA2",
+      "is_bot": false,
+      "login": "JKamsker",
+      "name": "Jonas Kamsker"
+    },
+    "closedAt": "2021-03-15T21:19:53Z",
+    "createdAt": "2021-03-15T20:57:00Z",
+    "labels": [],
+    "number": 2496,
+    "title": " Unexpected character encountered while parsing value"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMzYyMjc=",
+      "is_bot": false,
+      "login": "felipepessoto",
+      "name": "Felipe Pessoto"
+    },
+    "closedAt": "2021-03-11T08:53:58Z",
+    "createdAt": "2021-03-11T04:54:30Z",
+    "labels": [],
+    "number": 2492,
+    "title": "JsonSerializer.Deserialize<T> throws NullReferenceException. JsonSerializer.Deserialize and JsonConvert.DeserializeObject works well"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzMDk1Mjg=",
+      "is_bot": false,
+      "login": "gbreen12",
+      "name": "Garett Breen"
+    },
+    "closedAt": "2021-03-09T18:25:48Z",
+    "createdAt": "2021-03-08T23:05:50Z",
+    "labels": [],
+    "number": 2487,
+    "title": "Different DateTimeOffset deserialization on Mac and Linux"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ3MjU1Mjcz",
+      "is_bot": false,
+      "login": "moabba",
+      "name": "Mohamed Abbas"
+    },
+    "closedAt": "2021-03-11T08:42:55Z",
+    "createdAt": "2021-03-03T13:53:14Z",
+    "labels": [],
+    "number": 2484,
+    "title": "Deserializing \"[]\" as a JObject, returns a JArray instead"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MzgxMTgx",
+      "is_bot": false,
+      "login": "StingyJack",
+      "name": "Andrew Stanton"
+    },
+    "closedAt": "2021-03-06T16:08:06Z",
+    "createdAt": "2021-03-02T16:16:07Z",
+    "labels": [],
+    "number": 2483,
+    "title": "JsonConvert.DeserializeObject<T> will converting a value like \"[]\" into a `new T`"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMDk0MjQ3",
+      "is_bot": false,
+      "login": "ahdung",
+      "name": "ahdung"
+    },
+    "closedAt": "2021-02-26T01:02:41Z",
+    "createdAt": "2021-02-25T03:46:15Z",
+    "labels": [],
+    "number": 2480,
+    "title": "For netfx20 edition cannot format DateTimeOffset correctly"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0ODcwODk=",
+      "is_bot": false,
+      "login": "Nosrick",
+      "name": "nosrick"
+    },
+    "closedAt": "2025-08-14T21:34:26Z",
+    "createdAt": "2021-02-23T12:54:26Z",
+    "labels": [],
+    "number": 2475,
+    "title": "Enormous amount of JProperties kept in memory after deserialisation"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3NDEwMTcz",
+      "is_bot": false,
+      "login": "Sasino97",
+      "name": "Salvatore Strazzullo"
+    },
+    "closedAt": "2021-02-23T09:40:07Z",
+    "createdAt": "2021-02-21T20:51:56Z",
+    "labels": [],
+    "number": 2474,
+    "title": "[Suggestion] Add Extension methods"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc4MDEzNzE4",
+      "is_bot": false,
+      "login": "Shirley-Ji-59",
+      "name": "Shirley"
+    },
+    "closedAt": "2021-02-17T21:52:00Z",
+    "createdAt": "2021-02-17T01:22:22Z",
+    "labels": [],
+    "number": 2469,
+    "title": "Why not add .NetFramework 4.8 to NewtonJson project?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM4MjIyNTcz",
+      "is_bot": false,
+      "login": "KoiHook",
+      "name": ""
+    },
+    "closedAt": "2021-01-27T21:48:55Z",
+    "createdAt": "2021-01-27T21:07:00Z",
+    "labels": [],
+    "number": 2461,
+    "title": "Conflict Newtonsoft.Json"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2MTMzNDg1",
+      "is_bot": false,
+      "login": "nicoclau",
+      "name": ""
+    },
+    "closedAt": "2021-02-23T09:42:05Z",
+    "createdAt": "2021-01-26T16:39:13Z",
+    "labels": [],
+    "number": 2460,
+    "title": "How to avoid Newtonsoft.Json.Linq.JObject and keep Object ?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM0MDIxMDQ=",
+      "is_bot": false,
+      "login": "wgscd",
+      "name": "wgscd"
+    },
+    "closedAt": "2021-01-31T02:57:06Z",
+    "createdAt": "2021-01-26T07:26:21Z",
+    "labels": [],
+    "number": 2459,
+    "title": "Applications that use Newtonsoft.Json might be exposed to DOS vulnerability"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1NzcxMDk=",
+      "is_bot": false,
+      "login": "thomasvdb",
+      "name": ""
+    },
+    "closedAt": "2021-01-31T02:57:06Z",
+    "createdAt": "2021-01-19T07:17:50Z",
+    "labels": [],
+    "number": 2457,
+    "title": "ALEPH-2018004 - DOS vulnerability"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMzQ1ODEz",
+      "is_bot": false,
+      "login": "Protecteric",
+      "name": "Eric"
+    },
+    "closedAt": "2021-01-15T13:13:47Z",
+    "createdAt": "2021-01-06T16:31:08Z",
+    "labels": [],
+    "number": 2453,
+    "title": "Json assembly in SQL Server gets an error because of the static field _camelCaseNamingStrategy"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMTQ5NzM2",
+      "is_bot": false,
+      "login": "billings7",
+      "name": "Andrew Billings"
+    },
+    "closedAt": "2021-01-06T19:46:46Z",
+    "createdAt": "2021-01-05T16:27:39Z",
+    "labels": [],
+    "number": 2450,
+    "title": "Cannot resolve contract for Nullable struct dictionary types"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwOTM0OTE2",
+      "is_bot": false,
+      "login": "m839336369",
+      "name": "白阳"
+    },
+    "closedAt": "2021-01-14T05:39:49Z",
+    "createdAt": "2021-01-05T11:10:49Z",
+    "labels": [],
+    "number": 2449,
+    "title": "object[] DeserializeObject Object of type 'System.Int64' cannot be converted to type 'System.Int32'."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY4OTQ4NTIx",
+      "is_bot": false,
+      "login": "ivshch",
+      "name": ""
+    },
+    "closedAt": "2020-12-31T21:59:44Z",
+    "createdAt": "2020-12-29T18:49:06Z",
+    "labels": [],
+    "number": 2447,
+    "title": "Make the ReflectionUtils.GetTypeName(...) publically accessible"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzNzQxMDI4",
+      "is_bot": false,
+      "login": "joe88ds",
+      "name": ""
+    },
+    "closedAt": "2021-01-14T23:41:14Z",
+    "createdAt": "2020-12-27T16:50:30Z",
+    "labels": [],
+    "number": 2445,
+    "title": "Empty Collection references are not preserved (PreserveReferencesHandling = PreserveReferencesHandling.All)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NDYzMDU=",
+      "is_bot": false,
+      "login": "Kimi-Arthur",
+      "name": ""
+    },
+    "closedAt": "2021-01-01T08:16:45Z",
+    "createdAt": "2020-12-23T06:53:28Z",
+    "labels": [],
+    "number": 2444,
+    "title": "Respect naming strategy in deserializing Enum string key"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwMTk4NTI4",
+      "is_bot": false,
+      "login": "liwuqingxin",
+      "name": "NLNet"
+    },
+    "closedAt": "2020-12-17T16:48:32Z",
+    "createdAt": "2020-12-17T12:57:11Z",
+    "labels": [],
+    "number": 2441,
+    "title": "Enumerating of JObject loses '\\' character"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5MTE3NTk3",
+      "is_bot": false,
+      "login": "Bonifatius94",
+      "name": "Marco Tröster"
+    },
+    "closedAt": "2020-12-20T01:00:50Z",
+    "createdAt": "2020-12-17T11:30:40Z",
+    "labels": [],
+    "number": 2440,
+    "title": "Dictionary conversion for complex key-types is really buggy, defaults to ToString() output"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ3NDIxNjcz",
+      "is_bot": false,
+      "login": "omghb",
+      "name": ""
+    },
+    "closedAt": "2020-12-17T15:56:59Z",
+    "createdAt": "2020-12-17T07:53:44Z",
+    "labels": [],
+    "number": 2439,
+    "title": "BUG TypeName provided by SerializationBinder gets manipulated afterwards"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5NjQyMTE=",
+      "is_bot": false,
+      "login": "jkindwall",
+      "name": "Jesse Kindwall"
+    },
+    "closedAt": "2020-12-13T20:01:48Z",
+    "createdAt": "2020-12-10T18:26:12Z",
+    "labels": [],
+    "number": 2437,
+    "title": "Feature Request: JProperty.Parse"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5NTQ5NjAz",
+      "is_bot": false,
+      "login": "YuriPetskus",
+      "name": "Yuri Petskus"
+    },
+    "closedAt": "2021-01-01T08:08:08Z",
+    "createdAt": "2020-12-03T11:45:30Z",
+    "labels": [],
+    "number": 2435,
+    "title": "Doubling elements"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1MTA5ODQ=",
+      "is_bot": false,
+      "login": "GF-Huang",
+      "name": "GFHuang"
+    },
+    "closedAt": "2020-12-13T20:02:08Z",
+    "createdAt": "2020-11-30T06:19:14Z",
+    "labels": [],
+    "number": 2434,
+    "title": "How to use single quote when JsonConvert.SerializeObject?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzODM3Nw==",
+      "is_bot": false,
+      "login": "dgiddins",
+      "name": "Dafydd Giddins"
+    },
+    "closedAt": "2020-12-13T20:03:30Z",
+    "createdAt": "2020-11-26T12:16:04Z",
+    "labels": [],
+    "number": 2433,
+    "title": "Different outcome when serializing a double in .net 5 over .net core 2.2"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUyNDYxNTM0",
+      "is_bot": false,
+      "login": "heizel184",
+      "name": "Hina 461 "
+    },
+    "closedAt": "2020-11-20T12:45:52Z",
+    "createdAt": "2020-11-20T12:45:26Z",
+    "labels": [],
+    "number": 2430,
+    "title": "{mdlc:item=RequestId}') and ${aspnet-request-posted-body} not working "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxMTI0NjA=",
+      "is_bot": false,
+      "login": "tuyen-vuduc",
+      "name": "Tuyen VU"
+    },
+    "closedAt": "2020-12-20T19:56:03Z",
+    "createdAt": "2020-11-20T08:45:30Z",
+    "labels": [],
+    "number": 2429,
+    "title": "Self referencing loop detected for property 'Y' with type 'GMBQs.Y'. Path ''."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4NTgxODQ4",
+      "is_bot": false,
+      "login": "fabianus76",
+      "name": ""
+    },
+    "closedAt": "2020-11-20T03:47:04Z",
+    "createdAt": "2020-11-14T20:55:46Z",
+    "labels": [],
+    "number": 2427,
+    "title": "wording in the documentation - proposal"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1MTU0OTc5",
+      "is_bot": false,
+      "login": "melakhvision",
+      "name": "Codekhalipha"
+    },
+    "closedAt": "2020-12-13T20:05:41Z",
+    "createdAt": "2020-11-14T06:08:14Z",
+    "labels": [],
+    "number": 2426,
+    "title": "Deserialization problem any help ?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1ODI3Njg5",
+      "is_bot": false,
+      "login": "michsco",
+      "name": "Michael Scott"
+    },
+    "closedAt": "2020-11-20T03:35:25Z",
+    "createdAt": "2020-11-12T19:28:28Z",
+    "labels": [],
+    "number": 2423,
+    "title": "Return value for generic JsonConverter.ReadJson should be marked as nullable reference"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUyNDYxNTM0",
+      "is_bot": false,
+      "login": "heizel184",
+      "name": "Hina 461 "
+    },
+    "closedAt": "2020-11-23T13:48:20Z",
+    "createdAt": "2020-11-08T20:20:41Z",
+    "labels": [],
+    "number": 2421,
+    "title": "How to check that JArrays contains a List of object or Values "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUyNDYxNTM0",
+      "is_bot": false,
+      "login": "heizel184",
+      "name": "Hina 461 "
+    },
+    "closedAt": "2020-11-08T20:15:33Z",
+    "createdAt": "2020-11-08T00:29:19Z",
+    "labels": [],
+    "number": 2420,
+    "title": "how to check case insentivity of JArray and JObject proportions "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0OTMxNDQ4",
+      "is_bot": false,
+      "login": "Toxantron",
+      "name": "Thomas Fuchs"
+    },
+    "closedAt": "2020-11-05T20:15:30Z",
+    "createdAt": "2020-11-05T12:14:47Z",
+    "labels": [],
+    "number": 2419,
+    "title": "Implementing IEquatable cases false positiv loop detection"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyNjExMDA=",
+      "is_bot": false,
+      "login": "coder-mike",
+      "name": "Michael Hunter"
+    },
+    "closedAt": "2020-12-13T20:05:06Z",
+    "createdAt": "2020-10-26T07:21:51Z",
+    "labels": [],
+    "number": 2415,
+    "title": "Allow inheriting from JsonConverterAttribute"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM5MTEzMTU5",
+      "is_bot": false,
+      "login": "LiEnby",
+      "name": "Li"
+    },
+    "closedAt": "2020-10-20T09:08:19Z",
+    "createdAt": "2020-10-20T08:19:32Z",
+    "labels": [],
+    "number": 2411,
+    "title": "JsonConvert.SerializeObject() not escaping \" to \\\""
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIxMzE4NTI4",
+      "is_bot": false,
+      "login": "carlosscastro",
+      "name": "Carlos Castro"
+    },
+    "closedAt": "2021-01-01T06:25:57Z",
+    "createdAt": "2020-10-19T07:42:13Z",
+    "labels": [],
+    "number": 2410,
+    "title": "JToken.DeepClone does not clone IJsonLineInfo data from source jToken"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzMTA5Mzc=",
+      "is_bot": false,
+      "login": "bartico6",
+      "name": "quake1337"
+    },
+    "closedAt": "2020-10-21T18:12:28Z",
+    "createdAt": "2020-10-18T19:07:03Z",
+    "labels": [],
+    "number": 2409,
+    "title": "Cross-context deseserializing to types in collectible assembly contexts fails"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM2NTM1ODk1",
+      "is_bot": false,
+      "login": "Banyc",
+      "name": "IchHabeKeineNamen"
+    },
+    "closedAt": "2020-12-13T20:08:27Z",
+    "createdAt": "2020-10-11T07:10:48Z",
+    "labels": [],
+    "number": 2405,
+    "title": "Wrong order of Stack after deserialization"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjcyMzk2Mjkw",
+      "is_bot": false,
+      "login": "naikparesh1990",
+      "name": ""
+    },
+    "closedAt": "2020-12-13T20:10:18Z",
+    "createdAt": "2020-10-05T15:11:54Z",
+    "labels": [],
+    "number": 2399,
+    "title": "Serializing/Deserializing Arraylist Objects having Items of Type System.Uri"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2MTY0Mzcz",
+      "is_bot": false,
+      "login": "LukeTOBrien",
+      "name": ""
+    },
+    "closedAt": "2020-09-17T08:01:46Z",
+    "createdAt": "2020-09-16T22:11:36Z",
+    "labels": [],
+    "number": 2391,
+    "title": "Refactor JsonConvert - Remove dependancy of System.Xml"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYwMDMzNzM=",
+      "is_bot": false,
+      "login": "sprotty",
+      "name": "Simon Sprott"
+    },
+    "closedAt": "2020-12-13T20:09:22Z",
+    "createdAt": "2020-09-07T16:32:32Z",
+    "labels": [],
+    "number": 2389,
+    "title": "Stackoverflow validating Draft 2019-09 schema"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMyMjM2OTk=",
+      "is_bot": false,
+      "login": "AKrasheninnikov",
+      "name": ""
+    },
+    "closedAt": "2020-08-28T23:00:48Z",
+    "createdAt": "2020-08-28T22:57:28Z",
+    "labels": [],
+    "number": 2386,
+    "title": "JsonPath filters on multi-nav properties, but fails on single object"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4MjQxODc=",
+      "is_bot": false,
+      "login": "mwpowellhtx",
+      "name": "Michael W Powell"
+    },
+    "closedAt": "2020-08-29T14:56:23Z",
+    "createdAt": "2020-08-28T10:19:18Z",
+    "labels": [],
+    "number": 2385,
+    "title": "Support for multidimensional arrays"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3MzAzMTY4",
+      "is_bot": false,
+      "login": "0-gravity",
+      "name": ""
+    },
+    "closedAt": "2020-12-13T20:11:24Z",
+    "createdAt": "2020-08-22T04:38:55Z",
+    "labels": [],
+    "number": 2379,
+    "title": "F#-related utilities"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM5MTUwNjc4",
+      "is_bot": false,
+      "login": "AtlantisDe",
+      "name": "AtlantisDe"
+    },
+    "closedAt": "2020-08-22T09:20:10Z",
+    "createdAt": "2020-08-21T11:26:59Z",
+    "labels": [],
+    "number": 2378,
+    "title": "Hope to support deserialization support for this object \"MongoDB.Bson.ObjectId\""
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY4OTEwMzA=",
+      "is_bot": false,
+      "login": "TehWardy",
+      "name": "Paul Ward"
+    },
+    "closedAt": "2020-08-15T15:43:49Z",
+    "createdAt": "2020-08-14T16:44:57Z",
+    "labels": [],
+    "number": 2377,
+    "title": "How is this possible?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM0NzYwMzA2",
+      "is_bot": false,
+      "login": "Dzliera",
+      "name": "Giorgi Chkhikvadze"
+    },
+    "closedAt": "2020-08-13T21:10:33Z",
+    "createdAt": "2020-08-13T11:47:18Z",
+    "labels": [],
+    "number": 2376,
+    "title": "Support async serialization and deserialization"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUzNjM2Nzcx",
+      "is_bot": false,
+      "login": "HideakiAtsuyo",
+      "name": "Hideaki"
+    },
+    "closedAt": "2020-11-29T07:02:31Z",
+    "createdAt": "2020-08-07T05:31:43Z",
+    "labels": [],
+    "number": 2373,
+    "title": "Version C# 7.3"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwNTQxNzU5",
+      "is_bot": false,
+      "login": "LuckyTil",
+      "name": "Ihor Taranenko"
+    },
+    "closedAt": "2021-02-18T21:37:30Z",
+    "createdAt": "2020-08-05T11:37:03Z",
+    "labels": [],
+    "number": 2372,
+    "title": "Misprint"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM2OTIzNzI5",
+      "is_bot": false,
+      "login": "Tetragromaton",
+      "name": "Tetragromaton"
+    },
+    "closedAt": "2020-07-11T08:08:59Z",
+    "createdAt": "2020-07-10T15:38:37Z",
+    "labels": [],
+    "number": 2362,
+    "title": "JSON deserializer broken."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4NDY2NjM0",
+      "is_bot": false,
+      "login": "MikeBrunoCISSP",
+      "name": "Mike Bruno"
+    },
+    "closedAt": "2020-07-01T15:55:07Z",
+    "createdAt": "2020-07-01T15:47:43Z",
+    "labels": [],
+    "number": 2358,
+    "title": "Cannot deserialize into a non-public class"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIzNDkzNzk=",
+      "is_bot": false,
+      "login": "logiclrd",
+      "name": "Jonathan Gilbert"
+    },
+    "closedAt": "2020-08-11T03:43:40Z",
+    "createdAt": "2020-06-25T07:20:57Z",
+    "labels": [],
+    "number": 2356,
+    "title": "IAsyncEnumerable support"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUzMTYwNg==",
+      "is_bot": false,
+      "login": "imtrobin",
+      "name": ""
+    },
+    "closedAt": "2021-05-15T01:45:00Z",
+    "createdAt": "2020-06-17T14:23:15Z",
+    "labels": [],
+    "number": 2352,
+    "title": "JObject.Merge does not with object"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4MjM1MDU3",
+      "is_bot": false,
+      "login": "zappysys",
+      "name": "ZappySys"
+    },
+    "closedAt": "2020-12-13T20:13:20Z",
+    "createdAt": "2020-05-29T15:58:52Z",
+    "labels": [],
+    "number": 2340,
+    "title": "GetHashCode returns same HashCode for different JValue tokens "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk1NTAzNjQ=",
+      "is_bot": false,
+      "login": "andrfgs",
+      "name": "André Santos"
+    },
+    "closedAt": "2020-05-14T00:44:19Z",
+    "createdAt": "2020-05-14T00:20:44Z",
+    "labels": [],
+    "number": 2333,
+    "title": "Broken on Unity (Could not load file or assembly 'System.Runtime.Serialization)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk4MTc3OA==",
+      "is_bot": false,
+      "login": "TalAloni",
+      "name": "Tal Aloni"
+    },
+    "closedAt": "2021-12-25T09:25:38Z",
+    "createdAt": "2020-05-10T15:23:41Z",
+    "labels": [],
+    "number": 2330,
+    "title": "Reference properties that were instantiated in constructor are not re-instantiated"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU2NzAyNjQ2",
+      "is_bot": false,
+      "login": "MaximillianC",
+      "name": "Maximillian Carper"
+    },
+    "closedAt": "2021-03-09T06:04:21Z",
+    "createdAt": "2020-04-23T01:01:29Z",
+    "labels": [],
+    "number": 2318,
+    "title": "ReferenceLoopHandling.Ignore seems to have stopped working"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYyNTU2MTY5",
+      "is_bot": false,
+      "login": "amartini-n",
+      "name": ""
+    },
+    "closedAt": "2020-04-11T16:32:52Z",
+    "createdAt": "2020-04-10T14:30:49Z",
+    "labels": [],
+    "number": 2313,
+    "title": "InvalidCastException deserializing a SqlException"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1MzQzMzIx",
+      "is_bot": false,
+      "login": "cole-acepph",
+      "name": ""
+    },
+    "closedAt": "2020-04-13T21:14:11Z",
+    "createdAt": "2020-04-09T16:57:58Z",
+    "labels": [],
+    "number": 2312,
+    "title": "how do you target multiple .NET Frameworks?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgwNjkxNTY=",
+      "is_bot": false,
+      "login": "luismanuelmontoro",
+      "name": "Luis Manuel Montoro Marchal"
+    },
+    "closedAt": "2020-04-16T12:09:11Z",
+    "createdAt": "2020-04-06T10:17:19Z",
+    "labels": [],
+    "number": 2308,
+    "title": "Json deserialize removes a field in base64"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI3MjAwMTE=",
+      "is_bot": false,
+      "login": "zabulus",
+      "name": ""
+    },
+    "closedAt": "2020-04-03T08:21:00Z",
+    "createdAt": "2020-03-12T11:47:28Z",
+    "labels": [],
+    "number": 2299,
+    "title": "Performance issue in Newtonsoft.Json.Serialization.DefaultContractResolver.GetCallbackMethodsForType"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc2NTIwNQ==",
+      "is_bot": false,
+      "login": "marayfirth",
+      "name": ""
+    },
+    "closedAt": "2022-05-15T14:43:37Z",
+    "createdAt": "2020-03-04T14:54:07Z",
+    "labels": [],
+    "number": 2292,
+    "title": "UnixDateTimeConverter throws exception if date is before 1970."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyMjI5NjY0",
+      "is_bot": false,
+      "login": "Ishita-pahwa",
+      "name": "Ishita Pahwa"
+    },
+    "closedAt": "2020-02-28T06:54:42Z",
+    "createdAt": "2020-02-28T06:54:22Z",
+    "labels": [],
+    "number": 2283,
+    "title": "Failed to load schema with self reference loo\\[]"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwMzI2Mw==",
+      "is_bot": false,
+      "login": "BenWoodford",
+      "name": "Ben Woodford"
+    },
+    "closedAt": "2020-02-22T16:34:45Z",
+    "createdAt": "2020-02-20T12:10:02Z",
+    "labels": [],
+    "number": 2278,
+    "title": "Dictionary of <string, object> ignores attributes"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2Mjc0ODE0",
+      "is_bot": false,
+      "login": "sheetsync",
+      "name": "James Cane"
+    },
+    "closedAt": "2020-02-19T16:15:57Z",
+    "createdAt": "2020-02-19T16:15:36Z",
+    "labels": [],
+    "number": 2276,
+    "title": "Hi,"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgzMDI3MTk=",
+      "is_bot": false,
+      "login": "Galileon",
+      "name": "Rafal Dabrowa"
+    },
+    "closedAt": "2020-01-21T09:35:09Z",
+    "createdAt": "2020-01-21T09:34:32Z",
+    "labels": [],
+    "number": 2261,
+    "title": "Constructor parameters"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgzMDI3MTk=",
+      "is_bot": false,
+      "login": "Galileon",
+      "name": "Rafal Dabrowa"
+    },
+    "closedAt": "2020-01-21T09:34:52Z",
+    "createdAt": "2020-01-21T09:31:59Z",
+    "labels": [],
+    "number": 2260,
+    "title": "Dependency Injection"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5OTM1MzU0",
+      "is_bot": false,
+      "login": "JustinBerger",
+      "name": "Justin"
+    },
+    "closedAt": "2020-01-17T23:32:06Z",
+    "createdAt": "2020-01-17T22:29:35Z",
+    "labels": [],
+    "number": 2257,
+    "title": "Serialization fails on derived Serializable class that inherits from base class with ISerializable"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUxOTYxMzk=",
+      "is_bot": false,
+      "login": "live1206",
+      "name": "Wei Hu"
+    },
+    "closedAt": "2020-01-16T12:57:28Z",
+    "createdAt": "2020-01-15T09:35:15Z",
+    "labels": [],
+    "number": 2256,
+    "title": "Should throw while deserializing a JsonTextReader with invalid JSON"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQwODM3NjA=",
+      "is_bot": false,
+      "login": "bouyeijiang",
+      "name": ""
+    },
+    "closedAt": "2020-01-10T05:41:50Z",
+    "createdAt": "2020-01-10T01:46:22Z",
+    "labels": [],
+    "number": 2254,
+    "title": "convert geojson"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1OTI1NTU=",
+      "is_bot": false,
+      "login": "Mimetis",
+      "name": "Sébastien Pertus"
+    },
+    "closedAt": "2019-12-26T19:01:37Z",
+    "createdAt": "2019-12-26T18:57:17Z",
+    "labels": [],
+    "number": 2248,
+    "title": "Byte property not serialized if object has too much properties"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMjA1Nzk=",
+      "is_bot": false,
+      "login": "niemyjski",
+      "name": "Blake Niemyjski"
+    },
+    "closedAt": "2019-12-22T21:49:51Z",
+    "createdAt": "2019-12-20T11:19:38Z",
+    "labels": [],
+    "number": 2243,
+    "title": "Upgrade to .NET Core 3.1 broke serialization of System.Version."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYwNDkwMg==",
+      "is_bot": false,
+      "login": "sixeyes",
+      "name": ""
+    },
+    "closedAt": "2019-12-22T21:03:45Z",
+    "createdAt": "2019-12-19T21:13:43Z",
+    "labels": [],
+    "number": 2242,
+    "title": "Stuck with v9.0.1 (due to Azure Functions) and wanting to use changes from issue #1014"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ3MjAwMjMw",
+      "is_bot": false,
+      "login": "pkoronawa",
+      "name": ""
+    },
+    "closedAt": "2019-12-22T21:05:29Z",
+    "createdAt": "2019-12-13T13:55:53Z",
+    "labels": [],
+    "number": 2238,
+    "title": "InvalidOperationException in DeserializeObject"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2MDM0MTM3",
+      "is_bot": false,
+      "login": "baisedebing",
+      "name": ""
+    },
+    "closedAt": "2019-12-11T17:59:25Z",
+    "createdAt": "2019-12-11T17:07:58Z",
+    "labels": [],
+    "number": 2237,
+    "title": "Json"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUzMzM5NDA0",
+      "is_bot": false,
+      "login": "ptr-null",
+      "name": ""
+    },
+    "closedAt": "2019-12-10T19:35:30Z",
+    "createdAt": "2019-12-10T14:53:50Z",
+    "labels": [],
+    "number": 2236,
+    "title": "Serialization/deserialization of an XmlDocument does not preserve document order"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExNTM5MDA4",
+      "is_bot": false,
+      "login": "SolarianZ",
+      "name": "ZQY"
+    },
+    "closedAt": "2019-11-28T01:21:58Z",
+    "createdAt": "2019-11-27T09:54:37Z",
+    "labels": [],
+    "number": 2225,
+    "title": "How to make JsonConvert.DeserializeObject<T>() return null when json format mismatching?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY0ODk5NzI=",
+      "is_bot": false,
+      "login": "SilverSilencer",
+      "name": ""
+    },
+    "closedAt": "2019-11-18T15:05:00Z",
+    "createdAt": "2019-11-18T08:23:31Z",
+    "labels": [],
+    "number": 2221,
+    "title": "Embedded Resource"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1ODQ4MjIx",
+      "is_bot": false,
+      "login": "deylin",
+      "name": "Deylin"
+    },
+    "closedAt": "2019-11-12T07:21:31Z",
+    "createdAt": "2019-11-11T14:47:11Z",
+    "labels": [],
+    "number": 2217,
+    "title": "Conditional serialization"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExNzI5NTQx",
+      "is_bot": false,
+      "login": "lordlycastle",
+      "name": ""
+    },
+    "closedAt": "2019-11-07T11:28:49Z",
+    "createdAt": "2019-11-06T15:15:06Z",
+    "labels": [],
+    "number": 2214,
+    "title": "Newtonsoft Calls Getter on Deserializing a Property"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU2NDExNDM1",
+      "is_bot": false,
+      "login": "juancxt",
+      "name": ""
+    },
+    "closedAt": "2019-10-30T20:11:49Z",
+    "createdAt": "2019-10-24T13:57:52Z",
+    "labels": [],
+    "number": 2207,
+    "title": "SerializeObjectInternal has a memory leak"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU3NTA3OTU=",
+      "is_bot": false,
+      "login": "AlexEndris",
+      "name": "Alexander Endris"
+    },
+    "closedAt": "2021-02-23T09:23:50Z",
+    "createdAt": "2019-10-16T07:57:47Z",
+    "labels": [],
+    "number": 2196,
+    "title": "Increase in memory consumption until OutOfMemory due to reference loop handling"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY0OTQ5Mg==",
+      "is_bot": false,
+      "login": "brockallen",
+      "name": "Brock Allen"
+    },
+    "closedAt": "2019-10-15T19:50:39Z",
+    "createdAt": "2019-10-15T14:04:23Z",
+    "labels": [],
+    "number": 2194,
+    "title": "DeserializeObject fails in .NET Core 3 on collection initialized with Enumerable.Empty"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU3MDgzNTQ=",
+      "is_bot": false,
+      "login": "horato",
+      "name": ""
+    },
+    "closedAt": "2019-09-29T09:42:23Z",
+    "createdAt": "2019-09-28T13:12:12Z",
+    "labels": [],
+    "number": 2176,
+    "title": "Constructor deserialization throws an exception for constructor with more than 256 parameters"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5NjA4NzA1",
+      "is_bot": false,
+      "login": "websitewill",
+      "name": ""
+    },
+    "closedAt": "2019-09-27T16:58:55Z",
+    "createdAt": "2019-09-27T12:03:32Z",
+    "labels": [],
+    "number": 2174,
+    "title": "JSON Serialization Exception on return from Service Fabric"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4NDQxMDM=",
+      "is_bot": false,
+      "login": "olibanjoli",
+      "name": "Oliver Zürcher"
+    },
+    "closedAt": "2019-09-30T03:38:13Z",
+    "createdAt": "2019-09-25T16:08:47Z",
+    "labels": [],
+    "number": 2173,
+    "title": "Bug: value from readonly property overwrites another property"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYzMjg5OTc=",
+      "is_bot": false,
+      "login": "basslagter",
+      "name": "Bas Slagter"
+    },
+    "closedAt": "2019-09-25T07:06:31Z",
+    "createdAt": "2019-09-24T13:36:08Z",
+    "labels": [],
+    "number": 2171,
+    "title": "StringEnumConverter not working with .net core 3.0"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyNDU5MDM=",
+      "is_bot": false,
+      "login": "Ansssss",
+      "name": ""
+    },
+    "closedAt": "2019-09-30T03:34:40Z",
+    "createdAt": "2019-09-16T22:36:52Z",
+    "labels": [],
+    "number": 2165,
+    "title": "JsonConvert.DeserializeObject<JObject> does not throw exception on single opening brace"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3NzYwOA==",
+      "is_bot": false,
+      "login": "augustoproiete",
+      "name": "C. Augusto Proiete"
+    },
+    "closedAt": "2019-09-16T20:28:40Z",
+    "createdAt": "2019-09-15T05:19:42Z",
+    "labels": [],
+    "number": 2162,
+    "title": "Trailing zeros are removed after parse & format"
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2019-10-05T06:56:29Z",
+    "createdAt": "2019-09-13T19:17:00Z",
+    "labels": [],
+    "number": 2160,
+    "title": "Add a KebabCaseNamingStrategy"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1NDg=",
+      "is_bot": false,
+      "login": "AArnott",
+      "name": "Andrew Arnott"
+    },
+    "closedAt": "2019-09-12T20:54:58Z",
+    "createdAt": "2019-09-12T02:43:40Z",
+    "labels": [],
+    "number": 2158,
+    "title": "Deserializing an IImmutableSet<T> should prefer ImmutableHashSet instead of ImmutableSortedSet"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NjgyNw==",
+      "is_bot": false,
+      "login": "Viorel",
+      "name": "Viorel"
+    },
+    "closedAt": "2019-09-30T01:26:52Z",
+    "createdAt": "2019-09-10T11:02:13Z",
+    "labels": [],
+    "number": 2156,
+    "title": "JSONPath with bracket-notation and descendant axis returns more tokens than expected"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4MjQxODc=",
+      "is_bot": false,
+      "login": "mwpowellhtx",
+      "name": "Michael W Powell"
+    },
+    "closedAt": "2019-10-01T13:21:17Z",
+    "createdAt": "2019-09-09T16:15:02Z",
+    "labels": [],
+    "number": 2154,
+    "title": "Double object curly braces possibly in debugger output"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU0NTA0MTcz",
+      "is_bot": false,
+      "login": "emrekilic3",
+      "name": "emre"
+    },
+    "closedAt": "2019-09-30T03:36:40Z",
+    "createdAt": "2019-09-08T13:08:40Z",
+    "labels": [],
+    "number": 2152,
+    "title": "Issue with Installing Newtonsoft"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4MTkwNzQ=",
+      "is_bot": false,
+      "login": "yyjdelete",
+      "name": "SilverFox"
+    },
+    "closedAt": "2019-09-08T07:28:12Z",
+    "createdAt": "2019-09-07T06:18:43Z",
+    "labels": [],
+    "number": 2150,
+    "title": "`CollectionUtils.ArrayEmpty<T>()` should be update for netcoreapp3.0"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4MTkwNzQ=",
+      "is_bot": false,
+      "login": "yyjdelete",
+      "name": "SilverFox"
+    },
+    "closedAt": "2019-09-08T08:46:21Z",
+    "createdAt": "2019-09-02T08:40:55Z",
+    "labels": [],
+    "number": 2148,
+    "title": "System.InvalidCastException: Unable to cast object of type 'System.Collections.Generic.SortedSet`1' to type 'System.Collections.IList'."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgyNzQ4MTY=",
+      "is_bot": false,
+      "login": "MagicAndre1981",
+      "name": ""
+    },
+    "closedAt": "2019-09-02T09:09:32Z",
+    "createdAt": "2019-09-02T06:19:14Z",
+    "labels": [],
+    "number": 2147,
+    "title": "Changelog for 12.0.3-beta1?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5Nzk0NDA4",
+      "is_bot": false,
+      "login": "vikasNew",
+      "name": ""
+    },
+    "closedAt": "2019-08-31T01:35:58Z",
+    "createdAt": "2019-08-30T08:43:02Z",
+    "labels": [],
+    "number": 2145,
+    "title": "Unable to set default casing to camelcase in .net core"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIzNDkzNzk=",
+      "is_bot": false,
+      "login": "logiclrd",
+      "name": "Jonathan Gilbert"
+    },
+    "closedAt": "2019-09-01T04:23:26Z",
+    "createdAt": "2019-08-29T21:25:31Z",
+    "labels": [],
+    "number": 2144,
+    "title": "JToken.ToString() does not always return JSON"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NTM3MDc=",
+      "is_bot": false,
+      "login": "Shadowblitz16",
+      "name": ""
+    },
+    "closedAt": "2019-09-08T08:44:24Z",
+    "createdAt": "2019-08-25T01:23:51Z",
+    "labels": [],
+    "number": 2143,
+    "title": "Generic Setter for custom json object?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NTM3MDc=",
+      "is_bot": false,
+      "login": "Shadowblitz16",
+      "name": ""
+    },
+    "closedAt": "2019-09-08T08:42:36Z",
+    "createdAt": "2019-08-25T01:01:04Z",
+    "labels": [],
+    "number": 2142,
+    "title": "Is there a way to check if there is a parsing error and return it's message?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwMzIwMQ==",
+      "is_bot": false,
+      "login": "JamesNK",
+      "name": "James Newton-King"
+    },
+    "closedAt": "2019-09-30T03:53:07Z",
+    "createdAt": "2019-08-20T00:46:08Z",
+    "labels": [],
+    "number": 2140,
+    "title": "JToken casts should accept nullable token"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU0MTIwNzQ3",
+      "is_bot": false,
+      "login": "gm-sg",
+      "name": ""
+    },
+    "closedAt": "2019-08-19T01:09:48Z",
+    "createdAt": "2019-08-14T20:32:19Z",
+    "labels": [],
+    "number": 2131,
+    "title": "Unable to run SelectTokens() on attribute that has been converted from XML to JSON using JsonConvert.SerializeXNode() due to converted attribute key containing '@' identifer"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjczOTQwOTE=",
+      "is_bot": false,
+      "login": "pgolebiowski",
+      "name": "Patryk Golebiowski"
+    },
+    "closedAt": "2019-08-18T06:52:12Z",
+    "createdAt": "2019-08-14T16:08:08Z",
+    "labels": [],
+    "number": 2130,
+    "title": "Inability to order the property with a [JsonExtensionData] tag"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2NzkwOTM=",
+      "is_bot": false,
+      "login": "newpost",
+      "name": "hiboy"
+    },
+    "closedAt": "2019-08-18T14:12:23Z",
+    "createdAt": "2019-08-13T02:03:23Z",
+    "labels": [],
+    "number": 2129,
+    "title": "deserializing or serializing?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk0MDU0",
+      "is_bot": false,
+      "login": "joelverhagen",
+      "name": "Joel Verhagen"
+    },
+    "closedAt": "2019-08-18T06:20:43Z",
+    "createdAt": "2019-08-12T17:18:38Z",
+    "labels": [],
+    "number": 2128,
+    "title": "System.Uri does not round trip properly when original string is UNC path"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5NzYwMzc5",
+      "is_bot": false,
+      "login": "apdevelop",
+      "name": "Andrey P."
+    },
+    "closedAt": "2020-08-21T14:35:19Z",
+    "createdAt": "2019-08-10T18:52:21Z",
+    "labels": [],
+    "number": 2127,
+    "title": "Thread safety issue of JsonConvert.SerializeObject - ArgumentException is thrown randomly"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3NjUyNjA3",
+      "is_bot": false,
+      "login": "DimitriM",
+      "name": ""
+    },
+    "closedAt": "2019-08-18T08:28:23Z",
+    "createdAt": "2019-08-09T16:10:55Z",
+    "labels": [],
+    "number": 2125,
+    "title": "Deserialize multiple json objects in one json string"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyODAxNDA=",
+      "is_bot": false,
+      "login": "oliverjanik",
+      "name": "Oliver Janik"
+    },
+    "closedAt": "2019-09-08T08:45:31Z",
+    "createdAt": "2019-08-06T01:46:52Z",
+    "labels": [],
+    "number": 2123,
+    "title": "JObject should implement non-generic IDictionary"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM0NTM4NQ==",
+      "is_bot": false,
+      "login": "sandimschuh",
+      "name": "Michael H"
+    },
+    "closedAt": "2019-08-19T00:50:27Z",
+    "createdAt": "2019-08-05T14:08:03Z",
+    "labels": [],
+    "number": 2121,
+    "title": "Classes implementing IEnumerable are not serialized properly"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM0NTM4NQ==",
+      "is_bot": false,
+      "login": "sandimschuh",
+      "name": "Michael H"
+    },
+    "closedAt": "2019-08-05T14:15:18Z",
+    "createdAt": "2019-08-05T14:02:05Z",
+    "labels": [],
+    "number": 2120,
+    "title": "Classes that implement IEnumerable<T> are not serialized properly"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY3ODQ4",
+      "is_bot": false,
+      "login": "mahdiit",
+      "name": "Mahdi Yousefi"
+    },
+    "closedAt": "2019-08-05T09:34:05Z",
+    "createdAt": "2019-08-05T08:08:05Z",
+    "labels": [],
+    "number": 2119,
+    "title": "Bug in DeserializeObject"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY0ODk5NzI=",
+      "is_bot": false,
+      "login": "SilverSilencer",
+      "name": ""
+    },
+    "closedAt": "2019-08-18T08:27:14Z",
+    "createdAt": "2019-08-04T17:28:16Z",
+    "labels": [],
+    "number": 2117,
+    "title": "How to get rid of dll next to executable file?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUyNDE2OTM=",
+      "is_bot": false,
+      "login": "nczsl",
+      "name": ""
+    },
+    "closedAt": "2019-08-06T10:10:16Z",
+    "createdAt": "2019-08-03T13:49:29Z",
+    "labels": [],
+    "number": 2115,
+    "title": "JsonConvert.SerializeObject has a error"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4Mjg1MDc0",
+      "is_bot": false,
+      "login": "DavidHollman",
+      "name": ""
+    },
+    "closedAt": "2019-08-19T00:51:12Z",
+    "createdAt": "2019-07-29T13:55:25Z",
+    "labels": [],
+    "number": 2110,
+    "title": "Typo in blog article: \"WCF DataContractJsonSerializer\""
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMDcyMTQ=",
+      "is_bot": false,
+      "login": "johngallardo",
+      "name": "John Gallardo"
+    },
+    "closedAt": "2019-07-25T20:02:05Z",
+    "createdAt": "2019-07-25T17:12:21Z",
+    "labels": [],
+    "number": 2108,
+    "title": "$id doesn't round trip when deserializing with default options"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM3OTI4MTU=",
+      "is_bot": false,
+      "login": "airbreather",
+      "name": "Joe Amenta"
+    },
+    "closedAt": "2019-08-18T06:39:19Z",
+    "createdAt": "2019-07-24T15:03:20Z",
+    "labels": [],
+    "number": 2107,
+    "title": "xmldoc says StringReader, but method accepts any TextReader"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyNjk0ODQ=",
+      "is_bot": false,
+      "login": "L3Z4",
+      "name": ""
+    },
+    "closedAt": "2019-06-30T09:03:08Z",
+    "createdAt": "2019-06-27T10:00:53Z",
+    "labels": [],
+    "number": 2098,
+    "title": "CamelCaseResolver messing with upper case string containing underscore"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc3NTUwMTU=",
+      "is_bot": false,
+      "login": "Denis535",
+      "name": "Denis"
+    },
+    "closedAt": "2019-09-08T08:41:59Z",
+    "createdAt": "2019-06-25T22:59:42Z",
+    "labels": [],
+    "number": 2094,
+    "title": "JsonSerializer.Populate( jArray.CreateReader(), array ) doesn't fill array"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUyOTU3",
+      "is_bot": false,
+      "login": "alastairs",
+      "name": "Alastair Smith"
+    },
+    "closedAt": "2019-10-05T23:49:47Z",
+    "createdAt": "2019-06-13T16:12:47Z",
+    "labels": [],
+    "number": 2088,
+    "title": "Snake-case naming strategy incorrectly deserialises JSONPath dictionary keys"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5MzU5NjA=",
+      "is_bot": false,
+      "login": "Tyrrrz",
+      "name": "Oleksii Holub"
+    },
+    "closedAt": "2019-06-15T18:42:58Z",
+    "createdAt": "2019-06-06T19:26:25Z",
+    "labels": [],
+    "number": 2084,
+    "title": "Value<string> doesn't work on JToken that was evaluated as Date when using DateParseHandling.DateTimeOffset"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUzNjQyMjU=",
+      "is_bot": false,
+      "login": "wizofaus",
+      "name": ""
+    },
+    "closedAt": "2019-10-05T07:50:12Z",
+    "createdAt": "2019-06-03T23:27:11Z",
+    "labels": [],
+    "number": 2082,
+    "title": "EnumMember attribute ignored by StringEnumConvertor if CamelCaseText = true"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1ODY4NTQ3",
+      "is_bot": false,
+      "login": "michaldivis",
+      "name": "Michal Diviš"
+    },
+    "closedAt": "2019-05-31T05:48:46Z",
+    "createdAt": "2019-05-30T13:16:18Z",
+    "labels": [],
+    "number": 2080,
+    "title": "JsonConvert.DeserializeObject<MyClass> doesn't throw an exception when deserializing a completely different json that has no properties from the desired class"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1NTU4OTQ0",
+      "is_bot": false,
+      "login": "jbhano",
+      "name": ""
+    },
+    "closedAt": "2019-05-15T17:55:25Z",
+    "createdAt": "2019-05-15T12:25:54Z",
+    "labels": [],
+    "number": 2074,
+    "title": "Not selecting token based upon complex Json Path having && operator"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5NjEwMDEz",
+      "is_bot": false,
+      "login": "hieuxinhe94",
+      "name": "Phạm Văn Hiếu "
+    },
+    "closedAt": "2019-06-21T06:22:05Z",
+    "createdAt": "2019-05-14T05:09:06Z",
+    "labels": [],
+    "number": 2073,
+    "title": "Check null for attribute in JsonPath not work"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0Mjg4OTUz",
+      "is_bot": false,
+      "login": "slava-osipov-qs",
+      "name": "Slava Osipov"
+    },
+    "closedAt": "2019-05-15T15:27:53Z",
+    "createdAt": "2019-05-11T19:00:01Z",
+    "labels": [],
+    "number": 2070,
+    "title": "Problem with deserialization when constructor has default argument"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc1MTc1MzI=",
+      "is_bot": false,
+      "login": "eivindjk",
+      "name": "Eivind Jahr Kirkeby"
+    },
+    "closedAt": "2019-05-10T13:42:53Z",
+    "createdAt": "2019-05-10T09:06:12Z",
+    "labels": [],
+    "number": 2069,
+    "title": "Bug in serialization of dependencies in JSchema"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI3OTUzMzAy",
+      "is_bot": false,
+      "login": "irongut",
+      "name": ""
+    },
+    "closedAt": "2019-05-03T23:52:43Z",
+    "createdAt": "2019-05-03T22:54:46Z",
+    "labels": [],
+    "number": 2063,
+    "title": "JsonReaderException thrown in Release builds"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1OTU0MA==",
+      "is_bot": false,
+      "login": "SetoKaiba",
+      "name": ""
+    },
+    "closedAt": "2019-04-25T03:49:15Z",
+    "createdAt": "2019-04-24T16:00:59Z",
+    "labels": [],
+    "number": 2057,
+    "title": "Can't build the latest revision. "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQzODkxNTY=",
+      "is_bot": false,
+      "login": "makotech222",
+      "name": "Anon"
+    },
+    "closedAt": "2019-04-18T20:22:13Z",
+    "createdAt": "2019-04-18T19:39:47Z",
+    "labels": [],
+    "number": 2047,
+    "title": "JToken.DeepEquals fails for JToken with TimeSpan, when converted to string and back"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQxNTkwMDEy",
+      "is_bot": false,
+      "login": "pinath88",
+      "name": ""
+    },
+    "closedAt": "2019-08-18T06:07:54Z",
+    "createdAt": "2019-04-12T17:15:08Z",
+    "labels": [],
+    "number": 2043,
+    "title": "JArrray's Merge() implementation clears out array when merged with itself"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg4MDY1MzE=",
+      "is_bot": false,
+      "login": "yezi34880",
+      "name": "Luckyu"
+    },
+    "closedAt": "2019-04-12T03:42:12Z",
+    "createdAt": "2019-04-12T03:31:34Z",
+    "labels": [],
+    "number": 2042,
+    "title": "序列化Int64类型时数据不对，会有精度丢失，必须重写，转换为string序列化"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM0NjY0MDA3",
+      "is_bot": false,
+      "login": "TysonMN",
+      "name": "Tyson Williams"
+    },
+    "closedAt": "2019-04-04T17:19:48Z",
+    "createdAt": "2019-04-04T12:10:52Z",
+    "labels": [],
+    "number": 2037,
+    "title": "Computed properties are serialized"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUzNTI5ODA=",
+      "is_bot": false,
+      "login": "ysmoradi",
+      "name": "Yaser Moradi"
+    },
+    "closedAt": "2019-08-19T00:57:10Z",
+    "createdAt": "2019-04-01T14:18:22Z",
+    "labels": [],
+    "number": 2034,
+    "title": "Deserialization works on .net and mono but not .net core"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwMzIwMQ==",
+      "is_bot": false,
+      "login": "JamesNK",
+      "name": "James Newton-King"
+    },
+    "closedAt": "2019-10-05T23:51:57Z",
+    "createdAt": "2019-03-31T09:42:31Z",
+    "labels": [],
+    "number": 2032,
+    "title": "Publish symbols package"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwNjcwNDE=",
+      "is_bot": false,
+      "login": "BillBaird",
+      "name": "billbaird"
+    },
+    "closedAt": "2019-03-31T21:44:04Z",
+    "createdAt": "2019-03-30T00:17:59Z",
+    "labels": [],
+    "number": 2024,
+    "title": "JObject.ToObject<T> incorrectly deserializes string containing a date"
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2019-03-30T06:20:53Z",
+    "createdAt": "2019-03-29T13:18:28Z",
+    "labels": [],
+    "number": 2023,
+    "title": "JsonObjectAttribute.Id - What can it be used for?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3MTI2NDc3",
+      "is_bot": false,
+      "login": "ethylon",
+      "name": "Mathieu Guey"
+    },
+    "closedAt": "2019-03-30T06:05:51Z",
+    "createdAt": "2019-03-28T10:49:55Z",
+    "labels": [],
+    "number": 2022,
+    "title": "Bug C#: Dictionary with tuple key"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3MTkzNDMx",
+      "is_bot": false,
+      "login": "olivermue",
+      "name": "Oliver"
+    },
+    "closedAt": "2019-03-26T00:14:28Z",
+    "createdAt": "2019-03-25T15:11:10Z",
+    "labels": [],
+    "number": 2021,
+    "title": "JsonConvert.DeserializeObject<bool>(\"True\") throws JsonReaderException"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyODg4Mjc1",
+      "is_bot": false,
+      "login": "zuozhiwen",
+      "name": ""
+    },
+    "closedAt": "2019-03-28T09:25:55Z",
+    "createdAt": "2019-03-21T07:40:26Z",
+    "labels": [],
+    "number": 2019,
+    "title": "Input string '24.00' is not a valid integer. "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgxMTAzNjg=",
+      "is_bot": false,
+      "login": "Phreak87",
+      "name": "Markus Eckl"
+    },
+    "closedAt": "2019-03-20T20:37:18Z",
+    "createdAt": "2019-03-20T20:36:54Z",
+    "labels": [],
+    "number": 2018,
+    "title": "Buy more RAM."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5MzcwNjM2",
+      "is_bot": false,
+      "login": "ddrdoubled",
+      "name": ""
+    },
+    "closedAt": "2019-03-30T06:30:03Z",
+    "createdAt": "2019-03-20T07:49:26Z",
+    "labels": [],
+    "number": 2017,
+    "title": "ShouldSerialize Runtime Exception Nullable Type"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3MDUxOTgx",
+      "is_bot": false,
+      "login": "teejay-87",
+      "name": ""
+    },
+    "closedAt": "2019-03-20T02:51:21Z",
+    "createdAt": "2019-03-18T11:03:37Z",
+    "labels": [],
+    "number": 2014,
+    "title": "Why csproj is still at version 11.0.1 beta2?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2NzkwOTM=",
+      "is_bot": false,
+      "login": "newpost",
+      "name": "hiboy"
+    },
+    "closedAt": "2019-03-20T03:56:29Z",
+    "createdAt": "2019-03-14T01:44:56Z",
+    "labels": [],
+    "number": 2012,
+    "title": "Why does Newtonsoft.Json serializes byte[] as base64 but sbyte[] not?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1NjcxNTY5",
+      "is_bot": false,
+      "login": "peter-perot",
+      "name": ""
+    },
+    "closedAt": "2019-03-13T18:14:31Z",
+    "createdAt": "2019-03-13T17:41:03Z",
+    "labels": [],
+    "number": 2010,
+    "title": "JToken.ToObject ignores MissingPropertyHandling.Error"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc1OTUyMDk=",
+      "is_bot": false,
+      "login": "BlaiseD",
+      "name": "Blaise Taylor"
+    },
+    "closedAt": "2019-03-03T21:31:11Z",
+    "createdAt": "2019-03-03T20:07:22Z",
+    "labels": [],
+    "number": 2001,
+    "title": "Unresolved P/Invoke method"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExMjg5MTU4",
+      "is_bot": false,
+      "login": "PMExtra",
+      "name": "PM Extra"
+    },
+    "closedAt": "2019-03-03T03:59:47Z",
+    "createdAt": "2019-02-28T13:06:48Z",
+    "labels": [],
+    "number": 1999,
+    "title": "I want JsonConvert to be an object instance."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQwNjAwNw==",
+      "is_bot": false,
+      "login": "DalSoft",
+      "name": "Darran"
+    },
+    "closedAt": "2019-03-24T17:06:10Z",
+    "createdAt": "2019-02-27T12:51:17Z",
+    "labels": [],
+    "number": 1998,
+    "title": "JsonExtensionData ignores NamingStrategy for dictionaries"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExMjk5OTc1",
+      "is_bot": false,
+      "login": "lcsondes",
+      "name": ""
+    },
+    "closedAt": "2021-02-23T09:41:08Z",
+    "createdAt": "2019-02-25T13:34:54Z",
+    "labels": [],
+    "number": 1997,
+    "title": "NullValueHandling.Ignore doesn't ignore nulls"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNjM2MDk=",
+      "is_bot": false,
+      "login": "mantasaudickas",
+      "name": "Mantas Audickas"
+    },
+    "closedAt": "2019-03-30T06:30:38Z",
+    "createdAt": "2019-02-22T11:18:55Z",
+    "labels": [],
+    "number": 1991,
+    "title": "Memory leak using enumeration in Newtonsoft.Json v12"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgzNDQ5NjM=",
+      "is_bot": false,
+      "login": "niranjan-sharma",
+      "name": "Niranjan Kumar Sharma"
+    },
+    "closedAt": "2019-02-19T18:31:37Z",
+    "createdAt": "2019-02-19T16:15:46Z",
+    "labels": [],
+    "number": 1987,
+    "title": "Deserialize fails with Overloaded Constructors  "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyMzcwMTk=",
+      "is_bot": false,
+      "login": "Galad",
+      "name": "Lucas Loegel"
+    },
+    "closedAt": "2019-03-30T04:01:45Z",
+    "createdAt": "2019-02-17T00:09:35Z",
+    "labels": [],
+    "number": 1984,
+    "title": "Deserializing a null JSON property to a nullable ImmutableArray throws an exception"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2MDE3ODI1",
+      "is_bot": false,
+      "login": "Sin333",
+      "name": "Ilya Ermoshin"
+    },
+    "closedAt": "2019-02-12T18:13:33Z",
+    "createdAt": "2019-02-12T11:56:05Z",
+    "labels": [],
+    "number": 1982,
+    "title": ".net standart 2.0"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM3OTc2ODk4",
+      "is_bot": false,
+      "login": "LucaGabi",
+      "name": ""
+    },
+    "closedAt": "2019-02-09T03:13:32Z",
+    "createdAt": "2019-02-09T03:00:16Z",
+    "labels": [],
+    "number": 1977,
+    "title": "Serialize with references bug"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4NTY3NTEx",
+      "is_bot": false,
+      "login": "ivanromakh",
+      "name": ""
+    },
+    "closedAt": "2019-02-06T10:59:23Z",
+    "createdAt": "2019-02-06T10:52:00Z",
+    "labels": [],
+    "number": 1975,
+    "title": "Have problem with searilization."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM3OTc2ODk4",
+      "is_bot": false,
+      "login": "LucaGabi",
+      "name": ""
+    },
+    "closedAt": "2019-02-09T03:10:05Z",
+    "createdAt": "2019-02-01T14:19:26Z",
+    "labels": [],
+    "number": 1973,
+    "title": "Deserialize bug"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU2NTg1NjM=",
+      "is_bot": false,
+      "login": "danebou",
+      "name": "Dane Bouchie"
+    },
+    "closedAt": "2021-06-30T14:08:52Z",
+    "createdAt": "2019-01-31T20:11:02Z",
+    "labels": [],
+    "number": 1972,
+    "title": "Cross Platform Primitive Types with Generics"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc5MTIy",
+      "is_bot": false,
+      "login": "kae",
+      "name": "Andrey Kuznetsov"
+    },
+    "closedAt": "2019-09-29T22:45:20Z",
+    "createdAt": "2019-01-22T03:59:31Z",
+    "labels": [],
+    "number": 1962,
+    "title": "12.0.1 - Endless loop in JToken.ToObject<T> from JToken with comments at start"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwOTEwOTY4",
+      "is_bot": false,
+      "login": "takato1314",
+      "name": "Alex Soh"
+    },
+    "closedAt": "2019-01-19T13:02:38Z",
+    "createdAt": "2019-01-16T08:15:17Z",
+    "labels": [],
+    "number": 1959,
+    "title": "JsonConvert.SerializeObject() does not serialize nested object types properly"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyODg0OA==",
+      "is_bot": false,
+      "login": "rvaidya",
+      "name": "Rahul Vaidya"
+    },
+    "closedAt": "2019-01-10T22:29:24Z",
+    "createdAt": "2019-01-10T21:37:34Z",
+    "labels": [],
+    "number": 1957,
+    "title": "Cannot binary serialize the output of JsonConvert.DeserializeObject"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExODQ4Mjc=",
+      "is_bot": false,
+      "login": "borbmizzet",
+      "name": "Jon Geller"
+    },
+    "closedAt": "2019-01-09T14:17:25Z",
+    "createdAt": "2019-01-09T13:56:45Z",
+    "labels": [],
+    "number": 1954,
+    "title": "JsonConvert.SerializeObject is ignoring CamelCasePropertyNamesContractResolver for dynamic objects."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4MDkzMTYz",
+      "is_bot": false,
+      "login": "Sakamaki-Izayoi",
+      "name": ""
+    },
+    "closedAt": "2019-01-06T02:48:58Z",
+    "createdAt": "2019-01-04T13:58:40Z",
+    "labels": [],
+    "number": 1953,
+    "title": "Crash in C# Class Library when i use it..."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc5MDE1MjU=",
+      "is_bot": false,
+      "login": "fuhongbo",
+      "name": ""
+    },
+    "closedAt": "2019-01-02T19:18:19Z",
+    "createdAt": "2018-12-30T10:24:47Z",
+    "labels": [],
+    "number": 1951,
+    "title": "Newtonsoft.Json.JsonReaderException: 'Input string '2.245E+34' is not a valid decimal"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1MDg4Mg==",
+      "is_bot": false,
+      "login": "cecilphillip",
+      "name": "Cecil Phillip"
+    },
+    "closedAt": "2018-12-19T03:02:35Z",
+    "createdAt": "2018-12-19T02:56:01Z",
+    "labels": [],
+    "number": 1944,
+    "title": "ArgumentOutOfRangeException with KeyValuePairConverter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5NTUyMTgw",
+      "is_bot": false,
+      "login": "radsolution",
+      "name": ""
+    },
+    "closedAt": "2018-12-28T20:20:37Z",
+    "createdAt": "2018-12-18T12:01:29Z",
+    "labels": [],
+    "number": 1942,
+    "title": "JsonWriter mis-handles control characters"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY4NTU2OTI=",
+      "is_bot": false,
+      "login": "goldmont",
+      "name": "Giuseppe Montuoro"
+    },
+    "closedAt": "2019-03-21T14:36:43Z",
+    "createdAt": "2018-12-14T10:12:41Z",
+    "labels": [],
+    "number": 1941,
+    "title": "ShouldSerializeAProperty() method not called if marked as internal"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MzI0ODY=",
+      "is_bot": false,
+      "login": "heaths",
+      "name": "Heath Stewart"
+    },
+    "closedAt": "2018-12-08T22:55:25Z",
+    "createdAt": "2018-12-07T03:34:21Z",
+    "labels": [],
+    "number": 1938,
+    "title": "Cannot turn off line info, creating major GC pressure"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0MTkyMTYx",
+      "is_bot": false,
+      "login": "jbrink90",
+      "name": ""
+    },
+    "closedAt": "2018-12-08T22:59:31Z",
+    "createdAt": "2018-12-06T15:34:21Z",
+    "labels": [],
+    "number": 1937,
+    "title": "Serialized class to JArray"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU3MTQ0Mzg=",
+      "is_bot": false,
+      "login": "Varorbc",
+      "name": "Varorbc"
+    },
+    "closedAt": "2018-12-08T23:02:53Z",
+    "createdAt": "2018-12-05T10:28:08Z",
+    "labels": [],
+    "number": 1934,
+    "title": "Unexpected character encountered while parsing value"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5NDU0MTI3",
+      "is_bot": false,
+      "login": "jrrcdev",
+      "name": "Jonatan "
+    },
+    "closedAt": "2021-03-09T06:03:25Z",
+    "createdAt": "2018-11-30T11:02:45Z",
+    "labels": [],
+    "number": 1929,
+    "title": "ReferenceLoopHandling.Ignore not working"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2ODU1NzE5",
+      "is_bot": false,
+      "login": "alexdawes",
+      "name": ""
+    },
+    "closedAt": "2019-10-05T08:51:32Z",
+    "createdAt": "2018-11-22T15:36:42Z",
+    "labels": [],
+    "number": 1920,
+    "title": "OverrideSpecifiedNames and ProcessDictionaryKeys default value on CamelCasePropertyNamesContractResolver"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4MTI1MTU4",
+      "is_bot": false,
+      "login": "kundaiAtPropertyMe",
+      "name": ""
+    },
+    "closedAt": "2018-11-24T21:24:49Z",
+    "createdAt": "2018-11-21T03:20:27Z",
+    "labels": [],
+    "number": 1919,
+    "title": "Input string '2018-07-23' is not a valid number.  Version: 11.0.2 , .net core 2.0.0"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwNDEzOTc=",
+      "is_bot": false,
+      "login": "martinsuchan",
+      "name": "Martin Suchan"
+    },
+    "closedAt": "2018-11-24T21:27:13Z",
+    "createdAt": "2018-11-18T17:30:21Z",
+    "labels": [],
+    "number": 1917,
+    "title": "\"Unresolved P/Invoke method\" warnings when compiling for ARM64"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNzgyNzgw",
+      "is_bot": false,
+      "login": "CodeCocoa",
+      "name": ""
+    },
+    "closedAt": "2018-11-07T16:43:18Z",
+    "createdAt": "2018-11-07T08:32:16Z",
+    "labels": [],
+    "number": 1913,
+    "title": "Strange DeserializeAnonymousType()"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM5MDQwNDM=",
+      "is_bot": false,
+      "login": "isen-ng",
+      "name": "Isen"
+    },
+    "closedAt": "2018-11-13T00:37:01Z",
+    "createdAt": "2018-11-07T04:23:20Z",
+    "labels": [],
+    "number": 1912,
+    "title": "ContractResolver.DefaultMembersSearchFlags is obsolete: GetSerializableMembers seems non-trivial to override"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3ODg5Njkz",
+      "is_bot": false,
+      "login": "patrickcarnahan",
+      "name": "Patrick Carnahan"
+    },
+    "closedAt": "2019-03-04T16:56:35Z",
+    "createdAt": "2018-11-05T15:33:13Z",
+    "labels": [],
+    "number": 1911,
+    "title": "FEATURE: Provide control to opt-in/opt-out of json path features"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQyNDEzOTQ=",
+      "is_bot": false,
+      "login": "foote-Greg",
+      "name": "Greg Foote"
+    },
+    "closedAt": "2018-11-24T21:26:33Z",
+    "createdAt": "2018-11-03T22:10:15Z",
+    "labels": [],
+    "number": 1910,
+    "title": "ASP.Net Core 2.1 - Is it possible to use DI inside of a custom JsonConverter class "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyODExNTc=",
+      "is_bot": false,
+      "login": "Kunze",
+      "name": "Murilo Kunze"
+    },
+    "closedAt": "2018-11-02T21:50:21Z",
+    "createdAt": "2018-11-02T20:19:08Z",
+    "labels": [],
+    "number": 1908,
+    "title": "CamelCasePropertyNamesContractResolver does not work with JToken"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5MTk0NzM=",
+      "is_bot": false,
+      "login": "arturenault",
+      "name": "Artur Upton Renault"
+    },
+    "closedAt": "2018-11-25T04:45:01Z",
+    "createdAt": "2018-11-02T16:38:07Z",
+    "labels": [],
+    "number": 1907,
+    "title": "Bug when serializing JsonExtensionData of a class with a readonly property"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ0NjgxMDM0",
+      "is_bot": false,
+      "login": "188876662287",
+      "name": ""
+    },
+    "closedAt": "2018-11-13T00:37:49Z",
+    "createdAt": "2018-11-01T18:34:58Z",
+    "labels": [],
+    "number": 1906,
+    "title": "Bad JSON escape sequence: \\p. Path '[0].Annex', line 1, position 302"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM3MjM2MjA1",
+      "is_bot": false,
+      "login": "maggo23",
+      "name": "maggo23"
+    },
+    "closedAt": "2018-11-13T00:39:26Z",
+    "createdAt": "2018-11-01T14:58:39Z",
+    "labels": [],
+    "number": 1904,
+    "title": "Reading decimal.MaxValue results in a System.OverflowException"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM4MTM4OTU=",
+      "is_bot": false,
+      "login": "sksallaj82",
+      "name": ""
+    },
+    "closedAt": "2018-10-28T22:59:28Z",
+    "createdAt": "2018-10-28T15:23:39Z",
+    "labels": [],
+    "number": 1901,
+    "title": "Wrong error message: Newtonsoft.Json.JsonSerializationException: 'A member with the name 'X' already exists on 'Model.Y'"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1NDg=",
+      "is_bot": false,
+      "login": "AArnott",
+      "name": "Andrew Arnott"
+    },
+    "closedAt": "2018-10-28T22:56:03Z",
+    "createdAt": "2018-10-28T00:23:52Z",
+    "labels": [],
+    "number": 1898,
+    "title": "Newtonsoft.Json fails serialization on Stream.ReadTimeout"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ2OTE4NjU=",
+      "is_bot": false,
+      "login": "superstator",
+      "name": "Adrian Black"
+    },
+    "closedAt": "2018-10-27T05:31:33Z",
+    "createdAt": "2018-10-27T00:54:16Z",
+    "labels": [],
+    "number": 1896,
+    "title": "Cannot serialize custom exception types under .NET Core"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzNTY0NzY=",
+      "is_bot": false,
+      "login": "sunyutj",
+      "name": ""
+    },
+    "closedAt": "2018-10-27T04:45:30Z",
+    "createdAt": "2018-10-24T18:16:25Z",
+    "labels": [],
+    "number": 1894,
+    "title": "JToken.toString() issue with Boolean type"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY3MjQxNTc=",
+      "is_bot": false,
+      "login": "Myrkai",
+      "name": ""
+    },
+    "closedAt": "2019-11-09T00:18:39Z",
+    "createdAt": "2018-10-23T09:41:06Z",
+    "labels": [],
+    "number": 1892,
+    "title": "Failed to Load Schema with Self Reference"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0MTMwODI=",
+      "is_bot": false,
+      "login": "thdotnet",
+      "name": "Thiago Custodio"
+    },
+    "closedAt": "2018-10-27T04:44:53Z",
+    "createdAt": "2018-10-19T21:13:49Z",
+    "labels": [],
+    "number": 1890,
+    "title": "JsonConvert.DeserializeObject<dynamic> issue"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxNTYzMzMx",
+      "is_bot": false,
+      "login": "sorgpro",
+      "name": ""
+    },
+    "closedAt": "2018-10-27T04:42:45Z",
+    "createdAt": "2018-10-19T18:02:27Z",
+    "labels": [],
+    "number": 1889,
+    "title": "Continuing the subject: Fixed serializing abstract base class ISerializable on .NET Core #1712"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQyMjQ3MzUz",
+      "is_bot": false,
+      "login": "TilkID",
+      "name": "Tilk"
+    },
+    "closedAt": "2018-10-27T02:04:47Z",
+    "createdAt": "2018-10-17T11:28:42Z",
+    "labels": [],
+    "number": 1886,
+    "title": "Application freeze/deadlock when attempting JsonConvert.DeserializeObject<Task<Foo>>"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ2MTU3OQ==",
+      "is_bot": false,
+      "login": "julealgon",
+      "name": "Juliano Leal Goncalves"
+    },
+    "closedAt": "2018-10-27T04:44:22Z",
+    "createdAt": "2018-10-15T17:35:49Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwzNjYwODQ3NzE=",
+        "name": "documentation",
+        "description": "",
+        "color": "5319e7"
+      }
+    ],
+    "number": 1883,
+    "title": "Missing exception documentation on 'JsonConvert.DeserializeObject'"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUyMTczNjY=",
+      "is_bot": false,
+      "login": "BrainSlugs83",
+      "name": "Mikey"
+    },
+    "closedAt": "2018-10-14T08:26:00Z",
+    "createdAt": "2018-10-12T20:53:16Z",
+    "labels": [],
+    "number": 1877,
+    "title": "JsonIgnore attribute on shadowed properties breaks deserialization."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ0MDk3MTYw",
+      "is_bot": false,
+      "login": "lakka123",
+      "name": ""
+    },
+    "closedAt": "2018-10-27T04:45:55Z",
+    "createdAt": "2018-10-12T16:45:03Z",
+    "labels": [],
+    "number": 1875,
+    "title": "Hi CPU "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY1OTEzNA==",
+      "is_bot": false,
+      "login": "yuretz",
+      "name": ""
+    },
+    "closedAt": "2018-10-14T01:28:32Z",
+    "createdAt": "2018-10-12T09:29:31Z",
+    "labels": [],
+    "number": 1874,
+    "title": "JsonConvert.PopulateObject() doesn't play nicely with JsonExtensionDataAttribute"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg4NDAwMjQ=",
+      "is_bot": false,
+      "login": "dylanh724",
+      "name": "Dylan Hunt"
+    },
+    "closedAt": "2018-10-27T04:51:30Z",
+    "createdAt": "2018-10-12T05:38:13Z",
+    "labels": [],
+    "number": 1873,
+    "title": "Bad deserializing will SKIP try/catch completely: No exception thrown!"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ0NzI1MQ==",
+      "is_bot": false,
+      "login": "chrischu",
+      "name": "Christian Liberto"
+    },
+    "closedAt": "2018-10-14T01:30:30Z",
+    "createdAt": "2018-10-10T14:54:26Z",
+    "labels": [],
+    "number": 1869,
+    "title": "Provide a way to configure how byte[] is serialized"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1ODg3Njc4",
+      "is_bot": false,
+      "login": "JohnRusk",
+      "name": "John Rusk"
+    },
+    "closedAt": "2018-10-27T04:51:15Z",
+    "createdAt": "2018-10-09T22:45:07Z",
+    "labels": [],
+    "number": 1868,
+    "title": "Error handler can't skip certain malformed string values"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQyNzcyODEz",
+      "is_bot": false,
+      "login": "byrcb",
+      "name": ""
+    },
+    "closedAt": "2018-10-06T07:46:01Z",
+    "createdAt": "2018-10-04T07:02:36Z",
+    "labels": [],
+    "number": 1863,
+    "title": "IOS DateTimeOffset deserialization reflection"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0Mjk1ODA0",
+      "is_bot": false,
+      "login": "poulad",
+      "name": "Poulad Ashrafpour"
+    },
+    "closedAt": "2018-10-21T05:27:00Z",
+    "createdAt": "2018-10-02T02:07:23Z",
+    "labels": [],
+    "number": 1862,
+    "title": "[Feature] StringEnumConverter takes a NamingStrategy argument"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExNzUyMzky",
+      "is_bot": false,
+      "login": "Jarrich",
+      "name": "Jarrich Van De Voorde"
+    },
+    "closedAt": "2018-10-14T08:25:41Z",
+    "createdAt": "2018-10-01T07:04:55Z",
+    "labels": [],
+    "number": 1861,
+    "title": "Deserializing very simple JSON back to type changes content of List<> property"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk2NzI1Mg==",
+      "is_bot": false,
+      "login": "neshmonin",
+      "name": "Alexander Neshmonin"
+    },
+    "closedAt": "2018-10-06T07:37:46Z",
+    "createdAt": "2018-09-29T03:07:16Z",
+    "labels": [],
+    "number": 1860,
+    "title": "JsonSerializationException at deserialization of a property of name Data"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1OTA1",
+      "is_bot": false,
+      "login": "lanwin",
+      "name": "Steve Wagner"
+    },
+    "closedAt": "2018-10-06T07:39:20Z",
+    "createdAt": "2018-09-28T20:22:09Z",
+    "labels": [],
+    "number": 1859,
+    "title": "Support distinguish between undefined and null in poco's"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2ODgyODU1",
+      "is_bot": false,
+      "login": "luizfbicalho",
+      "name": "Luiz Fernando Bicalho"
+    },
+    "closedAt": "2018-10-06T07:43:59Z",
+    "createdAt": "2018-09-26T20:55:34Z",
+    "labels": [],
+    "number": 1856,
+    "title": "Different result from jsonpath.com and SelectTokens"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0ODc5MTYz",
+      "is_bot": false,
+      "login": "guylando",
+      "name": "Guy Lando"
+    },
+    "closedAt": "2018-09-26T18:32:01Z",
+    "createdAt": "2018-09-26T18:27:02Z",
+    "labels": [],
+    "number": 1855,
+    "title": "Bug deserializing TimeSpan"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwOTgxMzQ=",
+      "is_bot": false,
+      "login": "GomesNayagam",
+      "name": "GomesNayagam"
+    },
+    "closedAt": "2018-10-27T05:31:33Z",
+    "createdAt": "2018-09-26T01:53:41Z",
+    "labels": [],
+    "number": 1854,
+    "title": "Jsonconvert.seralizeobject include targetsite so exception is huge in size."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1MTY0NA==",
+      "is_bot": false,
+      "login": "abatishchev",
+      "name": "Alexander Batishchev"
+    },
+    "closedAt": "2018-09-22T15:05:37Z",
+    "createdAt": "2018-09-21T17:46:41Z",
+    "labels": [],
+    "number": 1847,
+    "title": "Deserialize all dictionaries as case-insensetive?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4NTYzNDc4",
+      "is_bot": false,
+      "login": "remy-burney-pf",
+      "name": "Remy Burney"
+    },
+    "closedAt": "2018-09-22T06:18:59Z",
+    "createdAt": "2018-09-21T01:10:55Z",
+    "labels": [],
+    "number": 1846,
+    "title": "Invalid JToken.Path when using special characters"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MzI0ODY=",
+      "is_bot": false,
+      "login": "heaths",
+      "name": "Heath Stewart"
+    },
+    "closedAt": "2018-09-22T06:18:48Z",
+    "createdAt": "2018-09-20T23:30:44Z",
+    "labels": [],
+    "number": 1845,
+    "title": "Optionally ignore $schema and $comment declarations"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUyMTM0NzY=",
+      "is_bot": false,
+      "login": "Yoztastic",
+      "name": "Simon Pettman"
+    },
+    "closedAt": "2018-10-06T07:46:14Z",
+    "createdAt": "2018-09-20T13:28:20Z",
+    "labels": [],
+    "number": 1844,
+    "title": "JsonSerializerInternalReader EnsureType shows confusing message"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMTM1Mzk1",
+      "is_bot": false,
+      "login": "bigworld12",
+      "name": ""
+    },
+    "closedAt": "2018-09-19T20:49:19Z",
+    "createdAt": "2018-09-19T15:20:10Z",
+    "labels": [],
+    "number": 1841,
+    "title": "serializer is handling `PreserveReferencesHandling` and `ReferenceLoopHandling` wrong"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgwNDk4OTY=",
+      "is_bot": false,
+      "login": "eaba",
+      "name": "Ebere Abanonu"
+    },
+    "closedAt": "2018-09-19T20:40:17Z",
+    "createdAt": "2018-09-19T12:51:21Z",
+    "labels": [],
+    "number": 1840,
+    "title": "system.collection.immutable immutabledictionary issues"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwNTMzMA==",
+      "is_bot": false,
+      "login": "hultqvist",
+      "name": "Peter Hultqvist"
+    },
+    "closedAt": "2025-07-15T18:29:28Z",
+    "createdAt": "2018-09-19T10:31:56Z",
+    "labels": [],
+    "number": 1839,
+    "title": "JsonIgnore and JsonProperty conflict for case insensitive properties."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3NzgxMDg=",
+      "is_bot": false,
+      "login": "WillSullivan",
+      "name": "Will Sullivan"
+    },
+    "closedAt": "2018-10-07T03:22:14Z",
+    "createdAt": "2018-09-17T20:36:33Z",
+    "labels": [],
+    "number": 1835,
+    "title": "Identity operator not supported in JPath query"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5MTQyMjY=",
+      "is_bot": false,
+      "login": "blazcowicz",
+      "name": "blazcowicz"
+    },
+    "closedAt": "2018-09-22T19:34:47Z",
+    "createdAt": "2018-09-17T17:38:52Z",
+    "labels": [],
+    "number": 1834,
+    "title": "JsonExtensionData contains undesired values when using a JsonConstructor with parameters"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMjQwOTQ=",
+      "is_bot": false,
+      "login": "kvattikuti",
+      "name": ""
+    },
+    "closedAt": "2018-09-20T07:21:17Z",
+    "createdAt": "2018-09-17T17:11:47Z",
+    "labels": [],
+    "number": 1833,
+    "title": "Merge fails on Arrays when the property name differs in case"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyNzE1Mjk=",
+      "is_bot": false,
+      "login": "HampusLilja",
+      "name": ""
+    },
+    "closedAt": "2018-09-19T20:32:16Z",
+    "createdAt": "2018-09-17T12:52:40Z",
+    "labels": [],
+    "number": 1832,
+    "title": "Serialized Array is wrapped in $values when TypeNameHandling.Auto while List is not"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwNjY2OA==",
+      "is_bot": false,
+      "login": "bartelink",
+      "name": "Ruben Bartelink"
+    },
+    "closedAt": "2018-09-22T15:16:36Z",
+    "createdAt": "2018-09-14T09:44:26Z",
+    "labels": [],
+    "number": 1827,
+    "title": "How to declaratively apply Converters to a Type or Member recursively"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyNDMzNjY2",
+      "is_bot": false,
+      "login": "ccroy",
+      "name": "ccroy"
+    },
+    "closedAt": "2018-09-12T21:03:58Z",
+    "createdAt": "2018-09-12T19:51:49Z",
+    "labels": [],
+    "number": 1824,
+    "title": "Passing \"[]\" to JObject.Parse Throws Exception"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM0MTc3ODE=",
+      "is_bot": false,
+      "login": "WillGunn",
+      "name": "Will Gunn"
+    },
+    "closedAt": "2018-09-22T15:09:27Z",
+    "createdAt": "2018-09-11T15:32:12Z",
+    "labels": [],
+    "number": 1821,
+    "title": "Allow inheritance from JsonPropertyAttribute"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY0Njg5MDA=",
+      "is_bot": false,
+      "login": "Sumedh31",
+      "name": "Sumedh Tambe"
+    },
+    "closedAt": "2018-09-20T00:15:10Z",
+    "createdAt": "2018-09-05T10:36:32Z",
+    "labels": [],
+    "number": 1817,
+    "title": "Newtonsoft.Json.DateParseHandling.None tries to find Newtonsoft 6.0.0 even though the project refs is mentioned it to refer to 9.0.0"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUxOTYxMzk=",
+      "is_bot": false,
+      "login": "live1206",
+      "name": "Wei Hu"
+    },
+    "closedAt": "2018-09-16T21:10:34Z",
+    "createdAt": "2018-09-05T08:21:18Z",
+    "labels": [],
+    "number": 1816,
+    "title": "Line info missing for JsonSerializationException"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwMzIwNzc=",
+      "is_bot": false,
+      "login": "chrisban",
+      "name": "Christopher Ban"
+    },
+    "closedAt": "2018-09-05T00:30:51Z",
+    "createdAt": "2018-09-04T21:46:06Z",
+    "labels": [],
+    "number": 1815,
+    "title": "No definition for 'SerializeXNode' in v11.0.2?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzNzQwMTM=",
+      "is_bot": false,
+      "login": "RickStrahl",
+      "name": "Rick Strahl"
+    },
+    "closedAt": "2018-09-17T03:02:04Z",
+    "createdAt": "2018-09-02T19:58:44Z",
+    "labels": [],
+    "number": 1814,
+    "title": "Formatting of JavaScriptDateTimeConverter is incorrect"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQwOTY5NTg=",
+      "is_bot": false,
+      "login": "samrueby",
+      "name": "Sam Rueby"
+    },
+    "closedAt": "2018-09-10T07:43:35Z",
+    "createdAt": "2018-08-30T19:54:36Z",
+    "labels": [],
+    "number": 1812,
+    "title": "JsonTextWriter doesn't dispose TextWriter."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1ODI3MzU3",
+      "is_bot": false,
+      "login": "andre-ss6",
+      "name": "André Silva de Jesus"
+    },
+    "closedAt": "2018-10-14T08:28:37Z",
+    "createdAt": "2018-08-30T15:13:36Z",
+    "labels": [],
+    "number": 1811,
+    "title": "JsonConvert re-uses instances to deserialize"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MTc5ODU1",
+      "is_bot": false,
+      "login": "arrkaye",
+      "name": ""
+    },
+    "closedAt": "2018-09-17T04:01:13Z",
+    "createdAt": "2018-08-30T13:13:18Z",
+    "labels": [],
+    "number": 1810,
+    "title": "Implicit conversion from string for JToken should Parse()?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3MjU4NzY=",
+      "is_bot": false,
+      "login": "OlegUfaev",
+      "name": "Oleg Ufaev"
+    },
+    "closedAt": "2018-09-17T03:04:37Z",
+    "createdAt": "2018-08-29T15:11:24Z",
+    "labels": [],
+    "number": 1809,
+    "title": "Unexpected assemblies loading when deserialize Type class from string"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2ODk2Mzgz",
+      "is_bot": false,
+      "login": "divman25",
+      "name": "Divyansh Manchanda"
+    },
+    "closedAt": "2021-01-17T05:23:20Z",
+    "createdAt": "2018-08-28T09:53:14Z",
+    "labels": [],
+    "number": 1807,
+    "title": "No explicit timeout in new regex functionality"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg2NzY3NDE=",
+      "is_bot": false,
+      "login": "liesauer",
+      "name": "LiesAuer"
+    },
+    "closedAt": "2018-08-20T14:18:35Z",
+    "createdAt": "2018-08-19T07:27:39Z",
+    "labels": [],
+    "number": 1803,
+    "title": "Exception: Could not load type 'System.Runtime.Serialization.SerializationBinder'"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQwMDAyMzQz",
+      "is_bot": false,
+      "login": "MHKarami97",
+      "name": "Mohammad Hossein Karami"
+    },
+    "closedAt": "2018-09-17T04:47:45Z",
+    "createdAt": "2018-08-16T08:07:03Z",
+    "labels": [],
+    "number": 1802,
+    "title": "Convert list to json"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NjUxODM0",
+      "is_bot": false,
+      "login": "goodboy361984",
+      "name": ""
+    },
+    "closedAt": "2018-09-17T10:01:59Z",
+    "createdAt": "2018-08-15T03:07:06Z",
+    "labels": [],
+    "number": 1801,
+    "title": "some test may fail when Environment.NewLine == \"\\r\\n\""
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ4MzcxMzI=",
+      "is_bot": false,
+      "login": "ChrisMaddock",
+      "name": "Chris Maddock"
+    },
+    "closedAt": "2022-01-26T19:23:34Z",
+    "createdAt": "2018-08-14T15:56:17Z",
+    "labels": [],
+    "number": 1799,
+    "title": "ItemConverterType bypassed on deserialization when constructor parameter name equals JSON property name"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NzAyODg=",
+      "is_bot": false,
+      "login": "borrrden",
+      "name": "Jim Borden"
+    },
+    "closedAt": "2018-08-13T23:18:17Z",
+    "createdAt": "2018-08-13T23:09:41Z",
+    "labels": [],
+    "number": 1797,
+    "title": "Trailing zeros cut from serialized date time offset"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMTQ3NjY=",
+      "is_bot": false,
+      "login": "avonwyss",
+      "name": "Arsène von Wyss"
+    },
+    "closedAt": "2018-09-22T21:21:50Z",
+    "createdAt": "2018-08-12T21:27:34Z",
+    "labels": [],
+    "number": 1796,
+    "title": "InvalidOperationException: Unable to cast object of type 'SortedSet<T>' to type 'System.Collections.IList'."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MzAxMDc=",
+      "is_bot": false,
+      "login": "blackorzar",
+      "name": ""
+    },
+    "closedAt": "2018-08-12T20:25:41Z",
+    "createdAt": "2018-08-10T18:40:44Z",
+    "labels": [],
+    "number": 1794,
+    "title": "IndexOf not working on String JArray"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjkwMjg4Mg==",
+      "is_bot": false,
+      "login": "MoshiMoshi0",
+      "name": ""
+    },
+    "closedAt": "2018-08-09T19:29:25Z",
+    "createdAt": "2018-08-09T18:41:20Z",
+    "labels": [],
+    "number": 1793,
+    "title": "JsonReader skips values when deserializing simple list of objects using custom JsonConverter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyNDQyMTA=",
+      "is_bot": false,
+      "login": "botondbotos",
+      "name": "Botond Botos"
+    },
+    "closedAt": "2018-08-08T20:44:03Z",
+    "createdAt": "2018-08-08T19:35:43Z",
+    "labels": [],
+    "number": 1791,
+    "title": "Failed to deserialize object previously serialized with TypeNameHandling.Auto"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUzNjY2MzA=",
+      "is_bot": false,
+      "login": "manikandan05",
+      "name": "manikandan"
+    },
+    "closedAt": "2018-10-27T05:29:50Z",
+    "createdAt": "2018-08-06T05:30:21Z",
+    "labels": [],
+    "number": 1788,
+    "title": "JsonConvert.DeserializeObject function throws errors when pass the obsolete enum properties"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM2Njk3NjUy",
+      "is_bot": false,
+      "login": "khannaprashant",
+      "name": ""
+    },
+    "closedAt": "2018-07-28T23:10:37Z",
+    "createdAt": "2018-07-27T12:49:54Z",
+    "labels": [],
+    "number": 1779,
+    "title": "Solution not opening in VisualStudio 2015"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzODY4Njk2",
+      "is_bot": false,
+      "login": "ramkumarxpo",
+      "name": "Ramkumar V"
+    },
+    "closedAt": "2018-07-29T04:00:20Z",
+    "createdAt": "2018-07-26T15:23:50Z",
+    "labels": [],
+    "number": 1778,
+    "title": "Nullable DateTime Value throwing error"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQwNTQ4NDQ=",
+      "is_bot": false,
+      "login": "dermeister0",
+      "name": "Der_Meister"
+    },
+    "closedAt": "2018-07-23T12:05:52Z",
+    "createdAt": "2018-07-23T11:48:38Z",
+    "labels": [],
+    "number": 1775,
+    "title": "Customize DateTimeOffset deserialization with unspecified time zone"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1MDUxMDYz",
+      "is_bot": false,
+      "login": "Faithfinder",
+      "name": "Dmitrii Kartashev"
+    },
+    "closedAt": "2018-07-22T10:11:29Z",
+    "createdAt": "2018-07-21T22:24:07Z",
+    "labels": [],
+    "number": 1774,
+    "title": "StringEnumConverter fails to process nullable enum"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5NDA4NQ==",
+      "is_bot": false,
+      "login": "ststeiger",
+      "name": "Stefan Steiger"
+    },
+    "closedAt": "2018-07-28T23:16:36Z",
+    "createdAt": "2018-07-20T10:23:59Z",
+    "labels": [],
+    "number": 1773,
+    "title": "JsonTextReader- Could we have a way to check if the json-stream is empty ? "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc5MjYzMjE=",
+      "is_bot": false,
+      "login": "roberto-mardeni",
+      "name": "Roberto Mardeni"
+    },
+    "closedAt": "2018-08-06T17:01:06Z",
+    "createdAt": "2018-07-19T17:22:08Z",
+    "labels": [],
+    "number": 1772,
+    "title": "StringEnumConverter in Newtonsoft.Json 11.0.2 does not work as in v9.0.1 for Azure Functions"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ2MjM1Njg=",
+      "is_bot": false,
+      "login": "mektebi",
+      "name": "Muhammet Mektebi"
+    },
+    "closedAt": "2018-07-28T23:18:18Z",
+    "createdAt": "2018-07-19T10:20:48Z",
+    "labels": [],
+    "number": 1771,
+    "title": "Error: newtonsoft.json library it referenced did not contain a reference to monotouch.droid"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1NzM1MTc=",
+      "is_bot": false,
+      "login": "adnan-kamili",
+      "name": "Adnan Kamili"
+    },
+    "closedAt": "2018-07-15T09:49:08Z",
+    "createdAt": "2018-07-15T07:03:14Z",
+    "labels": [],
+    "number": 1767,
+    "title": "Is it possible to change the default fallback strategy if decoding fails?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMjAyNjQy",
+      "is_bot": false,
+      "login": "nuc134r",
+      "name": "Sergio"
+    },
+    "closedAt": "2018-08-06T00:44:03Z",
+    "createdAt": "2018-07-13T01:45:06Z",
+    "labels": [],
+    "number": 1766,
+    "title": "Wrong type of a property on an object makes DeserializeObject hang endlessly"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM4MzcwMw==",
+      "is_bot": false,
+      "login": "johnjaylward",
+      "name": ""
+    },
+    "closedAt": "2018-07-13T14:34:06Z",
+    "createdAt": "2018-07-12T19:34:31Z",
+    "labels": [],
+    "number": 1765,
+    "title": "DateParseHandling does not appear to work"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzODAxODMz",
+      "is_bot": false,
+      "login": "yahya99223",
+      "name": "Yahya Alhaj Hussein"
+    },
+    "closedAt": "2018-07-13T11:03:25Z",
+    "createdAt": "2018-07-11T11:33:54Z",
+    "labels": [],
+    "number": 1764,
+    "title": "yyyyMMddTHHmmssZ ISO8601 is not supported by default by IsoDateTimeConverter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjkxNTk0NTI=",
+      "is_bot": false,
+      "login": "isdaniel",
+      "name": "石秉修(PING-HSIU SHIH)"
+    },
+    "closedAt": "2018-08-06T01:25:27Z",
+    "createdAt": "2018-07-10T07:36:49Z",
+    "labels": [],
+    "number": 1763,
+    "title": "Couldn't parse empty array into DataTable by JsonConvert.DeserializeObject<T> function."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU3OTY4MTc=",
+      "is_bot": false,
+      "login": "baldodavi",
+      "name": ""
+    },
+    "closedAt": "2018-07-28T23:19:23Z",
+    "createdAt": "2018-07-04T11:06:36Z",
+    "labels": [],
+    "number": 1760,
+    "title": "Issue with Nullable<long>[]"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxNjIxODg=",
+      "is_bot": false,
+      "login": "seebosmile",
+      "name": "seebosmile"
+    },
+    "closedAt": "2018-07-06T02:22:32Z",
+    "createdAt": "2018-07-04T02:24:53Z",
+    "labels": [],
+    "number": 1759,
+    "title": "nuget Newtonsoft.Json 11.0.2  not support in  .NET Core 2.1 Solution"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3NjM0NDg=",
+      "is_bot": false,
+      "login": "marioleed",
+      "name": "Mario Sannum"
+    },
+    "closedAt": "2018-07-28T23:37:11Z",
+    "createdAt": "2018-07-03T13:52:43Z",
+    "labels": [],
+    "number": 1758,
+    "title": "UnixDateTimeConverter feature JsonToken.Date"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2Mzk5MzE4",
+      "is_bot": false,
+      "login": "springy76",
+      "name": "Springy"
+    },
+    "closedAt": "2018-11-25T02:27:12Z",
+    "createdAt": "2018-07-02T15:00:13Z",
+    "labels": [],
+    "number": 1757,
+    "title": "InvalidProgramException \"Cannot create boxed ByRef-like values\" for netcoreapp2.1"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIzMjIwNTE3",
+      "is_bot": false,
+      "login": "dco123",
+      "name": ""
+    },
+    "closedAt": "2018-07-29T00:00:15Z",
+    "createdAt": "2018-06-29T22:28:23Z",
+    "labels": [],
+    "number": 1753,
+    "title": "IndexOutOfRangeException in PropertyNameTable.Get()"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMzU0NDg4",
+      "is_bot": false,
+      "login": "raV720",
+      "name": ""
+    },
+    "closedAt": "2018-08-06T03:43:23Z",
+    "createdAt": "2018-06-28T17:04:26Z",
+    "labels": [],
+    "number": 1752,
+    "title": "JSON - deserialization of empty array returns null"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM5MjQ5NDE=",
+      "is_bot": false,
+      "login": "grahamehorner",
+      "name": "Grahame Horner"
+    },
+    "closedAt": "2018-08-06T01:42:09Z",
+    "createdAt": "2018-06-26T09:49:38Z",
+    "labels": [],
+    "number": 1751,
+    "title": "PopulateObject not populating base class properties"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ4MzcxMzI=",
+      "is_bot": false,
+      "login": "ChrisMaddock",
+      "name": "Chris Maddock"
+    },
+    "closedAt": "2018-06-26T09:18:59Z",
+    "createdAt": "2018-06-25T14:28:08Z",
+    "labels": [],
+    "number": 1750,
+    "title": "JToken.DeepEquals(string, string) is order-dependent for JSON fields"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIxMjYxMDA3",
+      "is_bot": false,
+      "login": "sungam3r",
+      "name": "Ivan Maximov"
+    },
+    "closedAt": "2018-07-28T23:41:24Z",
+    "createdAt": "2018-06-23T11:17:11Z",
+    "labels": [],
+    "number": 1749,
+    "title": "Problem with InnerException serialization "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU4MTQ2NDI=",
+      "is_bot": false,
+      "login": "mdavisJr",
+      "name": "Mark Davis"
+    },
+    "closedAt": "2018-08-05T22:41:11Z",
+    "createdAt": "2018-06-23T03:27:16Z",
+    "labels": [],
+    "number": 1748,
+    "title": "Value is Null After Casting With \"as\" Operator"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3NjM0NDg=",
+      "is_bot": false,
+      "login": "marioleed",
+      "name": "Mario Sannum"
+    },
+    "closedAt": "2018-06-25T07:28:14Z",
+    "createdAt": "2018-06-21T12:45:00Z",
+    "labels": [],
+    "number": 1744,
+    "title": "UnixDateTimeConverter serialization bug"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwNDEzOTc=",
+      "is_bot": false,
+      "login": "martinsuchan",
+      "name": "Martin Suchan"
+    },
+    "closedAt": "2018-07-28T23:38:25Z",
+    "createdAt": "2018-06-21T08:14:51Z",
+    "labels": [],
+    "number": 1743,
+    "title": "Wrong targetFramework selected for UWP apps with MinVersion <= 10.0.15063"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQwOTY2NzY=",
+      "is_bot": false,
+      "login": "shravan2x",
+      "name": "Shravan Rajinikanth"
+    },
+    "closedAt": "2018-07-28T23:39:53Z",
+    "createdAt": "2018-06-19T17:44:24Z",
+    "labels": [],
+    "number": 1742,
+    "title": "JsonExtensionData does not support IReadOnlyDictionary<T>"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExOTg5MDcx",
+      "is_bot": false,
+      "login": "ironhide91",
+      "name": "Alex David"
+    },
+    "closedAt": "2018-06-18T07:08:31Z",
+    "createdAt": "2018-06-18T06:25:21Z",
+    "labels": [],
+    "number": 1740,
+    "title": "No JsonConvert.SerializeObject overload method taking both JsonSerializerSettings & JsonConverter's."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIzMDc5MDcz",
+      "is_bot": false,
+      "login": "ImageQC",
+      "name": "Will Stott"
+    },
+    "closedAt": "2018-06-18T07:30:02Z",
+    "createdAt": "2018-06-15T09:23:10Z",
+    "labels": [],
+    "number": 1739,
+    "title": "Cannot use Microsoft.AspNetCore.SignalR with Microsoft.NET.Sdk.Functions due to NewtonSoft.Json version incompatibilites"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIzMDc5MDcz",
+      "is_bot": false,
+      "login": "ImageQC",
+      "name": "Will Stott"
+    },
+    "closedAt": "2018-06-18T07:32:24Z",
+    "createdAt": "2018-06-14T14:25:53Z",
+    "labels": [],
+    "number": 1738,
+    "title": "JsonConvert.Deserialize calls object's default ctor rather than throws when field sets are private"
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2018-06-14T14:20:38Z",
+    "createdAt": "2018-06-13T21:21:58Z",
+    "labels": [],
+    "number": 1737,
+    "title": "System.TypeInitializationException : The type initializer for 'Newtonsoft.Json.Utilities.JavaScriptUtils' threw an exception."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM5MDc3OTEx",
+      "is_bot": false,
+      "login": "puxu1989",
+      "name": ""
+    },
+    "closedAt": "2018-08-06T01:26:29Z",
+    "createdAt": "2018-06-11T04:24:24Z",
+    "labels": [],
+    "number": 1735,
+    "title": "DataTable Contains Datetime Serialization Result Is NULL"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzNTE2NDky",
+      "is_bot": false,
+      "login": "vatsaldesai",
+      "name": ""
+    },
+    "closedAt": "2018-10-14T13:18:45Z",
+    "createdAt": "2018-06-08T09:21:03Z",
+    "labels": [],
+    "number": 1734,
+    "title": "JSON to XML converting with custom tag, JSON:array attribute is not added "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwMjIyMTY=",
+      "is_bot": false,
+      "login": "nsideris",
+      "name": "Nikos sideris"
+    },
+    "closedAt": "2018-08-08T13:21:19Z",
+    "createdAt": "2018-06-05T16:47:11Z",
+    "labels": [],
+    "number": 1733,
+    "title": "Custom JsonConverter fails to deserialize object when using inner properties values"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5MTc0NTI4",
+      "is_bot": false,
+      "login": "YairHalberstadt",
+      "name": "Yair Halberstadt"
+    },
+    "closedAt": "2018-06-18T07:35:45Z",
+    "createdAt": "2018-05-31T07:30:51Z",
+    "labels": [],
+    "number": 1730,
+    "title": "Feature Request: option for StringEnumConverter to converts Flags to array of string"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU0OTcwNg==",
+      "is_bot": false,
+      "login": "wasabii",
+      "name": "Jerome Haltom"
+    },
+    "closedAt": "2018-10-08T01:42:49Z",
+    "createdAt": "2018-05-29T20:00:53Z",
+    "labels": [],
+    "number": 1729,
+    "title": "XmlNodeConverter failing on invalid XML element names with ':'"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwMjcxOTE4",
+      "is_bot": false,
+      "login": "Alex-Hagen-Thorn-at-Experieco",
+      "name": ""
+    },
+    "closedAt": "2018-05-29T05:22:54Z",
+    "createdAt": "2018-05-28T02:52:39Z",
+    "labels": [],
+    "number": 1726,
+    "title": "Serialization of decimals does not respect precision"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzNjkxNjE0",
+      "is_bot": false,
+      "login": "ckress",
+      "name": "Christoph Kreß"
+    },
+    "closedAt": "2018-05-28T22:46:52Z",
+    "createdAt": "2018-05-27T23:04:01Z",
+    "labels": [],
+    "number": 1725,
+    "title": "Deserialize throws if object constructor has an 'in' parameter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM5NjA5Njc3",
+      "is_bot": false,
+      "login": "alexkeoh",
+      "name": ""
+    },
+    "closedAt": "2018-05-27T21:24:20Z",
+    "createdAt": "2018-05-25T03:19:16Z",
+    "labels": [],
+    "number": 1722,
+    "title": "SerializeXmlNode convert JSON with empty space"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM3OTM1NTQ=",
+      "is_bot": false,
+      "login": "alexrainman",
+      "name": "Alexander Reyes"
+    },
+    "closedAt": "2018-05-27T21:25:36Z",
+    "createdAt": "2018-05-24T23:51:24Z",
+    "labels": [],
+    "number": 1721,
+    "title": "Why lot of packages are installed in Android and iOS after version 9.0.1?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExMjAxMTIy",
+      "is_bot": false,
+      "login": "Pzixel",
+      "name": "Psilon"
+    },
+    "closedAt": "2018-05-24T10:32:14Z",
+    "createdAt": "2018-05-24T10:19:54Z",
+    "labels": [],
+    "number": 1720,
+    "title": "Field order affects object deserialization"
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2018-09-22T20:34:14Z",
+    "createdAt": "2018-05-23T21:17:28Z",
+    "labels": [],
+    "number": 1719,
+    "title": "JsonExtensionData should not include the null values that are real object properties."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4MDA0NjU1",
+      "is_bot": false,
+      "login": "xklqx",
+      "name": "Kevin"
+    },
+    "closedAt": "2018-05-27T00:55:24Z",
+    "createdAt": "2018-05-21T11:07:01Z",
+    "labels": [],
+    "number": 1717,
+    "title": "Input string '0018' is not a valid number. Version: 11.0.2 , .net core 2.0"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwOTU3MTE2",
+      "is_bot": false,
+      "login": "piodabro",
+      "name": ""
+    },
+    "closedAt": "2018-05-27T01:06:50Z",
+    "createdAt": "2018-05-21T09:14:10Z",
+    "labels": [],
+    "number": 1716,
+    "title": "TypeNameHandling works only when $type element is first element of JSON Object."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzNDA4ODYz",
+      "is_bot": false,
+      "login": "nd-srogers",
+      "name": ""
+    },
+    "closedAt": "2018-05-27T21:29:24Z",
+    "createdAt": "2018-05-21T01:05:37Z",
+    "labels": [],
+    "number": 1713,
+    "title": "Serializing a .Net Core ClaimsIdentity with claims causes PlatformNotSupportedException"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjkwMzc4NA==",
+      "is_bot": false,
+      "login": "nathanielcook",
+      "name": ""
+    },
+    "closedAt": "2018-05-21T03:49:36Z",
+    "createdAt": "2018-05-20T21:52:22Z",
+    "labels": [],
+    "number": 1711,
+    "title": "Can't deserialize a string with scientific notation into a decimal type"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU5MzI3Mjg=",
+      "is_bot": false,
+      "login": "bdcoder2",
+      "name": ""
+    },
+    "closedAt": "2018-05-21T20:47:46Z",
+    "createdAt": "2018-05-20T17:57:55Z",
+    "labels": [],
+    "number": 1709,
+    "title": "Using JsonConverter to keep all datetime values formatted the same - how?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwMzIwMQ==",
+      "is_bot": false,
+      "login": "JamesNK",
+      "name": "James Newton-King"
+    },
+    "closedAt": "2018-05-28T08:54:02Z",
+    "createdAt": "2018-05-19T03:01:52Z",
+    "labels": [],
+    "number": 1708,
+    "title": "Deserializing ISO8601 string as date loses DateTimeKind UTC"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgzNDAwOTI=",
+      "is_bot": false,
+      "login": "bthharper",
+      "name": "Theo Harper"
+    },
+    "closedAt": "2018-05-18T15:21:55Z",
+    "createdAt": "2018-05-18T15:21:43Z",
+    "labels": [],
+    "number": 1707,
+    "title": "on"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgwNDQyMTE=",
+      "is_bot": false,
+      "login": "cyberphone",
+      "name": "Anders Rundgren"
+    },
+    "closedAt": "2018-05-20T21:39:33Z",
+    "createdAt": "2018-05-18T05:59:55Z",
+    "labels": [],
+    "number": 1706,
+    "title": "Incompatibility with ECMAScript's JSON.parse()"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMzk0MjE4",
+      "is_bot": false,
+      "login": "askids",
+      "name": "Ashok Shettigar"
+    },
+    "closedAt": "2018-10-08T02:01:43Z",
+    "createdAt": "2018-05-17T12:56:36Z",
+    "labels": [],
+    "number": 1705,
+    "title": "Feature request: Convert XML content for known escaped/encoded values."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0NTIyMTk4",
+      "is_bot": false,
+      "login": "abhishekgoenka",
+      "name": "Abhishek Goenka"
+    },
+    "closedAt": "2018-05-17T05:19:10Z",
+    "createdAt": "2018-05-17T05:16:33Z",
+    "labels": [],
+    "number": 1704,
+    "title": "Error - Object reference not set to an instance of an object"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMjYxMTg2",
+      "is_bot": false,
+      "login": "Trolldemorted",
+      "name": "Benedikt Radtke"
+    },
+    "closedAt": "2018-05-20T21:37:18Z",
+    "createdAt": "2018-05-15T20:54:39Z",
+    "labels": [],
+    "number": 1702,
+    "title": "Newtonsoft.Json causes dependency warnings in UWP projects"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY3NzkzODI=",
+      "is_bot": false,
+      "login": "jatpat",
+      "name": ""
+    },
+    "closedAt": "2018-05-09T17:35:18Z",
+    "createdAt": "2018-05-09T10:54:11Z",
+    "labels": [],
+    "number": 1698,
+    "title": "Can you add dotnet framework 4.5.1 and 4.5.2 support?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc3MzM0Ng==",
+      "is_bot": false,
+      "login": "IlyaGrebnov",
+      "name": "Ilya Grebnov"
+    },
+    "closedAt": "2018-06-20T22:22:34Z",
+    "createdAt": "2018-05-06T00:24:30Z",
+    "labels": [],
+    "number": 1695,
+    "title": "Extract INameTable interface (similar to IArrayPool) on JsonTextReader"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0ODc5MTYz",
+      "is_bot": false,
+      "login": "guylando",
+      "name": "Guy Lando"
+    },
+    "closedAt": "2018-05-07T21:11:32Z",
+    "createdAt": "2018-05-05T12:11:43Z",
+    "labels": [],
+    "number": 1694,
+    "title": "Configure MaxJsonLength in net core"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMjI0NjQ0",
+      "is_bot": false,
+      "login": "thatsumoguy",
+      "name": "thatsumoguy"
+    },
+    "closedAt": "2018-05-20T21:33:11Z",
+    "createdAt": "2018-05-04T15:47:20Z",
+    "labels": [],
+    "number": 1693,
+    "title": "Json.Net does not work with Squirrel package creator"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYzMTA2MQ==",
+      "is_bot": false,
+      "login": "richardschneider",
+      "name": "Richard Schneider"
+    },
+    "closedAt": "2018-05-03T00:47:02Z",
+    "createdAt": "2018-05-02T22:45:36Z",
+    "labels": [],
+    "number": 1692,
+    "title": "CBOR support"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM4ODg4MzMy",
+      "is_bot": false,
+      "login": "Youn29",
+      "name": ""
+    },
+    "closedAt": "2018-05-27T21:29:57Z",
+    "createdAt": "2018-05-01T17:06:29Z",
+    "labels": [],
+    "number": 1691,
+    "title": "Update field api json with VB.NET"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgwNDQyMTE=",
+      "is_bot": false,
+      "login": "cyberphone",
+      "name": "Anders Rundgren"
+    },
+    "closedAt": "2018-06-20T02:32:57Z",
+    "createdAt": "2018-04-24T15:38:35Z",
+    "labels": [],
+    "number": 1686,
+    "title": "Support for I-JSON"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNDE4NjMz",
+      "is_bot": false,
+      "login": "alextolp",
+      "name": "alextolp"
+    },
+    "closedAt": "2018-05-27T21:30:39Z",
+    "createdAt": "2018-04-21T03:56:20Z",
+    "labels": [],
+    "number": 1684,
+    "title": "Add allowIntegerValues parameter to StringEnumConverter constructor"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1OTI4MDc=",
+      "is_bot": false,
+      "login": "Enumix",
+      "name": "Wiktor Górka"
+    },
+    "closedAt": "2018-05-20T23:17:20Z",
+    "createdAt": "2018-04-18T14:40:01Z",
+    "labels": [],
+    "number": 1682,
+    "title": "[.NET Core 2.0] Cannot serialize class with property which has abstract base class and it's marked as Serializable"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NTYzOTgy",
+      "is_bot": false,
+      "login": "Wizard2436829",
+      "name": "Gurunath Rao"
+    },
+    "closedAt": "2018-04-17T10:20:37Z",
+    "createdAt": "2018-04-17T10:03:56Z",
+    "labels": [],
+    "number": 1681,
+    "title": "Hey James,"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ4MzM0MTQ=",
+      "is_bot": false,
+      "login": "mpcarlos87",
+      "name": "Carlos Martinez Perez"
+    },
+    "closedAt": "2018-04-11T12:35:22Z",
+    "createdAt": "2018-04-11T08:34:27Z",
+    "labels": [],
+    "number": 1676,
+    "title": "ToObject - readonly Enum"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MzM5OTE=",
+      "is_bot": false,
+      "login": "Dunken",
+      "name": ""
+    },
+    "closedAt": "2018-04-22T00:25:35Z",
+    "createdAt": "2018-04-09T16:13:09Z",
+    "labels": [],
+    "number": 1674,
+    "title": "Documentation: clearly indicate Breaking Changes"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI3Mjg5NTI=",
+      "is_bot": false,
+      "login": "rivdiv",
+      "name": ""
+    },
+    "closedAt": "2018-04-09T22:09:45Z",
+    "createdAt": "2018-04-09T15:32:25Z",
+    "labels": [],
+    "number": 1673,
+    "title": "Compatibility with openstack.net"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwNzgxMDUw",
+      "is_bot": false,
+      "login": "antonkolesnyk",
+      "name": "Anton Kolesnyk"
+    },
+    "closedAt": "2018-04-22T00:26:10Z",
+    "createdAt": "2018-04-04T20:59:49Z",
+    "labels": [],
+    "number": 1672,
+    "title": "V11.0.2 Linq\\JsonPath\\ArrayIndexFilter.cs - root parameter is not necessary"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMjc4MDQ4",
+      "is_bot": false,
+      "login": "VladimirAkopyan",
+      "name": "Vladimir Akopyan"
+    },
+    "closedAt": "2018-04-05T04:28:14Z",
+    "createdAt": "2018-04-04T18:11:10Z",
+    "labels": [],
+    "number": 1671,
+    "title": "Method not found: 'Void Newtonsoft.Json.JsonSerializerSettings.set_TypeNameAssemblyFormat'"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5MjQ0NTcz",
+      "is_bot": false,
+      "login": "mispon",
+      "name": "Artem Bass"
+    },
+    "closedAt": "2019-04-13T17:06:58Z",
+    "createdAt": "2018-04-04T16:21:26Z",
+    "labels": [],
+    "number": 1670,
+    "title": "Stackoverflow with Vector3"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU3NTA3OTU=",
+      "is_bot": false,
+      "login": "AlexEndris",
+      "name": "Alexander Endris"
+    },
+    "closedAt": "2018-10-10T09:03:14Z",
+    "createdAt": "2018-04-04T08:30:26Z",
+    "labels": [],
+    "number": 1669,
+    "title": "Serializing a StructureMapBuildException doesn't work anymore"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUzMTMzNDA=",
+      "is_bot": false,
+      "login": "joaorosado",
+      "name": "João Rosado"
+    },
+    "closedAt": "2018-04-22T00:28:16Z",
+    "createdAt": "2018-04-03T17:03:15Z",
+    "labels": [],
+    "number": 1667,
+    "title": "De-serialization of Decimal not always overflowing when it should"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwNTQyNjE3",
+      "is_bot": false,
+      "login": "ZebraFlesh",
+      "name": "Zebra Flesh"
+    },
+    "closedAt": "2018-06-24T00:03:35Z",
+    "createdAt": "2018-03-31T21:15:32Z",
+    "labels": [],
+    "number": 1666,
+    "title": "No PDBs"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM3NTI0MDc=",
+      "is_bot": false,
+      "login": "olavorn",
+      "name": "Olavo Rocha Neto"
+    },
+    "closedAt": "2018-10-06T08:03:01Z",
+    "createdAt": "2018-03-29T14:39:18Z",
+    "labels": [],
+    "number": 1663,
+    "title": "Error in the List<int> "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwMjE1MTcz",
+      "is_bot": false,
+      "login": "oscarcabrero",
+      "name": "Oscar Cabrero"
+    },
+    "closedAt": "2018-04-22T00:28:56Z",
+    "createdAt": "2018-03-28T17:23:03Z",
+    "labels": [],
+    "number": 1661,
+    "title": "memory utilization keeps rising over time."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwODk1NDI=",
+      "is_bot": false,
+      "login": "ianselmi",
+      "name": "Ivan Anselmi"
+    },
+    "closedAt": "2018-11-16T13:41:24Z",
+    "createdAt": "2018-03-27T16:25:21Z",
+    "labels": [],
+    "number": 1660,
+    "title": "Serialize DynamicObject and ISerializable in version 11.0.3"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNTI0NzM1",
+      "is_bot": false,
+      "login": "Seamas",
+      "name": ""
+    },
+    "closedAt": "2018-04-08T12:19:37Z",
+    "createdAt": "2018-03-26T09:40:19Z",
+    "labels": [],
+    "number": 1659,
+    "title": "Deserialize make List<string> double items "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzOTc0Nzc5",
+      "is_bot": false,
+      "login": "michaeloyer",
+      "name": "Michael Oyer"
+    },
+    "closedAt": "2018-05-21T03:17:39Z",
+    "createdAt": "2018-03-23T16:46:08Z",
+    "labels": [],
+    "number": 1655,
+    "title": "Throw errors on blank strings or empty objects when checking for missing member handling"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU3OTQ0NzM=",
+      "is_bot": false,
+      "login": "mharthoorn",
+      "name": "Martijn Harthoorn"
+    },
+    "closedAt": "2018-11-24T21:27:45Z",
+    "createdAt": "2018-03-22T19:18:26Z",
+    "labels": [],
+    "number": 1654,
+    "title": "Elements reversed in serializing and deserializing a Stack<T>"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM2NDg5Ng==",
+      "is_bot": false,
+      "login": "jogibear9988",
+      "name": "Jochen Kühner"
+    },
+    "closedAt": "2018-03-23T01:02:26Z",
+    "createdAt": "2018-03-22T12:33:33Z",
+    "labels": [],
+    "number": 1653,
+    "title": "order of \"$type\" in json does matter..."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0NzA2Nzg=",
+      "is_bot": false,
+      "login": "dls314",
+      "name": "Dave"
+    },
+    "closedAt": "2018-03-23T01:24:38Z",
+    "createdAt": "2018-03-21T16:08:15Z",
+    "labels": [],
+    "number": 1652,
+    "title": "Consider making UnixDateTimeConverter configurable with respect to units"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NjY1MjU5",
+      "is_bot": false,
+      "login": "ByK95",
+      "name": "Bayram Kaya"
+    },
+    "closedAt": "2019-12-08T09:04:41Z",
+    "createdAt": "2018-03-20T18:12:14Z",
+    "labels": [],
+    "number": 1650,
+    "title": "Bug deserialization of object returns null"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY5NDI1NDg=",
+      "is_bot": false,
+      "login": "mikasoukhov",
+      "name": "Mikhail"
+    },
+    "closedAt": "2018-08-31T08:54:26Z",
+    "createdAt": "2018-03-17T12:52:07Z",
+    "labels": [],
+    "number": 1648,
+    "title": "Case insensitive works incorrect"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzNjA5NTU4",
+      "is_bot": false,
+      "login": "TonyValenti",
+      "name": "Tony Valenti"
+    },
+    "closedAt": "2018-03-23T08:20:13Z",
+    "createdAt": "2018-03-16T19:43:41Z",
+    "labels": [],
+    "number": 1647,
+    "title": "Deserialization of ginormous object silently returns null"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4MDA4MDUy",
+      "is_bot": false,
+      "login": "manojnctks",
+      "name": ""
+    },
+    "closedAt": "2018-07-29T01:55:43Z",
+    "createdAt": "2018-03-16T13:35:33Z",
+    "labels": [],
+    "number": 1646,
+    "title": "dictionary<string,object> convert by defaulkt in int64"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyODEwNTMx",
+      "is_bot": false,
+      "login": "yzpopulation",
+      "name": ""
+    },
+    "closedAt": "2018-03-14T16:18:30Z",
+    "createdAt": "2018-03-14T15:48:38Z",
+    "labels": [],
+    "number": 1643,
+    "title": "please remove it"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU1NzUwNDk=",
+      "is_bot": false,
+      "login": "csmager",
+      "name": "Charles Mager"
+    },
+    "closedAt": "2018-03-23T03:30:34Z",
+    "createdAt": "2018-03-13T14:20:10Z",
+    "labels": [],
+    "number": 1642,
+    "title": "StringEnumConverter throws with F# internal enum in 11.0.1"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY3NzM4OTA=",
+      "is_bot": false,
+      "login": "bruceburge",
+      "name": "Bruce Burge"
+    },
+    "closedAt": "2018-03-13T23:09:00Z",
+    "createdAt": "2018-03-12T13:51:23Z",
+    "labels": [],
+    "number": 1641,
+    "title": " JsonConvert.SerializeObject returns {} on serializing JSONPatchDocument starting with 11.0.1"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5NTcyMTY1",
+      "is_bot": false,
+      "login": "LEsperanca",
+      "name": ""
+    },
+    "closedAt": "2018-03-11T23:22:02Z",
+    "createdAt": "2018-03-11T15:33:46Z",
+    "labels": [],
+    "number": 1640,
+    "title": "JsonExtensionData"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk2MjUzOTI=",
+      "is_bot": false,
+      "login": "ismael-texidor",
+      "name": ""
+    },
+    "closedAt": "2018-03-08T16:02:40Z",
+    "createdAt": "2018-03-08T12:28:26Z",
+    "labels": [],
+    "number": 1638,
+    "title": " JObject is ignoring ContractResolver."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5NjE1NDM0",
+      "is_bot": false,
+      "login": "vkrasovskiy-playq",
+      "name": "Krasovsky Victor"
+    },
+    "closedAt": "2018-03-12T03:17:52Z",
+    "createdAt": "2018-03-06T19:32:28Z",
+    "labels": [],
+    "number": 1637,
+    "title": "StringEnumConverter - custom string values for enum"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYwMTQ5NjU=",
+      "is_bot": false,
+      "login": "ronfluegge",
+      "name": "Ron Fluegge"
+    },
+    "closedAt": "2018-03-06T04:06:56Z",
+    "createdAt": "2018-03-06T01:27:25Z",
+    "labels": [],
+    "number": 1636,
+    "title": "Unable to resolve dependencies"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM3MDg5MTE5",
+      "is_bot": false,
+      "login": "dbegent",
+      "name": ""
+    },
+    "closedAt": "2018-03-10T22:04:37Z",
+    "createdAt": "2018-03-05T23:01:52Z",
+    "labels": [],
+    "number": 1635,
+    "title": "CamelCasePropertyNamesContractResolver resolution changed"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3OTg2NzI3",
+      "is_bot": false,
+      "login": "slawomir-brzezinski-at-interxion",
+      "name": ""
+    },
+    "closedAt": "2018-03-12T03:16:46Z",
+    "createdAt": "2018-03-02T16:17:08Z",
+    "labels": [],
+    "number": 1631,
+    "title": "First-class support for enforcing full RFC 3339 date-time (mandatory timezone)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU4ODE5NA==",
+      "is_bot": false,
+      "login": "richard-fine",
+      "name": "Richard Fine"
+    },
+    "closedAt": "2018-03-12T02:55:05Z",
+    "createdAt": "2018-02-28T17:42:27Z",
+    "labels": [],
+    "number": 1630,
+    "title": "JObject.GetPropertyOwner() returns null, breaking JPropertyDescriptor.GetValue for PropertyGrid"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM2NDg5Ng==",
+      "is_bot": false,
+      "login": "jogibear9988",
+      "name": "Jochen Kühner"
+    },
+    "closedAt": "2018-03-12T02:45:55Z",
+    "createdAt": "2018-02-25T12:23:35Z",
+    "labels": [],
+    "number": 1627,
+    "title": "IEnumerables with DataContract, are not Enumerated any more in V11"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzMjU2NA==",
+      "is_bot": false,
+      "login": "jonreis",
+      "name": "Jonathan Reis"
+    },
+    "closedAt": "2018-03-12T02:45:35Z",
+    "createdAt": "2018-02-24T20:45:39Z",
+    "labels": [],
+    "number": 1626,
+    "title": "Previously serialized data can no longer be read in v11.0.1"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzMjU2NA==",
+      "is_bot": false,
+      "login": "jonreis",
+      "name": "Jonathan Reis"
+    },
+    "closedAt": "2018-02-23T21:11:57Z",
+    "createdAt": "2018-02-23T17:54:38Z",
+    "labels": [],
+    "number": 1622,
+    "title": "classes deriving from System.Exception do not serialize/deserialize properly"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwMTQxNA==",
+      "is_bot": false,
+      "login": "CheloXL",
+      "name": "Marcelo Volmaro"
+    },
+    "closedAt": "2018-02-22T20:12:27Z",
+    "createdAt": "2018-02-22T18:41:25Z",
+    "labels": [],
+    "number": 1621,
+    "title": "WritePropertyName doesn´t respect NamingStrategy on custom resolver"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjcxMzU3OTA=",
+      "is_bot": false,
+      "login": "PawelGerr",
+      "name": "Pawel Gerr"
+    },
+    "closedAt": "2018-02-22T02:17:55Z",
+    "createdAt": "2018-02-21T14:23:26Z",
+    "labels": [],
+    "number": 1620,
+    "title": "JsonSerializationException after update to v11"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4ODQwMTc=",
+      "is_bot": false,
+      "login": "kimbirkelund",
+      "name": "Kim Birkelund"
+    },
+    "closedAt": "2018-02-22T03:17:04Z",
+    "createdAt": "2018-02-21T11:02:59Z",
+    "labels": [],
+    "number": 1619,
+    "title": "Custom JsonConverter for FileInfo and DirectoryInfo no longer works"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwNDI1MDc=",
+      "is_bot": false,
+      "login": "Thaina",
+      "name": "Thaina Yu"
+    },
+    "closedAt": "2018-02-15T22:18:58Z",
+    "createdAt": "2018-02-15T04:39:27Z",
+    "labels": [],
+    "number": 1614,
+    "title": "Just set JObject indexer cause \"Property with the same name already exists on object\""
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc3MzM0Ng==",
+      "is_bot": false,
+      "login": "IlyaGrebnov",
+      "name": "Ilya Grebnov"
+    },
+    "closedAt": "2018-05-20T22:13:23Z",
+    "createdAt": "2018-02-15T04:13:05Z",
+    "labels": [],
+    "number": 1613,
+    "title": "ReadStringIntoBuffer optimization"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2ODMyNjk=",
+      "is_bot": false,
+      "login": "JohnHe404",
+      "name": "HeMinzhang"
+    },
+    "closedAt": "2018-02-11T01:50:55Z",
+    "createdAt": "2018-02-10T09:56:03Z",
+    "labels": [],
+    "number": 1611,
+    "title": "Cannot deserialize the current JSON  IAsyncEnumerable "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2NDkwMTc=",
+      "is_bot": false,
+      "login": "yalamandarao",
+      "name": "yalamanda inaganti"
+    },
+    "closedAt": "2018-02-12T04:09:36Z",
+    "createdAt": "2018-02-09T17:50:46Z",
+    "labels": [],
+    "number": 1610,
+    "title": "unexpected character encountered while parsing value: <. Path\", line 0 position 0"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1OTcxNDIx",
+      "is_bot": false,
+      "login": "micahsdad1402",
+      "name": "John Jacobson"
+    },
+    "closedAt": "2018-07-03T11:25:16Z",
+    "createdAt": "2018-02-08T01:53:34Z",
+    "labels": [],
+    "number": 1609,
+    "title": "Unable to compile"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5NTExMTc3",
+      "is_bot": false,
+      "login": "TruePluto",
+      "name": ""
+    },
+    "closedAt": "2018-02-06T06:18:55Z",
+    "createdAt": "2018-02-06T05:31:28Z",
+    "labels": [],
+    "number": 1607,
+    "title": "JsonSerializer do Not call OnDeserializedAtribute function"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwMjQ0OQ==",
+      "is_bot": false,
+      "login": "nvivo",
+      "name": "Natan Vivo"
+    },
+    "closedAt": "2018-02-17T05:04:45Z",
+    "createdAt": "2018-02-02T12:10:37Z",
+    "labels": [],
+    "number": 1604,
+    "title": "Throw better error messages during deserialization"
+  }
+]

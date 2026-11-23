@@ -1,0 +1,6847 @@
+[
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxODA2NDE=",
+      "is_bot": false,
+      "login": "mellamokb",
+      "name": ""
+    },
+    "closedAt": "2025-10-01T02:45:38Z",
+    "createdAt": "2025-10-01T02:37:40Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMDEwNTY=",
+        "name": "bug",
+        "description": "",
+        "color": "e11d21"
+      },
+      {
+        "id": "LA_kwDOABieIc8AAAABxgrfuw",
+        "name": "needs-triage",
+        "description": "",
+        "color": "0E42B6"
+      }
+    ],
+    "number": 2182,
+    "title": "DynamicParameters does not work."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM5NzQ3MTM=",
+      "is_bot": false,
+      "login": "Winsor",
+      "name": ""
+    },
+    "closedAt": "2025-06-07T11:11:05Z",
+    "createdAt": "2025-06-06T15:01:25Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMDEwNTY=",
+        "name": "bug",
+        "description": "",
+        "color": "e11d21"
+      },
+      {
+        "id": "LA_kwDOABieIc8AAAABxgrfuw",
+        "name": "needs-triage",
+        "description": "",
+        "color": "0E42B6"
+      }
+    ],
+    "number": 2171,
+    "title": "AccessViolationException on use parametrize INSERT"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDM4MzIy",
+      "is_bot": false,
+      "login": "robert94p",
+      "name": "Robert"
+    },
+    "closedAt": "2025-03-19T08:57:23Z",
+    "createdAt": "2025-03-15T17:57:08Z",
+    "labels": [],
+    "number": 2153,
+    "title": "Memory Leak Occurs When Using ExecuteReaderAsync and DisposeAsync"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgzODUxNTI=",
+      "is_bot": false,
+      "login": "golddragon007",
+      "name": "Márton Dankó"
+    },
+    "closedAt": "2025-02-11T23:10:23Z",
+    "createdAt": "2025-02-11T15:15:32Z",
+    "labels": [],
+    "number": 2148,
+    "title": "[Question] Is it possible to query a list with single query to fill multiple objects?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY4MjQ2MDk1",
+      "is_bot": false,
+      "login": "ErikPilsits-RJW",
+      "name": ""
+    },
+    "closedAt": "2025-02-06T20:11:35Z",
+    "createdAt": "2025-02-06T18:32:33Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMDEwNTY=",
+        "name": "bug",
+        "description": "",
+        "color": "e11d21"
+      },
+      {
+        "id": "LA_kwDOABieIc8AAAABxgrfuw",
+        "name": "needs-triage",
+        "description": "",
+        "color": "0E42B6"
+      }
+    ],
+    "number": 2146,
+    "title": "2.1.66 removal of DateOnly / TimeOnly is a Breaking Change"
+  },
+  {
+    "author": {
+      "id": "U_kgDOC8bHxw",
+      "is_bot": false,
+      "login": "jdutkiewicz-krk",
+      "name": ""
+    },
+    "closedAt": "2025-02-06T08:14:23Z",
+    "createdAt": "2025-02-06T07:21:12Z",
+    "labels": [],
+    "number": 2145,
+    "title": "Unsuported version of packages System.Data"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ2MTU3OQ==",
+      "is_bot": false,
+      "login": "julealgon",
+      "name": "Juliano Leal Goncalves"
+    },
+    "closedAt": "2025-02-06T12:11:32Z",
+    "createdAt": "2025-01-24T23:37:10Z",
+    "labels": [],
+    "number": 2143,
+    "title": "[Feature Request] Add support for `IAsyncEnumerable` (`QueryUnbufferedAsync`) on all .NET targets"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ2ODUwNTg3",
+      "is_bot": false,
+      "login": "0UserName",
+      "name": ""
+    },
+    "closedAt": "2025-02-05T00:24:05Z",
+    "createdAt": "2025-01-01T06:40:34Z",
+    "labels": [],
+    "number": 2139,
+    "title": "Initialize DataTypeName from DataTable.TableName in TableValuedParameter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1ODY2NTI5",
+      "is_bot": false,
+      "login": "tiger822",
+      "name": ""
+    },
+    "closedAt": "2024-11-21T07:54:17Z",
+    "createdAt": "2024-11-16T15:47:32Z",
+    "labels": [],
+    "number": 2132,
+    "title": "How should I  query table data by Dapper ?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwNDAzMzA3",
+      "is_bot": false,
+      "login": "sherlock1982",
+      "name": "Nikolai Orekhov"
+    },
+    "closedAt": "2024-11-01T14:35:06Z",
+    "createdAt": "2024-11-01T13:18:20Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMDEwNTY=",
+        "name": "bug",
+        "description": "",
+        "color": "e11d21"
+      },
+      {
+        "id": "LA_kwDOABieIc8AAAABxgrfuw",
+        "name": "needs-triage",
+        "description": "",
+        "color": "0E42B6"
+      }
+    ],
+    "number": 2131,
+    "title": "Dapper.dll has internal PDB"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg5MTEzMDI=",
+      "is_bot": false,
+      "login": "kersane",
+      "name": "Dhani Wirawan"
+    },
+    "closedAt": "2024-10-24T10:04:19Z",
+    "createdAt": "2024-10-23T12:41:00Z",
+    "labels": [],
+    "number": 2126,
+    "title": "Question: Custom mapping interceptor"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY4MTY1MzYw",
+      "is_bot": false,
+      "login": "cph0",
+      "name": "Christian Harrison"
+    },
+    "closedAt": "2025-03-17T11:08:57Z",
+    "createdAt": "2024-09-24T14:13:51Z",
+    "labels": [],
+    "number": 2115,
+    "title": "QueryUnbufferedAsync with FirstAsync is slow if the query returns lots of records"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3ODAyMzY0",
+      "is_bot": false,
+      "login": "Dot-H",
+      "name": "Alexandre Bernard"
+    },
+    "closedAt": "2024-10-07T12:00:16Z",
+    "createdAt": "2024-09-17T12:09:28Z",
+    "labels": [],
+    "number": 2113,
+    "title": "🐛 [QueryAsync] NoCache flag ignored when doing MultiMap"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2Mjc2MDM3",
+      "is_bot": false,
+      "login": "Coloryr",
+      "name": "Color_yr"
+    },
+    "closedAt": "2024-06-26T00:55:11Z",
+    "createdAt": "2024-06-25T12:08:11Z",
+    "labels": [],
+    "number": 2098,
+    "title": "How to replace variables within '@var' and \"@var\""
+  },
+  {
+    "author": {
+      "id": "U_kgDOCVHisA",
+      "is_bot": false,
+      "login": "PSCBryson",
+      "name": ""
+    },
+    "closedAt": "2024-06-19T22:26:21Z",
+    "createdAt": "2024-06-19T14:45:18Z",
+    "labels": [],
+    "number": 2096,
+    "title": "Version 2.1.44 not listed on NuGet Package Manager"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2MzU1MzYw",
+      "is_bot": false,
+      "login": "Charles113",
+      "name": ""
+    },
+    "closedAt": "2024-05-27T11:14:44Z",
+    "createdAt": "2024-05-23T22:25:03Z",
+    "labels": [],
+    "number": 2087,
+    "title": "Question: Map to fields, custom ctor, or call custom function after create object."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc2NzI5MzU=",
+      "is_bot": false,
+      "login": "Scrittl",
+      "name": "Lars Porep"
+    },
+    "closedAt": "2024-05-03T18:18:49Z",
+    "createdAt": "2024-04-25T16:45:09Z",
+    "labels": [],
+    "number": 2077,
+    "title": "Silent Exception in QueryFirstOrDefaultAsync<T> / QueryFirstOrDefault (MS SQL)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5MTU0NDU5",
+      "is_bot": false,
+      "login": "John-Paul-R",
+      "name": "John Paul R"
+    },
+    "closedAt": "2024-04-17T00:02:05Z",
+    "createdAt": "2024-04-16T22:26:53Z",
+    "labels": [],
+    "number": 2073,
+    "title": "Potential buffer over-read (yielding exception) in Npgsql code when reading arrays with ArrayNullabilityMode.PerInstance"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI3ODQ2NTcx",
+      "is_bot": false,
+      "login": "buzz100",
+      "name": ""
+    },
+    "closedAt": "2024-03-29T22:06:05Z",
+    "createdAt": "2024-03-29T22:05:33Z",
+    "labels": [],
+    "number": 2062,
+    "title": "You can see more details here"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQzMjEyMjQ5",
+      "is_bot": false,
+      "login": "Danchieke",
+      "name": ""
+    },
+    "closedAt": "2024-04-12T10:25:48Z",
+    "createdAt": "2024-03-22T11:45:40Z",
+    "labels": [],
+    "number": 2061,
+    "title": "Version 2.1.37 not in NuGet"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU4MDkyNDkz",
+      "is_bot": false,
+      "login": "rlrecalde",
+      "name": "Roberto Recalde"
+    },
+    "closedAt": "2024-04-14T06:21:02Z",
+    "createdAt": "2024-03-15T18:36:31Z",
+    "labels": [],
+    "number": 2057,
+    "title": "Getting Time column value from DB is not working (2.1.35)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgxNzAzNzk=",
+      "is_bot": false,
+      "login": "sellotape",
+      "name": ""
+    },
+    "closedAt": "2024-04-12T10:25:10Z",
+    "createdAt": "2024-03-14T17:58:24Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzEwOTU0MDg=",
+        "name": "breaking-change",
+        "description": "",
+        "color": "f7c6c7"
+      },
+      {
+        "id": "MDU6TGFiZWwyNzExMDEwNTY=",
+        "name": "bug",
+        "description": "",
+        "color": "e11d21"
+      }
+    ],
+    "number": 2056,
+    "title": "Querying int columns as strings has broken in 2.1.37"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYyOTQ0NjQ=",
+      "is_bot": false,
+      "login": "lucax88x",
+      "name": "Luca Trazzi"
+    },
+    "closedAt": "2024-04-12T10:25:28Z",
+    "createdAt": "2024-03-05T19:46:23Z",
+    "labels": [],
+    "number": 2049,
+    "title": "Bug/Regression doing a query with a jsonb column as string with 2.1.*"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQzMzA4OTc=",
+      "is_bot": false,
+      "login": "DarylJtn",
+      "name": "Daryl Johnston"
+    },
+    "closedAt": "2024-02-17T08:03:02Z",
+    "createdAt": "2024-02-17T03:08:16Z",
+    "labels": [],
+    "number": 2044,
+    "title": "Build error due to read only Transaction in Dapper.Rainbow"
+  },
+  {
+    "author": {
+      "id": "U_kgDOB2oqPw",
+      "is_bot": false,
+      "login": "rafaelfernandesdorazio",
+      "name": ""
+    },
+    "closedAt": "2024-02-13T16:47:56Z",
+    "createdAt": "2024-02-13T15:36:44Z",
+    "labels": [],
+    "number": 2041,
+    "title": "An error is occurring when executing Select - variable 'p' of type 'Escola.Entities.Aluno' referenced from scope '', but it is not defined"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjkxMjIyNjE=",
+      "is_bot": false,
+      "login": "masteruser20",
+      "name": ""
+    },
+    "closedAt": "2024-02-13T11:04:55Z",
+    "createdAt": "2024-02-07T09:20:44Z",
+    "labels": [],
+    "number": 2040,
+    "title": "Upsert action - On Duplicate Key Update"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwNDk5OTk=",
+      "is_bot": false,
+      "login": "baynezy",
+      "name": "Simon Baynes"
+    },
+    "closedAt": "2024-02-06T15:17:02Z",
+    "createdAt": "2024-02-06T11:13:44Z",
+    "labels": [],
+    "number": 2039,
+    "title": "Dapper MultiQuery only returning the first match"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc4MzYwNzQ=",
+      "is_bot": false,
+      "login": "franksorro",
+      "name": "FRΛƝCƎƧCØ ƧØЯRƎƝTIƝØ"
+    },
+    "closedAt": "2024-02-22T18:00:46Z",
+    "createdAt": "2024-01-30T09:48:07Z",
+    "labels": [],
+    "number": 2036,
+    "title": "Connection disposed"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NzM1OTI5",
+      "is_bot": false,
+      "login": "genifycom",
+      "name": ""
+    },
+    "closedAt": "2024-02-23T13:43:41Z",
+    "createdAt": "2024-01-19T21:54:50Z",
+    "labels": [],
+    "number": 2031,
+    "title": "Dapper QueryMultipleAsync does not pull multiple result sets"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1OTQ2MTU1",
+      "is_bot": false,
+      "login": "ferreira-guilherme",
+      "name": ""
+    },
+    "closedAt": "2024-02-13T16:46:24Z",
+    "createdAt": "2024-01-19T21:15:08Z",
+    "labels": [],
+    "number": 2030,
+    "title": "CVE-2024-0056"
+  },
+  {
+    "author": {
+      "id": "U_kgDOCVWF_Q",
+      "is_bot": false,
+      "login": "KostyaKov10",
+      "name": ""
+    },
+    "closedAt": "2024-01-22T00:09:54Z",
+    "createdAt": "2024-01-15T14:41:02Z",
+    "labels": [],
+    "number": 2027,
+    "title": "How to make LEFT JOIN multiple records for main records with limit TOP 1 for the main table."
+  },
+  {
+    "author": {
+      "id": "U_kgDOCVWF_Q",
+      "is_bot": false,
+      "login": "KostyaKov10",
+      "name": ""
+    },
+    "closedAt": "2024-01-15T09:58:04Z",
+    "createdAt": "2024-01-14T16:37:12Z",
+    "labels": [],
+    "number": 2026,
+    "title": "QueryAsync with multiple joins - how to map a collection property?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQzMDk0Mjgx",
+      "is_bot": false,
+      "login": "AlephOmegaCodon",
+      "name": "ℵω𝒞𝑜𝒹𝑜𝓃 (Walid A.)"
+    },
+    "closedAt": "2024-01-02T15:00:44Z",
+    "createdAt": "2024-01-01T05:42:22Z",
+    "labels": [],
+    "number": 2021,
+    "title": "Support for Cancellation Tokens in QueryUnbufferedAsync Overloads"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU2OTMwMDc3",
+      "is_bot": false,
+      "login": "alvee07",
+      "name": "Alvee A"
+    },
+    "closedAt": "2023-12-27T13:47:01Z",
+    "createdAt": "2023-12-26T22:00:15Z",
+    "labels": [],
+    "number": 2020,
+    "title": "Output parameter type Sql BIT to C# bool not working."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc3NDU3NQ==",
+      "is_bot": false,
+      "login": "R2D221",
+      "name": "Arturo Torres Sánchez"
+    },
+    "closedAt": "2023-12-22T22:42:35Z",
+    "createdAt": "2023-12-22T19:16:48Z",
+    "labels": [],
+    "number": 2019,
+    "title": "What is the correct way to pass a CancellationToken to QueryUnbufferedAsync?"
+  },
+  {
+    "author": {
+      "id": "U_kgDOCP16hw",
+      "is_bot": false,
+      "login": "rick-micpoint",
+      "name": "Rick de Water"
+    },
+    "closedAt": "2023-12-22T12:23:43Z",
+    "createdAt": "2023-12-22T11:15:47Z",
+    "labels": [],
+    "number": 2018,
+    "title": "Error on Postgres `ENUM` on first run"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjkwMTI2NjM=",
+      "is_bot": false,
+      "login": "andrey-serdyuk",
+      "name": "Andrey Serdyuk"
+    },
+    "closedAt": "2023-12-13T12:18:03Z",
+    "createdAt": "2023-12-13T09:15:48Z",
+    "labels": [],
+    "number": 2015,
+    "title": ".NET 8.0 Internal connection fatal error"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYwMTE2NDU2",
+      "is_bot": false,
+      "login": "omedusb",
+      "name": "Olga Medvedeva"
+    },
+    "closedAt": "2023-12-14T07:34:25Z",
+    "createdAt": "2023-12-12T17:37:14Z",
+    "labels": [],
+    "number": 2014,
+    "title": "Digitally sign Dapper assemblies"
+  },
+  {
+    "author": {
+      "id": "U_kgDOCR-riQ",
+      "is_bot": false,
+      "login": "Dev99987",
+      "name": ""
+    },
+    "closedAt": "2023-12-06T11:09:15Z",
+    "createdAt": "2023-12-06T09:36:19Z",
+    "labels": [],
+    "number": 2009,
+    "title": "Testing Query with string array parameter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg1NDkyMTY0",
+      "is_bot": false,
+      "login": "LaputaShare",
+      "name": "Michael"
+    },
+    "closedAt": "2023-11-28T12:41:06Z",
+    "createdAt": "2023-11-28T09:27:48Z",
+    "labels": [],
+    "number": 2007,
+    "title": "Dapper add returnvalue is always int32"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1OTcwNTk3",
+      "is_bot": false,
+      "login": "alanbarcellos",
+      "name": ""
+    },
+    "closedAt": "2023-11-28T11:32:41Z",
+    "createdAt": "2023-11-27T21:18:31Z",
+    "labels": [],
+    "number": 2006,
+    "title": "Error executing the query using .net8 and postgres"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0MzMyNDc0",
+      "is_bot": false,
+      "login": "nicolascotton",
+      "name": ""
+    },
+    "closedAt": "2024-01-02T15:32:05Z",
+    "createdAt": "2023-11-23T14:19:59Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMDEwNTY=",
+        "name": "bug",
+        "description": "",
+        "color": "e11d21"
+      }
+    ],
+    "number": 2005,
+    "title": ".NET 8 - Fatal error - Attempted to read or write protected memory"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExNjI4MjM=",
+      "is_bot": false,
+      "login": "dv00d00",
+      "name": "Dmitry Kushnir"
+    },
+    "closedAt": "2023-11-16T00:08:20Z",
+    "createdAt": "2023-11-15T14:27:36Z",
+    "labels": [],
+    "number": 2001,
+    "title": "Deserialization exception while reading string[] from NpgsqlDataReader"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY5NzU5MDM=",
+      "is_bot": false,
+      "login": "lioror",
+      "name": "Lior Orenbach"
+    },
+    "closedAt": "2023-11-17T15:45:41Z",
+    "createdAt": "2023-11-15T08:04:06Z",
+    "labels": [],
+    "number": 2000,
+    "title": "schema as parameter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyMzEzNzMz",
+      "is_bot": false,
+      "login": "jarrodls",
+      "name": "Jarrod"
+    },
+    "closedAt": "2023-11-11T08:51:08Z",
+    "createdAt": "2023-11-09T06:10:04Z",
+    "labels": [],
+    "number": 1993,
+    "title": "Issue handling properties with underscores and setters"
+  },
+  {
+    "author": {
+      "id": "U_kgDOCCTqXQ",
+      "is_bot": false,
+      "login": "FernandoLottiPloomes",
+      "name": ""
+    },
+    "closedAt": "2023-10-25T13:32:39Z",
+    "createdAt": "2023-10-22T17:31:48Z",
+    "labels": [],
+    "number": 1991,
+    "title": "Issue with Dapper's DateTime and Guid conversion when inserting into SQL Server"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIzMDc1NTUw",
+      "is_bot": false,
+      "login": "cjmakwana",
+      "name": "Chandresh Makwana"
+    },
+    "closedAt": "2023-10-24T17:06:11Z",
+    "createdAt": "2023-10-22T10:56:15Z",
+    "labels": [],
+    "number": 1990,
+    "title": "Dapper assembly started throwing exception which was not the case earlier"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMjU1MTk2",
+      "is_bot": false,
+      "login": "GiuliaChesches",
+      "name": ""
+    },
+    "closedAt": "2023-10-19T13:01:57Z",
+    "createdAt": "2023-10-19T11:39:02Z",
+    "labels": [],
+    "number": 1988,
+    "title": "Error executing stored procedure with parmas of varchar type"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ0NzA2",
+      "is_bot": false,
+      "login": "tlecomte",
+      "name": "Timothée Lecomte"
+    },
+    "closedAt": "2023-10-19T11:25:12Z",
+    "createdAt": "2023-10-19T08:45:59Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMDEwNTY=",
+        "name": "bug",
+        "description": "",
+        "color": "e11d21"
+      }
+    ],
+    "number": 1986,
+    "title": "Dapper 2.1.11 PR#1975 (auto-detect stored procedures as anything without whitespace) regression with non-breaking spaces"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ5NzM4Mw==",
+      "is_bot": false,
+      "login": "kensei",
+      "name": "kensei"
+    },
+    "closedAt": "2023-10-20T08:24:02Z",
+    "createdAt": "2023-10-17T10:53:35Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMDEwNTY=",
+        "name": "bug",
+        "description": "",
+        "color": "e11d21"
+      }
+    ],
+    "number": 1984,
+    "title": "Error when running vacuum in sqlite"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU5NDU2MTU2",
+      "is_bot": false,
+      "login": "r2go-beep",
+      "name": "Hans"
+    },
+    "closedAt": "2023-10-16T20:37:45Z",
+    "createdAt": "2023-10-13T20:09:43Z",
+    "labels": [],
+    "number": 1981,
+    "title": "Add UdtTypeName attribute to DynamicParameters.ParamInfo"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg0NTA0NDg4",
+      "is_bot": false,
+      "login": "krzysztofplazio",
+      "name": "mysiek44"
+    },
+    "closedAt": "2023-10-13T09:05:15Z",
+    "createdAt": "2023-10-12T10:01:25Z",
+    "labels": [],
+    "number": 1977,
+    "title": "Very slow mapping objects in QueryAsync<T>() and QueryAsync() methods."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ2NzQyOTQ1",
+      "is_bot": false,
+      "login": "SwissMaWi",
+      "name": "Martin Widmer"
+    },
+    "closedAt": "2023-10-10T09:21:28Z",
+    "createdAt": "2023-10-10T07:46:50Z",
+    "labels": [],
+    "number": 1973,
+    "title": "MySql.Data.MySqlClient.MySqlException : Unknown column 'CTMR.ChangedFields' in 'field list' using Dapper in .Net 6 with MariaDB"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU3ODg2MzI2",
+      "is_bot": false,
+      "login": "StruanT",
+      "name": ""
+    },
+    "closedAt": "2023-10-13T06:30:27Z",
+    "createdAt": "2023-10-03T20:14:50Z",
+    "labels": [],
+    "number": 1971,
+    "title": "Need a setting to disable unreliable OLEDB parameter check"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExMjkwNQ==",
+      "is_bot": false,
+      "login": "nyctef",
+      "name": "Mark Jordan"
+    },
+    "closedAt": "2023-10-13T06:11:11Z",
+    "createdAt": "2023-10-03T08:05:31Z",
+    "labels": [],
+    "number": 1969,
+    "title": "Should `ITypeMap.GetConstructorParameter` be allowed to return null?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg2ODYxMTAy",
+      "is_bot": false,
+      "login": "AmirMahdyJebreily",
+      "name": "Code Agha"
+    },
+    "closedAt": "2023-09-17T11:46:50Z",
+    "createdAt": "2023-09-17T11:40:42Z",
+    "labels": [],
+    "number": 1963,
+    "title": "When I create a new instance of SQLConnection, the connection is closed"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUyMzUzMTU=",
+      "is_bot": false,
+      "login": "michal-ciechan",
+      "name": "Mike Ciechan"
+    },
+    "closedAt": "2023-09-24T20:28:37Z",
+    "createdAt": "2023-09-15T10:16:16Z",
+    "labels": [],
+    "number": 1962,
+    "title": "2.1.4 Version"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc2MDI0NTky",
+      "is_bot": false,
+      "login": "mrobert09",
+      "name": "Matthew Roberts"
+    },
+    "closedAt": "2023-09-13T23:42:19Z",
+    "createdAt": "2023-09-13T21:03:09Z",
+    "labels": [],
+    "number": 1961,
+    "title": "Dapper dependency not loading. File not found."
+  },
+  {
+    "author": {
+      "id": "U_kgDOBkZZuA",
+      "is_bot": false,
+      "login": "ilya-scale",
+      "name": "Ilya Chernomordik"
+    },
+    "closedAt": "2023-09-13T20:43:15Z",
+    "createdAt": "2023-09-13T14:49:58Z",
+    "labels": [],
+    "number": 1959,
+    "title": "v2.1.1 introduces breaking changes"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjczMjk4NDQw",
+      "is_bot": false,
+      "login": "aliajboy",
+      "name": "Ali Jebali"
+    },
+    "closedAt": "2023-09-04T05:18:06Z",
+    "createdAt": "2023-09-03T06:56:22Z",
+    "labels": [],
+    "number": 1956,
+    "title": "Dapper Send Wrong SP String to Database"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYxMTEyNTI=",
+      "is_bot": false,
+      "login": "ras90it",
+      "name": ""
+    },
+    "closedAt": "2023-09-15T12:44:01Z",
+    "createdAt": "2023-08-31T07:09:17Z",
+    "labels": [],
+    "number": 1955,
+    "title": "C# Dapper Transaction Scope is auto committed for DB2 Provider"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYzNzk0NQ==",
+      "is_bot": false,
+      "login": "jeffreywstevens",
+      "name": "Jeff Stevens"
+    },
+    "closedAt": "2023-08-28T02:09:01Z",
+    "createdAt": "2023-08-27T23:44:56Z",
+    "labels": [],
+    "number": 1953,
+    "title": "SQL Server Always Encrypted Numeric(20,0) Column"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMDcwODQ5",
+      "is_bot": false,
+      "login": "znyet",
+      "name": "叶涛"
+    },
+    "closedAt": "2023-08-21T10:29:47Z",
+    "createdAt": "2023-08-20T01:54:52Z",
+    "labels": [],
+    "number": 1950,
+    "title": "About query cache vs CommandFlags.NoCache running speed？"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM4MDQ4NjIy",
+      "is_bot": false,
+      "login": "kriewall",
+      "name": "Thomas Kriewall"
+    },
+    "closedAt": "2023-08-17T19:14:11Z",
+    "createdAt": "2023-08-11T10:28:57Z",
+    "labels": [],
+    "number": 1945,
+    "title": "Comparatively slow execution of parameterless Oracle SQL SELECT query"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2MTYzMzg=",
+      "is_bot": false,
+      "login": "kbilsted",
+      "name": "Kasper B. Graversen"
+    },
+    "closedAt": "2024-02-15T07:30:53Z",
+    "createdAt": "2023-08-04T13:09:27Z",
+    "labels": [],
+    "number": 1944,
+    "title": "dapper.rainbow external transaction support"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgwNDAzNjc=",
+      "is_bot": false,
+      "login": "jnm2",
+      "name": "Joseph Musser"
+    },
+    "closedAt": "2023-09-15T12:46:40Z",
+    "createdAt": "2023-08-03T19:21:54Z",
+    "labels": [],
+    "number": 1943,
+    "title": "Query against an existing SqlCommand"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIzMDUxNQ==",
+      "is_bot": false,
+      "login": "benzmarkus",
+      "name": "Markus Benz"
+    },
+    "closedAt": "2023-07-21T12:39:28Z",
+    "createdAt": "2023-07-21T10:53:51Z",
+    "labels": [],
+    "number": 1940,
+    "title": "Connection Timeout not used from the connection string"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU5MDMyMzc3",
+      "is_bot": false,
+      "login": "Duffscs",
+      "name": "Raphaël Gauthier"
+    },
+    "closedAt": "2025-04-08T07:51:39Z",
+    "createdAt": "2023-07-17T19:51:29Z",
+    "labels": [],
+    "number": 1937,
+    "title": "TypeHandler.Parse not call for null values"
+  },
+  {
+    "author": {
+      "id": "U_kgDOB9dYig",
+      "is_bot": false,
+      "login": "TrofimovER",
+      "name": ""
+    },
+    "closedAt": "2023-06-21T19:06:40Z",
+    "createdAt": "2023-06-21T18:48:19Z",
+    "labels": [],
+    "number": 1927,
+    "title": "Change argument type from DbConnection to IDbConnection in SqlMapper.Async.QueryUnbufferedAsync"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjcxMTE5MDY4",
+      "is_bot": false,
+      "login": "DevEngineReq",
+      "name": ""
+    },
+    "closedAt": "2023-06-20T12:33:45Z",
+    "createdAt": "2023-06-15T12:33:26Z",
+    "labels": [],
+    "number": 1922,
+    "title": "Missing QueryUnbufferedAsync without generic parameter (dynamic)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjcxMTE5MDY4",
+      "is_bot": false,
+      "login": "DevEngineReq",
+      "name": ""
+    },
+    "closedAt": "2023-06-20T12:27:33Z",
+    "createdAt": "2023-06-15T12:28:45Z",
+    "labels": [],
+    "number": 1921,
+    "title": "Missing QueryUnbufferedAsync for IDBConnection"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ2NzQyOTQ1",
+      "is_bot": false,
+      "login": "SwissMaWi",
+      "name": "Martin Widmer"
+    },
+    "closedAt": "2023-06-05T05:27:35Z",
+    "createdAt": "2023-05-25T10:06:04Z",
+    "labels": [],
+    "number": 1904,
+    "title": "mySQL: column of CHAR(36) is deserialized as GUID"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU5NjkwMzYy",
+      "is_bot": false,
+      "login": "wojtekelpl",
+      "name": ""
+    },
+    "closedAt": "2023-11-13T12:51:05Z",
+    "createdAt": "2023-05-15T09:52:05Z",
+    "labels": [],
+    "number": 1902,
+    "title": "Potential MemoryLeak, it seems this this line may cause memory leak"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ4MTIyMDgw",
+      "is_bot": false,
+      "login": "joakim-juhlin",
+      "name": ""
+    },
+    "closedAt": "2023-05-04T08:42:27Z",
+    "createdAt": "2023-05-04T08:00:07Z",
+    "labels": [],
+    "number": 1899,
+    "title": "Int64 overflow in named tuple"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwNjk1NjI=",
+      "is_bot": false,
+      "login": "Seawolf87",
+      "name": ""
+    },
+    "closedAt": "2023-04-11T22:28:06Z",
+    "createdAt": "2023-04-07T21:08:29Z",
+    "labels": [],
+    "number": 1893,
+    "title": "Access Violation when using OVER(PARTITION BY ...)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExMjIzMDgx",
+      "is_bot": false,
+      "login": "gallop1",
+      "name": "zhuxiangchi"
+    },
+    "closedAt": "2023-03-14T07:07:49Z",
+    "createdAt": "2023-03-13T09:41:29Z",
+    "labels": [],
+    "number": 1888,
+    "title": "Does Dapper have a simplified Chinese language pack similar to. net core 3.1? I think the annotated English can be directly translated into Chinese for easy reading and understanding. Please tell me as soon as possible that I need to determine whether the next work content needs to be translated manually by using the translation software."
+  },
+  {
+    "author": {
+      "id": "U_kgDOBbZtbg",
+      "is_bot": false,
+      "login": "zeng-github01",
+      "name": "zeng-git"
+    },
+    "closedAt": "2023-12-03T14:31:35Z",
+    "createdAt": "2023-02-05T07:25:27Z",
+    "labels": [],
+    "number": 1881,
+    "title": "Exception in CDK: System.TypeInitializationException: The type initializer for 'Dapper.SqlMapper' threw an exception."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExMjYxOTYx",
+      "is_bot": false,
+      "login": "JonasHansen16",
+      "name": ""
+    },
+    "closedAt": "2023-02-06T14:50:49Z",
+    "createdAt": "2023-02-03T13:21:10Z",
+    "labels": [],
+    "number": 1880,
+    "title": "System.InvalidCastException when casting db2 boolean"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY2MDc3Ng==",
+      "is_bot": false,
+      "login": "query-wow",
+      "name": ""
+    },
+    "closedAt": "2023-01-17T10:27:06Z",
+    "createdAt": "2023-01-16T19:28:21Z",
+    "labels": [],
+    "number": 1876,
+    "title": "Dapper QueryMultiple doesn't return all the selected tables"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBf4eyQ",
+      "is_bot": false,
+      "login": "josdeweger",
+      "name": "Jos de Weger"
+    },
+    "closedAt": "2023-01-11T19:18:28Z",
+    "createdAt": "2023-01-11T11:03:35Z",
+    "labels": [],
+    "number": 1875,
+    "title": "Postgresql UUID field not being mapped to Guid during Multimap"
+  },
+  {
+    "author": {
+      "id": "U_kgDOB0aqLg",
+      "is_bot": false,
+      "login": "selvakumar-arc",
+      "name": ""
+    },
+    "closedAt": "2023-01-06T19:34:58Z",
+    "createdAt": "2023-01-06T03:41:41Z",
+    "labels": [],
+    "number": 1870,
+    "title": "Dapper installation failed - terminated with exit code 1"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBua_pg",
+      "is_bot": false,
+      "login": "JustasKvederis",
+      "name": ""
+    },
+    "closedAt": "2022-12-02T09:08:11Z",
+    "createdAt": "2022-12-01T08:39:25Z",
+    "labels": [],
+    "number": 1859,
+    "title": "[Question] Unable to pass @ as parameters"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1NzY5MTY0",
+      "is_bot": false,
+      "login": "RyoKakomi",
+      "name": "Ryo Kakomi"
+    },
+    "closedAt": "2022-12-01T09:07:33Z",
+    "createdAt": "2022-11-30T03:15:35Z",
+    "labels": [],
+    "number": 1858,
+    "title": "[Question] Release of unsafe resources"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQxNzY0MTY=",
+      "is_bot": false,
+      "login": "SuperDaveOsbourne",
+      "name": "SuperDaveOsbourne"
+    },
+    "closedAt": "2022-11-23T16:47:23Z",
+    "createdAt": "2022-11-23T14:21:44Z",
+    "labels": [],
+    "number": 1854,
+    "title": "Gotchas returning Span<T> "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU2MzM3NzI2",
+      "is_bot": false,
+      "login": "greffgreff",
+      "name": "Chandler"
+    },
+    "closedAt": "2022-11-25T15:29:10Z",
+    "createdAt": "2022-11-23T13:35:39Z",
+    "labels": [],
+    "number": 1853,
+    "title": "Using nvarchar for retaining unicode literals"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBua_pg",
+      "is_bot": false,
+      "login": "JustasKvederis",
+      "name": ""
+    },
+    "closedAt": "2022-11-11T13:28:17Z",
+    "createdAt": "2022-11-11T13:16:48Z",
+    "labels": [],
+    "number": 1849,
+    "title": "Unknown SQL type"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBua_pg",
+      "is_bot": false,
+      "login": "JustasKvederis",
+      "name": ""
+    },
+    "closedAt": "2022-11-11T09:29:32Z",
+    "createdAt": "2022-11-11T09:03:39Z",
+    "labels": [],
+    "number": 1848,
+    "title": "Using blob fields inside database"
+  },
+  {
+    "author": {
+      "id": "U_kgDOBvMUAg",
+      "is_bot": false,
+      "login": "mryan-hpg",
+      "name": "Michael J. Ryan"
+    },
+    "closedAt": "2022-11-07T18:59:04Z",
+    "createdAt": "2022-11-07T18:56:48Z",
+    "labels": [],
+    "number": 1844,
+    "title": "Feature [DapperJson] Attribute"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM4MDEyODg5",
+      "is_bot": false,
+      "login": "luisrr1590",
+      "name": "Luis Alberto Rodríguez"
+    },
+    "closedAt": "2022-11-03T14:02:52Z",
+    "createdAt": "2022-11-02T23:56:06Z",
+    "labels": [],
+    "number": 1843,
+    "title": "Dapper with MySQL unable to catch any exceptions"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxNTEzODkw",
+      "is_bot": false,
+      "login": "richardandrade",
+      "name": "Richard de Oliveira Caputo Andrade"
+    },
+    "closedAt": "2022-10-13T19:39:57Z",
+    "createdAt": "2022-10-13T14:34:46Z",
+    "labels": [],
+    "number": 1837,
+    "title": "Error Max Pool Size "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1MjU1MDky",
+      "is_bot": false,
+      "login": "JungOkKim1",
+      "name": ""
+    },
+    "closedAt": "2022-10-04T08:46:52Z",
+    "createdAt": "2022-10-04T05:52:03Z",
+    "labels": [],
+    "number": 1833,
+    "title": "postgreSQL NpgsqlOperationInProgressException `NpgsqlOperationInProgressException`  "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzNTE2NzI2",
+      "is_bot": false,
+      "login": "0611163",
+      "name": ""
+    },
+    "closedAt": "2022-08-12T09:16:48Z",
+    "createdAt": "2022-08-12T01:19:51Z",
+    "labels": [],
+    "number": 1817,
+    "title": "When there are too many parameters, parameterized insertion has performance problems. "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk4MzU2MQ==",
+      "is_bot": false,
+      "login": "StephanMoeller",
+      "name": "Stephan (Rollercole) Møller"
+    },
+    "closedAt": "2024-10-31T07:23:23Z",
+    "createdAt": "2022-08-09T12:42:40Z",
+    "labels": [],
+    "number": 1815,
+    "title": "SqlMapper.AddTypeHandler not thread safe"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg0MDI3MzUz",
+      "is_bot": false,
+      "login": "ai2soft",
+      "name": "jin li Zhang"
+    },
+    "closedAt": "2022-07-28T01:57:52Z",
+    "createdAt": "2022-07-28T01:51:50Z",
+    "labels": [],
+    "number": 1810,
+    "title": "request, DynamicParameters.Get<> should use TypeHandler to extract value ,if there is a TypeHandler"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwNjUxMzg2",
+      "is_bot": false,
+      "login": "goldli",
+      "name": "Ai2soft"
+    },
+    "closedAt": "2022-07-27T15:51:12Z",
+    "createdAt": "2022-07-27T03:32:32Z",
+    "labels": [],
+    "number": 1809,
+    "title": "request. why not treats Char(1) as C# boolean ?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYyNTY5NTg=",
+      "is_bot": false,
+      "login": "mich-winkel",
+      "name": ""
+    },
+    "closedAt": "2022-06-30T20:58:35Z",
+    "createdAt": "2022-06-30T13:04:34Z",
+    "labels": [],
+    "number": 1792,
+    "title": "Update to supported Target Frameworks?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg5NzYzODY=",
+      "is_bot": false,
+      "login": "hukar",
+      "name": ""
+    },
+    "closedAt": "2022-07-02T09:08:29Z",
+    "createdAt": "2022-06-22T08:48:53Z",
+    "labels": [],
+    "number": 1788,
+    "title": "When use using statement"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ2MDY3MDIx",
+      "is_bot": false,
+      "login": "marekott",
+      "name": "Marek Ott"
+    },
+    "closedAt": "2023-11-17T13:03:32Z",
+    "createdAt": "2022-05-31T07:57:39Z",
+    "labels": [
+      {
+        "id": "LA_kwDOABieIc8AAAABcsZSLw",
+        "name": "area:aot",
+        "description": "Candidate for Dapper.AOT",
+        "color": "FBCA04"
+      }
+    ],
+    "number": 1782,
+    "title": "Npgsql 6 positional parameters support"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgzMDgwNzI4",
+      "is_bot": false,
+      "login": "voltagex",
+      "name": "Adam"
+    },
+    "closedAt": "2022-06-04T06:32:36Z",
+    "createdAt": "2022-05-30T13:04:09Z",
+    "labels": [],
+    "number": 1780,
+    "title": "SqlMapper.TypeHandler<DateTimeOffset?> - Parse works, SetValue never called"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQzODYyODAx",
+      "is_bot": false,
+      "login": "kmcclellan",
+      "name": "Kyle McClellan"
+    },
+    "closedAt": "2023-11-17T13:03:06Z",
+    "createdAt": "2022-05-18T20:10:32Z",
+    "labels": [
+      {
+        "id": "LA_kwDOABieIc8AAAABcsZSLw",
+        "name": "area:aot",
+        "description": "Candidate for Dapper.AOT",
+        "color": "FBCA04"
+      }
+    ],
+    "number": 1778,
+    "title": "Support for DbBatch"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgwMjI0Njk0",
+      "is_bot": false,
+      "login": "LeonardoDaLuz",
+      "name": ""
+    },
+    "closedAt": "2022-04-28T21:41:38Z",
+    "createdAt": "2022-04-26T23:15:08Z",
+    "labels": [],
+    "number": 1776,
+    "title": "Dapper Not recognizing parameters with oracle."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwNTI3NDY=",
+      "is_bot": false,
+      "login": "madhugilla",
+      "name": ""
+    },
+    "closedAt": "2022-04-20T12:47:22Z",
+    "createdAt": "2022-04-19T13:13:13Z",
+    "labels": [],
+    "number": 1773,
+    "title": "Question: Does Dapper support Azure Managed Identites"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NjI5NjE3",
+      "is_bot": false,
+      "login": "CRC32EX",
+      "name": ""
+    },
+    "closedAt": "2022-04-04T10:08:07Z",
+    "createdAt": "2022-04-04T09:12:07Z",
+    "labels": [],
+    "number": 1770,
+    "title": "Unhandled exception. System.ArgumentException: An item with the same key has already been added. Key: CreatedAt1"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwODEyNTQw",
+      "is_bot": false,
+      "login": "fatihyildirim1o",
+      "name": "Fatih Yıldırım"
+    },
+    "closedAt": "2022-03-31T13:57:56Z",
+    "createdAt": "2022-03-30T14:26:40Z",
+    "labels": [],
+    "number": 1767,
+    "title": "Oracle bulk insert running slow"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk2NTEwNDY=",
+      "is_bot": false,
+      "login": "ping9719",
+      "name": "ShiPing"
+    },
+    "closedAt": "2022-03-22T01:52:24Z",
+    "createdAt": "2022-03-21T08:04:36Z",
+    "labels": [],
+    "number": 1763,
+    "title": "希望对.net 4.5支持（Want：The lowest version supports NET 4.5）"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMjM1MTE5",
+      "is_bot": false,
+      "login": "git2013vb",
+      "name": "git_vb"
+    },
+    "closedAt": "2024-04-08T07:46:38Z",
+    "createdAt": "2022-03-14T13:06:21Z",
+    "labels": [],
+    "number": 1759,
+    "title": "Memory leak using QuerySingle or QuerySingleOrDefault"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgxNzE3OA==",
+      "is_bot": false,
+      "login": "sk0va",
+      "name": ""
+    },
+    "closedAt": "2022-01-31T14:14:53Z",
+    "createdAt": "2022-01-27T20:27:49Z",
+    "labels": [],
+    "number": 1752,
+    "title": "Same query returns different results on the same dataset (non-idempotent behaviour)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMjQwMDg0",
+      "is_bot": false,
+      "login": "riko13",
+      "name": ""
+    },
+    "closedAt": "2022-01-27T10:36:07Z",
+    "createdAt": "2022-01-26T16:54:04Z",
+    "labels": [],
+    "number": 1751,
+    "title": "\"Internal error\" query after adding new column to table/view"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwOTEwNDE3",
+      "is_bot": false,
+      "login": "AleyCZ",
+      "name": ""
+    },
+    "closedAt": "2022-01-26T23:48:39Z",
+    "createdAt": "2022-01-26T15:08:02Z",
+    "labels": [],
+    "number": 1750,
+    "title": "TableValuedParameter should be IDisposable"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIzNDE4OTg0",
+      "is_bot": false,
+      "login": "LeoRis",
+      "name": "Lynx"
+    },
+    "closedAt": "2022-01-26T11:41:52Z",
+    "createdAt": "2022-01-25T22:02:38Z",
+    "labels": [],
+    "number": 1749,
+    "title": "Return the ID (Primary Key) of the last inserted row in SQL."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQzMjQ0Njc3",
+      "is_bot": false,
+      "login": "notemac",
+      "name": ""
+    },
+    "closedAt": "2022-01-27T16:31:28Z",
+    "createdAt": "2022-01-25T19:31:19Z",
+    "labels": [],
+    "number": 1748,
+    "title": "Casting query result to IEnumerable<IDictionary<string ,object>>"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwOTQ4NDg=",
+      "is_bot": false,
+      "login": "czh0221",
+      "name": "Colin Chen"
+    },
+    "closedAt": "2022-01-05T01:47:56Z",
+    "createdAt": "2022-01-04T03:11:14Z",
+    "labels": [],
+    "number": 1741,
+    "title": "about dynamic parameters order issue using OleDb."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3NjE1MTY3",
+      "is_bot": false,
+      "login": "xhanb",
+      "name": "Walter"
+    },
+    "closedAt": "2021-12-27T14:07:15Z",
+    "createdAt": "2021-12-27T09:55:38Z",
+    "labels": [],
+    "number": 1739,
+    "title": " QueryAsync Method sometimes throw exception  'Object reference not set to an instance of an object' on GetColumnHash  "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwMjk1MTM=",
+      "is_bot": false,
+      "login": "CamusGao",
+      "name": "Camus Gao"
+    },
+    "closedAt": "2021-12-24T07:53:51Z",
+    "createdAt": "2021-12-24T06:31:18Z",
+    "labels": [],
+    "number": 1738,
+    "title": "Is there any way to do something before of after every sql executing? "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMjQwNDY=",
+      "is_bot": false,
+      "login": "tek-noid",
+      "name": ""
+    },
+    "closedAt": "2021-12-21T03:14:56Z",
+    "createdAt": "2021-12-21T02:45:00Z",
+    "labels": [],
+    "number": 1737,
+    "title": "No mapping exists from DbType UInt32 to a known SqlDbType [PEBCAK]"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5NzcyMjQ4",
+      "is_bot": false,
+      "login": "klaasbrant",
+      "name": "Klaas Brant"
+    },
+    "closedAt": "2021-12-19T17:25:37Z",
+    "createdAt": "2021-12-18T09:35:28Z",
+    "labels": [],
+    "number": 1736,
+    "title": "Upgrade to NPgsql 6.01 single row delete results in mass delete"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1NzgyNTU1",
+      "is_bot": false,
+      "login": "chandan009",
+      "name": ""
+    },
+    "closedAt": "2021-12-13T15:59:49Z",
+    "createdAt": "2021-12-13T15:16:06Z",
+    "labels": [],
+    "number": 1732,
+    "title": "Exception while reading GridReader in QueryMultiple with SoredProcedure"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYzNTQ3MjA=",
+      "is_bot": false,
+      "login": "talley",
+      "name": "Talley Ouro"
+    },
+    "closedAt": "2021-11-29T06:51:46Z",
+    "createdAt": "2021-11-28T22:45:16Z",
+    "labels": [],
+    "number": 1731,
+    "title": "NotSupportedException: The member createdat of type System.DateOnly cannot be used as a parameter value"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzODI2MTU=",
+      "is_bot": false,
+      "login": "attiqeurrehman",
+      "name": "Attiqe Ur Rehman"
+    },
+    "closedAt": "2021-11-22T07:46:47Z",
+    "createdAt": "2021-11-22T06:57:22Z",
+    "labels": [],
+    "number": 1729,
+    "title": "Performcance with ExecuteReaderWithFlagsFallback "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU5MjQ0NjAz",
+      "is_bot": false,
+      "login": "hkobay",
+      "name": ""
+    },
+    "closedAt": "2021-11-14T23:19:58Z",
+    "createdAt": "2021-11-10T11:31:45Z",
+    "labels": [],
+    "number": 1726,
+    "title": "Npgsql.PostgresException occurs with .net core 3.1 and Dapper 2.0.123"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMyMTAzNjg=",
+      "is_bot": false,
+      "login": "codeex",
+      "name": "CodeEx.CN"
+    },
+    "closedAt": "2021-10-21T07:43:02Z",
+    "createdAt": "2021-10-21T03:43:27Z",
+    "labels": [],
+    "number": 1721,
+    "title": "What are the side effects of using update in the query"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwNDQ1Mzg4",
+      "is_bot": false,
+      "login": "3ldar",
+      "name": "İbrahim KÖYMEN"
+    },
+    "closedAt": "2021-11-03T19:39:32Z",
+    "createdAt": "2021-10-09T19:02:13Z",
+    "labels": [],
+    "number": 1716,
+    "title": "Npgsql 6.0.0-rc.1 DateTime issue"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzNjk3NDc=",
+      "is_bot": false,
+      "login": "arnederuwe",
+      "name": "Arne Deruwe"
+    },
+    "closedAt": "2024-03-07T12:19:31Z",
+    "createdAt": "2021-10-07T13:41:38Z",
+    "labels": [],
+    "number": 1715,
+    "title": ".NET 6 DateOnly and TimeOnly mapping support"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM5NDM4NTE5",
+      "is_bot": false,
+      "login": "ivanduka",
+      "name": "Ivan Duka"
+    },
+    "closedAt": "2021-11-16T00:52:48Z",
+    "createdAt": "2021-10-07T01:17:18Z",
+    "labels": [],
+    "number": 1714,
+    "title": "Non-nullable string enforcement"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYyNzQ0NjY2",
+      "is_bot": false,
+      "login": "hw2cb",
+      "name": "hw2cb"
+    },
+    "closedAt": "2021-09-30T19:10:43Z",
+    "createdAt": "2021-09-24T17:34:38Z",
+    "labels": [],
+    "number": 1709,
+    "title": "A connection was successfully established with the server, but then an error occurred during the login process."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIzNDU5Nzk5",
+      "is_bot": false,
+      "login": "stefanMinch3v",
+      "name": "Stefan Minchev"
+    },
+    "closedAt": "2021-10-04T05:15:39Z",
+    "createdAt": "2021-09-19T16:42:06Z",
+    "labels": [],
+    "number": 1705,
+    "title": "GridReader ReadAsync support for Func<> like Read<T1,T2,T3>"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgwMDUwMg==",
+      "is_bot": false,
+      "login": "JerryJian",
+      "name": "Jerry Jian"
+    },
+    "closedAt": "2021-09-06T02:31:28Z",
+    "createdAt": "2021-09-02T03:27:25Z",
+    "labels": [],
+    "number": 1701,
+    "title": "Why is this library upgraded from .net framework 4.5 to 4.6 since v2? "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMjk1ODY4",
+      "is_bot": false,
+      "login": "kfiryahalom",
+      "name": "Kfir Yahalom"
+    },
+    "closedAt": "2021-08-26T06:47:54Z",
+    "createdAt": "2021-08-24T12:02:04Z",
+    "labels": [],
+    "number": 1698,
+    "title": "Dapper in .netcore 3.1 QueryAsync<DateTime> return date without time"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyOTg5NjE5",
+      "is_bot": false,
+      "login": "php-wizard",
+      "name": ""
+    },
+    "closedAt": "2021-08-17T17:35:43Z",
+    "createdAt": "2021-08-15T20:44:06Z",
+    "labels": [],
+    "number": 1695,
+    "title": "Cannot get value from DapperRow"
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2021-10-22T10:14:24Z",
+    "createdAt": "2021-07-27T11:09:37Z",
+    "labels": [],
+    "number": 1691,
+    "title": "About setting 'Copy Local = true' problem"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg5OTg3OA==",
+      "is_bot": false,
+      "login": "PureKrome",
+      "name": "Justin Adler"
+    },
+    "closedAt": "2021-07-27T08:11:38Z",
+    "createdAt": "2021-07-26T03:48:10Z",
+    "labels": [],
+    "number": 1688,
+    "title": "Executing a command multiple times - a bit confusing"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM0OTEwNDMw",
+      "is_bot": false,
+      "login": "maulik-modi",
+      "name": "Maulik Modi"
+    },
+    "closedAt": "2021-07-26T11:07:26Z",
+    "createdAt": "2021-07-21T08:06:20Z",
+    "labels": [],
+    "number": 1686,
+    "title": "Reading select query result into more than 7 types - Connection.QueryAsync<t1,t2,....,t10>"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYxNDE3OTI=",
+      "is_bot": false,
+      "login": "andreabenetton",
+      "name": "Andrea Benetton"
+    },
+    "closedAt": "2021-08-30T15:30:04Z",
+    "createdAt": "2021-06-11T12:53:27Z",
+    "labels": [],
+    "number": 1674,
+    "title": "Multi Mapping question"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwNDU0MjY1",
+      "is_bot": false,
+      "login": "erotavlas",
+      "name": "salvatore"
+    },
+    "closedAt": "2021-06-21T18:58:16Z",
+    "createdAt": "2021-06-09T20:59:48Z",
+    "labels": [],
+    "number": 1673,
+    "title": "ORA-00923: FROM keyword not found where expected"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQwNTA1NDQ2",
+      "is_bot": false,
+      "login": "cha4osoOwll",
+      "name": ""
+    },
+    "closedAt": "2021-06-07T17:00:09Z",
+    "createdAt": "2021-06-04T20:37:46Z",
+    "labels": [],
+    "number": 1671,
+    "title": "QueryAsync() against MS SQL Server crashes after repeated use"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc0NTYzMjA5",
+      "is_bot": false,
+      "login": "justanothergituser",
+      "name": ""
+    },
+    "closedAt": "2021-05-22T18:06:29Z",
+    "createdAt": "2021-05-14T12:12:13Z",
+    "labels": [],
+    "number": 1669,
+    "title": "Dapper + Sqlite \"returning\" clause"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzMTYxMTY=",
+      "is_bot": false,
+      "login": "santoshpatro",
+      "name": "santosh kumar patro"
+    },
+    "closedAt": "2021-05-08T16:59:41Z",
+    "createdAt": "2021-05-07T18:28:03Z",
+    "labels": [],
+    "number": 1661,
+    "title": "Dapper always returning false in case of fetching bit datatype from SQL SERVER 2014 database"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc0NjIyNTMy",
+      "is_bot": false,
+      "login": "jecacs",
+      "name": "Eugene Koval"
+    },
+    "closedAt": "2021-07-04T12:12:53Z",
+    "createdAt": "2021-05-07T12:01:30Z",
+    "labels": [],
+    "number": 1660,
+    "title": "Can't find documentation for Dapper.SqlBuilder"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5OTQ0MDE5",
+      "is_bot": false,
+      "login": "soundaranbu",
+      "name": "Soundar Anbalagan"
+    },
+    "closedAt": "2021-04-29T11:04:28Z",
+    "createdAt": "2021-04-29T10:49:37Z",
+    "labels": [],
+    "number": 1657,
+    "title": "Add Support for ColumnAttribute in Dapper.Contrib"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ3MDQ1NQ==",
+      "is_bot": false,
+      "login": "paulomorgado",
+      "name": "Paulo Morgado"
+    },
+    "closedAt": "2021-04-29T10:04:23Z",
+    "createdAt": "2021-04-29T08:57:30Z",
+    "labels": [],
+    "number": 1656,
+    "title": "stackexchange.github.io/Dapper 404"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY5NDc0NDg=",
+      "is_bot": false,
+      "login": "lyjerry",
+      "name": ""
+    },
+    "closedAt": "2021-04-21T15:40:41Z",
+    "createdAt": "2021-04-21T15:20:26Z",
+    "labels": [],
+    "number": 1652,
+    "title": "System.OverflowException_decimal(38,15)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgxNjMwMDQ=",
+      "is_bot": false,
+      "login": "fabionaspolini",
+      "name": "Fábio Monteiro Naspolini"
+    },
+    "closedAt": "2021-05-08T12:11:50Z",
+    "createdAt": "2021-04-21T14:58:50Z",
+    "labels": [],
+    "number": 1651,
+    "title": "Async methods with Synchronous behavior"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4MDEwOTI2",
+      "is_bot": false,
+      "login": "DonThompson",
+      "name": "Don Thompson"
+    },
+    "closedAt": "2021-05-09T21:19:27Z",
+    "createdAt": "2021-04-09T21:10:49Z",
+    "labels": [],
+    "number": 1648,
+    "title": "C# 9 record vs class with SQL Money type - materialization error"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxNjg5MTAy",
+      "is_bot": false,
+      "login": "CZYHzZz",
+      "name": "CZYH"
+    },
+    "closedAt": "2021-05-08T12:12:59Z",
+    "createdAt": "2021-04-08T07:46:15Z",
+    "labels": [],
+    "number": 1647,
+    "title": "Not now ColumnAttribute,There will be problems by Dapper.Contrib"
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2023-06-09T21:55:28Z",
+    "createdAt": "2021-04-06T07:10:15Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzEwOTU0MDg=",
+        "name": "breaking-change",
+        "description": "",
+        "color": "f7c6c7"
+      },
+      {
+        "id": "MDU6TGFiZWw4NTg3OTg4OTM=",
+        "name": "feature request",
+        "description": "",
+        "color": "225096"
+      }
+    ],
+    "number": 1644,
+    "title": "Make Dapper call GetFieldValue<T> instead of GetValue"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1NDk4NTkx",
+      "is_bot": false,
+      "login": "zanyar3",
+      "name": "Zanyar Jalal"
+    },
+    "closedAt": "2021-05-08T17:01:46Z",
+    "createdAt": "2021-04-05T08:31:36Z",
+    "labels": [],
+    "number": 1643,
+    "title": "Can't results any thing and Progressing with async function "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ5ODk0NzY=",
+      "is_bot": false,
+      "login": "WoodyJ007",
+      "name": "John Wood"
+    },
+    "closedAt": "2021-03-30T07:16:14Z",
+    "createdAt": "2021-03-29T12:07:29Z",
+    "labels": [],
+    "number": 1641,
+    "title": "The type initializer for 'Dapper.SqlMapper' threw an exception"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MTc1NTA3",
+      "is_bot": false,
+      "login": "the-black-wolf",
+      "name": "Black Wolf"
+    },
+    "closedAt": "2023-06-09T15:02:51Z",
+    "createdAt": "2021-03-16T20:43:48Z",
+    "labels": [],
+    "number": 1637,
+    "title": "Project state?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwOTM5MDQ4",
+      "is_bot": false,
+      "login": "jakubiszon",
+      "name": "jakubiszon"
+    },
+    "closedAt": "2024-11-21T06:48:03Z",
+    "createdAt": "2021-03-14T20:59:11Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1635,
+    "title": "QuerySingleOrDefault throws on delete statement with output clause."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU5MDQyNTU=",
+      "is_bot": false,
+      "login": "Steffan",
+      "name": "Steffan Yeh"
+    },
+    "closedAt": "2021-03-15T11:46:21Z",
+    "createdAt": "2021-03-11T21:32:59Z",
+    "labels": [],
+    "number": 1633,
+    "title": "No mapping of EmployeeId field when joining multiple tables"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc0MTExODc0",
+      "is_bot": false,
+      "login": "RazielsOwn",
+      "name": "Andrey Karimov"
+    },
+    "closedAt": "2021-03-01T08:13:33Z",
+    "createdAt": "2021-02-25T10:11:51Z",
+    "labels": [],
+    "number": 1631,
+    "title": "PosgreSQL many to many mapping problem"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY1MDg2NjI=",
+      "is_bot": false,
+      "login": "mvodep",
+      "name": ""
+    },
+    "closedAt": "2021-02-22T18:50:21Z",
+    "createdAt": "2021-02-22T14:31:34Z",
+    "labels": [],
+    "number": 1630,
+    "title": "Milliseconds not returned?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU1MzMwNzQ3",
+      "is_bot": false,
+      "login": "Sharaf-Mansour",
+      "name": "Sharaf M. Mansour"
+    },
+    "closedAt": "2021-02-21T17:46:01Z",
+    "createdAt": "2021-02-21T16:20:31Z",
+    "labels": [],
+    "number": 1629,
+    "title": " AsArray() Extension method ?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY2OTU3MzE=",
+      "is_bot": false,
+      "login": "kikaragyozov",
+      "name": "Kiril Karagyozov"
+    },
+    "closedAt": "2021-02-27T07:17:57Z",
+    "createdAt": "2021-02-18T14:30:01Z",
+    "labels": [],
+    "number": 1627,
+    "title": "Default Dapper command timeout value?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2ODM3MTI=",
+      "is_bot": false,
+      "login": "Calidus",
+      "name": "Zach Whitesel"
+    },
+    "closedAt": "2021-02-03T19:59:22Z",
+    "createdAt": "2021-02-03T17:01:56Z",
+    "labels": [],
+    "number": 1619,
+    "title": "License Question: Porting SqlBuilder to Typescript"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc4NDMyNzk1",
+      "is_bot": false,
+      "login": "GZI98",
+      "name": ""
+    },
+    "closedAt": "2021-02-02T15:56:59Z",
+    "createdAt": "2021-02-02T15:52:01Z",
+    "labels": [],
+    "number": 1617,
+    "title": "System.IO.FileNotFoundException: 'Could not load file or assembly 'Dapper, Version=2.0.0.0"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYzMjA2MjEx",
+      "is_bot": false,
+      "login": "timurash",
+      "name": "Timur Akhmetov"
+    },
+    "closedAt": "2021-01-11T07:56:36Z",
+    "createdAt": "2021-01-10T12:33:22Z",
+    "labels": [],
+    "number": 1605,
+    "title": "ExecuteAsync throws Exception when value in insert query contains \"  :  \""
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYzMjA3NzI=",
+      "is_bot": false,
+      "login": "Drizin",
+      "name": "Rick Drizin"
+    },
+    "closedAt": "2021-05-09T00:09:02Z",
+    "createdAt": "2020-12-07T01:32:27Z",
+    "labels": [],
+    "number": 1591,
+    "title": "(Third-party library) Harbin.DataAccess - Generic Repository Pattern using Dapper, Dapper FastCRUD and DapperQueryBuilder"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwNzM5MTEy",
+      "is_bot": false,
+      "login": "kacpersw",
+      "name": ""
+    },
+    "closedAt": "2021-05-09T00:09:15Z",
+    "createdAt": "2020-12-04T09:53:04Z",
+    "labels": [],
+    "number": 1589,
+    "title": "Is it possible to execute several queries asynchronously?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwOTAxMA==",
+      "is_bot": false,
+      "login": "carl-berg",
+      "name": "Carl Berg"
+    },
+    "closedAt": "2020-11-27T16:39:33Z",
+    "createdAt": "2020-11-27T11:26:06Z",
+    "labels": [],
+    "number": 1585,
+    "title": "Licensing when depending on Dapper in another open souce package"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU0MTQ5MTQ3",
+      "is_bot": false,
+      "login": "WaiYanMyintMo",
+      "name": "Wai Yan Myint Mo"
+    },
+    "closedAt": "2020-11-27T07:23:06Z",
+    "createdAt": "2020-11-27T07:16:10Z",
+    "labels": [],
+    "number": 1584,
+    "title": "Enclosing table names in square brackets breaks Dapper.Contrib"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ5Njg3Nzg1",
+      "is_bot": false,
+      "login": "KellyKimbleNotions",
+      "name": ""
+    },
+    "closedAt": "2020-11-27T17:02:25Z",
+    "createdAt": "2020-11-23T19:27:49Z",
+    "labels": [],
+    "number": 1583,
+    "title": "Reading columns that exceed the defined size blow out the app with a heap corruption error."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzNzU3Mjkz",
+      "is_bot": false,
+      "login": "luoyigit",
+      "name": "UpOcean"
+    },
+    "closedAt": "2020-11-23T09:28:33Z",
+    "createdAt": "2020-11-23T03:57:14Z",
+    "labels": [],
+    "number": 1582,
+    "title": "Mysql Transaction is no work, it had change the data but i had not commit ."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMyMTg3Mw==",
+      "is_bot": false,
+      "login": "Alexx999",
+      "name": "Alexander Vostres"
+    },
+    "closedAt": "2021-05-09T00:10:23Z",
+    "createdAt": "2020-11-23T01:58:22Z",
+    "labels": [],
+    "number": 1581,
+    "title": "Add ability to reuse DbConnection"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ3MDg4Njc1",
+      "is_bot": false,
+      "login": "amrbadawy",
+      "name": "Amr Badawy"
+    },
+    "closedAt": "2021-05-08T16:56:55Z",
+    "createdAt": "2020-11-22T05:29:33Z",
+    "labels": [],
+    "number": 1579,
+    "title": "Microsoft.Data.SqlClient 2.1 -- Command Timeout is now a connection string property "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg4OTgx",
+      "is_bot": false,
+      "login": "doggy8088",
+      "name": "Will 保哥"
+    },
+    "closedAt": "2021-05-08T16:59:03Z",
+    "createdAt": "2020-11-20T16:11:32Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1576,
+    "title": "Object reference not set to an instance of an object. at Dapper.SqlMapper.QueryImpl[T]"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3MzQyODMx",
+      "is_bot": false,
+      "login": "akrsnr",
+      "name": "Soner"
+    },
+    "closedAt": "2021-05-09T00:52:05Z",
+    "createdAt": "2020-11-16T20:03:49Z",
+    "labels": [],
+    "number": 1573,
+    "title": "Just wonder reason of the casting?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxNDM2NjQ0",
+      "is_bot": false,
+      "login": "frencsi",
+      "name": "Cseri Ferenc"
+    },
+    "closedAt": "2022-09-20T05:56:45Z",
+    "createdAt": "2020-11-10T15:25:05Z",
+    "labels": [],
+    "number": 1570,
+    "title": "Strange QueryMultiple(Async) behavior"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc4NjExOTY=",
+      "is_bot": false,
+      "login": "BenHayat",
+      "name": "Ben Hayat"
+    },
+    "closedAt": "2021-05-09T00:10:51Z",
+    "createdAt": "2020-11-04T08:22:12Z",
+    "labels": [],
+    "number": 1566,
+    "title": "Q: Dapper for .Net 5?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM0OTA3MDUy",
+      "is_bot": false,
+      "login": "LiuHui66",
+      "name": ""
+    },
+    "closedAt": "2021-05-08T21:53:53Z",
+    "createdAt": "2020-10-30T03:17:00Z",
+    "labels": [],
+    "number": 1564,
+    "title": "Dapper insert composite SQL has brackets and does not support MySQL syntax."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2NDk5NjI2",
+      "is_bot": false,
+      "login": "RaoHammas",
+      "name": "Rao Hammas"
+    },
+    "closedAt": "2020-10-15T09:43:11Z",
+    "createdAt": "2020-10-14T09:38:24Z",
+    "labels": [],
+    "number": 1557,
+    "title": "Dapper map subquery value to property"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM0MTE4NjYw",
+      "is_bot": false,
+      "login": "YanceyHo",
+      "name": "Yancey"
+    },
+    "closedAt": "2020-11-17T03:57:30Z",
+    "createdAt": "2020-10-10T12:44:16Z",
+    "labels": [],
+    "number": 1555,
+    "title": "QueryAsync<T> The Asynchronous query cannot get any results"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgzOTIzNjk=",
+      "is_bot": false,
+      "login": "rhexcasas",
+      "name": "RHEX CASAS"
+    },
+    "closedAt": "2021-05-09T00:39:00Z",
+    "createdAt": "2020-10-01T04:06:18Z",
+    "labels": [],
+    "number": 1550,
+    "title": "SqlMapper not found."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjcyMDQ1OTc1",
+      "is_bot": false,
+      "login": "MikeADoodleDo",
+      "name": ""
+    },
+    "closedAt": "2021-05-09T00:42:54Z",
+    "createdAt": "2020-09-28T20:20:22Z",
+    "labels": [],
+    "number": 1549,
+    "title": "Add query support for ExpandoObjects"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMzg5MzE0",
+      "is_bot": false,
+      "login": "cirrusone",
+      "name": ""
+    },
+    "closedAt": "2021-05-09T00:49:21Z",
+    "createdAt": "2020-09-27T18:22:56Z",
+    "labels": [],
+    "number": 1548,
+    "title": "NullReferenceException when transaction is null"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYwMjIxNzA=",
+      "is_bot": false,
+      "login": "abdeldjalil-fellah",
+      "name": "Abdeldjalil FELLAH"
+    },
+    "closedAt": "2021-05-10T02:46:53Z",
+    "createdAt": "2020-09-24T09:33:35Z",
+    "labels": [],
+    "number": 1545,
+    "title": "override DynamicParameters.ToString()"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NjY5OTk2",
+      "is_bot": false,
+      "login": "Zavix210",
+      "name": ""
+    },
+    "closedAt": "2020-09-22T09:55:16Z",
+    "createdAt": "2020-09-22T09:24:32Z",
+    "labels": [],
+    "number": 1543,
+    "title": "ODBC - Stored procedures"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2MzE0ODk2",
+      "is_bot": false,
+      "login": "dogac00",
+      "name": "Dogac Akyıldız"
+    },
+    "closedAt": "2020-09-21T12:33:56Z",
+    "createdAt": "2020-09-21T11:18:01Z",
+    "labels": [],
+    "number": 1542,
+    "title": "Performance Question about ToList()"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgzMjUyNzA=",
+      "is_bot": false,
+      "login": "TrendyTim",
+      "name": ""
+    },
+    "closedAt": "2020-09-20T01:34:27Z",
+    "createdAt": "2020-09-18T07:10:47Z",
+    "labels": [],
+    "number": 1539,
+    "title": "MultiMapping weridness"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwMzgzNDk1",
+      "is_bot": false,
+      "login": "brad-carr",
+      "name": ""
+    },
+    "closedAt": "2021-05-10T02:46:53Z",
+    "createdAt": "2020-09-16T10:10:52Z",
+    "labels": [],
+    "number": 1538,
+    "title": "Dapper.DbString should provide a useful override for .ToString()"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMyMzUxMDg4",
+      "is_bot": false,
+      "login": "EnmanuelParedesR",
+      "name": "Enmanuel Paredes"
+    },
+    "closedAt": "2020-09-04T21:45:54Z",
+    "createdAt": "2020-09-04T20:57:38Z",
+    "labels": [],
+    "number": 1534,
+    "title": "Dapper ExecuteAsync method not responding"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1MTM0Mzky",
+      "is_bot": false,
+      "login": "NowUp",
+      "name": "Moose"
+    },
+    "closedAt": "2021-05-08T21:54:46Z",
+    "createdAt": "2020-09-03T05:55:11Z",
+    "labels": [],
+    "number": 1533,
+    "title": "Firebird Insert Error"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzNTIyMzQ5",
+      "is_bot": false,
+      "login": "rkbalu",
+      "name": "Ramkumar Balasubramaniam"
+    },
+    "closedAt": "2020-08-28T16:16:24Z",
+    "createdAt": "2020-08-28T16:16:15Z",
+    "labels": [],
+    "number": 1528,
+    "title": "ExecuteReaderAsync"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ5MzU2NTA1",
+      "is_bot": false,
+      "login": "zivfuture",
+      "name": "ziv"
+    },
+    "closedAt": "2021-05-09T01:10:26Z",
+    "createdAt": "2020-08-27T10:04:25Z",
+    "labels": [],
+    "number": 1527,
+    "title": "mulit mapping"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM2MzkxNjE=",
+      "is_bot": false,
+      "login": "prashant-upadhyay",
+      "name": "Prashant Upadhyay"
+    },
+    "closedAt": "2020-08-29T11:06:23Z",
+    "createdAt": "2020-08-26T12:45:17Z",
+    "labels": [],
+    "number": 1525,
+    "title": "Dapper for .NET Core 3.1 - Sybase connection - Linux docker"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NjgyMzAy",
+      "is_bot": false,
+      "login": "megasuperlexa",
+      "name": ""
+    },
+    "closedAt": "2020-08-18T19:55:08Z",
+    "createdAt": "2020-08-18T19:13:24Z",
+    "labels": [],
+    "number": 1522,
+    "title": "Dapper Contrib Insert doesn't seem to follow conventions"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUzODU3NjYx",
+      "is_bot": false,
+      "login": "botrot",
+      "name": ""
+    },
+    "closedAt": "2020-08-18T11:59:35Z",
+    "createdAt": "2020-08-18T07:22:12Z",
+    "labels": [],
+    "number": 1521,
+    "title": "Creating nuget package does not include dapper"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY5ODE2ODg3",
+      "is_bot": false,
+      "login": "swaggyolafson",
+      "name": ""
+    },
+    "closedAt": "2021-05-09T01:25:48Z",
+    "createdAt": "2020-08-17T18:47:33Z",
+    "labels": [],
+    "number": 1519,
+    "title": "Get information about the executed query statement"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ5MzU2NTA1",
+      "is_bot": false,
+      "login": "zivfuture",
+      "name": "ziv"
+    },
+    "closedAt": "2021-05-09T01:26:55Z",
+    "createdAt": "2020-08-10T10:19:36Z",
+    "labels": [],
+    "number": 1515,
+    "title": "Auto generate parameters for query statement"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYzMjA3NzI=",
+      "is_bot": false,
+      "login": "Drizin",
+      "name": "Rick Drizin"
+    },
+    "closedAt": "2021-05-09T00:04:27Z",
+    "createdAt": "2020-08-07T03:36:28Z",
+    "labels": [],
+    "number": 1512,
+    "title": "(Third-party library) Dapper Query Builder - wrapper to build dynamic SQL using string interpolation"
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2020-08-04T20:58:45Z",
+    "createdAt": "2020-08-04T20:24:33Z",
+    "labels": [],
+    "number": 1510,
+    "title": "Error while trying to insert records with Always Encrypted Columns"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzMTYxMTY=",
+      "is_bot": false,
+      "login": "santoshpatro",
+      "name": "santosh kumar patro"
+    },
+    "closedAt": "2021-05-09T01:26:20Z",
+    "createdAt": "2020-07-26T08:30:45Z",
+    "labels": [],
+    "number": 1506,
+    "title": "Does Dapper support CosmosDB"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1NDUwNzU0",
+      "is_bot": false,
+      "login": "kchristo71",
+      "name": "Konstantinos Christodoulou"
+    },
+    "closedAt": "2021-05-09T00:47:56Z",
+    "createdAt": "2020-07-23T13:22:01Z",
+    "labels": [],
+    "number": 1504,
+    "title": "Oracle Package method call throws exception handled in the package method"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwMzM3NjA4",
+      "is_bot": false,
+      "login": "GoldBankCat",
+      "name": ""
+    },
+    "closedAt": "2021-05-09T00:06:11Z",
+    "createdAt": "2020-07-22T10:34:56Z",
+    "labels": [],
+    "number": 1503,
+    "title": "How many concurrences dapper can be held? "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYyOTYxODY=",
+      "is_bot": false,
+      "login": "jspinella",
+      "name": "James Spinella"
+    },
+    "closedAt": "2020-10-17T21:27:16Z",
+    "createdAt": "2020-07-21T15:31:24Z",
+    "labels": [],
+    "number": 1502,
+    "title": "MSSQL Linux - ExecuteAsync does not work but Execute does"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0NTMyMTc=",
+      "is_bot": false,
+      "login": "agjini",
+      "name": "Augustin Gjini"
+    },
+    "closedAt": "2020-07-28T12:33:27Z",
+    "createdAt": "2020-07-16T16:25:46Z",
+    "labels": [],
+    "number": 1500,
+    "title": "Be able to downcast long to smaller integers to support Sqllite"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExNDM3NDI3",
+      "is_bot": false,
+      "login": "wu-wenzhi",
+      "name": ""
+    },
+    "closedAt": "2020-07-20T00:26:14Z",
+    "createdAt": "2020-07-15T01:38:08Z",
+    "labels": [],
+    "number": 1499,
+    "title": "[A severe error occurred on the current command.  The results, if any, should be discarded.] Error while query dymatic"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU5MDU4NjM4",
+      "is_bot": false,
+      "login": "AndreFNBarros",
+      "name": "André"
+    },
+    "closedAt": "2020-08-19T01:47:19Z",
+    "createdAt": "2020-07-07T20:00:11Z",
+    "labels": [],
+    "number": 1497,
+    "title": "MySQL exception when using CONCAT"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1OTc1NDA4",
+      "is_bot": false,
+      "login": "Wqawer",
+      "name": ""
+    },
+    "closedAt": "2021-05-10T12:58:31Z",
+    "createdAt": "2020-07-06T12:41:16Z",
+    "labels": [],
+    "number": 1496,
+    "title": "Diferent result with QueryAsync and QueryMultipleAsync"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ3NDAzMDEz",
+      "is_bot": false,
+      "login": "MarcinSiennicki",
+      "name": ""
+    },
+    "closedAt": "2020-08-15T13:41:36Z",
+    "createdAt": "2020-07-03T08:32:55Z",
+    "labels": [],
+    "number": 1494,
+    "title": "An unhandled exception of type 'System.AccessViolationException' occurred in System.Data.OleDb.dll"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM3MTQ5NjMz",
+      "is_bot": false,
+      "login": "ibonetti",
+      "name": "Israel Bonetti"
+    },
+    "closedAt": "2020-07-03T17:12:34Z",
+    "createdAt": "2020-06-29T11:16:11Z",
+    "labels": [],
+    "number": 1493,
+    "title": "Dapper Contrib and Oracle"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyNzQ2MTU5",
+      "is_bot": false,
+      "login": "RwnRchrds",
+      "name": "Rowan Richards"
+    },
+    "closedAt": "2020-06-23T13:41:43Z",
+    "createdAt": "2020-06-23T10:50:22Z",
+    "labels": [],
+    "number": 1491,
+    "title": "MultiMapping doesn't work with subclasses"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY1MTUxNjQ=",
+      "is_bot": false,
+      "login": "a3nick",
+      "name": "Nicola Luraghi"
+    },
+    "closedAt": "2020-06-22T10:14:27Z",
+    "createdAt": "2020-06-22T08:41:23Z",
+    "labels": [],
+    "number": 1490,
+    "title": "IDENTITY retrieval error: No mapping exists from DbType UInt32 to a known SqlDbType."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc4NDM2Nw==",
+      "is_bot": false,
+      "login": "zaus",
+      "name": ""
+    },
+    "closedAt": "2020-08-15T13:42:22Z",
+    "createdAt": "2020-06-19T20:29:37Z",
+    "labels": [],
+    "number": 1489,
+    "title": "Contrib `Get` method doesn't escape column names"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQwMDkwMDc=",
+      "is_bot": false,
+      "login": "DylanSp",
+      "name": "Dylan Sprague"
+    },
+    "closedAt": "2022-03-03T01:04:44Z",
+    "createdAt": "2020-06-18T03:08:22Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzEwOTU0Mjg=",
+        "name": "documentation",
+        "description": "",
+        "color": "c7def8"
+      },
+      {
+        "id": "MDU6TGFiZWw1MDYxMDM2MzQ=",
+        "name": "up-for-grabs",
+        "description": "",
+        "color": "0e8a16"
+      }
+    ],
+    "number": 1488,
+    "title": "Add summary of the different packages (.Contrib, .SqlBuilder, etc.) to main README?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NTExMTc1",
+      "is_bot": false,
+      "login": "yekanchi",
+      "name": "Morteza T"
+    },
+    "closedAt": "2020-08-15T13:45:04Z",
+    "createdAt": "2020-06-17T13:41:27Z",
+    "labels": [],
+    "number": 1487,
+    "title": "any work around to avoid using attributes?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY3MDU0MTMy",
+      "is_bot": false,
+      "login": "nicolasHul",
+      "name": ""
+    },
+    "closedAt": "2020-06-17T11:51:48Z",
+    "createdAt": "2020-06-17T11:30:00Z",
+    "labels": [],
+    "number": 1486,
+    "title": "Dapper 2.0.35 - Query Multi-Mapping keeps returning 'SqlConnection does not contain a definition for Query' error"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMjk2ODM=",
+      "is_bot": false,
+      "login": "digioz",
+      "name": "DigiOz Multimedia"
+    },
+    "closedAt": "2020-06-17T06:15:52Z",
+    "createdAt": "2020-06-17T02:33:48Z",
+    "labels": [],
+    "number": 1485,
+    "title": "Issue with using parameters for a SELECT TOP N type query"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY2OTU3MzE=",
+      "is_bot": false,
+      "login": "kikaragyozov",
+      "name": "Kiril Karagyozov"
+    },
+    "closedAt": "2020-06-15T06:12:36Z",
+    "createdAt": "2020-06-11T09:40:28Z",
+    "labels": [],
+    "number": 1482,
+    "title": "Is there a pattern Dapper allows its users to use, which does not propagate exceptions?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYwNjc2MjM5",
+      "is_bot": false,
+      "login": "Av1v2k",
+      "name": ""
+    },
+    "closedAt": "2021-05-08T19:46:10Z",
+    "createdAt": "2020-06-08T17:46:08Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1481,
+    "title": "AccessViolationException using Dapper"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5NDYyODg0",
+      "is_bot": false,
+      "login": "zqlovejyc",
+      "name": "zhangq"
+    },
+    "closedAt": "2022-08-21T23:41:58Z",
+    "createdAt": "2020-06-04T04:43:15Z",
+    "labels": [],
+    "number": 1480,
+    "title": "Call ReadFirstOrDefaultAsync throw Exception"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyOTM2Mzk3",
+      "is_bot": false,
+      "login": "thiagopassosp",
+      "name": ""
+    },
+    "closedAt": "2021-05-09T01:01:04Z",
+    "createdAt": "2020-06-01T22:17:30Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzEyNjA3Nzk=",
+        "name": "db:oracle",
+        "description": "",
+        "color": "fef2c0"
+      }
+    ],
+    "number": 1477,
+    "title": "QueryMultiple for Oracle"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY2OTU3MzE=",
+      "is_bot": false,
+      "login": "kikaragyozov",
+      "name": "Kiril Karagyozov"
+    },
+    "closedAt": "2020-06-01T09:43:38Z",
+    "createdAt": "2020-06-01T08:22:55Z",
+    "labels": [],
+    "number": 1476,
+    "title": "When should one consider avoiding use of `QueryMultiple` and instead use `ExecuteReader`?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ5OTM3NDE=",
+      "is_bot": false,
+      "login": "StasD",
+      "name": "Stan D."
+    },
+    "closedAt": "2020-05-26T20:58:03Z",
+    "createdAt": "2020-05-25T23:21:37Z",
+    "labels": [],
+    "number": 1473,
+    "title": "For stored procedures, how do you know that you have to prefix the parameter name with `@`?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1Nzk4NDQy",
+      "is_bot": false,
+      "login": "apostrophesoftware",
+      "name": "Apostrophe Software"
+    },
+    "closedAt": "2020-05-23T11:11:52Z",
+    "createdAt": "2020-05-22T17:05:59Z",
+    "labels": [],
+    "number": 1472,
+    "title": "Incorrect syntax near the keyword 'User'"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU3NzQzNjA=",
+      "is_bot": false,
+      "login": "ensleep",
+      "name": "暗影灰蝶"
+    },
+    "closedAt": "2021-05-08T22:44:57Z",
+    "createdAt": "2020-05-22T02:15:42Z",
+    "labels": [],
+    "number": 1471,
+    "title": "how to remove SQL differences in different databases"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzNTU1NzY4",
+      "is_bot": false,
+      "login": "alex-jitbit",
+      "name": "Alexander Yumashev"
+    },
+    "closedAt": "2022-10-06T14:31:08Z",
+    "createdAt": "2020-05-21T20:50:07Z",
+    "labels": [],
+    "number": 1470,
+    "title": "INSERT with nullable<int> gives \"Must declare the scalar variable\"."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYzMjUyNzk=",
+      "is_bot": false,
+      "login": "piotr-wieruszewski",
+      "name": ""
+    },
+    "closedAt": "2020-05-27T16:23:57Z",
+    "createdAt": "2020-05-20T16:05:14Z",
+    "labels": [],
+    "number": 1469,
+    "title": "InvalidOperationException when using MySQLExecutor and Pipelined query"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3MjczMjQ=",
+      "is_bot": false,
+      "login": "srudin",
+      "name": "Sandro"
+    },
+    "closedAt": "2020-05-19T10:49:06Z",
+    "createdAt": "2020-05-19T09:59:19Z",
+    "labels": [],
+    "number": 1466,
+    "title": "How to use Dapper in .NET Core with Geospatial?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NDI2MDk=",
+      "is_bot": false,
+      "login": "DarkWanderer",
+      "name": "Oleg V. Kozlyuk"
+    },
+    "closedAt": "2020-09-22T07:34:35Z",
+    "createdAt": "2020-05-12T09:11:15Z",
+    "labels": [],
+    "number": 1463,
+    "title": "Dapper thinks ClickHouse does not support arrays"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQzNzY1MDk=",
+      "is_bot": false,
+      "login": "nicosampler",
+      "name": "nicolas"
+    },
+    "closedAt": "2020-05-07T20:50:58Z",
+    "createdAt": "2020-05-07T18:16:03Z",
+    "labels": [],
+    "number": 1456,
+    "title": "Chrome extension for Rinkeby not working"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY2MTUxNw==",
+      "is_bot": false,
+      "login": "biapar",
+      "name": "Biagio Paruolo"
+    },
+    "closedAt": "2021-05-08T19:45:54Z",
+    "createdAt": "2020-05-07T10:31:55Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1455,
+    "title": "Is't possible with Dapper to project tables with codefirst?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ0NjIyMjE2",
+      "is_bot": false,
+      "login": "alanjantz",
+      "name": "Alan Jantz"
+    },
+    "closedAt": "2020-04-29T15:15:53Z",
+    "createdAt": "2020-04-29T14:39:48Z",
+    "labels": [],
+    "number": 1445,
+    "title": "Case when result to nullable property C#"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMjk5NjA=",
+      "is_bot": false,
+      "login": "davidkeaveny",
+      "name": "David Keaveny"
+    },
+    "closedAt": "2020-05-24T10:38:23Z",
+    "createdAt": "2020-04-29T00:49:32Z",
+    "labels": [],
+    "number": 1444,
+    "title": "Integration with AWS X-Ray"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwMjc5NjA=",
+      "is_bot": false,
+      "login": "briankitt",
+      "name": "Brian Kitt"
+    },
+    "closedAt": "2020-05-02T20:06:14Z",
+    "createdAt": "2020-04-28T02:08:07Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1442,
+    "title": "Error on web garbage - When passing parameters by position, each parameter can only be referenced once"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2MzIxNTI1",
+      "is_bot": false,
+      "login": "tinylit",
+      "name": "Yuanli He"
+    },
+    "closedAt": "2020-05-07T11:21:40Z",
+    "createdAt": "2020-04-26T03:00:50Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1440,
+    "title": "Type conversion exception."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2MDYxOTk=",
+      "is_bot": false,
+      "login": "oreleraki",
+      "name": "Orel Eraki"
+    },
+    "closedAt": "2021-05-08T21:31:54Z",
+    "createdAt": "2020-04-13T10:25:02Z",
+    "labels": [],
+    "number": 1437,
+    "title": "Dapper.Contrib old fix did not make it into NuGet"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMyNTkyOTI=",
+      "is_bot": false,
+      "login": "JRam13",
+      "name": "Jonny Ramos"
+    },
+    "closedAt": "2021-05-08T19:48:12Z",
+    "createdAt": "2020-04-09T21:11:21Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1436,
+    "title": "Dapper not mapping bool to bit (as an input parameter)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwMzAzNjgy",
+      "is_bot": false,
+      "login": "Head-Strong",
+      "name": "Adi"
+    },
+    "closedAt": "2020-08-19T02:21:54Z",
+    "createdAt": "2020-04-09T11:39:03Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1435,
+    "title": "Unknown error 258 : The timeout period elapsed prior to completion"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgxNTk2MQ==",
+      "is_bot": false,
+      "login": "arnoldsimha",
+      "name": "Arnold Simha"
+    },
+    "closedAt": "2020-05-02T12:52:57Z",
+    "createdAt": "2020-04-07T13:48:11Z",
+    "labels": [],
+    "number": 1434,
+    "title": "Dapper.Contrib fluent column configuration"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg1MzczMQ==",
+      "is_bot": false,
+      "login": "yuzifu",
+      "name": ""
+    },
+    "closedAt": "2020-04-03T04:13:23Z",
+    "createdAt": "2020-04-02T11:08:27Z",
+    "labels": [],
+    "number": 1432,
+    "title": "When using the multi-mapping APIs ensure you set the splitOn param if you have keys other than Id"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwMzUxNTYy",
+      "is_bot": false,
+      "login": "spencermayne",
+      "name": "Spencer Mayne"
+    },
+    "closedAt": "2020-04-02T09:47:17Z",
+    "createdAt": "2020-04-02T08:00:03Z",
+    "labels": [],
+    "number": 1431,
+    "title": ".Net Core 3.1 DataTable DynamicParameter throws InvalidCastException"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMTMwNjI4",
+      "is_bot": false,
+      "login": "Cuiqs76",
+      "name": ""
+    },
+    "closedAt": "2020-04-01T00:52:05Z",
+    "createdAt": "2020-03-31T09:25:13Z",
+    "labels": [],
+    "number": 1429,
+    "title": "Dapper QueryMultipleAsync  use offset to could not  return pagedlist"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ2NzY1MDI4",
+      "is_bot": false,
+      "login": "psiservices-syerneni",
+      "name": ""
+    },
+    "closedAt": "2020-03-26T20:12:46Z",
+    "createdAt": "2020-03-26T02:25:15Z",
+    "labels": [],
+    "number": 1428,
+    "title": "Dapper oracle output parameter from stored procedure"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MzY1MzI5",
+      "is_bot": false,
+      "login": "lishuangquan1987",
+      "name": ""
+    },
+    "closedAt": "2021-05-09T00:08:35Z",
+    "createdAt": "2020-03-25T03:39:17Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzEyNjA3Nzk=",
+        "name": "db:oracle",
+        "description": "",
+        "color": "fef2c0"
+      }
+    ],
+    "number": 1427,
+    "title": "oracle database error: when parameter is empty list,error message:Oracle.ManagedDataAccess.Client.OracleException:“ORA-00923: 未找到要求的 FROM 关键字”,but this is ok when I use mysql database"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3MzA2MDQ5",
+      "is_bot": false,
+      "login": "victor-wiki",
+      "name": "victor"
+    },
+    "closedAt": "2020-05-12T00:40:24Z",
+    "createdAt": "2020-03-25T02:20:00Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzEyNjA3Nzk=",
+        "name": "db:oracle",
+        "description": "",
+        "color": "fef2c0"
+      }
+    ],
+    "number": 1426,
+    "title": "Parameter bind error for oracle data type \"INTERVAL DAY TO SECOND\""
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1MDQzMjY4",
+      "is_bot": false,
+      "login": "LanceRomance",
+      "name": "LanceRomance"
+    },
+    "closedAt": "2023-11-23T08:58:19Z",
+    "createdAt": "2020-03-23T20:08:18Z",
+    "labels": [],
+    "number": 1425,
+    "title": "NullReferenceException thrown when DbString instance is null"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgyOTU5MjM=",
+      "is_bot": false,
+      "login": "starkemc",
+      "name": ""
+    },
+    "closedAt": "2020-08-19T01:43:27Z",
+    "createdAt": "2020-03-19T22:46:52Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1423,
+    "title": "Install-Package : NU1108: Cycle detected. "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMjM1MTE5",
+      "is_bot": false,
+      "login": "git2013vb",
+      "name": "git_vb"
+    },
+    "closedAt": "2020-05-06T22:55:07Z",
+    "createdAt": "2020-03-16T17:31:00Z",
+    "labels": [],
+    "number": 1422,
+    "title": "Mono.Data.Sqlite.SqliteException: SQLite error no such table: Employees"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU0MzEzMTU=",
+      "is_bot": false,
+      "login": "Colegreen",
+      "name": ""
+    },
+    "closedAt": "2020-05-07T11:21:40Z",
+    "createdAt": "2020-03-13T17:36:42Z",
+    "labels": [],
+    "number": 1421,
+    "title": "Issue with QueryFirstOrDefaultAsync when getting a null from the database into a not nullable field"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY4OTEwMzA=",
+      "is_bot": false,
+      "login": "TehWardy",
+      "name": "Paul Ward"
+    },
+    "closedAt": "2020-05-01T22:44:29Z",
+    "createdAt": "2020-03-11T14:01:22Z",
+    "labels": [],
+    "number": 1420,
+    "title": "Implementing Dapper with OData"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzNzA2ODI1",
+      "is_bot": false,
+      "login": "Syltty",
+      "name": "Syltty"
+    },
+    "closedAt": "2020-03-04T06:19:29Z",
+    "createdAt": "2020-03-02T11:37:46Z",
+    "labels": [],
+    "number": 1417,
+    "title": "Different results between Dapper and query in PostgreSQL db client "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzOTYxODM0",
+      "is_bot": false,
+      "login": "dmitriy-shleht",
+      "name": "Dmitriy"
+    },
+    "closedAt": "2020-05-04T02:37:25Z",
+    "createdAt": "2020-02-25T15:08:23Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzEyNjA3Nzk=",
+        "name": "db:oracle",
+        "description": "",
+        "color": "fef2c0"
+      },
+      {
+        "id": "MDU6TGFiZWwyMDM0NTc0Nzc5",
+        "name": "area:mapping",
+        "description": "[Column] and friends",
+        "color": "0a5372"
+      }
+    ],
+    "number": 1416,
+    "title": "Oracle and DynamicParameters. ORA-06502: PL/SQL: numeric or value error"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQyNTkxMDM2",
+      "is_bot": false,
+      "login": "ShemJM",
+      "name": "Shem"
+    },
+    "closedAt": "2020-02-22T17:47:20Z",
+    "createdAt": "2020-02-22T17:40:18Z",
+    "labels": [],
+    "number": 1415,
+    "title": "Update() creating a new property"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY2OTU3MzE=",
+      "is_bot": false,
+      "login": "kikaragyozov",
+      "name": "Kiril Karagyozov"
+    },
+    "closedAt": "2020-02-17T15:11:18Z",
+    "createdAt": "2020-02-17T13:53:48Z",
+    "labels": [],
+    "number": 1413,
+    "title": "Make Dapper use the new IValueTask<T> instead of Task?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3Njk0Nw==",
+      "is_bot": false,
+      "login": "tjaskula",
+      "name": "Tomasz Jaskula"
+    },
+    "closedAt": "2021-05-08T19:49:55Z",
+    "createdAt": "2020-01-23T09:54:42Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1406,
+    "title": "Exception: When passing parameters by position, each parameter can only be referenced once"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzNTUzOTgw",
+      "is_bot": false,
+      "login": "PostCharles",
+      "name": ""
+    },
+    "closedAt": "2020-01-24T01:52:43Z",
+    "createdAt": "2020-01-18T04:41:57Z",
+    "labels": [],
+    "number": 1403,
+    "title": "Postgres: QueryFirstOrDefaultAsync<int> throws null exception when 0 was expected."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzMzQyMjQ0",
+      "is_bot": false,
+      "login": "gaojiandonggg",
+      "name": ""
+    },
+    "closedAt": "2020-05-01T22:12:31Z",
+    "createdAt": "2020-01-17T16:07:22Z",
+    "labels": [],
+    "number": 1402,
+    "title": ".net core 3.1+dapper2.0.3 pool size use all"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYyOTYxODY=",
+      "is_bot": false,
+      "login": "jspinella",
+      "name": "James Spinella"
+    },
+    "closedAt": "2020-01-15T22:02:35Z",
+    "createdAt": "2020-01-15T20:54:38Z",
+    "labels": [],
+    "number": 1401,
+    "title": "Dapper Plus InsertMany throwing null reference exception"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2OTQ5MDU=",
+      "is_bot": false,
+      "login": "JulianRooze",
+      "name": ""
+    },
+    "closedAt": "2020-05-01T22:17:36Z",
+    "createdAt": "2020-01-14T17:32:08Z",
+    "labels": [],
+    "number": 1399,
+    "title": "Selecting a nullable tuple always returns null"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUxNjQ2NjM=",
+      "is_bot": false,
+      "login": "tkggusraqk",
+      "name": "tkggusraqk"
+    },
+    "closedAt": "2020-01-13T07:20:08Z",
+    "createdAt": "2020-01-12T07:11:25Z",
+    "labels": [],
+    "number": 1398,
+    "title": "ExecuteScalar return OUTPUT INSERTED.Id ，Is it possible to？"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQyNTc2NDA0",
+      "is_bot": false,
+      "login": "ryan-todd",
+      "name": ""
+    },
+    "closedAt": "2020-05-02T12:47:58Z",
+    "createdAt": "2020-01-07T18:59:39Z",
+    "labels": [],
+    "number": 1395,
+    "title": "Dapper.Contrib inconsistent id field quoting with PostgreSQL"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MjAxOTc=",
+      "is_bot": false,
+      "login": "Fniz",
+      "name": "Florian Nouri"
+    },
+    "closedAt": "2020-01-04T09:43:24Z",
+    "createdAt": "2020-01-03T16:18:55Z",
+    "labels": [],
+    "number": 1391,
+    "title": "SqlException raised : System.Data.SqlClient.SqlException (0x80131904): Incorrect syntax near ','"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2MDU3OTEx",
+      "is_bot": false,
+      "login": "nambir",
+      "name": ""
+    },
+    "closedAt": "2020-05-02T13:13:40Z",
+    "createdAt": "2019-12-23T14:18:17Z",
+    "labels": [],
+    "number": 1388,
+    "title": "Second level cache"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0Nzc3MTAz",
+      "is_bot": false,
+      "login": "IYourInsanity",
+      "name": "Zero Default"
+    },
+    "closedAt": "2019-12-20T10:50:15Z",
+    "createdAt": "2019-12-19T13:49:16Z",
+    "labels": [],
+    "number": 1387,
+    "title": "QueryFirstOrDefault<T> doesn't work with T-SQL on MSSQL"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzNTU1NzY4",
+      "is_bot": false,
+      "login": "alex-jitbit",
+      "name": "Alexander Yumashev"
+    },
+    "closedAt": "2021-05-10T02:14:11Z",
+    "createdAt": "2019-12-12T19:26:46Z",
+    "labels": [],
+    "number": 1384,
+    "title": "Add support for constructor with less params than columns in the query"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY2OTU3MzE=",
+      "is_bot": false,
+      "login": "kikaragyozov",
+      "name": "Kiril Karagyozov"
+    },
+    "closedAt": "2019-12-05T08:27:58Z",
+    "createdAt": "2019-12-04T19:56:55Z",
+    "labels": [],
+    "number": 1383,
+    "title": "Byte array parsing fails?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwNzkzOTQz",
+      "is_bot": false,
+      "login": "shaohuatsou",
+      "name": "小污云姐姐"
+    },
+    "closedAt": "2019-12-15T15:42:19Z",
+    "createdAt": "2019-12-03T01:28:04Z",
+    "labels": [],
+    "number": 1382,
+    "title": "How to write a custom mapping with dapper to achieve the following correspondence?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUwODI4NzQ1",
+      "is_bot": false,
+      "login": "farhad-taran-cko",
+      "name": ""
+    },
+    "closedAt": "2019-11-24T01:19:33Z",
+    "createdAt": "2019-11-23T19:10:13Z",
+    "labels": [],
+    "number": 1380,
+    "title": "Asp.net core 2.2 api not able to integrate miniprofiler, dapper and mySql to work "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM0MTUyODU=",
+      "is_bot": false,
+      "login": "caozhiyuan",
+      "name": "caozhiyuan"
+    },
+    "closedAt": "2019-11-23T02:54:49Z",
+    "createdAt": "2019-11-22T06:02:40Z",
+    "labels": [],
+    "number": 1379,
+    "title": "SqlMapper Query param empty list cause table scan in mysql"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyODY3MTgx",
+      "is_bot": false,
+      "login": "FatTigerWang",
+      "name": "FatTiger"
+    },
+    "closedAt": "2019-11-20T01:44:04Z",
+    "createdAt": "2019-11-18T08:38:01Z",
+    "labels": [],
+    "number": 1375,
+    "title": "@parameter not working"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwNjMxOQ==",
+      "is_bot": false,
+      "login": "paulodiogo",
+      "name": "Paulo Leão"
+    },
+    "closedAt": "2019-11-11T23:46:12Z",
+    "createdAt": "2019-11-11T23:34:53Z",
+    "labels": [],
+    "number": 1374,
+    "title": "Map int column as string"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ3NTcxNDY=",
+      "is_bot": false,
+      "login": "kidmar",
+      "name": ""
+    },
+    "closedAt": "2019-10-31T11:18:37Z",
+    "createdAt": "2019-10-30T16:55:00Z",
+    "labels": [],
+    "number": 1365,
+    "title": "Error: data value could not be converted"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY0Mjc5OTQ=",
+      "is_bot": false,
+      "login": "yetanotherlogonfail",
+      "name": ""
+    },
+    "closedAt": "2019-10-31T09:07:32Z",
+    "createdAt": "2019-10-30T14:31:04Z",
+    "labels": [],
+    "number": 1364,
+    "title": "dapper-tutorial wording clarification"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQyODkxNjE=",
+      "is_bot": false,
+      "login": "ingted",
+      "name": ""
+    },
+    "closedAt": "2021-05-08T22:38:37Z",
+    "createdAt": "2019-10-24T04:58:38Z",
+    "labels": [],
+    "number": 1360,
+    "title": "CommandTimeout not  work for simple TSQL \"WHILE 1 = 1...\""
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwOTIyOTI=",
+      "is_bot": false,
+      "login": "aplib",
+      "name": "vadim b."
+    },
+    "closedAt": "2019-10-24T17:42:47Z",
+    "createdAt": "2019-10-23T23:31:25Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1359,
+    "title": "0 null values in Query<T>using the built-in function"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2ODcxNDU=",
+      "is_bot": false,
+      "login": "sitepodmatt",
+      "name": "Mãtt Freèman"
+    },
+    "closedAt": "2021-05-09T21:18:19Z",
+    "createdAt": "2019-10-23T12:26:57Z",
+    "labels": [],
+    "number": 1358,
+    "title": "ReadAsync on mutli results (GridReader) joins?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3NzYwOA==",
+      "is_bot": false,
+      "login": "augustoproiete",
+      "name": "C. Augusto Proiete"
+    },
+    "closedAt": "2019-10-19T16:38:56Z",
+    "createdAt": "2019-10-19T00:07:14Z",
+    "labels": [],
+    "number": 1356,
+    "title": "Strong-name sign Dapper.* and deprecate Dapper*.StrongName package"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU1NzA2NQ==",
+      "is_bot": false,
+      "login": "andy-g",
+      "name": "Andy Gardner"
+    },
+    "closedAt": "2021-05-09T17:16:15Z",
+    "createdAt": "2019-10-18T06:20:01Z",
+    "labels": [],
+    "number": 1355,
+    "title": "OpenTelemetry collector for Dapper"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjcwNzExMTI=",
+      "is_bot": false,
+      "login": "iamdjones",
+      "name": "Devon Jones"
+    },
+    "closedAt": "2019-10-16T21:19:31Z",
+    "createdAt": "2019-10-16T20:53:01Z",
+    "labels": [],
+    "number": 1353,
+    "title": "mssql temp table not created when using parameter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNTA4ODYw",
+      "is_bot": false,
+      "login": "Magnus12",
+      "name": "Magnus Persson"
+    },
+    "closedAt": "2019-10-22T07:37:37Z",
+    "createdAt": "2019-10-10T11:34:47Z",
+    "labels": [],
+    "number": 1352,
+    "title": "AsTableValuedParameter does not work after version 1.60.6"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwOTIyOTI=",
+      "is_bot": false,
+      "login": "aplib",
+      "name": "vadim b."
+    },
+    "closedAt": "2019-10-24T01:49:13Z",
+    "createdAt": "2019-10-09T18:08:53Z",
+    "labels": [],
+    "number": 1351,
+    "title": "Npgsql.PostgresException (0x80004005): 42P01: \\\"contentss\\\""
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNzI5MTg0",
+      "is_bot": false,
+      "login": "shps951023",
+      "name": "Wei Lin"
+    },
+    "closedAt": "2019-10-11T01:55:12Z",
+    "createdAt": "2019-10-08T03:24:03Z",
+    "labels": [],
+    "number": 1350,
+    "title": "Simple new idea demo for SqlBuilder"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNzI5MTg0",
+      "is_bot": false,
+      "login": "shps951023",
+      "name": "Wei Lin"
+    },
+    "closedAt": "2019-10-02T09:32:24Z",
+    "createdAt": "2019-10-02T08:36:47Z",
+    "labels": [],
+    "number": 1344,
+    "title": "MultiExecute don't need repeat set CommandText"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1NDYxODE=",
+      "is_bot": false,
+      "login": "mrtristan",
+      "name": "tristan"
+    },
+    "closedAt": "2021-05-08T22:36:55Z",
+    "createdAt": "2019-09-30T17:31:34Z",
+    "labels": [],
+    "number": 1343,
+    "title": "2.0.30 is missing release notes"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MjEyMjI1",
+      "is_bot": false,
+      "login": "sextondjc",
+      "name": "David Sexton"
+    },
+    "closedAt": "2019-09-27T19:39:57Z",
+    "createdAt": "2019-09-27T19:29:33Z",
+    "labels": [],
+    "number": 1341,
+    "title": "Latest version is 2.0.30? "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMyMDUzMzE=",
+      "is_bot": false,
+      "login": "ajiehatajie",
+      "name": "Ajie Hatajie"
+    },
+    "closedAt": "2019-09-27T20:20:47Z",
+    "createdAt": "2019-09-21T02:38:41Z",
+    "labels": [],
+    "number": 1332,
+    "title": "Could not install package 'Dapper 2.0.4'"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQyMzQwMzc0",
+      "is_bot": false,
+      "login": "colemars",
+      "name": "Cole Marsteller"
+    },
+    "closedAt": "2019-10-14T23:10:10Z",
+    "createdAt": "2019-09-18T23:05:12Z",
+    "labels": [],
+    "number": 1329,
+    "title": "Why are all of the dotnetfiddles broken?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk5ODc4NTA=",
+      "is_bot": false,
+      "login": "rocketRobin",
+      "name": "rocketRobin"
+    },
+    "closedAt": "2019-09-18T07:26:39Z",
+    "createdAt": "2019-09-18T06:33:05Z",
+    "labels": [],
+    "number": 1328,
+    "title": "How buffer works?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgxMTcyMA==",
+      "is_bot": false,
+      "login": "mbpakalin",
+      "name": "Mustafa Bahadır Pakalın"
+    },
+    "closedAt": "2019-09-16T16:30:41Z",
+    "createdAt": "2019-09-16T15:38:01Z",
+    "labels": [],
+    "number": 1327,
+    "title": "Out of Memory"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjcwMTk2MTk=",
+      "is_bot": false,
+      "login": "nhathongly",
+      "name": ""
+    },
+    "closedAt": "2019-09-12T07:30:46Z",
+    "createdAt": "2019-09-09T02:01:11Z",
+    "labels": [],
+    "number": 1325,
+    "title": "Can't update to Dapper-2.0.4 with Visual Studio 2015"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyNTcxNjA=",
+      "is_bot": false,
+      "login": "garethrepton",
+      "name": "Gareth Repton"
+    },
+    "closedAt": "2021-05-09T17:30:22Z",
+    "createdAt": "2019-09-03T11:44:32Z",
+    "labels": [],
+    "number": 1322,
+    "title": "With duplicate fields in resultset, dapper doesn't throw an exception"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1NTA3MjQx",
+      "is_bot": false,
+      "login": "RestoreMonarchy",
+      "name": "Michał Wrona"
+    },
+    "closedAt": "2019-09-02T15:14:58Z",
+    "createdAt": "2019-09-02T13:03:44Z",
+    "labels": [],
+    "number": 1321,
+    "title": "'Error parsing column 0' when trying to use string as UNIQUEIDENTIFIER column parameter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMjAxOTcz",
+      "is_bot": false,
+      "login": "fredericDelaporte",
+      "name": "Frédéric Delaporte"
+    },
+    "closedAt": "2019-09-12T07:53:52Z",
+    "createdAt": "2019-09-01T19:33:22Z",
+    "labels": [],
+    "number": 1320,
+    "title": "Dynamic WebForm compilation issue with Dapper 2.0.4"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk2OTU2MzY=",
+      "is_bot": false,
+      "login": "xaviergxf",
+      "name": "Xavier Klausener"
+    },
+    "closedAt": "2021-05-08T22:32:30Z",
+    "createdAt": "2019-08-23T15:23:01Z",
+    "labels": [],
+    "number": 1314,
+    "title": "SqlMapper with dependency injection"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NTg1NzA0",
+      "is_bot": false,
+      "login": "kodaniel",
+      "name": "Daniel Kovacs"
+    },
+    "closedAt": "2021-05-08T22:33:40Z",
+    "createdAt": "2019-08-21T06:30:51Z",
+    "labels": [],
+    "number": 1311,
+    "title": "Dapper does not map queries with JOIN"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwNDI1NjE=",
+      "is_bot": false,
+      "login": "scgough",
+      "name": "Simon Gough"
+    },
+    "closedAt": "2019-10-16T12:13:28Z",
+    "createdAt": "2019-08-16T14:23:28Z",
+    "labels": [],
+    "number": 1310,
+    "title": "Updating a nullable DateTime value fails with error"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzNTg0NjEz",
+      "is_bot": false,
+      "login": "KingDracula",
+      "name": "KingDracula"
+    },
+    "closedAt": "2021-05-08T21:34:18Z",
+    "createdAt": "2019-08-15T02:43:41Z",
+    "labels": [],
+    "number": 1308,
+    "title": "Insert Arabic in to mysql  scrambling code"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQxODgzMjIw",
+      "is_bot": false,
+      "login": "soul-soft",
+      "name": "1448376744"
+    },
+    "closedAt": "2019-09-21T13:25:29Z",
+    "createdAt": "2019-08-10T05:03:50Z",
+    "labels": [],
+    "number": 1304,
+    "title": "Dapper's unfriendly support for anonymous types bothers me."
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2019-08-08T12:13:37Z",
+    "createdAt": "2019-08-07T15:12:50Z",
+    "labels": [],
+    "number": 1303,
+    "title": "Cyrillic chars in XmlDocument"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMTkwMTc5",
+      "is_bot": false,
+      "login": "nocomplain",
+      "name": ""
+    },
+    "closedAt": "2019-08-05T05:50:31Z",
+    "createdAt": "2019-08-05T05:36:46Z",
+    "labels": [],
+    "number": 1302,
+    "title": "help! dapper excute sql with group by is very slow"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1NDk2OTI3",
+      "is_bot": false,
+      "login": "Olbrasoft",
+      "name": "Jiří Tůma"
+    },
+    "closedAt": "2021-05-10T12:58:31Z",
+    "createdAt": "2019-08-03T15:28:52Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwxMDQ4NTE4Mjkz",
+        "name": "db:sqlite",
+        "description": "",
+        "color": "fef2c0"
+      },
+      {
+        "id": "MDU6TGFiZWwyMDM0NjMwODI0",
+        "name": "area:typehandlers",
+        "description": "",
+        "color": "0a5372"
+      }
+    ],
+    "number": 1301,
+    "title": "SqLite ReadFirstAsync<int> "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUzMzQ4MDQx",
+      "is_bot": false,
+      "login": "OmnicellMike",
+      "name": "Mike Adamski"
+    },
+    "closedAt": "2019-07-26T16:56:14Z",
+    "createdAt": "2019-07-26T16:21:08Z",
+    "labels": [],
+    "number": 1300,
+    "title": "Security Risk: When initializing the database connection, the connection string is logged which will display database user name and password in the log file"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0Njc1NjY2",
+      "is_bot": false,
+      "login": "amaszorek",
+      "name": ""
+    },
+    "closedAt": "2019-07-29T10:01:40Z",
+    "createdAt": "2019-07-15T20:26:37Z",
+    "labels": [],
+    "number": 1296,
+    "title": ".NET Core 2.1/2.2 & Mysql Parameters not working"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgwNDAzNjc=",
+      "is_bot": false,
+      "login": "jnm2",
+      "name": "Joseph Musser"
+    },
+    "closedAt": "2020-05-02T00:12:59Z",
+    "createdAt": "2019-07-12T01:45:18Z",
+    "labels": [],
+    "number": 1294,
+    "title": "Global.json is causing projects to fail to load in VS unless I install an older SDK"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQxODgzMjIw",
+      "is_bot": false,
+      "login": "soul-soft",
+      "name": "1448376744"
+    },
+    "closedAt": "2019-08-12T07:27:50Z",
+    "createdAt": "2019-07-04T05:45:17Z",
+    "labels": [],
+    "number": 1291,
+    "title": "I want to add this to Dapper, and I hope the authorities will support and maintain it."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2NTMyMTE2",
+      "is_bot": false,
+      "login": "flybalance",
+      "name": ""
+    },
+    "closedAt": "2020-05-04T01:27:57Z",
+    "createdAt": "2019-06-27T01:19:11Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzEyNjA3Nzk=",
+        "name": "db:oracle",
+        "description": "",
+        "color": "fef2c0"
+      }
+    ],
+    "number": 1288,
+    "title": "decimal  precision changed"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIxOTk5NjAz",
+      "is_bot": false,
+      "login": "WillLeeBebi",
+      "name": "John Snow"
+    },
+    "closedAt": "2019-06-25T03:35:12Z",
+    "createdAt": "2019-06-23T14:53:14Z",
+    "labels": [],
+    "number": 1287,
+    "title": "System.Data.DataException:“Error parsing column 0 (Id=b39015e2-b8f7-4078-a119-5c4cda8f601b - Object)”"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUxOTUwNDU3",
+      "is_bot": false,
+      "login": "tienfahsu",
+      "name": ""
+    },
+    "closedAt": "2020-05-02T00:14:53Z",
+    "createdAt": "2019-06-21T01:14:11Z",
+    "labels": [],
+    "number": 1286,
+    "title": "NETFramework 4.5.1 TLS 1.2 not default protocol"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQzNzMzMA==",
+      "is_bot": false,
+      "login": "rustbomber",
+      "name": "YLH"
+    },
+    "closedAt": "2019-07-17T06:30:49Z",
+    "createdAt": "2019-06-20T02:54:36Z",
+    "labels": [],
+    "number": 1285,
+    "title": "[sqlite]Error parsing column 8 (X=0 - Int64)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI3ODEwNjQ1",
+      "is_bot": false,
+      "login": "harunemre",
+      "name": "harun emre"
+    },
+    "closedAt": "2019-06-22T15:33:46Z",
+    "createdAt": "2019-06-17T12:59:02Z",
+    "labels": [],
+    "number": 1283,
+    "title": "Dapper QueryFirstOrDefaultAsync returns all except property named \"Database\""
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ0MDU2Mw==",
+      "is_bot": false,
+      "login": "Larry57",
+      "name": "L4rry"
+    },
+    "closedAt": "2020-05-04T02:21:48Z",
+    "createdAt": "2019-06-14T12:08:17Z",
+    "labels": [],
+    "number": 1281,
+    "title": "How to change name of parameter at the last moment before running a query?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgwNDAzNjc=",
+      "is_bot": false,
+      "login": "jnm2",
+      "name": "Joseph Musser"
+    },
+    "closedAt": "2019-06-13T06:37:42Z",
+    "createdAt": "2019-06-12T23:18:41Z",
+    "labels": [],
+    "number": 1279,
+    "title": "InvalidProgramException on prerelease when first field is a non-numeric type"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQxMjc4MQ==",
+      "is_bot": false,
+      "login": "walkindude",
+      "name": "Stefano Mioli"
+    },
+    "closedAt": "2019-06-13T07:06:17Z",
+    "createdAt": "2019-06-12T09:41:43Z",
+    "labels": [],
+    "number": 1277,
+    "title": "Issue with ExecuteReaderAsync on MySQL"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4MDkxNzI1",
+      "is_bot": false,
+      "login": "FewBox",
+      "name": "fewbox"
+    },
+    "closedAt": "2019-06-11T05:52:14Z",
+    "createdAt": "2019-06-11T01:57:42Z",
+    "labels": [],
+    "number": 1276,
+    "title": "Add TypeHandler to support SQLite Guid but when execute select sql, the window works fine but centos doesn't work."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ0NDg4MDI4",
+      "is_bot": false,
+      "login": "JiangJiaqi90",
+      "name": ""
+    },
+    "closedAt": "2020-05-02T00:18:55Z",
+    "createdAt": "2019-06-10T09:18:56Z",
+    "labels": [],
+    "number": 1274,
+    "title": "Dapper.Contrib Insert or Update Type error,Cant not find table name"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUxODE5MjY=",
+      "is_bot": false,
+      "login": "jdbouch",
+      "name": "James Bouchard"
+    },
+    "closedAt": "2019-06-07T18:55:56Z",
+    "createdAt": "2019-06-07T16:18:45Z",
+    "labels": [],
+    "number": 1273,
+    "title": "Can't Connect to SQL Server"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExMDU3Mzc=",
+      "is_bot": false,
+      "login": "tauchmi",
+      "name": "Michael Tauchmann"
+    },
+    "closedAt": "2019-05-29T11:45:53Z",
+    "createdAt": "2019-05-29T09:14:16Z",
+    "labels": [],
+    "number": 1269,
+    "title": "QuerySingleOrDefault throws NullReferenceException on NULL return"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MTUzODkz",
+      "is_bot": false,
+      "login": "guopenglun",
+      "name": ""
+    },
+    "closedAt": "2019-05-20T06:59:25Z",
+    "createdAt": "2019-05-19T12:08:44Z",
+    "labels": [],
+    "number": 1266,
+    "title": "How to make the map ignore static fields"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc5MDc0MA==",
+      "is_bot": false,
+      "login": "bokmadsen",
+      "name": "Bo Kingo Damgaard"
+    },
+    "closedAt": "2021-05-09T19:45:09Z",
+    "createdAt": "2019-05-16T09:25:43Z",
+    "labels": [],
+    "number": 1264,
+    "title": "Possible mistake when clearing query cache"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNjY0MDQ=",
+      "is_bot": false,
+      "login": "rocknet",
+      "name": "Chris Rock"
+    },
+    "closedAt": "2023-06-09T08:28:17Z",
+    "createdAt": "2019-05-10T20:55:32Z",
+    "labels": [],
+    "number": 1263,
+    "title": "Any way to override with call to GetSqlDecimal for specified column?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2MzU5NTQy",
+      "is_bot": false,
+      "login": "YeJianXi",
+      "name": "JamesYe"
+    },
+    "closedAt": "2021-05-08T21:33:00Z",
+    "createdAt": "2019-05-08T07:17:54Z",
+    "labels": [],
+    "number": 1260,
+    "title": "I can't found the \"int Insert<T>(Enumerable<T> list);\" in dapper.contrib,why?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NzExNjk4",
+      "is_bot": false,
+      "login": "juiceeyoung",
+      "name": ""
+    },
+    "closedAt": "2021-05-08T21:57:34Z",
+    "createdAt": "2019-05-07T13:11:40Z",
+    "labels": [],
+    "number": 1259,
+    "title": "cant use in .net core+ mysql.data , it would happen some SQL syntax"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5MTQyMDE=",
+      "is_bot": false,
+      "login": "AdaskoTheBeAsT",
+      "name": "Adam Pluciński"
+    },
+    "closedAt": "2019-12-10T15:45:59Z",
+    "createdAt": "2019-05-07T06:51:13Z",
+    "labels": [],
+    "number": 1258,
+    "title": "Support for Microsoft.Data.SqlClient"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjcxMTczNTg=",
+      "is_bot": false,
+      "login": "DrydenLong",
+      "name": ""
+    },
+    "closedAt": "2019-05-01T16:08:37Z",
+    "createdAt": "2019-05-01T16:08:19Z",
+    "labels": [],
+    "number": 1251,
+    "title": "pper to dynamic"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4Mzc1Nzc0",
+      "is_bot": false,
+      "login": "JohnnyZhang0628",
+      "name": "johnny"
+    },
+    "closedAt": "2021-05-09T20:58:32Z",
+    "createdAt": "2019-04-30T07:56:58Z",
+    "labels": [],
+    "number": 1249,
+    "title": "When I use \"Execute a Command multiple times\" Insert table 200 rows, cost 6s.What should Ido?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU3NzQzNjA=",
+      "is_bot": false,
+      "login": "ensleep",
+      "name": "暗影灰蝶"
+    },
+    "closedAt": "2019-05-01T10:26:59Z",
+    "createdAt": "2019-04-29T01:34:57Z",
+    "labels": [],
+    "number": 1248,
+    "title": "what's the different between the execute method with parameter trans or null"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxMjU0NTA3",
+      "is_bot": false,
+      "login": "janetr1023",
+      "name": "Janet Roberts"
+    },
+    "closedAt": "2020-05-04T02:53:51Z",
+    "createdAt": "2019-04-26T20:38:12Z",
+    "labels": [],
+    "number": 1247,
+    "title": "CommandTimeout on Async methods does not cause exception when exceeded "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjkxNTIzNw==",
+      "is_bot": false,
+      "login": "jbarngr",
+      "name": "Jeremy Barngrover"
+    },
+    "closedAt": "2019-04-29T14:57:47Z",
+    "createdAt": "2019-04-26T19:23:04Z",
+    "labels": [],
+    "number": 1246,
+    "title": "QueryAsync Throws error if StoredProcedure requires no parameters."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQxNTY5Mjg2",
+      "is_bot": false,
+      "login": "csabc",
+      "name": ""
+    },
+    "closedAt": "2019-04-24T01:35:39Z",
+    "createdAt": "2019-04-21T22:39:24Z",
+    "labels": [],
+    "number": 1243,
+    "title": "i am using mysql8,  updateasync(List<some>,null,null) throw a error message:wrong syntax"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyNDM5NTg=",
+      "is_bot": false,
+      "login": "vitidev",
+      "name": ""
+    },
+    "closedAt": "2023-06-09T15:02:05Z",
+    "createdAt": "2019-04-13T11:31:30Z",
+    "labels": [],
+    "number": 1239,
+    "title": "QueryAsync missing buffered parameter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ4ODQyNzc3",
+      "is_bot": false,
+      "login": "dramirezgmd",
+      "name": ""
+    },
+    "closedAt": "2021-05-08T22:31:55Z",
+    "createdAt": "2019-04-05T20:28:54Z",
+    "labels": [],
+    "number": 1232,
+    "title": "Dapper and DotConnect are not working"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg5OTg3OA==",
+      "is_bot": false,
+      "login": "PureKrome",
+      "name": "Justin Adler"
+    },
+    "closedAt": "2019-04-05T10:39:10Z",
+    "createdAt": "2019-04-05T06:06:51Z",
+    "labels": [],
+    "number": 1228,
+    "title": "Update System.Data.SqlClient to 4.6.0"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk1MzQ5Mzk=",
+      "is_bot": false,
+      "login": "Blastnsmash",
+      "name": ""
+    },
+    "closedAt": "2021-05-09T00:55:03Z",
+    "createdAt": "2019-04-04T18:14:01Z",
+    "labels": [],
+    "number": 1227,
+    "title": "Execute Multiple Update - rows affected"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExNjE4NDMy",
+      "is_bot": false,
+      "login": "tessarolli",
+      "name": "Luiz Tessarolli"
+    },
+    "closedAt": "2019-04-09T18:38:57Z",
+    "createdAt": "2019-04-03T19:03:01Z",
+    "labels": [],
+    "number": 1225,
+    "title": "Dapper trying to map value to wrong model property"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2OTUxNjgz",
+      "is_bot": false,
+      "login": "codeapologist",
+      "name": "Andrew Sumido"
+    },
+    "closedAt": "2019-03-30T17:23:53Z",
+    "createdAt": "2019-03-29T23:33:53Z",
+    "labels": [],
+    "number": 1221,
+    "title": "Why was there a 1.60.5 nuget package release?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwNDI1NjE=",
+      "is_bot": false,
+      "login": "scgough",
+      "name": "Simon Gough"
+    },
+    "closedAt": "2019-03-29T13:36:01Z",
+    "createdAt": "2019-03-29T13:15:52Z",
+    "labels": [],
+    "number": 1220,
+    "title": "Sudden slow down with SELECT query"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk1MzQ5Mzk=",
+      "is_bot": false,
+      "login": "Blastnsmash",
+      "name": ""
+    },
+    "closedAt": "2019-03-30T01:30:32Z",
+    "createdAt": "2019-03-26T19:31:13Z",
+    "labels": [],
+    "number": 1217,
+    "title": "Clarify Tracking"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc5NDMwNTQ=",
+      "is_bot": false,
+      "login": "MetSystem",
+      "name": "Met"
+    },
+    "closedAt": "2019-06-12T01:23:31Z",
+    "createdAt": "2019-03-20T03:05:59Z",
+    "labels": [],
+    "number": 1211,
+    "title": "Mysql Query NullReferenceException"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNzI5MTg0",
+      "is_bot": false,
+      "login": "shps951023",
+      "name": "Wei Lin"
+    },
+    "closedAt": "2019-03-19T03:42:06Z",
+    "createdAt": "2019-03-19T03:17:04Z",
+    "labels": [],
+    "number": 1210,
+    "title": "Why Dapper QueryFirst Core DataReader read to end instead of just doing one read"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQyNDA1ODA1",
+      "is_bot": false,
+      "login": "netXiaoYang",
+      "name": ""
+    },
+    "closedAt": "2021-05-08T22:30:18Z",
+    "createdAt": "2019-03-15T09:08:29Z",
+    "labels": [],
+    "number": 1209,
+    "title": "Failed to load"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExNTY1ODI=",
+      "is_bot": false,
+      "login": "JocaPC",
+      "name": "Jovan Popovic"
+    },
+    "closedAt": "2020-05-02T15:12:59Z",
+    "createdAt": "2019-03-07T21:35:20Z",
+    "labels": [],
+    "number": 1205,
+    "title": "Check performance benchmark results"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyOTA1Mg==",
+      "is_bot": false,
+      "login": "markalanevans",
+      "name": "Mark Evans"
+    },
+    "closedAt": "2020-05-02T14:19:56Z",
+    "createdAt": "2019-03-06T01:31:39Z",
+    "labels": [],
+    "number": 1202,
+    "title": "Documention Incorrect for Contrib Inserts"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0MTUwNzg=",
+      "is_bot": false,
+      "login": "RezaAb",
+      "name": "Reza Ab"
+    },
+    "closedAt": "2019-02-26T12:24:32Z",
+    "createdAt": "2019-02-26T12:02:42Z",
+    "labels": [],
+    "number": 1200,
+    "title": "Why Entityframwork.net has used Dapper?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ2ODY5OQ==",
+      "is_bot": false,
+      "login": "LuisSerrano",
+      "name": "Luis"
+    },
+    "closedAt": "2019-03-12T09:32:58Z",
+    "createdAt": "2019-02-21T10:32:26Z",
+    "labels": [],
+    "number": 1197,
+    "title": "Add a string paramer without quotes in Dapper"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQxNzc4MQ==",
+      "is_bot": false,
+      "login": "adamkirkton",
+      "name": "Adam Kirkton"
+    },
+    "closedAt": "2019-03-07T02:37:34Z",
+    "createdAt": "2019-02-20T15:19:01Z",
+    "labels": [],
+    "number": 1196,
+    "title": "1.50.7 Assembly Versioning Issue"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY0NDU1MzQ=",
+      "is_bot": false,
+      "login": "NRKirby",
+      "name": "Nick Kirby"
+    },
+    "closedAt": "2019-02-20T14:29:36Z",
+    "createdAt": "2019-02-20T07:09:24Z",
+    "labels": [],
+    "number": 1194,
+    "title": "Linking to issues in release notes"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyMjAxMjIz",
+      "is_bot": false,
+      "login": "tejamaripuri",
+      "name": "Teja Maripuri"
+    },
+    "closedAt": "2019-09-22T19:38:51Z",
+    "createdAt": "2019-02-18T21:35:26Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1192,
+    "title": "SqlGeography not supported on Dapper 1.50.5"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzODgxMQ==",
+      "is_bot": false,
+      "login": "jonsagara",
+      "name": "Jon Sagara"
+    },
+    "closedAt": "2019-02-19T23:47:37Z",
+    "createdAt": "2019-02-11T19:06:01Z",
+    "labels": [],
+    "number": 1191,
+    "title": "Upgraded to Dapper 1.50.7, now get FileNotFoundException from Dapper.SqlBuilder for Dapper 1.50.5"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMTIxODIz",
+      "is_bot": false,
+      "login": "AndyAyersMS",
+      "name": "Andy Ayers"
+    },
+    "closedAt": "2019-02-09T12:22:09Z",
+    "createdAt": "2019-02-09T03:31:47Z",
+    "labels": [],
+    "number": 1190,
+    "title": "Need to use MakeByRefType to avoid problems with GC"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwNjE5ODAy",
+      "is_bot": false,
+      "login": "cburgerCA",
+      "name": "Cameron Burger"
+    },
+    "closedAt": "2020-05-02T14:16:51Z",
+    "createdAt": "2019-02-08T15:39:08Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1189,
+    "title": "datetime parameter not working in docker linux instance"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM5NTgxODQ3",
+      "is_bot": false,
+      "login": "prakashchidambaram",
+      "name": ""
+    },
+    "closedAt": "2020-05-02T14:16:40Z",
+    "createdAt": "2019-02-06T14:33:25Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1186,
+    "title": "Dapper Not converting the DateTime value properly - Sets default date as Jan 1, 1, 12:00:00"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNDYxMTc=",
+      "is_bot": false,
+      "login": "iexapl",
+      "name": "Jerry Shaw"
+    },
+    "closedAt": "2019-03-12T09:35:46Z",
+    "createdAt": "2019-01-29T06:58:45Z",
+    "labels": [],
+    "number": 1185,
+    "title": "SQL Server，Select IN Exception"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQxODgzMjIw",
+      "is_bot": false,
+      "login": "soul-soft",
+      "name": "1448376744"
+    },
+    "closedAt": "2020-05-02T14:15:47Z",
+    "createdAt": "2019-01-29T06:17:11Z",
+    "labels": [],
+    "number": 1184,
+    "title": "Dapper Lambda To Expression"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU1Mjk2NjY=",
+      "is_bot": false,
+      "login": "digitalmedia34",
+      "name": ""
+    },
+    "closedAt": "2020-05-04T00:38:18Z",
+    "createdAt": "2019-01-24T23:04:23Z",
+    "labels": [],
+    "number": 1183,
+    "title": "New transaction is not allowed"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ2OTU5ODc1",
+      "is_bot": false,
+      "login": "MeenaxiMomaya",
+      "name": "Meenaxi Momaya"
+    },
+    "closedAt": "2019-01-27T13:17:38Z",
+    "createdAt": "2019-01-23T10:55:18Z",
+    "labels": [],
+    "number": 1182,
+    "title": "ExecuteAsync pass object which is not used in SQL query and Execution hangs/take a lot of time"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2NTU4ODQ0",
+      "is_bot": false,
+      "login": "ricardoperroni",
+      "name": ""
+    },
+    "closedAt": "2020-05-04T00:30:07Z",
+    "createdAt": "2019-01-18T16:02:11Z",
+    "labels": [],
+    "number": 1180,
+    "title": "Dapper with oracle"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0NDI4NTM=",
+      "is_bot": false,
+      "login": "besley",
+      "name": "Besley"
+    },
+    "closedAt": "2019-01-18T05:13:12Z",
+    "createdAt": "2019-01-18T03:58:29Z",
+    "labels": [],
+    "number": 1179,
+    "title": "Is there a way to get history version source code?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzNDYyMjgy",
+      "is_bot": false,
+      "login": "chuki2",
+      "name": "azrizakaria"
+    },
+    "closedAt": "2019-06-26T04:05:06Z",
+    "createdAt": "2019-01-17T03:59:55Z",
+    "labels": [],
+    "number": 1178,
+    "title": "Dapper.SqlBuilder thrown exeception when implement multiple mapping object"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMjIzODI=",
+      "is_bot": false,
+      "login": "vqalves",
+      "name": "Vinicius Q. Alves"
+    },
+    "closedAt": "2020-05-04T00:30:28Z",
+    "createdAt": "2019-01-14T20:14:37Z",
+    "labels": [],
+    "number": 1176,
+    "title": "IDataReader.Dispose messing with transaction"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExNTExNzI5",
+      "is_bot": false,
+      "login": "Safirion",
+      "name": "Safirion"
+    },
+    "closedAt": "2020-05-02T23:00:52Z",
+    "createdAt": "2019-01-09T09:32:15Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1174,
+    "title": "Dapper prevent Blazor Client to compile"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2MDg0Njc=",
+      "is_bot": false,
+      "login": "SebaVDP",
+      "name": "Sébastien Van De Poel"
+    },
+    "closedAt": "2021-09-29T07:17:48Z",
+    "createdAt": "2019-01-04T08:38:31Z",
+    "labels": [],
+    "number": 1173,
+    "title": "include fold/reduce/aggregate feature to Query/QueryAsync functions (better one to many relationship management)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMDcwODQ5",
+      "is_bot": false,
+      "login": "znyet",
+      "name": "叶涛"
+    },
+    "closedAt": "2019-01-19T14:28:41Z",
+    "createdAt": "2019-01-03T10:05:04Z",
+    "labels": [],
+    "number": 1172,
+    "title": "DapperExtensions"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5MzEyNTI5",
+      "is_bot": false,
+      "login": "MJohnsson",
+      "name": "Marcus Johnsson"
+    },
+    "closedAt": "2019-01-27T14:01:36Z",
+    "createdAt": "2018-12-11T07:43:37Z",
+    "labels": [],
+    "number": 1168,
+    "title": "Nullable bool with default value [contrib?]"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzODg1OTA0",
+      "is_bot": false,
+      "login": "EminemJK",
+      "name": "Lio.Huang"
+    },
+    "closedAt": "2019-01-27T13:55:48Z",
+    "createdAt": "2018-12-07T08:50:11Z",
+    "labels": [],
+    "number": 1165,
+    "title": "Connect to Oracle using dapper.contrib"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzODg1OTA0",
+      "is_bot": false,
+      "login": "EminemJK",
+      "name": "Lio.Huang"
+    },
+    "closedAt": "2018-12-14T02:14:12Z",
+    "createdAt": "2018-12-05T02:26:18Z",
+    "labels": [],
+    "number": 1163,
+    "title": "Dapper.Contrib Attribute"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY0MzYxMTY=",
+      "is_bot": false,
+      "login": "107295472",
+      "name": "Yin"
+    },
+    "closedAt": "2018-12-01T08:11:34Z",
+    "createdAt": "2018-11-30T06:46:35Z",
+    "labels": [],
+    "number": 1161,
+    "title": "Signature problem?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM5NTY3MDE=",
+      "is_bot": false,
+      "login": "laball",
+      "name": "Lee"
+    },
+    "closedAt": "2018-11-30T03:15:26Z",
+    "createdAt": "2018-11-30T02:43:17Z",
+    "labels": [],
+    "number": 1160,
+    "title": "Can Dapper work with EF Core 2.1.4? I can not get DbConnection from the DbContext.Database anymore."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1OTA3NjQ=",
+      "is_bot": false,
+      "login": "seanmars",
+      "name": "Mars"
+    },
+    "closedAt": "2018-11-27T10:02:28Z",
+    "createdAt": "2018-11-27T09:56:29Z",
+    "labels": [],
+    "number": 1159,
+    "title": "Get System.NullReferenceException when query completed"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1MDY1Njk4",
+      "is_bot": false,
+      "login": "Jakemangan",
+      "name": "Jake Mangan"
+    },
+    "closedAt": "2018-11-21T10:29:12Z",
+    "createdAt": "2018-11-20T16:28:49Z",
+    "labels": [],
+    "number": 1158,
+    "title": "Dapper can't find POCO mapping from SELECT CASE query"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMTUwODY0",
+      "is_bot": false,
+      "login": "anujithramanan",
+      "name": ""
+    },
+    "closedAt": "2019-01-27T13:59:05Z",
+    "createdAt": "2018-11-11T08:56:47Z",
+    "labels": [],
+    "number": 1157,
+    "title": "NVarchar insert issue"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY4OTc2MDI=",
+      "is_bot": false,
+      "login": "xiongzhaoxu",
+      "name": "熊。"
+    },
+    "closedAt": "2020-05-04T00:31:44Z",
+    "createdAt": "2018-11-09T02:38:58Z",
+    "labels": [],
+    "number": 1156,
+    "title": "Dapper.Contrib int Insert<T>(T obj); 不返回自动ID"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc1MjAzNw==",
+      "is_bot": false,
+      "login": "unipeg",
+      "name": ""
+    },
+    "closedAt": "2020-05-04T01:29:47Z",
+    "createdAt": "2018-11-04T13:13:13Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzEyNjA3Nzk=",
+        "name": "db:oracle",
+        "description": "",
+        "color": "fef2c0"
+      }
+    ],
+    "number": 1152,
+    "title": "Simple INSERT with Dapper on Oracle"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExOTE3OTA=",
+      "is_bot": false,
+      "login": "ucandoit1010",
+      "name": "TaiwanHotDog"
+    },
+    "closedAt": "2018-10-30T14:41:56Z",
+    "createdAt": "2018-10-28T04:48:30Z",
+    "labels": [],
+    "number": 1150,
+    "title": "Error : each parameter can only be referenced once"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4ODI0MDMy",
+      "is_bot": false,
+      "login": "saurabhnachankar",
+      "name": "Saurabh Nachankar"
+    },
+    "closedAt": "2018-10-24T06:25:49Z",
+    "createdAt": "2018-10-23T07:00:08Z",
+    "labels": [],
+    "number": 1147,
+    "title": "Not able to map to properties in dotnet core 2.2"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMyOTMyODU=",
+      "is_bot": false,
+      "login": "jonpfowler",
+      "name": "Jon Fowler"
+    },
+    "closedAt": "2018-10-19T12:34:44Z",
+    "createdAt": "2018-10-18T21:01:41Z",
+    "labels": [],
+    "number": 1143,
+    "title": "KeySqlProperties is not being populated with [Key] attribute"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgwNDAzNjc=",
+      "is_bot": false,
+      "login": "jnm2",
+      "name": "Joseph Musser"
+    },
+    "closedAt": "2019-08-27T15:52:44Z",
+    "createdAt": "2018-10-12T14:04:30Z",
+    "labels": [],
+    "number": 1140,
+    "title": "Connection.ExecuteReaderAsync returns IDataReader which has no ReadAsync"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3OTg2NzMy",
+      "is_bot": false,
+      "login": "AndrewFWolfe",
+      "name": ""
+    },
+    "closedAt": "2020-05-02T18:39:55Z",
+    "createdAt": "2018-10-04T14:02:45Z",
+    "labels": [],
+    "number": 1137,
+    "title": "Contrib DeleteAsync not adding square brackets around column names"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjcwNDU4MTg=",
+      "is_bot": false,
+      "login": "marekpetak",
+      "name": "mattko"
+    },
+    "closedAt": "2020-05-04T00:29:38Z",
+    "createdAt": "2018-10-04T13:51:54Z",
+    "labels": [],
+    "number": 1136,
+    "title": "Cannot create database using Dapper and database name passed in as @ variable, why?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQzNzgzMDc1",
+      "is_bot": false,
+      "login": "puwilhelm",
+      "name": "Wilhelm Putz"
+    },
+    "closedAt": "2020-05-02T18:37:05Z",
+    "createdAt": "2018-10-02T12:47:01Z",
+    "labels": [],
+    "number": 1135,
+    "title": "MySqlConversionException"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc0Mjk1MA==",
+      "is_bot": false,
+      "login": "juanonsoftware",
+      "name": "Juan on Software"
+    },
+    "closedAt": "2021-05-08T21:43:53Z",
+    "createdAt": "2018-09-21T06:23:36Z",
+    "labels": [],
+    "number": 1133,
+    "title": "Is it possible to not use data annotations"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzOTY3Nzgy",
+      "is_bot": false,
+      "login": "SybilBoquet",
+      "name": ""
+    },
+    "closedAt": "2018-09-14T13:00:58Z",
+    "createdAt": "2018-09-13T17:01:11Z",
+    "labels": [],
+    "number": 1129,
+    "title": "Wrong Mapping when columns and attributes names completely different"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwODk2OTY1",
+      "is_bot": false,
+      "login": "longjie12315",
+      "name": "隆杰"
+    },
+    "closedAt": "2021-05-08T19:47:00Z",
+    "createdAt": "2018-09-13T09:28:32Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1128,
+    "title": "ExecuteReaderImplAsync method error"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU1NTQ1MQ==",
+      "is_bot": false,
+      "login": "wolfch",
+      "name": "Chris Wolf"
+    },
+    "closedAt": "2021-05-08T22:40:58Z",
+    "createdAt": "2018-09-12T15:21:01Z",
+    "labels": [],
+    "number": 1127,
+    "title": "Missing developer building guide"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzNTA0MzYw",
+      "is_bot": false,
+      "login": "defoliation",
+      "name": ""
+    },
+    "closedAt": "2018-09-12T03:14:28Z",
+    "createdAt": "2018-09-11T02:35:29Z",
+    "labels": [],
+    "number": 1124,
+    "title": "MySql TimeStamp to C# DateTime"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE4NjU1MjMz",
+      "is_bot": false,
+      "login": "yilezhu",
+      "name": "依乐祝"
+    },
+    "closedAt": "2018-09-11T02:02:33Z",
+    "createdAt": "2018-09-10T06:26:57Z",
+    "labels": [],
+    "number": 1121,
+    "title": "Why QueryMultiple  with Oracle  is so slowly ?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3ODk0MDM=",
+      "is_bot": false,
+      "login": "dallasbeek",
+      "name": ""
+    },
+    "closedAt": "2018-09-07T02:45:55Z",
+    "createdAt": "2018-09-07T02:11:57Z",
+    "labels": [],
+    "number": 1118,
+    "title": "Type Handlers and dynamic parameter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgxNjYyMTc=",
+      "is_bot": false,
+      "login": "ratku",
+      "name": "ratku"
+    },
+    "closedAt": "2018-09-07T02:50:35Z",
+    "createdAt": "2018-09-06T02:01:16Z",
+    "labels": [],
+    "number": 1117,
+    "title": "why remove .net4.0  version support?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzNTU1NzY4",
+      "is_bot": false,
+      "login": "alex-jitbit",
+      "name": "Alexander Yumashev"
+    },
+    "closedAt": "2018-10-06T21:55:26Z",
+    "createdAt": "2018-09-05T12:50:22Z",
+    "labels": [],
+    "number": 1115,
+    "title": "sporadic \"Field already exists\""
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU1NTA5",
+      "is_bot": false,
+      "login": "davidglassborow",
+      "name": "David Glassborow"
+    },
+    "closedAt": "2018-09-07T00:33:40Z",
+    "createdAt": "2018-08-31T11:26:55Z",
+    "labels": [],
+    "number": 1111,
+    "title": "Inconsistent deserialisation between normal Query<T> and SqlMapper.Parse<T>"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ2MjA1OTc=",
+      "is_bot": false,
+      "login": "Koloto",
+      "name": ""
+    },
+    "closedAt": "2020-05-04T00:33:02Z",
+    "createdAt": "2018-08-30T16:35:04Z",
+    "labels": [],
+    "number": 1109,
+    "title": "Public access to caches and metadata in Dapper.Contrib"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3NTc5NDQy",
+      "is_bot": false,
+      "login": "simonmckenzie",
+      "name": "Simon MᶜKenzie"
+    },
+    "closedAt": "2020-05-01T22:17:20Z",
+    "createdAt": "2018-08-30T10:57:28Z",
+    "labels": [],
+    "number": 1108,
+    "title": "Retrieving a nullable `ValueTuple` always returns null"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ0NzU1NTk=",
+      "is_bot": false,
+      "login": "AndrewTakker",
+      "name": "Andrew"
+    },
+    "closedAt": "2020-05-04T00:35:06Z",
+    "createdAt": "2018-08-29T09:38:09Z",
+    "labels": [],
+    "number": 1107,
+    "title": "InvalidCastException on stored procedure with parameter type ReturnValue in MS sql"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM4Mjg1MTI1",
+      "is_bot": false,
+      "login": "ceemafour",
+      "name": ""
+    },
+    "closedAt": "2020-05-02T18:22:38Z",
+    "createdAt": "2018-08-27T07:05:23Z",
+    "labels": [],
+    "number": 1106,
+    "title": "'SqlConnection' does not contain a definition for 'QueryMultipleAsync'"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMzEyMjI=",
+      "is_bot": false,
+      "login": "decay29",
+      "name": ""
+    },
+    "closedAt": "2021-05-08T22:02:32Z",
+    "createdAt": "2018-08-24T07:29:38Z",
+    "labels": [],
+    "number": 1103,
+    "title": "System.MissingMethodException' in Dapper.dll"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MzY0NDA5",
+      "is_bot": false,
+      "login": "ibuchan72390",
+      "name": "Ian Buchan"
+    },
+    "closedAt": "2018-08-28T15:36:49Z",
+    "createdAt": "2018-08-20T21:57:52Z",
+    "labels": [],
+    "number": 1101,
+    "title": "ExecuteReaderAsync leads to a \"No columns were selected\" error"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5Mzc1ODM5",
+      "is_bot": false,
+      "login": "EynsherKiel",
+      "name": "Fedor Popov"
+    },
+    "closedAt": "2018-08-22T06:09:03Z",
+    "createdAt": "2018-08-15T09:26:36Z",
+    "labels": [],
+    "number": 1099,
+    "title": "How used Dapper.SqlBuilder"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2OTA0NTc=",
+      "is_bot": false,
+      "login": "TryingToImprove",
+      "name": "Oliver Lassen"
+    },
+    "closedAt": "2020-05-04T00:41:03Z",
+    "createdAt": "2018-08-14T10:16:16Z",
+    "labels": [],
+    "number": 1097,
+    "title": "[QUESTION] Strongly typed queries"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI2MjExMjgz",
+      "is_bot": false,
+      "login": "snowchenlei",
+      "name": "陈磊"
+    },
+    "closedAt": "2018-09-05T09:06:02Z",
+    "createdAt": "2018-08-10T03:23:38Z",
+    "labels": [],
+    "number": 1092,
+    "title": "hope add 'Column to ignore' By Dapper.Contrib"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MTIyMTA4",
+      "is_bot": false,
+      "login": "mvisconte",
+      "name": ""
+    },
+    "closedAt": "2021-05-09T19:00:18Z",
+    "createdAt": "2018-08-08T08:52:53Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 1090,
+    "title": "Cast error using AspenTech.SqlPlus provider"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMzExMzQy",
+      "is_bot": false,
+      "login": "NilufarMakhmudova",
+      "name": "Nilufar"
+    },
+    "closedAt": "2018-08-03T09:43:46Z",
+    "createdAt": "2018-08-03T07:28:45Z",
+    "labels": [],
+    "number": 1089,
+    "title": "System.NullReferenceException at Dapper.SqlMapper.AddTypeHandlerImpl"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ1MzQ5NQ==",
+      "is_bot": false,
+      "login": "j2jensen",
+      "name": "James Jensen"
+    },
+    "closedAt": "2020-05-04T02:51:15Z",
+    "createdAt": "2018-08-01T20:29:02Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzEwOTUyNzk=",
+        "name": "db:sql-server",
+        "description": "",
+        "color": "fef2c0"
+      }
+    ],
+    "number": 1088,
+    "title": "Query Cancellation doesn't work as expected while streaming query results"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgxNDYyMDU=",
+      "is_bot": false,
+      "login": "louisekeegan",
+      "name": "Louise Keegan"
+    },
+    "closedAt": "2019-11-22T17:05:34Z",
+    "createdAt": "2018-07-30T10:11:45Z",
+    "labels": [],
+    "number": 1084,
+    "title": "ExecuteAsync slow when inserting > 1000 records to Postgres"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5NDEwMzk4",
+      "is_bot": false,
+      "login": "gdodd1977",
+      "name": "Gregory T Dodd"
+    },
+    "closedAt": "2018-07-25T18:00:20Z",
+    "createdAt": "2018-07-25T17:46:38Z",
+    "labels": [],
+    "number": 1083,
+    "title": "Pass parameters into Substring in Select statement"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NTc2OTY=",
+      "is_bot": false,
+      "login": "sgf",
+      "name": "well.james"
+    },
+    "closedAt": "2018-07-19T16:05:01Z",
+    "createdAt": "2018-07-19T10:03:37Z",
+    "labels": [],
+    "number": 1078,
+    "title": "any easy way to set  IDENTITY_INSERT XXX on auto by Dapper.Contrib"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgzOTQ5ODg=",
+      "is_bot": false,
+      "login": "catcherwong",
+      "name": "Catcher Wong"
+    },
+    "closedAt": "2018-07-23T13:42:23Z",
+    "createdAt": "2018-07-19T09:19:07Z",
+    "labels": [],
+    "number": 1077,
+    "title": "Query Problem Occurs When Using Dapper(1.50.2) In Linux "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM3MDY5OQ==",
+      "is_bot": false,
+      "login": "tompazourek",
+      "name": "Tom Pažourek"
+    },
+    "closedAt": "2018-07-18T12:08:31Z",
+    "createdAt": "2018-07-18T10:52:26Z",
+    "labels": [],
+    "number": 1075,
+    "title": "How to execute a SQL query without any Dapper caching?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNzAwNzkz",
+      "is_bot": false,
+      "login": "danboone",
+      "name": ""
+    },
+    "closedAt": "2018-07-12T17:16:06Z",
+    "createdAt": "2018-07-11T14:43:05Z",
+    "labels": [],
+    "number": 1070,
+    "title": "getting Null reference exception"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyOTY3MjAy",
+      "is_bot": false,
+      "login": "thedonmon",
+      "name": "0xDon"
+    },
+    "closedAt": "2018-07-06T21:11:03Z",
+    "createdAt": "2018-07-03T19:33:55Z",
+    "labels": [],
+    "number": 1064,
+    "title": "SqlBuilder RawSql Is Not available"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwOTg1MTk4",
+      "is_bot": false,
+      "login": "nancykaystudios",
+      "name": ""
+    },
+    "closedAt": "2018-07-01T03:02:28Z",
+    "createdAt": "2018-07-01T00:46:33Z",
+    "labels": [],
+    "number": 1061,
+    "title": "Add the ability to map Sql column names to class property ColumnAttributes"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjkxODY1OA==",
+      "is_bot": false,
+      "login": "ToddThomson",
+      "name": "Todd Thomson"
+    },
+    "closedAt": "2021-05-08T22:03:08Z",
+    "createdAt": "2018-06-21T15:06:37Z",
+    "labels": [],
+    "number": 1054,
+    "title": "Xamarin.iOS Support"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY3NDg5Njg=",
+      "is_bot": false,
+      "login": "jamesgartland",
+      "name": ""
+    },
+    "closedAt": "2021-05-08T22:04:54Z",
+    "createdAt": "2018-06-19T16:33:18Z",
+    "labels": [],
+    "number": 1052,
+    "title": "Object not set to an instance of an object"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMTc0NjQz",
+      "is_bot": false,
+      "login": "hasan314",
+      "name": ""
+    },
+    "closedAt": "2018-06-19T14:37:21Z",
+    "createdAt": "2018-06-19T14:32:49Z",
+    "labels": [],
+    "number": 1051,
+    "title": "Could not load file or assembly 'Dapper, Version=1.50.2.0"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwOTMyNjU=",
+      "is_bot": false,
+      "login": "keenan-v1",
+      "name": "Keenan"
+    },
+    "closedAt": "2018-07-09T20:43:06Z",
+    "createdAt": "2018-06-14T13:06:33Z",
+    "labels": [],
+    "number": 1044,
+    "title": "Dynamic Parameters are parsed inside SQL string literals"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2MjM2OTAz",
+      "is_bot": false,
+      "login": "NMSAzulX",
+      "name": "张木森 · 作霖"
+    },
+    "closedAt": "2018-06-14T07:18:02Z",
+    "createdAt": "2018-06-14T01:24:26Z",
+    "labels": [],
+    "number": 1043,
+    "title": "I'm so excited about the solution in this issue. "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2MjM2OTAz",
+      "is_bot": false,
+      "login": "NMSAzulX",
+      "name": "张木森 · 作霖"
+    },
+    "closedAt": "2018-06-09T11:45:41Z",
+    "createdAt": "2018-06-09T10:16:16Z",
+    "labels": [],
+    "number": 1037,
+    "title": "Does dapper support multi entities parameterization?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1OTc0NDE1",
+      "is_bot": false,
+      "login": "KinchoKaoo",
+      "name": "Liu BuZhu"
+    },
+    "closedAt": "2020-05-02T18:36:21Z",
+    "createdAt": "2018-06-04T02:27:57Z",
+    "labels": [],
+    "number": 1035,
+    "title": "Error parsing column 4 (IsLock=0 - SByte)”"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU2NjY4MTg=",
+      "is_bot": false,
+      "login": "NikolayYeryomenko",
+      "name": "Nikolay Yeryomenko"
+    },
+    "closedAt": "2018-06-03T15:23:09Z",
+    "createdAt": "2018-06-03T12:36:46Z",
+    "labels": [],
+    "number": 1034,
+    "title": "Nullable guid parameter default value missing in SQL query"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2MjM2OTAz",
+      "is_bot": false,
+      "login": "NMSAzulX",
+      "name": "张木森 · 作霖"
+    },
+    "closedAt": "2018-06-07T14:17:57Z",
+    "createdAt": "2018-05-21T15:22:14Z",
+    "labels": [],
+    "number": 1029,
+    "title": "Will Tiered-Compilation improve the performance of dynamic methods (emit)?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY5MzI4NjY=",
+      "is_bot": false,
+      "login": "whitebear-gh",
+      "name": ""
+    },
+    "closedAt": "2020-05-04T00:44:52Z",
+    "createdAt": "2018-05-17T19:10:20Z",
+    "labels": [],
+    "number": 1026,
+    "title": "Update System.Data.SqlClient to 4.5 version"
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2018-05-20T12:56:39Z",
+    "createdAt": "2018-05-15T16:12:46Z",
+    "labels": [],
+    "number": 1024,
+    "title": "Adding new keys to DapperRow is not thread safe"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY5NjgyNzM=",
+      "is_bot": false,
+      "login": "csnemes",
+      "name": "Csaba Nemes"
+    },
+    "closedAt": "2018-05-23T08:36:45Z",
+    "createdAt": "2018-05-14T08:26:43Z",
+    "labels": [],
+    "number": 1022,
+    "title": "SqlMapper CollectCacheGarbage not working due to wrong limit"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk2NTUzMTg=",
+      "is_bot": false,
+      "login": "huanent",
+      "name": "李凤焕"
+    },
+    "closedAt": "2018-05-10T08:07:35Z",
+    "createdAt": "2018-05-10T07:26:08Z",
+    "labels": [],
+    "number": 1021,
+    "title": ".net core not support TransactionScope ?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5MTU0NQ==",
+      "is_bot": false,
+      "login": "vikramjb",
+      "name": "Vikram Ramanthan"
+    },
+    "closedAt": "2018-06-01T05:17:03Z",
+    "createdAt": "2018-05-09T05:27:23Z",
+    "labels": [],
+    "number": 1020,
+    "title": "Check if exists before inserting"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYxNjEwMTM=",
+      "is_bot": false,
+      "login": "ForkBug",
+      "name": ""
+    },
+    "closedAt": "2018-05-05T00:49:20Z",
+    "createdAt": "2018-05-04T14:24:24Z",
+    "labels": [],
+    "number": 1019,
+    "title": "Dapper with xamarin.ios"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzOTAxOTU2",
+      "is_bot": false,
+      "login": "xedcoing",
+      "name": ""
+    },
+    "closedAt": "2018-05-20T11:46:07Z",
+    "createdAt": "2018-05-04T10:11:39Z",
+    "labels": [],
+    "number": 1018,
+    "title": "is this a bug to \"wasClosed\"?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM4MzIzMzQz",
+      "is_bot": false,
+      "login": "bawkee",
+      "name": "Bojan Sala"
+    },
+    "closedAt": "2018-05-01T20:43:35Z",
+    "createdAt": "2018-04-25T21:32:49Z",
+    "labels": [],
+    "number": 1015,
+    "title": "Multi mapper assumes that `splitOn` column is never 0-index in IDbDataReader"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk5NzE0MTM=",
+      "is_bot": false,
+      "login": "QJesus",
+      "name": ""
+    },
+    "closedAt": "2018-05-20T23:19:58Z",
+    "createdAt": "2018-04-25T08:02:53Z",
+    "labels": [],
+    "number": 1014,
+    "title": "InvalidProgramException"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NTc2OTY=",
+      "is_bot": false,
+      "login": "sgf",
+      "name": "well.james"
+    },
+    "closedAt": "2018-04-23T07:02:20Z",
+    "createdAt": "2018-04-22T18:20:06Z",
+    "labels": [],
+    "number": 1009,
+    "title": "Any Way to Ignore A Field or Colume from sql not in C# Entity's Property"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ5MTkxODk=",
+      "is_bot": false,
+      "login": "lbx1979",
+      "name": "lbx2025"
+    },
+    "closedAt": "2018-05-20T23:53:42Z",
+    "createdAt": "2018-04-21T15:44:35Z",
+    "labels": [],
+    "number": 1008,
+    "title": "double quotes problem with postgresql"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM4MjE0MTY=",
+      "is_bot": false,
+      "login": "timdooling",
+      "name": ""
+    },
+    "closedAt": "2021-05-08T19:36:13Z",
+    "createdAt": "2018-04-17T18:00:51Z",
+    "labels": [],
+    "number": 1006,
+    "title": "QueryMultiple has unknown return type"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI4ODYzMzEz",
+      "is_bot": false,
+      "login": "imudal",
+      "name": ""
+    },
+    "closedAt": "2018-05-20T12:18:34Z",
+    "createdAt": "2018-04-17T12:59:28Z",
+    "labels": [],
+    "number": 1005,
+    "title": "comments inside sql"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5MzYzNjQ=",
+      "is_bot": false,
+      "login": "frmokoena",
+      "name": "Rethabile"
+    },
+    "closedAt": "2018-06-13T12:04:11Z",
+    "createdAt": "2018-04-06T12:46:49Z",
+    "labels": [],
+    "number": 997,
+    "title": "Query and QueryMultiple throws null reference when results empty"
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2020-05-04T01:30:44Z",
+    "createdAt": "2018-04-05T19:28:17Z",
+    "labels": [],
+    "number": 996,
+    "title": "Dapper and refcursor"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg5Mzc1ODc=",
+      "is_bot": false,
+      "login": "kwaazaar",
+      "name": "Robert te Kaat"
+    },
+    "closedAt": "2020-05-02T17:20:19Z",
+    "createdAt": "2018-04-05T08:23:04Z",
+    "labels": [],
+    "number": 995,
+    "title": "No exception, but select count(1) returns empty resultset"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3MTk3MjM=",
+      "is_bot": false,
+      "login": "mikemccaughan",
+      "name": "Mike McCaughan"
+    },
+    "closedAt": "2018-04-03T23:48:04Z",
+    "createdAt": "2018-04-03T21:40:13Z",
+    "labels": [],
+    "number": 992,
+    "title": "Reference to defunct Stack Overflow docs on https://stackexchange.github.io/Dapper/"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMjMzNTI2",
+      "is_bot": false,
+      "login": "zpzhangwenhan",
+      "name": "wenhan zhang"
+    },
+    "closedAt": "2018-03-30T00:52:25Z",
+    "createdAt": "2018-03-29T08:07:39Z",
+    "labels": [],
+    "number": 983,
+    "title": "I cant open the project in vs2015?why?how?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc3NDU3NQ==",
+      "is_bot": false,
+      "login": "R2D221",
+      "name": "Arturo Torres Sánchez"
+    },
+    "closedAt": "2019-06-12T15:16:46Z",
+    "createdAt": "2018-03-27T21:35:03Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMDEwNTY=",
+        "name": "bug",
+        "description": "",
+        "color": "e11d21"
+      }
+    ],
+    "number": 982,
+    "title": "Mapping to a ValueTuple with 8 or more elements only retrieves some columns"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MTUzODkz",
+      "is_bot": false,
+      "login": "guopenglun",
+      "name": ""
+    },
+    "closedAt": "2018-03-30T00:53:55Z",
+    "createdAt": "2018-03-24T07:23:48Z",
+    "labels": [],
+    "number": 979,
+    "title": "Can I do this?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxMTY3MzE=",
+      "is_bot": false,
+      "login": "bugproof",
+      "name": ""
+    },
+    "closedAt": "2018-03-30T00:54:45Z",
+    "createdAt": "2018-03-23T09:30:00Z",
+    "labels": [],
+    "number": 978,
+    "title": "Different column and table names mapping"
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2018-03-30T00:55:37Z",
+    "createdAt": "2018-03-19T19:44:07Z",
+    "labels": [],
+    "number": 975,
+    "title": "problem to install dapper package"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyOTc3NTk=",
+      "is_bot": false,
+      "login": "cemremengu",
+      "name": "Cemre Mengu"
+    },
+    "closedAt": "2018-03-21T19:26:26Z",
+    "createdAt": "2018-03-18T13:24:42Z",
+    "labels": [],
+    "number": 974,
+    "title": "Dynamic Parameters fails to bind repeating variables"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwMjkzODE=",
+      "is_bot": false,
+      "login": "deerchao",
+      "name": "Chao Lu"
+    },
+    "closedAt": "2018-03-30T01:02:40Z",
+    "createdAt": "2018-03-17T05:09:04Z",
+    "labels": [],
+    "number": 973,
+    "title": "MatchNamesWithUnderscores for parameters"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2MjM2OTAz",
+      "is_bot": false,
+      "login": "NMSAzulX",
+      "name": "张木森 · 作霖"
+    },
+    "closedAt": "2018-03-21T03:59:19Z",
+    "createdAt": "2018-03-16T10:05:22Z",
+    "labels": [],
+    "number": 971,
+    "title": "支持基元类型的映射方案？(why don't support the primitive type for the Command-Mapping-Cache?)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgxMDI1MDQ=",
+      "is_bot": false,
+      "login": "zredb",
+      "name": "zredb"
+    },
+    "closedAt": "2018-05-21T00:52:11Z",
+    "createdAt": "2018-03-16T07:46:24Z",
+    "labels": [],
+    "number": 970,
+    "title": "why dapper get the wrong value for long type？"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjkxNTk0NTI=",
+      "is_bot": false,
+      "login": "isdaniel",
+      "name": "石秉修(PING-HSIU SHIH)"
+    },
+    "closedAt": "2020-05-02T17:11:31Z",
+    "createdAt": "2018-03-14T00:56:20Z",
+    "labels": [],
+    "number": 969,
+    "title": "Did Dapper support to Unity3D's andorid version?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxMTY3MzE=",
+      "is_bot": false,
+      "login": "bugproof",
+      "name": ""
+    },
+    "closedAt": "2018-03-15T18:31:22Z",
+    "createdAt": "2018-03-13T21:04:55Z",
+    "labels": [],
+    "number": 968,
+    "title": "Existing database"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2NDkzODI3",
+      "is_bot": false,
+      "login": "SLavrynenko",
+      "name": "Stanislav Lavrynenko"
+    },
+    "closedAt": "2018-03-12T20:31:00Z",
+    "createdAt": "2018-03-12T19:38:08Z",
+    "labels": [],
+    "number": 967,
+    "title": "SqlException when port specified at ConnectionString"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NTc2OTY=",
+      "is_bot": false,
+      "login": "sgf",
+      "name": "well.james"
+    },
+    "closedAt": "2018-03-20T01:07:57Z",
+    "createdAt": "2018-03-11T14:18:02Z",
+    "labels": [],
+    "number": 966,
+    "title": "does Dapper Support SqlBulkCopy And an idea for StoredProcedure Call  ?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI1NTc2OTY=",
+      "is_bot": false,
+      "login": "sgf",
+      "name": "well.james"
+    },
+    "closedAt": "2018-03-08T08:59:09Z",
+    "createdAt": "2018-03-08T08:27:11Z",
+    "labels": [],
+    "number": 964,
+    "title": "Does Dapper support Direct from List<T> as TableValuedParameter without by DataTable and Set the Columes ?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU1Nzg2OQ==",
+      "is_bot": false,
+      "login": "loudenvier",
+      "name": "Felipe Machado"
+    },
+    "closedAt": "2018-03-30T01:03:37Z",
+    "createdAt": "2018-03-07T01:38:20Z",
+    "labels": [],
+    "number": 962,
+    "title": "Dapper 1.50.4 not supported on Visual Studio 2012"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1NzIyODYy",
+      "is_bot": false,
+      "login": "hknga1",
+      "name": "hknga1"
+    },
+    "closedAt": "2018-03-30T01:03:20Z",
+    "createdAt": "2018-03-06T09:23:08Z",
+    "labels": [],
+    "number": 961,
+    "title": "Query does not throw SQL Exception"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzNTg5NTM=",
+      "is_bot": false,
+      "login": "arslanaybars",
+      "name": "Aybars"
+    },
+    "closedAt": "2020-05-02T17:29:25Z",
+    "createdAt": "2018-03-02T11:12:57Z",
+    "labels": [],
+    "number": 959,
+    "title": "Get original SQL error message on client-side using Dapper?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwNDQ3NjYz",
+      "is_bot": false,
+      "login": "pratap-bhaskar",
+      "name": "Pratap Bhaskar"
+    },
+    "closedAt": "2018-03-07T06:58:55Z",
+    "createdAt": "2018-03-01T08:41:56Z",
+    "labels": [],
+    "number": 957,
+    "title": "Dapper auto mapping issue"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIwNDYxMTE1",
+      "is_bot": false,
+      "login": "daikoz",
+      "name": "DAIKOZ"
+    },
+    "closedAt": "2018-02-24T16:50:11Z",
+    "createdAt": "2018-02-24T16:36:47Z",
+    "labels": [],
+    "number": 955,
+    "title": "Lack some QueryAsync methods"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyNTQ2MjA=",
+      "is_bot": false,
+      "login": "oferns",
+      "name": "Ollie"
+    },
+    "closedAt": "2018-07-01T10:45:15Z",
+    "createdAt": "2018-02-21T15:50:56Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWw4NTg3OTg4OTM=",
+        "name": "feature request",
+        "description": "",
+        "color": "225096"
+      }
+    ],
+    "number": 953,
+    "title": "Option to set the default ISqlAdapter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwNTI4NTU2",
+      "is_bot": false,
+      "login": "Caltor",
+      "name": ""
+    },
+    "closedAt": "2018-03-07T19:38:12Z",
+    "createdAt": "2018-02-19T14:50:34Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWw4NTg3OTg4OTM=",
+        "name": "feature request",
+        "description": "",
+        "color": "225096"
+      }
+    ],
+    "number": 951,
+    "title": "Add IsExists method to Dapper.Contrib"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjYwMTA1ODU=",
+      "is_bot": false,
+      "login": "Yousefjb",
+      "name": "Yousef Balout"
+    },
+    "closedAt": "2018-02-19T09:47:00Z",
+    "createdAt": "2018-02-19T09:18:44Z",
+    "labels": [],
+    "number": 950,
+    "title": "How to Load QueryMultiple result into DataTable"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM0NjYyNzc5",
+      "is_bot": false,
+      "login": "mbiernatek",
+      "name": ""
+    },
+    "closedAt": "2020-05-02T17:12:32Z",
+    "createdAt": "2018-02-17T11:33:19Z",
+    "labels": [],
+    "number": 947,
+    "title": "Dapper, mysql function - delayed exception"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIzMjQxMzY2",
+      "is_bot": false,
+      "login": "ignasivs",
+      "name": "Ignasivs"
+    },
+    "closedAt": "2018-03-07T06:57:33Z",
+    "createdAt": "2018-02-16T08:23:57Z",
+    "labels": [],
+    "number": 946,
+    "title": "InsertOrUpdate not return id"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3ODk0MDM=",
+      "is_bot": false,
+      "login": "dallasbeek",
+      "name": ""
+    },
+    "closedAt": "2018-02-15T23:03:41Z",
+    "createdAt": "2018-02-15T20:10:42Z",
+    "labels": [],
+    "number": 945,
+    "title": "ExecuteReader: Connection property has not been initialized."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMDkxNTQ5",
+      "is_bot": false,
+      "login": "VictorMonte-zz",
+      "name": ""
+    },
+    "closedAt": "2020-05-04T01:32:40Z",
+    "createdAt": "2018-02-06T19:36:54Z",
+    "labels": [],
+    "number": 940,
+    "title": "Oracle number to dotnet Enum"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIyMTM3NDk2",
+      "is_bot": false,
+      "login": "gitfortee",
+      "name": ""
+    },
+    "closedAt": "2021-05-10T01:16:56Z",
+    "createdAt": "2018-02-05T17:50:31Z",
+    "labels": [],
+    "number": 938,
+    "title": "Scaffolding or POCO model creation"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMjExMzU2",
+      "is_bot": false,
+      "login": "kelvindules",
+      "name": "Kelvin Dules"
+    },
+    "closedAt": "2018-02-05T23:05:53Z",
+    "createdAt": "2018-02-05T13:25:38Z",
+    "labels": [],
+    "number": 937,
+    "title": "Mapping a tuple list"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMxNDI0NTQ=",
+      "is_bot": false,
+      "login": "mhkoca",
+      "name": "Muhammed Hilmi Koca"
+    },
+    "closedAt": "2020-05-02T17:18:07Z",
+    "createdAt": "2018-02-02T12:54:35Z",
+    "labels": [],
+    "number": 935,
+    "title": "Mapping problem on join"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM1MTAwNDM1",
+      "is_bot": false,
+      "login": "JaseRandall",
+      "name": "Jase"
+    },
+    "closedAt": "2018-08-05T05:14:03Z",
+    "createdAt": "2018-02-01T11:38:56Z",
+    "labels": [],
+    "number": 933,
+    "title": "'Null object cannot be converted to a value type.' when using nullable type on interface"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU3NjkwODY=",
+      "is_bot": false,
+      "login": "GertArnold",
+      "name": "Gert Arnold"
+    },
+    "closedAt": "2021-05-09T00:24:15Z",
+    "createdAt": "2018-01-31T13:39:41Z",
+    "labels": [],
+    "number": 931,
+    "title": "Multi mapping: keep references"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyNjYyNDU=",
+      "is_bot": false,
+      "login": "snebjorn",
+      "name": "Eskild Diderichsen"
+    },
+    "closedAt": "2018-03-30T01:12:47Z",
+    "createdAt": "2018-01-30T12:18:06Z",
+    "labels": [],
+    "number": 930,
+    "title": "Dapper.Contrib 1.50.0 -> 1.50.4 broke InsertAsync(IEnumerable)"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExMzE0Nzg=",
+      "is_bot": false,
+      "login": "JonnyBooker",
+      "name": "Jonny Booker"
+    },
+    "closedAt": "2020-05-02T18:24:50Z",
+    "createdAt": "2018-01-22T11:53:13Z",
+    "labels": [],
+    "number": 927,
+    "title": "CommandTimeout does not cause exception when exceeded"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY2MjY2MzE=",
+      "is_bot": false,
+      "login": "DumpsterDoofus",
+      "name": "Peter Richter"
+    },
+    "closedAt": "2018-02-05T10:49:13Z",
+    "createdAt": "2018-01-22T01:02:05Z",
+    "labels": [],
+    "number": 926,
+    "title": "SQLite: IEnumerable insert performance is 38,000 times as slow as direct SQL statement"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjUyMjQxMjU=",
+      "is_bot": false,
+      "login": "davidbutler-rldatix",
+      "name": "Dave Butler"
+    },
+    "closedAt": "2020-05-02T17:04:01Z",
+    "createdAt": "2018-01-17T23:12:41Z",
+    "labels": [],
+    "number": 924,
+    "title": "Referencing Dapper as a NuGet Package Reference breaks the Windows Workflow Activity Designer"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjgwMjM1NDM=",
+      "is_bot": false,
+      "login": "turbo",
+      "name": "Pierre"
+    },
+    "closedAt": "2021-05-10T01:31:50Z",
+    "createdAt": "2018-01-16T19:22:52Z",
+    "labels": [],
+    "number": 923,
+    "title": "Type Flattening for query parameters"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE5NjM3MjU1",
+      "is_bot": false,
+      "login": "Abdallah-Darwish",
+      "name": "Abdallah Darwish"
+    },
+    "closedAt": "2018-01-16T02:54:39Z",
+    "createdAt": "2018-01-14T02:02:07Z",
+    "labels": [],
+    "number": 921,
+    "title": "QueryFirst and its alternatives are too slow"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjkyMzQ5Mw==",
+      "is_bot": false,
+      "login": "thedumbtechguy",
+      "name": "TheDumbTechGuy"
+    },
+    "closedAt": "2020-05-02T18:07:31Z",
+    "createdAt": "2018-01-12T16:52:37Z",
+    "labels": [],
+    "number": 919,
+    "title": "connection is already in state 'Executing' when inserting lots of objects"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExNzQ1MjAw",
+      "is_bot": false,
+      "login": "duoduoxi",
+      "name": ""
+    },
+    "closedAt": "2021-05-08T17:15:03Z",
+    "createdAt": "2018-01-08T04:07:09Z",
+    "labels": [],
+    "number": 916,
+    "title": "UPDATE failed when use @ID"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0OTA5MzIw",
+      "is_bot": false,
+      "login": "goyzhang",
+      "name": ""
+    },
+    "closedAt": "2018-03-21T05:38:16Z",
+    "createdAt": "2017-12-26T06:17:48Z",
+    "labels": [],
+    "number": 911,
+    "title": "Dapper mapping alphabetically causing datatype mismatch in Access."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMzNjM1MDI0",
+      "is_bot": false,
+      "login": "fzhangddt",
+      "name": "Frank Z"
+    },
+    "closedAt": "2020-05-02T17:27:57Z",
+    "createdAt": "2017-12-23T01:35:59Z",
+    "labels": [],
+    "number": 909,
+    "title": "Can you support mapping 1 row to 10 objects in Query?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMTk2Mjgw",
+      "is_bot": false,
+      "login": "bidianqing",
+      "name": "三大神捕之四"
+    },
+    "closedAt": "2019-06-27T02:52:15Z",
+    "createdAt": "2017-12-20T05:10:55Z",
+    "labels": [],
+    "number": 907,
+    "title": "How to update specify column?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5NTU3MQ==",
+      "is_bot": false,
+      "login": "antgel",
+      "name": "Antony Gelberg"
+    },
+    "closedAt": "2020-05-02T16:57:38Z",
+    "createdAt": "2017-12-18T17:35:06Z",
+    "labels": [],
+    "number": 905,
+    "title": "How to install Dapper non-upstream version?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU4MzQ0OTE=",
+      "is_bot": false,
+      "login": "Freydoonk",
+      "name": "Fereydoon Karimi"
+    },
+    "closedAt": "2018-02-26T07:37:35Z",
+    "createdAt": "2017-12-18T08:49:18Z",
+    "labels": [],
+    "number": 904,
+    "title": "Using SqlHierarchId throws System.InvalidCastException "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjExNjE1MjYz",
+      "is_bot": false,
+      "login": "Leowuqunqun",
+      "name": "Leo"
+    },
+    "closedAt": "2021-05-08T22:06:07Z",
+    "createdAt": "2017-12-15T11:18:12Z",
+    "labels": [],
+    "number": 902,
+    "title": "I have a query question ."
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjIxMTIzMDY=",
+      "is_bot": false,
+      "login": "rmja",
+      "name": "Rasmus Melchior Jacobsen"
+    },
+    "closedAt": "2017-12-13T04:01:37Z",
+    "createdAt": "2017-12-12T19:04:53Z",
+    "labels": [],
+    "number": 897,
+    "title": "Feature request: Support DateTime literal"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg1MDU1Nzk=",
+      "is_bot": false,
+      "login": "jerchap",
+      "name": "Jeremy"
+    },
+    "closedAt": "2018-05-20T13:13:38Z",
+    "createdAt": "2017-12-06T18:59:29Z",
+    "labels": [],
+    "number": 894,
+    "title": "Support for System.IO.TextReader parameter"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjg1MDU1Nzk=",
+      "is_bot": false,
+      "login": "jerchap",
+      "name": "Jeremy"
+    },
+    "closedAt": "2018-05-20T13:14:57Z",
+    "createdAt": "2017-12-06T18:58:42Z",
+    "labels": [],
+    "number": 893,
+    "title": "Support for Streams as parameters"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjMwMjg0ODM0",
+      "is_bot": false,
+      "login": "hermankoornhof",
+      "name": ""
+    },
+    "closedAt": "2017-12-05T07:30:52Z",
+    "createdAt": "2017-12-05T07:30:38Z",
+    "labels": [],
+    "number": 892,
+    "title": "ader"
+  },
+  {
+    "author": {
+      "is_bot": true,
+      "login": "app/"
+    },
+    "closedAt": "2017-12-01T08:21:19Z",
+    "createdAt": "2017-11-29T19:03:54Z",
+    "labels": [],
+    "number": 891,
+    "title": "Cannot use spaces or tabs before procedure name"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQxODEzMDM=",
+      "is_bot": false,
+      "login": "abcplex",
+      "name": ""
+    },
+    "closedAt": "2020-05-04T01:34:25Z",
+    "createdAt": "2017-11-28T12:22:37Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzEyNjA3Nzk=",
+        "name": "db:oracle",
+        "description": "",
+        "color": "fef2c0"
+      }
+    ],
+    "number": 890,
+    "title": "Sql Paramter in Oracle should use ?P? or :P"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEyMTY4MDIx",
+      "is_bot": false,
+      "login": "xiaolu6t",
+      "name": ""
+    },
+    "closedAt": "2018-05-20T13:12:40Z",
+    "createdAt": "2017-11-27T07:00:50Z",
+    "labels": [],
+    "number": 888,
+    "title": "Delete 's'!"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3MDI1NzQx",
+      "is_bot": false,
+      "login": "aalonzov",
+      "name": "Andrey Alonzov"
+    },
+    "closedAt": "2018-02-09T13:04:59Z",
+    "createdAt": "2017-11-21T10:30:09Z",
+    "labels": [],
+    "number": 884,
+    "title": "SqlMapper.Settings.ApplyNullValues seems to not work"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE0ODgzNzg=",
+      "is_bot": false,
+      "login": "danguilherme",
+      "name": "Guilherme Ventura"
+    },
+    "closedAt": "2017-11-16T18:26:01Z",
+    "createdAt": "2017-11-16T13:46:16Z",
+    "labels": [],
+    "number": 883,
+    "title": "ColumnAttribute not working for Query method"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjM2MjQ3NzQ=",
+      "is_bot": false,
+      "login": "peterssonjonas",
+      "name": "Jonas Petersson"
+    },
+    "closedAt": "2017-11-16T18:47:16Z",
+    "createdAt": "2017-11-15T14:44:14Z",
+    "labels": [],
+    "number": 882,
+    "title": "Query is timing out when using where in statement with single value"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEwOTE5Njkx",
+      "is_bot": false,
+      "login": "jarDotNet",
+      "name": "JA Reyes"
+    },
+    "closedAt": "2020-05-04T01:40:15Z",
+    "createdAt": "2017-11-13T14:41:58Z",
+    "labels": [],
+    "number": 881,
+    "title": "Bulk copy like method with UNION ALL"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE3NjEzMDg2",
+      "is_bot": false,
+      "login": "agoretsky",
+      "name": "agoretsky"
+    },
+    "closedAt": "2017-11-10T19:01:38Z",
+    "createdAt": "2017-11-10T18:17:48Z",
+    "labels": [],
+    "number": 878,
+    "title": "dynamic object property names != sql field names"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5MzgyNDAx",
+      "is_bot": false,
+      "login": "DVoavi-Arison",
+      "name": "Daniel V."
+    },
+    "closedAt": "2020-05-04T02:38:29Z",
+    "createdAt": "2017-11-10T16:55:19Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzEyNjA3Nzk=",
+        "name": "db:oracle",
+        "description": "",
+        "color": "fef2c0"
+      },
+      {
+        "id": "MDU6TGFiZWwyMDM0NjMwODI0",
+        "name": "area:typehandlers",
+        "description": "",
+        "color": "0a5372"
+      }
+    ],
+    "number": 877,
+    "title": "Cannot insert boolean using oracle"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjQ0OTg1MTA=",
+      "is_bot": false,
+      "login": "ftedin",
+      "name": ""
+    },
+    "closedAt": "2017-11-26T01:52:48Z",
+    "createdAt": "2017-11-08T16:44:01Z",
+    "labels": [],
+    "number": 876,
+    "title": "New update method to check original values of changed fields"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI0ODcxNzY0",
+      "is_bot": false,
+      "login": "Pandimca1",
+      "name": ""
+    },
+    "closedAt": "2017-11-26T01:54:32Z",
+    "createdAt": "2017-11-02T11:43:33Z",
+    "labels": [],
+    "number": 875,
+    "title": "Will dapper work with Asp.Net Core 2.0 + Oracle 11?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2MjM2OTAz",
+      "is_bot": false,
+      "login": "NMSAzulX",
+      "name": "张木森 · 作霖"
+    },
+    "closedAt": "2019-06-18T05:19:54Z",
+    "createdAt": "2017-11-02T03:50:35Z",
+    "labels": [],
+    "number": 874,
+    "title": "Are there any more efficient API in \"Reader-Mapping-Cache\"?"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY3MjQ5Mw==",
+      "is_bot": false,
+      "login": "karunagoyal",
+      "name": "Karuna Goyal"
+    },
+    "closedAt": "2018-05-20T13:27:00Z",
+    "createdAt": "2017-10-31T20:36:31Z",
+    "labels": [
+      {
+        "id": "MDU6TGFiZWwyNzExMTM0OTc=",
+        "name": "needs-info",
+        "description": "",
+        "color": "006b75"
+      }
+    ],
+    "number": 872,
+    "title": "openasync not available for Idbconnection"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MzY4Nzc=",
+      "is_bot": false,
+      "login": "TroySchmidt",
+      "name": "Troy Schmidt"
+    },
+    "closedAt": "2021-05-10T02:03:10Z",
+    "createdAt": "2017-10-24T01:57:04Z",
+    "labels": [],
+    "number": 869,
+    "title": "Bug in returned objects in multimap with custom splitOn"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI3MjI3ODI2",
+      "is_bot": false,
+      "login": "giorgiozoppi",
+      "name": "Giorgio Zoppi"
+    },
+    "closedAt": "2017-10-22T21:31:07Z",
+    "createdAt": "2017-10-21T22:09:18Z",
+    "labels": [],
+    "number": 868,
+    "title": "Dapper Sybase Parameter replacement broken"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE1MjQ2MTM4",
+      "is_bot": false,
+      "login": "JHeLiu",
+      "name": "missliu"
+    },
+    "closedAt": "2017-11-06T01:17:27Z",
+    "createdAt": "2017-10-19T15:32:28Z",
+    "labels": [],
+    "number": 867,
+    "title": "A little wish"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2ODM3MTI=",
+      "is_bot": false,
+      "login": "Calidus",
+      "name": "Zach Whitesel"
+    },
+    "closedAt": "2021-05-10T01:56:53Z",
+    "createdAt": "2017-10-19T15:28:44Z",
+    "labels": [],
+    "number": 866,
+    "title": "SplitOn Error Message when column names are invalid"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjc1NjM5NjI=",
+      "is_bot": false,
+      "login": "s1495k043",
+      "name": ""
+    },
+    "closedAt": "2017-10-25T05:46:14Z",
+    "createdAt": "2017-10-19T10:26:27Z",
+    "labels": [],
+    "number": 865,
+    "title": "Wrong number of parameters Issue"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5Njk4MTc2",
+      "is_bot": false,
+      "login": "strongdevx",
+      "name": ""
+    },
+    "closedAt": "2017-10-23T00:32:53Z",
+    "createdAt": "2017-10-19T09:53:50Z",
+    "labels": [],
+    "number": 864,
+    "title": "Literal parameter can replace in tablename or oder by clause？"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjU0ODkwNTA=",
+      "is_bot": false,
+      "login": "byhag",
+      "name": "Byron Hager"
+    },
+    "closedAt": "2017-11-14T14:50:30Z",
+    "createdAt": "2017-10-12T20:02:40Z",
+    "labels": [],
+    "number": 861,
+    "title": "Error on inserts with .NET Core 2.0"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjEzMzI5MjQ=",
+      "is_bot": false,
+      "login": "wjkhappy14",
+      "name": "AngkorW"
+    },
+    "closedAt": "2017-11-26T01:59:27Z",
+    "createdAt": "2017-10-12T06:43:01Z",
+    "labels": [],
+    "number": 860,
+    "title": "What  is Dapper different from many others ORM"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjk1NDc3NDE=",
+      "is_bot": false,
+      "login": "mrerhuo",
+      "name": "Mr二"
+    },
+    "closedAt": "2018-05-20T13:48:39Z",
+    "createdAt": "2017-10-11T05:59:47Z",
+    "labels": [],
+    "number": 857,
+    "title": "Dapper for Java"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjY3NTUzNg==",
+      "is_bot": false,
+      "login": "goluhaque",
+      "name": "Afzalul Haque"
+    },
+    "closedAt": "2021-05-10T01:59:27Z",
+    "createdAt": "2017-10-09T07:31:38Z",
+    "labels": [],
+    "number": 856,
+    "title": "Parameterized DAX Queries with ADOMD.NET"
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjI5OTY4NTk=",
+      "is_bot": false,
+      "login": "ehsaanwelcome",
+      "name": "Muhammad Ahsan Ashraf"
+    },
+    "closedAt": "2020-05-04T00:48:49Z",
+    "createdAt": "2017-09-29T13:39:40Z",
+    "labels": [],
+    "number": 853,
+    "title": "Is there any way to read same result multiple times "
+  },
+  {
+    "author": {
+      "id": "MDQ6VXNlcjE2MDkxNTM1",
+      "is_bot": false,
+      "login": "tkeegan-ealink",
+      "name": ""
+    },
+    "closedAt": "2018-05-20T13:34:14Z",
+    "createdAt": "2017-09-28T08:09:36Z",
+    "labels": [],
+    "number": 852,
+    "title": "Login failed for user in Dapper.SqlMapper"
+  }
+]

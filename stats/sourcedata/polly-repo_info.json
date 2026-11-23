@@ -1,0 +1,54 @@
+{
+  "createdAt": "2013-05-05T04:40:04Z",
+  "defaultBranchRef": {
+    "name": "main"
+  },
+  "description": "Polly is a .NET resilience and transient-fault-handling library that allows developers to express policies such as Retry, Circuit Breaker, Timeout, Bulkhead Isolation, and Fallback in a fluent and thread-safe manner. From version 6.0.1, Polly targets .NET Standard 1.1 and 2.0+.",
+  "diskUsage": 46167,
+  "forkCount": 1262,
+  "hasIssuesEnabled": true,
+  "hasWikiEnabled": true,
+  "homepageUrl": "https://www.thepollyproject.org",
+  "isArchived": false,
+  "isPrivate": false,
+  "issues": {
+    "totalCount": 4
+  },
+  "languages": [
+    {
+      "size": 4346375,
+      "node": {
+        "name": "C#"
+      }
+    },
+    {
+      "size": 6864,
+      "node": {
+        "name": "PowerShell"
+      }
+    },
+    {
+      "size": 128,
+      "node": {
+        "name": "Batchfile"
+      }
+    }
+  ],
+  "licenseInfo": {
+    "key": "bsd-3-clause",
+    "name": "BSD 3-Clause \"New\" or \"Revised\" License",
+    "nickname": "Modified BSD License"
+  },
+  "name": "Polly",
+  "primaryLanguage": {
+    "name": "C#"
+  },
+  "pushedAt": "2025-10-23T17:18:47Z",
+  "stargazerCount": 14018,
+  "updatedAt": "2025-10-25T08:05:09Z",
+  "url": "https://github.com/App-vNext/Polly",
+  "visibility": "PUBLIC",
+  "watchers": {
+    "totalCount": 345
+  }
+}
