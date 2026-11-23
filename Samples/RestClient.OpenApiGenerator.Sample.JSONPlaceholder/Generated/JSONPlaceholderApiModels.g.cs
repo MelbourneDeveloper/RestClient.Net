@@ -1,3 +1,4 @@
+#nullable enable
 namespace JSONPlaceholder.Generated;
 
 /// <summary>Todo</summary>

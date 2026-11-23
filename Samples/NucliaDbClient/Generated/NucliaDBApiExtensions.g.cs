@@ -57,7 +57,7 @@ public static class NucliaDBApiExtensions
     /// <summary>List resources of a Knowledge Box</summary>
     public static Task<Result<KnowledgeboxSearchResults, HttpError<HTTPValidationError>>> CatalogGetKbKbidCatalogAsync(
         this HttpClient httpClient,
-        string kbid, string query = "", object? filterExpression = null, List<string>? filters = null, List<string>? faceted = null, string sortField = "", object? sortLimit = null, string sortOrder = "desc", int pageNumber = 0, int pageSize = 20, object? withStatus = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, object? hidden = null, List<string>? show = null,
+        string kbid, string query = "", string? filterExpression = null, List<string>? filters = null, List<string>? faceted = null, string sortField = "", int? sortLimit = null, string sortOrder = "desc", int pageNumber = 0, int pageSize = 20, string? withStatus = null, string? rangeCreationStart = null, string? rangeCreationEnd = null, string? rangeModificationStart = null, string? rangeModificationEnd = null, bool? hidden = null, List<string>? show = null,
         CancellationToken cancellationToken = default
     ) => _catalogGetKbKbidCatalogAsync(httpClient, (kbid, query, filterExpression, filters, faceted, sortField, sortLimit, sortOrder, pageNumber, pageSize, withStatus, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, hidden, show), cancellationToken);
     
@@ -211,7 +211,7 @@ public static class NucliaDBApiExtensions
     /// <summary>Find on a Knowledge Box</summary>
     public static Task<Result<KnowledgeboxFindResults, HttpError<HTTPValidationError>>> FindKnowledgeboxKbKbidFindAsync(
         this HttpClient httpClient,
-        string kbid, string query = "", object? filterExpression = null, List<string>? fields = null, List<string>? filters = null, object? topK = null, object? minScore = null, object? minScoreSemantic = null, float minScoreBm25 = 0, object? vectorset = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, List<string>? features = null, bool debug = false, bool highlight = false, List<string>? show = null, List<string>? fieldType = null, List<string>? extracted = null, bool withDuplicates = false, bool withSynonyms = false, bool autofilter = false, List<string>? securityGroups = null, bool showHidden = false, string rankFusion = "rrf", object? reranker = null, object? searchConfiguration = null, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null,
+        string kbid, string query = "", string? filterExpression = null, List<string>? fields = null, List<string>? filters = null, int? topK = null, float? minScore = null, float? minScoreSemantic = null, float minScoreBm25 = 0, string? vectorset = null, string? rangeCreationStart = null, string? rangeCreationEnd = null, string? rangeModificationStart = null, string? rangeModificationEnd = null, List<string>? features = null, bool debug = false, bool highlight = false, List<string>? show = null, List<string>? fieldType = null, List<string>? extracted = null, bool withDuplicates = false, bool withSynonyms = false, bool autofilter = false, List<string>? securityGroups = null, bool showHidden = false, string rankFusion = "rrf", string? reranker = null, string? searchConfiguration = null, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null,
         CancellationToken cancellationToken = default
     ) => _findKnowledgeboxKbKbidFindAsync(httpClient, (kbid, query, filterExpression, fields, filters, topK, minScore, minScoreSemantic, minScoreBm25, vectorset, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, debug, highlight, show, fieldType, extracted, withDuplicates, withSynonyms, autofilter, securityGroups, showHidden, rankFusion, reranker, searchConfiguration, xNdbClient, xNucliadbUser, xForwardedFor), cancellationToken);
     
@@ -330,14 +330,14 @@ public static class NucliaDBApiExtensions
     /// <summary>Provides the status of the processing of the given Knowledge Box.</summary>
     public static Task<Result<RequestsResults, HttpError<string>>> ProcessingStatusKbKbidProcessingStatusAsync(
         this HttpClient httpClient,
-        string kbid, object? cursor = null, object? scheduled = null, int limit = 20,
+        string kbid, string? cursor = null, bool? scheduled = null, int limit = 20,
         CancellationToken cancellationToken = default
     ) => _processingStatusKbKbidProcessingStatusAsync(httpClient, (kbid, cursor, scheduled, limit), cancellationToken);
     
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`</summary>
     public static Task<Result<object, HttpError<HTTPValidationError>>> TusPostRidPrefixKbKbidResourcePathRidFileFieldTusuploadAsync(
         this HttpClient httpClient,
-        string kbid, string pathRid, string field, object body, object? xExtractStrategy = null, object? xSplitStrategy = null,
+        string kbid, string pathRid, string field, object body, string? xExtractStrategy = null, string? xSplitStrategy = null,
         CancellationToken cancellationToken = default
     ) => _tusPostRidPrefixKbKbidResourcePathRidFileFieldTusuploadAsync(httpClient, (kbid, pathRid, field, xExtractStrategy, xSplitStrategy, body), cancellationToken);
     
@@ -351,7 +351,7 @@ public static class NucliaDBApiExtensions
     /// <summary>Upload a file as a field on an existing resource, if the field exists will return a conflict (419)</summary>
     public static Task<Result<ResourceFileUploaded, HttpError<HTTPValidationError>>> UploadRidPrefixKbKbidResourcePathRidFileFieldUploadAsync(
         this HttpClient httpClient,
-        string kbid, string pathRid, string field, object body, object? xFilename = null, object? xPassword = null, object? xLanguage = null, object? xMd5 = null, object? xExtractStrategy = null, object? xSplitStrategy = null,
+        string kbid, string pathRid, string field, object body, string? xFilename = null, string? xPassword = null, string? xLanguage = null, string? xMd5 = null, string? xExtractStrategy = null, string? xSplitStrategy = null,
         CancellationToken cancellationToken = default
     ) => _uploadRidPrefixKbKbidResourcePathRidFileFieldUploadAsync(httpClient, (kbid, pathRid, field, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, body), cancellationToken);
     
@@ -421,7 +421,7 @@ public static class NucliaDBApiExtensions
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`</summary>
     public static Task<Result<ResourceUpdated, HttpError<HTTPValidationError>>> ReprocessFileFieldKbKbidResourceRidFileFieldIdReprocessAsync(
         this HttpClient httpClient,
-        string kbid, string rid, string fieldId, object body, bool resetTitle = false, string? xNucliadbUser = null, object? xFilePassword = null,
+        string kbid, string rid, string fieldId, object body, bool resetTitle = false, string? xNucliadbUser = null, string? xFilePassword = null,
         CancellationToken cancellationToken = default
     ) => _reprocessFileFieldKbKbidResourceRidFileFieldIdReprocessAsync(httpClient, (kbid, rid, fieldId, resetTitle, xNucliadbUser, xFilePassword, body), cancellationToken);
     
@@ -463,7 +463,7 @@ public static class NucliaDBApiExtensions
     /// <summary>Search on a single resource</summary>
     public static Task<Result<ResourceSearchResults, HttpError<HTTPValidationError>>> ResourceSearchKbKbidResourceRidSearchAsync(
         this HttpClient httpClient,
-        string kbid, string rid, string query, object? filterExpression = null, List<string>? fields = null, List<string>? filters = null, List<string>? faceted = null, object? sortField = null, string sortOrder = "desc", object? topK = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, bool highlight = false, bool debug = false, string xNdbClient = "api",
+        string kbid, string rid, string query, string? filterExpression = null, List<string>? fields = null, List<string>? filters = null, List<string>? faceted = null, string? sortField = null, string sortOrder = "desc", int? topK = null, string? rangeCreationStart = null, string? rangeCreationEnd = null, string? rangeModificationStart = null, string? rangeModificationEnd = null, bool highlight = false, bool debug = false, string xNdbClient = "api",
         CancellationToken cancellationToken = default
     ) => _resourceSearchKbKbidResourceRidSearchAsync(httpClient, (kbid, rid, query, filterExpression, fields, filters, faceted, sortField, sortOrder, topK, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, highlight, debug, xNdbClient), cancellationToken);
     
@@ -484,7 +484,7 @@ public static class NucliaDBApiExtensions
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`</summary>
     public static Task<Result<ResourceField, HttpError<HTTPValidationError>>> ResourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdGetAsync(
         this HttpClient httpClient,
-        string kbid, string rid, string fieldType, string fieldId, List<string>? show = null, List<string>? extracted = null, object? page = null,
+        string kbid, string rid, string fieldType, string fieldId, List<string>? show = null, List<string>? extracted = null, string? page = null,
         CancellationToken cancellationToken = default
     ) => _resourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdGetAsync(httpClient, (kbid, rid, fieldType, fieldId, show, extracted, page), cancellationToken);
     
@@ -519,7 +519,7 @@ public static class NucliaDBApiExtensions
     /// <summary>Search on a Knowledge Box and retrieve separate results for documents, paragraphs, and sentences. Usually, it is better to use `find`</summary>
     public static Task<Result<KnowledgeboxSearchResults, HttpError<HTTPValidationError>>> SearchKnowledgeboxKbKbidSearchAsync(
         this HttpClient httpClient,
-        string kbid, string query = "", object? filterExpression = null, List<string>? fields = null, List<string>? filters = null, List<string>? faceted = null, string sortField = "", object? sortLimit = null, string sortOrder = "desc", int topK = 20, object? minScore = null, object? minScoreSemantic = null, float minScoreBm25 = 0, object? vectorset = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, List<string>? features = null, bool debug = false, bool highlight = false, List<string>? show = null, List<string>? fieldType = null, List<string>? extracted = null, bool withDuplicates = false, bool withSynonyms = false, bool autofilter = false, List<string>? securityGroups = null, bool showHidden = false, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null,
+        string kbid, string query = "", string? filterExpression = null, List<string>? fields = null, List<string>? filters = null, List<string>? faceted = null, string sortField = "", int? sortLimit = null, string sortOrder = "desc", int topK = 20, float? minScore = null, float? minScoreSemantic = null, float minScoreBm25 = 0, string? vectorset = null, string? rangeCreationStart = null, string? rangeCreationEnd = null, string? rangeModificationStart = null, string? rangeModificationEnd = null, List<string>? features = null, bool debug = false, bool highlight = false, List<string>? show = null, List<string>? fieldType = null, List<string>? extracted = null, bool withDuplicates = false, bool withSynonyms = false, bool autofilter = false, List<string>? securityGroups = null, bool showHidden = false, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null,
         CancellationToken cancellationToken = default
     ) => _searchKnowledgeboxKbKbidSearchAsync(httpClient, (kbid, query, filterExpression, fields, filters, faceted, sortField, sortLimit, sortOrder, topK, minScore, minScoreSemantic, minScoreBm25, vectorset, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, debug, highlight, show, fieldType, extracted, withDuplicates, withSynonyms, autofilter, securityGroups, showHidden, xNdbClient, xNucliadbUser, xForwardedFor), cancellationToken);
     
@@ -624,7 +624,7 @@ public static class NucliaDBApiExtensions
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`</summary>
     public static Task<Result<object, HttpError<HTTPValidationError>>> TusPostRslugPrefixKbKbidSlugRslugFileFieldTusuploadAsync(
         this HttpClient httpClient,
-        string kbid, string rslug, string field, object body, object? xExtractStrategy = null, object? xSplitStrategy = null,
+        string kbid, string rslug, string field, object body, string? xExtractStrategy = null, string? xSplitStrategy = null,
         CancellationToken cancellationToken = default
     ) => _tusPostRslugPrefixKbKbidSlugRslugFileFieldTusuploadAsync(httpClient, (kbid, rslug, field, xExtractStrategy, xSplitStrategy, body), cancellationToken);
     
@@ -645,7 +645,7 @@ public static class NucliaDBApiExtensions
     /// <summary>Upload a file as a field on an existing resource, if the field exists will return a conflict (419)</summary>
     public static Task<Result<ResourceFileUploaded, HttpError<HTTPValidationError>>> UploadRslugPrefixKbKbidSlugRslugFileFieldUploadAsync(
         this HttpClient httpClient,
-        string kbid, string rslug, string field, object body, object? xFilename = null, object? xPassword = null, object? xLanguage = null, object? xMd5 = null, object? xExtractStrategy = null, object? xSplitStrategy = null,
+        string kbid, string rslug, string field, object body, string? xFilename = null, string? xPassword = null, string? xLanguage = null, string? xMd5 = null, string? xExtractStrategy = null, string? xSplitStrategy = null,
         CancellationToken cancellationToken = default
     ) => _uploadRslugPrefixKbKbidSlugRslugFileFieldUploadAsync(httpClient, (kbid, rslug, field, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, body), cancellationToken);
     
@@ -687,7 +687,7 @@ public static class NucliaDBApiExtensions
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `READER`</summary>
     public static Task<Result<ResourceField, HttpError<HTTPValidationError>>> ResourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdGetAsync(
         this HttpClient httpClient,
-        string kbid, string rslug, string fieldType, string fieldId, List<string>? show = null, List<string>? extracted = null, object? page = null,
+        string kbid, string rslug, string fieldType, string fieldId, List<string>? show = null, List<string>? extracted = null, string? page = null,
         CancellationToken cancellationToken = default
     ) => _resourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdGetAsync(httpClient, (kbid, rslug, fieldType, fieldId, show, extracted, page), cancellationToken);
     
@@ -743,7 +743,7 @@ public static class NucliaDBApiExtensions
     /// <summary>Suggestions on a knowledge box</summary>
     public static Task<Result<KnowledgeboxSuggestResults, HttpError<HTTPValidationError>>> SuggestKnowledgeboxKbKbidSuggestAsync(
         this HttpClient httpClient,
-        string kbid, string query, List<string>? fields = null, List<string>? filters = null, List<string>? faceted = null, object? rangeCreationStart = null, object? rangeCreationEnd = null, object? rangeModificationStart = null, object? rangeModificationEnd = null, List<string>? features = null, List<string>? show = null, List<string>? fieldType = null, bool debug = false, bool highlight = false, bool showHidden = false, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null,
+        string kbid, string query, List<string>? fields = null, List<string>? filters = null, List<string>? faceted = null, string? rangeCreationStart = null, string? rangeCreationEnd = null, string? rangeModificationStart = null, string? rangeModificationEnd = null, List<string>? features = null, List<string>? show = null, List<string>? fieldType = null, bool debug = false, bool highlight = false, bool showHidden = false, string xNdbClient = "api", string? xNucliadbUser = null, string? xForwardedFor = null,
         CancellationToken cancellationToken = default
     ) => _suggestKnowledgeboxKbKbidSuggestAsync(httpClient, (kbid, query, fields, filters, faceted, rangeCreationStart, rangeCreationEnd, rangeModificationStart, rangeModificationEnd, features, show, fieldType, debug, highlight, showHidden, xNdbClient, xNucliadbUser, xForwardedFor), cancellationToken);
     
@@ -757,14 +757,14 @@ public static class NucliaDBApiExtensions
     /// <summary>--- ## Authorization roles Authenticated user needs to fulfill one of this roles, otherwise the request will be rejected with a `403` response. - `WRITER`</summary>
     public static Task<Result<object, HttpError<HTTPValidationError>>> TusPostKbKbidTusuploadAsync(
         this HttpClient httpClient,
-        string kbid, object body, object? xExtractStrategy = null, object? xSplitStrategy = null,
+        string kbid, object body, string? xExtractStrategy = null, string? xSplitStrategy = null,
         CancellationToken cancellationToken = default
     ) => _tusPostKbKbidTusuploadAsync(httpClient, (kbid, xExtractStrategy, xSplitStrategy, body), cancellationToken);
     
     /// <summary>TUS Server information</summary>
     public static Task<Result<object, HttpError<HTTPValidationError>>> TusOptionsKbKbidTusuploadAsync(
         this HttpClient httpClient,
-        string kbid, object? rid = null, object? rslug = null, object? uploadId = null, object? field = null,
+        string kbid, string? rid = null, string? rslug = null, string? uploadId = null, string? field = null,
         CancellationToken cancellationToken = default
     ) => _tusOptionsKbKbidTusuploadAsync(httpClient, (kbid, rid, rslug, uploadId, field), cancellationToken);
     
@@ -785,7 +785,7 @@ public static class NucliaDBApiExtensions
     /// <summary>Upload a file onto a Knowledge Box, field id will be file and rid will be autogenerated.</summary>
     public static Task<Result<ResourceFileUploaded, HttpError<HTTPValidationError>>> UploadKbKbidUploadAsync(
         this HttpClient httpClient,
-        string kbid, object body, object? xFilename = null, object? xPassword = null, object? xLanguage = null, object? xMd5 = null, object? xExtractStrategy = null, object? xSplitStrategy = null,
+        string kbid, object body, string? xFilename = null, string? xPassword = null, string? xLanguage = null, string? xMd5 = null, string? xExtractStrategy = null, string? xSplitStrategy = null,
         CancellationToken cancellationToken = default
     ) => _uploadKbKbidUploadAsync(httpClient, (kbid, xFilename, xPassword, xLanguage, xMd5, xExtractStrategy, xSplitStrategy, body), cancellationToken);
 
@@ -837,8 +837,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static GetAsync<KnowledgeboxSearchResults, HTTPValidationError, (string kbid, string query, object? filterExpression, List<string>? filters, List<string>? faceted, string sortField, object? sortLimit, string sortOrder, int pageNumber, int pageSize, object? withStatus, object? rangeCreationStart, object? rangeCreationEnd, object? rangeModificationStart, object? rangeModificationEnd, object? hidden, List<string>? show)> _catalogGetKbKbidCatalogAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxSearchResults, HTTPValidationError, (string kbid, string query, object? filterExpression, List<string>? filters, List<string>? faceted, string sortField, object? sortLimit, string sortOrder, int pageNumber, int pageSize, object? withStatus, object? rangeCreationStart, object? rangeCreationEnd, object? rangeModificationStart, object? rangeModificationEnd, object? hidden, List<string>? show)>(
+    private static GetAsync<KnowledgeboxSearchResults, HTTPValidationError, (string kbid, string query, string? filterExpression, List<string>? filters, List<string>? faceted, string sortField, int? sortLimit, string sortOrder, int pageNumber, int pageSize, string? withStatus, string? rangeCreationStart, string? rangeCreationEnd, string? rangeModificationStart, string? rangeModificationEnd, bool? hidden, List<string>? show)> _catalogGetKbKbidCatalogAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxSearchResults, HTTPValidationError, (string kbid, string query, string? filterExpression, List<string>? filters, List<string>? faceted, string sortField, int? sortLimit, string sortOrder, int pageNumber, int pageSize, string? withStatus, string? rangeCreationStart, string? rangeCreationEnd, string? rangeModificationStart, string? rangeModificationEnd, bool? hidden, List<string>? show)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/catalog{BuildQueryString(("query", param.query), ("filter_expression", param.filterExpression), ("filters", param.filters), ("faceted", param.faceted), ("sort_field", param.sortField), ("sort_limit", param.sortLimit), ("sort_order", param.sortOrder), ("page_number", param.pageNumber), ("page_size", param.pageSize), ("with_status", param.withStatus), ("range_creation_start", param.rangeCreationStart), ("range_creation_end", param.rangeCreationEnd), ("range_modification_start", param.rangeModificationStart), ("range_modification_end", param.rangeModificationEnd), ("hidden", param.hidden), ("show", param.show))}"), null, null),
             deserializeSuccess: DeserializeJson<KnowledgeboxSearchResults>,
@@ -1013,8 +1013,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static GetAsync<KnowledgeboxFindResults, HTTPValidationError, (string kbid, string query, object? filterExpression, List<string>? fields, List<string>? filters, object? topK, object? minScore, object? minScoreSemantic, float minScoreBm25, object? vectorset, object? rangeCreationStart, object? rangeCreationEnd, object? rangeModificationStart, object? rangeModificationEnd, List<string>? features, bool debug, bool highlight, List<string>? show, List<string>? fieldType, List<string>? extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string>? securityGroups, bool showHidden, string rankFusion, object? reranker, object? searchConfiguration, string xNdbClient, string? xNucliadbUser, string? xForwardedFor)> _findKnowledgeboxKbKbidFindAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxFindResults, HTTPValidationError, (string kbid, string query, object? filterExpression, List<string>? fields, List<string>? filters, object? topK, object? minScore, object? minScoreSemantic, float minScoreBm25, object? vectorset, object? rangeCreationStart, object? rangeCreationEnd, object? rangeModificationStart, object? rangeModificationEnd, List<string>? features, bool debug, bool highlight, List<string>? show, List<string>? fieldType, List<string>? extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string>? securityGroups, bool showHidden, string rankFusion, object? reranker, object? searchConfiguration, string xNdbClient, string? xNucliadbUser, string? xForwardedFor)>(
+    private static GetAsync<KnowledgeboxFindResults, HTTPValidationError, (string kbid, string query, string? filterExpression, List<string>? fields, List<string>? filters, int? topK, float? minScore, float? minScoreSemantic, float minScoreBm25, string? vectorset, string? rangeCreationStart, string? rangeCreationEnd, string? rangeModificationStart, string? rangeModificationEnd, List<string>? features, bool debug, bool highlight, List<string>? show, List<string>? fieldType, List<string>? extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string>? securityGroups, bool showHidden, string rankFusion, string? reranker, string? searchConfiguration, string xNdbClient, string? xNucliadbUser, string? xForwardedFor)> _findKnowledgeboxKbKbidFindAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxFindResults, HTTPValidationError, (string kbid, string query, string? filterExpression, List<string>? fields, List<string>? filters, int? topK, float? minScore, float? minScoreSemantic, float minScoreBm25, string? vectorset, string? rangeCreationStart, string? rangeCreationEnd, string? rangeModificationStart, string? rangeModificationEnd, List<string>? features, bool debug, bool highlight, List<string>? show, List<string>? fieldType, List<string>? extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string>? securityGroups, bool showHidden, string rankFusion, string? reranker, string? searchConfiguration, string xNdbClient, string? xNucliadbUser, string? xForwardedFor)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/find{BuildQueryString(("query", param.query), ("filter_expression", param.filterExpression), ("fields", param.fields), ("filters", param.filters), ("top_k", param.topK), ("min_score", param.minScore), ("min_score_semantic", param.minScoreSemantic), ("min_score_bm25", param.minScoreBm25), ("vectorset", param.vectorset), ("range_creation_start", param.rangeCreationStart), ("range_creation_end", param.rangeCreationEnd), ("range_modification_start", param.rangeModificationStart), ("range_modification_end", param.rangeModificationEnd), ("features", param.features), ("debug", param.debug), ("highlight", param.highlight), ("show", param.show), ("field_type", param.fieldType), ("extracted", param.extracted), ("with_duplicates", param.withDuplicates), ("with_synonyms", param.withSynonyms), ("autofilter", param.autofilter), ("security_groups", param.securityGroups), ("show_hidden", param.showHidden), ("rank_fusion", param.rankFusion), ("reranker", param.reranker), ("search_configuration", param.searchConfiguration))}"), null, new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString(), ["x-nucliadb-user"] = param.xNucliadbUser?.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor?.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<KnowledgeboxFindResults>,
@@ -1149,16 +1149,16 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static GetAsync<RequestsResults, string, (string kbid, object? cursor, object? scheduled, int limit)> _processingStatusKbKbidProcessingStatusAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<RequestsResults, string, (string kbid, object? cursor, object? scheduled, int limit)>(
+    private static GetAsync<RequestsResults, string, (string kbid, string? cursor, bool? scheduled, int limit)> _processingStatusKbKbidProcessingStatusAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<RequestsResults, string, (string kbid, string? cursor, bool? scheduled, int limit)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/processing-status{BuildQueryString(("cursor", param.cursor), ("scheduled", param.scheduled), ("limit", param.limit))}"), null, null),
             deserializeSuccess: DeserializeJson<RequestsResults>,
             deserializeError: DeserializeError
         );
 
-    private static PostAsync<object, HTTPValidationError, (string kbid, string pathRid, string field, object? xExtractStrategy, object? xSplitStrategy, object Body)> _tusPostRidPrefixKbKbidResourcePathRidFileFieldTusuploadAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, HTTPValidationError, (string kbid, string pathRid, string field, object? xExtractStrategy, object? xSplitStrategy, object Body)>(
+    private static PostAsync<object, HTTPValidationError, (string kbid, string pathRid, string field, string? xExtractStrategy, string? xSplitStrategy, object Body)> _tusPostRidPrefixKbKbidResourcePathRidFileFieldTusuploadAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, HTTPValidationError, (string kbid, string pathRid, string field, string? xExtractStrategy, string? xSplitStrategy, object Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.pathRid}/file/{param.field}/tusupload"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-extract-strategy"] = param.xExtractStrategy?.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy?.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<object>,
@@ -1173,8 +1173,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static PostAsync<ResourceFileUploaded, HTTPValidationError, (string kbid, string pathRid, string field, object? xFilename, object? xPassword, object? xLanguage, object? xMd5, object? xExtractStrategy, object? xSplitStrategy, object Body)> _uploadRidPrefixKbKbidResourcePathRidFileFieldUploadAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceFileUploaded, HTTPValidationError, (string kbid, string pathRid, string field, object? xFilename, object? xPassword, object? xLanguage, object? xMd5, object? xExtractStrategy, object? xSplitStrategy, object Body)>(
+    private static PostAsync<ResourceFileUploaded, HTTPValidationError, (string kbid, string pathRid, string field, string? xFilename, string? xPassword, string? xLanguage, string? xMd5, string? xExtractStrategy, string? xSplitStrategy, object Body)> _uploadRidPrefixKbKbidResourcePathRidFileFieldUploadAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceFileUploaded, HTTPValidationError, (string kbid, string pathRid, string field, string? xFilename, string? xPassword, string? xLanguage, string? xMd5, string? xExtractStrategy, string? xSplitStrategy, object Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.pathRid}/file/{param.field}/upload"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-filename"] = param.xFilename?.ToString() ?? string.Empty, ["x-password"] = param.xPassword?.ToString() ?? string.Empty, ["x-language"] = param.xLanguage?.ToString() ?? string.Empty, ["x-md5"] = param.xMd5?.ToString() ?? string.Empty, ["x-extract-strategy"] = param.xExtractStrategy?.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy?.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceFileUploaded>,
@@ -1253,8 +1253,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static PostAsync<ResourceUpdated, HTTPValidationError, (string kbid, string rid, string fieldId, bool resetTitle, string? xNucliadbUser, object? xFilePassword, object Body)> _reprocessFileFieldKbKbidResourceRidFileFieldIdReprocessAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceUpdated, HTTPValidationError, (string kbid, string rid, string fieldId, bool resetTitle, string? xNucliadbUser, object? xFilePassword, object Body)>(
+    private static PostAsync<ResourceUpdated, HTTPValidationError, (string kbid, string rid, string fieldId, bool resetTitle, string? xNucliadbUser, string? xFilePassword, object Body)> _reprocessFileFieldKbKbidResourceRidFileFieldIdReprocessAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceUpdated, HTTPValidationError, (string kbid, string rid, string fieldId, bool resetTitle, string? xNucliadbUser, string? xFilePassword, object Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/file/{param.fieldId}/reprocess?reset_title={param.resetTitle}"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-nucliadb-user"] = param.xNucliadbUser?.ToString() ?? string.Empty, ["x-file-password"] = param.xFilePassword?.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceUpdated>,
@@ -1301,8 +1301,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static GetAsync<ResourceSearchResults, HTTPValidationError, (string kbid, string rid, string query, object? filterExpression, List<string>? fields, List<string>? filters, List<string>? faceted, object? sortField, string sortOrder, object? topK, object? rangeCreationStart, object? rangeCreationEnd, object? rangeModificationStart, object? rangeModificationEnd, bool highlight, bool debug, string xNdbClient)> _resourceSearchKbKbidResourceRidSearchAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceSearchResults, HTTPValidationError, (string kbid, string rid, string query, object? filterExpression, List<string>? fields, List<string>? filters, List<string>? faceted, object? sortField, string sortOrder, object? topK, object? rangeCreationStart, object? rangeCreationEnd, object? rangeModificationStart, object? rangeModificationEnd, bool highlight, bool debug, string xNdbClient)>(
+    private static GetAsync<ResourceSearchResults, HTTPValidationError, (string kbid, string rid, string query, string? filterExpression, List<string>? fields, List<string>? filters, List<string>? faceted, string? sortField, string sortOrder, int? topK, string? rangeCreationStart, string? rangeCreationEnd, string? rangeModificationStart, string? rangeModificationEnd, bool highlight, bool debug, string xNdbClient)> _resourceSearchKbKbidResourceRidSearchAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceSearchResults, HTTPValidationError, (string kbid, string rid, string query, string? filterExpression, List<string>? fields, List<string>? filters, List<string>? faceted, string? sortField, string sortOrder, int? topK, string? rangeCreationStart, string? rangeCreationEnd, string? rangeModificationStart, string? rangeModificationEnd, bool highlight, bool debug, string xNdbClient)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/search{BuildQueryString(("query", param.query), ("filter_expression", param.filterExpression), ("fields", param.fields), ("filters", param.filters), ("faceted", param.faceted), ("sort_field", param.sortField), ("sort_order", param.sortOrder), ("top_k", param.topK), ("range_creation_start", param.rangeCreationStart), ("range_creation_end", param.rangeCreationEnd), ("range_modification_start", param.rangeModificationStart), ("range_modification_end", param.rangeModificationEnd), ("highlight", param.highlight), ("debug", param.debug))}"), null, new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString() }),
             deserializeSuccess: DeserializeJson<ResourceSearchResults>,
@@ -1325,8 +1325,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static GetAsync<ResourceField, HTTPValidationError, (string kbid, string rid, string fieldType, string fieldId, List<string>? show, List<string>? extracted, object? page)> _resourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdGetAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceField, HTTPValidationError, (string kbid, string rid, string fieldType, string fieldId, List<string>? show, List<string>? extracted, object? page)>(
+    private static GetAsync<ResourceField, HTTPValidationError, (string kbid, string rid, string fieldType, string fieldId, List<string>? show, List<string>? extracted, string? page)> _resourceFieldRidPrefixKbKbidResourceRidFieldTypeFieldIdGetAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceField, HTTPValidationError, (string kbid, string rid, string fieldType, string fieldId, List<string>? show, List<string>? extracted, string? page)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/resource/{param.rid}/{param.fieldType}/{param.fieldId}{BuildQueryString(("show", param.show), ("extracted", param.extracted), ("page", param.page))}"), null, null),
             deserializeSuccess: DeserializeJson<ResourceField>,
@@ -1365,8 +1365,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static GetAsync<KnowledgeboxSearchResults, HTTPValidationError, (string kbid, string query, object? filterExpression, List<string>? fields, List<string>? filters, List<string>? faceted, string sortField, object? sortLimit, string sortOrder, int topK, object? minScore, object? minScoreSemantic, float minScoreBm25, object? vectorset, object? rangeCreationStart, object? rangeCreationEnd, object? rangeModificationStart, object? rangeModificationEnd, List<string>? features, bool debug, bool highlight, List<string>? show, List<string>? fieldType, List<string>? extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string>? securityGroups, bool showHidden, string xNdbClient, string? xNucliadbUser, string? xForwardedFor)> _searchKnowledgeboxKbKbidSearchAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxSearchResults, HTTPValidationError, (string kbid, string query, object? filterExpression, List<string>? fields, List<string>? filters, List<string>? faceted, string sortField, object? sortLimit, string sortOrder, int topK, object? minScore, object? minScoreSemantic, float minScoreBm25, object? vectorset, object? rangeCreationStart, object? rangeCreationEnd, object? rangeModificationStart, object? rangeModificationEnd, List<string>? features, bool debug, bool highlight, List<string>? show, List<string>? fieldType, List<string>? extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string>? securityGroups, bool showHidden, string xNdbClient, string? xNucliadbUser, string? xForwardedFor)>(
+    private static GetAsync<KnowledgeboxSearchResults, HTTPValidationError, (string kbid, string query, string? filterExpression, List<string>? fields, List<string>? filters, List<string>? faceted, string sortField, int? sortLimit, string sortOrder, int topK, float? minScore, float? minScoreSemantic, float minScoreBm25, string? vectorset, string? rangeCreationStart, string? rangeCreationEnd, string? rangeModificationStart, string? rangeModificationEnd, List<string>? features, bool debug, bool highlight, List<string>? show, List<string>? fieldType, List<string>? extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string>? securityGroups, bool showHidden, string xNdbClient, string? xNucliadbUser, string? xForwardedFor)> _searchKnowledgeboxKbKbidSearchAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxSearchResults, HTTPValidationError, (string kbid, string query, string? filterExpression, List<string>? fields, List<string>? filters, List<string>? faceted, string sortField, int? sortLimit, string sortOrder, int topK, float? minScore, float? minScoreSemantic, float minScoreBm25, string? vectorset, string? rangeCreationStart, string? rangeCreationEnd, string? rangeModificationStart, string? rangeModificationEnd, List<string>? features, bool debug, bool highlight, List<string>? show, List<string>? fieldType, List<string>? extracted, bool withDuplicates, bool withSynonyms, bool autofilter, List<string>? securityGroups, bool showHidden, string xNdbClient, string? xNucliadbUser, string? xForwardedFor)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/search{BuildQueryString(("query", param.query), ("filter_expression", param.filterExpression), ("fields", param.fields), ("filters", param.filters), ("faceted", param.faceted), ("sort_field", param.sortField), ("sort_limit", param.sortLimit), ("sort_order", param.sortOrder), ("top_k", param.topK), ("min_score", param.minScore), ("min_score_semantic", param.minScoreSemantic), ("min_score_bm25", param.minScoreBm25), ("vectorset", param.vectorset), ("range_creation_start", param.rangeCreationStart), ("range_creation_end", param.rangeCreationEnd), ("range_modification_start", param.rangeModificationStart), ("range_modification_end", param.rangeModificationEnd), ("features", param.features), ("debug", param.debug), ("highlight", param.highlight), ("show", param.show), ("field_type", param.fieldType), ("extracted", param.extracted), ("with_duplicates", param.withDuplicates), ("with_synonyms", param.withSynonyms), ("autofilter", param.autofilter), ("security_groups", param.securityGroups), ("show_hidden", param.showHidden))}"), null, new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString(), ["x-nucliadb-user"] = param.xNucliadbUser?.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor?.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<KnowledgeboxSearchResults>,
@@ -1485,8 +1485,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static PostAsync<object, HTTPValidationError, (string kbid, string rslug, string field, object? xExtractStrategy, object? xSplitStrategy, object Body)> _tusPostRslugPrefixKbKbidSlugRslugFileFieldTusuploadAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, HTTPValidationError, (string kbid, string rslug, string field, object? xExtractStrategy, object? xSplitStrategy, object Body)>(
+    private static PostAsync<object, HTTPValidationError, (string kbid, string rslug, string field, string? xExtractStrategy, string? xSplitStrategy, object Body)> _tusPostRslugPrefixKbKbidSlugRslugFileFieldTusuploadAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, HTTPValidationError, (string kbid, string rslug, string field, string? xExtractStrategy, string? xSplitStrategy, object Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/file/{param.field}/tusupload"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-extract-strategy"] = param.xExtractStrategy?.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy?.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<object>,
@@ -1509,8 +1509,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static PostAsync<ResourceFileUploaded, HTTPValidationError, (string kbid, string rslug, string field, object? xFilename, object? xPassword, object? xLanguage, object? xMd5, object? xExtractStrategy, object? xSplitStrategy, object Body)> _uploadRslugPrefixKbKbidSlugRslugFileFieldUploadAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceFileUploaded, HTTPValidationError, (string kbid, string rslug, string field, object? xFilename, object? xPassword, object? xLanguage, object? xMd5, object? xExtractStrategy, object? xSplitStrategy, object Body)>(
+    private static PostAsync<ResourceFileUploaded, HTTPValidationError, (string kbid, string rslug, string field, string? xFilename, string? xPassword, string? xLanguage, string? xMd5, string? xExtractStrategy, string? xSplitStrategy, object Body)> _uploadRslugPrefixKbKbidSlugRslugFileFieldUploadAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceFileUploaded, HTTPValidationError, (string kbid, string rslug, string field, string? xFilename, string? xPassword, string? xLanguage, string? xMd5, string? xExtractStrategy, string? xSplitStrategy, object Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/file/{param.field}/upload"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-filename"] = param.xFilename?.ToString() ?? string.Empty, ["x-password"] = param.xPassword?.ToString() ?? string.Empty, ["x-language"] = param.xLanguage?.ToString() ?? string.Empty, ["x-md5"] = param.xMd5?.ToString() ?? string.Empty, ["x-extract-strategy"] = param.xExtractStrategy?.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy?.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceFileUploaded>,
@@ -1557,8 +1557,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static GetAsync<ResourceField, HTTPValidationError, (string kbid, string rslug, string fieldType, string fieldId, List<string>? show, List<string>? extracted, object? page)> _resourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdGetAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceField, HTTPValidationError, (string kbid, string rslug, string fieldType, string fieldId, List<string>? show, List<string>? extracted, object? page)>(
+    private static GetAsync<ResourceField, HTTPValidationError, (string kbid, string rslug, string fieldType, string fieldId, List<string>? show, List<string>? extracted, string? page)> _resourceFieldRslugPrefixKbKbidSlugRslugFieldTypeFieldIdGetAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<ResourceField, HTTPValidationError, (string kbid, string rslug, string fieldType, string fieldId, List<string>? show, List<string>? extracted, string? page)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/slug/{param.rslug}/{param.fieldType}/{param.fieldId}{BuildQueryString(("show", param.show), ("extracted", param.extracted), ("page", param.page))}"), null, null),
             deserializeSuccess: DeserializeJson<ResourceField>,
@@ -1621,8 +1621,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static GetAsync<KnowledgeboxSuggestResults, HTTPValidationError, (string kbid, string query, List<string>? fields, List<string>? filters, List<string>? faceted, object? rangeCreationStart, object? rangeCreationEnd, object? rangeModificationStart, object? rangeModificationEnd, List<string>? features, List<string>? show, List<string>? fieldType, bool debug, bool highlight, bool showHidden, string xNdbClient, string? xNucliadbUser, string? xForwardedFor)> _suggestKnowledgeboxKbKbidSuggestAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxSuggestResults, HTTPValidationError, (string kbid, string query, List<string>? fields, List<string>? filters, List<string>? faceted, object? rangeCreationStart, object? rangeCreationEnd, object? rangeModificationStart, object? rangeModificationEnd, List<string>? features, List<string>? show, List<string>? fieldType, bool debug, bool highlight, bool showHidden, string xNdbClient, string? xNucliadbUser, string? xForwardedFor)>(
+    private static GetAsync<KnowledgeboxSuggestResults, HTTPValidationError, (string kbid, string query, List<string>? fields, List<string>? filters, List<string>? faceted, string? rangeCreationStart, string? rangeCreationEnd, string? rangeModificationStart, string? rangeModificationEnd, List<string>? features, List<string>? show, List<string>? fieldType, bool debug, bool highlight, bool showHidden, string xNdbClient, string? xNucliadbUser, string? xForwardedFor)> _suggestKnowledgeboxKbKbidSuggestAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateGet<KnowledgeboxSuggestResults, HTTPValidationError, (string kbid, string query, List<string>? fields, List<string>? filters, List<string>? faceted, string? rangeCreationStart, string? rangeCreationEnd, string? rangeModificationStart, string? rangeModificationEnd, List<string>? features, List<string>? show, List<string>? fieldType, bool debug, bool highlight, bool showHidden, string xNdbClient, string? xNucliadbUser, string? xForwardedFor)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/suggest{BuildQueryString(("query", param.query), ("fields", param.fields), ("filters", param.filters), ("faceted", param.faceted), ("range_creation_start", param.rangeCreationStart), ("range_creation_end", param.rangeCreationEnd), ("range_modification_start", param.rangeModificationStart), ("range_modification_end", param.rangeModificationEnd), ("features", param.features), ("show", param.show), ("field_type", param.fieldType), ("debug", param.debug), ("highlight", param.highlight), ("show_hidden", param.showHidden))}"), null, new Dictionary<string, string> { ["x-ndb-client"] = param.xNdbClient.ToString(), ["x-nucliadb-user"] = param.xNucliadbUser?.ToString() ?? string.Empty, ["x-forwarded-for"] = param.xForwardedFor?.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<KnowledgeboxSuggestResults>,
@@ -1637,16 +1637,16 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static PostAsync<object, HTTPValidationError, (string kbid, object? xExtractStrategy, object? xSplitStrategy, object Body)> _tusPostKbKbidTusuploadAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, HTTPValidationError, (string kbid, object? xExtractStrategy, object? xSplitStrategy, object Body)>(
+    private static PostAsync<object, HTTPValidationError, (string kbid, string? xExtractStrategy, string? xSplitStrategy, object Body)> _tusPostKbKbidTusuploadAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<object, HTTPValidationError, (string kbid, string? xExtractStrategy, string? xSplitStrategy, object Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/tusupload"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-extract-strategy"] = param.xExtractStrategy?.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy?.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<object>,
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static OptionsAsync<object, HTTPValidationError, (string kbid, object? rid, object? rslug, object? uploadId, object? field)> _tusOptionsKbKbidTusuploadAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreateOptions<object, HTTPValidationError, (string kbid, object? rid, object? rslug, object? uploadId, object? field)>(
+    private static OptionsAsync<object, HTTPValidationError, (string kbid, string? rid, string? rslug, string? uploadId, string? field)> _tusOptionsKbKbidTusuploadAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreateOptions<object, HTTPValidationError, (string kbid, string? rid, string? rslug, string? uploadId, string? field)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/tusupload{BuildQueryString(("rid", param.rid), ("rslug", param.rslug), ("upload_id", param.uploadId), ("field", param.field))}"), null, null),
             deserializeSuccess: DeserializeJson<object>,
@@ -1669,8 +1669,8 @@ public static class NucliaDBApiExtensions
             deserializeError: DeserializeJson<HTTPValidationError>
         );
 
-    private static PostAsync<ResourceFileUploaded, HTTPValidationError, (string kbid, object? xFilename, object? xPassword, object? xLanguage, object? xMd5, object? xExtractStrategy, object? xSplitStrategy, object Body)> _uploadKbKbidUploadAsync { get; } =
-        RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceFileUploaded, HTTPValidationError, (string kbid, object? xFilename, object? xPassword, object? xLanguage, object? xMd5, object? xExtractStrategy, object? xSplitStrategy, object Body)>(
+    private static PostAsync<ResourceFileUploaded, HTTPValidationError, (string kbid, string? xFilename, string? xPassword, string? xLanguage, string? xMd5, string? xExtractStrategy, string? xSplitStrategy, object Body)> _uploadKbKbidUploadAsync { get; } =
+        RestClient.Net.HttpClientFactoryExtensions.CreatePost<ResourceFileUploaded, HTTPValidationError, (string kbid, string? xFilename, string? xPassword, string? xLanguage, string? xMd5, string? xExtractStrategy, string? xSplitStrategy, object Body)>(
             url: BaseUrl,
             buildRequest: static param => new HttpRequestParts(new RelativeUrl($"/api/v1/kb/{param.kbid}/upload"), CreateJsonContent(param.Body), new Dictionary<string, string> { ["x-filename"] = param.xFilename?.ToString() ?? string.Empty, ["x-password"] = param.xPassword?.ToString() ?? string.Empty, ["x-language"] = param.xLanguage?.ToString() ?? string.Empty, ["x-md5"] = param.xMd5?.ToString() ?? string.Empty, ["x-extract-strategy"] = param.xExtractStrategy?.ToString() ?? string.Empty, ["x-split-strategy"] = param.xSplitStrategy?.ToString() ?? string.Empty }),
             deserializeSuccess: DeserializeJson<ResourceFileUploaded>,
