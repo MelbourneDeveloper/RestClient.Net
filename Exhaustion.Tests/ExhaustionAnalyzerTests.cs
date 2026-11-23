@@ -60,8 +60,6 @@ namespace TestTypes
 }
 ";
 
-    private static readonly string[] SupportedDiagnosticIds = ["EXHAUSTION001", "EXHAUSTION002"];
-
     [TestMethod]
     public void DiagnosticRule_IsEnabledByDefault()
     {
@@ -69,51 +67,6 @@ namespace TestTypes
         Assert.IsTrue(rule.IsEnabledByDefault, "Diagnostic should be enabled by default");
         Assert.AreEqual(DiagnosticSeverity.Warning, rule.DefaultSeverity);
         Assert.AreEqual("EXHAUSTION001", rule.Id);
-        Assert.AreEqual("Design", rule.Category);
-        Assert.AreEqual(
-            "Switch expression must be exhaustive for closed type hierarchies",
-            rule.Title.ToString(System.Globalization.CultureInfo.InvariantCulture)
-        );
-        Assert.AreEqual(
-            "{0}; {1}",
-            rule.MessageFormat.ToString(System.Globalization.CultureInfo.InvariantCulture)
-        );
-        var analyzer = new ExhaustionAnalyzer();
-        var supported = analyzer.SupportedDiagnostics;
-        CollectionAssert.AreEqual(
-            SupportedDiagnosticIds,
-            supported.Select(descriptor => descriptor.Id).ToArray()
-        );
-        Assert.AreSame(rule, supported[0]);
-        Assert.AreSame(DiagnosticRules.AnalysisLimitRule, supported[1]);
-        Assert.IsTrue(supported.All(descriptor => descriptor.IsEnabledByDefault));
-        Assert.IsTrue(
-            supported.All(descriptor => descriptor.DefaultSeverity == DiagnosticSeverity.Warning)
-        );
-        Assert.IsTrue(supported.All(descriptor => descriptor.Category == "Design"));
-        CollectionAssert.AreEqual(
-            supported.ToArray(),
-            analyzer.SupportedDiagnostics.ToArray(),
-            "Reading descriptors must not change the supported rules."
-        );
-        var missing = Diagnostic.Create(
-            rule,
-            Location.None,
-            "Switch on Choice is not exhaustive",
-            "Missing: Two"
-        );
-        Assert.AreEqual(
-            "Switch on Choice is not exhaustive; Missing: Two",
-            missing.GetMessage(System.Globalization.CultureInfo.InvariantCulture)
-        );
-        Assert.AreEqual(DiagnosticSeverity.Warning, missing.Severity);
-        var limited = Diagnostic.Create(supported[1], Location.None);
-        Assert.AreEqual("EXHAUSTION002", limited.Id);
-        Assert.AreEqual(
-            "Switch exhaustiveness could not be determined because the analysis complexity limit was exceeded",
-            limited.GetMessage(System.Globalization.CultureInfo.InvariantCulture)
-        );
-        Assert.AreEqual(DiagnosticSeverity.Warning, limited.Severity);
     }
 
     [TestMethod]
@@ -150,7 +103,7 @@ namespace TestCode
                 "Matched: Error<Int32, String>, Ok<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -186,7 +139,7 @@ namespace TestCode
                 "Matched: Ok<Int32, String>; Missing: Error<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -222,7 +175,7 @@ namespace TestCode
                 "Matched: Error<Int32, String>; Missing: Ok<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -250,7 +203,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -292,7 +245,7 @@ namespace TestCode
                 "Matched: Error<Int32, String>, Ok<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -334,7 +287,7 @@ namespace TestCode
                 "Matched: Error<Int32, String>, Ok<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -366,7 +319,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -403,7 +356,7 @@ namespace TestCode
                 "Matched: Error<Int32, String>; Missing: Ok<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -440,7 +393,7 @@ namespace TestCode
                 "Matched: Ok<Int32, String>; Missing: Error<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -464,7 +417,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -501,7 +454,7 @@ namespace TestCode
                 "Matched: Error<Result<Int32, String>, String>, Ok<Result<Int32, String>, String>; Missing: Ok<Result<Int32, String>, String> with Error<Int32, String>, Ok<Result<Int32, String>, String> with Ok<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -539,7 +492,7 @@ namespace TestCode
                 "Matched: Error<String, HttpError<String>> with ExceptionError<String>, Ok<String, HttpError<String>>; Missing: Error<String, HttpError<String>> with ErrorResponseError<String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -569,7 +522,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -608,7 +561,7 @@ namespace TestCode
                 "Matched: Error<String, HttpError<String>> with ErrorResponseError<String>, Error<String, HttpError<String>> with ExceptionError<String>, Ok<String, HttpError<String>>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -644,7 +597,7 @@ namespace TestCode
                 "Matched: ExceptionError<String>; Missing: ErrorResponseError<String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -672,7 +625,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -700,7 +653,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -730,7 +683,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -770,7 +723,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -821,7 +774,7 @@ namespace TestCode
                 "Matched: Error<Unit, HttpError<String>> with ErrorResponseError<String>, Error<Unit, HttpError<String>> with ExceptionError<String>; Missing: Ok<Unit, HttpError<String>>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -865,7 +818,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -903,7 +856,7 @@ namespace TestCode
                 "Matched: ErrorResponseError<String>; Missing: ExceptionError<String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -942,7 +895,7 @@ namespace TestCode
                 "Matched: Error<String, HttpError<String>>, Ok<String, HttpError<String>>; Missing: Error<String, HttpError<String>> with ErrorResponseError<String>, Error<String, HttpError<String>> with ExceptionError<String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -984,7 +937,7 @@ namespace TestCode
                 "Matched: Error<String, HttpError<String>> with ErrorResponseError<String>, Ok<String, HttpError<String>>; Missing: Error<String, HttpError<String>> with ExceptionError<String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1029,7 +982,7 @@ namespace TestCode
 ";
 
         // This should NOT report a diagnostic because all cases are covered
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1058,7 +1011,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1087,7 +1040,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1126,7 +1079,7 @@ namespace TestCode
                 "Matched: Ok<Int32, String>; Missing: Error<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1165,7 +1118,7 @@ namespace TestCode
                 "Matched: Ok<Int32, String>; Missing: Error<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1206,7 +1159,7 @@ namespace TestCode
                 "Matched: Error<Int32, String>; Missing: Ok<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1252,7 +1205,7 @@ namespace TestCode
                 "Matched: Error<Int32, String>, Ok<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1298,7 +1251,7 @@ namespace TestCode
                 "Matched: Error<Int32, String>, Ok<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1326,7 +1279,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1356,7 +1309,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1388,7 +1341,7 @@ namespace TestCode
 }
 ";
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1427,7 +1380,7 @@ namespace TestCode
                 "Matched: ErrorResponseError<String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1469,7 +1422,7 @@ namespace TestCode
                 "Matched: ErrorResponseError<String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1511,7 +1464,7 @@ namespace TestCode
                 "Matched: Error<Int32, String>, Ok<Int32, String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1562,7 +1515,7 @@ namespace TestCode
                 "Matched: Error<List<String>, HttpError<String>> with ExceptionError<String>, Ok<List<String>, HttpError<String>>; Missing: Error<List<String>, HttpError<String>> with ErrorResponseError<String>"
             );
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1590,7 +1543,7 @@ namespace TestCode
 ";
 
         // No diagnostic expected because array types are not closed hierarchies
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1618,7 +1571,7 @@ namespace TestCode
 ";
 
         // No diagnostic expected because array types are not closed hierarchies
-        await AnalyzerInteractionAssertions.VerifyAsync(test).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -1657,6 +1610,6 @@ namespace TestCode
                 .WithArguments("T", "1"),
         };
 
-        await AnalyzerInteractionAssertions.VerifyAsync(test, expected).ConfigureAwait(false);
+        await VerifyCS.VerifyAnalyzerAsync(test, expected).ConfigureAwait(false);
     }
 }

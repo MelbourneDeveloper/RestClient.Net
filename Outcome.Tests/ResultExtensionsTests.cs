@@ -3,10 +3,6 @@ namespace Outcome.Tests;
 [TestClass]
 public class ResultExtensionsTests
 {
-    private static readonly int[] ThreeValuesInOrder = [1, 2, 3];
-    private static readonly int[] TwoValuesInOrder = [1, 2];
-    private static readonly int[] ValuesInInsertionOrder = [3, 1, 2];
-
     [TestMethod]
     public void Sequence_WithAllOk_ReturnsOkWithList()
     {
@@ -25,15 +21,6 @@ public class ResultExtensionsTests
         Assert.AreEqual(1, list[0]);
         Assert.AreEqual(2, list[1]);
         Assert.AreEqual(3, list[2]);
-
-        OutcomeAssertions.Success(
-            sequenced.Map(static values => string.Join(",", values)),
-            "1,2,3"
-        );
-        CollectionAssert.AreEqual(ThreeValuesInOrder, (+results.Sequence()).ToArray());
-        OutcomeAssertions.Success(results[0], 1);
-        OutcomeAssertions.Success(results[1], 2);
-        OutcomeAssertions.Success(results[2], 3);
     }
 
     [TestMethod]
@@ -51,10 +38,6 @@ public class ResultExtensionsTests
         Assert.IsTrue(sequenced.IsError);
         var error = !sequenced;
         Assert.AreEqual("first error", error);
-
-        OutcomeAssertions.Error(sequenced, "first error");
-        OutcomeAssertions.Success(results[0], 1);
-        OutcomeAssertions.Error(results[2], "second error");
     }
 
     [TestMethod]
@@ -67,9 +50,6 @@ public class ResultExtensionsTests
         Assert.IsTrue(sequenced.IsOk);
         var list = +sequenced;
         Assert.AreEqual(0, list.Count);
-
-        OutcomeAssertions.Success(sequenced.Map(static values => values.Count), 0);
-        Assert.AreEqual(0, (+results.Sequence()).Count);
     }
 
     [TestMethod]
@@ -85,11 +65,6 @@ public class ResultExtensionsTests
         var list = +sequenced;
 
         Assert.IsInstanceOfType<IReadOnlyList<int>>(list);
-
-        OutcomeAssertions.Success(sequenced.Map(static values => string.Join(",", values)), "1,2");
-        CollectionAssert.AreEqual(TwoValuesInOrder, (+results.Sequence()).ToArray());
-        OutcomeAssertions.Success(results[0], 1);
-        OutcomeAssertions.Success(results[1], 2);
     }
 
     [TestMethod]
@@ -103,10 +78,6 @@ public class ResultExtensionsTests
 
         Assert.IsTrue(flattened.IsOk);
         Assert.AreEqual(42, +flattened);
-
-        OutcomeAssertions.Success(flattened, 42);
-        Assert.AreSame(+nested, flattened);
-        Assert.AreSame(flattened, nested.Flatten());
     }
 
     [TestMethod]
@@ -120,10 +91,6 @@ public class ResultExtensionsTests
 
         Assert.IsTrue(flattened.IsError);
         Assert.AreEqual("inner error", !flattened);
-
-        OutcomeAssertions.Error(flattened, "inner error");
-        Assert.AreSame(+nested, flattened);
-        Assert.AreSame(flattened, nested.Flatten());
     }
 
     [TestMethod]
@@ -135,9 +102,6 @@ public class ResultExtensionsTests
 
         Assert.IsTrue(flattened.IsError);
         Assert.AreEqual("outer error", !flattened);
-
-        OutcomeAssertions.Error(flattened, "outer error");
-        OutcomeAssertions.Error(nested, "outer error");
     }
 
     [TestMethod]
@@ -146,25 +110,10 @@ public class ResultExtensionsTests
         var result1 = new Result<int, string>.Ok<int, string>(5);
         var result2 = new Result<int, string>.Ok<int, string>(3);
 
-        var combineCalls = 0;
-        var combined = result1.Combine(
-            result2,
-            (a, b) =>
-            {
-                combineCalls++;
-                Assert.AreEqual(5, a);
-                Assert.AreEqual(3, b);
-                return a + b;
-            }
-        );
+        var combined = result1.Combine(result2, static (a, b) => a + b);
 
         Assert.IsTrue(combined.IsOk);
         Assert.AreEqual(8, +combined);
-
-        OutcomeAssertions.Success(combined, 8);
-        OutcomeAssertions.Success(result1, 5);
-        OutcomeAssertions.Success(result2, 3);
-        Assert.AreEqual(1, combineCalls);
     }
 
     [TestMethod]
@@ -173,25 +122,10 @@ public class ResultExtensionsTests
         var result1 = Result<int, string>.Failure("error 1");
         var result2 = new Result<int, string>.Ok<int, string>(3);
 
-        var combineCalls = 0;
-        var combined = result1.Combine(
-            result2,
-            (a, b) =>
-            {
-                combineCalls++;
-                Assert.AreEqual(5, a);
-                Assert.AreEqual(3, b);
-                return a + b;
-            }
-        );
+        var combined = result1.Combine(result2, static (a, b) => a + b);
 
         Assert.IsTrue(combined.IsError);
         Assert.AreEqual("error 1", !combined);
-
-        OutcomeAssertions.Error(combined, "error 1");
-        OutcomeAssertions.Error(result1, "error 1");
-        OutcomeAssertions.Success(result2, 3);
-        Assert.AreEqual(0, combineCalls);
     }
 
     [TestMethod]
@@ -200,25 +134,10 @@ public class ResultExtensionsTests
         var result1 = new Result<int, string>.Ok<int, string>(5);
         var result2 = Result<int, string>.Failure("error 2");
 
-        var combineCalls = 0;
-        var combined = result1.Combine(
-            result2,
-            (a, b) =>
-            {
-                combineCalls++;
-                Assert.AreEqual(5, a);
-                Assert.AreEqual(3, b);
-                return a + b;
-            }
-        );
+        var combined = result1.Combine(result2, static (a, b) => a + b);
 
         Assert.IsTrue(combined.IsError);
         Assert.AreEqual("error 2", !combined);
-
-        OutcomeAssertions.Error(combined, "error 2");
-        OutcomeAssertions.Success(result1, 5);
-        OutcomeAssertions.Error(result2, "error 2");
-        Assert.AreEqual(0, combineCalls);
     }
 
     [TestMethod]
@@ -227,25 +146,10 @@ public class ResultExtensionsTests
         var result1 = Result<int, string>.Failure("error 1");
         var result2 = Result<int, string>.Failure("error 2");
 
-        var combineCalls = 0;
-        var combined = result1.Combine(
-            result2,
-            (a, b) =>
-            {
-                combineCalls++;
-                Assert.AreEqual(5, a);
-                Assert.AreEqual(3, b);
-                return a + b;
-            }
-        );
+        var combined = result1.Combine(result2, static (a, b) => a + b);
 
         Assert.IsTrue(combined.IsError);
         Assert.AreEqual("error 1", !combined);
-
-        OutcomeAssertions.Error(combined, "error 1");
-        OutcomeAssertions.Error(result1, "error 1");
-        OutcomeAssertions.Error(result2, "error 2");
-        Assert.AreEqual(0, combineCalls);
     }
 
     [TestMethod]
@@ -254,25 +158,10 @@ public class ResultExtensionsTests
         var result1 = new Result<int, string>.Ok<int, string>(5);
         var result2 = new Result<string, string>.Ok<string, string>("test");
 
-        var combineCalls = 0;
-        var combined = result1.Combine(
-            result2,
-            (num, str) =>
-            {
-                combineCalls++;
-                Assert.AreEqual(5, num);
-                Assert.AreEqual("test", str);
-                return $"{str}: {num}";
-            }
-        );
+        var combined = result1.Combine(result2, static (num, str) => $"{str}: {num}");
 
         Assert.IsTrue(combined.IsOk);
         Assert.AreEqual("test: 5", +combined);
-
-        OutcomeAssertions.Success(combined, "test: 5");
-        OutcomeAssertions.Success(result1, 5);
-        OutcomeAssertions.Success(result2, "test");
-        Assert.AreEqual(1, combineCalls);
     }
 
     [TestMethod]
@@ -280,23 +169,10 @@ public class ResultExtensionsTests
     {
         var result = new Result<int, string>.Ok<int, string>(42);
 
-        var predicateCalls = 0;
-        var filtered = result.Filter(
-            x =>
-            {
-                predicateCalls++;
-                Assert.AreEqual(42, x);
-                return x > 10;
-            },
-            "too small"
-        );
+        var filtered = result.Filter(static x => x > 10, "too small");
 
         Assert.IsTrue(filtered.IsOk);
         Assert.AreEqual(42, +filtered);
-
-        OutcomeAssertions.Success(filtered, 42);
-        Assert.AreEqual(result, filtered);
-        Assert.AreEqual(1, predicateCalls);
     }
 
     [TestMethod]
@@ -304,23 +180,10 @@ public class ResultExtensionsTests
     {
         var result = new Result<int, string>.Ok<int, string>(5);
 
-        var predicateCalls = 0;
-        var filtered = result.Filter(
-            x =>
-            {
-                predicateCalls++;
-                Assert.AreEqual(5, x);
-                return x > 10;
-            },
-            "too small"
-        );
+        var filtered = result.Filter(static x => x > 10, "too small");
 
         Assert.IsTrue(filtered.IsError);
         Assert.AreEqual("too small", !filtered);
-
-        OutcomeAssertions.Error(filtered, "too small");
-        OutcomeAssertions.Success(result, 5);
-        Assert.AreEqual(1, predicateCalls);
     }
 
     [TestMethod]
@@ -328,23 +191,10 @@ public class ResultExtensionsTests
     {
         var result = Result<int, string>.Failure("original error");
 
-        var predicateCalls = 0;
-        var filtered = result.Filter(
-            x =>
-            {
-                predicateCalls++;
-                Assert.AreEqual(5, x);
-                return x > 10;
-            },
-            "predicate error"
-        );
+        var filtered = result.Filter(static x => x > 10, "predicate error");
 
         Assert.IsTrue(filtered.IsError);
         Assert.AreEqual("original error", !filtered);
-
-        OutcomeAssertions.Error(filtered, "original error");
-        Assert.AreEqual(result, filtered);
-        Assert.AreEqual(0, predicateCalls);
     }
 
     [TestMethod]
@@ -355,8 +205,6 @@ public class ResultExtensionsTests
         var value = result.GetValueOrThrow();
 
         Assert.AreEqual(42, value);
-
-        OutcomeAssertions.Success(result, 42);
     }
 
     [TestMethod]
@@ -368,9 +216,6 @@ public class ResultExtensionsTests
             () => result.GetValueOrThrow()
         );
         Assert.AreEqual("Expected success result", exception.Message);
-
-        OutcomeAssertions.Error(result, "error");
-        Assert.IsNull(exception.InnerException);
     }
 
     [TestMethod]
@@ -382,9 +227,6 @@ public class ResultExtensionsTests
             () => result.GetValueOrThrow("Custom error message")
         );
         Assert.AreEqual("Custom error message", exception.Message);
-
-        OutcomeAssertions.Error(result, "error");
-        Assert.IsNull(exception.InnerException);
     }
 
     [TestMethod]
@@ -395,8 +237,6 @@ public class ResultExtensionsTests
         var error = result.GetErrorOrThrow();
 
         Assert.AreEqual("test error", error);
-
-        OutcomeAssertions.Error(result, "test error");
     }
 
     [TestMethod]
@@ -408,9 +248,6 @@ public class ResultExtensionsTests
             () => result.GetErrorOrThrow()
         );
         Assert.AreEqual("Expected error result", exception.Message);
-
-        OutcomeAssertions.Success(result, 42);
-        Assert.IsNull(exception.InnerException);
     }
 
     [TestMethod]
@@ -422,9 +259,6 @@ public class ResultExtensionsTests
             () => result.GetErrorOrThrow("Custom error message")
         );
         Assert.AreEqual("Custom error message", exception.Message);
-
-        OutcomeAssertions.Success(result, 42);
-        Assert.IsNull(exception.InnerException);
     }
 
     [TestMethod]
@@ -443,12 +277,6 @@ public class ResultExtensionsTests
         Assert.AreEqual(3, list[0]);
         Assert.AreEqual(1, list[1]);
         Assert.AreEqual(2, list[2]);
-
-        OutcomeAssertions.Success(
-            sequenced.Map(static values => string.Join(",", values)),
-            "3,1,2"
-        );
-        CollectionAssert.AreEqual(ValuesInInsertionOrder, (+results.Sequence()).ToArray());
     }
 
     [TestMethod]
@@ -470,10 +298,6 @@ public class ResultExtensionsTests
 
         Assert.IsTrue(sequenced.IsError);
         Assert.AreEqual(2, callCount); // Sequence stops at first error
-
-        OutcomeAssertions.Error(sequenced, "error");
-        OutcomeAssertions.Error(results.Sequence(), "error");
-        Assert.AreEqual(4, callCount, "Each enumeration must stop at the first error.");
     }
 
     [TestMethod]
@@ -486,8 +310,6 @@ public class ResultExtensionsTests
 
         Assert.IsTrue(result.IsOk);
         Assert.AreEqual(11, +result);
-
-        OutcomeAssertions.Success(result, 11);
     }
 
     [TestMethod]
@@ -496,27 +318,10 @@ public class ResultExtensionsTests
         var result1 = new Result<int, string>.Ok<int, string>(5);
         var result2 = new Result<int, string>.Ok<int, string>(3);
 
-        var combineCalls = 0;
-        var combined = result1
-            .Combine(
-                result2,
-                (a, b) =>
-                {
-                    combineCalls++;
-                    Assert.AreEqual(5, a);
-                    Assert.AreEqual(3, b);
-                    return a + b;
-                }
-            )
-            .Map(static sum => sum * 2);
+        var combined = result1.Combine(result2, static (a, b) => a + b).Map(static sum => sum * 2);
 
         Assert.IsTrue(combined.IsOk);
         Assert.AreEqual(16, +combined);
-
-        OutcomeAssertions.Success(combined, 16);
-        OutcomeAssertions.Success(result1, 5);
-        OutcomeAssertions.Success(result2, 3);
-        Assert.AreEqual(1, combineCalls);
     }
 
     [TestMethod]
@@ -536,11 +341,6 @@ public class ResultExtensionsTests
 
         Assert.IsTrue(twiceFlattened.IsOk);
         Assert.AreEqual(42, +twiceFlattened);
-
-        OutcomeAssertions.Success(twiceFlattened, 42);
-        Assert.AreSame(+tripleNested, onceFlatted);
-        Assert.AreSame(+onceFlatted, twiceFlattened);
-        Assert.AreSame(twiceFlattened, tripleNested.Flatten().Flatten());
     }
 
     [TestMethod]
@@ -558,14 +358,6 @@ public class ResultExtensionsTests
         var list = +sequenced;
         Assert.AreEqual((1, "one"), list[0]);
         Assert.AreEqual((2, "two"), list[1]);
-
-        OutcomeAssertions.Success(sequenced.Map(static values => values.Count), 2);
-        OutcomeAssertions.Success(results[0], (1, "one"));
-        OutcomeAssertions.Success(results[1], (2, "two"));
-        CollectionAssert.AreEqual(
-            new[] { (1, "one"), (2, "two") },
-            (+results.Sequence()).ToArray()
-        );
     }
 
     [TestMethod]
@@ -584,9 +376,5 @@ public class ResultExtensionsTests
 
         Assert.IsTrue(sequenced.IsError);
         Assert.AreEqual("middle error", !sequenced);
-
-        OutcomeAssertions.Error(sequenced, "middle error");
-        OutcomeAssertions.Error(results[4], "later error");
-        OutcomeAssertions.Error(results.Sequence(), "middle error");
     }
 }

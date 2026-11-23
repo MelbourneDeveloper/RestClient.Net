@@ -10,7 +10,9 @@ public class ProgressReportingHttpContent : HttpContent
 {
     private const int DefaultBufferSize = 8192;
 
+#pragma warning disable CA2213 // Disposable fields should be disposed
     private readonly Stream _content;
+#pragma warning restore CA2213 // Disposable fields should be disposed
     private readonly int _bufferSize;
     private readonly Action<long, long>? _progress;
     private readonly long _contentLength;
@@ -110,14 +112,9 @@ public class ProgressReportingHttpContent : HttpContent
     /// <summary>
     /// Releases the unmanaged resources used by the <see cref="ProgressReportingHttpContent"/> and optionally disposes of the managed resources.
     /// </summary>
-    /// <param name="disposing">Whether managed resources should be disposed.</param>
-    protected override void Dispose(bool disposing)
+    public new void Dispose()
     {
-        if (disposing)
-        {
-            _content.Dispose();
-        }
-
-        base.Dispose(disposing);
+        _content.Dispose();
+        base.Dispose();
     }
 }

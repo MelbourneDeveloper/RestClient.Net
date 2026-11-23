@@ -12,18 +12,9 @@ internal static class DisplayNameGeneration
     /// Gets the display name for a named type symbol, handling generic types and nested types.
     /// </summary>
     /// <param name="type">The type symbol to get the display name for.</param>
-    /// <param name="budget">The shared analysis budget.</param>
-    /// <param name="depth">The current generic argument nesting depth.</param>
     /// <returns>The display name of the type.</returns>
-    public static string GetDisplayName(
-        INamedTypeSymbol type,
-        AnalysisBudget? budget = null,
-        int depth = 0
-    )
+    public static string GetDisplayName(INamedTypeSymbol type)
     {
-        budget ??= new AnalysisBudget();
-        budget.Visit();
-        budget.CheckDepth(depth);
         WriteLine(
             $"GetDisplayName: {type.Name}, IsGenericType={type.IsGenericType}, Arity={type.Arity}, TypeArguments.Length={type.TypeArguments.Length}, ContainingType={type.ContainingType?.Name}"
         );
@@ -38,9 +29,7 @@ internal static class DisplayNameGeneration
             // Get the type arguments from the containing type
             var typeArgs = string.Join(
                 ", ",
-                type.ContainingType.TypeArguments.Select(argument =>
-                    GetTypeArgumentName(argument, budget, depth + 1)
-                )
+                type.ContainingType.TypeArguments.Select(GetTypeArgumentName)
             );
             var displayName = $"{type.Name}<{typeArgs}>";
             WriteLine($"  -> Nested type display name: {displayName}");
@@ -50,12 +39,7 @@ internal static class DisplayNameGeneration
         if (type.IsGenericType)
         {
             var name = type.Name;
-            var typeArgs = string.Join(
-                ", ",
-                type.TypeArguments.Select(argument =>
-                    GetTypeArgumentName(argument, budget, depth + 1)
-                )
-            );
+            var typeArgs = string.Join(", ", type.TypeArguments.Select(GetTypeArgumentName));
             var displayName = $"{name}<{typeArgs}>";
             WriteLine($"  -> Generic type display name: {displayName}");
             return displayName;
@@ -70,24 +54,20 @@ internal static class DisplayNameGeneration
     /// </summary>
     /// <param name="type">The type to get the display name for.</param>
     /// <param name="selectedVariants">Dictionary mapping parameter indices to selected variant types.</param>
-    /// <param name="budget">The shared analysis budget.</param>
     /// <returns>The display name with parameter variants included.</returns>
     public static string GetDisplayNameWithParameters(
         INamedTypeSymbol type,
-        Dictionary<int, INamedTypeSymbol> selectedVariants,
-        AnalysisBudget? budget = null
+        Dictionary<int, INamedTypeSymbol> selectedVariants
     )
     {
-        budget ??= new AnalysisBudget();
-        budget.Visit();
-        var baseName = GetDisplayName(type, budget);
+        var baseName = GetDisplayName(type);
 
         if (selectedVariants.Count == 0)
         {
             return baseName;
         }
 
-        var paramNames = selectedVariants.Values.Select(variant => GetDisplayName(variant, budget));
+        var paramNames = selectedVariants.Values.Select(GetDisplayName);
         return $"{baseName} with {string.Join(", ", paramNames)}";
     }
 
@@ -108,18 +88,14 @@ internal static class DisplayNameGeneration
         return type.Name;
     }
 
-    private static string GetTypeArgumentName(ITypeSymbol typeArg, AnalysisBudget budget, int depth)
+    private static string GetTypeArgumentName(ITypeSymbol typeArg)
     {
-        budget.Visit();
-        budget.CheckDepth(depth);
         if (typeArg is INamedTypeSymbol namedTypeArg && namedTypeArg.IsGenericType)
         {
             var name = namedTypeArg.Name;
             var typeArgs = string.Join(
                 ", ",
-                namedTypeArg.TypeArguments.Select(argument =>
-                    GetTypeArgumentName(argument, budget, depth + 1)
-                )
+                namedTypeArg.TypeArguments.Select(GetTypeArgumentName)
             );
             return $"{name}<{typeArgs}>";
         }

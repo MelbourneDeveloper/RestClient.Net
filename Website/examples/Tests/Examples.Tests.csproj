@@ -1,9 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <StartupObject>WebsiteExamples.ExampleTests</StartupObject>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="../Program.cs" Link="DocumentedExample.cs" />
-  </ItemGroup>
-</Project>

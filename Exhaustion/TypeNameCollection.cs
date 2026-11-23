@@ -15,24 +15,14 @@ internal static class TypeNameCollection
     /// </summary>
     /// <param name="type">The type to collect names from.</param>
     /// <param name="result">The set to accumulate type names into.</param>
-    /// <param name="budget">The shared analysis budget.</param>
-    /// <param name="depth">The current hierarchy nesting depth.</param>
-    public static void GetAllTypeNames(
-        INamedTypeSymbol type,
-        HashSet<string> result,
-        AnalysisBudget? budget = null,
-        int depth = 0
-    )
+    public static void GetAllTypeNames(INamedTypeSymbol type, HashSet<string> result)
     {
-        budget ??= new AnalysisBudget();
-        budget.Visit();
-        budget.CheckDepth(depth);
         WriteLine($"GetAllTypeNames: {type.Name}, IsRecord={type.IsRecord}");
 
         // Check if this type itself is a closed hierarchy
-        var nestedDerived = TypeHierarchyAnalysis.GetImmediateDerivedTypes(type, budget);
+        var nestedDerived = TypeHierarchyAnalysis.GetImmediateDerivedTypes(type);
 
-        if (nestedDerived.Count > 0 && TypeHierarchyAnalysis.IsClosedHierarchy(type, budget))
+        if (nestedDerived.Count > 0 && TypeHierarchyAnalysis.IsClosedHierarchy(type))
         {
             WriteLine(
                 $"  -> Type is itself a closed hierarchy with {nestedDerived.Count} children"
@@ -40,15 +30,14 @@ internal static class TypeNameCollection
             // This type is a closed hierarchy, so recursively flatten its children
             foreach (var child in nestedDerived)
             {
-                GetAllTypeNames(child, result, budget, depth + 1);
+                GetAllTypeNames(child, result);
             }
         }
         else
         {
             // This is a leaf type - check if it has constructor parameters with closed hierarchies
             var paramHierarchies = ConstructorParameterAnalysis.GetConstructorParameterHierarchies(
-                type,
-                budget
+                type
             );
 
             if (paramHierarchies.Count > 0)
@@ -62,15 +51,13 @@ internal static class TypeNameCollection
                     paramHierarchies,
                     0,
                     [],
-                    result,
-                    budget
+                    result
                 );
             }
             else
             {
-                budget.ReserveCombinations(1);
                 // Just add the basic display name
-                var displayName = DisplayNameGeneration.GetDisplayName(type, budget);
+                var displayName = DisplayNameGeneration.GetDisplayName(type);
                 WriteLine($"  -> Adding leaf type: {displayName}");
                 _ = result.Add(displayName);
             }
@@ -81,16 +68,11 @@ internal static class TypeNameCollection
     /// Gets all leaf types from a type hierarchy (types with no further derived types).
     /// </summary>
     /// <param name="type">The type to collect leaf types from.</param>
-    /// <param name="budget">The shared analysis budget.</param>
     /// <returns>List of leaf types.</returns>
-    public static List<INamedTypeSymbol> GetAllLeafTypes(
-        INamedTypeSymbol type,
-        AnalysisBudget? budget = null
-    )
+    public static List<INamedTypeSymbol> GetAllLeafTypes(INamedTypeSymbol type)
     {
-        budget ??= new AnalysisBudget();
         var result = new List<INamedTypeSymbol>();
-        CollectLeafTypes(type, result, budget);
+        CollectLeafTypes(type, result);
         return result;
     }
 
@@ -99,25 +81,15 @@ internal static class TypeNameCollection
     /// </summary>
     /// <param name="type">The type to collect from.</param>
     /// <param name="result">The list to accumulate leaf types into.</param>
-    /// <param name="budget">The shared analysis budget.</param>
-    /// <param name="depth">The current hierarchy nesting depth.</param>
-    public static void CollectLeafTypes(
-        INamedTypeSymbol type,
-        List<INamedTypeSymbol> result,
-        AnalysisBudget? budget = null,
-        int depth = 0
-    )
+    public static void CollectLeafTypes(INamedTypeSymbol type, List<INamedTypeSymbol> result)
     {
-        budget ??= new AnalysisBudget();
-        budget.Visit();
-        budget.CheckDepth(depth);
-        var derived = TypeHierarchyAnalysis.GetImmediateDerivedTypes(type, budget);
+        var derived = TypeHierarchyAnalysis.GetImmediateDerivedTypes(type);
 
-        if (derived.Count > 0 && TypeHierarchyAnalysis.IsClosedHierarchy(type, budget))
+        if (derived.Count > 0 && TypeHierarchyAnalysis.IsClosedHierarchy(type))
         {
             foreach (var child in derived)
             {
-                CollectLeafTypes(child, result, budget, depth + 1);
+                CollectLeafTypes(child, result);
             }
         }
         else

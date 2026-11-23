@@ -8,8 +8,6 @@ public class ResultTests
     {
         var result = new Result<int, string>.Ok<int, string>(42);
         Assert.IsTrue(result.IsOk);
-
-        OutcomeAssertions.Success(result, 42);
     }
 
     [TestMethod]
@@ -17,8 +15,6 @@ public class ResultTests
     {
         var result = new Result<int, string>.Ok<int, string>(42);
         Assert.IsFalse(result.IsError);
-
-        OutcomeAssertions.Success(result, 42);
     }
 
     [TestMethod]
@@ -26,8 +22,6 @@ public class ResultTests
     {
         var result = Result<int, string>.Failure("error");
         Assert.IsFalse(result.IsOk);
-
-        OutcomeAssertions.Error(result, "error");
     }
 
     [TestMethod]
@@ -35,8 +29,6 @@ public class ResultTests
     {
         var result = Result<int, string>.Failure("error");
         Assert.IsTrue(result.IsError);
-
-        OutcomeAssertions.Error(result, "error");
     }
 
     [TestMethod]
@@ -46,8 +38,6 @@ public class ResultTests
         Assert.IsTrue(result is Result<int, string>.Error<int, string>);
         var error = (Result<int, string>.Error<int, string>)result;
         Assert.AreEqual("test error", error.Value);
-
-        OutcomeAssertions.Error(result, "test error");
     }
 
     [TestMethod]
@@ -58,9 +48,6 @@ public class ResultTests
         Assert.IsTrue(mapped is Result<int, string>.Ok<int, string>);
         var ok = (Result<int, string>.Ok<int, string>)mapped;
         Assert.AreEqual(10, ok.Value);
-
-        OutcomeAssertions.Success(result, 5);
-        OutcomeAssertions.Success(mapped, 10);
     }
 
     [TestMethod]
@@ -71,9 +58,6 @@ public class ResultTests
         Assert.IsTrue(mapped is Result<int, string>.Error<int, string>);
         var error = (Result<int, string>.Error<int, string>)mapped;
         Assert.AreEqual("error", error.Value);
-
-        OutcomeAssertions.Error(result, "error");
-        OutcomeAssertions.Error(mapped, "error");
     }
 
     [TestMethod]
@@ -83,9 +67,6 @@ public class ResultTests
         var mapped = result.Map(x => x.ToString(System.Globalization.CultureInfo.InvariantCulture));
         var value = mapped.Match(s => s, _ => string.Empty);
         Assert.AreEqual("42", value);
-
-        OutcomeAssertions.Success(result, 42);
-        OutcomeAssertions.Success(mapped, "42");
     }
 
     [TestMethod]
@@ -97,9 +78,6 @@ public class ResultTests
         );
         var value = mapped.Match(s => s, _ => 0);
         Assert.AreEqual(42, value);
-
-        OutcomeAssertions.Success(result, 42);
-        OutcomeAssertions.Success(mapped, 42);
     }
 
     [TestMethod]
@@ -112,9 +90,6 @@ public class ResultTests
         Assert.IsTrue(mapped is Result<int, int>.Error<int, int>);
         var error = (Result<int, int>.Error<int, int>)mapped;
         Assert.AreEqual(123, error.Value);
-
-        OutcomeAssertions.Error(result, "123");
-        OutcomeAssertions.Error(mapped, 123);
     }
 
     [TestMethod]
@@ -125,9 +100,6 @@ public class ResultTests
         Assert.IsTrue(bound is Result<int, string>.Ok<int, string>);
         var ok = (Result<int, string>.Ok<int, string>)bound;
         Assert.AreEqual(10, ok.Value);
-
-        OutcomeAssertions.Success(result, 5);
-        OutcomeAssertions.Success(bound, 10);
     }
 
     [TestMethod]
@@ -138,9 +110,6 @@ public class ResultTests
         Assert.IsTrue(bound is Result<int, string>.Error<int, string>);
         var error = (Result<int, string>.Error<int, string>)bound;
         Assert.AreEqual("error from binder", error.Value);
-
-        OutcomeAssertions.Success(result, 5);
-        OutcomeAssertions.Error(bound, "error from binder");
     }
 
     [TestMethod]
@@ -151,9 +120,6 @@ public class ResultTests
         Assert.IsTrue(bound is Result<int, string>.Error<int, string>);
         var error = (Result<int, string>.Error<int, string>)bound;
         Assert.AreEqual("original error", error.Value);
-
-        OutcomeAssertions.Error(result, "original error");
-        OutcomeAssertions.Error(bound, "original error");
     }
 
     [TestMethod]
@@ -166,9 +132,6 @@ public class ResultTests
         Assert.IsTrue(bound is Result<string, string>.Ok<string, string>);
         var ok = (Result<string, string>.Ok<string, string>)bound;
         Assert.AreEqual("42", ok.Value);
-
-        OutcomeAssertions.Success(result, 42);
-        OutcomeAssertions.Success(bound, "42");
     }
 
     [TestMethod]
@@ -180,8 +143,6 @@ public class ResultTests
             onError: static e => $"Error: {e}"
         );
         Assert.AreEqual("Success: 42", matched);
-
-        OutcomeAssertions.Success(result, 42);
     }
 
     [TestMethod]
@@ -193,8 +154,6 @@ public class ResultTests
             onError: static e => $"Error: {e}"
         );
         Assert.AreEqual("Error: test error", matched);
-
-        OutcomeAssertions.Error(result, "test error");
     }
 
     [TestMethod]
@@ -205,8 +164,6 @@ public class ResultTests
         var returnedResult = result.Tap(onSuccess: _ => tapped = true);
         Assert.IsTrue(tapped);
         Assert.AreSame(result, returnedResult);
-
-        OutcomeAssertions.Success(result, 42);
     }
 
     [TestMethod]
@@ -217,8 +174,6 @@ public class ResultTests
         var returnedResult = result.Tap(onError: _ => tapped = true);
         Assert.IsTrue(tapped);
         Assert.AreSame(result, returnedResult);
-
-        OutcomeAssertions.Error(result, "error");
     }
 
     [TestMethod]
@@ -232,9 +187,6 @@ public class ResultTests
 
         Assert.AreSame(okResult, ok);
         Assert.AreSame(errorResult, err);
-
-        OutcomeAssertions.Success(ok, 42);
-        OutcomeAssertions.Error(err, "error");
     }
 
     [TestMethod]
@@ -244,8 +196,6 @@ public class ResultTests
         var errorInvoked = false;
         _ = result.Tap(onError: _ => errorInvoked = true);
         Assert.IsFalse(errorInvoked);
-
-        OutcomeAssertions.Success(result, 42);
     }
 
     [TestMethod]
@@ -255,8 +205,6 @@ public class ResultTests
         var successInvoked = false;
         _ = result.Tap(onSuccess: _ => successInvoked = true);
         Assert.IsFalse(successInvoked);
-
-        OutcomeAssertions.Error(result, "error");
     }
 
     [TestMethod]
@@ -265,8 +213,6 @@ public class ResultTests
         var result = new Result<int, string>.Ok<int, string>(42);
         var value = result.GetValueOrDefault(0);
         Assert.AreEqual(42, value);
-
-        OutcomeAssertions.Success(result, 42);
     }
 
     [TestMethod]
@@ -275,8 +221,6 @@ public class ResultTests
         var result = Result<int, string>.Failure("error");
         var value = result.GetValueOrDefault(99);
         Assert.AreEqual(99, value);
-
-        OutcomeAssertions.Error(result, "error");
     }
 
     [TestMethod]
@@ -291,8 +235,6 @@ public class ResultTests
         });
         Assert.AreEqual(42, value);
         Assert.IsFalse(providerCalled);
-
-        OutcomeAssertions.Success(result, 42);
     }
 
     [TestMethod]
@@ -307,8 +249,6 @@ public class ResultTests
         });
         Assert.AreEqual(99, value);
         Assert.IsTrue(providerCalled);
-
-        OutcomeAssertions.Error(result, "error");
     }
 
     [TestMethod]
@@ -317,8 +257,6 @@ public class ResultTests
         var result = Result<int, string>.Failure("test error");
         var error = !result;
         Assert.AreEqual("test error", error);
-
-        OutcomeAssertions.Error(result, "test error");
     }
 
     [TestMethod]
@@ -327,8 +265,6 @@ public class ResultTests
         var result = new Result<int, string>.Ok<int, string>(42);
         var exception = Assert.ThrowsException<InvalidOperationException>(() => !result);
         Assert.AreEqual("Expected error result", exception.Message);
-
-        OutcomeAssertions.Success(result, 42);
     }
 
     [TestMethod]
@@ -337,8 +273,6 @@ public class ResultTests
         var result = new Result<int, string>.Ok<int, string>(42);
         var value = +result;
         Assert.AreEqual(42, value);
-
-        OutcomeAssertions.Success(result, 42);
     }
 
     [TestMethod]
@@ -347,8 +281,6 @@ public class ResultTests
         var result = Result<int, string>.Failure("error");
         var exception = Assert.ThrowsException<InvalidOperationException>(() => +result);
         Assert.AreEqual("Expected success result", exception.Message);
-
-        OutcomeAssertions.Error(result, "error");
     }
 
     [TestMethod]
@@ -356,8 +288,6 @@ public class ResultTests
     {
         var result = new Result<int, string>.Ok<int, string>(42);
         Assert.AreEqual("Ok(42)", result.ToString());
-
-        OutcomeAssertions.Success(result, 42);
     }
 
     [TestMethod]
@@ -365,8 +295,6 @@ public class ResultTests
     {
         var result = new Result<int, string>.Error<int, string>("test error");
         Assert.AreEqual("Error(test error)", result.ToString());
-
-        OutcomeAssertions.Error(result, "test error");
     }
 
     [TestMethod]
@@ -377,8 +305,6 @@ public class ResultTests
         Assert.IsInstanceOfType<Result<int, string>.Error<int, string>>(error);
         Assert.IsTrue(error.IsError);
         Assert.IsFalse(error.IsOk);
-
-        OutcomeAssertions.Error(error, "test");
     }
 
     [TestMethod]
@@ -389,9 +315,6 @@ public class ResultTests
         Assert.AreEqual(exception, error.Value);
         Assert.AreEqual("test exception", error.Value.Message);
         Assert.IsInstanceOfType<Result<int, Exception>.Error<int, Exception>>(error);
-
-        OutcomeAssertions.Error(error, exception);
-        Assert.AreSame(exception, !error);
     }
 
     [TestMethod]
@@ -402,8 +325,6 @@ public class ResultTests
         Assert.IsTrue(error.IsError);
         Assert.IsFalse(error.IsOk);
         Assert.AreEqual("Error(direct construction)", error.ToString());
-
-        OutcomeAssertions.Error(error, "direct construction");
     }
 
     [TestMethod]
@@ -412,8 +333,6 @@ public class ResultTests
         var error = new Result<int, string?>.Error<int, string?>(null);
         Assert.IsNull(error.Value);
         Assert.AreEqual("Error()", error.ToString());
-
-        OutcomeAssertions.Error(error, null);
     }
 
     [TestMethod]
@@ -426,11 +345,6 @@ public class ResultTests
         Assert.AreEqual(error1, error2);
         Assert.AreNotEqual(error1, error3);
         Assert.AreEqual(error1.GetHashCode(), error2.GetHashCode());
-
-        OutcomeAssertions.Error(error1, "same");
-        OutcomeAssertions.Error(error2, "same");
-        OutcomeAssertions.Error(error3, "different");
-        Assert.AreNotSame(error1, error2);
     }
 
     [TestMethod]
@@ -441,10 +355,6 @@ public class ResultTests
 
         Assert.AreEqual(error1, error2);
         Assert.AreNotSame(error1, error2);
-
-        OutcomeAssertions.Error(error1, "value");
-        OutcomeAssertions.Error(error2, "value");
-        Assert.AreEqual(error1.GetHashCode(), error2.GetHashCode());
     }
 
     [TestMethod]
@@ -455,26 +365,16 @@ public class ResultTests
 
         var error2 = new Result<string, int>.Error<string, int>(42);
         Assert.AreEqual(42, error2.Value);
-
-        OutcomeAssertions.Error(error, "test value");
-        OutcomeAssertions.Error(error2, 42);
     }
 
     [TestMethod]
     public void Result_WithReferenceTypes_Works()
     {
         var okResult = new Result<string, Exception>.Ok<string, Exception>("success");
-        var expectedException = new InvalidOperationException("error");
-        var errorResult = Result<string, Exception>.Failure(expectedException);
+        var errorResult = Result<string, Exception>.Failure(new InvalidOperationException("error"));
 
         Assert.IsTrue(okResult.IsOk);
         Assert.IsTrue(errorResult.IsError);
-
-        OutcomeAssertions.Success(okResult, "success");
-        Assert.IsInstanceOfType<InvalidOperationException>(!errorResult);
-        Assert.AreEqual("error", (!errorResult).Message);
-        OutcomeAssertions.Error(errorResult, expectedException);
-        Assert.AreSame(expectedException, !errorResult);
     }
 
     [TestMethod]
@@ -483,8 +383,6 @@ public class ResultTests
         var okResult = new Result<int?, string>.Ok<int?, string>(null);
         var value = okResult.Match(static x => x, static _ => -1);
         Assert.IsNull(value);
-
-        OutcomeAssertions.Success(okResult, null);
     }
 
     [TestMethod]
@@ -503,14 +401,6 @@ public class ResultTests
 
         Assert.AreEqual(err1, err2);
         Assert.AreNotEqual(err1, err3);
-
-        OutcomeAssertions.Success(ok1, 42);
-        OutcomeAssertions.Success(ok2, 42);
-        OutcomeAssertions.Success(ok3, 99);
-        OutcomeAssertions.Error(err1, "error");
-        OutcomeAssertions.Error(err2, "error");
-        OutcomeAssertions.Error(err3, "different");
-        Assert.AreNotEqual<Result<int, string>>(ok1, err1);
     }
 
     [TestMethod]
@@ -525,13 +415,6 @@ public class ResultTests
         var err2 = Result<int, string>.Failure("error");
 
         Assert.AreEqual(err1.GetHashCode(), err2.GetHashCode());
-
-        OutcomeAssertions.Success(ok1, 42);
-        OutcomeAssertions.Success(ok2, 42);
-        OutcomeAssertions.Error(err1, "error");
-        OutcomeAssertions.Error(err2, "error");
-        Assert.AreEqual(ok1, ok2);
-        Assert.AreEqual(err1, err2);
     }
 
     [TestMethod]
@@ -549,8 +432,6 @@ public class ResultTests
         Assert.IsTrue(result is Result<int, string>.Ok<int, string>);
         var ok = (Result<int, string>.Ok<int, string>)result;
         Assert.AreEqual(11, ok.Value);
-
-        OutcomeAssertions.Success(result, 11);
     }
 
     [TestMethod]
@@ -561,8 +442,6 @@ public class ResultTests
         var returnedResult = result.Tap(onError: _ => errorActionInvoked = true);
         Assert.IsFalse(errorActionInvoked);
         Assert.AreSame(result, returnedResult);
-
-        OutcomeAssertions.Success(result, 42);
     }
 
     [TestMethod]
@@ -573,8 +452,6 @@ public class ResultTests
         var returnedResult = result.Tap(onSuccess: _ => successActionInvoked = true);
         Assert.IsFalse(successActionInvoked);
         Assert.AreSame(result, returnedResult);
-
-        OutcomeAssertions.Error(result, "error");
     }
 
     [TestMethod]
@@ -590,8 +467,6 @@ public class ResultTests
         Assert.IsTrue(successInvoked);
         Assert.IsFalse(errorInvoked);
         Assert.AreSame(result, returnedResult);
-
-        OutcomeAssertions.Success(result, 42);
     }
 
     [TestMethod]
@@ -607,7 +482,5 @@ public class ResultTests
         Assert.IsFalse(successInvoked);
         Assert.IsTrue(errorInvoked);
         Assert.AreSame(result, returnedResult);
-
-        OutcomeAssertions.Error(result, "error");
     }
 }

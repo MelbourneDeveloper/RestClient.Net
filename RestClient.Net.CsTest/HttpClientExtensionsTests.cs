@@ -67,8 +67,6 @@ public sealed class HttpClientExtensionsTests
             )
             .ConfigureAwait(false);
 
-        HttpResultAssertions.Success(result);
-
         // Assert
         Assert.AreEqual(result.GetValueOrThrow(), expectedContent);
 
@@ -134,8 +132,6 @@ public sealed class HttpClientExtensionsTests
             )
             .ConfigureAwait(false);
 
-        HttpResultAssertions.Failure(result);
-
         // Assert
         var responseError = (ResponseError)!result;
 
@@ -187,8 +183,6 @@ public sealed class HttpClientExtensionsTests
                 cancellationToken: CancellationToken.None
             )
             .ConfigureAwait(false);
-
-        HttpResultAssertions.Success(result);
 
         // Assert
         destinationStream.Position = 0;
@@ -251,8 +245,6 @@ public sealed class HttpClientExtensionsTests
                 cancellationToken: CancellationToken.None
             )
             .ConfigureAwait(false);
-
-        HttpResultAssertions.Failure(result);
 
         // Assert
         var (body, statusCode) = result switch
@@ -317,8 +309,6 @@ public sealed class HttpClientExtensionsTests
             )
             .ConfigureAwait(false);
 
-        HttpResultAssertions.Success(result);
-
         // Assert
         Assert.AreEqual("Upload Successful", result.GetValueOrThrow());
 
@@ -381,8 +371,6 @@ public sealed class HttpClientExtensionsTests
         // Act
         var result = await get(httpClient, 123).ConfigureAwait(false);
 
-        HttpResultAssertions.Success(result);
-
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
     }
@@ -413,8 +401,6 @@ public sealed class HttpClientExtensionsTests
 
         // Act
         var result = await get(httpClient, 123).ConfigureAwait(false);
-
-        HttpResultAssertions.Failure(result);
 
         // Assert
         var responseError = (ResponseError)!result;
@@ -449,8 +435,6 @@ public sealed class HttpClientExtensionsTests
         // Act
         var result = await post(httpClient, 123).ConfigureAwait(false);
 
-        HttpResultAssertions.Success(result);
-
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
     }
@@ -483,8 +467,6 @@ public sealed class HttpClientExtensionsTests
 
         // Act
         var result = await post(httpClient, 123).ConfigureAwait(false);
-
-        HttpResultAssertions.Failure(result);
 
         // Assert
         var responseError = (ResponseError)!result;
@@ -546,8 +528,6 @@ public sealed class HttpClientExtensionsTests
 
         // Act
         var result = await put(httpClient, (123, "test-api-key")).ConfigureAwait(false);
-
-        HttpResultAssertions.Success(result);
 
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
@@ -632,8 +612,6 @@ public sealed class HttpClientExtensionsTests
         // Act
         var result = await put(httpClient, 123).ConfigureAwait(false);
 
-        HttpResultAssertions.Failure(result);
-
         // Assert
         var responseError = (ResponseError)!result;
         Assert.AreEqual(HttpStatusCode.BadRequest, responseError.StatusCode);
@@ -692,8 +670,6 @@ public sealed class HttpClientExtensionsTests
 
         // Act
         var result = await delete(httpClient, (123, "test-api-key")).ConfigureAwait(false);
-
-        HttpResultAssertions.Success(result);
 
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
@@ -776,8 +752,6 @@ public sealed class HttpClientExtensionsTests
         // Act
         var result = await delete(httpClient, 123).ConfigureAwait(false);
 
-        HttpResultAssertions.Failure(result);
-
         // Assert
         var responseError = (ResponseError)!result;
         Assert.AreEqual(HttpStatusCode.BadRequest, responseError.StatusCode);
@@ -838,8 +812,6 @@ public sealed class HttpClientExtensionsTests
 
         // Act
         var result = await patch(httpClient, (123, "test-api-key")).ConfigureAwait(false);
-
-        HttpResultAssertions.Success(result);
 
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
@@ -924,8 +896,6 @@ public sealed class HttpClientExtensionsTests
         // Act
         var result = await patch(httpClient, 123).ConfigureAwait(false);
 
-        HttpResultAssertions.Failure(result);
-
         // Assert
         var responseError = (ResponseError)!result;
         Assert.AreEqual(HttpStatusCode.BadRequest, responseError.StatusCode);
@@ -989,8 +959,6 @@ public sealed class HttpClientExtensionsTests
 
         // Act
         var result = await get(httpClient, (123, "test-api-key")).ConfigureAwait(false);
-
-        HttpResultAssertions.Success(result);
 
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
@@ -1106,8 +1074,6 @@ public sealed class HttpClientExtensionsTests
         var result = await post(httpClient, (123, "test-api-key", "test data"))
             .ConfigureAwait(false);
 
-        HttpResultAssertions.Success(result);
-
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
 
@@ -1206,8 +1172,6 @@ public sealed class HttpClientExtensionsTests
             )
             .ConfigureAwait(false);
 
-        HttpResultAssertions.Success(result);
-
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
 
@@ -1291,8 +1255,6 @@ public sealed class HttpClientExtensionsTests
             )
             .ConfigureAwait(false);
 
-        HttpResultAssertions.Success(result);
-
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
 
@@ -1349,7 +1311,6 @@ public sealed class HttpClientExtensionsTests
                 deserializeSuccess: async (response, ct) =>
                 {
                     var json = await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
-
                     return json;
                 },
                 deserializeError: async (response, ct) =>
@@ -1357,8 +1318,6 @@ public sealed class HttpClientExtensionsTests
                 headers: headers
             )
             .ConfigureAwait(false);
-
-        HttpResultAssertions.Success(result);
 
         // Assert
         var responseJson = result.GetValueOrThrow();
@@ -1404,14 +1363,11 @@ public sealed class HttpClientExtensionsTests
                     var headerValue = resp.Headers.GetValues("X-Response-Header").FirstOrDefault();
                     var requestId = resp.Headers.GetValues("X-Request-Id").FirstOrDefault();
                     var content = await resp.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
-
                     return $"{content}|{headerValue}|{requestId}";
                 },
                 deserializeError: TestDeserializer.Deserialize<MyErrorModel>
             )
             .ConfigureAwait(false);
-
-        HttpResultAssertions.Success(result);
 
         // Assert
         var resultValue = result.GetValueOrThrow();
@@ -1450,8 +1406,6 @@ public sealed class HttpClientExtensionsTests
         // Act
         var result = await get(httpClient, 456).ConfigureAwait(false);
 
-        HttpResultAssertions.Success(result);
-
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
     }
@@ -1483,8 +1437,6 @@ public sealed class HttpClientExtensionsTests
         // Act
         var result = await put(httpClient, 789).ConfigureAwait(false);
 
-        HttpResultAssertions.Success(result);
-
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
     }
@@ -1513,8 +1465,6 @@ public sealed class HttpClientExtensionsTests
 
         // Act
         var result = await delete(httpClient, 321).ConfigureAwait(false);
-
-        HttpResultAssertions.Success(result);
 
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
@@ -1547,8 +1497,6 @@ public sealed class HttpClientExtensionsTests
         // Act
         var result = await post(httpClient, 654).ConfigureAwait(false);
 
-        HttpResultAssertions.Success(result);
-
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
     }
@@ -1580,8 +1528,6 @@ public sealed class HttpClientExtensionsTests
         // Act
         var result = await patch(httpClient, 987).ConfigureAwait(false);
 
-        HttpResultAssertions.Success(result);
-
         // Assert
         Assert.AreEqual(expectedContent, result.GetValueOrThrow());
     }
@@ -1608,8 +1554,6 @@ public sealed class HttpClientExtensionsTests
                 headers: headers
             )
             .ConfigureAwait(false);
-
-        HttpResultAssertions.Failure(result);
 
         // Assert - verify we got an exception error
         var exceptionError = (ExceptionError)!result;

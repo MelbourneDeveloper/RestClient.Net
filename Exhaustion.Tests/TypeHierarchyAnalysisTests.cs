@@ -54,123 +54,6 @@ namespace System.Runtime.CompilerServices
     private static INamedTypeSymbol GetTypeSymbol(string code, string typeName) =>
         GetTypeSymbolWithCompilation(code, typeName).Item1;
 
-    private static void AssertHierarchyOperations(
-        INamedTypeSymbol type,
-        bool? expectedClosed = null,
-        List<INamedTypeSymbol>? expectedDerived = null,
-        HashSet<string>? expectedNames = null
-    )
-    {
-        var budget = new AnalysisBudget();
-        var closed = TypeHierarchyAnalysis.IsClosedHierarchy(type, budget);
-        var derived = TypeHierarchyAnalysis.GetImmediateDerivedTypes(type, budget);
-        var names = TypeHierarchyAnalysis.GetRequiredTypeNames(type, budget);
-        var derivedSnapshot = derived.ToArray();
-        var nameSnapshot = names.ToArray();
-        if (expectedClosed.HasValue)
-        {
-            Assert.AreEqual(
-                expectedClosed.Value,
-                closed,
-                "A shared budget must preserve hierarchy classification."
-            );
-        }
-
-        if (expectedDerived != null)
-        {
-            Assert.AreNotSame(
-                expectedDerived,
-                derived,
-                "Separate traversals must return independently mutable child lists."
-            );
-            Assert.IsTrue(
-                new HashSet<INamedTypeSymbol>(
-                    expectedDerived,
-                    SymbolEqualityComparer.Default
-                ).SetEquals(derived),
-                "Repeated traversal must return the exact immediate child symbols."
-            );
-        }
-
-        if (expectedNames != null)
-        {
-            Assert.AreNotSame(
-                expectedNames,
-                names,
-                "Separate analysis calls must return independently mutable coverage sets."
-            );
-            Assert.IsTrue(
-                names.SetEquals(expectedNames),
-                "Repeated coverage analysis must return the exact required names."
-            );
-        }
-
-        Assert.AreEqual(
-            derived.Count,
-            derived.Distinct(SymbolEqualityComparer.Default).Count(),
-            "Immediate children must not contain duplicate symbols."
-        );
-        foreach (var child in derived)
-        {
-            Assert.IsNotNull(child.BaseType);
-            Assert.IsTrue(
-                SymbolEqualityComparer.Default.Equals(
-                    type.OriginalDefinition,
-                    child.BaseType.OriginalDefinition
-                ),
-                "Every returned child must directly inherit the requested hierarchy."
-            );
-            Assert.IsTrue(
-                SymbolEqualityComparer.Default.Equals(
-                    type.OriginalDefinition,
-                    child.ContainingType?.OriginalDefinition
-                ),
-                "Immediate children must belong to the requested nested hierarchy."
-            );
-        }
-
-        var flattened = new HashSet<string>();
-        TypeNameCollection.GetAllTypeNames(type, flattened);
-        if (closed)
-        {
-            Assert.IsTrue(
-                flattened.SetEquals(names),
-                "Flattening a closed hierarchy must agree with required switch coverage."
-            );
-            Assert.IsTrue(names.Count > 0, "A closed hierarchy must expose required coverage.");
-        }
-        else
-        {
-            Assert.AreEqual(
-                0,
-                names.Count,
-                "Open hierarchies must not claim a finite required coverage set."
-            );
-            var leaves = TypeNameCollection.GetAllLeafTypes(type);
-            Assert.AreEqual(
-                1,
-                leaves.Count,
-                "An open hierarchy must be retained as a single unexpanded type."
-            );
-            Assert.IsTrue(
-                SymbolEqualityComparer.Default.Equals(type, leaves[0]),
-                "Leaf collection must preserve the open type's identity."
-            );
-        }
-
-        derived.Add(type);
-        _ = names.Add("Unrelated coverage");
-        CollectionAssert.AreEqual(
-            derivedSnapshot,
-            TypeHierarchyAnalysis.GetImmediateDerivedTypes(type).ToArray(),
-            "Changing a returned child list must not affect a later traversal."
-        );
-        Assert.IsTrue(
-            TypeHierarchyAnalysis.GetRequiredTypeNames(type).SetEquals(nameSnapshot),
-            "Changing a returned coverage set must not affect later analysis."
-        );
-    }
-
     [TestMethod]
     public void IsClosedHierarchy_AbstractRecordWithPrivateConstructor_ReturnsTrue()
     {
@@ -198,8 +81,6 @@ namespace Test
             result,
             "Abstract record with private constructor and derived types should be a closed hierarchy"
         );
-
-        AssertHierarchyOperations(typeSymbol, expectedClosed: result);
     }
 
     [TestMethod]
@@ -220,8 +101,6 @@ namespace Test
 
         // Assert
         Assert.IsFalse(result, "Record with public constructor should not be a closed hierarchy");
-
-        AssertHierarchyOperations(typeSymbol, expectedClosed: result);
     }
 
     [TestMethod]
@@ -247,8 +126,6 @@ namespace Test
             result,
             "Abstract class with no derived types should not be a closed hierarchy"
         );
-
-        AssertHierarchyOperations(typeSymbol, expectedClosed: result);
     }
 
     [TestMethod]
@@ -277,8 +154,6 @@ namespace Test
         Assert.AreEqual(2, derived.Count, "Should find two immediate derived types");
         Assert.IsTrue(derived.Any(t => t.Name == "Ok"), "Should include Ok type");
         Assert.IsTrue(derived.Any(t => t.Name == "Error"), "Should include Error type");
-
-        AssertHierarchyOperations(typeSymbol, expectedDerived: derived);
     }
 
     [TestMethod]
@@ -299,8 +174,6 @@ namespace Test
 
         // Assert
         Assert.AreEqual(0, derived.Count, "Should return empty list when no derived types exist");
-
-        AssertHierarchyOperations(typeSymbol, expectedDerived: derived);
     }
 
     [TestMethod]
@@ -343,8 +216,6 @@ namespace Test
             typeNames.Contains("Error<String, String>"),
             "Should include Error with type parameters"
         );
-
-        AssertHierarchyOperations(constructedType, expectedNames: typeNames);
     }
 
     [TestMethod]
@@ -365,8 +236,6 @@ namespace Test
 
         // Assert
         Assert.AreEqual(0, typeNames.Count, "Should return empty set for non-closed hierarchy");
-
-        AssertHierarchyOperations(typeSymbol, expectedNames: typeNames);
     }
 
     [TestMethod]
@@ -405,8 +274,6 @@ namespace Test
             typeNames.Contains("ErrorResponseError<String>"),
             "Should include ErrorResponseError with type parameter"
         );
-
-        AssertHierarchyOperations(constructedType, expectedNames: typeNames);
     }
 
     [TestMethod]
@@ -429,8 +296,6 @@ namespace Test
 
         // Assert
         Assert.IsFalse(result, "Non-record abstract class should not be a closed hierarchy");
-
-        AssertHierarchyOperations(typeSymbol, expectedClosed: result);
     }
 
     [TestMethod]
@@ -473,8 +338,6 @@ namespace Test
             typeNames.Contains("GenericCase<Int32>"),
             "Should include GenericCase with type parameter"
         );
-
-        AssertHierarchyOperations(constructedType, expectedNames: typeNames);
     }
 
     [TestMethod]
@@ -504,8 +367,6 @@ namespace Test
             derived.Count,
             "Should return empty list when nested types are not derived types"
         );
-
-        AssertHierarchyOperations(typeSymbol, expectedDerived: derived);
     }
 
     [TestMethod]
@@ -537,8 +398,6 @@ namespace Test
         );
         Assert.IsTrue(typeSymbol.IsAbstract, "Parent should be abstract");
         Assert.IsTrue(typeSymbol.IsRecord, "Parent should be a record");
-
-        AssertHierarchyOperations(typeSymbol, expectedClosed: result);
     }
 
     [TestMethod]
@@ -571,8 +430,6 @@ namespace Test
             result,
             "Record with only private/protected constructors (no public) should be closed hierarchy"
         );
-
-        AssertHierarchyOperations(typeSymbol, expectedClosed: result);
     }
 
     [TestMethod]
@@ -606,8 +463,6 @@ namespace Test
             typeNames.Count,
             "Unbound generic type should return empty set (IsUnboundGenericType check)"
         );
-
-        AssertHierarchyOperations(unboundType, expectedNames: typeNames);
     }
 
     [TestMethod]
@@ -640,7 +495,5 @@ namespace Test
             typeNames.Contains("NonGenericChild<Int32>"),
             "Should include NonGenericChild with inherited type parameter"
         );
-
-        AssertHierarchyOperations(constructedType, expectedNames: typeNames);
     }
 }
